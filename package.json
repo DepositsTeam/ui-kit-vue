@@ -1,0 +1,43 @@
+{
+  "name": "deposits-ui-kit-vue",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5050",
+    "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",
+    "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
+    "test:unit": "cypress open-ct",
+    "test:unit:ci": "cypress run-ct --quiet --reporter spec",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "vue": "^3.2.31"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.7",
+    "@cypress/vite-dev-server": "^2.2.2",
+    "@cypress/vue": "^3.1.1",
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@storybook/addon-actions": "^6.5.0-alpha.48",
+    "@storybook/addon-essentials": "^6.5.0-alpha.48",
+    "@storybook/addon-links": "^6.5.0-alpha.48",
+    "@storybook/vue3": "^6.5.0-alpha.48",
+    "@vitejs/plugin-vue": "^2.2.2",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "babel-loader": "^8.2.3",
+    "cypress": "^9.5.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-vue": "^8.2.0",
+    "prettier": "^2.5.1",
+    "sass": "^1.49.9",
+    "start-server-and-test": "^1.14.0",
+    "storybook-builder-vite": "^0.1.20",
+    "vite": "^2.8.4",
+    "vitest": "^0.6.3",
+    "vue-loader": "^16.8.3"
+  }
+}
