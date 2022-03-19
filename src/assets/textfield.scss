@@ -15,6 +15,11 @@
   color: #212934;
   width: 100%;
   -webkit-appearance: none;
+  &.invisible {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
 }
 .ui-text-field__label {
   margin-bottom: 8px;
@@ -23,10 +28,10 @@
   &::placeholder {
     color: #b8c4ce;
   }
-  &:hover:not(:disabled):not([disabled]):not(.has-error) {
+  &:hover:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
     border-color: #0db9e9;
   }
-  &:focus:not(:disabled):not([disabled]):not(.has-error) {
+  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
     border-color: #0db9e9;
     box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
     outline: none;

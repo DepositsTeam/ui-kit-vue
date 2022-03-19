@@ -12,12 +12,38 @@ export default {
       default: "heroNew",
       validator: (value) => ["heroNew", "circularSTD"].includes(value),
     },
+    modelValue: {
+      type: [Number, String],
+    },
   },
-  setup(props, { slots }) {
+  emits: ["change", "click", "input", "keydown", "keyup", "keypress"],
+  setup(props, { slots, emit }) {
     return () =>
-      h(props.is, { class: { [props.fontFace]: props.fontFace } }, [
-        ...(slots.default ? [slots.default()] : []),
-      ]);
+      h(
+        props.is,
+        {
+          onChange: function (e) {
+            emit("change", e);
+          },
+          onClick: function (e) {
+            emit("click", e);
+          },
+          onInput: function (e) {
+            emit("input", e);
+          },
+          onKeydown: function (e) {
+            emit("keydown", e);
+          },
+          onKeyup: function (e) {
+            emit("keyup", e);
+          },
+          onKeypress: function (e) {
+            emit("keypress", e);
+          },
+          class: { [props.fontFace]: props.fontFace },
+        },
+        [...(slots.default ? [slots.default()] : [])]
+      );
   },
 };
 </script>

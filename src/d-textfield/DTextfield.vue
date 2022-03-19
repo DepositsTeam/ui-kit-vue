@@ -1,6 +1,6 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
-    <d-box is="label">
+    <d-box v-if="!invisible" is="label">
       <d-text class="ui-text-field__label" scale="subhead">
         {{ label }}
       </d-text>
@@ -8,7 +8,7 @@
     <d-box class="ui-text-field__input-wrapper">
       <component
         :is="leftIcon"
-        v-if="leftIcon"
+        v-if="leftIcon && !invisible"
         class="ui-text-field__left-icon"
       ></component>
       <d-box
@@ -17,17 +17,20 @@
           'has-error': errorMessage,
           'has-left-icon': leftIcon,
           'has-right-icon': dropDown || rightIcon,
+          invisible,
         }"
         is="input"
         v-bind="$attrs"
+        :value="modelValue"
+        @input="(e) => $emit('update:modelValue', e.target.value)"
       />
       <component
         class="ui-text-field__right-icon"
-        if="dropDown || rightIcon"
+        v-if="(dropDown || rightIcon) && !invisible"
         :is="dropDown ? ChevronFilledDownIcon : rightIcon"
       ></component>
     </d-box>
-    <d-box v-if="errorMessage" class="ui-text-field__error">
+    <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
@@ -87,6 +90,9 @@ export default {
     },
     wrapperClass: {
       type: String,
+    },
+    invisible: {
+      type: Boolean,
     },
   },
   methods: {
