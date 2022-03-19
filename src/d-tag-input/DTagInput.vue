@@ -33,6 +33,7 @@
         autoFocus
         @focus="(e) => e.currentTarget.select()"
         v-model="input"
+        :size="size"
       />
     </div>
   </d-box>
@@ -150,6 +151,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  background: #fff;
 
   /* overflow: scroll; */
   /* width: 100%; */
@@ -163,7 +165,7 @@ export default {
   display: flex;
 
   /* flex: 1; */
-  background: #fff;
+
 }
 
 .ui-tag-input__wrapper {
@@ -178,22 +180,22 @@ export default {
   }
 
   &.size__xlarge .ui-tag-input__input-wrapper {
-    height: 48px;
+    min-height: 48px;
     padding: 0 12px;
   }
 
   &.size__large .ui-tag-input__input-wrapper {
-    height: 40px;
+    min-height: 40px;
     padding: 0 12px;
   }
 
   &.size__medium .ui-tag-input__input-wrapper {
-    height: 32px;
+    min-height: 32px;
     padding: 0 12px;
   }
 
   &.size__small .ui-tag-input__input-wrapper {
-    height: 24px;
+    min-height: 24px;
     padding: 0 8px;
   }
 }

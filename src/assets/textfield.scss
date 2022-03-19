@@ -31,12 +31,12 @@
   &:hover:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
     border-color: #0db9e9;
   }
-  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
+  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible), &.focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
     border-color: #0db9e9;
     box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
     outline: none;
   }
-  &:focus {
+  &:focus, &.focus {
     outline: none;
   }
   &:disabled {

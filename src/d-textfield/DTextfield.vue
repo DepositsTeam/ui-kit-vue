@@ -18,7 +18,9 @@
           'has-left-icon': leftIcon,
           'has-right-icon': dropDown || rightIcon,
           invisible,
+          disabled,
         }"
+        :disabled="disabled"
         is="input"
         v-bind="$attrs"
         :value="modelValue"
@@ -94,6 +96,7 @@ export default {
     invisible: {
       type: Boolean,
     },
+    disabled: Boolean,
   },
   methods: {
     handleKeyEvents(e) {
