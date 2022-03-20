@@ -4,6 +4,7 @@
     :class="{
       [`size__${size}`]: true,
       disabled,
+      'has-error': errorMessage,
     }"
   >
     <d-box is="label">
@@ -15,20 +16,23 @@
       :class="{ disabled }"
       class="ui-text-field__input-wrapper ui-text-field__phone-input"
     >
-      <d-textfield
+      <d-box
         @input="resizeCountryCodeOnType"
+        invisible
+        is="input"
         class="ui-text-field__country-code"
         placeholder="+1"
         ref="phoneInputRef"
         :maxLength="4"
-        is="input"
         :disabled="disabled"
         v-model="countryCode"
         @focus="updateCountryCodeIsFocused(true)"
         @blur="updateCountryCodeIsFocused(false)"
       />
-      <d-textfield
+      <d-box
         class="ui-text-field__input"
+        invisible
+        is="input"
         :class="{
           'has-error': errorMessage,
           'has-left-icon': leftIcon,
@@ -37,7 +41,6 @@
           disabled,
         }"
         :disabled="disabled"
-        is="input"
         v-bind="$attrs"
         v-model="number"
       />
@@ -61,7 +64,6 @@ import DText from "../d-text/DText.vue";
 import DTextfield from "../d-textfield/DTextfield.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 export default {
-  // TODO Fix disabled not working with textfields
   name: "DPhoneInput",
   components: {
     DBox,

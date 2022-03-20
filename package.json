@@ -14,7 +14,9 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "vue": "^3.2.31"
+    "moment": "^2.29.1",
+    "vue": "^3.2.31",
+    "vue-datepicker-next": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",

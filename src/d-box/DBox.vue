@@ -25,6 +25,12 @@ export default {
           onChange: function (e) {
             emit("change", e);
           },
+          onFocus: function (e) {
+            emit("focus", e);
+          },
+          onBlur: function (e) {
+            emit("blur", e);
+          },
           onClick: function (e) {
             emit("click", e);
           },
