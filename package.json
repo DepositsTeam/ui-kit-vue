@@ -7,9 +7,10 @@
     ".": {
       "import": "./dist/deposits-vue-ui-kit.es.js",
       "require": "./dist/deposits-vue-ui-kit.umd.js"
-    }
+    },
+    "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
