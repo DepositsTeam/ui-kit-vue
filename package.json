@@ -1,5 +1,14 @@
 {
   "name": "deposits-ui-kit-vue",
+  "files": ["dist"],
+  "main": "./dist/deposits-vue-ui-kit.umd.js",
+  "module": "./dist/deposits-vue-ui-kit.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/deposits-vue-ui-kit.es.js",
+      "require": "./dist/deposits-vue-ui-kit.umd.js"
+    }
+  },
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

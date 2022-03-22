@@ -21,7 +21,7 @@ export default {
     is: {
       type: String,
       validator: (value) =>
-        ["p", "span", "small", "sub", "sup"].includes(value),
+        ["p", "span", "small", "sub", "sup", "subhead"].includes(value),
       default: "p",
     },
     scale: {

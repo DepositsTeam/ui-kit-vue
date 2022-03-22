@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/textfield";
+@import "../scss/textfield";
 </style>
 
 <style lang="scss">

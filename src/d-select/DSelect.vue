@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/textfield";
+@import "../scss/textfield";
 
 .ui-select-field__wrapper {
   &::after {

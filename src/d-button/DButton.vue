@@ -7,6 +7,7 @@
       [`size__${size}`]: size,
     }"
     :is="is.toLowerCase()"
+    @click="$emit('click')"
   >
     <component
       smart-color="currentcolor"

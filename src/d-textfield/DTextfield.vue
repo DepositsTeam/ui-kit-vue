@@ -109,5 +109,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/textfield";
+@import "../scss/textfield";
 </style>

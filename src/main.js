@@ -1,4 +1,19 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-
-createApp(App).mount("#app");
+export { default as DAlert } from "./d-alert/DAlert.vue";
+export { default as DAvatar } from "./d-avatar/DAvatar.vue";
+export { default as DBadge } from "./d-badge/DBadge.vue";
+export { default as DBanner } from "./d-banner/DBanner.vue";
+export { default as DBox } from "./d-box/DBox.vue";
+export { default as DButton } from "./d-button/DButton.vue";
+export { default as DCard } from "./d-card/DCard.vue";
+export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
+export { default as DCreditCardInput } from "./d-credit-card-input/DCreditCardInput.vue";
+export { default as DDatePicker } from "./d-date-picker/DDatePicker.vue";
+export { default as DHeading } from "./d-heading/DHeading.vue";
+export { default as DPhoneInput } from "./d-phone-input/DPhoneInput.vue";
+export { default as DRadio } from "./d-radio/DRadio.vue";
+export { default as DSelect } from "./d-select/DSelect.vue";
+export { default as DSwitch } from "./d-switch/DSwitch.vue";
+export { default as DTagInput } from "./d-tag-input/DTagInput.vue";
+export { default as DText } from "./d-text/DText.vue";
+export { default as DTextarea } from "./d-textarea/DTextarea.vue";
+export { default as DTextfield } from "./d-textfield/DTextfield.vue";
