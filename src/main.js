@@ -17,6 +17,8 @@ export { default as DTagInput } from "./d-tag-input/DTagInput.vue";
 export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
+
+// Icons
 export { default as CalendarIcon } from "./icons/CalendarIcon.vue";
 export { default as CardIcon } from "./icons/CardIcon.vue";
 export { default as CheckIcon } from "./icons/CheckIcon.vue";
