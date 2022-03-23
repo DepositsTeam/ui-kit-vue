@@ -17,39 +17,42 @@
   </svg>
 </template>
 
-<script setup>
-defineProps({
-  smartColor: {
-    type: String,
-    default: "currentcolor",
+<script>
+export default {
+  name: "SearchIcon",
+  props: {
+    smartColor: {
+      type: String,
+      default: "currentcolor",
+    },
+    fill: {
+      type: String,
+    },
+    stroke: {
+      type: String,
+    },
+    strokeWidth: {
+      type: String,
+      default: "1.5",
+    },
+    strokeLineCap: {
+      type: String,
+      default: "round",
+    },
+    strokeLineJoin: {
+      type: String,
+      default: "round",
+    },
+    width: {
+      type: String,
+      default: "24",
+    },
+    height: {
+      type: String,
+      default: "24",
+    },
   },
-  fill: {
-    type: String,
-  },
-  stroke: {
-    type: String,
-  },
-  strokeWidth: {
-    type: String,
-    default: "1.5",
-  },
-  strokeLineCap: {
-    type: String,
-    default: "round",
-  },
-  strokeLineJoin: {
-    type: String,
-    default: "round",
-  },
-  width: {
-    type: String,
-    default: "24",
-  },
-  height: {
-    type: String,
-    default: "24",
-  },
-});
+};
 </script>
 
 <style scoped></style>
