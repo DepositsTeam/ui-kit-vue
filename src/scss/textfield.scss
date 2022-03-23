@@ -15,6 +15,9 @@
   color: #212934;
   width: 100%;
   -webkit-appearance: none;
+  &.heroNew {
+    font-family: "Hero New", sans-serif;
+  }
   &.invisible {
     background: transparent;
     border: none;
