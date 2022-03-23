@@ -29,3 +29,5 @@ export { default as InfoIcon } from "./icons/InfoIcon.vue";
 export { default as ScanCardIcon } from "./icons/ScanCardIcon.vue";
 export { default as SearchIcon } from "./icons/SearchIcon.vue";
 export { default as WarningIcon } from "./icons/WarningIcon.vue";
+export { default as GitlabIcon } from "./icons/GitlabIcon.vue";
+export { default as MoonIcon } from "./icons/MoonIcon.vue";
