@@ -24,6 +24,11 @@ export default {
         ["p", "span", "small", "sub", "sup", "subhead"].includes(value),
       default: "p",
     },
+    fontFace: {
+      type: String,
+      validator: (value) => ["heroNew", "circularSTD"].includes(value),
+      default: "circularSTD",
+    },
     scale: {
       type: String,
       validator: (value) =>
@@ -48,10 +53,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ui-text {
-  font-family: "Circular Std", sans-serif;
-}
-
 .uppercase {
   text-transform: uppercase;
 }
