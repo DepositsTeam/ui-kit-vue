@@ -76,7 +76,6 @@ export default {
   }
 
   &.subhead {
-    font-family: "Circular Std", sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
