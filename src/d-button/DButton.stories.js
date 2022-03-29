@@ -26,6 +26,9 @@ export default {
     leftIcon: {
       control: { type: "object" },
     },
+    responsive: {
+      control: { type: "boolean" },
+    },
   },
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
 };
@@ -38,7 +41,8 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<d-button v-bind="args"><span v-html="args.children" /></d-button>',
+  template:
+    '<d-button v-bind="args"><span v-html="args.children" /></d-button>',
 });
 
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args

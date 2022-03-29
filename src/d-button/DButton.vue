@@ -5,6 +5,7 @@
       [`semantic__${colorScheme}`]: colorScheme,
       [`state__disabled`]: disabled,
       [`size__${size}`]: size,
+      responsive,
     }"
     :is="is.toLowerCase()"
     @click="$emit('click')"
@@ -61,6 +62,9 @@ export default {
     dropDown: {
       type: Object,
     },
+    responsive: {
+      type: Boolean,
+    },
   },
   components: { ChevronFilledDownIcon, DBox },
 };
@@ -87,6 +91,11 @@ export default {
   text-align: center;
   justify-content: center;
 
+  &.responsive {
+    display: flex;
+    width: 100%;
+  }
+
   .ui-button__button-text {
     white-space: normal;
   }
@@ -112,7 +121,8 @@ export default {
     box-shadow: 0 0 0 3px rgba(27, 92, 224, 0.2);
   }
 
-  &:disabled, &.state__disabled {
+  &:disabled,
+  &.state__disabled {
     background: #f5f8fa;
     color: #ced6de;
     cursor: not-allowed;
@@ -131,7 +141,8 @@ export default {
       box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
     }
 
-    &:disabled, &.state__disabled {
+    &:disabled,
+    &.state__disabled {
       background: #bdf3fc;
       color: #f5f8fa;
       cursor: not-allowed;
@@ -152,7 +163,8 @@ export default {
       box-shadow: 0 0 0 3px rgba(214, 47, 75, 0.3);
     }
 
-    &:disabled, &.state__disabled {
+    &:disabled,
+    &.state__disabled {
       background: #fff0f2;
       color: #fff;
       cursor: not-allowed;
@@ -173,7 +185,8 @@ export default {
       box-shadow: 0 0 0 3px rgba(0, 176, 88, 0.3);
     }
 
-    &:disabled, &.state__disabled {
+    &:disabled,
+    &.state__disabled {
       background: #c4efdf;
       color: #fff;
       cursor: not-allowed;
@@ -181,7 +194,8 @@ export default {
     }
   }
 
-  &:disabled:focus, &.state__disabled:focus {
+  &:disabled:focus,
+  &.state__disabled:focus {
     box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
   }
 
@@ -204,14 +218,16 @@ export default {
       box-shadow: 0 0 0 3px rgba(27, 92, 224, 0.2);
     }
 
-    &:disabled, &.state__disabled {
+    &:disabled,
+    &.state__disabled {
       color: #acd7ff;
       border: 1px solid #acd7ff;
       cursor: not-allowed;
       background: transparent;
     }
 
-    &:disabled:focus, &.state__disabled:focus {
+    &:disabled:focus,
+    &.state__disabled:focus {
       box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
   }
@@ -230,7 +246,8 @@ export default {
       color: #0059ac;
     }
 
-    &:disabled, &.state__disabled {
+    &:disabled,
+    &.state__disabled {
       color: #acd7ff;
       cursor: not-allowed;
       box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
