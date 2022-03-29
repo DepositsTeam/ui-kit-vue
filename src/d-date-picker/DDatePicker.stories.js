@@ -1,7 +1,7 @@
 import DDatePicker from "./DDatePicker.vue";
 
 export default {
-  title: "DatePicker",
+  title: "Date Picker",
   component: DDatePicker,
   argTypes: {
     label: {

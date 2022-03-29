@@ -1,7 +1,7 @@
 import DCreditCardInput from "./DCreditCardInput.vue";
 
 export default {
-  title: "CreditCardInput",
+  title: "Credit Card Input",
   component: DCreditCardInput,
   argTypes: {
     label: {

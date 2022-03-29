@@ -6,6 +6,7 @@
       [is]: is,
       uppercase,
       'equal-line-height': equalLineHeight,
+      my0,
     }"
     :is="is"
   >
@@ -35,6 +36,9 @@ export default {
     equalLineHeight: {
       type: Boolean,
     },
+    my0: {
+      type: Boolean,
+    },
   },
   components: {
     DBox,
@@ -46,7 +50,10 @@ export default {
 .ui-heading {
   font-weight: bold;
   font-family: "Hero New", sans-serif;
-
+  &.my0 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
   &.h1 {
     font-size: 64px;
     line-height: 68px;

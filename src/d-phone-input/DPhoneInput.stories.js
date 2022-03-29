@@ -1,7 +1,7 @@
 import DPhoneInput from "./DPhoneInput.vue";
 
 export default {
-  title: "PhoneInput",
+  title: "Phone Input",
   component: DPhoneInput,
   argTypes: {
     size: {

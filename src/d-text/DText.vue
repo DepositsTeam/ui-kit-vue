@@ -5,6 +5,7 @@
       [scale]: scale,
       uppercase,
       'equal-line-height': equalLineHeight,
+      my0,
     }"
     :is="is"
   >
@@ -48,6 +49,9 @@ export default {
     equalLineHeight: {
       type: Boolean,
     },
+    my0: {
+      type: Boolean,
+    },
   },
 };
 </script>
@@ -58,6 +62,10 @@ export default {
 }
 
 .ui-text {
+  &.my0 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
   &.body {
     font-size: 16px;
     line-height: 24px;
