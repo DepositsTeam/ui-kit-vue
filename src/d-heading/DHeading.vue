@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ui-heading {
   font-weight: bold;
   font-family: "Hero New", sans-serif;

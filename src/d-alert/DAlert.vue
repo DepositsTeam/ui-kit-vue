@@ -6,6 +6,7 @@
       [`color-scheme__${colorScheme}`]: true,
       'is-toast': closable,
     }"
+    v-if="showAlert"
   >
     <d-box class="ui-alert__content-wrapper">
       <d-box class="ui-alert__content">
@@ -35,7 +36,7 @@
       v-if="closable && theme !== 'inline'"
       smart-color="currentcolor"
       class="ui-alert__close-icon"
-      @click="onClick || remove"
+      @click="handleRemoval"
     />
   </d-box>
 </template>
@@ -96,13 +97,20 @@ export default {
     closable: {
       type: Boolean,
     },
-    onClick: {
+    onClose: {
       type: Function,
     },
   },
   methods: {
     remove: function () {
       this.showAlert = false;
+    },
+    handleRemoval: function () {
+      if (this.onClose && typeof this.onClose === "function") {
+        this.onClose();
+      } else {
+        this.remove();
+      }
     },
   },
 };

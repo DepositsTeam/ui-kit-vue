@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .uppercase {
   text-transform: uppercase;
 }
@@ -87,7 +87,7 @@ export default {
   &.subhead {
     font-weight: 400;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 24px;
 
     &.equal-line-height {
       line-height: 14px;
