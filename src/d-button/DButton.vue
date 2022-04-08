@@ -8,7 +8,7 @@
       responsive,
     }"
     :is="is.toLowerCase()"
-    @click="$emit('click')"
+    @click="handleClick"
   >
     <component
       smart-color="currentcolor"
@@ -67,6 +67,12 @@ export default {
     },
   },
   components: { ChevronFilledDownIcon, DBox },
+  emits: ["click"],
+  methods: {
+    handleClick: function () {
+      this.$emit("click");
+    },
+  },
 };
 </script>
 

@@ -1,15 +1,44 @@
 <template>
   <d-box class="ui-pagination">
-    <d-box @click="updatePage(initializedCurrentPage - 1)">
-      <ChevronArrowLeftIcon />
-      <d-text font-face="circularSTD" scale="subhead">Previous</d-text>
+    <d-box
+      :class="{ disabled: disablePrev }"
+      class="ui-pagination__control"
+      @click="updatePage(initializedCurrentPage - 1)"
+    >
+      <ChevronArrowLeftIcon class="ui-pagination__left-arrow" />
+      <d-text
+        class="ui-pagination__text-previous ui-pagination__text"
+        font-face="circularSTD"
+        scale="subhead"
+        >Previous</d-text
+      >
     </d-box>
-    <d-box v-for="visiblePage in visiblePages" @click="updatePage(visiblePage)"
-      >{{ visiblePage }}
+    <d-box
+      v-for="(visiblePage, index) in visiblePages"
+      :key="`visiblePages_${index}`"
+      @click="updatePage(visiblePage)"
+      class="ui-pagination__page-number"
+      :class="{
+        'ui-pagination__page-number__active':
+          this.initializedCurrentPage === visiblePage,
+      }"
+    >
+      <d-text font-face="circularSTD" scale="subhead">
+        {{ visiblePage }}
+      </d-text>
     </d-box>
-    <d-box @click="updatePage(initializedCurrentPage + 1)">
-      <ChevronArrowRightIcon />
-      <d-text font-face="circularSTD" scale="subhead">Next</d-text>
+    <d-box
+      class="ui-pagination__control"
+      :class="{ disabled: disableNext }"
+      @click="updatePage(initializedCurrentPage + 1)"
+    >
+      <d-text
+        class="ui-pagination__text-next ui-pagination__text"
+        font-face="circularSTD"
+        scale="subhead"
+        >Next</d-text
+      >
+      <ChevronArrowRightIcon class="ui-pagination__right-arrow" />
     </d-box>
   </d-box>
 </template>
@@ -19,9 +48,10 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ChevronArrowLeftIcon from "../icons/ChevronArrowLeftIcon.vue";
 import ChevronArrowRightIcon from "../icons/ChevronArrowRightIcon.vue";
+import rangedArray from "../utils/rangedArray";
 export default {
   name: "DPagination",
-  emits: ["onPageChanged"],
+  emits: ["pagechanged"],
   components: {
     DBox,
     ChevronArrowLeftIcon,
@@ -37,9 +67,9 @@ export default {
       type: [Number, String],
       default: 1,
     },
-    visibleSiblings: {
+    currentPageSiblings: {
       type: [Number, String],
-      default: 4,
+      default: 3,
     },
   },
   data: () => ({
@@ -47,57 +77,155 @@ export default {
     renderedPages: [],
   }),
   mounted() {
-    this.initializedCurrentPage = this.currentPage;
+    this.initializedCurrentPage = this.intCurrentPage;
   },
   computed: {
+    disablePrev: function () {
+      return this.initializedCurrentPage === 1;
+    },
+    disableNext: function () {
+      return this.initializedCurrentPage === this.intTotalPages;
+    },
+    intCurrentPage: function () {
+      return parseInt(this.currentPage);
+    },
+    intTotalPages: function () {
+      return parseInt(this.totalPages);
+    },
+    intCurrentPageSiblings: function () {
+      return parseInt(this.currentPageSiblings);
+    },
     visiblePages: function () {
-      const renderedPages = [];
-      if (this.totalPages <= this.visibleSiblings * 2 + 2) {
-        for (let i = 0; i < this.totalPages; i++) {
-          renderedPages.push(i + 1);
-        }
+      const dots = "...";
+      let renderedPages = [];
+      const doubleVisibleSiblings = this.intCurrentPageSiblings * 2;
+      let middleMin = this.initializedCurrentPage - this.intCurrentPageSiblings;
+      let middleMax = this.initializedCurrentPage + this.intCurrentPageSiblings;
+
+      if (this.totalPages <= doubleVisibleSiblings + 2) {
+        renderedPages = rangedArray(1, this.intTotalPages);
       } else {
-        if (this.initializedCurrentPage < this.visibleSiblings * 2) {
-          for (let i = 0; i < this.visibleSiblings * 2; i++) {
-            renderedPages.push(i + 1);
-          }
-          renderedPages.push("...");
-          renderedPages.push(this.totalPages);
-        } else if (
-          this.initializedCurrentPage >=
-          this.totalPages - this.visibleSiblings
-        ) {
-          renderedPages.push(...["1", "..."]);
-          for (
-            let i = this.totalPages - this.visibleSiblings * 2;
-            i > this.totalPages + 1;
-            i++
-          ) {
-            renderedPages.push(i);
-          }
+        if (this.initializedCurrentPage < doubleVisibleSiblings) {
+          renderedPages = [
+            ...rangedArray(1, doubleVisibleSiblings),
+            dots,
+            this.intTotalPages,
+          ];
         } else {
-          renderedPages.push(1);
-          renderedPages.push("...");
-          for (
-            let i = this.initializedCurrentPage - this.visibleSiblings;
-            i < this.initializedCurrentPage + this.visibleSiblings;
-            i++
+          if (
+            this.initializedCurrentPage <
+            this.intTotalPages - doubleVisibleSiblings
           ) {
-            renderedPages.push(i);
+            renderedPages = [
+              1,
+              dots,
+              ...rangedArray(middleMin, middleMax),
+              dots,
+              this.intTotalPages,
+            ];
+          } else {
+            renderedPages = [
+              1,
+              dots,
+              ...rangedArray(
+                this.intTotalPages - doubleVisibleSiblings,
+                this.intTotalPages
+              ),
+            ];
           }
-          renderedPages.push("...");
-          renderedPages.push(this.totalPages);
         }
       }
+
       return renderedPages;
     },
   },
   methods: {
     updatePage: function (page) {
+      page = parseInt(page);
+      if (page > this.intTotalPages || page < 1 || page === "...") {
+        return;
+      }
       this.initializedCurrentPage = page;
+      this.$emit("pagechanged", page);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.ui-pagination {
+  display: flex;
+  align-items: center;
+}
+
+.ui-pagination__text-previous {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.ui-pagination__text-next {
+  cursor: pointer;
+}
+
+.ui-pagination__page-number__active {
+  background: #0db9e9;
+  border-radius: 4px;
+  height: 32px;
+  width: 32px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ui-pagination__page-number {
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.ui-pagination__page-number_last {
+  margin-left: 12px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.ui-pagination__left-arrow,
+.ui-pagination__right-arrow {
+  cursor: pointer;
+  color: #0db9e9;
+}
+
+.ui-pagination__control {
+  display: flex;
+  align-items: center;
+
+  .ui-pagination__text {
+    color: #0db9e9;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+
+    .ui-pagination__left-arrow,
+    .ui-pagination__right-arrow {
+      color: #8895a7;
+    }
+
+    .ui-pagination__text {
+      color: #8895a7;
+    }
+  }
+
+  .ui-text {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+}
+</style>

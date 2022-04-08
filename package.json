@@ -1,6 +1,8 @@
 {
   "name": "deposits-ui-kit-vue",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/deposits-vue-ui-kit.umd.js",
   "module": "./dist/deposits-vue-ui-kit.es.js",
   "exports": {
@@ -24,6 +26,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "jss": "^10.9.0",
+    "jss-preset-default": "^10.9.0",
     "moment": "^2.29.1",
     "vue": "^3.2.31",
     "vue-datepicker-next": "^1.0.2"

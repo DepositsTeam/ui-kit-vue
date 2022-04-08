@@ -28,12 +28,9 @@ const Template = (args) => ({
   },
   methods: {
     pushToast() {
-      alert("I got clicked");
-      this.$refs.toast.pushToast({
-        colorScheme: "info",
-        message: "I am a tooltip no " + this.count,
-        autoClose: 3,
-      });
+      const differentArgs = { ...args };
+      differentArgs.message += this.count;
+      this.$refs.toast.pushToast(differentArgs);
       this.count += 1;
     },
   },
@@ -44,3 +41,16 @@ const Template = (args) => ({
 });
 
 export const Default = Template.bind({});
+Default.args = {
+  colorScheme: "info",
+  message: "I am a tooltip no ",
+  autoClose: 3,
+};
+
+export const TooltipWithDescription = Template.bind({});
+TooltipWithDescription.args = {
+  colorScheme: "info",
+  message: "I am a tooltip no ",
+  autoClose: 3,
+  description: "I am a random one with a description",
+};

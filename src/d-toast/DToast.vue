@@ -2,11 +2,6 @@
   <Teleport to="body">
     <div class="ui-toast__wrapper" :class="`position__${position}`">
       <d-box class="ui-toast__column">
-        <d-alert
-          colorScheme="info"
-          closable
-          description="I'm here to stay... unless you close me :)"
-        />
         <TransitionGroup name="ui-toast-fade">
           <d-alert
             v-for="(toast, index) in toasts"

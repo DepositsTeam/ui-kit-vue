@@ -8,6 +8,7 @@
       my0,
     }"
     :is="is"
+    v-bind="{ ...$props, ...$attrs }"
   >
     <slot></slot>
   </d-box>

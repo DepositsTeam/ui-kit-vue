@@ -5,13 +5,13 @@ export default {
   component: DPagination,
   argTypes: {
     totalPages: {
-      control: { type: "text" },
+      control: { type: "number" },
     },
     currentPage: {
-      control: { type: "text" },
+      control: { type: "number" },
     },
-    visiblePages: {
-      control: { type: "text" },
+    currentPageSiblings: {
+      control: { type: "number" },
     },
   },
 };

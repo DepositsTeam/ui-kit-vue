@@ -1,5 +1,9 @@
 <script>
 import { h } from "vue";
+import allowedCSSProps from "../utils/allowedCSSProps";
+import jss from "jss";
+import preset from "jss-preset-default";
+import uniqueRandomString from "../utils/uniqueRandomString";
 
 export default {
   props: {
@@ -15,9 +19,31 @@ export default {
     modelValue: {
       type: [Number, String],
     },
+    ...allowedCSSProps,
   },
   emits: ["change", "click", "input", "keydown", "keyup", "keypress"],
   setup(props, { slots, emit }) {
+    jss.setup(preset());
+    const propKeys = Object.keys(props);
+    let cssProps = {};
+    let regularProps = {};
+    propKeys.forEach((propKey) => {
+      if (Object.keys(allowedCSSProps).includes(propKey)) {
+        if (props[propKey]) {
+          cssProps[propKey] = props[propKey];
+        }
+      } else {
+        regularProps[propKey] = props[propKey];
+      }
+    });
+
+    const className = uniqueRandomString(20);
+
+    const style = {
+      [className]: { ...cssProps },
+    };
+
+    const { classes } = jss.createStyleSheet(style).attach();
     return () =>
       h(
         props.is,
@@ -46,7 +72,10 @@ export default {
           onKeypress: function (e) {
             emit("keypress", e);
           },
-          class: { [props.fontFace]: props.fontFace },
+          class: {
+            [props.fontFace]: props.fontFace,
+            [classes[className]]: true,
+          },
         },
         [...(slots.default ? [slots.default()] : [])]
       );
@@ -291,7 +320,7 @@ export default {
   background: #000000;
 }
 
-/* text color */
+/* text d-color */
 
 /* cyan */
 
@@ -520,5 +549,4 @@ export default {
 .text-black {
   color: #000000;
 }
-
 </style>

@@ -62,7 +62,7 @@ Default.args = {
       <d-textfield width="900px" label="Form label" />
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
-      <d-button responsive size="huge" colorScheme="primary" margin-top="2rem>
+      <d-button responsive size="huge" colorScheme="primary" margin-top="2rem">
         Primary Button
       </d-button>
     </div>

@@ -6,7 +6,7 @@ export { default as DBox } from "./d-box/DBox.vue";
 export { default as DButton } from "./d-button/DButton.vue";
 export { default as DCard } from "./d-card/DCard.vue";
 export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
-export { default as DCreditCardInput } from "./d-credit-card-input/DCardInputField.vue";
+export { default as DCreditCardInput } from "./d-card-input-field/DCardInputField.vue";
 export { default as DDatePicker } from "./d-date-picker/DDatePicker.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
 export { default as DPhoneInput } from "./d-phone-input/DPhoneInput.vue";
