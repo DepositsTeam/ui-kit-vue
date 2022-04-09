@@ -2,7 +2,7 @@ import DSelect from "./DSelect.vue";
 import Search from "../icons/SearchIcon.vue";
 
 export default {
-  title: "Select",
+  title: "Select Field",
   component: DSelect,
   argTypes: {
     label: {

@@ -160,11 +160,6 @@ export default {
 
 .ui-pagination__text-previous {
   margin-right: 8px;
-  cursor: pointer;
-}
-
-.ui-pagination__text-next {
-  cursor: pointer;
 }
 
 .ui-pagination__page-number__active {
@@ -176,7 +171,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 
 .ui-pagination__page-number {
@@ -186,19 +180,18 @@ export default {
 
 .ui-pagination__page-number_last {
   margin-left: 12px;
-  cursor: pointer;
   margin-right: 8px;
 }
 
 .ui-pagination__left-arrow,
 .ui-pagination__right-arrow {
-  cursor: pointer;
   color: #0db9e9;
 }
 
 .ui-pagination__control {
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   .ui-pagination__text {
     color: #0db9e9;
@@ -221,11 +214,5 @@ export default {
     margin-top: 0;
     margin-bottom: 0;
   }
-}
-
-button {
-  border: none;
-  outline: none;
-  background: none;
 }
 </style>

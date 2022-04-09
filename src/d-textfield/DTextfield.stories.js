@@ -2,7 +2,7 @@ import DTextfield from "./DTextfield.vue";
 import Search from "../icons/SearchIcon.vue";
 
 export default {
-  title: "Textfield",
+  title: "Text Field",
   component: DTextfield,
   argTypes: {
     label: {

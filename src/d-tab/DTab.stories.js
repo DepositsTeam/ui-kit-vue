@@ -1,7 +1,7 @@
 import DTab from "./DTab.vue";
 
 export default {
-  title: "Tab",
+  title: "Tabs",
   component: DTab,
   argTypes: {
     tabs: {
