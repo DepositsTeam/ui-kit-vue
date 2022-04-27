@@ -1,7 +1,12 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
     <d-box v-if="!invisible" is="label">
-      <d-text class="ui-text-field__label" scale="subhead">
+      <d-text
+        margin-top="0px"
+        class="ui-text-field__label"
+        :class="labelClass"
+        scale="subhead"
+      >
         {{ label }}
       </d-text>
     </d-box>
@@ -24,7 +29,13 @@
         is="input"
         v-bind="$attrs"
         :value="modelValue"
-        @input="(e) => $emit('update:modelValue', e.target.value)"
+        @change="handleChangeEvents"
+        @input="handleInputEvents"
+        @keydown="handleKeydownEvent"
+        @keyup="handleKeyupEvent"
+        @keypress="handleKeypressEvent"
+        @focus="handleFocusEvent"
+        @blur="handleBlurEvent"
       />
       <component
         class="ui-text-field__right-icon"
@@ -53,7 +64,16 @@ import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 export default {
   name: "DTextfield",
-  emits: ["update:modelValue"],
+  emits: [
+    "update:modelValue",
+    "change",
+    "input",
+    "keydown",
+    "keyup",
+    "keypress",
+    "focus",
+    "blur",
+  ],
   components: {
     ErrorIcon,
     ChevronFilledDownIcon,
@@ -96,13 +116,41 @@ export default {
     invisible: {
       type: Boolean,
     },
+    labelClass: {
+      type: [String, Object, Array],
+    },
     disabled: Boolean,
+    currency: {
+      type: Boolean,
+    },
   },
   methods: {
     handleKeyEvents(e) {
       if (this.onlyNumbers) {
         return allowOnlyNumbers(e);
       }
+    },
+    handleInputEvents(e) {
+      this.$emit("update:modelValue", e.target.value);
+      this.$emit("input", e.target.value);
+    },
+    handleChangeEvents(e) {
+      this.$emit("change", e.target.value);
+    },
+    handleKeydownEvent(e) {
+      this.$emit("keydown", e);
+    },
+    handleKeyupEvent(e) {
+      this.$emit("keyup", e);
+    },
+    handleKeypressEvent(e) {
+      this.$emit("keypress", e);
+    },
+    handleFocusEvent(e) {
+      this.$emit("focus", e);
+    },
+    handleBlurEvent(e) {
+      this.$emit("blur", e);
     },
   },
 };

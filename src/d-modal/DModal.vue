@@ -4,18 +4,19 @@
       <d-box
         class="ui-modal ui-modal__closerr"
         @click="handleCloseClicks"
-        :class="{ greyContent }"
+        :class="{ greyContent, roundedBorders, greyHeader }"
       >
         <d-box class="ui-modal__content">
-          <div class="ui-modal__heading">
-            <d-heading my0 is="h5"> {{ heading }} </d-heading>
+          <div class="ui-modal__heading" :class="{ headerClasses }">
+            <slot name="heading" v-if="$slots.heading"></slot>
+            <d-heading my0 is="h5" v-else> {{ heading }} </d-heading>
             <CloseIcon
               smart-color="#8895A7"
               class="ui-modal__closerr ui-modal__close-icon"
               @click="handleCloseClicks"
             />
           </div>
-          <div class="ui-modal__body">
+          <div class="ui-modal__body" :class="{ bodyClasses }">
             <slot></slot>
           </div>
         </d-box>
@@ -51,6 +52,18 @@ export default {
     },
     heading: {
       type: String,
+    },
+    headerClasses: {
+      type: [String, Object, Array],
+    },
+    bodyClasses: {
+      type: [String, Object, Array],
+    },
+    roundedBorders: {
+      type: Boolean,
+    },
+    greyHeader: {
+      type: Boolean,
     },
   },
   methods: {
@@ -100,6 +113,20 @@ export default {
 
   &.greyContent .ui-modal__content {
     background: #f5f8fa;
+  }
+
+  &.greyHeader .ui-modal__heading {
+    background: #f5f8fa;
+  }
+
+  &.roundedBorders .ui-modal__content {
+    border-radius: 6px;
+    .ui-modal__heading {
+      border-radius: 6px 6px 0 0;
+    }
+    .ui-modal__body {
+      border-radius: 0 0 6px 6px;
+    }
   }
 }
 

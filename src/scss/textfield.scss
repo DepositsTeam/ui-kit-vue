@@ -93,6 +93,7 @@
     font-size: 16px;
     line-height: 32px;
     padding: 16px;
+    height: 64px;
 
     &.has-left-icon {
       padding-left: 42px;
@@ -105,6 +106,7 @@
     font-size: 16px;
     line-height: 16px;
     padding: 20px 16px;
+    height: 56px;
 
     &.has-left-icon {
       padding-left: 42px;
@@ -118,6 +120,7 @@
       font-size: 16px;
       line-height: 16px;
       padding: 16px 12px;
+      height: 48px;
 
       &.has-left-icon {
         padding-left: 38px;
@@ -137,7 +140,8 @@
     .ui-text-field__input {
       font-size: 16px;
       line-height: 16px;
-      padding: 12px;
+      padding: 8px 12px;
+      height: 40px;
 
       &.has-left-icon {
         padding-left: 38px;
@@ -158,6 +162,7 @@
       font-size: 16px;
       line-height: 16px;
       padding: 8px 12px;
+      height: 32px;
 
       &.has-left-icon {
         padding-left: 38px;
@@ -178,6 +183,7 @@
       font-size: 12px;
       line-height: 12px;
       padding: 6px 12px;
+      height: 24px;
 
       &.has-left-icon {
         padding-left: 24px;

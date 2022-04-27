@@ -21,16 +21,48 @@ export default {
     },
     ...allowedCSSProps,
   },
-  emits: ["change", "click", "input", "keydown", "keyup", "keypress"],
+  emits: [
+    "change",
+    "click",
+    "input",
+    "keydown",
+    "keyup",
+    "keypress",
+    "focus",
+    "blur",
+    "mouseenter",
+    "mouseleave",
+  ],
   setup(props, { slots, emit }) {
     jss.setup(preset());
     const propKeys = Object.keys(props);
-    let cssProps = {};
+    let cssProps = {
+      boxSizing: "border-box",
+    };
     let regularProps = {};
     propKeys.forEach((propKey) => {
       if (Object.keys(allowedCSSProps).includes(propKey)) {
         if (props[propKey]) {
-          cssProps[propKey] = props[propKey];
+          switch (propKey) {
+            case "marginX":
+              cssProps.marginLeft = props.marginX;
+              cssProps.marginRight = props.marginX;
+              break;
+            case "marginY":
+              cssProps.marginTop = props.marginY;
+              cssProps.marginBottom = props.marginY;
+              break;
+            case "paddingX":
+              cssProps.paddingLeft = props.paddingX;
+              cssProps.paddingRight = props.paddingX;
+              break;
+            case "paddingY":
+              cssProps.paddingTop = props.paddingY;
+              cssProps.paddingBottom = props.paddingY;
+              break;
+            default:
+              cssProps[propKey] = props[propKey];
+          }
         }
       } else {
         regularProps[propKey] = props[propKey];
@@ -71,6 +103,12 @@ export default {
           },
           onKeypress: function (e) {
             emit("keypress", e);
+          },
+          onMouseenter: function (e) {
+            emit("mouseenter", e);
+          },
+          onMouseleave: function (e) {
+            emit("mouseleave", e);
           },
           class: {
             [props.fontFace]: props.fontFace,

@@ -9,7 +9,6 @@
   >
     <d-box
       is="input"
-      :value="computedValue"
       :checked="isChecked"
       @change="changed"
       v-bind="$attrs"
@@ -18,7 +17,9 @@
       class="ui-radio"
       type="radio"
     />
-    <d-text class="ui-radio__label-text">{{ label }}</d-text>
+    <d-text class="ui-radio__label-text" :class="labelClass">{{
+      label
+    }}</d-text>
   </d-box>
 </template>
 
@@ -40,16 +41,16 @@ export default {
   },
   computed: {
     isChecked: function () {
-      if (this.mounted) return this.modelValue == this.$refs.radio.value;
+      if (this.mounted) return this.modelValue === this.computedValue;
       else return false;
     },
     computedValue: function () {
-      return this.value === "" ? this.label : this.value;
+      return !this.value ? this.label : this.value;
     },
   },
   methods: {
-    changed: function (e) {
-      this.$emit("update:modelValue", this.$refs.radio.value);
+    changed: function () {
+      this.$emit("update:modelValue", this.computedValue);
     },
   },
   props: {
@@ -71,6 +72,9 @@ export default {
     },
     disabled: {
       type: Boolean,
+    },
+    labelClass: {
+      type: [String, Object, Array],
     },
   },
 };

@@ -116,10 +116,9 @@ export default {
   boxShadow: {
     type: String,
   },
-  boxSizing: {
+  boxSizing: { // - Set to border-box by default:
     type: String,
-  }, // - Set to border-box by default: {
-  // .
+  },
   clear: {
     type: String,
   },

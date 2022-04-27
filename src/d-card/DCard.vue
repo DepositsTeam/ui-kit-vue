@@ -1,5 +1,9 @@
 <template>
-  <d-box is="label" class="ui-card" :class="{ state__selected: selected }">
+  <d-box
+    is="label"
+    class="ui-card"
+    :class="{ state__selected: selected, [wrapperClass]: wrapperClass }"
+  >
     <div class="ui-card__heading"></div>
     <d-radio
       class="ui-card__form-selector"
@@ -15,7 +19,7 @@
     />
 
     <div class="ui-card__content">
-      <div class="ui-card__title">{{ title }}</div>
+      <div v-if="title" class="ui-card__title">{{ title }}</div>
 
       <div v-if="desc || $slots.default" class="ui-card__card-text">
         <span v-if="desc" v-html="desc"></span>
@@ -46,7 +50,7 @@ export default {
       default: "Title",
     },
     icon: {
-      type: String,
+      type: Object,
     },
     selected: {
       type: Boolean,
@@ -63,6 +67,9 @@ export default {
     },
     value: {
       type: String,
+    },
+    wrapperClass: {
+      type: [String, Array, Object],
     },
   },
   computed: {

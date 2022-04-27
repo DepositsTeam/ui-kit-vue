@@ -1,20 +1,24 @@
 <template>
   <d-box
     v-if="visible"
-    :class="`color-scheme__${colorScheme}`"
+    :class="{ [`color-scheme__${colorScheme}`]: true, alignTop }"
     class="ui-banner"
   >
-    <d-box class="text-content">
+    <d-box @click="$emit('click')" class="text-content">
       <component
-        v-if="colorScheme !== 'default'"
+        v-if="colorScheme !== 'default' || icon"
         class="ui-banner-icon"
-        :is="schemeIcons[colorScheme]"
+        :is="icon || schemeIcons[colorScheme]"
       ></component>
+      <slot v-if="$slots.default"></slot>
       <d-text
         scale="subhead"
         class="ui-banner__title text-gray-700"
         font-face="circularSTD"
-        >{{ title }}</d-text
+        v-else
+      >
+        <slot name="text" v-if="$slots.text"></slot>
+        <span>{{ title }}</span></d-text
       >
       <d-text
         scale="subhead"
@@ -48,6 +52,7 @@ const schemeIcons = {
 };
 export default {
   name: "DBanner",
+  emits: ["removed", "click"],
   data: () => ({
     schemeIcons,
     visible: true,
@@ -73,13 +78,24 @@ export default {
     removable: {
       type: Boolean,
     },
-    onClick: {
+    onRemove: {
       type: Function,
+    },
+    alignTop: {
+      type: Boolean,
+    },
+    icon: {
+      type: Object,
     },
   },
   methods: {
     remove: function () {
-      this.visible = false;
+      this.$emit("removed");
+      if (this.onRemove && typeof this.onRemove === "function") {
+        this.onRemove();
+      } else {
+        this.visible = false;
+      }
     },
   },
 };
@@ -92,6 +108,9 @@ export default {
   justify-content: space-between;
   padding: 10px 16px;
   border-radius: 4px;
+  &.alignTop {
+    align-items: flex-start;
+  }
 
   .text-content {
     display: flex;
@@ -99,7 +118,7 @@ export default {
 
     & > * {
       margin-right: 8px;
-      &:last-child, {
+      &:last-child {
         margin-right: 0;
       }
     }

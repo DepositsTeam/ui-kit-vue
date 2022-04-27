@@ -4,7 +4,12 @@
     :class="[`size__${size}`]"
   >
     <d-box is="label" class="ui-text-area__label">
-      <d-text scale="subhead" class="ui-text-area__label">
+      <d-text
+        margin-top="0px"
+        :class="labelClass"
+        scale="subhead"
+        class="ui-text-area__label"
+      >
         {{ label }}
       </d-text>
     </d-box>
@@ -63,6 +68,9 @@ export default {
         ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
           value
         ),
+    },
+    labelClass: {
+      type: [String, Object, Array],
     },
   },
 };

@@ -51,7 +51,7 @@ import ChevronArrowRightIcon from "../icons/ChevronArrowRightIcon.vue";
 import rangedArray from "../utils/rangedArray";
 export default {
   name: "DPagination",
-  emits: ["pagechanged"],
+  emits: ["page-changed"],
   components: {
     DBox,
     ChevronArrowLeftIcon,
@@ -116,13 +116,11 @@ export default {
             this.initializedCurrentPage <
             this.intTotalPages - doubleVisibleSiblings
           ) {
-            renderedPages = [
-              1,
-              dots,
-              ...rangedArray(middleMin, middleMax),
-              dots,
-              this.intTotalPages,
-            ];
+            const rangedArrayHolder = rangedArray(middleMin, middleMax);
+            const sub = rangedArrayHolder.includes(1)
+              ? [...rangedArrayHolder, dots]
+              : [1, dots, ...rangedArrayHolder, dots];
+            renderedPages = [...sub, this.intTotalPages];
           } else {
             renderedPages = [
               1,
@@ -146,7 +144,7 @@ export default {
         return;
       }
       this.initializedCurrentPage = page;
-      this.$emit("pagechanged", page);
+      this.$emit("page-changed", page);
     },
   },
 };

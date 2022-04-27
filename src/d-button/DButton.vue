@@ -17,7 +17,8 @@
       :is="leftIcon"
     ></component>
     <span class="ui-button__button-text">
-      <slot></slot>
+      <span v-if="text">{{ text }}</span>
+      <slot v-else></slot>
     </span>
     <ChevronFilledDownIcon
       v-if="dropDown"
@@ -40,7 +41,7 @@ export default {
     colorScheme: {
       type: String,
       validator: (value) =>
-        ["primary", "danger", "success", "outline", "invisible"].includes(
+        ["primary", "danger", "success", "outline", "invisible", "default"].includes(
           value
         ),
       default: "default",
@@ -64,6 +65,9 @@ export default {
     },
     responsive: {
       type: Boolean,
+    },
+    text: {
+      type: String,
     },
   },
   components: { ChevronFilledDownIcon, DBox },
@@ -263,10 +267,18 @@ export default {
   &.size__small {
     padding: 4px 12px;
     font-size: 12px;
+    .ui-button__left-icon {
+      height: 20px;
+      width: 20px;
+    }
   }
 
   &.size__medium {
     padding: 8px 16px;
+    .ui-button__left-icon {
+      height: 20px;
+      width: 20px;
+    }
   }
 
   &.size__large {

@@ -4,7 +4,12 @@
     :class="[wrapperClass, `size__${size}`]"
   >
     <d-box is="label">
-      <d-text class="ui-text-field__label" scale="subhead">
+      <d-text
+        margin-top="0px"
+        :class="labelClass"
+        class="ui-text-field__label"
+        scale="subhead"
+      >
         {{ label }}
       </d-text>
     </d-box>
@@ -116,6 +121,9 @@ export default {
     },
     disabled: {
       type: Boolean,
+    },
+    labelClass: {
+      type: [String, Object, Array],
     },
   },
   components: {

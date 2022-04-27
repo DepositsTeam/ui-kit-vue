@@ -12,7 +12,8 @@
       class="ui-badge__text"
       :scale="size === 'large' ? 'footnote' : 'overline'"
     >
-      <slot></slot>
+      <span v-if="text">{{ text }}</span>
+      <slot v-else></slot>
     </d-text>
   </d-box>
 </template>
@@ -39,6 +40,9 @@ export default {
     size: {
       type: String,
       validator: (value) => ["small", "medium", "large"].includes(value),
+    },
+    text: {
+      type: String,
     },
   },
 };

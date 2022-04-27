@@ -76,11 +76,18 @@ export default {
     computedValue: function () {
       return this.value === "" ? this.label : this.value;
     },
+    computedTrueValue: function () {
+      if (this.value) {
+        return this.value;
+      } else {
+        return this.trueValue === true ? true : this.value;
+      }
+    },
     isChecked: function () {
       if (this.modelValue instanceof Array) {
         return this.modelValue.includes(this.value);
       }
-      return this.modelValue === this.value;
+      return this.modelValue === this.computedTrueValue;
     },
   },
   methods: {
