@@ -7,7 +7,7 @@
       xmlns="http://www.w3.org/2000/svg"
       v-bind="$attrs"
     >
-      <mask id="path-1-inside-1_717_2965" :fill="white">
+      <mask id="path-1-inside-1_717_2965" fill="white">
         <path
           :fill-rule="fillRule"
           :clip-rule="clipRule"
