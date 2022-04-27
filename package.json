@@ -1,5 +1,5 @@
 {
-  "name": "deposits-ui-kit-vue",
+  "name": "@deposits/ui-kit-vue",
   "files": [
     "dist"
   ],
@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.24",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
