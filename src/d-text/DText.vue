@@ -21,9 +21,16 @@ export default {
   components: { DBox },
   props: {
     is: {
-      type: String,
-      validator: (value) =>
-        ["p", "span", "small", "sub", "sup", "subhead"].includes(value),
+      type: [String, Object],
+      validator: (value) => {
+        if (typeof value !== "object") {
+          return ["p", "span", "small", "sub", "sup", "subhead", "a"].includes(
+            value
+          );
+        } else {
+          return true;
+        }
+      },
       default: "p",
     },
     fontFace: {

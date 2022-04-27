@@ -8,7 +8,7 @@ import uniqueRandomString from "../utils/uniqueRandomString";
 export default {
   props: {
     is: {
-      type: String,
+      type: [String, Object],
       default: "div",
     },
     fontFace: {

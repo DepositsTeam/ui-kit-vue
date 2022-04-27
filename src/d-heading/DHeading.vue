@@ -15,15 +15,21 @@
 </template>
 
 <script>
+import { I } from "../../storybook-static/assets/vendor.d9bc8a8b";
 import DBox from "../d-box/DBox.vue";
 export default {
   name: "DHeading",
   props: {
     is: {
-      type: String,
+      type: [String, Object],
       default: "p",
-      validator: (value) =>
-        ["h1", "h2", "h3", "h4", "h5", "h6", "p"].includes(value),
+      validator: (value) => {
+        if (typeof value !== "object") {
+          return ["h1", "h2", "h3", "h4", "h5", "h6", "p"].includes(value);
+        } else {
+          return true;
+        }
+      },
     },
     scale: {
       type: String,
