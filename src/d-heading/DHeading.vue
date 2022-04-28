@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { I } from "../../storybook-static/assets/vendor.d9bc8a8b";
 import DBox from "../d-box/DBox.vue";
 export default {
   name: "DHeading",

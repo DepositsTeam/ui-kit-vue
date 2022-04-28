@@ -1,4 +1,5 @@
 <script>
+// TODO Add a feature for hover classes
 import { h } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import jss from "jss";
