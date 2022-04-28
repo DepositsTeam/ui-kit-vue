@@ -61,6 +61,7 @@ export { default as CompassIcon } from "./CompassIcon.vue";
 export { default as CompressIcon } from "./CompressIcon.vue";
 export { default as Compress2Icon } from "./Compress2Icon.vue";
 export { default as CopyIcon } from "./CopyIcon.vue";
+export { default as CopyFilledIcon } from "./CopyFilledIcon.vue";
 export { default as CropIcon } from "./CropIcon.vue";
 export { default as CrownIcon } from "./CrownIcon.vue";
 export { default as CutIcon } from "./CutIcon.vue";
