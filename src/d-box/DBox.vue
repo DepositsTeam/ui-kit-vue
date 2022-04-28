@@ -1,6 +1,5 @@
 <script>
-// TODO Add a feature for hover classes
-import { h } from "vue";
+import { h, onBeforeMount, ref, inject, watch } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import jss from "jss";
 import preset from "jss-preset-default";
@@ -21,6 +20,15 @@ export default {
       type: [Number, String],
     },
     ...allowedCSSProps,
+    hoverClass: {
+      type: [String, Object, Array],
+    },
+    darkClass: {
+      type: [String, Object, Array],
+    },
+    lightClass: {
+      type: [String, Object, Array],
+    },
   },
   emits: [
     "change",
@@ -35,48 +43,85 @@ export default {
     "mouseleave",
   ],
   setup(props, { slots, emit }) {
-    jss.setup(preset());
-    const propKeys = Object.keys(props);
-    let cssProps = {
-      boxSizing: "border-box",
-    };
-    let regularProps = {};
-    propKeys.forEach((propKey) => {
-      if (Object.keys(allowedCSSProps).includes(propKey)) {
-        if (props[propKey]) {
-          switch (propKey) {
-            case "marginX":
-              cssProps.marginLeft = props.marginX;
-              cssProps.marginRight = props.marginX;
-              break;
-            case "marginY":
-              cssProps.marginTop = props.marginY;
-              cssProps.marginBottom = props.marginY;
-              break;
-            case "paddingX":
-              cssProps.paddingLeft = props.paddingX;
-              cssProps.paddingRight = props.paddingX;
-              break;
-            case "paddingY":
-              cssProps.paddingTop = props.paddingY;
-              cssProps.paddingBottom = props.paddingY;
-              break;
-            default:
-              cssProps[propKey] = props[propKey];
-          }
-        }
-      } else {
-        regularProps[propKey] = props[propKey];
+    const styleClasses = ref(null);
+    const className = uniqueRandomString(20);
+    const hovering = ref(false);
+    const darkMode = inject("darkMode", null);
+
+    watch(
+      () => darkMode.value,
+      () => {
+        alert("I fucking changed Bitch!!!");
       }
+    );
+
+    const manageStyles = () => {
+      jss.setup(preset());
+      const propKeys = Object.keys(props);
+      let cssProps = {
+        boxSizing: "border-box",
+      };
+      const addStylesToCssProps = (propKey) => {
+        let cleansedPropKey = propKey
+          .replaceAll("light", "")
+          .replaceAll("dark", "");
+        cleansedPropKey =
+          cleansedPropKey[0].toLowerCase() + cleansedPropKey.substring(1);
+        switch (cleansedPropKey) {
+          case "marginX":
+            cssProps.marginLeft = props.marginX;
+            cssProps.marginRight = props.marginX;
+            break;
+          case "marginY":
+            cssProps.marginTop = props.marginY;
+            cssProps.marginBottom = props.marginY;
+            break;
+          case "paddingX":
+            cssProps.paddingLeft = props.paddingX;
+            cssProps.paddingRight = props.paddingX;
+            break;
+          case "paddingY":
+            cssProps.paddingTop = props.paddingY;
+            cssProps.paddingBottom = props.paddingY;
+            break;
+          default:
+            cssProps[cleansedPropKey] = props[propKey];
+        }
+      };
+      let regularProps = {};
+      propKeys.forEach((propKey) => {
+        if (allowedCSSProps[propKey]) {
+          if (props[propKey]) {
+            if (propKey.startsWith("light")) {
+              if (!darkMode.value) {
+                addStylesToCssProps(propKey);
+              }
+            } else if (propKey.startsWith("dark")) {
+              if (darkMode.value) {
+                addStylesToCssProps(propKey);
+              }
+            } else {
+              addStylesToCssProps(propKey);
+            }
+          }
+        } else {
+          regularProps[propKey] = props[propKey];
+        }
+      });
+
+      const style = {
+        [className]: { ...cssProps },
+      };
+
+      const { classes } = jss.createStyleSheet(style).attach();
+
+      styleClasses.value = classes;
+    };
+
+    onBeforeMount(() => {
+      manageStyles();
     });
 
-    const className = uniqueRandomString(20);
-
-    const style = {
-      [className]: { ...cssProps },
-    };
-
-    const { classes } = jss.createStyleSheet(style).attach();
     return () =>
       h(
         props.is,
@@ -106,14 +151,19 @@ export default {
             emit("keypress", e);
           },
           onMouseenter: function (e) {
+            hovering.value = true;
             emit("mouseenter", e);
           },
           onMouseleave: function (e) {
+            hovering.value = false;
             emit("mouseleave", e);
           },
           class: {
             [props.fontFace]: props.fontFace,
-            [classes[className]]: true,
+            [styleClasses.value[className]]: true,
+            [props.hoverClass]: hovering.value,
+            [props.lightClass]: darkMode.value,
+            [props.darkClass]: darkMode.value !== null && !darkMode.value,
           },
         },
         [...(slots.default ? [slots.default()] : [])]

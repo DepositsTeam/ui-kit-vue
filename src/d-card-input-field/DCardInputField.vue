@@ -323,7 +323,6 @@ export default {
             return;
           }
         } else {
-          console.log(strippedCardNo.length);
           if (strippedCardNo.length >= 16) {
             e.preventDefault();
             this.$refs.cardNoInput.$el.blur();

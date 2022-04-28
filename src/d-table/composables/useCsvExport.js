@@ -12,8 +12,6 @@ export const useCsvExport = (data, generatedCsvName) => {
     useKeysAsHeaders: true,
   };
 
-  console.log(data);
-
   const csvExporter = new ExportToCsv(options);
 
   const exportCsv = () => csvExporter.generateCsv(data.value);

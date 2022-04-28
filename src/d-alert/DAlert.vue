@@ -116,6 +116,12 @@ export default {
 };
 </script>
 
+<style>
+.darkeed {
+  opacity: 0;
+}
+</style>
+
 <style lang="scss" scoped>
 .ui-alert {
   border: 1px solid #e1e7ec;

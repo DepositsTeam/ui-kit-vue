@@ -139,7 +139,6 @@ export default {
     },
     resizeCountryCodeAutomatically: function () {
       const elem = this.$refs.phoneInputRef.$el;
-      console.log("Elem is ", elem);
       const value = this.code;
       elem.style.width = "calc(" + (value.length + 2) + "ch + 4px)";
       const wrapper = elem.closest(".ui-text-field__wrapper");

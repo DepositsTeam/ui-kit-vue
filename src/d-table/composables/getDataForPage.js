@@ -120,7 +120,6 @@ export const searchData = (data, search) => {
       } else {
         value = undefined;
       }
-      console.log(value, search);
       if (value && value.toLowerCase().includes(search.toLowerCase())) {
         pass = true;
         break;
