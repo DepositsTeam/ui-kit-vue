@@ -10,7 +10,7 @@ import {
 export function useTable(props, emit) {
   const selectedRows = ref([]);
   const initializedCurrentPage = ref(1);
-  const initializedData = ref([]);
+  const initializedData = shallowRef([]);
   const sortingBy = ref(null);
   const filters = shallowRef({
     column: null,

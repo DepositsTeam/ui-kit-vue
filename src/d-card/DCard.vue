@@ -8,6 +8,7 @@
     <d-radio
       class="ui-card__form-selector"
       v-if="radio"
+      :ringed="ringedRadio"
       v-bind="$attrs"
       v-model="updateValue"
     />
@@ -16,6 +17,7 @@
       v-else-if="checkbox"
       v-bind="$attrs"
       v-model="updateValue"
+      :dashed="dashedCheckbox"
     />
 
     <div class="ui-card__content">
@@ -95,7 +97,13 @@ export default {
   radio: {
     type: Boolean,
   },
+  ringedRadio: {
+    type: Boolean,
+  },
   checkbox: {
+    type: Boolean,
+  },
+  dashedCheckbox: {
     type: Boolean,
   },
   desc: {
@@ -120,7 +128,7 @@ export default {
   text-decoration: none;
   transition-property: border-color;
   transition-duration: 0.5s;
-  border: 1px solid #ced6de;
+  border: 1px solid #e1e7ec;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
@@ -128,9 +136,9 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: flex-between;
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+  // --tw-space-x-reverse: 0;
+  // margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+  // margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
   cursor: pointer;
 
   &:hover {

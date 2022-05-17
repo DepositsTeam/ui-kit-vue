@@ -17,6 +17,13 @@ export default {
     removable: {
       control: { type: "boolean" },
     },
+    alignTop: {
+      control: { type: "boolean" },
+    },
+    full: {
+      control: { type: "boolean" },
+      default: true
+    },
   },
 };
 

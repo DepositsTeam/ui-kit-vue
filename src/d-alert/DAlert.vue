@@ -100,6 +100,10 @@ export default {
     onClose: {
       type: Function,
     },
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     remove: function () {
@@ -153,8 +157,10 @@ export default {
   }
 
   &.color-scheme__info {
-    border-color: #0d7fe9;
-    border-left: 4px solid #0d7fe9;
+    &.is-toast {
+      border-color: #0d7fe9;
+      border-left: 4px solid #0d7fe9;
+    }
 
     .ui-alert__header-icon {
       color: #0d7fe9;
@@ -162,8 +168,10 @@ export default {
   }
 
   &.color-scheme__warning {
-    border-color: #ff9505;
-    border-left: 4px solid #ff9505;
+    &.is-toast {
+      border-color: #ff9505;
+      border-left: 4px solid #ff9505;
+    }
 
     .ui-alert__header-icon {
       color: #ff9505;
@@ -171,8 +179,10 @@ export default {
   }
 
   &.color-scheme__error {
-    border-color: #d62f4b;
-    border-left: 4px solid #d62f4b;
+    &.is-toast {
+      border-color: #d62f4b;
+      border-left: 4px solid #d62f4b;
+    }
 
     .ui-alert__header-icon {
       color: #d62f4b;
@@ -180,8 +190,10 @@ export default {
   }
 
   &.color-scheme__success {
-    border-color: #00b058;
-    border-left: 4px solid #00b058;
+    &.is-toast {
+      border-color: #00b058;
+      border-left: 4px solid #00b058;
+    }
 
     .ui-alert__header-icon {
       color: #00b058;

@@ -6,6 +6,8 @@
       ringed,
       alignToTop,
     }"
+    @click="emitClick"
+    :style="{ ...theme }"
   >
     <d-box
       is="input"
@@ -17,7 +19,10 @@
       class="ui-radio"
       type="radio"
     />
-    <d-text class="ui-radio__label-text" :class="labelClass">{{
+    <d-box class="ui-radio__label-wrap" v-if="$slots.default">
+      <slot></slot>
+    </d-box>
+    <d-text v-else class="ui-radio__label-text" :class="labelClass">{{
       label
     }}</d-text>
   </d-box>
@@ -26,9 +31,10 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
+import { inject } from "vue";
 export default {
   name: "DRadio",
-  emit: ["update:modelValue"],
+  emit: ["update:modelValue", "click"],
   components: {
     DBox,
     DText,
@@ -51,6 +57,9 @@ export default {
   methods: {
     changed: function () {
       this.$emit("update:modelValue", this.computedValue);
+    },
+    emitClick: function () {
+      this.$emit("click");
     },
   },
   props: {
@@ -77,6 +86,10 @@ export default {
       type: [String, Object, Array],
     },
   },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
+  },
 };
 </script>
 
@@ -84,6 +97,11 @@ export default {
 .ui-radio__wrapper {
   display: flex;
   align-items: center;
+  cursor: pointer;
+
+  .ui-radio {
+    pointer-events: none;
+  }
 
   &.alignToTop {
     align-items: flex-start;
@@ -119,21 +137,21 @@ export default {
     > input:checked {
       height: 16px;
       width: 16px;
-      border: 5px solid #0db9e9;
+      border: 5px solid var(--primarycolor);
       outline: none;
       background: white;
     }
 
     &:hover > input {
-      border-color: #0c9ccc;
+      border-color: var(--primarycolor);
     }
   }
 
   > input:checked {
-    background: #0d7fe9;
+    background: var(--primarycolor);
     width: 12px;
     height: 12px;
-    outline: 2px solid #0d7fe9;
+    outline: 2px solid var(--primarycolor);
     outline-offset: 1px;
     border-color: transparent;
   }

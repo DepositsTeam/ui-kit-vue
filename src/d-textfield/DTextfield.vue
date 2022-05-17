@@ -1,11 +1,12 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
-    <d-box v-if="!invisible" is="label">
+    <d-box v-if="!!label && !invisible" is="label">
       <d-text
         margin-top="0px"
         class="ui-text-field__label"
         :class="labelClass"
         scale="subhead"
+        :font-face="fontFace"
       >
         {{ label }}
       </d-text>
@@ -36,6 +37,7 @@
         @keypress="handleKeypressEvent"
         @focus="handleFocusEvent"
         @blur="handleBlurEvent"
+        :style="{ ...theme }"
       />
       <component
         class="ui-text-field__right-icon"
@@ -62,6 +64,7 @@ import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
+import { inject } from "vue";
 export default {
   name: "DTextfield",
   emits: [
@@ -82,6 +85,9 @@ export default {
   },
   props: {
     label: {
+      type: String,
+    },
+    fontFace: {
       type: String,
     },
     dropDown: {
@@ -152,6 +158,10 @@ export default {
     handleBlurEvent(e) {
       this.$emit("blur", e);
     },
+  },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
   },
 };
 </script>

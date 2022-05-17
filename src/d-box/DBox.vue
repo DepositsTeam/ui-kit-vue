@@ -41,19 +41,13 @@ export default {
     "blur",
     "mouseenter",
     "mouseleave",
+    "update:modelValue",
   ],
   setup(props, { slots, emit }) {
     const styleClasses = ref(null);
     const className = uniqueRandomString(20);
     const hovering = ref(false);
-    const darkMode = inject("darkMode", null);
-
-    watch(
-      () => darkMode.value,
-      () => {
-        alert("I fucking changed Bitch!!!");
-      }
-    );
+    const darkMode = inject("$darkMode", null);
 
     const manageStyles = () => {
       jss.setup(preset());
@@ -127,6 +121,9 @@ export default {
         props.is,
         {
           onChange: function (e) {
+            if (props.is.toLowerCase() === "select") {
+              emit("update:modelValue", e.target.value);
+            }
             emit("change", e);
           },
           onFocus: function (e) {
@@ -139,6 +136,12 @@ export default {
             emit("click", e);
           },
           onInput: function (e) {
+            if (
+              props.is.toLowerCase() === "input" ||
+              props.is.toLowerCase() === "textarea"
+            ) {
+              emit("update:modelValue", e.target.value);
+            }
             emit("input", e);
           },
           onKeydown: function (e) {
@@ -162,9 +165,12 @@ export default {
             [props.fontFace]: props.fontFace,
             [styleClasses.value[className]]: true,
             [props.hoverClass]: hovering.value,
-            [props.lightClass]: darkMode.value,
-            [props.darkClass]: darkMode.value !== null && !darkMode.value,
+            [props.darkClass]: darkMode !== null && darkMode.value,
+            [props.lightClass]:
+              darkMode !== null && darkMode.value !== null && !darkMode.value,
+            dark_mode: darkMode !== null && darkMode.value,
           },
+          value: props.modelValue ? props.modelValue : props.value,
         },
         [...(slots.default ? [slots.default()] : [])]
       );
@@ -637,5 +643,70 @@ export default {
 
 .text-black {
   color: #000000;
+}
+
+@for $i from 1 through 9 {
+  .font-weight-#{$i * 100} {
+    font-weight: $i * 100;
+  }
+}
+.w-100 {
+  width: 100%;
+}
+.text-center {
+  text-align: center;
+}
+@for $i from 0 through 12 {
+  .mt-#{$i} {
+    margin-top: calc(8px * #{$i});
+  }
+  .mb-#{$i} {
+    margin-bottom: calc(8px * #{$i});
+  }
+  .pt-#{$i} {
+    padding-top: calc(8px * #{$i});
+  }
+  .pb-#{$i} {
+    padding-bottom: calc(8px * #{$i});
+  }
+  .my-#{$i} {
+    margin-bottom: calc(8px * #{$i});
+    margin-top: calc(8px * #{$i});
+  }
+  .py-#{$i} {
+    padding-top: calc(8px * #{$i});
+    padding-bottom: calc(8px * #{$i});
+  }
+  .ml-#{$i} {
+    margin-left: calc(8px * #{$i});
+  }
+  .mr-#{$i} {
+    margin-right: calc(8px * #{$i});
+  }
+  .pl-#{$i} {
+    padding-left: calc(8px * #{$i});
+  }
+  .pr-#{$i} {
+    padding-right: calc(8px * #{$i});
+  }
+  .mx-#{$i} {
+    margin-left: calc(8px * #{$i});
+    margin-right: calc(8px * #{$i});
+  }
+  .px-#{$i} {
+    padding-left: calc(8px * #{$i});
+    padding-right: calc(8px * #{$i});
+  }
+  .my-#{$i} {
+    margin-top: calc(8px * #{$i});
+    margin-bottom: calc(8px * #{$i});
+  }
+  .py-#{$i} {
+    padding-top: calc(8px * #{$i});
+    padding-bottom: calc(8px * #{$i});
+  }
+}
+.text-no-underline {
+  text-decoration: none;
 }
 </style>

@@ -32,7 +32,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-alert hover-class="darkeed" v-bind="args" />`,
+  template: `<d-alert v-bind="args" />`,
 });
 
 export const FlatDefault = Template.bind({});

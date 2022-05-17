@@ -2,15 +2,13 @@
   <Teleport to="body">
     <div class="ui-toast__wrapper" :class="`position__${position}`">
       <d-box class="ui-toast__column">
-        <TransitionGroup name="ui-toast-fade">
-          <d-alert
-            v-for="(toast, index) in toasts"
-            v-bind="toast"
-            :key="`toast_${index}_${keyGen()}`"
-            closable
-            :onClose="() => removeToast(index)"
-          />
-        </TransitionGroup>
+        <d-alert
+          v-for="(toast, index) in toasts"
+          v-bind="toast"
+          :key="`toast_${index}_${keyGen()}`"
+          closable
+          :onClose="() => removeToast(index)"
+        />
       </d-box>
     </div>
   </Teleport>
@@ -82,6 +80,10 @@ export default {
         ),
       default: "top-right",
     },
+    bordered: {
+      type: Boolean,
+      default: true,
+    },
   },
 };
 </script>
@@ -136,14 +138,14 @@ export default {
   }
 }
 
-.ui-toast-fade-enter-active,
-.ui-toast-fade-move,
-.ui-toast-fade-leave-active {
-  transition: opacity 0.5s ease;
-}
+// .ui-toast-fade-enter-active,
+// .ui-toast-fade-move,
+// .ui-toast-fade-leave-active {
+//   transition: opacity 0.5s ease;
+// }
 
-.ui-toast-fade-enter-from,
-.ui-toast-fade-leave-to {
-  opacity: 0;
-}
+// .ui-toast-fade-enter-from,
+// .ui-toast-fade-leave-to {
+//   opacity: 0;
+// }
 </style>

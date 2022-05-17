@@ -5,6 +5,7 @@
       [scale]: scale,
       uppercase,
       'equal-line-height': equalLineHeight,
+      center,
       my0,
     }"
     :is="is"
@@ -36,13 +37,14 @@ export default {
     fontFace: {
       type: String,
       validator: (value) => ["heroNew", "circularSTD"].includes(value),
-      default: "circularSTD",
+      default: "heroNew",
     },
     scale: {
       type: String,
       validator: (value) =>
         [
           "body",
+          "p-16",
           "subhead",
           "p-18",
           "overline",
@@ -60,6 +62,24 @@ export default {
     my0: {
       type: Boolean,
     },
+    mt0: {
+      type: Boolean,
+    },
+    mb0: {
+      type: Boolean,
+    },
+    mx0: {
+      type: Boolean,
+    },
+    ml0: {
+      type: Boolean,
+    },
+    mr0: {
+      type: Boolean,
+    },
+    center: {
+      type: Boolean,
+    },
   },
 };
 </script>
@@ -70,11 +90,25 @@ export default {
 }
 
 .ui-text {
+  b,
+  strong {
+    font-weight: 700;
+  }
+  &.center {
+    text-align: center;
+  }
   &.my0 {
     margin-top: 0;
     margin-bottom: 0;
   }
-  &.body {
+  &.mt0 {
+    margin-top: 0;
+  }
+  &.mb0 {
+    margin-bottom: 0;
+  }
+  &.body,
+  &.p-16 {
     font-size: 16px;
     line-height: 24px;
 

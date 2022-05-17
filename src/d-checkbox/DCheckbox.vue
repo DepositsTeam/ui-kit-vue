@@ -7,6 +7,7 @@
       dashed,
       [wrapperClass]: wrapperClass,
     }"
+    :style="{ ...theme }"
   >
     <d-box
       is="input"
@@ -17,8 +18,12 @@
       @change="handleChange"
       :checked="isChecked"
     />
+    <d-box v-if="$slots.default">
+      <slot></slot>
+    </d-box>
     <d-text
-      class="ui-checkbox__label-text ui-text heroNew"
+      v-else
+      class="ui-checkbox__label-wrap ui-text heroNew"
       :class="{ [labelClass]: labelClass }"
       >{{ label }}</d-text
     >
@@ -28,6 +33,7 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
+import { inject } from "vue";
 export default {
   name: "DCheckbox",
   emit: ["update:modelValue"],
@@ -111,6 +117,10 @@ export default {
       }
     },
   },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
+  },
 };
 </script>
 
@@ -142,7 +152,7 @@ export default {
       cursor: not-allowed;
 
       &:checked {
-        background-color: #0db9e9;
+        background-color: var(--primarycolor);
         width: 16px;
         height: 16px;
         border: none;
@@ -159,11 +169,11 @@ export default {
 
   > input:checked {
     &:hover {
-      background-color: #0c9ccc;
+      background-color: var(--primarycolor);
     }
 
     &:disabled {
-      background-color: #bdf3fc;
+      background-color: var(--primarydisabledcolor);
     }
   }
 }

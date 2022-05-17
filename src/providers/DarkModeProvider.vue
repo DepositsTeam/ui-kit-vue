@@ -5,7 +5,7 @@
 <script>
 import { provide, ref, onBeforeMount } from "vue";
 export default {
-  name: "DarkThemeProvider",
+  name: "DarkModeProvider",
   setup() {
     const darkMode = ref(null);
     onBeforeMount(() => {
@@ -20,13 +20,12 @@ export default {
     });
 
     const $updateDarkMode = (value) => {
-      alert("I got clicked biatch")
       darkMode.value = value;
       localStorage.setItem("dark_mode", value ? "enabled" : "disabled");
     };
 
-    provide("darkMode", darkMode);
-    provide("updateDarkMode", $updateDarkMode);
+    provide("$darkMode", darkMode);
+    provide("$updateDarkMode", $updateDarkMode);
   },
 };
 </script>

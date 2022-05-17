@@ -6,6 +6,7 @@
       disabled,
       'has-error': errorMessage,
     }"
+    :style="{ ...theme }"
   >
     <d-box is="label">
       <d-text class="ui-text-field__label" scale="subhead">
@@ -63,6 +64,7 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import DTextfield from "../d-textfield/DTextfield.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
+import { inject } from "vue";
 export default {
   name: "DPhoneInput",
   components: {
@@ -152,7 +154,7 @@ export default {
       }
       elem.nextSibling.style.paddingLeft =
         "calc(" +
-        (value.length <= 2 ? 3 : value.length) +
+        (value.length <= 1 ? 3 : value.length + 1) +
         "ch + " +
         offset +
         "px)";
@@ -171,7 +173,7 @@ export default {
       }
       elem.target.nextSibling.style.paddingLeft =
         "calc(" +
-        (value.length <= 2 ? 3 : value.length + 1) +
+        (value.length <= 1 ? 3 : value.length + 1) +
         "ch + " +
         offset +
         "px)";
@@ -181,6 +183,10 @@ export default {
     code: function () {
       this.resizeCountryCodeAutomatically();
     },
+  },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
   },
 };
 </script>

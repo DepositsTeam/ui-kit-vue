@@ -2,7 +2,7 @@
     <svg
       :width="width"
       :height="height"
-      viewBox="0 0 24 24"
+      viewBox="0 0 38 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       v-bind="$attrs"
@@ -86,7 +86,7 @@ defineProps({
   },
   height: {
     type: String,
-    default: "24",
+    default: "16",
   },
 });
 </script>

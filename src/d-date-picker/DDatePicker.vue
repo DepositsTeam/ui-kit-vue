@@ -53,6 +53,7 @@
 </template>
 
 <script>
+// TODO - Fix bug with console spitting error after date change
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
@@ -144,6 +145,7 @@ export default {
       }
     },
     fire: function () {
+      console.log(this);
       if (this.formatDate)
         this.$emit(
           "update:modelValue",

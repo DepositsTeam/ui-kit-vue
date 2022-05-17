@@ -7,8 +7,9 @@
       [`size__${size}`]: size,
       responsive,
     }"
-    :is="is.toLowerCase()"
+    :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
+    :style="{ ...theme }"
   >
     <component
       smart-color="currentcolor"
@@ -31,19 +32,29 @@
 <script>
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import DBox from "../d-box/DBox.vue";
+import { inject, computed } from "vue";
 export default {
   props: {
     is: {
-      type: String,
-      validator: (value) => ["button", "a", "span", "div"].includes(value),
+      type: [String, Object],
+      validator: (value) => {
+        if (typeof value === "string") {
+          return ["button", "a", "span", "div"].includes(value);
+        } else return true;
+      },
       default: "button",
     },
     colorScheme: {
       type: String,
       validator: (value) =>
-        ["primary", "danger", "success", "outline", "invisible", "default"].includes(
-          value
-        ),
+        [
+          "primary",
+          "danger",
+          "success",
+          "outline",
+          "invisible",
+          "default",
+        ].includes(value),
       default: "default",
     },
     disabled: {
@@ -76,6 +87,10 @@ export default {
     handleClick: function () {
       this.$emit("click");
     },
+  },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
   },
 };
 </script>
@@ -140,21 +155,23 @@ export default {
   }
 
   &.semantic__primary {
-    background: #0db9e9;
-    border: 1px solid rgba(33, 41, 52, 0.07);
+    background: var(--primarycolor);
+    color: var(--primaryfontcolor);
+    border: 1px solid var(--primaryboxshadowcolor);
 
     &:hover {
-      background: #43d2fa;
+      background: var(--primaryhovercolor);
+      color: var(--primarytexthovercolor)
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
+      box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
     }
 
     &:disabled,
     &.state__disabled {
-      background: #bdf3fc;
-      color: #f5f8fa;
+      background: var(--primarydisabledcolor);
+      color: var(--primarytextdisabledcolor);
       cursor: not-allowed;
       border-color: transparent;
     }
@@ -210,28 +227,28 @@ export default {
   }
 
   &.semantic__outline {
-    color: #0d7fe9;
-    border: 1px solid #0d7fe9;
+    color: var(--outlinecolor);
+    border: 1px solid var(--outlinecolor);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    background: transparent;
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(27, 92, 224, 0.2);
+      box-shadow: 0 0 0 3px var(--outlineboxshadowcolor);
     }
 
-    &:hover {
-      background: #0d7fe9;
-      color: #fff;
-      box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
+    &:hover:not(:disabled):not(.state_disabled) {
+      background: var(--outlinecolor);
+      color: var(--primaryfontcolor);
+      box-shadow: 0 1px 0 var(--outlineboxshadowcolor);
     }
 
     &:focus:hover {
-      box-shadow: 0 0 0 3px rgba(27, 92, 224, 0.2);
+      box-shadow: 0 0 0 3px var(--outlineboxshadowcolor);
     }
 
     &:disabled,
     &.state__disabled {
-      color: #acd7ff;
-      border: 1px solid #acd7ff;
+      opacity: 0.5;
       cursor: not-allowed;
       background: transparent;
     }

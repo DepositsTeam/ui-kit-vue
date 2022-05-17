@@ -1,5 +1,9 @@
 <template>
-  <d-box :class="`size__${size}`" class="ui-text-field__wrapper heroNew">
+  <d-box
+    :class="`size__${size}`"
+    class="ui-text-field__wrapper heroNew"
+    :style="{ ...theme }"
+  >
     <d-box is="label" class="ui-text-field__label">
       <d-text class="ui-card-input-field__label" scale="subhead">{{
         label
@@ -13,7 +17,7 @@
       >
         <d-box>
           <CardIcon
-            smart-color="#0C9CCC"
+            :smart-color="theme['--primarycolor']"
             class="ui-card-input-field__left-icon"
             v-if="selectedCard === -1"
             width="24"
@@ -95,6 +99,7 @@ import CardBrands, { BRAND_ALIAS } from "./card-brands";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
+import { inject } from "vue";
 
 export default {
   name: "DCreditCardInput",
@@ -339,6 +344,10 @@ export default {
     },
   },
   emits: ["update:cardNo", "update:cardCvv", "update:cardExp"],
+  setup() {
+    const theme = inject("theme");
+    return { theme };
+  },
 };
 </script>
 
@@ -358,6 +367,7 @@ export default {
   padding: 16px
   color: #212934
   display: flex
+  align-items: center
   & *
     font-family: "Circular Std", sans-serif
     font-size: 16px
@@ -367,10 +377,10 @@ export default {
     border-color: #d62f4b
 
   &.focus:not(.hasError)
-    border-color: #0DB9E9
-    box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25)
+    border-color: var(--primarycolor)
+    box-shadow: 0 0 0 3px var(--primaryboxshadowcolor)
   &:hover:not(.hasError)
-    border-color: #0DB9E9
+    border-color: var(--primarycolor)
 
 .ui-card-input-field__inputs
   display: flex

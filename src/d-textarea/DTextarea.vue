@@ -2,6 +2,7 @@
   <d-box
     class="ui-text-field__wrapper ui-text-area__wrapper"
     :class="[`size__${size}`]"
+    :style="{ ...theme }"
   >
     <d-box is="label" class="ui-text-area__label">
       <d-text
@@ -40,6 +41,7 @@
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
+import { inject } from "vue";
 
 export default {
   name: "DTextarea",
@@ -72,6 +74,10 @@ export default {
     labelClass: {
       type: [String, Object, Array],
     },
+  },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
   },
 };
 </script>

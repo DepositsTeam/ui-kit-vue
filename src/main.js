@@ -22,7 +22,9 @@ export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
 export { default as DToast } from "./d-toast/DToast.vue";
-export { default as DarkThemeProvider } from "./providers/DarkThemeProvider.vue";
+export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";
+export { default as ToastProvider } from "./providers/ToastProvider.vue";
+export { default as ThemeProvider } from "./providers/ThemeProvider.vue";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";

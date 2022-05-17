@@ -9,7 +9,7 @@ export default {
       control: { type: "select" },
       options: ["small", "medium", "large", "xlarge", "huge", "massive"],
     },
-    type: {
+    is: {
       control: { type: "select" },
       options: ["button", "a", "span", "div"],
     },

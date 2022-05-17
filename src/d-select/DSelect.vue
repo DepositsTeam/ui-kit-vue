@@ -35,6 +35,7 @@
         @change="$emit('update:modelValue', $event.target.value)"
         is="select"
         :disabled="disabled"
+        :style="{ ...theme }"
       >
         <option
           v-for="(option, index) in computedOptions"
@@ -65,6 +66,7 @@ import DText from "../d-text/DText.vue";
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import keyGen from "../utils/keyGen";
+import { inject } from "vue";
 
 export default {
   name: "DSelect",
@@ -134,6 +136,10 @@ export default {
   },
   methods: {
     keyGen,
+  },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
   },
 };
 </script>

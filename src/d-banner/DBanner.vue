@@ -1,7 +1,7 @@
 <template>
   <d-box
     v-if="visible"
-    :class="{ [`color-scheme__${colorScheme}`]: true, alignTop }"
+    :class="{ [`color-scheme__${colorScheme}`]: true, alignTop, full }"
     class="ui-banner"
   >
     <d-box @click="$emit('click')" class="text-content">
@@ -22,7 +22,7 @@
       >
       <d-text
         scale="subhead"
-        class="ui-banner__description text-gray-600"
+        class="ui-banner__description"
         font-face="circularSTD"
         ><span v-html="description"></span
       ></d-text>
@@ -54,9 +54,11 @@ export default {
   name: "DBanner",
   emits: ["removed", "click"],
   data: () => ({
-    schemeIcons,
     visible: true,
   }),
+  setup() {
+    return { schemeIcons };
+  },
   components: {
     DBox,
     DText,
@@ -65,6 +67,10 @@ export default {
   props: {
     title: {
       type: String,
+    },
+    full: {
+      type: Boolean,
+      default: true,
     },
     description: {
       type: String,
@@ -111,6 +117,9 @@ export default {
   &.alignTop {
     align-items: flex-start;
   }
+  &.full {
+    display: flex;
+  }
 
   .text-content {
     display: flex;
@@ -142,6 +151,7 @@ export default {
   .ui-banner__description {
     margin-top: 0;
     margin-bottom: 0;
+    color: #5f6b7a;
   }
 
   &.color-scheme__default {

@@ -1,5 +1,9 @@
 <template>
-  <d-box class="ui-tag-input__wrapper" :class="`size__${size}`">
+  <d-box
+    :style="{ ...theme }"
+    class="ui-tag-input__wrapper"
+    :class="`size__${size}`"
+  >
     <d-box is="label">
       <d-text class="ui-tag-input__label" scale="subhead">
         {{ label }}
@@ -45,6 +49,7 @@ import DText from "../d-text/DText.vue";
 import DTextfield from "../d-textfield/DTextfield.vue";
 import CloseIcon from "../icons/CloseIcon.vue";
 import keyGen from "../utils/keyGen";
+import { inject } from "vue";
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
@@ -140,6 +145,10 @@ export default {
       this.isKeyReleased = false;
     },
   },
+  setup() {
+    const theme = inject("theme", null);
+    return { theme };
+  },
 };
 </script>
 
@@ -165,7 +174,6 @@ export default {
   display: flex;
 
   /* flex: 1; */
-
 }
 
 .ui-tag-input__wrapper {
