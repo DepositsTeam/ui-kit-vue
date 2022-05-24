@@ -67,6 +67,7 @@ import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import keyGen from "../utils/keyGen";
 import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 
 export default {
   name: "DSelect",
@@ -138,7 +139,7 @@ export default {
     keyGen,
   },
   setup() {
-    const theme = inject("theme", null);
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };

@@ -50,6 +50,7 @@ import DTextfield from "../d-textfield/DTextfield.vue";
 import CloseIcon from "../icons/CloseIcon.vue";
 import keyGen from "../utils/keyGen";
 import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
@@ -146,7 +147,7 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", null);
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };

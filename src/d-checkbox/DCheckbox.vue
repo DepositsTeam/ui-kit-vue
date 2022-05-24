@@ -34,6 +34,7 @@
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 export default {
   name: "DCheckbox",
   emit: ["update:modelValue"],
@@ -118,7 +119,7 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", null);
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };

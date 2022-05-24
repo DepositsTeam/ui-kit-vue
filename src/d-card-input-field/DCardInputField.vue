@@ -100,6 +100,7 @@ import ErrorIcon from "../icons/ErrorIcon.vue";
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 
 export default {
   name: "DCreditCardInput",
@@ -345,7 +346,7 @@ export default {
   },
   emits: ["update:cardNo", "update:cardCvv", "update:cardExp"],
   setup() {
-    const theme = inject("theme");
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };

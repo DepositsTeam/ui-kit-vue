@@ -4,21 +4,12 @@
 <script setup>
 import { provide, watch, ref } from "vue";
 import colorManager, { getTextColor, hexToRgbA } from "../utils/colorManager";
+import defaultTheme from "./default-theme";
 
 const theme = ref({});
 
 const themeVars = ref({
-  "--primarycolor": "#0db9e9",
-  "--primaryfontcolor": "#212934",
-  "--primaryhovercolor": "#43d2fa",
-  "--primarytexthovercolor": "#fff",
-  "--primarydisabledcolor": "#f5f8fa",
-  "--primarytextdisabledcolor": "#ced6de",
-  "--primaryboxshadowcolor": "rgba(67, 210, 250, 0.25)",
-  "--outlinecolor": "#0d7fe9",
-  "--outlinedisabledcolor": "#acd7ff",
-  "--outlinetextdisabledcolor": "#acd7ff",
-  "--outlineboxshadowcolor": "rgba(27, 92, 224, 0.2)",
+  ...defaultTheme,
 });
 
 const updateTheme = (newTheme) => {
@@ -53,18 +44,7 @@ watch(theme, (val) => {
   theme.value.primaryBoxShadowColor = hexToRgbA(theme.value.primaryColor, 0.2);
   if (!theme || !theme.value || !theme.value.primaryColor) {
     themeVars.value = {
-      "--primarycolor": "#0db9e9",
-      "--primaryfontcolor": "#212934",
-      "--primaryhovercolor": "#43d2fa",
-      "--primarytexthovercolor": "#fff",
-      "--primarydisabledcolor": "#BDF3FC",
-      "--primarytextdisabledcolor": "#ced6de",
-      "--primaryboxshadowcolor": "rgba(67, 210, 250, 0.25)",
-      "--outlinecolor": "#0d7fe9",
-      "--outlinedisabledcolor": "#acd7ff",
-      "--outlinetextdisabledcolor": "#acd7ff",
-      "--outlineboxshadowcolor": "rgba(27, 92, 224, 0.2)",
-
+      ...defaultTheme,
     };
   } else {
     themeVars.value = {

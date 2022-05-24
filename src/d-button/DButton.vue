@@ -33,6 +33,7 @@
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import DBox from "../d-box/DBox.vue";
 import { inject, computed } from "vue";
+import defaultTheme from "../providers/default-theme";
 export default {
   props: {
     is: {
@@ -89,7 +90,7 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", null);
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };
@@ -161,7 +162,7 @@ export default {
 
     &:hover {
       background: var(--primaryhovercolor);
-      color: var(--primarytexthovercolor)
+      color: var(--primarytexthovercolor);
     }
 
     &:focus {

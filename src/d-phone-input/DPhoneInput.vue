@@ -65,6 +65,7 @@ import DText from "../d-text/DText.vue";
 import DTextfield from "../d-textfield/DTextfield.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 export default {
   name: "DPhoneInput",
   components: {
@@ -185,7 +186,7 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", null);
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };

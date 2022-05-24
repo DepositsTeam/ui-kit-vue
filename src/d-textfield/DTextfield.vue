@@ -65,6 +65,7 @@ import ErrorIcon from "../icons/ErrorIcon.vue";
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 export default {
   name: "DTextfield",
   emits: [
@@ -160,7 +161,7 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", null);
+    const theme = inject("theme", defaultTheme);
     return { theme };
   },
 };
