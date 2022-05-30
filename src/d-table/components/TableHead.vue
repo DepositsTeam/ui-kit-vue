@@ -5,13 +5,11 @@
     </table-head-cell>
     <table-head-cell
       v-for="(column, index) in columns"
-      :currenly-open-index="currentlyOpenIndex"
       :key="`${keyGen()}_cell_${index}`"
       :column="column"
       :first="index === 0 && !checkbox"
       :index="index"
       @recently-opened="recentlyOpened"
-      @recently-closed="recentlyClosed"
     />
   </d-box>
 </template>

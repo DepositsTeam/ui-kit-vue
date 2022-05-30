@@ -10,6 +10,7 @@
         :class="labelClass"
         scale="subhead"
         class="ui-text-area__label"
+        :font-face="labelFontFace"
       >
         {{ label }}
       </d-text>
@@ -22,6 +23,14 @@
       }"
       is="textarea"
       v-bind="$attrs"
+      :font-face="fontFace"
+      @change="handleChangeEvents"
+      @input="handleInputEvents"
+      @keydown="handleKeydownEvent"
+      @keyup="handleKeyupEvent"
+      @keypress="handleKeypressEvent"
+      @focus="handleFocusEvent"
+      @blur="handleBlurEvent"
     ></d-box>
 
     <div v-if="errorMessage" class="ui-text-area__error">
@@ -74,6 +83,36 @@ export default {
     },
     labelClass: {
       type: [String, Object, Array],
+    },
+    fontFace: {
+      type: String,
+    },
+    labelFontFace: {
+      type: String,
+    },
+  },
+  methods: {
+    handleInputEvents(e) {
+      this.$emit("update:modelValue", e.target.value);
+      this.$emit("input", e.target.value);
+    },
+    handleChangeEvents(e) {
+      this.$emit("change", e.target.value);
+    },
+    handleKeydownEvent(e) {
+      this.$emit("keydown", e);
+    },
+    handleKeyupEvent(e) {
+      this.$emit("keyup", e);
+    },
+    handleKeypressEvent(e) {
+      this.$emit("keypress", e);
+    },
+    handleFocusEvent(e) {
+      this.$emit("focus", e);
+    },
+    handleBlurEvent(e) {
+      this.$emit("blur", e);
     },
   },
   setup() {

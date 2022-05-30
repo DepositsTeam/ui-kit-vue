@@ -22,6 +22,7 @@ export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
 export { default as DToast } from "./d-toast/DToast.vue";
+export { default as DWysiwyg } from "./d-wysiwyg/DWysiwyg.vue";
 export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";
 export { default as ToastProvider } from "./providers/ToastProvider.vue";
 export { default as ThemeProvider } from "./providers/ThemeProvider.vue";
@@ -52,6 +53,7 @@ export { default as BarChartIcon } from "./icons/BarChartIcon.vue";
 export { default as BasketIcon } from "./icons/BasketIcon.vue";
 export { default as BendLeftIcon } from "./icons/BendLeftIcon.vue";
 export { default as BendRightIcon } from "./icons/BendRightIcon.vue";
+export { default as BlockQuoteIcon } from "./icons/BlockQuoteIcon.vue";
 export { default as BoltIcon } from "./icons/BoltIcon.vue";
 export { default as BookIcon } from "./icons/BookIcon.vue";
 export { default as BookmarkIcon } from "./icons/BookmarkIcon.vue";
@@ -218,7 +220,10 @@ export { default as SunIcon } from "./icons/SunIcon.vue";
 export { default as SupportIcon } from "./icons/SupportIcon.vue";
 export { default as TableIcon } from "./icons/TableIcon.vue";
 export { default as TagIcon } from "./icons/TagIcon.vue";
+export { default as TextBoldIcon } from "./icons/TextBoldIcon.vue";
 export { default as TextIcon } from "./icons/TextIcon.vue";
+export { default as TextItalicIcon } from "./icons/TextItalicIcon.vue";
+export { default as TextUnderlineIcon } from "./icons/TextUnderlineIcon.vue";
 export { default as TimeIcon } from "./icons/TimeIcon.vue";
 export { default as TransferIcon } from "./icons/TransferIcon.vue";
 export { default as TrophyIcon } from "./icons/TrophyIcon.vue";
@@ -232,3 +237,30 @@ export { default as WalletIcon } from "./icons/WalletIcon.vue";
 export { default as WarningIcon } from "./icons/WarningIcon.vue";
 export { default as WaveIcon } from "./icons/WaveIcon.vue";
 export { default as WithdrawIcon } from "./icons/WithdrawIcon.vue";
+
+// V2 Icons
+// Filled Icons
+export { default as BookFilledIcon } from "./icons/filled/BookFilledIcon.vue";
+export { default as EyeFilledIcon } from "./icons/filled/EyeFilledIcon.vue";
+export { default as HomeFilledIcon } from "./icons/filled/HomeFilledIcon.vue";
+export { default as MonitorFilledIcon } from "./icons/filled/MonitorFilledIcon.vue";
+export { default as NoEyeFilledIcon } from "./icons/filled/NoEyeFilledIcon.vue";
+export { default as SettingFilledIcon } from "./icons/filled/SettingFilledIcon.vue";
+export { default as StackFilledIcon } from "./icons/filled/StackFilledIcon.vue";
+
+// Duo-tone Icons
+export { default as Money2DuotoneIcon } from "./icons/duo-tone/Money2DuotoneIcon.vue";
+export { default as MoneyDuotoneIcon } from "./icons/duo-tone/MoneyDuotoneIcon.vue";
+export { default as StackedCardsDuotoneIcon } from "./icons/duo-tone/StackedCardsDuotoneIcon.vue";
+export { default as StackedMoneyDuotoneIcon } from "./icons/duo-tone/StackedMoneyDuotoneIcon.vue";
+export { default as Tag2DuotoneIcon } from "./icons/duo-tone/Tag2DuotoneIcon.vue";
+export { default as WalletDuotoneIcon } from "./icons/duo-tone/WalletDuotoneIcon.vue";
+
+// Outline Icons
+export { default as DocumentCodeOutlineIcon } from "./icons/outline/DocumentCodeOutlineIcon.vue";
+export { default as LinkOutlineIcon } from "./icons/outline/LinkOutlineIcon.vue";
+export { default as MoneyChangeOutlineIcon } from "./icons/outline/MoneyChangeOutlineIcon.vue";
+export { default as Profile2UserOutlineIcon } from "./icons/outline/Profile2UserOutlineIcon.vue";
+export { default as RedoOutlineIcon } from "./icons/outline/RedoOutlineIcon.vue";
+export { default as StackOutlineIcon } from "./icons/outline/StackOutlineIcon.vue";
+export { default as UndoOutlineIcon } from "./icons/outline/UndoOutlineIcon.vue";

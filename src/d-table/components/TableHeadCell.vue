@@ -79,9 +79,6 @@ export default {
     index: {
       type: Number,
     },
-    currentlyOpenIndex: {
-      type: Number,
-    },
   },
   components: {
     TableFilterOptions,
@@ -110,7 +107,7 @@ export default {
       return returnedStyles;
     },
   },
-  setup(props, { emit }) {
+  setup(props) {
     const checkbox = inject("checkbox");
     const popper = ref(null);
     const reference = ref(null);

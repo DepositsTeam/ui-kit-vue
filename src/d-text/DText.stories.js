@@ -26,6 +26,13 @@ export default {
     equalLineHeight: {
       control: { type: "boolean" },
     },
+    fontFace: {
+      control: {type: "select"},
+      options: [
+        "circularSTD",
+        "heroNew"
+      ]
+    }
   },
 };
 

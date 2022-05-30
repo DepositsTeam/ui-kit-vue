@@ -8,8 +8,8 @@
       stacked: avatars && avatars.length && stacked,
     }"
   >
-    <div v-if="avatars && avatars.length">
-      <div
+    <d-box v-if="avatars && avatars.length">
+      <d-box
         v-for="(avatar, index) in avatars"
         :key="`ui-avatar__${keyGen()}_${index}`"
         class="ui-avatar__wrapper"
@@ -21,9 +21,9 @@
           :drop-down="dropDown"
           :size="size"
         />
-      </div>
-    </div>
-    <div v-else>
+      </d-box>
+    </d-box>
+    <d-box v-else>
       <avatar-content
         :avatar="avatar"
         :index="0"
@@ -31,7 +31,7 @@
         :drop-down="dropDown"
         :size="size"
       />
-    </div>
+    </d-box>
   </d-box>
 </template>
 
@@ -142,7 +142,8 @@ export default {
     color: #fff;
   }
 
-  &.background__gray {
+  &.background__gray,
+  &.background__grey {
     background: #5f6b7a;
     color: #fff;
   }
@@ -174,7 +175,8 @@ export default {
     color: #5c1e27;
   }
 
-  &.background__grey {
+  &.background__grey,
+  &.background__gray {
     background: #e1e7ec;
     color: #212934;
   }
@@ -210,6 +212,10 @@ export default {
   }
 
   &.status__gray > .ui-avatar__avatar-status {
+    background-color: #e1e7ec;
+  }
+
+  &.status__grey > .ui-avatar__avatar-status {
     background-color: #e1e7ec;
   }
 }

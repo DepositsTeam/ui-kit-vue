@@ -2,7 +2,12 @@
   <d-box
     is="label"
     class="ui-card"
-    :class="{ state__selected: selected, [wrapperClass]: wrapperClass }"
+    :class="{
+      state__selected: selected,
+      [wrapperClass]: wrapperClass,
+      hoverColor,
+      border,
+    }"
   >
     <div class="ui-card__heading"></div>
     <d-radio
@@ -49,7 +54,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Title",
+      default: "",
     },
     icon: {
       type: Object,
@@ -65,13 +70,21 @@ export default {
     },
     desc: {
       type: String,
-      default: "I rock",
+      default: "",
     },
     value: {
       type: String,
     },
     wrapperClass: {
       type: [String, Array, Object],
+    },
+    hoverColor: {
+      type: Boolean,
+      default: false,
+    },
+    border: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -128,10 +141,9 @@ export default {
   text-decoration: none;
   transition-property: border-color;
   transition-duration: 0.5s;
-  border: 1px solid #e1e7ec;
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
   background-color: #ffffff;
   display: flex;
   align-items: flex-start;
@@ -139,10 +151,13 @@ export default {
   // --tw-space-x-reverse: 0;
   // margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   // margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
-  cursor: pointer;
+  // cursor: pointer;
 
-  &:hover {
+  &.hoverColor:hover {
     border: 1px solid #0db9e9;
+  }
+  &.border {
+    border: 1px solid #e1e7ec;
   }
 }
 

@@ -6,7 +6,7 @@
         class="ui-text-field__label"
         :class="labelClass"
         scale="subhead"
-        :font-face="fontFace"
+        :font-face="labelFontFace"
       >
         {{ label }}
       </d-text>
@@ -38,6 +38,7 @@
         @focus="handleFocusEvent"
         @blur="handleBlurEvent"
         :style="{ ...theme }"
+        :font-face="fontFace"
       />
       <component
         class="ui-text-field__right-icon"
@@ -63,9 +64,11 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
-import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
+import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
+import number_format from "../utils/number_format";
+
 export default {
   name: "DTextfield",
   emits: [
@@ -130,34 +133,110 @@ export default {
     currency: {
       type: Boolean,
     },
+    emitOnlyCurrencyValue: {
+      type: Boolean,
+    },
+    labelFontFace: {
+      type: String,
+    },
   },
   methods: {
     handleKeyEvents(e) {
       if (this.onlyNumbers) {
         return allowOnlyNumbers(e);
       }
+      if (this.currency) {
+        return currencies(e);
+      }
     },
     handleInputEvents(e) {
-      this.$emit("update:modelValue", e.target.value);
-      this.$emit("input", e.target.value);
+      if (this.currency) {
+        let value = e.target.value,
+          temp,
+          regex = new RegExp(/^[0-9]*(\.[0-9]{0,2})?$/);
+        if (!regex.test(value)) {
+          temp = value.split("");
+          let tested = "";
+          for (var i = 0; i < temp.length; i++) {
+            tested += temp[i];
+            if (regex.test(tested)) {
+              continue;
+            } else {
+              e.target.value = tested.substr(0, i);
+              if (this.emitOnlyCurrencyValue) {
+                this.$emit(
+                  "update:modelValue",
+                  tested.substr(0, i).replaceAll("$", "").replaceAll(",", "")
+                );
+              } else {
+                this.$emit("update:modelValue", tested.substr(0, i));
+              }
+              return;
+            }
+          }
+        } else {
+          if (this.emitOnlyCurrencyValue) {
+            this.$emit(
+              "update:modelValue",
+              e.target.value.replaceAll("$", "").replaceAll(",", "")
+            );
+          } else {
+            this.$emit("update:modelValue", e.target.value);
+          }
+        }
+      } else {
+        if (this.emitOnlyCurrencyValue) {
+          this.$emit(
+            "update:modelValue",
+            e.target.value.replaceAll("$", "").replaceAll(",", "")
+          );
+        } else {
+          this.$emit("update:modelValue", e.target.value);
+        }
+        this.$emit("input", e.target.value);
+      }
     },
     handleChangeEvents(e) {
       this.$emit("change", e.target.value);
     },
     handleKeydownEvent(e) {
       this.$emit("keydown", e);
+      return this.handleKeyEvents(e);
     },
     handleKeyupEvent(e) {
       this.$emit("keyup", e);
+      return this.handleKeyEvents(e);
     },
     handleKeypressEvent(e) {
       this.$emit("keypress", e);
+      return this.handleKeyEvents(e);
     },
     handleFocusEvent(e) {
       this.$emit("focus", e);
+      if (this.currency) {
+        if (this.emitOnlyCurrencyValue) {
+          this.$emit(
+            "update:modelValue",
+            e.target.value.substring(1).replaceAll("$", "").replaceAll(",", "")
+          );
+        } else {
+          this.$emit("update:modelValue", e.target.value.substring(1));
+        }
+      }
     },
     handleBlurEvent(e) {
       this.$emit("blur", e);
+      if (this.currency) {
+        this.$emit(
+          "update:modelValue",
+          `$${number_format(
+            parseFloat(e.target.value.split(",").join("").replaceAll("$", "")),
+            2
+          )}`
+        );
+      } else {
+        this.$emit("update:modelValue", "$0.00");
+      }
     },
   },
   setup() {

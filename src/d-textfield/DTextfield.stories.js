@@ -33,15 +33,22 @@ export default {
     wrapperClass: {
       control: { type: "text" },
     },
+    fontFace: {
+      control: { type: "select" },
+      options: ["circularSTD", "heroNew"],
+    },
   },
 };
 
 const Template = (args) => ({
   components: { DTextfield },
+  data: () => ({
+    value: "",
+  }),
   setup() {
     return { args };
   },
-  template: `<d-textfield v-bind="args" />`,
+  template: `<d-textfield v-bind="args" v-model="value" />`,
 });
 
 export const Default = Template.bind({});
@@ -55,6 +62,13 @@ Disabled.args = {
   placeholder: "Input placeholder",
   label: "Form Label",
   disabled: true,
+};
+
+export const CurrencyMode = Template.bind({});
+CurrencyMode.args = {
+  placeholder: "$0.00",
+  label: "Currency Mode",
+  currency: true,
 };
 
 export const Error = Template.bind({});

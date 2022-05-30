@@ -6,7 +6,11 @@
     class="ui-avatar"
     :class="generateAvatarClassName(avatar, index)"
   >
-    <d-text equalLineHeight :scale="size === 'small' ? 'overline' : 'footnote'">
+    <d-text
+      v-if="!avatar.imgURL"
+      equalLineHeight
+      :scale="size === 'small' ? 'overline' : 'footnote'"
+    >
       {{ getInitials(avatar.name) }}
     </d-text>
     <div v-if="avatar.status && !stacked" class="ui-avatar__avatar-status" />

@@ -40,13 +40,15 @@ const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu ac con
 
 export const Default = Template.bind({})
 Default.args = {
-  children: text
+  children: text,
+  title: "Test title",
 }
 
 export const Icon = Template.bind({})
 Icon.args = {
   children: text,
   icon: true,
+  title: "Test title",
 }
 Icon.storyName = "Icon"
 
@@ -54,6 +56,7 @@ export const Radio = Template.bind({})
 Radio.args = {
   children: text,
   radio: true,
+  title: "Test title",
 }
 Radio.storyName = "Radio"
 
@@ -61,6 +64,7 @@ export const CheckBox = Template.bind({})
 CheckBox.args = {
   children: text,
   checkbox: true,
+  title: "Test title",
 }
 CheckBox.storyName = "Checkbox"
 
@@ -68,7 +72,8 @@ export const RadioIcon = Template.bind({})
 RadioIcon.args = {
   children: text,
   radio: true,
-  icon: true
+  icon: true,
+  title: "Test title",
 }
 RadioIcon.storyName = "Radio & Icon"
 
@@ -76,7 +81,8 @@ export const CheckIcon = Template.bind({})
 CheckIcon.args = {
   children: text,
   checkbox: true,
-  icon: true
+  icon: true,
+  title: "Test title",
 }
 CheckIcon.storyName = "Checkbox & Icon"
 
@@ -90,32 +96,37 @@ NoDesc.storyName = "No Description"
 export const NoDescIcon = Template.bind({})
 NoDescIcon.args = {
   icon: true,
+  title: "Test title",
 }
 NoDescIcon.storyName = "Icon - No description"
 
 export const NoDescRadio = Template.bind({})
 NoDescRadio.args = {
   radio: true,
+  title: "Test title",
 }
 NoDescRadio.storyName = "Radio - No description"
 
 export const NoDescCheckBox = Template.bind({})
 NoDescCheckBox.args = {
   checkbox: true,
+  title: "Test title",
 }
 NoDescCheckBox.storyName = "Checkbox - No description"
 
 export const NoDescRadioIcon = Template.bind({})
 NoDescRadioIcon.args = {
   radio: true,
-  icon: true
+  icon: true,
+  title: "Test title",
 }
 NoDescRadioIcon.storyName = "Radio & Icon - No description"
 
 export const NoDescCheckIcon = Template.bind({})
 NoDescCheckIcon.args = {
   checkbox: true,
-  icon: true
+  icon: true,
+  title: "Test title",
 }
 NoDescCheckIcon.storyName = "Checkbox & Icon - No description"
 

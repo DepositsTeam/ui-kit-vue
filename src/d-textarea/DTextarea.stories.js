@@ -20,6 +20,10 @@ export default {
       control: { type: "select" },
       options: ["small", "medium", "large", "xlarge", "huge", "massive"],
     },
+    fontFace: {
+      control: { type: "select" },
+      options: ["circularSTD", "heroNew"],
+    },
   },
 };
 

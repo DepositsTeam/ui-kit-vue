@@ -70,15 +70,15 @@ export default {
       }
     });
 
-    watch(
-      () => filters.value,
-      (newVal, oldVal) => {
-        if (newVal.first === null && oldVal.first) {
-          filterValue.value = "";
-          selectedOption.value = "";
-        }
-      }
-    );
+    // watch(
+    //   () => filters.value,
+    //   (newVal, oldVal) => {
+    //     if (newVal.first === null && oldVal.first) {
+    //       filterValue.value = "";
+    //       selectedOption.value = "";
+    //     }
+    //   }
+    // );
 
     const updateFilterOption = (value) => {
       selectedOption.value = value;
@@ -107,9 +107,9 @@ export default {
       emit("close-options");
     };
 
-    watch(selectedOption.value, () => {
-      filterValue.value = "";
-    });
+    // watch(selectedOption.value, () => {
+    //   filterValue.value = "";
+    // });
 
     return {
       closeOptions,

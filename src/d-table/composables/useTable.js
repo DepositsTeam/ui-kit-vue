@@ -65,27 +65,28 @@ export function useTable(props, emit) {
 
   const computedData = computed(() => {
     let placeholderData = [...initializedData.value];
-    if (searchFilterObj.value) {
-      placeholderData = searchData(
-        initializedData.value,
-        searchFilterObj.value.search
-      );
-    }
-    if (filters.value.first) {
-      placeholderData = filterData(filters.value, initializedData.value);
-    }
-    if (sortingBy.value) {
-      placeholderData = sortData(sortingBy.value, placeholderData);
-    }
-    if (props.paginate) {
-      return getDataForPage(
-        initializedCurrentPage.value,
-        props.itemsPerPage,
-        placeholderData
-      );
-    } else {
-      return placeholderData;
-    }
+    return placeholderData;
+    // if (searchFilterObj.value) {
+    //   placeholderData = searchData(
+    //     initializedData.value,
+    //     searchFilterObj.value.search
+    //   );
+    // }
+    // if (filters.value.first) {
+    //   placeholderData = filterData(filters.value, initializedData.value);
+    // }
+    // if (sortingBy.value) {
+    //   placeholderData = sortData(sortingBy.value, placeholderData);
+    // }
+    // if (props.paginate) {
+    //   return getDataForPage(
+    //     initializedCurrentPage.value,
+    //     props.itemsPerPage,
+    //     placeholderData
+    //   );
+    // } else {
+    //   return placeholderData;
+    // }
   });
 
   const totalPages = computed(() => {

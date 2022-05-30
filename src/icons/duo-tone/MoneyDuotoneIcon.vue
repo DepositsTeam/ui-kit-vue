@@ -5,19 +5,38 @@
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    v-bind="$attrs"
   >
     <path
-      d="M3.73396 15.2779L8.72224 20.2663C9.19206 20.736 9.82939 21 10.4938 21C11.1581 21 11.7952 20.736 12.265 20.2663L19.5595 12.9717C19.8412 12.6897 19.9996 12.3075 20 11.909V4H12.0914C11.6928 4.00009 11.3105 4.15856 11.0287 4.44048L3.73396 11.7351C3.50124 11.9676 3.3166 12.2438 3.19064 12.5477C3.06469 12.8517 3 13.1774 3 13.5064C3 13.8354 3.06469 14.1613 3.19064 14.4653C3.3166 14.7692 3.50124 15.0454 3.73396 15.2779Z"
+      d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z"
       :stroke="smartColor || stroke"
       :stroke-width="strokeWidth"
+      stroke-miterlimit="10"
       :stroke-linecap="strokeLineCap"
       :stroke-linejoin="strokeLineJoin"
     />
     <path
-      d="M15.1222 10.0612C15.6801 10.0612 16.1324 9.60889 16.1324 9.05097C16.1324 8.49305 15.6801 8.04077 15.1222 8.04077C14.5643 8.04077 14.112 8.49305 14.112 9.05097C14.112 9.60889 14.5643 10.0612 15.1222 10.0612Z"
+      d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
       :stroke="smartColor || stroke"
       :stroke-width="strokeWidth"
+      stroke-miterlimit="10"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+    <path
+      opacity="0.4"
+      d="M5.5 9.5V14.5"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      stroke-miterlimit="10"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+    <path
+      opacity="0.4"
+      d="M18.5 9.5V14.5"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      stroke-miterlimit="10"
       :stroke-linecap="strokeLineCap"
       :stroke-linejoin="strokeLineJoin"
     />
