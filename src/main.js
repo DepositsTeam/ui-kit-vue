@@ -8,6 +8,7 @@ export { default as DCard } from "./d-card/DCard.vue";
 export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
 export { default as DCardInputField } from "./d-card-input-field/DCardInputField.vue";
 export { default as DDatePicker } from "./d-date-picker/DDatePicker.vue";
+export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
 export { default as DModal } from "./d-modal/DModal.vue";
 export { default as DPagination } from "./d-pagination/DPagination.vue";

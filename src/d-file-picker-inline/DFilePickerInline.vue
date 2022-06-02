@@ -2,6 +2,7 @@
   <d-box
     class="ui-text-field__wrapper d-file-picker-inline"
     :class="[`size__${size}`]"
+    :style="{ ...theme }"
   >
     <d-box v-if="!!label" is="label">
       <d-text
@@ -16,20 +17,6 @@
       </d-text>
     </d-box>
     <d-box display="inline-flex" class="pseudo-input" :class="{ disabled }">
-      <d-box class="ui-text-field__input">
-        <d-text
-          my0
-          subhead
-          :font-face="fontFace"
-          :class="{
-            placeholder: selectedFileName === 'No file selected',
-          }"
-          >{{ selectedFileName }}</d-text
-        >
-      </d-box>
-      <d-box class="pseudo-button">
-        <d-text subhead font-face="hero-new" my0>Choose File</d-text>
-      </d-box>
       <d-box
         is="input"
         v-bind="$attrs"
@@ -37,6 +24,20 @@
         @change="updateName"
         type="file"
       />
+      <d-box class="ui-text-field__input">
+        <d-text
+          my0
+          subhead
+          :font-face="fontFace"
+          :class="{
+            placeholder: selectedFileName === placeholder,
+          }"
+          >{{ selectedFileName }}</d-text
+        >
+      </d-box>
+      <d-box class="pseudo-button">
+        <d-text subhead font-face="hero-new" my0>{{ btnText }}</d-text>
+      </d-box>
     </d-box>
   </d-box>
 </template>
@@ -44,12 +45,14 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
+import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 export default {
   name: "DFilePicker",
   components: { DBox, DText },
   emits: ["change"],
   data: () => ({
-    selectedFileName: "No file selected",
+    selectedFileName: "",
   }),
   props: {
     label: {
@@ -80,13 +83,28 @@ export default {
           value
         ),
     },
+    placeholder: {
+      type: String,
+      default: "No file selected...",
+    },
+    btnText: {
+      type: String,
+      default: "Choose File",
+    },
   },
   methods: {
     updateName: function (e) {
       let files = e.target.files || e.dataTransfer.files;
-      this.selectedFileName = !files ? "No file selected" : files[0].name;
+      this.selectedFileName = !files ? this.placeholder : files[0].name;
       this.$emit("change", files[0]);
     },
+  },
+  mounted() {
+    this.selectedFileName = this.placeholder;
+  },
+  setup() {
+    const theme = inject("theme", defaultTheme);
+    return { theme };
   },
 };
 </script>
@@ -95,6 +113,17 @@ export default {
 @import "../scss/textfield";
 .d-file-picker-inline {
   position: relative;
+  cursor: pointer;
+  &:hover {
+    .pseudo-button {
+      border-color: var(--primarycolor);
+      border-left-color: #ced6de;
+    }
+    .ui-text-field__input {
+      border-color: var(--primarycolor);
+      border-right-color: #ced6de;
+    }
+  }
   input {
     opacity: 0;
     position: absolute;
@@ -102,6 +131,12 @@ export default {
     right: 0;
     width: 100%;
     height: 100%;
+    cursor: pointer;
+    // &:active {
+    //   & ~ * {
+    //     box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
+    //   }
+    // }
   }
 }
 .pseudo-input {

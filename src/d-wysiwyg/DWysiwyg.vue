@@ -11,67 +11,73 @@
         {{ label }}
       </d-text>
     </d-box>
-    <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
-      <button
-        @click="editor.chain().focus().toggleBold().run()"
-        :class="{ 'is-active': editor.isActive('bold') }"
-      >
-        <text-bold-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleItalic().run()"
-        :class="{ 'is-active': editor.isActive('italic') }"
-      >
-        <text-italic-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleUnderline().run()"
-        :class="{ 'is-active': editor.isActive('underline') }"
-      >
-        <text-underline-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleBulletList().run()"
-        :class="{ 'is-active': editor.isActive('bulletList') }"
-      >
-        <list-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleBlockquote().run()"
-        :class="{ 'is-active': editor.isActive('blockquote') }"
-      >
-        <block-quote-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleCode().run()"
-        :class="{ 'is-active': editor.isActive('code') }"
-      >
-        <document-code-outline-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleCode().run()"
-        :class="{ 'is-active': editor.isActive('code') }"
-      >
-        <image-icon />
-      </button>
-      <button
-        @click="editor.chain().focus().toggleCode().run()"
-        :class="{ 'is-active': editor.isActive('code') }"
-      >
-        <link-outline-icon />
-      </button>
-      <button @click="editor.chain().focus().undo().run()">
-        <undo-outline-icon />
-      </button>
-      <button @click="editor.chain().focus().redo().run()">
-        <redo-outline-icon />
-      </button>
-    </d-box>
-    <editor-content
+    <d-box
       :class="{ focused }"
-      class="d-wysiwyg-editor"
-      :editor="editor"
-    />
+      :style="{ ...theme }"
+      class="d-wysiwyg-semantic-container"
+    >
+      <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
+        <button
+          @click="editor.chain().focus().toggleBold().run()"
+          :class="{ 'is-active': editor.isActive('bold') }"
+        >
+          <text-bold-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleItalic().run()"
+          :class="{ 'is-active': editor.isActive('italic') }"
+        >
+          <text-italic-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleUnderline().run()"
+          :class="{ 'is-active': editor.isActive('underline') }"
+        >
+          <text-underline-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleBulletList().run()"
+          :class="{ 'is-active': editor.isActive('bulletList') }"
+        >
+          <list-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleBlockquote().run()"
+          :class="{ 'is-active': editor.isActive('blockquote') }"
+        >
+          <block-quote-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleCode().run()"
+          :class="{ 'is-active': editor.isActive('code') }"
+        >
+          <document-code-outline-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleCode().run()"
+          :class="{ 'is-active': editor.isActive('code') }"
+        >
+          <image-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().toggleCode().run()"
+          :class="{ 'is-active': editor.isActive('code') }"
+        >
+          <link-outline-icon />
+        </button>
+        <button @click="editor.chain().focus().undo().run()">
+          <undo-outline-icon />
+        </button>
+        <button @click="editor.chain().focus().redo().run()">
+          <redo-outline-icon />
+        </button>
+      </d-box>
+      <editor-content
+        :class="{ focused }"
+        class="d-wysiwyg-editor"
+        :editor="editor"
+      />
+    </d-box>
   </d-box>
 </template>
 
@@ -94,6 +100,8 @@ import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import ImageIcon from "../icons/ImageIcon.vue";
 import LinkOutlineIcon from "../icons/outline/LinkOutlineIcon.vue";
+import { inject } from "vue";
+import defaultTheme from "../providers/default-theme";
 
 export default {
   name: "DWysiwyg",
@@ -193,6 +201,10 @@ export default {
       this.focused = val;
     },
   },
+  setup() {
+    const theme = inject("theme", defaultTheme);
+    return { theme };
+  },
 };
 </script>
 
@@ -212,7 +224,7 @@ export default {
     height: 0;
   }
   &.focused {
-    border-color: #0db9e9;
+    border-color: var(--primarycolor);
   }
   button {
     background: transparent;
@@ -222,7 +234,7 @@ export default {
     margin: 8px;
     &:hover,
     &.is-active {
-      color: #0db9e9;
+      color: var(--primarycolor);
     }
   }
 }
@@ -232,7 +244,18 @@ export default {
   border-radius: 0 0 4px 4px;
   min-height: 150px;
   &.focused {
-    border-color: #0db9e9;
+    border-color: var(--primarycolor);
+  }
+}
+.d-wysiwyg-semantic-container {
+  border-radius: 4px;
+  &:hover {
+    & > div {
+      border-color: var(--primarycolor);
+    }
+  }
+  &.focused {
+    box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
   }
 }
 </style>
