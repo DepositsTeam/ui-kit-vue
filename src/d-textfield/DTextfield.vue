@@ -185,14 +185,7 @@ export default {
           }
         }
       } else {
-        if (this.emitOnlyCurrencyValue) {
-          this.$emit(
-            "update:modelValue",
-            e.target.value.replaceAll("$", "").replaceAll(",", "")
-          );
-        } else {
-          this.$emit("update:modelValue", e.target.value);
-        }
+        this.$emit("update:modelValue", e.target.value);
         this.$emit("input", e.target.value);
       }
     },
@@ -227,15 +220,19 @@ export default {
     handleBlurEvent(e) {
       this.$emit("blur", e);
       if (this.currency) {
-        this.$emit(
-          "update:modelValue",
-          `$${number_format(
-            parseFloat(e.target.value.split(",").join("").replaceAll("$", "")),
-            2
-          )}`
-        );
-      } else {
-        this.$emit("update:modelValue", "$0.00");
+        if (e.target.value) {
+          this.$emit(
+            "update:modelValue",
+            `$${number_format(
+              parseFloat(
+                e.target.value.split(",").join("").replaceAll("$", "")
+              ),
+              2
+            )}`
+          );
+        } else {
+          this.$emit("update:modelValue", "$0.00");
+        }
       }
     },
   },

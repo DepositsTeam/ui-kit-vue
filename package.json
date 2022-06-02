@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.100",
+  "version": "0.0.103",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -46,10 +46,10 @@
     "@cypress/vite-dev-server": "^2.2.2",
     "@cypress/vue": "^3.1.1",
     "@rushstack/eslint-patch": "^1.1.0",
-    "@storybook/addon-actions": "^6.5.0-alpha.48",
-    "@storybook/addon-essentials": "^6.5.0-alpha.48",
-    "@storybook/addon-links": "^6.5.0-alpha.48",
-    "@storybook/vue3": "^6.5.0-alpha.48",
+    "@storybook/addon-actions": "^6.5.6",
+    "@storybook/addon-essentials": "^6.5.6",
+    "@storybook/addon-links": "^6.5.6",
+    "@storybook/vue3": "^6.5.6",
     "@vitejs/plugin-vue": "^2.2.2",
     "@vue/eslint-config-prettier": "^7.0.0",
     "babel-loader": "^8.2.3",

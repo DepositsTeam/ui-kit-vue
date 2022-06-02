@@ -285,6 +285,7 @@ export default {
   &.size__small {
     padding: 4px 12px;
     font-size: 12px;
+    height: 24px;
     .ui-button__left-icon {
       height: 20px;
       width: 20px;
@@ -293,6 +294,7 @@ export default {
 
   &.size__medium {
     padding: 8px 16px;
+    height: 32px;
     .ui-button__left-icon {
       height: 20px;
       width: 20px;
@@ -301,22 +303,26 @@ export default {
 
   &.size__large {
     padding: 12px 24px;
+    height: 40px;
   }
 
   &.size__xlarge {
     padding: 16px 24px;
+    height: 48px;
   }
 
   &.size__huge {
     padding: 20px 24px;
     font-size: 16px;
     font-weight: 600;
+    height: 56px;
   }
 
   &.size__massive {
     padding: 24px;
     font-size: 16px;
     font-weight: 600;
+    height: 64px;
 
     .ui-svg {
       height: 28px;

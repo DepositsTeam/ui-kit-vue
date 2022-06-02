@@ -18,6 +18,9 @@
       ref="radio"
       class="ui-radio"
       type="radio"
+      :class="{
+        hasLabel: label || $slots.default,
+      }"
     />
     <d-box class="ui-radio__label-wrap" v-if="$slots.default">
       <slot></slot>
@@ -115,7 +118,9 @@ export default {
     }
 
     input {
-      margin-right: 8px;
+      &.hasLabel {
+        margin-right: 8px;
+      }
       position: relative;
       height: 15px;
       width: 15px;

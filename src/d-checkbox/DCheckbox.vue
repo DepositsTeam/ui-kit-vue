@@ -17,6 +17,9 @@
       :value="computedValue"
       @change="handleChange"
       :checked="isChecked"
+      :class="{
+        hasLabel: label || $slots.default,
+      }"
     />
     <d-box v-if="$slots.default">
       <slot></slot>
@@ -140,7 +143,9 @@ export default {
     }
 
     input {
-      margin-right: 8px;
+      &.hasLabel {
+        margin-right: 8px;
+      }
       position: relative;
       height: 16px;
       width: 16px;
