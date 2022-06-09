@@ -52,6 +52,7 @@ import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
+import inputProps from "../utils/inputProps";
 
 export default {
   name: "DTextarea",
@@ -61,33 +62,8 @@ export default {
     DText,
   },
   props: {
-    label: {
-      type: String,
-    },
-    disabled: {
-      type: Boolean,
-    },
-    errorMessage: {
-      type: String,
-    },
+    ...inputProps,
     textAreaClassName: {
-      type: String,
-    },
-    size: {
-      type: String,
-      default: "huge",
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-    },
-    labelClass: {
-      type: [String, Object, Array],
-    },
-    fontFace: {
-      type: String,
-    },
-    labelFontFace: {
       type: String,
     },
   },

@@ -10,6 +10,7 @@
       my0,
     }"
     :is="is"
+    v-bind="{ ...$props, ...$attrs }"
   >
     <slot></slot>
   </d-box>
@@ -36,6 +37,11 @@ export default {
       validator: (value) =>
         ["subtitle-1", "subtitle-2", "subhead"].includes(value),
     },
+    fontFace: {
+      type: String,
+      validator: (value) => ["heroNew", "circularSTD"].includes(value),
+      default: "heroNew",
+    },
     uppercase: {
       type: Boolean,
     },
@@ -58,7 +64,6 @@ export default {
 <style lang="scss">
 .ui-heading {
   font-weight: bold;
-  font-family: "Hero New", sans-serif;
   &.center {
     text-align: center;
   }

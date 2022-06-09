@@ -9,7 +9,12 @@
     :style="{ ...theme }"
   >
     <d-box is="label">
-      <d-text class="ui-text-field__label" scale="subhead">
+      <d-text
+        :class="labelClass"
+        :font-face="labelFontFace"
+        class="ui-text-field__label"
+        scale="subhead"
+      >
         {{ label }}
       </d-text>
     </d-box>
@@ -66,6 +71,7 @@ import DTextfield from "../d-textfield/DTextfield.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
+import inputProps from "../utils/inputProps";
 export default {
   name: "DPhoneInput",
   components: {
@@ -79,29 +85,7 @@ export default {
   }),
   emits: ["update:code", "update:phoneNumber"],
   props: {
-    size: {
-      type: String,
-      validator(value) {
-        return [
-          "small",
-          "medium",
-          "large",
-          "xlarge",
-          "huge",
-          "massive",
-        ].includes(value);
-      },
-      default: "huge",
-    },
-    label: {
-      type: String,
-    },
-    disabled: {
-      type: Boolean,
-    },
-    errorMessage: {
-      type: String,
-    },
+    ...inputProps,
     code: {
       type: String,
     },

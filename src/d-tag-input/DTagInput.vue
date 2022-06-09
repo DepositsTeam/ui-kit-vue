@@ -5,7 +5,12 @@
     :class="`size__${size}`"
   >
     <d-box is="label">
-      <d-text class="ui-tag-input__label" scale="subhead">
+      <d-text
+        :class="labelClass"
+        :font-face="labelFontFace"
+        class="ui-tag-input__label"
+        scale="subhead"
+      >
         {{ label }}
       </d-text>
     </d-box>
@@ -51,6 +56,7 @@ import CloseIcon from "../icons/CloseIcon.vue";
 import keyGen from "../utils/keyGen";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
+import inputProps from "../utils/inputProps";
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
@@ -71,18 +77,7 @@ export default {
     isKeyReleased: "",
   }),
   props: {
-    label: {
-      type: String,
-      default: "Form Label",
-    },
-    size: {
-      type: String,
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-      default: "medium",
-    },
+    ...inputProps,
     values: {
       type: Array,
       default: () => ["Option 1", "Option 2", "Option 3"],

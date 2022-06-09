@@ -1,7 +1,12 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
     <d-box v-if="label" is="label">
-      <d-text class="ui-text-field__label" scale="subhead">
+      <d-text
+        :class="labelClass"
+        :font-face="labelFontFace"
+        class="ui-text-field__label"
+        scale="subhead"
+      >
         {{ label }}
       </d-text>
     </d-box>
@@ -64,6 +69,7 @@ import CalendarIcon from "../icons/CalendarIcon.vue";
 import moment from "moment";
 import DatePicker from "vue-datepicker-next";
 import "vue-datepicker-next/index.css";
+import inputProps from "../utils/inputProps";
 export default {
   name: "DDatePicker",
   emits: ["update:modelValue", "blur"],
@@ -77,22 +83,9 @@ export default {
     DatePicker,
   },
   props: {
-    label: {
-      type: String,
-    },
+    ...inputProps,
     dropDown: {
       type: Boolean,
-    },
-    size: {
-      type: String,
-      default: "huge",
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-    },
-    errorMessage: {
-      type: String,
     },
     rightIcon: {
       type: Object,
@@ -100,19 +93,6 @@ export default {
     leftIcon: {
       type: Object,
     },
-    modelValue: {
-      type: String,
-    },
-    onlyNumbers: {
-      type: Boolean,
-    },
-    wrapperClass: {
-      type: String,
-    },
-    invisible: {
-      type: Boolean,
-    },
-    disabled: Boolean,
     format: {
       type: String,
       default: "MM-DD-YYYY",

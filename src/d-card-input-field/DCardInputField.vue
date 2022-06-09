@@ -4,7 +4,13 @@
     class="ui-text-field__wrapper heroNew"
     :style="{ ...theme }"
   >
-    <d-box is="label" class="ui-text-field__label">
+    <d-box
+      is="label"
+      :class="labelClass"
+      :font-face="labelFontFace"
+      class="ui-text-field__label"
+      scale="subhead"
+    >
       <d-text class="ui-card-input-field__label" scale="subhead">{{
         label
       }}</d-text>
@@ -101,6 +107,7 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
+import inputProps from "../utils/inputProps";
 
 export default {
   name: "DCreditCardInput",
@@ -112,6 +119,7 @@ export default {
     DText,
   },
   props: {
+    ...inputProps,
     cardCvv: {
       type: String,
       default: "",
@@ -123,20 +131,6 @@ export default {
     cardNo: {
       type: String,
       default: "",
-    },
-    errorMessage: {
-      type: String,
-    },
-    label: {
-      default: "Credit or Debit Card",
-    },
-    size: {
-      type: String,
-      default: "huge",
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
     },
   },
   data: () => ({

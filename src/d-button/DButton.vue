@@ -101,7 +101,7 @@ export default {
   font-family: "Hero New", sans-serif;
   font-size: 14px;
   line-height: 16px;
-  font-weight: 400;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   transition-property: background-color;

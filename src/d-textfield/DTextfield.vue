@@ -25,6 +25,7 @@
           'has-right-icon': dropDown || rightIcon,
           invisible,
           disabled,
+          oneCharWide,
         }"
         :disabled="disabled"
         is="input"
@@ -68,6 +69,7 @@ import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
 import number_format from "../utils/number_format";
+import inputProps from "../utils/inputProps";
 
 export default {
   name: "DTextfield",
@@ -88,25 +90,9 @@ export default {
     DText,
   },
   props: {
-    label: {
-      type: String,
-    },
-    fontFace: {
-      type: String,
-    },
+    ...inputProps,
     dropDown: {
       type: Boolean,
-    },
-    size: {
-      type: String,
-      default: "huge",
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-    },
-    errorMessage: {
-      type: String,
     },
     rightIcon: {
       type: Object,
@@ -114,31 +100,13 @@ export default {
     leftIcon: {
       type: Object,
     },
-    modelValue: {
-      type: String,
-    },
-    onlyNumbers: {
-      type: Boolean,
-    },
-    wrapperClass: {
-      type: String,
-    },
-    invisible: {
-      type: Boolean,
-    },
-    labelClass: {
-      type: [String, Object, Array],
-    },
-    disabled: Boolean,
     currency: {
       type: Boolean,
     },
     emitOnlyCurrencyValue: {
       type: Boolean,
     },
-    labelFontFace: {
-      type: String,
-    },
+    oneCharWide: Boolean,
   },
   methods: {
     handleKeyEvents(e) {
@@ -186,8 +154,8 @@ export default {
         }
       } else {
         this.$emit("update:modelValue", e.target.value);
-        this.$emit("input", e.target.value);
       }
+      this.$emit("input", e.target.value);
     },
     handleChangeEvents(e) {
       this.$emit("change", e.target.value);

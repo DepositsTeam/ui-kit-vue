@@ -1,6 +1,6 @@
 <template>
   <d-box
-    is="label"
+    :is="radio || checkbox ? 'label' : 'div'"
     class="ui-card"
     :class="{
       state__selected: selected,

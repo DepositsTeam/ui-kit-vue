@@ -13,6 +13,7 @@ export { default as DHeading } from "./d-heading/DHeading.vue";
 export { default as DModal } from "./d-modal/DModal.vue";
 export { default as DPagination } from "./d-pagination/DPagination.vue";
 export { default as DPhoneInput } from "./d-phone-input/DPhoneInput.vue";
+export { default as DPinInput } from "./d-pin-input/DPinInput.vue";
 export { default as DRadio } from "./d-radio/DRadio.vue";
 export { default as DSelect } from "./d-select/DSelect.vue";
 export { default as DSwitch } from "./d-switch/DSwitch.vue";
@@ -258,6 +259,7 @@ export { default as Tag2DuotoneIcon } from "./icons/duo-tone/Tag2DuotoneIcon.vue
 export { default as WalletDuotoneIcon } from "./icons/duo-tone/WalletDuotoneIcon.vue";
 
 // Outline Icons
+export { default as CheckOutlineIcon } from "./icons/outline/CheckOutlineIcon.vue";
 export { default as DocumentCodeOutlineIcon } from "./icons/outline/DocumentCodeOutlineIcon.vue";
 export { default as LinkOutlineIcon } from "./icons/outline/LinkOutlineIcon.vue";
 export { default as MoneyChangeOutlineIcon } from "./icons/outline/MoneyChangeOutlineIcon.vue";

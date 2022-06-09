@@ -47,6 +47,7 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
+import inputProps from "../utils/inputProps";
 export default {
   name: "DFilePicker",
   components: { DBox, DText },
@@ -55,34 +56,7 @@ export default {
     selectedFileName: "",
   }),
   props: {
-    label: {
-      type: String,
-    },
-    labelClass: {
-      type: [String, Array, Object],
-    },
-    fontFace: {
-      type: String,
-    },
-    labelFontFace: {
-      type: String,
-    },
-    placeholder: {
-      type: String,
-      default: "Type content here",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    size: {
-      type: String,
-      default: "medium",
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-    },
+    ...inputProps,
     placeholder: {
       type: String,
       default: "No file selected...",
@@ -141,6 +115,7 @@ export default {
 }
 .pseudo-input {
   display: flex;
+  position: relative;
   .ui-text-field__input {
     flex: 3;
   }

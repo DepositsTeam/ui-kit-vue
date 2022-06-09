@@ -1,177 +1,100 @@
 <template>
-  <d-box
-    @click="togglePopover"
-    class="ui-table__head__cell"
-    :class="{ first }"
-    v-bind="widthStyles"
-    v-if="$slots.default"
-    ref="reference"
-  >
-    <slot></slot>
-    <table-head-cell-actions ref="actions" />
-  </d-box>
-  <d-box
-    v-else
-    class="ui-table__head__cell"
-    v-bind="widthStyles"
-    :class="{ [`text-align-${column.position}`]: column.position, showActions }"
-    ref="reference"
-  >
-    <span class="ui-table__head__cell__content" @click="togglePopover">
+  <d-box>
+    <d-box
+      :class="{ selected: isSelected }"
+      class="ui-table__heading-cell__content"
+      @click="toggleSelection"
+      ref="trigger"
+    >
       <d-text
-        scale="subhead"
-        font-face="circularSTD"
-        :class="{
-          uppercase: column.uppercase,
-          [`text-cyan-500`]: showActions,
-          [`text-gray-900`]: !showActions,
-        }"
-        v-if="typeof column.display === 'string'"
-        margin-y="0px"
+        class="font-weight-600 ui-table__heading-cell-text"
+        font-face="heroNew"
+        my0
+        >{{
+          column.uppercase ? column.display.toUpperCase() : column.display
+        }}</d-text
       >
-        {{ column.display }}
-      </d-text>
-      <component
-        :is="column.display.is"
-        v-else-if="column.display"
-        v-bind="column.display"
-      ></component>
-      <ChevronFilledDownIcon
-        v-if="column.sortable"
-        class="ui-table__head__cell__icon"
-        :smart-color="smartColor"
-      />
-    </span>
-    <table-head-cell-actions
-      @toggle-popover="togglePopover"
-      :show="showActions"
-      ref="popper"
-    />
+      <d-box class="ui-table__heading-cell__icon">
+        <chevron-filled-down-icon height="20px" width="20px" />
+      </d-box>
+    </d-box>
+    <table-head-cell-dropdown v-if="isSelected" ref="target" />
   </d-box>
 </template>
 
-<script>
-import DText from "../../d-text/DText.vue";
-import DBox from "../../d-box/DBox.vue";
-import ChevronFilledDownIcon from "../../icons/ChevronFilledDownIcon.vue";
-import { inject, provide, ref, computed } from "vue";
-import TableHeadCellActions from "./TableHeadCellActions.vue";
-import TableFilterOptions from "./TableFilterOptions.vue";
+<script setup>
+import { DBox, DText } from "../../main";
+import { ChevronFilledDownIcon } from "../../main";
+import { ref, nextTick } from "vue";
+import TableHeadCellDropdown from "./TableHeadCellDropdown.vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 
-export default {
-  name: "TableHeadCell",
-  emits: ["recently-opened", "recently-closed"],
-  props: {
-    column: {
-      type: Object,
-      default: () => ({
-        minWidth: "120px",
-        position: "left",
-      }),
-    },
-    first: {
-      type: Boolean,
-    },
-    isCheckbox: {
-      type: Boolean,
-    },
-    index: {
-      type: Number,
-    },
-  },
-  components: {
-    TableFilterOptions,
-    TableHeadCellActions,
-    DText,
-    ChevronFilledDownIcon,
-    DBox,
-  },
-  computed: {
-    widthStyles: function () {
-      let returnedStyles = { minWidth: "120px" };
-      if (!this.isCheckbox) {
-        if (this.column.width) {
-          returnedStyles.width = this.column.width;
-        }
-        if (this.column.maxWidth) {
-          returnedStyles.maxWidth = this.column.maxWidth;
-        }
-        if (this.column.minWidth) {
-          returnedStyles.minWidth = this.column.minWidth;
-        }
-      } else {
-        returnedStyles = { width: "50px", minWidth: "50px", maxWidth: "50px" };
-      }
+const trigger = ref(null);
+const target = ref(null);
 
-      return returnedStyles;
-    },
-  },
-  setup(props) {
-    const checkbox = inject("checkbox");
-    const popper = ref(null);
-    const reference = ref(null);
-    const showActions = ref(false);
+const isSelected = ref(false);
 
-    const togglePopover = () => {
-      if (!props.isCheckbox && props.column.sortable) {
-        showActions.value = !showActions.value;
-
-        computePosition(reference.value.$el, popper.value.$el, {
-          placement: "bottom",
-          middleware: [offset(6), flip(), shift({ padding: 5 })],
-        }).then(({ x, y }) => {
-          Object.assign(popper.value.$el.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-          });
+const toggleSelection = async (e) => {
+  let shouldProceed = false;
+  [
+    "ui-table__heading-cell__content",
+    "ui-table__heading-cell-text",
+    "ui-table__heading-cell__icon",
+  ].map((target) => {
+    if (e.target.classList.contains(target)) {
+      shouldProceed = true;
+    }
+  });
+  if (shouldProceed) {
+    isSelected.value = !isSelected.value;
+    await nextTick();
+    if (isSelected.value) {
+      computePosition(trigger.value.$el, target.value.$el, {
+        placement: "bottom-start",
+        middleware: [offset(6), flip(), shift()],
+      }).then(({ x, y }) => {
+        Object.assign(target.value.$el.style, {
+          left: `${x}px`,
+          top: `${y}px`,
         });
-      }
-    };
-
-    const smartColor = computed(() => {
-      return showActions.value ? "#0DB9E9" : "#8895A7";
-    });
-
-    provide("togglePopOver", togglePopover);
-    provide("column", props.column);
-
-    return {
-      checkbox,
-      popper,
-      reference,
-      showActions,
-      togglePopover,
-      smartColor,
-    };
-  },
-};
-</script>
-
-<style lang="scss">
-.ui-table__head__cell__content {
-  display: flex;
-  align-items: center;
-  padding: 3px 8px;
-  border-radius: 4px;
-}
-.ui-table__head__cell {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  flex: 1;
-  padding: 0 16px;
-  position: relative;
-  &.first {
-    padding-left: 0;
-  }
-  &.showActions {
-    .ui-table__head__cell__content {
-      box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
+      });
     }
   }
+};
+
+defineProps({
+  column: {
+    type: Object,
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.ui-table__heading-cell,
+.ui-table__body-cell {
+  min-width: var(--column_min_width);
+  flex: 1;
+  padding: 12px 16px;
+  &.is-checkbox {
+    width: var(--column_width);
+    max-width: var(--column_max_width);
+  }
+  &.width {
+    width: var(--column_width);
+  }
+  &.maxWidth {
+    max-width: var(--column_max_width);
+  }
+  .ui-table__heading-cell-text {
+    color: #3f3e4d;
+    font-size: 12px;
+  }
 }
-.ui-table__head__cell__icon {
-  height: 20px;
+.ui-table__heading-cell__content {
+  display: flex;
+  align-items: center;
+  .ui-table__heading-cell__icon {
+    color: #8895a7;
+  }
 }
 </style>

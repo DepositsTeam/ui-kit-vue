@@ -16,6 +16,9 @@
   color: #212934;
   width: 100%;
   -webkit-appearance: none;
+  &.oneCharWide {
+    text-align: center;
+  }
   &.heroNew {
     font-family: "Hero New", sans-serif;
   }
@@ -35,12 +38,14 @@
   &:hover:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
     border-color: var(--primarycolor);
   }
-  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible), &.focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
+  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible),
+  &.focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
     border-color: var(--primarycolor);
     box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
     outline: none;
   }
-  &:focus, &.focus {
+  &:focus,
+  &.focus {
     outline: none;
   }
   &:disabled {
@@ -94,6 +99,9 @@
     line-height: 32px;
     padding: 16px;
     height: 64px;
+    &.oneCharWide {
+      width: 64px;
+    }
 
     &.has-left-icon {
       padding-left: 42px;
@@ -107,6 +115,9 @@
     line-height: 16px;
     padding: 20px 16px;
     height: 56px;
+    &.oneCharWide {
+      width: 56px;
+    }
 
     &.has-left-icon {
       padding-left: 42px;
@@ -121,6 +132,9 @@
       line-height: 16px;
       padding: 16px 12px;
       height: 48px;
+      &.oneCharWide {
+        width: 48px;
+      }
 
       &.has-left-icon {
         padding-left: 38px;
@@ -142,6 +156,9 @@
       line-height: 16px;
       padding: 8px 12px;
       height: 40px;
+      &.oneCharWide {
+        width: 40px;
+      }
 
       &.has-left-icon {
         padding-left: 38px;
@@ -163,6 +180,9 @@
       line-height: 16px;
       padding: 8px 12px;
       height: 32px;
+      &.oneCharWide {
+        width: 32px;
+      }
 
       &.has-left-icon {
         padding-left: 38px;
@@ -184,6 +204,9 @@
       line-height: 12px;
       padding: 6px 12px;
       height: 24px;
+      &.oneCharWide {
+        width: 24px;
+      }
 
       &.has-left-icon {
         padding-left: 24px;
