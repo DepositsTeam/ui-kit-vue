@@ -81,16 +81,18 @@
               <d-text
                 font-face="circularSTD"
                 my0
+                v-if="typeof datum[column.dataSelector] !== 'object'"
                 class="ui-table__body-cell-text"
               >
                 {{ datum[column.dataSelector] }}
               </d-text>
+              <component v-else :is="datum[column.dataSelector]"></component>
             </d-box>
           </d-box>
         </d-box>
       </d-box>
     </d-box>
-    <d-box class="ui-table__pagination" v-if="paginate">
+    <d-box class="ui-table__pagination" margin-top="1rem" v-if="paginate">
       <d-pagination
         :total-pages="Math.ceil(data.length / itemsPerPage)"
         :current-page="currentPage"
@@ -264,6 +266,7 @@ const getColumnWidth = (column, isCheckbox = false) => {
     }
   }
   .ui-table__body-cell {
+    background: #fff;
     .ui-table__body-cell-text {
       color: #3f3e4d;
       font-size: 16px;

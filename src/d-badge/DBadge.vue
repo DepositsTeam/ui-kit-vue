@@ -8,7 +8,7 @@
     class="ui-badge"
   >
     <d-text
-      equalLineHeight
+      :equalLineHeight="size === 'large' ? true : false"
       class="ui-badge__text"
       :scale="size === 'large' ? 'footnote' : 'overline'"
     >

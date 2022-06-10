@@ -1,3 +1,5 @@
+import { DText, SettingFilledIcon, DBox } from "../../main";
+
 export const columns = [
   {
     display: "Name",
@@ -192,5 +194,44 @@ export const data = [
     country: "US",
     qty: "2",
     state: "Louisiana",
+  },
+];
+
+const returnLink = (url) => ({
+  components: {
+    DText,
+    SettingFilledIcon,
+    DBox,
+  },
+  setup() {
+    return { url };
+  },
+  template: `<d-box class="text-cyan-500" display="inline-flex" align-items="center"><setting-filled-icon height="18px" width="18px" /><d-text margin-left="4px" my0 font-face="circularSTD" class="text-cyan-500" :href="url"> Manage</d-text></d-box>`,
+});
+
+export const customComponentData = [
+  {
+    name: "Cree Cicchino",
+    city: "Long Beach",
+    company: "Smart Highschool Student",
+    country: "US",
+    qty: "2",
+    state: "California",
+  },
+  {
+    name: "Madisyn Shipman",
+    city: "Brooklyn",
+    company: "Smart Highschool Student & Programmer",
+    country: "US",
+    qty: "3",
+    state: "New York",
+  },
+  {
+    name: "Benjamin Flores Jr.",
+    city: "New Orleans",
+    company: "Cool Ghost",
+    country: "US",
+    qty: "2",
+    state: returnLink("/test-url"),
   },
 ];

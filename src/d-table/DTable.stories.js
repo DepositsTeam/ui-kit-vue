@@ -1,5 +1,5 @@
 import DTable from "./DTable.vue";
-import { columns, data } from "./data/sitcom-data";
+import { columns, data, customComponentData } from "./data/sitcom-data";
 
 export default {
   title: "Table",
@@ -101,5 +101,15 @@ Pagination.args = {
   enableCustomizeView: true,
   columns,
   data,
+  paginate: true,
+};
+
+export const CustomComponent = Template.bind({});
+CustomComponent.args = {
+  search: true,
+  enableCsvExport: true,
+  enableCustomizeView: true,
+  columns,
+  data: customComponentData,
   paginate: true,
 };

@@ -6,9 +6,13 @@
         @click="handleCloseClicks"
         :class="{ greyContent, roundedBorders, greyHeader, roundedBorders }"
       >
-        <d-box class="ui-modal__content">
+        <d-box
+          class="ui-modal__content"
+          :style="{ '--modalwidth': modalWidth }"
+          :class="{ maxWidth: modalWidth }"
+        >
           <d-box class="ui-modal__heading" :class="{ headerClasses }">
-            <d-box v-if="!roundedBorders">
+            <d-box>
               <slot name="heading" v-if="$slots.heading"></slot>
               <d-heading my0 is="h5" v-else> {{ heading }} </d-heading>
             </d-box>
@@ -20,12 +24,12 @@
             />
           </d-box>
           <d-box class="ui-modal__body" :class="{ bodyClasses }">
-            <d-text
+            <!-- <d-text
               scale="body"
               class="text-center text-black font-weight-600"
               v-if="roundedBorders && heading"
               >{{ heading }}</d-text
-            >
+            > -->
             <d-text
               scale="subhead"
               v-if="contentText"
@@ -34,7 +38,7 @@
               {{ contentText }}
             </d-text>
             <slot v-else></slot>
-            <d-box margin-top="2em" class="modal__actions">
+            <d-box v-if="showActions" margin-top="2em" class="modal__actions">
               <d-button
                 color-scheme="primary"
                 responsive
@@ -112,9 +116,6 @@ export default {
     bodyClasses: {
       type: [String, Object, Array],
     },
-    roundedBorders: {
-      type: Boolean,
-    },
     greyHeader: {
       type: Boolean,
     },
@@ -177,6 +178,9 @@ export default {
     background: white;
     min-width: 315px;
     max-width: calc(100vw - 60px);
+    &.maxWidth {
+      max-width: var(--modalwidth);
+    }
   }
 
   .ui-modal__heading {
