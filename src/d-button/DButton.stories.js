@@ -56,6 +56,14 @@ export const Primary = Template.bind({});
 Primary.args = { children: "Primary Button", colorScheme: "primary" };
 Primary.storyName = "Primary";
 
+export const PrimaryLoading = Template.bind({});
+PrimaryLoading.args = {
+  children: "Primary Loading Button",
+  colorScheme: "primary",
+  loading: true,
+};
+PrimaryLoading.storyName = "Loading";
+
 export const Danger = Template.bind({});
 Danger.args = { children: "Danger Button", colorScheme: "danger" };
 

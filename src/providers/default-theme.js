@@ -4,10 +4,12 @@ export default {
   "--primaryhovercolor": "#43d2fa",
   "--primarytexthovercolor": "#fff",
   "--primarydisabledcolor": "#f5f8fa",
+  "--primarydisabledbtncolor": "#bdf3fc",
   "--primarytextdisabledcolor": "#ced6de",
   "--primaryboxshadowcolor": "rgba(67, 210, 250, 0.25)",
   "--outlinecolor": "#0d7fe9",
   "--outlinedisabledcolor": "#acd7ff",
   "--outlinetextdisabledcolor": "#acd7ff",
   "--outlineboxshadowcolor": "rgba(27, 92, 224, 0.2)",
+  "--inputbackgroundcolor": "#ffffff",
 };

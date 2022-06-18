@@ -53,12 +53,14 @@ watch(theme, (val) => {
       "--primaryhovercolor": theme.value.primaryHoverColor,
       "--primarytexthovercolor": theme.value.primaryTextHoverColor,
       "--primarydisabledcolor": theme.value.primaryDisabledColor,
+      "--primarydisabledbtncolor": theme.value.primaryDisabledBtnColor,
       "--primarytextdisabledcolor": theme.value.primaryTextDisabledColor,
       "--primaryboxshadowcolor": theme.value.primaryBoxShadowColor,
       "--outlinecolor": theme.value.primaryColor,
       "--outlinedisabledcolor": theme.value.primaryDisabledColor,
       "--outlinetextdisabledcolor": theme.value.primaryTextDisabledColor,
       "--outlineboxshadowcolor": theme.value.primaryBoxShadowColor,
+      "--inputbackgroundcolor": theme.value.inputBackgroundColor,
     };
   }
 });

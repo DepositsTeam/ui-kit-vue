@@ -2,12 +2,13 @@
   <d-box
     class="ui-heading"
     :class="{
-      [scale]: scale,
+      [scale]: scale && !level,
       [is]: is,
       uppercase,
       'equal-line-height': equalLineHeight,
       center,
       my0,
+      [`h${level}`]: level,
     }"
     :is="is"
     v-bind="{ ...$props, ...$attrs }"
@@ -53,6 +54,9 @@ export default {
     },
     center: {
       type: Boolean,
+    },
+    level: {
+      type: [String, Number],
     },
   },
   components: {

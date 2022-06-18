@@ -14,11 +14,14 @@
           column.uppercase ? column.display.toUpperCase() : column.display
         }}</d-text
       >
-      <d-box class="ui-table__heading-cell__icon">
+      <d-box v-if="column.sortable" class="ui-table__heading-cell__icon">
         <chevron-filled-down-icon height="20px" width="20px" />
       </d-box>
     </d-box>
-    <table-head-cell-dropdown v-if="isSelected" ref="target" />
+    <table-head-cell-dropdown
+      v-if="isSelected && column.sortable"
+      ref="target"
+    />
   </d-box>
 </template>
 
@@ -29,44 +32,46 @@ import { ref, nextTick } from "vue";
 import TableHeadCellDropdown from "./TableHeadCellDropdown.vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 
+const props = defineProps({
+  column: {
+    type: Object,
+  },
+});
+
 const trigger = ref(null);
 const target = ref(null);
 
 const isSelected = ref(false);
 
 const toggleSelection = async (e) => {
-  let shouldProceed = false;
-  [
-    "ui-table__heading-cell__content",
-    "ui-table__heading-cell-text",
-    "ui-table__heading-cell__icon",
-  ].map((target) => {
-    if (e.target.classList.contains(target)) {
-      shouldProceed = true;
-    }
-  });
-  if (shouldProceed) {
-    isSelected.value = !isSelected.value;
-    await nextTick();
-    if (isSelected.value) {
-      computePosition(trigger.value.$el, target.value.$el, {
-        placement: "bottom-start",
-        middleware: [offset(6), flip(), shift()],
-      }).then(({ x, y }) => {
-        Object.assign(target.value.$el.style, {
-          left: `${x}px`,
-          top: `${y}px`,
+  if (props.column.sortable) {
+    let shouldProceed = false;
+    [
+      "ui-table__heading-cell__content",
+      "ui-table__heading-cell-text",
+      "ui-table__heading-cell__icon",
+    ].map((target) => {
+      if (e.target.classList.contains(target)) {
+        shouldProceed = true;
+      }
+    });
+    if (shouldProceed) {
+      isSelected.value = !isSelected.value;
+      await nextTick();
+      if (isSelected.value) {
+        computePosition(trigger.value.$el, target.value.$el, {
+          placement: "bottom-start",
+          middleware: [offset(6), flip(), shift()],
+        }).then(({ x, y }) => {
+          Object.assign(target.value.$el.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+          });
         });
-      });
+      }
     }
   }
 };
-
-defineProps({
-  column: {
-    type: Object,
-  },
-});
 </script>
 
 <style lang="scss" scoped>

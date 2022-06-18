@@ -3,13 +3,14 @@
     class="ui-button"
     :class="{
       [`semantic__${colorScheme}`]: colorScheme,
-      [`state__disabled`]: disabled,
+      [`state__disabled`]: loading || disabled,
       [`size__${size}`]: size,
       responsive,
     }"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
     :style="{ ...theme }"
+    :disabled="loading || disabled"
   >
     <component
       smart-color="currentcolor"
@@ -17,9 +18,15 @@
       v-if="leftIcon"
       :is="leftIcon"
     ></component>
-    <span class="ui-button__button-text">
-      <span v-if="text">{{ text }}</span>
-      <slot v-else></slot>
+    <span class="ui-button__button-text" :class="{ 'loader-text': loading }">
+      <span v-if="loading" class>
+        <span v-if="loadingText">{{ loadingText }}</span>
+        <slot name="loadingText"></slot>
+      </span>
+      <span v-else>
+        <span v-if="text">{{ text }}</span>
+        <slot v-else></slot>
+      </span>
     </span>
     <ChevronFilledDownIcon
       v-if="dropDown"
@@ -81,6 +88,13 @@ export default {
     text: {
       type: String,
     },
+    loading: {
+      type: Boolean,
+    },
+    loadingText: {
+      type: String,
+      default: "Loading",
+    },
   },
   components: { ChevronFilledDownIcon, DBox },
   emits: ["click"],
@@ -124,6 +138,31 @@ export default {
 
   .ui-button__button-text {
     white-space: normal;
+
+    &.loader-text {
+      &::after {
+        display: inline-block;
+        content: "";
+        animation: dots steps(1, end) 1.5s infinite;
+      }
+    }
+    @keyframes dots {
+      0% {
+        content: "";
+      }
+      25% {
+        content: ".";
+      }
+      50% {
+        content: "..";
+      }
+      75% {
+        content: "...";
+      }
+      100% {
+        content: "";
+      }
+    }
   }
 
   .ui-svg {
@@ -171,7 +210,7 @@ export default {
 
     &:disabled,
     &.state__disabled {
-      background: var(--primarydisabledcolor);
+      background: var(--primarydisabledbtncolor);
       color: var(--primarytextdisabledcolor);
       cursor: not-allowed;
       border-color: transparent;

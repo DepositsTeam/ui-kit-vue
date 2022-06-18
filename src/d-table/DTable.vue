@@ -20,6 +20,35 @@
         >
       </d-box>
     </d-box>
+    <d-box ref="trigger" class="ui-table__active-filters">
+      <d-box
+        :class="{ active: showActiveFiltersDropdown }"
+        class="ui-table__active-filter-group"
+        @click="toggleActiveFilters"
+      >
+        <funnel-icon />
+        <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16"
+          >Name <d-box color="#8895A7" is="span">is</d-box> Floyd Miles</d-text
+        >
+        <close-icon />
+      </d-box>
+      <d-box
+        :class="{ active: showActiveFiltersDropdown }"
+        class="ui-table__active-filter-group"
+        @click="toggleActiveFilters"
+      >
+        <sort2-icon />
+        <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16"
+          >Name <d-box color="#8895A7" is="span">is</d-box> Ascending</d-text
+        >
+        <close-icon />
+      </d-box>
+
+      <table-active-filters-dropdown
+        ref="target"
+        v-if="showActiveFiltersDropdown"
+      />
+    </d-box>
     <d-box class="ui-table__wrapper">
       <d-box is="table" class="ui-table">
         <d-box is="thead" class="ui-table__heading">
@@ -111,8 +140,17 @@ import {
   DText,
   DPagination,
 } from "../main";
-import { SearchIcon, ExternalLinkIcon } from "../main";
+import {
+  SearchIcon,
+  ExternalLinkIcon,
+  CloseIcon,
+  FunnelIcon,
+  Sort2Icon,
+} from "../main";
 import TableHeadCell from "./components/TableHeadCell.vue";
+import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
+import { ref, nextTick } from "vue";
+import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 const props = defineProps({
   showCheckboxes: {
     type: Boolean,
@@ -203,6 +241,26 @@ const getColumnWidth = (column, isCheckbox = false) => {
     };
   }
   return returnedStyles;
+};
+
+const showActiveFiltersDropdown = ref(false);
+const target = ref(null);
+const trigger = ref(null);
+
+const toggleActiveFilters = async () => {
+  showActiveFiltersDropdown.value = !showActiveFiltersDropdown.value;
+  await nextTick();
+  if (showActiveFiltersDropdown.value) {
+    computePosition(trigger.value.$el, target.value.$el, {
+      placement: "bottom-start",
+      middleware: [offset(6), flip(), shift()],
+    }).then(({ x, y }) => {
+      Object.assign(target.value.$el.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    });
+  }
 };
 </script>
 
@@ -306,6 +364,26 @@ const getColumnWidth = (column, isCheckbox = false) => {
     }
     .ui-table__heading-cell__icon {
       color: #8895a7;
+    }
+  }
+  .ui-table__active-filter-group {
+    display: inline-flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    background: #f5f8fa;
+    border-radius: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    &.active {
+      border: 1px solid #0db9e9;
+      box-shadow: 0px 0px 0px 3px rgba(67, 210, 250, 0.25);
+    }
+  }
+  .ui-table__active-filters {
+    & > * {
+      &:not(:first-child) {
+        margin-left: 16px;
+      }
     }
   }
 }

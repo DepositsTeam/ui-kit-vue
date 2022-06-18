@@ -232,6 +232,6 @@ export const customComponentData = [
     company: "Cool Ghost",
     country: "US",
     qty: "2",
-    state: returnLink("/test-url"),
+    state: returnLink("/url"),
   },
 ];
