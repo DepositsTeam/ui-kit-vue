@@ -29,6 +29,9 @@ export default {
     lightClass: {
       type: [String, Object, Array],
     },
+    id: {
+      type: String,
+    },
   },
   emits: [
     "change",
@@ -170,6 +173,7 @@ export default {
               darkMode !== null && darkMode.value !== null && !darkMode.value,
             dark_mode: darkMode !== null && darkMode.value,
           },
+          id: props.id ? props.id : uniqueRandomString(),
           value: props.modelValue ? props.modelValue : props.value,
         },
         [...(slots.default ? [slots.default()] : [])]

@@ -31,6 +31,11 @@ OnlyNumbers.args = {
   onlyNumbers: true,
 };
 
+export const HasError = Template.bind({});
+HasError.args = {
+  errorMessage: "I'll always show an error",
+};
+
 const Default = (args) => ({
   components: { DPinInput },
   data: () => ({

@@ -14,6 +14,9 @@ export default {
   errorMessage: {
     type: String,
   },
+  showError: {
+    type: Boolean,
+  },
   modelValue: {
     type: String,
   },

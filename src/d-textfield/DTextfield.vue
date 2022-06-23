@@ -20,7 +20,7 @@
       <d-box
         class="ui-text-field__input"
         :class="{
-          'has-error': errorMessage,
+          'has-error': showError || errorMessage,
           'has-left-icon': leftIcon,
           'has-right-icon': dropDown || rightIcon,
           invisible,

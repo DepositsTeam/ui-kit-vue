@@ -37,13 +37,24 @@
         @keydown="(e) => handleKeyDown(e, index)"
         maxlength="1"
         minlength="1"
+        :show-error="!!errorMessage"
       />
+    </d-box>
+    <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
+      <ErrorIcon class="ui-text-field__error-icon" />
+      <d-text
+        class="ui-text-field__error-text"
+        scale="subhead"
+        fontFace="circularSTD"
+      >
+        {{ errorMessage }}
+      </d-text>
     </d-box>
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DTextfield, DText } from "../main";
+import { DBox, DTextfield, DText, ErrorIcon } from "../main";
 import inputProps from "../utils/inputProps";
 import { inject, ref, onMounted, nextTick } from "vue";
 import defaultTheme from "../providers/default-theme";
