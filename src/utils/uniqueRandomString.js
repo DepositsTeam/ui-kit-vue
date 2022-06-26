@@ -1,4 +1,4 @@
-export default (length, type = 0) => {
+export default (length = 20, type = 0) => {
   let permittedCharacters;
   const time = `${new Date().getTime()}`;
   switch (type) {

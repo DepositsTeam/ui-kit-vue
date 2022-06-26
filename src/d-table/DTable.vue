@@ -107,15 +107,19 @@
                 ...getColumnWidth(column),
               }"
             >
+              <slot
+                v-if="$slots[`item.${column.dataSelector}`]"
+                :name="`item.${column.dataSelector}`"
+                v-bind="datum"
+              ></slot>
               <d-text
                 font-face="circularSTD"
+                v-else
                 my0
-                v-if="typeof datum[column.dataSelector] !== 'object'"
                 class="ui-table__body-cell-text"
               >
                 {{ datum[column.dataSelector] }}
               </d-text>
-              <component v-else :is="datum[column.dataSelector]"></component>
             </d-box>
           </d-box>
         </d-box>

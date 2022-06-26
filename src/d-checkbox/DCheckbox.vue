@@ -6,6 +6,7 @@
       alignToTop,
       dashed,
       [wrapperClass]: wrapperClass,
+      disabled,
     }"
     :style="{ ...theme }"
   >
@@ -20,6 +21,7 @@
       :class="{
         hasLabel: label || $slots.default,
       }"
+      :disabled="disabled"
     />
     <d-box v-if="$slots.default">
       <slot></slot>
@@ -36,7 +38,7 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
-import { inject } from "vue";
+import { inject, unref } from "vue";
 import defaultTheme from "../providers/default-theme";
 export default {
   name: "DCheckbox",
@@ -81,6 +83,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    values: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     computedValue: function () {
@@ -95,29 +101,66 @@ export default {
     },
     isChecked: function () {
       if (this.modelValue instanceof Array) {
-        return this.modelValue.includes(this.value);
+        if (this.values.length) {
+          return this.values.every((element) => {
+            return this.modelValue.includes(element);
+          });
+        }
+        return this.modelValue.includes(this.computedValue);
       }
       return this.modelValue === this.computedTrueValue;
     },
   },
+  mounted() {
+    // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
+    // console.log(getClassOf(unref(this.modelValue)));
+    // console.log("Type is", typeof unref(this.modelValue));
+    // console.log("object is", unref(this.modelValue) instanceof Array);
+    // console.log(typeof unref(this.modelValue));
+  },
   methods: {
     handleChange(e) {
+      if (this.disabled) {
+        return;
+      }
       let currentlyChecked = e.target.checked;
-      if (this.modelValue instanceof Array) {
-        let newValue = [...this.modelValue];
-
+      // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
+      // console.log(getClassOf(this.modelValue));
+      // console.log("Type is", typeof this.modelValue);
+      // console.log("object is", this.modelValue);
+      let newValue = [...this.modelValue];
+      if (this.values.length) {
+        // TODO to look for the most efficient way to do this!!!!!! Saving space and time
         if (currentlyChecked) {
-          newValue.push(this.computedValue.value);
+          this.values.forEach((value) => {
+            if (!newValue.includes(value)) {
+              newValue.push(value);
+            }
+          });
         } else {
-          newValue.splice(newValue.indexOf(this.computedValue.value), 1);
+          this.values.forEach((value) => {
+            if (newValue.includes(value)) {
+              newValue.splice(newValue.indexOf(value), 1);
+            }
+          });
         }
-
         this.$emit("update:modelValue", newValue);
       } else {
-        this.$emit(
-          "update:modelValue",
-          currentlyChecked ? this.trueValue : this.falseValue
-        );
+        if (this.modelValue instanceof Array) {
+          console.log("If I got her, i got here");
+          if (currentlyChecked) {
+            newValue.push(this.computedValue);
+          } else {
+            newValue.splice(newValue.indexOf(this.computedValue), 1);
+          }
+
+          this.$emit("update:modelValue", newValue);
+        } else {
+          this.$emit(
+            "update:modelValue",
+            currentlyChecked ? this.trueValue : this.falseValue
+          );
+        }
       }
     },
   },
@@ -155,7 +198,10 @@ export default {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      cursor: not-allowed;
+      cursor: pointer;
+      &.disabled, &:disabled {
+        cursor: not-allowed;
+      }
 
       &:checked {
         background-color: var(--primarycolor);
@@ -180,6 +226,7 @@ export default {
 
     &:disabled {
       background-color: var(--primarydisabledcolor);
+      cursor: not-allowed;
     }
   }
 }

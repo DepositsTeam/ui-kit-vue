@@ -32,6 +32,13 @@ export default {
     id: {
       type: String,
     },
+    type: {
+      type: String,
+      default: "text",
+    },
+    disabled: {
+      type: Boolean,
+    },
   },
   emits: [
     "change",
@@ -51,6 +58,22 @@ export default {
     const className = uniqueRandomString(20);
     const hovering = ref(false);
     const darkMode = inject("$darkMode", null);
+    const forwardableInputTypes = [
+      "text",
+      "password",
+      "email",
+      "number",
+      "url",
+      "color",
+      "range",
+      "week",
+      "time",
+      "tel",
+      "search",
+      "month",
+      "date",
+      "datetime-local",
+    ];
 
     const manageStyles = () => {
       jss.setup(preset());
@@ -140,8 +163,9 @@ export default {
           },
           onInput: function (e) {
             if (
-              props.is.toLowerCase() === "input" ||
-              props.is.toLowerCase() === "textarea"
+              props.is.toLowerCase() === "textarea" ||
+              (props.is.toLowerCase() === "input" &&
+                forwardableInputTypes.includes(props.type.toLowerCase()))
             ) {
               emit("update:modelValue", e.target.value);
             }
@@ -175,6 +199,8 @@ export default {
           },
           id: props.id ? props.id : uniqueRandomString(),
           value: props.modelValue ? props.modelValue : props.value,
+          type: props.type,
+          disabled: props.disabled,
         },
         [...(slots.default ? [slots.default()] : [])]
       );

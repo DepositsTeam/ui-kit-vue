@@ -46,3 +46,9 @@ Dashed.args = {
   label: "I agree to the terms and conditions",
   dashed: true,
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: "Disabled checkbox",
+  disabled: true,
+};
