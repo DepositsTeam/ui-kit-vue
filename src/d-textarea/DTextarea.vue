@@ -22,7 +22,7 @@
         [textAreaClassName]: textAreaClassName,
       }"
       is="textarea"
-      v-bind="$attrs"
+      :value="modelValue"
       :font-face="fontFace"
       @change="handleChangeEvents"
       @input="handleInputEvents"
@@ -31,7 +31,9 @@
       @keypress="handleKeypressEvent"
       @focus="handleFocusEvent"
       @blur="handleBlurEvent"
-    ></d-box>
+    >
+      {{ modelValue }}
+    </d-box>
 
     <div v-if="errorMessage" class="ui-text-area__error">
       <ErrorIcon class="ui-text-area__error-icon" />
@@ -67,12 +69,18 @@ export default {
       type: String,
     },
   },
+  mounted() {
+  },  
   methods: {
     handleInputEvents(e) {
       this.$emit("update:modelValue", e.target.value);
       this.$emit("input", e.target.value);
+      this.$nextTick(() => {
+       
+      })
     },
     handleChangeEvents(e) {
+      console.log(e)
       this.$emit("change", e.target.value);
     },
     handleKeydownEvent(e) {
@@ -114,7 +122,7 @@ export default {
   font-size: 16px;
   line-height: 16px;
   width: 100%;
-  color: #b8c4ce;
+  color: #444;
   min-height: 50px;
 
   &::placeholder {

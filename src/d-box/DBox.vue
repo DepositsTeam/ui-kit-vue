@@ -150,6 +150,7 @@ export default {
             if (props.is.toLowerCase() === "select") {
               emit("update:modelValue", e.target.value);
             }
+            console.log(hovering.value);
             emit("change", e);
           },
           onFocus: function (e) {
@@ -162,10 +163,10 @@ export default {
             emit("click", e);
           },
           onInput: function (e) {
+            console.log(hovering.value);
             if (
-              props.is.toLowerCase() === "textarea" ||
-              (props.is.toLowerCase() === "input" &&
-                forwardableInputTypes.includes(props.type.toLowerCase()))
+              props.is.toLowerCase() === "input" &&
+              forwardableInputTypes.includes(props.type.toLowerCase())
             ) {
               emit("update:modelValue", e.target.value);
             }
@@ -198,7 +199,12 @@ export default {
             dark_mode: darkMode !== null && darkMode.value,
           },
           id: props.id ? props.id : uniqueRandomString(),
-          value: props.modelValue ? props.modelValue : props.value,
+          value:
+            typeof props.is === "string" && props.is.toLowerCase() === "input"
+              ? props.modelValue
+                ? props.modelValue
+                : props.value
+              : props.value,
           type: props.type,
           disabled: props.disabled,
         },

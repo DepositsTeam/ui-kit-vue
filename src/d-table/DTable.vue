@@ -5,6 +5,7 @@
         <d-textfield
           :left-icon="SearchIcon"
           :placeholder="searchPlaceholder"
+          v-model="searchValue"
           size="large"
         />
       </d-box>
@@ -23,30 +24,64 @@
     <d-box ref="trigger" class="ui-table__active-filters">
       <d-box
         :class="{ active: showActiveFiltersDropdown }"
-        class="ui-table__active-filter-group"
+        class="ui-table__active-filter-group activeFiltersTrigger"
         @click="toggleActiveFilters"
+        v-if="filter.column"
+        @close="toggleActiveFilters(false)"
       >
-        <funnel-icon />
-        <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16"
-          >Name <d-box color="#8895A7" is="span">is</d-box> Floyd Miles</d-text
-        >
-        <close-icon />
+        <funnel-icon class="activeFiltersTrigger" />
+        <d-text
+          class="activeFiltersTrigger"
+          margin-x="8px"
+          my0
+          font-face="circularSTD"
+          scale="p-16"
+          >{{ filter.column.display }}
+          <d-box color="#8895A7" is="span">{{
+            filter.selectedFilter.toLowerCase()
+          }}</d-box>
+          {{ filter.selectedFilterValue }}
+          <span v-if="filter.join">
+            {{ filter.join }}
+            <d-box color="#8895A7" is="span">{{
+              filter.selectedFilter2.toLowerCase()
+            }}</d-box>
+            {{ filter.selectedFilterValue2 }}
+          </span>
+        </d-text>
+        <close-icon
+          @click="
+            updateFilterValue({
+              column: null,
+              selectedFilter: null,
+              selectedFilterValue: null,
+              join: null,
+              selectedFilter2: null,
+              selectedFilterValue2: null,
+            })
+          "
+        />
       </d-box>
       <d-box
         :class="{ active: showActiveFiltersDropdown }"
         class="ui-table__active-filter-group"
-        @click="toggleActiveFilters"
+        v-if="sortValue"
       >
         <sort2-icon />
         <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16"
-          >Name <d-box color="#8895A7" is="span">is</d-box> Ascending</d-text
+          >{{ sortValue.column.display }}
+          <d-box color="#8895A7" is="span">is</d-box>
+          {{
+            sortValue.direction === "asc" ? "Ascending" : "Descending"
+          }}</d-text
         >
-        <close-icon />
+        <close-icon @click="updateSortValue(null)" />
       </d-box>
 
       <table-active-filters-dropdown
         ref="target"
         v-if="showActiveFiltersDropdown"
+        @close="closeActiveFiltersDropdown"
       />
     </d-box>
     <d-box class="ui-table__wrapper">
@@ -85,7 +120,7 @@
           <d-box
             is="tr"
             class="ui-table__body-row"
-            v-for="(datum, index) in data"
+            v-for="(datum, index) in dataFactory"
             :key="`table__column_${index}`"
           >
             <d-box
@@ -130,6 +165,7 @@
         :total-pages="Math.ceil(data.length / itemsPerPage)"
         :current-page="currentPage"
         :current-page-siblings="currentPageSiblings"
+        @page-changed="handlePageChange"
       />
     </d-box>
   </d-box>
@@ -153,119 +189,102 @@ import {
 } from "../main";
 import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
-import { ref, nextTick } from "vue";
+import { getColumnWidth } from "./utils/getColumnWidth";
+import { tableProps } from "./utils/tableProps";
+import { ref, nextTick, computed, provide } from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
-const props = defineProps({
-  showCheckboxes: {
-    type: Boolean,
-    default: false,
-  },
-  itemsPerPage: {
-    type: Number,
-    default: 10,
-  },
-  paginate: {
-    type: Boolean,
-    default: false,
-  },
-  currentPage: {
-    type: Number,
-    default: 1,
-  },
-  currentPageSiblings: {
-    type: Number,
-    default: 3,
-  },
-  asyncPagination: {
-    type: Boolean,
-    default: false,
-  },
-  columns: {
-    type: Array,
-  },
-  data: {
-    type: Array,
-  },
-  enableCsvExport: {
-    type: Boolean,
-  },
-  exportCsvBtn: {
-    type: Object,
-    default: () => ({
-      textValue: "Export",
-      size: "small",
-      colorScheme: "default",
-      leftIcon: ExternalLinkIcon,
-    }),
-  },
-  customizeViewBtn: {
-    type: Object,
-    default: () => ({
-      textValue: "Customize view",
-      size: "small",
-      colorScheme: "default",
-    }),
-  },
-  generatedCsvName: {
-    type: String,
-    default: "Exported CSV",
-  },
-  enableCustomizeView: {
-    type: Boolean,
-  },
-  loading: {
-    type: Boolean,
-  },
-  search: {
-    type: Boolean,
-  },
-  searchPlaceholder: {
-    type: String,
-    default: "Search",
-  },
-});
+import { sort } from "./utils/sort";
+import { filter as filterItems } from "./utils/filter";
+import { search as searchItems } from "./utils/filter";
 
-const getColumnWidth = (column, isCheckbox = false) => {
-  let returnedStyles = { "--column_min_width": "120px" };
-  if (!isCheckbox) {
-    if (column.width) {
-      returnedStyles["--column_width"] = column.width;
-    }
-    if (column.maxWidth) {
-      returnedStyles["--column_max_width"] = column.maxWidth;
-    }
-    if (column.minWidth) {
-      returnedStyles["--column_min_width"] = column.minWidth;
-    }
-  } else {
-    returnedStyles = {
-      "--column_width": "50px",
-      "--column_min_width": "50px",
-      "--column_max_width": "50px",
-    };
-  }
-  return returnedStyles;
-};
+const props = defineProps({ ...tableProps });
+const emit = defineEmits(["page-updated"]);
+
+const columnHashmap = computed(() => {
+  const hashMap = {};
+  props.columns.forEach((column) => {
+    hashMap[column.dataSelector] = column;
+  });
+  return hashMap;
+});
 
 const showActiveFiltersDropdown = ref(false);
 const target = ref(null);
 const trigger = ref(null);
+const closeActiveFiltersDropdown = () => {
+  showActiveFiltersDropdown.value = false;
+};
 
-const toggleActiveFilters = async () => {
-  showActiveFiltersDropdown.value = !showActiveFiltersDropdown.value;
-  await nextTick();
-  if (showActiveFiltersDropdown.value) {
-    computePosition(trigger.value.$el, target.value.$el, {
-      placement: "bottom-start",
-      middleware: [offset(6), flip(), shift()],
-    }).then(({ x, y }) => {
-      Object.assign(target.value.$el.style, {
-        left: `${x}px`,
-        top: `${y}px`,
+const scopedCurrentPage = ref(props.currentPage);
+const searchValue = ref("");
+const sortValue = ref(null);
+const updateSortValue = (value) => (sortValue.value = value);
+const filter = ref({
+  column: null,
+  selectedFilter: null,
+  selectedFilterValue: null,
+  join: null,
+  selectedFilter2: null,
+  selectedFilterValue2: null,
+});
+const updateFilterValue = (value) => (filter.value = value);
+
+const toggleActiveFilters = async (e) => {
+  if (e !== false && e && e.target.classList.contains("activeFiltersTrigger")) {
+    showActiveFiltersDropdown.value = !showActiveFiltersDropdown.value;
+    await nextTick();
+    if (showActiveFiltersDropdown.value) {
+      computePosition(trigger.value.$el, target.value.$el, {
+        placement: "bottom-start",
+        middleware: [offset(6), flip(), shift()],
+      }).then(({ x, y }) => {
+        Object.assign(target.value.$el.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+        });
       });
-    });
+    }
   }
 };
+
+provide("sortValue", sortValue);
+provide("updateSortValue", updateSortValue);
+provide("filter", filter);
+provide("updateFilterValue", updateFilterValue);
+
+const handlePageChange = (currentPage) => {
+  if (!props.asyncPagination) {
+    scopedCurrentPage.value = currentPage;
+  }
+  emit("page-updated", currentPage);
+};
+
+const dataFactory = computed(() => {
+  let filteredData = [...props.data];
+
+  if (searchValue.value) {
+    filteredData = searchItems(
+      searchValue.value,
+      filteredData,
+      columnHashmap.value
+    );
+  }
+
+  if (filter.value && filter.value.column) {
+    filteredData = filterItems(filter.value, filteredData);
+  }
+
+  if (sortValue.value) {
+    sort(sortValue.value, filteredData);
+  }
+
+  if (props.paginate && !props.asyncPagination) {
+    let start = (scopedCurrentPage.value - 1) * props.itemsPerPage;
+    filteredData = filteredData.splice(start, props.itemsPerPage);
+  }
+
+  return filteredData;
+});
 </script>
 
 <style lang="scss">
@@ -378,6 +397,7 @@ const toggleActiveFilters = async () => {
     border-radius: 4px;
     margin-top: 8px;
     margin-bottom: 8px;
+    cursor: pointer;
     &.active {
       border: 1px solid #0db9e9;
       box-shadow: 0px 0px 0px 3px rgba(67, 210, 250, 0.25);

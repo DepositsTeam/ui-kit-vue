@@ -71,6 +71,13 @@ CurrencyMode.args = {
   currency: true,
 };
 
+export const PasswordMode = Template.bind({});
+PasswordMode.args = {
+  placeholder: "Input placeholder",
+  label: "Form Label",
+  isPassword: true,
+};
+
 export const Error = Template.bind({});
 Error.args = {
   placeholder: "Input placeholder",

@@ -47,10 +47,17 @@ Default.args = {
   autoClose: 3,
 };
 
-export const TooltipWithDescription = Template.bind({});
-TooltipWithDescription.args = {
+export const ToastWithDescription = Template.bind({});
+ToastWithDescription.args = {
   colorScheme: "info",
   message: "I am a tooltip no ",
+  autoClose: 3,
+  description: "I am a random one with a description",
+};
+
+export const ToastWithOnlyDescription = Template.bind({});
+ToastWithOnlyDescription.args = {
+  colorScheme: "success",
   autoClose: 3,
   description: "I am a random one with a description",
 };

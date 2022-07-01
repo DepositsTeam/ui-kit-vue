@@ -31,10 +31,13 @@ const Template = (args) => ({
   components: {
     DTextarea,
   },
+  data: () => ({
+    text: "dd"
+  }),
   setup: function () {
     return { args };
   },
-  template: `<d-textarea v-bind="args" />`,
+  template: `<d-textarea v-bind="args" v-model="text" />`,
 });
 
 export const Default = Template.bind({});

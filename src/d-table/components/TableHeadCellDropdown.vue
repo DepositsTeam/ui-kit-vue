@@ -1,7 +1,10 @@
 <template>
   <d-box class="ui-table__heading-cell__dropdown__wrapper">
     <d-box ref="trigger" class="ui-table__heading-cell__dropdown">
-      <d-box class="ui-table__heading-cell__dropdown-item">
+      <d-box
+        @click="triggerSort('asc')"
+        class="ui-table__heading-cell__dropdown-item"
+      >
         <d-box>
           <sort-ascending-icon />
           <d-text my0 scale="subhead" font-face="circularSTD"
@@ -9,7 +12,10 @@
           >
         </d-box>
       </d-box>
-      <d-box class="ui-table__heading-cell__dropdown-item">
+      <d-box
+        @click="triggerSort('desc')"
+        class="ui-table__heading-cell__dropdown-item"
+      >
         <d-box>
           <sort-descending-icon />
           <d-text my0 scale="subhead" font-face="circularSTD"
@@ -20,6 +26,7 @@
       <d-box
         class="ui-table__heading-cell__dropdown-item ui-table-filter-trigger"
         @click="toggleShowFunnelDropdown"
+        v-if="column.filterable !== false"
       >
         <d-box>
           <funnel-icon />
@@ -28,7 +35,11 @@
         <chevron-filled-right-icon />
       </d-box>
     </d-box>
-    <table-filter-dropdown ref="target" v-if="showFunnelDropdown" />
+    <table-filter-dropdown
+      @close="closeFilterDropdown"
+      ref="target"
+      v-if="showFunnelDropdown && column.filterable !== false"
+    />
   </d-box>
 </template>
 
@@ -40,14 +51,26 @@ import {
   FunnelIcon,
   ChevronFilledRightIcon,
 } from "../../icons";
-import { ref, onBeforeUnmount, nextTick } from "vue";
+import { ref, onBeforeUnmount, nextTick, inject } from "vue";
 import TableFilterDropdown from "./TableFilterDropdown.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 
 const trigger = ref(null);
 const target = ref(null);
 
+const updateSortValue = inject("updateSortValue");
+const column = inject("column");
+const toggleSelection = inject("toggleSelection");
+
 const showFunnelDropdown = ref(false);
+
+const closeFilterDropdown = () => (showFunnelDropdown.value = false);
+
+const triggerSort = (direction) => {
+  const sortValue = { direction, column };
+  updateSortValue(sortValue);
+  toggleSelection();
+};
 
 const toggleShowFunnelDropdown = async (e) => {
   if (

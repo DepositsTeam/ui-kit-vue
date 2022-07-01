@@ -92,6 +92,5 @@ export default {
 <style lang="scss">
 .ui-table__active-filters {
   position: relative;
-  cursor: pointer;
 }
 </style>

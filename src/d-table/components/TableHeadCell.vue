@@ -14,12 +14,19 @@
           column.uppercase ? column.display.toUpperCase() : column.display
         }}</d-text
       >
-      <d-box v-if="column.sortable" class="ui-table__heading-cell__icon">
-        <chevron-filled-down-icon height="20px" width="20px" />
+      <d-box
+        v-if="column.sortable !== false"
+        class="ui-table__heading-cell__icon"
+      >
+        <chevron-filled-down-icon
+          class="ui-table__heading-cell__icon"
+          height="20px"
+          width="20px"
+        />
       </d-box>
     </d-box>
     <table-head-cell-dropdown
-      v-if="isSelected && column.sortable"
+      v-if="isSelected && column.sortable !== false"
       ref="target"
     />
   </d-box>
@@ -28,7 +35,7 @@
 <script setup>
 import { DBox, DText } from "../../main";
 import { ChevronFilledDownIcon } from "../../main";
-import { ref, nextTick } from "vue";
+import { ref, nextTick, provide } from "vue";
 import TableHeadCellDropdown from "./TableHeadCellDropdown.vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 
@@ -38,23 +45,30 @@ const props = defineProps({
   },
 });
 
+provide("column", props.column);
+
 const trigger = ref(null);
 const target = ref(null);
 
 const isSelected = ref(false);
 
 const toggleSelection = async (e) => {
-  if (props.column.sortable) {
+  if (props.column.sortable !== false) {
     let shouldProceed = false;
-    [
-      "ui-table__heading-cell__content",
-      "ui-table__heading-cell-text",
-      "ui-table__heading-cell__icon",
-    ].map((target) => {
-      if (e.target.classList.contains(target)) {
-        shouldProceed = true;
-      }
-    });
+    if (e === undefined) {
+      shouldProceed = true;
+    } else {
+      [
+        "ui-table__heading-cell__content",
+        "ui-table__heading-cell-text",
+        "ui-table__heading-cell__icon",
+      ].map((target) => {
+        if (e.target.classList.contains(target)) {
+          shouldProceed = true;
+        }
+      });
+    }
+
     if (shouldProceed) {
       isSelected.value = !isSelected.value;
       await nextTick();
@@ -72,6 +86,8 @@ const toggleSelection = async (e) => {
     }
   }
 };
+
+provide("toggleSelection", toggleSelection);
 </script>
 
 <style lang="scss" scoped>

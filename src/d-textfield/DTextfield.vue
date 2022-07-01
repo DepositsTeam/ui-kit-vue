@@ -16,6 +16,7 @@
         :is="leftIcon"
         v-if="leftIcon && !invisible"
         class="ui-text-field__left-icon"
+        @click="emitLeftIconClicked"
       ></component>
       <d-box
         class="ui-text-field__input"
@@ -40,11 +41,19 @@
         @blur="handleBlurEvent"
         :style="{ ...theme }"
         :font-face="fontFace"
+        :type="localType"
       />
       <component
         class="ui-text-field__right-icon"
-        v-if="(dropDown || rightIcon) && !invisible"
-        :is="dropDown ? ChevronFilledDownIcon : rightIcon"
+        v-if="isPassword || ((dropDown || rightIcon) && !invisible)"
+        :is="
+          isPassword
+            ? passwordIcon
+            : dropDown
+            ? ChevronFilledDownIcon
+            : rightIcon
+        "
+        @click="emitRightIconClicked"
       ></component>
     </d-box>
     <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
@@ -65,6 +74,8 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
+import NoEyeFilledIcon from "../icons/filled/NoEyeFilledIcon.vue";
+import EyeFilledIcon from "../icons/filled/EyeFilledIcon.vue";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
@@ -82,6 +93,8 @@ export default {
     "keypress",
     "focus",
     "blur",
+    "leftIconClicked",
+    "rightIconClicked",
   ],
   components: {
     ErrorIcon,
@@ -107,8 +120,36 @@ export default {
       type: Boolean,
     },
     oneCharWide: Boolean,
+    isPassword: Boolean,
+    type: {
+      type: String,
+      default: "text",
+    },
+  },
+  data: () => ({
+    localType: "text",
+  }),
+  computed: {
+    passwordIcon: function () {
+      return this.localType === "text" ? NoEyeFilledIcon : EyeFilledIcon;
+    },
+  },
+  mounted() {
+    this.localType = this.type;
+    if (this.isPassword) {
+      this.localType = "password";
+    }
   },
   methods: {
+    emitLeftIconClicked(e) {
+      this.$emit("leftIconClicked", e);
+    },
+    emitRightIconClicked(e) {
+      if (this.isPassword) {
+        this.localType = this.localType === "text" ? "password" : "text";
+      }
+      this.$emit("rightIconClicked", e);
+    },
     handleKeyEvents(e) {
       if (this.onlyNumbers) {
         return allowOnlyNumbers(e);
@@ -206,7 +247,7 @@ export default {
   },
   setup() {
     const theme = inject("theme", defaultTheme);
-    return { theme };
+    return { theme, ChevronFilledDownIcon };
   },
 };
 </script>

@@ -11,9 +11,14 @@
         class="text-grey-600"
         scale="footnote"
         margin-right="10px"
+        @click="closeDropdown"
         >Cancel</d-text
       >
-      <d-text :class="applyFilterColor" font-face="heroNew" scale="footnote"
+      <d-text
+        @click="updateGlobalFilter"
+        :class="applyFilterColor"
+        font-face="heroNew"
+        scale="footnote"
         >Apply filter</d-text
       >
     </d-box>
@@ -48,10 +53,54 @@
 
 <script setup>
 import { DBox, DRadio, DText, DTextfield } from "../../main";
-import { ref, computed } from "vue";
+import { onMounted, reactive, computed, inject, onBeforeUnmount } from "vue";
+import { availableFiltersTextMap, availableFilters } from "../utils/reused";
 
-const selectedFilter = ref(null);
-const selectedFilterValue = ref("");
+const emit = defineEmits(["close"]);
+
+const closeDropdown = () => {
+  emit("close");
+};
+// const selectedFilter = ref(null);
+// const selectedFilterValue = ref("");
+const column = inject("column");
+const updateFilterValue = inject("updateFilterValue");
+const filter = inject("filter");
+const localFilter = reactive({
+  filter: {
+    column: null,
+    selectedFilter: null,
+    selectedFilterValue: null,
+    join: null,
+    selectedFilter2: null,
+    selectedFilterValue2: null,
+  },
+});
+const updateGlobalFilter = () => {
+  let detachedLocalFilter = localFilter.filter;
+  updateFilterValue(detachedLocalFilter);
+};
+
+onMounted(() => {
+  if (filter.value) {
+    localFilter.filter.column = filter.value.column;
+    localFilter.filter.selectedFilter = filter.value.selectedFilter;
+    localFilter.filter.selectedFilterValue = filter.value.selectedFilterValue;
+    localFilter.filter.join = filter.value.join;
+    localFilter.filter.selectedFilter2 = filter.value.selectedFilter2;
+    localFilter.filter.selectedFilterValue2 = filter.value.selectedFilterValue2;
+  }
+});
+onBeforeUnmount(() => {
+  localFilter.filter = {
+    column: null,
+    selectedFilter: null,
+    selectedFilterValue: null,
+    join: null,
+    selectedFilter2: null,
+    selectedFilterValue2: null,
+  };
+});
 
 const applyFilterColor = computed(() => {
   if (!availableFiltersTextMap[selectedFilter.value]) {
@@ -61,61 +110,51 @@ const applyFilterColor = computed(() => {
   }
 });
 
-const availableFiltersTextMap = {
-  Is: true,
-  "Is not": true,
-  "Is empty": false,
-  "Is not empty": false,
-  "Is equal to": true,
-  "Is not equal to": true,
-  "Begins with": true,
-  "Ends with": true,
-  Contains: true,
-  "Does not contain": true,
-};
+const selectedFilter = computed({
+  get() {
+    if (
+      localFilter.filter.column !== null &&
+      localFilter.filter.column.dataSelector === column.dataSelector
+    ) {
+      return localFilter.filter.selectedFilter;
+    } else {
+      return null;
+    }
+  },
+  set(value) {
+    localFilter.filter = {
+      column,
+      selectedFilter: value,
+      selectedFilterValue: selectedFilterValue.value,
+      join: null,
+      selectedFilter2: null,
+      selectedFilterValue2: null,
+    };
+  },
+});
 
-const availableFilters = [
-  {
-    text: "Is",
-    requiresText: true,
+const selectedFilterValue = computed({
+  get() {
+    if (
+      localFilter.filter.column !== null &&
+      localFilter.filter.column.dataSelector === column.dataSelector
+    ) {
+      return localFilter.filter.selectedFilterValue;
+    } else {
+      return null;
+    }
   },
-  {
-    text: "Is not",
-    requiresText: true,
+  set(value) {
+    localFilter.filter = {
+      column,
+      selectedFilter: selectedFilter.value,
+      selectedFilterValue: value,
+      join: null,
+      selectedFilter2: null,
+      selectedFilterValue2: null,
+    };
   },
-  {
-    text: "Is empty",
-    requiresText: false,
-  },
-  {
-    text: "Is not empty",
-    requiresText: false,
-  },
-  {
-    text: "Is equal to",
-    requiresText: true,
-  },
-  {
-    text: "Is not equal to",
-    requiresText: true,
-  },
-  {
-    text: "Begins with",
-    requiresText: true,
-  },
-  {
-    text: "Ends with",
-    requiresText: true,
-  },
-  {
-    text: "Contains",
-    requiresText: true,
-  },
-  {
-    text: "Does not contain",
-    requiresText: true,
-  },
-];
+});
 </script>
 
 <style lang="scss" scoped>

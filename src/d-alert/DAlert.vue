@@ -16,7 +16,7 @@
           :is="schemeIcons[colorScheme]"
         ></component>
         <div class="ui-alert__text">
-          <d-box class="ui-alert__header">
+          <d-box v-if="message" class="ui-alert__header">
             <d-heading scale="subtitle-2" class="ui-alert__header-text">
               {{ message }}
             </d-heading>
@@ -25,6 +25,7 @@
             v-if="description && theme !== 'inline'"
             scale="subhead"
             class="ui-alert__body"
+            :class="{ 'no-top': !message }"
           >
             {{ description }}
           </d-text>
@@ -71,8 +72,6 @@ export default {
   props: {
     message: {
       type: String,
-      required: true,
-      default: "This is a simple message",
     },
     description: {
       type: String,
@@ -148,6 +147,9 @@ export default {
   .ui-alert__body {
     color: #5f6b7a;
     margin: 8px 0 0;
+    &.no-top {
+      margin: 0;
+    }
   }
 
   .ui-alert__header-icon {
