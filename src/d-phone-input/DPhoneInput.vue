@@ -49,16 +49,22 @@
         :disabled="disabled"
         v-bind="$attrs"
         v-model="number"
+        @keypress="allowOnlyNumbers"
       />
     </d-box>
-    <div v-if="errorMessage" class="ui-text-field__error">
+    <div v-if="localErrorMessage || errorMessage" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
         scale="subhead"
         font-face="circularSTD"
       >
-        {{ errorMessage }}
+        <span v-if="localErrorMessage">
+          {{ localErrorMessage }}
+        </span>
+        <span v-else>
+          {{ errorMessage }}
+        </span>
       </d-text>
     </div>
   </d-box>
@@ -67,17 +73,18 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
-import DTextfield from "../d-textfield/DTextfield.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import { inject } from "vue";
 import defaultTheme from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
+import countryCodes from "../utils/country_codes_grouped.json";
+import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
+import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 export default {
   name: "DPhoneInput",
   components: {
     DBox,
     DText,
-    DTextfield,
     ErrorIcon,
   },
   data: () => ({
@@ -102,9 +109,23 @@ export default {
   computed: {
     number: {
       get() {
-        return this.phoneNumber;
+        if (this.phoneNumber) {
+          if (this.countryCode && countryCodes[this.countryCode]) {
+            const asYouType = new AsYouType({
+              defaultCountry: countryCodes[this.countryCode][0],
+            }).input(this.phoneNumber);
+            return asYouType;
+          } else {
+            return formatIncompletePhoneNumber(this.phoneNumber);
+          }
+        } else {
+          return "";
+        }
       },
       set(value) {
+        // console.log(
+        //   new AsYouType({ defaultCountry: countryCodes[this.countryCode][0] }).input(value)
+        // );
         this.$emit("update:phoneNumber", value);
       },
     },
@@ -116,11 +137,35 @@ export default {
         this.$emit("update:code", value);
       },
     },
+    localErrorMessage() {
+      if (this.countryCode.length && !countryCodes[this.countryCode]) {
+        return "Please enter a valid country code";
+      } else {
+        if (this.phoneNumber && this.phoneNumber.length) {
+          if (this.countryCode && this.countryCode.length) {
+            const asYouType = new AsYouType({
+              defaultCountry: countryCodes[this.countryCode][0],
+            });
+            asYouType.input(this.phoneNumber);
+            if (asYouType.getNumber() && asYouType.getNumber().isPossible()) {
+              return "";
+            } else {
+              return "Please enter a valid phone number";
+            }
+          } else {
+            return "";
+          }
+        } else {
+          return "";
+        }
+      }
+    },
   },
   mounted: function () {
     this.resizeCountryCodeAutomatically();
   },
   methods: {
+    allowOnlyNumbers,
     updateCountryCodeIsFocused: function (value) {
       this.countryCodeIsFocused = value;
     },
@@ -138,11 +183,7 @@ export default {
         offset = 26;
       }
       elem.nextSibling.style.paddingLeft =
-        "calc(" +
-        (value.length <= 1 ? 3 : value.length + 1) +
-        "ch + " +
-        offset +
-        "px)";
+        "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
     },
     resizeCountryCodeOnType: function (elem) {
       const value = elem.target.value;
@@ -157,11 +198,7 @@ export default {
         offset = 26;
       }
       elem.target.nextSibling.style.paddingLeft =
-        "calc(" +
-        (value.length <= 1 ? 3 : value.length + 1) +
-        "ch + " +
-        offset +
-        "px)";
+        "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
     },
   },
   watch: {

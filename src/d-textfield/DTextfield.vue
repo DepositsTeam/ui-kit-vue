@@ -131,7 +131,7 @@ export default {
   }),
   computed: {
     passwordIcon: function () {
-      return this.localType === "text" ? NoEyeFilledIcon : EyeFilledIcon;
+      return this.localType === "text" ? EyeFilledIcon : NoEyeFilledIcon;
     },
   },
   mounted() {
