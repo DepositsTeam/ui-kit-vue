@@ -45,6 +45,7 @@ export const columns = [
     dataSelector: "qty",
     uppercase: true,
     sortable: true,
+    sort_numerically: true,
     filterable: true,
     width: "80px",
     minWidth: "80px",

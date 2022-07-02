@@ -114,6 +114,18 @@ const localFilter = reactive({
   },
 });
 
+const closeActiveFiltersDropdownOnOutsideClick = (e) => {
+  console.log(e.target.closest(".ui-table__active-filters"));
+  console.log(e.target.closest(".ui-table__active-filter-group"));
+  if (
+    e.target.closest(".ui-table__active-filters") === null &&
+    e.target.closest(".ui-table__active-filter-group") === null
+  ) {
+    alert("I got here for fuck's sake");
+    emit("close");
+  }
+};
+
 onMounted(() => {
   if (filter.value) {
     localFilter.filter.column = filter.value.column;
@@ -123,6 +135,7 @@ onMounted(() => {
     localFilter.filter.selectedFilter2 = filter.value.selectedFilter2;
     localFilter.filter.selectedFilterValue2 = filter.value.selectedFilterValue2;
   }
+  window.addEventListener("click", closeActiveFiltersDropdownOnOutsideClick);
 });
 
 const updateGlobalFilter = () => {
@@ -146,6 +159,7 @@ onBeforeUnmount(() => {
     selectedFilter2: null,
     selectedFilterValue2: null,
   };
+  window.removeEventListener("click", closeActiveFiltersDropdownOnOutsideClick);
 });
 
 const showSecondOptions = ref(false);

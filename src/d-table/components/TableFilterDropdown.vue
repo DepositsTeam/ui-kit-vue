@@ -53,7 +53,14 @@
 
 <script setup>
 import { DBox, DRadio, DText, DTextfield } from "../../main";
-import { onMounted, reactive, computed, inject, onBeforeUnmount } from "vue";
+import {
+  onMounted,
+  reactive,
+  computed,
+  inject,
+  onBeforeUnmount,
+  nextTick,
+} from "vue";
 import { availableFiltersTextMap, availableFilters } from "../utils/reused";
 
 const emit = defineEmits(["close"]);
@@ -66,6 +73,7 @@ const closeDropdown = () => {
 const column = inject("column");
 const updateFilterValue = inject("updateFilterValue");
 const filter = inject("filter");
+const toggleSelection = inject("toggleSelection");
 const localFilter = reactive({
   filter: {
     column: null,
@@ -76,9 +84,11 @@ const localFilter = reactive({
     selectedFilterValue2: null,
   },
 });
-const updateGlobalFilter = () => {
+const updateGlobalFilter = async () => {
   let detachedLocalFilter = localFilter.filter;
   updateFilterValue(detachedLocalFilter);
+  await nextTick();
+  toggleSelection();
 };
 
 onMounted(() => {

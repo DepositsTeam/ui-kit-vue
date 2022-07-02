@@ -1,5 +1,5 @@
 <script>
-import { h, onBeforeMount, ref, inject, watch } from "vue";
+import { h, onBeforeMount, ref, inject } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import jss from "jss";
 import preset from "jss-preset-default";
@@ -55,7 +55,7 @@ export default {
   ],
   setup(props, { slots, emit }) {
     const styleClasses = ref(null);
-    const className = uniqueRandomString(20);
+    const className = uniqueRandomString(20, 8);
     const hovering = ref(false);
     const darkMode = inject("$darkMode", null);
     const forwardableInputTypes = [
@@ -150,7 +150,6 @@ export default {
             if (props.is.toLowerCase() === "select") {
               emit("update:modelValue", e.target.value);
             }
-            console.log(hovering.value);
             emit("change", e);
           },
           onFocus: function (e) {
@@ -163,7 +162,6 @@ export default {
             emit("click", e);
           },
           onInput: function (e) {
-            console.log(hovering.value);
             if (
               props.is.toLowerCase() === "input" &&
               forwardableInputTypes.includes(props.type.toLowerCase())
@@ -198,7 +196,7 @@ export default {
               darkMode !== null && darkMode.value !== null && !darkMode.value,
             dark_mode: darkMode !== null && darkMode.value,
           },
-          id: props.id ? props.id : uniqueRandomString(),
+          id: props.id ? props.id : uniqueRandomString(20, 8),
           value:
             typeof props.is === "string" && props.is.toLowerCase() === "input"
               ? props.modelValue

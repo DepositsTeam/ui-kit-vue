@@ -80,7 +80,6 @@ export default {
       })
     },
     handleChangeEvents(e) {
-      console.log(e)
       this.$emit("change", e.target.value);
     },
     handleKeydownEvent(e) {

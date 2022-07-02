@@ -162,7 +162,7 @@ onMounted(() => {
   for (let i = 0; i < props.noOfCharacters; i++) {
     data.value.push({
       value: "",
-      id: uniqueRandomString(19),
+      id: uniqueRandomString(19, 8),
     });
   }
   if (props.modelValue) {

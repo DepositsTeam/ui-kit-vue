@@ -51,14 +51,15 @@ import {
   FunnelIcon,
   ChevronFilledRightIcon,
 } from "../../icons";
-import { ref, onBeforeUnmount, nextTick, inject } from "vue";
+import { ref, onBeforeUnmount, onMounted, nextTick, inject } from "vue";
 import TableFilterDropdown from "./TableFilterDropdown.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 
 const trigger = ref(null);
 const target = ref(null);
+const thCell = inject("thCell");
 
-const updateSortValue = inject("updateSortValue");
+const updateSortConfiguration = inject("updateSortConfiguration");
 const column = inject("column");
 const toggleSelection = inject("toggleSelection");
 
@@ -67,8 +68,8 @@ const showFunnelDropdown = ref(false);
 const closeFilterDropdown = () => (showFunnelDropdown.value = false);
 
 const triggerSort = (direction) => {
-  const sortValue = { direction, column };
-  updateSortValue(sortValue);
+  const sortConfiguration = { direction, column };
+  updateSortConfiguration(sortConfiguration);
   toggleSelection();
 };
 
@@ -95,7 +96,19 @@ const toggleShowFunnelDropdown = async (e) => {
   }
 };
 
+const closeFilterDropdownOnOutsideClick = (e) => {
+  const elem = e.target;
+  if (thCell.value && elem.closest(`#${thCell.value.$el.id}`) === null) {
+    toggleSelection();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("click", closeFilterDropdownOnOutsideClick);
+});
+
 onBeforeUnmount(() => {
+  window.removeEventListener("click", closeFilterDropdownOnOutsideClick);
   showFunnelDropdown.value = false;
 });
 </script>

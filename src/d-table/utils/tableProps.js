@@ -68,4 +68,8 @@ export const tableProps = {
     type: String,
     default: "Search",
   },
+  checkboxDataSelector: {
+    type: String,
+    default: "uuuid",
+  },
 };

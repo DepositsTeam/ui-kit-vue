@@ -1,14 +1,19 @@
-export const sort = (sortValue, data) => {
-  console.log(sortValue);
+export const sort = (sortConfiguration, data) => {
   data.sort((a, b) => {
-
-    const nameA = a[sortValue.column.dataSelector].toUpperCase();
-    const nameB = b[sortValue.column.dataSelector].toUpperCase();
-    if (nameA < nameB) {
-      return sortValue.direction === "asc" ? -1 : 1;
+    if (sortConfiguration.column.sort_numerically) {
+      const valueA = a[sortConfiguration.column.dataSelector];
+      const valueB = b[sortConfiguration.column.dataSelector];
+      return sortConfiguration.direction === "asc"
+        ? valueA - valueB
+        : valueB - valueA;
     }
-    if (nameA > nameB) {
-      return sortValue.direction === "asc" ? 1 : -1;
+    const valueA = a[sortConfiguration.column.dataSelector].toUpperCase();
+    const valueB = b[sortConfiguration.column.dataSelector].toUpperCase();
+    if (valueA < valueB) {
+      return sortConfiguration.direction === "asc" ? -1 : 1;
+    }
+    if (valueA > valueB) {
+      return sortConfiguration.direction === "asc" ? 1 : -1;
     }
     return 0;
   });

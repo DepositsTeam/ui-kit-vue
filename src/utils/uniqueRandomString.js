@@ -42,9 +42,9 @@ export default (length = 20, type = 0) => {
         Math.floor(Math.random() * permittedCharacters.length)
       ];
   }
-  let index = Math.floor(Math.random() * (randomLength + 1));
+  let index = Math.floor(Math.random() * randomLength) + 1;
   let end = string.substr(index);
-  let start = string.substr(0, index);
+  let start = string.substr(3, index);
   let finalString = start + time + end;
   return finalString;
 };

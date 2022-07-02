@@ -128,8 +128,8 @@ export default {
       // console.log(getClassOf(this.modelValue));
       // console.log("Type is", typeof this.modelValue);
       // console.log("object is", this.modelValue);
-      let newValue = [...this.modelValue];
       if (this.values.length) {
+        let newValue = [...this.modelValue];
         // TODO to look for the most efficient way to do this!!!!!! Saving space and time
         if (currentlyChecked) {
           this.values.forEach((value) => {
@@ -147,7 +147,7 @@ export default {
         this.$emit("update:modelValue", newValue);
       } else {
         if (this.modelValue instanceof Array) {
-          console.log("If I got her, i got here");
+          let newValue = [...this.modelValue];
           if (currentlyChecked) {
             newValue.push(this.computedValue);
           } else {

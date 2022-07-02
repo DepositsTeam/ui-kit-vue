@@ -1,5 +1,5 @@
 <template>
-  <d-box>
+  <d-box ref="thCell">
     <d-box
       :class="{ selected: isSelected }"
       class="ui-table__heading-cell__content"
@@ -49,6 +49,9 @@ provide("column", props.column);
 
 const trigger = ref(null);
 const target = ref(null);
+const thCell = ref(null);
+
+provide("thCell", thCell);
 
 const isSelected = ref(false);
 

@@ -65,17 +65,17 @@
       <d-box
         :class="{ active: showActiveFiltersDropdown }"
         class="ui-table__active-filter-group"
-        v-if="sortValue"
+        v-if="sortConfiguration"
       >
         <sort2-icon />
         <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16"
-          >{{ sortValue.column.display }}
+          >{{ sortConfiguration.column.display }}
           <d-box color="#8895A7" is="span">is</d-box>
           {{
-            sortValue.direction === "asc" ? "Ascending" : "Descending"
+            sortConfiguration.direction === "asc" ? "Ascending" : "Descending"
           }}</d-text
         >
-        <close-icon @click="updateSortValue(null)" />
+        <close-icon @click="updateSortConfiguration(null)" />
       </d-box>
 
       <table-active-filters-dropdown
@@ -96,7 +96,7 @@
                 ...getColumnWidth(null, true),
               }"
             >
-              <d-checkbox />
+              <d-checkbox v-model="selectedItems" :values="computedItemsID" />
             </d-box>
             <d-box
               v-for="(column, index) in columns"
@@ -122,6 +122,9 @@
             class="ui-table__body-row"
             v-for="(datum, index) in dataFactory"
             :key="`table__column_${index}`"
+            :class="{
+              checked: selectedItems.includes(datum[checkboxDataSelector]),
+            }"
           >
             <d-box
               is="td"
@@ -131,7 +134,10 @@
                 ...getColumnWidth(null, true),
               }"
             >
-              <d-checkbox />
+              <d-checkbox
+                v-model="selectedItems"
+                :value="datum[checkboxDataSelector]"
+              />
             </d-box>
             <d-box
               is="td"
@@ -162,7 +168,7 @@
     </d-box>
     <d-box class="ui-table__pagination" margin-top="1rem" v-if="paginate">
       <d-pagination
-        :total-pages="Math.ceil(data.length / itemsPerPage)"
+        :total-pages="totalPages"
         :current-page="currentPage"
         :current-page-siblings="currentPageSiblings"
         @page-changed="handlePageChange"
@@ -191,11 +197,12 @@ import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
 import { getColumnWidth } from "./utils/getColumnWidth";
 import { tableProps } from "./utils/tableProps";
-import { ref, nextTick, computed, provide } from "vue";
+import { ref, nextTick, computed, provide, reactive } from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { sort } from "./utils/sort";
 import { filter as filterItems } from "./utils/filter";
 import { search as searchItems } from "./utils/filter";
+import uniqueRandomString from "../utils/uniqueRandomString";
 
 const props = defineProps({ ...tableProps });
 const emit = defineEmits(["page-updated"]);
@@ -217,8 +224,8 @@ const closeActiveFiltersDropdown = () => {
 
 const scopedCurrentPage = ref(props.currentPage);
 const searchValue = ref("");
-const sortValue = ref(null);
-const updateSortValue = (value) => (sortValue.value = value);
+const sortConfiguration = ref(null);
+const updateSortConfiguration = (value) => (sortConfiguration.value = value);
 const filter = ref({
   column: null,
   selectedFilter: null,
@@ -228,6 +235,8 @@ const filter = ref({
   selectedFilterValue2: null,
 });
 const updateFilterValue = (value) => (filter.value = value);
+
+const selectedItems = reactive([]);
 
 const toggleActiveFilters = async (e) => {
   if (e !== false && e && e.target.classList.contains("activeFiltersTrigger")) {
@@ -247,8 +256,8 @@ const toggleActiveFilters = async (e) => {
   }
 };
 
-provide("sortValue", sortValue);
-provide("updateSortValue", updateSortValue);
+provide("sortConfiguration", sortConfiguration);
+provide("updateSortConfiguration", updateSortConfiguration);
 provide("filter", filter);
 provide("updateFilterValue", updateFilterValue);
 
@@ -274,8 +283,8 @@ const dataFactory = computed(() => {
     filteredData = filterItems(filter.value, filteredData);
   }
 
-  if (sortValue.value) {
-    sort(sortValue.value, filteredData);
+  if (sortConfiguration.value) {
+    sort(sortConfiguration.value, filteredData);
   }
 
   if (props.paginate && !props.asyncPagination) {
@@ -283,7 +292,21 @@ const dataFactory = computed(() => {
     filteredData = filteredData.splice(start, props.itemsPerPage);
   }
 
-  return filteredData;
+  return filteredData.map((item) => ({
+    ...item,
+    uuuid: uniqueRandomString(30, 8),
+  }));
+});
+
+const computedItemsID = computed(() => {
+  return dataFactory.value.map((item) => item[props.checkboxDataSelector]);
+});
+
+const totalPages = computed(() => {
+  if (searchValue.value || filter.value.column) {
+    return Math.ceil(dataFactory.value.length / props.itemsPerPage);
+  }
+  return Math.ceil(props.data.length / props.itemsPerPage);
 });
 </script>
 
@@ -310,6 +333,12 @@ const dataFactory = computed(() => {
     &:hover {
       td {
         background: #f5f8fa;
+      }
+    }
+    &.checked {
+      background: #f2fafc;
+      td {
+        background: #f2fafc;
       }
     }
   }
