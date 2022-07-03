@@ -120,7 +120,7 @@
           <d-box
             is="tr"
             class="ui-table__body-row"
-            v-for="(datum, index) in dataFactory"
+            v-for="(datum, index) in paginatedData"
             :key="`table__column_${index}`"
             :class="{
               checked: selectedItems.includes(datum[checkboxDataSelector]),
@@ -197,7 +197,7 @@ import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
 import { getColumnWidth } from "./utils/getColumnWidth";
 import { tableProps } from "./utils/tableProps";
-import { ref, nextTick, computed, provide, reactive } from "vue";
+import { ref, unref, nextTick, computed, provide, reactive } from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { sort } from "./utils/sort";
 import { filter as filterItems } from "./utils/filter";
@@ -287,15 +287,19 @@ const dataFactory = computed(() => {
     sort(sortConfiguration.value, filteredData);
   }
 
-  if (props.paginate && !props.asyncPagination) {
-    let start = (scopedCurrentPage.value - 1) * props.itemsPerPage;
-    filteredData = filteredData.splice(start, props.itemsPerPage);
-  }
-
   return filteredData.map((item) => ({
     ...item,
     uuuid: uniqueRandomString(30, 8),
   }));
+});
+
+const paginatedData = computed(() => {
+  let filteredData = [...unref(dataFactory.value)];
+  if (props.paginate && !props.asyncPagination) {
+    let start = (scopedCurrentPage.value - 1) * props.itemsPerPage;
+    filteredData = filteredData.splice(start, props.itemsPerPage);
+  }
+  return filteredData;
 });
 
 const computedItemsID = computed(() => {

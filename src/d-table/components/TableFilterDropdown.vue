@@ -45,6 +45,7 @@
           placeholder="Type something"
           v-model="selectedFilterValue"
           font-face="circularSTD"
+          @keypress="applyFilterOnEnter"
         />
       </d-box>
     </d-box>
@@ -89,6 +90,16 @@ const updateGlobalFilter = async () => {
   updateFilterValue(detachedLocalFilter);
   await nextTick();
   toggleSelection();
+};
+
+const applyFilterOnEnter = (e) => {
+  if (
+    localFilter.filter.selectedFilterValue &&
+    localFilter.filter.selectedFilterValue.length &&
+    e.key === "Enter"
+  ) {
+    updateGlobalFilter();
+  }
 };
 
 onMounted(() => {

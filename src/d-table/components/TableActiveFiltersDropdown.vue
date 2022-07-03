@@ -115,13 +115,16 @@ const localFilter = reactive({
 });
 
 const closeActiveFiltersDropdownOnOutsideClick = (e) => {
-  console.log(e.target.closest(".ui-table__active-filters"));
-  console.log(e.target.closest(".ui-table__active-filter-group"));
   if (
     e.target.closest(".ui-table__active-filters") === null &&
     e.target.closest(".ui-table__active-filter-group") === null
   ) {
-    alert("I got here for fuck's sake");
+    emit("close");
+  }
+};
+
+const closeActiveFiltersDropdownOnEsc = (e) => {
+  if (e.key === "Escape") {
     emit("close");
   }
 };
@@ -136,6 +139,7 @@ onMounted(() => {
     localFilter.filter.selectedFilterValue2 = filter.value.selectedFilterValue2;
   }
   window.addEventListener("click", closeActiveFiltersDropdownOnOutsideClick);
+  window.addEventListener("keydown", closeActiveFiltersDropdownOnEsc);
 });
 
 const updateGlobalFilter = () => {
@@ -160,6 +164,7 @@ onBeforeUnmount(() => {
     selectedFilterValue2: null,
   };
   window.removeEventListener("click", closeActiveFiltersDropdownOnOutsideClick);
+  window.removeEventListener("keydown", closeActiveFiltersDropdownOnEsc);
 });
 
 const showSecondOptions = ref(false);

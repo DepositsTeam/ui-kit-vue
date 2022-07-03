@@ -103,12 +103,20 @@ const closeFilterDropdownOnOutsideClick = (e) => {
   }
 };
 
+const closeFilterOnEsc = (e) => {
+  if (e.key === "Escape") {
+    toggleSelection();
+  }
+};
+
 onMounted(() => {
   window.addEventListener("click", closeFilterDropdownOnOutsideClick);
+  document.addEventListener("keydown", closeFilterOnEsc);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("click", closeFilterDropdownOnOutsideClick);
+  document.removeEventListener("keydown", closeFilterOnEsc);
   showFunnelDropdown.value = false;
 });
 </script>
