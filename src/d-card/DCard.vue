@@ -9,7 +9,7 @@
       border,
     }"
   >
-    <div class="ui-card__heading"></div>
+    <d-box class="ui-card__heading"></d-box>
     <d-radio
       class="ui-card__form-selector"
       v-if="radio"
@@ -25,16 +25,18 @@
       :dashed="dashedCheckbox"
     />
 
-    <div class="ui-card__content">
-      <div v-if="title" class="ui-card__title">{{ title }}</div>
+    <d-box class="ui-card__content">
+      <d-box v-if="title" class="ui-card__title">{{ title }}</d-box>
 
-      <div v-if="desc || $slots.default" class="ui-card__card-text">
+      <d-box v-if="desc || $slots.default" class="ui-card__card-text">
         <span v-if="desc" v-html="desc"></span>
         <slot v-else></slot>
-      </div>
-    </div>
+      </d-box>
+    </d-box>
 
-    <component :is="icon" v-if="icon" class="ui-card__icon"></component>
+    <d-box class="ui-card__icon">
+      <component :is="icon" v-if="icon" class="ui-card__icon"></component>
+    </d-box>
   </d-box>
 </template>
 
@@ -74,6 +76,9 @@ export default {
     },
     value: {
       type: String,
+    },
+    modelValue: {
+      default: false,
     },
     wrapperClass: {
       type: [String, Array, Object],
@@ -174,15 +179,14 @@ export default {
 
 .ui-card__content {
   width: 100%;
-  padding: 0 5px;
+  padding: 0 8px;
 }
 
 .ui-card__title {
   font-weight: 700;
-  font-family: Hero New;
+  font-family: "Hero New", sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 700;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
@@ -190,12 +194,19 @@ export default {
 }
 
 .ui-card__card-text {
-  font-family: Circular Std;
+  font-family: "Circular Std", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0em;
   text-align: left;
+  color: #525964;
+}
+
+.ui-card__icon {
+  color: #ced6de;
+  height: 20px;
+  width: 20px;
 }
 </style>

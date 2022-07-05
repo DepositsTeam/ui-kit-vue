@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.167",
+  "version": "0.0.168",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -41,7 +41,8 @@
     "match-sorter": "^6.3.1",
     "moment": "^2.29.1",
     "vue": "^3.2.31",
-    "vue-datepicker-next": "^1.0.2"
+    "vue-datepicker-next": "^1.0.2",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",

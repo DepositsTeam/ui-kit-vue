@@ -1,6 +1,6 @@
 export const sort = (sortConfiguration, data) => {
   data.sort((a, b) => {
-    if (sortConfiguration.column.sort_numerically) {
+    if (sortConfiguration.column.sortNumerically) {
       const valueA = a[sortConfiguration.column.dataSelector];
       const valueB = b[sortConfiguration.column.dataSelector];
       return sortConfiguration.direction === "asc"

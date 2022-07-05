@@ -108,6 +108,8 @@ export default {
         }
         return this.modelValue.includes(this.computedValue);
       }
+      console.log("Model value is", this.modelValue);
+      console.log("Computed true value is", this.computedTrueValue);
       return this.modelValue === this.computedTrueValue;
     },
   },
@@ -199,7 +201,8 @@ export default {
       -moz-appearance: none;
       appearance: none;
       cursor: pointer;
-      &.disabled, &:disabled {
+      &.disabled,
+      &:disabled {
         cursor: not-allowed;
       }
 

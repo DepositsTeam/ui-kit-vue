@@ -69,9 +69,12 @@ const emit = defineEmits(["close"]);
 const closeDropdown = () => {
   emit("close");
 };
+const props = defineProps({
+  column: Array,
+});
 // const selectedFilter = ref(null);
 // const selectedFilterValue = ref("");
-const column = inject("column");
+// const column = inject("column");
 const updateFilterValue = inject("updateFilterValue");
 const filter = inject("filter");
 const toggleSelection = inject("toggleSelection");
@@ -135,7 +138,7 @@ const selectedFilter = computed({
   get() {
     if (
       localFilter.filter.column !== null &&
-      localFilter.filter.column.dataSelector === column.dataSelector
+      localFilter.filter.column.dataSelector === props.column.dataSelector
     ) {
       return localFilter.filter.selectedFilter;
     } else {
@@ -144,7 +147,7 @@ const selectedFilter = computed({
   },
   set(value) {
     localFilter.filter = {
-      column,
+      column: props.column,
       selectedFilter: value,
       selectedFilterValue: selectedFilterValue.value,
       join: null,
@@ -158,7 +161,7 @@ const selectedFilterValue = computed({
   get() {
     if (
       localFilter.filter.column !== null &&
-      localFilter.filter.column.dataSelector === column.dataSelector
+      localFilter.filter.column.dataSelector === props.column.dataSelector
     ) {
       return localFilter.filter.selectedFilterValue;
     } else {
@@ -167,7 +170,7 @@ const selectedFilterValue = computed({
   },
   set(value) {
     localFilter.filter = {
-      column,
+      column: props.column,
       selectedFilter: selectedFilter.value,
       selectedFilterValue: value,
       join: null,

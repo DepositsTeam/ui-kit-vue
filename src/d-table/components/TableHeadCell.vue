@@ -28,6 +28,7 @@
     <table-head-cell-dropdown
       v-if="isSelected && column.sortable !== false"
       ref="target"
+      :column="column"
     />
   </d-box>
 </template>
@@ -45,7 +46,7 @@ const props = defineProps({
   },
 });
 
-provide("column", props.column);
+// provide("column", props.column);
 
 const trigger = ref(null);
 const target = ref(null);

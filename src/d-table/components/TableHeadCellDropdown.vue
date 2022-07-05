@@ -39,6 +39,7 @@
       @close="closeFilterDropdown"
       ref="target"
       v-if="showFunnelDropdown && column.filterable !== false"
+      :column="column"
     />
   </d-box>
 </template>
@@ -59,8 +60,12 @@ const trigger = ref(null);
 const target = ref(null);
 const thCell = inject("thCell");
 
+const props = defineProps({
+  column: Array,
+});
+
 const updateSortConfiguration = inject("updateSortConfiguration");
-const column = inject("column");
+// const column = inject("column");
 const toggleSelection = inject("toggleSelection");
 
 const showFunnelDropdown = ref(false);
@@ -68,7 +73,7 @@ const showFunnelDropdown = ref(false);
 const closeFilterDropdown = () => (showFunnelDropdown.value = false);
 
 const triggerSort = (direction) => {
-  const sortConfiguration = { direction, column };
+  const sortConfiguration = { direction, column: props.column };
   updateSortConfiguration(sortConfiguration);
   toggleSelection();
 };

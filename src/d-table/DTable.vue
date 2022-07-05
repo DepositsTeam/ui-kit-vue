@@ -10,7 +10,11 @@
         />
       </d-box>
       <d-box class="ui-table__header-btns">
-        <d-button v-if="enableCustomizeView" size="medium">
+        <d-button
+          v-if="enableCustomizeView"
+          @click="toggleCustomizeViewModal(true)"
+          size="medium"
+        >
           Customize view
         </d-button>
         <d-button
@@ -99,7 +103,7 @@
               <d-checkbox v-model="selectedItems" :values="computedItemsID" />
             </d-box>
             <d-box
-              v-for="(column, index) in columns"
+              v-for="(column, index) in renderedColumns"
               is="td"
               :key="`column__${index}`"
               class="ui-table__heading-cell"
@@ -141,7 +145,7 @@
             </d-box>
             <d-box
               is="td"
-              v-for="(column, index) in columns"
+              v-for="(column, index) in renderedColumns"
               :key="`table_column__${index}`"
               class="ui-table__body-cell"
               :style="{
@@ -174,6 +178,12 @@
         @page-changed="handlePageChange"
       />
     </d-box>
+    <table-customize-view-modal
+      :columns="renderedColumns"
+      :column-hash-map="columnHashmap"
+      :show="showCustomizeViewModal"
+      @close-modal="toggleCustomizeViewModal(false)"
+    />
   </d-box>
 </template>
 
@@ -193,16 +203,27 @@ import {
   FunnelIcon,
   Sort2Icon,
 } from "../main";
+
 import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
 import { getColumnWidth } from "./utils/getColumnWidth";
 import { tableProps } from "./utils/tableProps";
-import { ref, unref, nextTick, computed, provide, reactive } from "vue";
+import {
+  ref,
+  unref,
+  nextTick,
+  computed,
+  provide,
+  shallowRef,
+  onMounted,
+} from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { sort } from "./utils/sort";
 import { filter as filterItems } from "./utils/filter";
 import { search as searchItems } from "./utils/filter";
 import uniqueRandomString from "../utils/uniqueRandomString";
+import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
+import Column from "./utils/Column";
 
 const props = defineProps({ ...tableProps });
 const emit = defineEmits(["page-updated"]);
@@ -218,9 +239,13 @@ const columnHashmap = computed(() => {
 const showActiveFiltersDropdown = ref(false);
 const target = ref(null);
 const trigger = ref(null);
+
+const showCustomizeViewModal = ref(false);
 const closeActiveFiltersDropdown = () => {
   showActiveFiltersDropdown.value = false;
 };
+const toggleCustomizeViewModal = (value) =>
+  (showCustomizeViewModal.value = value);
 
 const scopedCurrentPage = ref(props.currentPage);
 const searchValue = ref("");
@@ -236,7 +261,7 @@ const filter = ref({
 });
 const updateFilterValue = (value) => (filter.value = value);
 
-const selectedItems = reactive([]);
+const selectedItems = shallowRef([]);
 
 const toggleActiveFilters = async (e) => {
   if (e !== false && e && e.target.classList.contains("activeFiltersTrigger")) {
@@ -256,10 +281,19 @@ const toggleActiveFilters = async (e) => {
   }
 };
 
+const renderedColumns = shallowRef([]);
+
+const updateRenderedColumns = (value) => (renderedColumns.value = value);
+
+onMounted(() => {
+  updateRenderedColumns(props.columns.map((column) => new Column(column)));
+});
+
 provide("sortConfiguration", sortConfiguration);
 provide("updateSortConfiguration", updateSortConfiguration);
 provide("filter", filter);
 provide("updateFilterValue", updateFilterValue);
+provide("updateRenderedColumns", updateRenderedColumns);
 
 const handlePageChange = (currentPage) => {
   if (!props.asyncPagination) {
