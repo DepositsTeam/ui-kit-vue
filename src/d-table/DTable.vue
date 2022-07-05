@@ -21,6 +21,7 @@
           v-if="enableCsvExport"
           size="medium"
           :left-icon="ExternalLinkIcon"
+          @click="exportCsv"
           >Export</d-button
         >
       </d-box>
@@ -203,7 +204,6 @@ import {
   FunnelIcon,
   Sort2Icon,
 } from "../main";
-
 import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
 import { getColumnWidth } from "./utils/getColumnWidth";
@@ -224,9 +224,12 @@ import { search as searchItems } from "./utils/filter";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
+import { useCsvExport } from "./composables/useCsvExport";
 
 const props = defineProps({ ...tableProps });
 const emit = defineEmits(["page-updated"]);
+
+const { exportCsv } = useCsvExport(props.data, props.generatedCsvName);
 
 const columnHashmap = computed(() => {
   const hashMap = {};
