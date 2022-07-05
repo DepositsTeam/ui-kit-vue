@@ -6,6 +6,7 @@
     grey-content
     modal-width="600px"
     rounded-borders
+    @close-modal="closeModal"
   >
     <draggable :list="state.columns" item-key="dataSelector">
       <template #item="{ element }">

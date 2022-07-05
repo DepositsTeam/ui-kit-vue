@@ -104,7 +104,7 @@
               <d-checkbox v-model="selectedItems" :values="computedItemsID" />
             </d-box>
             <d-box
-              v-for="(column, index) in renderedColumns"
+              v-for="(column, index) in filteredRenderedColumns"
               is="td"
               :key="`column__${index}`"
               class="ui-table__heading-cell"
@@ -146,7 +146,7 @@
             </d-box>
             <d-box
               is="td"
-              v-for="(column, index) in renderedColumns"
+              v-for="(column, index) in filteredRenderedColumns"
               :key="`table_column__${index}`"
               class="ui-table__body-cell"
               :style="{
@@ -287,6 +287,10 @@ const toggleActiveFilters = async (e) => {
 const renderedColumns = shallowRef([]);
 
 const updateRenderedColumns = (value) => (renderedColumns.value = value);
+
+const filteredRenderedColumns = computed(() =>
+  renderedColumns.value.filter((column) => column.visible)
+);
 
 onMounted(() => {
   updateRenderedColumns(props.columns.map((column) => new Column(column)));
