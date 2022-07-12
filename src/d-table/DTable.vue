@@ -474,7 +474,7 @@ const totalPages = computed(() => {
     cursor: pointer;
     &.active {
       border: 1px solid #0db9e9;
-      box-shadow: 0px 0px 0px 3px rgba(67, 210, 250, 0.25);
+      box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
     }
   }
   .ui-table__active-filters {
@@ -484,5 +484,8 @@ const totalPages = computed(() => {
       }
     }
   }
+}
+.ui-virtual-table {
+  display: table;
 }
 </style>

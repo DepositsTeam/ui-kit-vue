@@ -7,7 +7,7 @@ export default class Column {
     uppercase = true,
     sortable = true,
     sortNumerically = false,
-    filterable = false,
+    filterable = true,
     width = "",
     minWidth = "",
     maxWidth = "",

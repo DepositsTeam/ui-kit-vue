@@ -9,7 +9,7 @@
     @close-modal="closeModal"
   >
     <draggable :list="state.columns" item-key="dataSelector">
-      <template #item="{ element }">
+      <div v-for="element in state.columns" :key="element.dataSelector">
         <d-box cursor="pointer" margin-bottom="16px">
           <d-card
             cursor="move"
@@ -19,7 +19,7 @@
             :icon="MoveIcon"
           />
         </d-box>
-      </template>
+      </div>
     </draggable>
     <d-box display="flex" justify-content="flex-end">
       <d-button
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import Draggable from "vuedraggable";
+import { VueDraggableNext as Draggable } from "vue-draggable-next";
 import { DModal, DCard, MoveIcon, DBox, DButton } from "../../main";
 import { reactive, onMounted, unref, watch, inject } from "vue";
 

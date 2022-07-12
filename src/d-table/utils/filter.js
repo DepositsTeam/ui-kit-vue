@@ -1,7 +1,7 @@
 export const search = (search, rows, columnHashMap) => {
   return rows.filter((row) => {
     for (let key of Object.keys(row)) {
-      if (columnHashMap[key].sortable) {
+      if (columnHashMap[key].filterable) {
         if (row[key].includes(search)) {
           return true;
         }

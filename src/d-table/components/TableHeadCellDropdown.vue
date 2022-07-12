@@ -4,6 +4,7 @@
       <d-box
         @click="triggerSort('asc')"
         class="ui-table__heading-cell__dropdown-item"
+        v-if="column.sortable !== false"
       >
         <d-box>
           <sort-ascending-icon />
@@ -15,6 +16,7 @@
       <d-box
         @click="triggerSort('desc')"
         class="ui-table__heading-cell__dropdown-item"
+        v-if="column.sortable !== false"
       >
         <d-box>
           <sort-descending-icon />

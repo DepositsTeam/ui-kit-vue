@@ -1,5 +1,10 @@
 import DTable from "./DTable.vue";
-import { columns, data, customComponentData } from "./data/sitcom-data";
+import {
+  columns,
+  data,
+  paginatedData,
+  customComponentData,
+} from "./data/sitcom-data";
 
 export default {
   title: "Table",
@@ -100,7 +105,7 @@ Pagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns,
-  data,
+  data: paginatedData,
   paginate: true,
 };
 

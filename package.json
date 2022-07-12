@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.170",
+  "version": "0.0.177",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^0.4.5",
-    "@popperjs/core": "^2.11.5",
     "@tiptap/extension-code": "^2.0.0-beta.26",
     "@tiptap/extension-link": "^2.0.0-beta.38",
     "@tiptap/extension-placeholder": "^2.0.0-beta.48",
@@ -38,11 +37,10 @@
     "jss": "^10.9.0",
     "jss-preset-default": "^10.9.0",
     "libphonenumber-js": "^1.10.7",
-    "match-sorter": "^6.3.1",
     "moment": "^2.29.1",
     "vue": "^3.2.31",
     "vue-datepicker-next": "^1.0.2",
-    "vuedraggable": "^4.1.0"
+    "vue-draggable-next": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",

@@ -4,7 +4,7 @@
     :class="{
       [`size__${size}`]: true,
       disabled,
-      'has-error': errorMessage,
+      'has-error': localErrorMessage || errorMessage,
     }"
     :style="{ ...theme }"
   >
@@ -40,7 +40,7 @@
         invisible
         is="input"
         :class="{
-          'has-error': errorMessage,
+          'has-error': localErrorMessage || errorMessage,
           'has-left-icon': leftIcon,
           'has-right-icon': rightIcon,
           focus: countryCodeIsFocused,
@@ -90,7 +90,7 @@ export default {
   data: () => ({
     countryCodeIsFocused: false,
   }),
-  emits: ["update:code", "update:phoneNumber"],
+  emits: ["update:code", "update:phoneNumber", "local-error-changed"],
   props: {
     ...inputProps,
     code: {
@@ -204,6 +204,9 @@ export default {
   watch: {
     code: function () {
       this.resizeCountryCodeAutomatically();
+    },
+    localErrorMessage: function (val) {
+      this.$emit("local-error-changed", !!val);
     },
   },
   setup() {

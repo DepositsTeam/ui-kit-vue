@@ -12,4 +12,5 @@ export default {
   "--outlinetextdisabledcolor": "#acd7ff",
   "--outlineboxshadowcolor": "rgba(27, 92, 224, 0.2)",
   "--inputbackgroundcolor": "#ffffff",
+  "--darkmodebackground": "#121A26",
 };
