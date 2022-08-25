@@ -29,26 +29,26 @@
     <d-box ref="trigger" class="ui-table__active-filters">
       <d-box
         :class="{ active: showActiveFiltersDropdown }"
-        class="ui-table__active-filter-group activeFiltersTrigger"
+        class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox"
         @click="toggleActiveFilters"
         v-if="filter.column"
         @close="toggleActiveFilters(false)"
       >
-        <funnel-icon class="activeFiltersTrigger" />
+        <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
         <d-text
-          class="activeFiltersTrigger"
+          class="activeFiltersTrigger activeFiltersBox"
           margin-x="8px"
           my0
           font-face="circularSTD"
           scale="p-16"
           >{{ filter.column.display }}
-          <d-box color="#8895A7" is="span">{{
+          <d-box light-color="#64748B" dark-color="#CBD5E1" is="span">{{
             filter.selectedFilter.toLowerCase()
           }}</d-box>
           {{ filter.selectedFilterValue }}
           <span v-if="filter.join">
             {{ filter.join }}
-            <d-box color="#8895A7" is="span">{{
+            <d-box light-color="#64748B" dark-color="#CBD5E1" is="span">{{
               filter.selectedFilter2.toLowerCase()
             }}</d-box>
             {{ filter.selectedFilterValue2 }}
@@ -65,22 +65,31 @@
               selectedFilterValue2: null,
             })
           "
+          class="activeFiltersBox"
         />
       </d-box>
       <d-box
         :class="{ active: showActiveFiltersDropdown }"
-        class="ui-table__active-filter-group"
+        class="ui-table__active-filter-group activeFiltersBox"
         v-if="sortConfiguration"
       >
-        <sort2-icon />
-        <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16"
+        <sort2-icon class="activeFiltersBox" />
+        <d-text
+          margin-x="8px"
+          my0
+          font-face="circularSTD"
+          scale="p-16"
+          class="activeFiltersBox"
           >{{ sortConfiguration.column.display }}
           <d-box color="#8895A7" is="span">is</d-box>
           {{
             sortConfiguration.direction === "asc" ? "Ascending" : "Descending"
           }}</d-text
         >
-        <close-icon @click="updateSortConfiguration(null)" />
+        <close-icon
+          class="activeFiltersBox"
+          @click="updateSortConfiguration(null)"
+        />
       </d-box>
 
       <table-active-filters-dropdown
@@ -171,7 +180,12 @@
         </d-box>
       </d-box>
     </d-box>
-    <d-box class="ui-table__pagination" margin-top="1rem" v-if="paginate">
+    <d-box
+      class="ui-table__pagination"
+      :class="{ right: paginateRight }"
+      margin-top="1rem"
+      v-if="paginate"
+    >
       <d-pagination
         :total-pages="totalPages"
         :current-page="currentPage"
@@ -357,6 +371,9 @@ const totalPages = computed(() => {
 
 <style lang="scss">
 .ui-table__container {
+  .activeFiltersBox.dark_mode {
+    color: #cbd5e1;
+  }
   .ui-table__header {
     display: flex;
     justify-content: space-between;
@@ -373,23 +390,40 @@ const totalPages = computed(() => {
   .ui-table__heading-row {
     background: #f5f8fa;
     border-radius: 4px 4px 0 0;
+    &.dark_mode {
+      background: #202b3c;
+    }
   }
   .ui-table__body-row {
     &:hover {
       td {
         background: #f5f8fa;
+        &.dark_mode {
+          background: #041d25;
+        }
       }
     }
     &.checked {
       background: #f2fafc;
+      &.dark_mode {
+        background: #041d25;
+      }
       td {
         background: #f2fafc;
+        &.dark_mode {
+          background: #041d25;
+        }
       }
     }
   }
   .ui-table__heading-cell {
     position: relative;
     cursor: pointer;
+    &.dark_mode {
+      .ui-table__heading-cell-text.ui-text {
+        color: #f1f5f9;
+      }
+    }
     &:hover {
       .ui-table__heading-cell-text.ui-text {
         color: #0db9e9;
@@ -422,9 +456,16 @@ const totalPages = computed(() => {
   }
   .ui-table__body-cell {
     background: #fff;
+    &.dark_mode {
+      background: #121a26;
+      box-shadow: inset 0px -1px 0px #1d2632;
+    }
     .ui-table__body-cell-text {
       color: #3f3e4d;
       font-size: 16px;
+      &.dark_mode {
+        color: #f1f5f9;
+      }
     }
   }
   .ui-table__wrapper {
@@ -432,13 +473,18 @@ const totalPages = computed(() => {
     border-radius: 4px;
     width: 100%;
     overflow: auto;
+    &.dark_mode {
+      border-color: #202b3c;
+    }
   }
   .ui-table {
     border-collapse: collapse;
     min-width: 100%;
   }
   .ui-table tbody tr {
-    border-bottom: 1px solid #e1e7ec;
+    &:not(.dark_mode) {
+      border-bottom: 1px solid #e1e7ec;
+    }
 
     td {
     }
@@ -472,6 +518,9 @@ const totalPages = computed(() => {
     margin-top: 8px;
     margin-bottom: 8px;
     cursor: pointer;
+    &.dark_mode {
+      background: #202b3c;
+    }
     &.active {
       border: 1px solid #0db9e9;
       box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
@@ -482,6 +531,12 @@ const totalPages = computed(() => {
       &:not(:first-child) {
         margin-left: 16px;
       }
+    }
+  }
+  .ui-table__pagination {
+    display: flex;
+    &.right {
+      justify-content: flex-end;
     }
   }
 }

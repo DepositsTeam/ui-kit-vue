@@ -2,7 +2,7 @@
   <d-box
     class="ui-text-field__wrapper"
     :class="[`size__${size}`]"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box v-if="!!label" is="label">
       <d-text
@@ -56,8 +56,8 @@
 <script setup>
 import { DBox, DTextfield, DText, ErrorIcon } from "../main";
 import inputProps from "../utils/inputProps";
-import { inject, ref, onMounted, nextTick } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { inject, ref, onMounted } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
 import uniqueRandomString from "../utils/uniqueRandomString";
 
 const props = defineProps({
@@ -172,7 +172,7 @@ onMounted(() => {
   }
 });
 
-const theme = inject("theme", defaultTheme);
+const d__theme = inject("d__theme", defaultThemeVars);
 </script>
 
 <style lang="scss" scoped>

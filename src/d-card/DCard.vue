@@ -1,42 +1,46 @@
 <template>
-  <d-box
-    :is="radio || checkbox ? 'label' : 'div'"
-    class="ui-card"
-    :class="{
-      state__selected: selected,
-      [wrapperClass]: wrapperClass,
-      hoverColor,
-      border,
-    }"
-  >
-    <d-box class="ui-card__heading"></d-box>
-    <d-radio
-      class="ui-card__form-selector"
-      v-if="radio"
-      :ringed="ringedRadio"
-      v-bind="$attrs"
-      v-model="updateValue"
-    />
-    <d-checkbox
-      class="ui-card__form-selector"
-      v-else-if="checkbox"
-      v-bind="$attrs"
-      v-model="updateValue"
-      :dashed="dashedCheckbox"
-    />
+  <d-box class="ui-card__wrapper">
+    <slot name="header"></slot>
+    <d-box
+      :is="radio || checkbox ? 'label' : 'div'"
+      class="ui-card"
+      :class="{
+        state__selected: selected,
+        [wrapperClass]: wrapperClass,
+        hoverColor,
+        border,
+        hasHeader: $slots.header,
+        hasFooter: $slots.footer,
+      }"
+    >
+      <d-radio
+        class="ui-card__form-selector"
+        v-if="radio"
+        :ringed="ringedRadio"
+        v-bind="$attrs"
+        v-model="updateValue"
+      />
+      <d-checkbox
+        class="ui-card__form-selector"
+        v-else-if="checkbox"
+        v-bind="$attrs"
+        v-model="updateValue"
+        :dashed="dashedCheckbox"
+      />
 
-    <d-box class="ui-card__content">
-      <d-box v-if="title" class="ui-card__title">{{ title }}</d-box>
+      <d-box class="ui-card__content">
+        <d-box v-if="title" class="ui-card__title">{{ title }}</d-box>
+        <slot></slot>
+        <d-box v-if="desc" class="ui-card__card-text">
+          <span v-if="desc" v-html="desc"></span>
+        </d-box>
+      </d-box>
 
-      <d-box v-if="desc || $slots.default" class="ui-card__card-text">
-        <span v-if="desc" v-html="desc"></span>
-        <slot v-else></slot>
+      <d-box v-if="icon" class="ui-card__icon">
+        <component :is="icon" v-if="icon" class="ui-card__icon"></component>
       </d-box>
     </d-box>
-
-    <d-box class="ui-card__icon">
-      <component :is="icon" v-if="icon" class="ui-card__icon"></component>
-    </d-box>
+    <slot name="footer"></slot>
   </d-box>
 </template>
 
@@ -76,6 +80,12 @@ export default {
     },
     value: {
       type: String,
+    },
+    ringedRadio: {
+      type: Boolean,
+    },
+    dashedCheckbox: {
+      type: Boolean,
     },
     modelValue: {
       default: false,
@@ -152,7 +162,15 @@ export default {
   background-color: #ffffff;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-between;
+  justify-content: space-between;
+  &.hasHeader {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  &.hasFooter {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
   // --tw-space-x-reverse: 0;
   // margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   // margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));

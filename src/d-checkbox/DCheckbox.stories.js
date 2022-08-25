@@ -1,7 +1,8 @@
 import DCheckbox from "./DCheckbox.vue";
+import DarkModeProvider from "../providers/DarkModeProvider.vue";
 
 export default {
-  title: "Checkbox",
+  title: "Forms/Checkbox",
   component: DCheckbox,
   argTypes: {
     wrapperClass: {
@@ -36,8 +37,39 @@ const Template = (args) => ({
   template: `<d-checkbox v-bind="args" />`,
 });
 
+const DarkModeTemplate = (args) => ({
+  components: { DCheckbox, DarkModeProvider },
+  data: () => ({
+    value: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <dark-mode-provider :dark-mode="true">
+      <d-checkbox v-bind="args" />
+    </dark-mode-provider>
+    `,
+});
+
+const DarkModeTemplateFactory = () => {
+  const Bound = DarkModeTemplate.bind({});
+  Bound.decorators = [
+    () => ({
+      template:
+        '<div style="padding: 3em; background: #121A26;"><story /></div>',
+    }),
+  ];
+  return Bound;
+};
+
 export const Default = Template.bind({});
 Default.args = {
+  label: "I agree to the terms and conditions",
+};
+
+export const DarkDefault = DarkModeTemplateFactory();
+DarkDefault.args = {
   label: "I agree to the terms and conditions",
 };
 
@@ -47,8 +79,20 @@ Dashed.args = {
   dashed: true,
 };
 
+export const DarkDashed = DarkModeTemplateFactory();
+DarkDashed.args = {
+  label: "I agree to the terms and conditions",
+  dashed: true,
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   label: "Disabled checkbox",
+  disabled: true,
+};
+
+export const DarkDisabled = DarkModeTemplateFactory();
+DarkDisabled.args = {
+  label: "I agree to the terms and conditions",
   disabled: true,
 };

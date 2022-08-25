@@ -1,0 +1,54 @@
+<template>
+  <d-box
+    class="ui-responsive__row"
+    :class="{ [`align__${alignment}`]: alignment }"
+    :style="{ '--gutter-x': computedGutter.x, '--gutter-y': computedGutter.y }"
+  >
+    <slot></slot>
+  </d-box>
+</template>
+
+<script setup>
+import { DBox } from "../main";
+import { computed } from "vue";
+const props = defineProps({
+  alignment: {
+    type: String,
+    validator: (value) => ["top", "center", "bottom"].includes(value),
+    default: "top",
+  },
+  gutter: {
+    type: [String, Number, Object],
+    default: "16px",
+  },
+});
+
+const computedGutter = computed(() => {
+  return {
+    x: props.gutter,
+    y: props.gutter,
+  };
+});
+</script>
+
+<style lang="scss">
+@use "sass:map";
+@import "../scss/variables";
+
+.ui-responsive__row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  &.align__top {
+    align-items: flex-start;
+  }
+  &.align__center {
+    align-items: center;
+  }
+  &.align__bottom {
+    align-items: flex-end;
+  }
+  & > .ui-responsive__col {
+  }
+}
+</style>

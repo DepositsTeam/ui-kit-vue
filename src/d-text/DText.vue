@@ -7,6 +7,9 @@
       'equal-line-height': equalLineHeight,
       center,
       my0,
+      customFontWeight: fontWeight,
+      customFontSize: fontSize,
+      customLineHeight: lineHeight,
     }"
     :is="is"
     v-bind="{ ...$props, ...$attrs }"
@@ -59,6 +62,15 @@ export default {
     equalLineHeight: {
       type: Boolean,
     },
+    lineHeight: {
+      type: [Number, String],
+    },
+    fontSize: {
+      type: [Number, String],
+    },
+    fontWeight: {
+      type: [Number, String],
+    },
     my0: {
       type: Boolean,
     },
@@ -92,7 +104,9 @@ export default {
 .ui-text {
   b,
   strong {
-    font-weight: 700;
+    &:not(.customFontWeight) {
+      font-weight: 700;
+    }
   }
   &.center {
     text-align: center;
@@ -109,54 +123,87 @@ export default {
   }
   &.body,
   &.p-16 {
-    font-size: 16px;
-    line-height: 24px;
+    &:not(.customFontSize) {
+      font-size: 16px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 24px;
+    }
 
     &.equal-line-height {
-      line-height: 16px;
+      &:not(.customLineHeight) {
+        line-height: 16px;
+      }
     }
   }
 
   &.p-18 {
-    font-size: 18px;
-    line-height: 30px;
+    &:not(.customFontSize) {
+      font-size: 18px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 30px;
+    }
 
     &.equal-line-height {
-      line-height: 18px;
+      &:not(.customLineHeight) {
+        line-height: 18px;
+      }
     }
   }
 
   &.subhead {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
+    &:not(.customFontSize) {
+      font-size: 14px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 24px;
+    }
 
     &.equal-line-height {
-      line-height: 14px;
+      &:not(.customLineHeight) {
+        line-height: 14px;
+      }
     }
   }
 
   &.overline {
-    font-size: 10px;
-    line-height: 12px;
+    &:not(.customFontSize) {
+      font-size: 10px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 12px;
+    }
 
     &.equal-line-height {
-      line-height: 10px;
+      &:not(.customLineHeight) {
+        line-height: 10px;
+      }
     }
   }
 
   &.footnote {
-    font-size: 12px;
-    line-height: 16px;
+    &:not(.customFontSize) {
+      font-size: 12px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 16px;
+    }
 
     &.equal-line-height {
-      line-height: 12px;
+      &:not(.customLineHeight) {
+        line-height: 12px;
+      }
     }
   }
 
   &.footnote-caps {
-    font-size: 12px;
-    line-height: 16px;
+    &:not(.customFontSize) {
+      font-size: 12px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 16px;
+    }
     letter-spacing: 2px;
     text-transform: uppercase;
   }

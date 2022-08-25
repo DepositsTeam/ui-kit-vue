@@ -16,6 +16,14 @@
   color: #212934;
   width: 100%;
   -webkit-appearance: none;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    border-color: var(--darkInputBorderColor);
+    color: #ffffff;
+    &::placeholder {
+      color: var(--darkInputLabelColor);
+    }
+  }
   &.oneCharWide {
     text-align: center;
   }
@@ -30,19 +38,29 @@
 }
 .ui-text-field__label {
   margin-bottom: 8px;
+  &.dark_mode {
+    color: var(--darkInputLabelColor);
+  }
 }
 .ui-text-field__input {
   &::placeholder {
     color: #b8c4ce;
   }
   &:hover:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
-    border-color: var(--primarycolor);
+    border-color: var(--lightPrimaryActionColor);
+    &.dark_mode {
+      border-color: var(--darkPrimaryActionColor);
+    }
   }
   &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible),
   &.focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
-    border-color: var(--primarycolor);
-    box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
+    border-color: var(--lightPrimaryActionColor);
+    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
     outline: none;
+    &.dark_mode {
+      border-color: var(--darkPrimaryActionColor);
+      box-shadow: 0 0 0 3px var(--darkPrimaryActionBoxShadowColor);
+    }
   }
   &:focus,
   &.focus {
@@ -51,11 +69,21 @@
   &:disabled {
     background: #edeeef;
     cursor: not-allowed;
+    &.dark_mode {
+      background: var(--darkInputDisabledColor);
+      border-color: var(--darkInputBorderColor);
+      color: var(--darkInputDisabledTextColor);
+    }
   }
 }
 .ui-text-field[disabled] {
   background: #edeeef;
   cursor: not-allowed;
+  &.dark_mode {
+    background: var(--darkInputDisabledColor);
+    border-color: var(--darkInputBorderColor);
+    color: var(--darkInputLabelColor);
+  }
 }
 .ui-text-field__error {
   display: flex;
@@ -76,11 +104,18 @@
 .ui-text-field__input.has-error {
   background: #fff0f2;
   border-color: #d62f4b;
+  &.dark_mode {
+    background: #350a12;
+    border-color: #df5e74;
+  }
 }
 .ui-text-field__left-icon {
   position: absolute;
   left: 16px;
   color: #5f6b7a;
+  &.dark_mode {
+    color: var(--darkInputIconColor);
+  }
   &.relative {
     position: relative;
   }
@@ -90,6 +125,9 @@
   right: 16px;
   color: #5f6b7a;
   cursor: pointer;
+  &.dark_mode {
+    color: var(--darkInputIconColor);
+  }
   &.relative {
     position: relative;
   }

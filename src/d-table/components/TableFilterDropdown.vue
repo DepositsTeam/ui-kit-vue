@@ -31,9 +31,13 @@
       }"
     >
       <d-radio v-model="selectedFilter" :value="filter.text" ringed>
-        <d-text my0 scale="subhead" font-face="circularSTD">{{
-          filter.text
-        }}</d-text>
+        <d-text
+          my0
+          scale="subhead"
+          class="filterText"
+          font-face="circularSTD"
+          >{{ filter.text }}</d-text
+        >
       </d-radio>
       <d-box
         margin-top=".5rem"
@@ -192,11 +196,26 @@ const selectedFilterValue = computed({
   flex-direction: column;
   min-width: 240px;
   z-index: 100;
+  &.dark_mode {
+    background: #202b3c;
+    border: 1px solid #202b3c;
+    box-shadow: inset 0px -1px 0px #1d2632;
+  }
   .ui-table__filters-item {
     padding: 8px 16px;
     color: #5f6b7a;
+    .filterText {
+      &.dark_mode {
+        color: #94a3b8;
+      }
+    }
     &.bordered {
-      border-bottom: 1px solid #ecf2f7;
+      &:not(.dark_mode) {
+        border-bottom: 1px solid #ecf2f7;
+      }
+      &.dark_mode {
+        box-shadow: inset 0px -1px 0px #1a2535;
+      }
     }
   }
 }

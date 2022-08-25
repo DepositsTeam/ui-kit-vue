@@ -1,5 +1,10 @@
 <template>
-  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+  <d-box
+    class="ui-text-field__wrapper"
+    :style="{ ...d__theme }"
+    v-bind="$attrs"
+    :class="[`size__${size}`]"
+  >
     <d-box v-if="!!label && !invisible" is="label">
       <d-text
         margin-top="0px"
@@ -14,7 +19,7 @@
     <d-box class="ui-text-field__input-wrapper">
       <component
         :is="leftIcon"
-        v-if="leftIcon && !invisible"
+        v-if="leftIcon"
         class="ui-text-field__left-icon"
         @click="emitLeftIconClicked"
       ></component>
@@ -28,9 +33,15 @@
           disabled,
           oneCharWide,
         }"
+        :max="max"
+        :min="min"
+        :maxlength="maximumLength"
+        :multiple="multiple"
+        :minlength="minlength"
         :disabled="disabled"
+        :name="name"
+        :pattern="pattern"
         is="input"
-        v-bind="$attrs"
         :value="modelValue"
         @change="handleChangeEvents"
         @input="handleInputEvents"
@@ -39,9 +50,15 @@
         @keypress="handleKeypressEvent"
         @focus="handleFocusEvent"
         @blur="handleBlurEvent"
-        :style="{ ...theme }"
         :font-face="fontFace"
         :type="localType"
+        :autocomplete="autocomplete"
+        :form="form"
+        :list="list"
+        :placeholder="placeholder"
+        :required="required"
+        :step="step"
+        :autofocus="autofocus"
       />
       <component
         class="ui-text-field__right-icon"
@@ -78,9 +95,10 @@ import NoEyeFilledIcon from "../icons/filled/NoEyeFilledIcon.vue";
 import EyeFilledIcon from "../icons/filled/EyeFilledIcon.vue";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
+import { formatSSN } from "../utils/formatSSN";
 
 export default {
   name: "DTextfield",
@@ -121,6 +139,10 @@ export default {
     },
     oneCharWide: Boolean,
     isPassword: Boolean,
+    ssn: Boolean,
+    maxlength: {
+      type: [String, Number],
+    },
     type: {
       type: String,
       default: "text",
@@ -132,6 +154,13 @@ export default {
   computed: {
     passwordIcon: function () {
       return this.localType === "text" ? EyeFilledIcon : NoEyeFilledIcon;
+    },
+    maximumLength: function () {
+      if (this.ssn) {
+        return 11;
+      } else {
+        return this.maxlength;
+      }
     },
   },
   mounted() {
@@ -193,6 +222,10 @@ export default {
             this.$emit("update:modelValue", e.target.value);
           }
         }
+      } else if (this.ssn) {
+        const formatted = formatSSN(e.target.value);
+        e.target.value = formatted;
+        this.$emit("update:modelValue", formatted);
       } else {
         this.$emit("update:modelValue", e.target.value);
       }
@@ -246,8 +279,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme, ChevronFilledDownIcon };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme, ChevronFilledDownIcon };
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <d-box
     :class="`size__${size}`"
     class="ui-text-field__wrapper heroNew"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box
       is="label"
@@ -23,7 +23,7 @@
       >
         <d-box>
           <CardIcon
-            :smart-color="theme['--primarycolor']"
+            :smart-color="d__theme['--lightPrimaryActionColor']"
             class="ui-card-input-field__left-icon"
             v-if="selectedCard === -1"
             width="24"
@@ -106,7 +106,7 @@ import ErrorIcon from "../icons/ErrorIcon.vue";
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 
 export default {
@@ -138,7 +138,6 @@ export default {
     cardNoDisplay: "",
     targetPosition: null,
     pseudoCardInputIsFocused: false,
-    CardBrands,
   }),
   methods: {
     allowOnlyNumbers,
@@ -340,8 +339,8 @@ export default {
   },
   emits: ["update:cardNo", "update:cardCvv", "update:cardExp"],
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme, CardBrands };
   },
 };
 </script>
@@ -372,10 +371,10 @@ export default {
     border-color: #d62f4b
 
   &.focus:not(.hasError)
-    border-color: var(--primarycolor)
-    box-shadow: 0 0 0 3px var(--primaryboxshadowcolor)
+    border-color: var(--lightPrimaryActionColor)
+    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor)
   &:hover:not(.hasError)
-    border-color: var(--primarycolor)
+    border-color: var(--lightPrimaryActionColor)
 
 .ui-card-input-field__inputs
   display: flex

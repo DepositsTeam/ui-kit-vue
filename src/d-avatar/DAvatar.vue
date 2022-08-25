@@ -1,16 +1,17 @@
 <template>
-  <d-box
-    class="ui-avatars__wrapper"
-    :class="{
-      subtle,
-      [`size__${size}`]: true,
-      padded: avatars && avatars.length && !stacked,
-      stacked: avatars && avatars.length && stacked,
-    }"
-  >
-    <d-box v-if="avatars && avatars.length">
+  <d-box>
+    <d-box
+      class="ui-avatars__wrapper"
+      :class="{
+        subtle,
+        [`size__${size}`]: true,
+        padded: avatars && avatars.length && !stacked,
+        stacked: avatars && avatars.length && stacked,
+      }"
+      v-if="avatars && avatars.length"
+    >
       <d-box
-        v-for="(avatar, index) in avatars"
+        v-for="(avatar, index) in avatarsToShow"
         :key="`ui-avatar__${keyGen()}_${index}`"
         class="ui-avatar__wrapper"
       >
@@ -19,6 +20,13 @@
           :index="index"
           :stacked="stacked"
           :drop-down="dropDown"
+          :size="size"
+        />
+      </d-box>
+      <d-box v-if="extraAvatars" class="ui-avatar__wrapper">
+        <avatar-content
+          :extras="extraAvatars"
+          :stacked="stacked"
           :size="size"
         />
       </d-box>
@@ -51,6 +59,9 @@ export default {
       return this.avatars && this.avatars.length
         ? this.avatars.length - this.visibleAvatars
         : 0;
+    },
+    avatarsToShow: function () {
+      return this.avatars.slice(0, this.visibleAvatars);
     },
   },
   props: {

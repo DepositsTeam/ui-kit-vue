@@ -1,4 +1,5 @@
 import DCard from "./DCard.vue";
+import { DBox, DHeading } from "../main";
 import { FilterIcon } from "../main";
 
 export default {
@@ -37,6 +38,30 @@ const Template = (args) => ({
   template: `<d-card v-bind="args" />`,
 });
 
+const HeaderFooterTemplate = (args) => ({
+  components: { DCard, DBox, DHeading },
+  setup() {
+    return { args };
+  },
+  template: `<d-card v-bind="args">
+  <template #header>
+    <d-box width="100%" padding="16px" background="#f1f1f1" border-radius="6px 6px 0 0" box-shadow="0px 2px 4px rgba(0, 0, 0, 0.05)" >
+      <d-heading margin-y="0" scale="h5" font-weight="500">
+        Custom Header
+      </d-heading>
+    </d-box>
+  </template>
+  <template #footer>
+    <d-box width="100%" padding="16px" background="#f1f1f1" border-radius="0 0 6px 6px" box-shadow="0px 2px 4px rgba(0, 0, 0, 0.05)" >
+      <d-heading margin-y="0" scale="h5" font-weight="500">
+        Custom footer
+
+      </d-heading>
+    </d-box>
+  </template>
+  </d-card>`,
+});
+
 const text =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu ac consectetur mauris in ipsum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu ac tr yi ng sth consectetur mauris in ipsum.";
 
@@ -44,6 +69,7 @@ export const Default = Template.bind({});
 Default.args = {
   children: text,
   title: "Test title",
+  desc: "I have a test description",
 };
 
 export const Icon = Template.bind({});
@@ -127,3 +153,9 @@ NoDescCheckIcon.args = {
   title: "Test title",
 };
 NoDescCheckIcon.storyName = "Checkbox & Icon - No description";
+
+export const CustomHeaderAndFooter = HeaderFooterTemplate.bind({});
+CustomHeaderAndFooter.args = {
+  desc: "I am some awesome content",
+  title: "Test title",
+};

@@ -1,7 +1,7 @@
 import DPinInput from "./DPinInput.vue";
 
 export default {
-  title: "Pin Input",
+  title: "Forms/Pin Input",
   component: DPinInput,
 };
 

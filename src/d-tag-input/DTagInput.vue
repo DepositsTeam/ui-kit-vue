@@ -1,6 +1,6 @@
 <template>
   <d-box
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
     class="ui-tag-input__wrapper"
     :class="`size__${size}`"
   >
@@ -55,7 +55,7 @@ import DTextfield from "../d-textfield/DTextfield.vue";
 import CloseIcon from "../icons/CloseIcon.vue";
 import keyGen from "../utils/keyGen";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 const _tagDelimiterKey = {
   space: " ",
@@ -142,8 +142,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>

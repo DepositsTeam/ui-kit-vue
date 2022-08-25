@@ -1,5 +1,6 @@
 import DButton from "./DButton.vue";
 import SearchIcon from "../icons/SearchIcon.vue";
+import tinycolor from "tinycolor2";
 
 export default {
   title: "Button",
@@ -37,12 +38,19 @@ const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { DButton },
   // The story's `args` need to be mapped into the template through the `setup()` method
+  methods: {
+    tinycolor,
+  },
   setup() {
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template:
-    '<d-button v-bind="args"><span v-html="args.children" /></d-button>',
+  template: `<d-button v-bind="args"><span v-html="args.children" /></d-button>
+    
+    {{tinycolor('#121A26').lighten(58).toHex()}}
+  {{'#94A3B8'}}
+    
+    `,
 });
 
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args

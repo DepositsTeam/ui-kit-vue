@@ -8,7 +8,7 @@
       [wrapperClass]: wrapperClass,
       disabled,
     }"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box
       is="input"
@@ -38,8 +38,8 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
-import { inject, unref } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { inject } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
 export default {
   name: "DCheckbox",
   emit: ["update:modelValue"],
@@ -108,8 +108,6 @@ export default {
         }
         return this.modelValue.includes(this.computedValue);
       }
-      console.log("Model value is", this.modelValue);
-      console.log("Computed true value is", this.computedTrueValue);
       return this.modelValue === this.computedTrueValue;
     },
   },
@@ -167,8 +165,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -177,6 +175,12 @@ export default {
 .ui-checkbox__wrapper {
   display: flex;
   align-items: center;
+
+  .ui-checkbox__label-wrap.ui-text {
+    &.dark_mode {
+      color: #cbd5e1;
+    }
+  }
 
   &.alignToTop {
     align-items: flex-start;
@@ -201,13 +205,17 @@ export default {
       -moz-appearance: none;
       appearance: none;
       cursor: pointer;
+      &.dark_mode {
+        background: #202b3c;
+        border: 1px solid #384860;
+      }
       &.disabled,
       &:disabled {
         cursor: not-allowed;
       }
 
       &:checked {
-        background-color: var(--primarycolor);
+        background-color: var(--lightPrimaryActionColor);
         width: 16px;
         height: 16px;
         border: none;
@@ -224,11 +232,11 @@ export default {
 
   > input:checked {
     &:hover {
-      background-color: var(--primarycolor);
+      background-color: var(--lightPrimaryActionColor);
     }
 
     &:disabled {
-      background-color: var(--primarydisabledcolor);
+      background-color: var(--lightPrimaryActionDisabledColor);
       cursor: not-allowed;
     }
   }

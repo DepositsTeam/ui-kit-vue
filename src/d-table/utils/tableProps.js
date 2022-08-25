@@ -13,6 +13,10 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  paginateRight: {
+    type: Boolean,
+    default: false,
+  },
   currentPage: {
     type: Number,
     default: 1,

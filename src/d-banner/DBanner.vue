@@ -6,7 +6,7 @@
   >
     <d-box @click="$emit('click')" class="text-content">
       <component
-        v-if="colorScheme !== 'default' || icon"
+        v-if="(colorScheme !== 'default' || icon) && !noIcon"
         class="ui-banner-icon"
         :is="icon || schemeIcons[colorScheme]"
       ></component>
@@ -92,6 +92,10 @@ export default {
     },
     icon: {
       type: Object,
+    },
+    noIcon: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

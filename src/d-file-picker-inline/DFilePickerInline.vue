@@ -2,7 +2,7 @@
   <d-box
     class="ui-text-field__wrapper d-file-picker-inline"
     :class="[`size__${size}`]"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box v-if="!!label" is="label">
       <d-text
@@ -46,7 +46,7 @@
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 export default {
   name: "DFilePicker",
@@ -77,8 +77,8 @@ export default {
     this.selectedFileName = this.placeholder;
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -90,11 +90,11 @@ export default {
   cursor: pointer;
   &:hover {
     .pseudo-button {
-      border-color: var(--primarycolor);
+      border-color: var(--lightPrimaryActionColor);
       border-left-color: #ced6de;
     }
     .ui-text-field__input {
-      border-color: var(--primarycolor);
+      border-color: var(--lightPrimaryActionColor);
       border-right-color: #ced6de;
     }
   }

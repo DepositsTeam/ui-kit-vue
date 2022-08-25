@@ -61,8 +61,10 @@ export default {
   name: "DAlert",
   data: () => ({
     showAlert: true,
-    schemeIcons,
   }),
+  setup() {
+    return { schemeIcons };
+  },
   components: {
     DBox,
     DHeading,
@@ -119,12 +121,6 @@ export default {
 };
 </script>
 
-<style>
-.darkeed {
-  opacity: 0;
-}
-</style>
-
 <style lang="scss" scoped>
 .ui-alert {
   border: 1px solid #e1e7ec;
@@ -133,6 +129,9 @@ export default {
   display: flex;
   align-items: flex-start;
   background: #fff;
+  &.dark_mode {
+    background: transparent;
+  }
 
   &.is-toast {
     box-shadow: 0 6px 14px rgba(10, 52, 64, 0.12);

@@ -36,4 +36,43 @@ export default {
   labelFontFace: {
     type: String,
   },
+  autocomplete: {
+    type: String,
+  },
+  form: {
+    type: String,
+  },
+  list: {
+    type: String,
+  },
+  minlength: {
+    type: String,
+  },
+  max: {
+    type: String,
+  },
+  min: {
+    type: String,
+  },
+  multiple: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  pattern: {
+    type: String,
+  },
+  placeholder: {
+    type: String,
+  },
+  required: {
+    type: Boolean,
+  },
+  step: {
+    type: String,
+  },
+  autofocus: {
+    type: String,
+  },
 };

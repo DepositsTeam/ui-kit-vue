@@ -7,7 +7,7 @@
       alignToTop,
     }"
     @click="emitClick"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box
       is="input"
@@ -35,7 +35,7 @@
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 export default {
   name: "DRadio",
   emit: ["update:modelValue", "click"],
@@ -91,8 +91,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -102,6 +102,12 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  .ui-radio__label-text.ui-text {
+    &.dark_mode {
+      color: #cbd5e1;
+    }
+  }
 
   .ui-radio {
     pointer-events: none;
@@ -130,6 +136,10 @@ export default {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+      &.dark_mode {
+        background: #202b3c;
+        border: 1px solid #384860;
+      }
     }
   }
 
@@ -143,21 +153,24 @@ export default {
     > input:checked {
       height: 16px;
       width: 16px;
-      border: 5px solid var(--primarycolor);
+      border: 5px solid var(--lightPrimaryActionColor);
       outline: none;
       background: white;
+      &.dark_mode {
+        background: #202b3c;
+      }
     }
 
     &:hover > input {
-      border-color: var(--primarycolor);
+      border-color: var(--lightPrimaryActionColor);
     }
   }
 
   > input:checked {
-    background: var(--primarycolor);
+    background: var(--lightPrimaryActionColor);
     width: 12px;
     height: 12px;
-    outline: 2px solid var(--primarycolor);
+    outline: 2px solid var(--lightPrimaryActionColor);
     outline-offset: 1px;
     border-color: transparent;
   }

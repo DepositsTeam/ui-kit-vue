@@ -24,7 +24,7 @@ import { onMounted, onUnmounted, provide, ref } from "vue";
 const props = defineProps({
   autoClose: {
     type: Number,
-    default: 5000
+    default: 5000,
   },
   position: {
     type: String,
@@ -80,7 +80,8 @@ const removeToast = (index) => {
     countUp.value = 0;
   }
 };
-provide("pushToast", pushToast);
+provide("___pushToast", pushToast);
+provide("d__pushToast", pushToast);
 </script>
 
 <style lang="scss" scoped>

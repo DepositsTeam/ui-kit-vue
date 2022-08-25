@@ -9,6 +9,9 @@
       center,
       my0,
       [`h${level}`]: level,
+      customFontWeight: fontWeight,
+      customFontSize: fontSize,
+      customLineHeight: lineHeight,
     }"
     :is="is"
     v-bind="{ ...$props, ...$attrs }"
@@ -43,6 +46,15 @@ export default {
       validator: (value) => ["heroNew", "circularSTD"].includes(value),
       default: "heroNew",
     },
+    fontWeight: {
+      type: [String, Number],
+    },
+    fontSize: {
+      type: [String, Number],
+    },
+    lineHeight: {
+      type: [String, Number],
+    },
     uppercase: {
       type: Boolean,
     },
@@ -58,6 +70,14 @@ export default {
     level: {
       type: [String, Number],
     },
+    lightClass: {
+      type: String,
+      default: "text-neutral-700",
+    },
+    darkClass: {
+      type: String,
+      default: "text-neutral-",
+    },
   },
   components: {
     DBox,
@@ -67,7 +87,10 @@ export default {
 
 <style lang="scss">
 .ui-heading {
-  font-weight: bold;
+  &:not(.customFontWeight) {
+    font-weight: bold;
+  }
+
   &.center {
     text-align: center;
   }
@@ -76,80 +99,132 @@ export default {
     margin-top: 0;
   }
   &.h1 {
-    font-size: 64px;
-    line-height: 68px;
+    &:not(.customFontSize) {
+      font-size: 64px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 68px;
+    }
     letter-spacing: -0.32px;
 
     &.equal-line-height {
-      line-height: 64px;
+      &:not(.customLineHeight) {
+        line-height: 64px;
+      }
     }
   }
 
   &.h2 {
-    font-size: 48px;
-    line-height: 50px;
+    &:not(.customFontSize) {
+      font-size: 48px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 50px;
+    }
 
     &.equal-line-height {
-      line-height: 48px;
+      &:not(.customLineHeight) {
+        line-height: 48px;
+      }
     }
   }
 
   &.h3 {
-    font-size: 36px;
-    line-height: 40px;
+    &:not(.customFontSize) {
+      font-size: 36px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 40px;
+    }
 
     &.equal-line-height {
-      line-height: 36px;
+      &:not(.customLineHeight) {
+        line-height: 36px;
+      }
     }
   }
 
   &.h4 {
-    font-size: 28px;
-    line-height: 32px;
+    &:not(.customFontSize) {
+      font-size: 28px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 32px;
+    }
 
     &.equal-line-height {
-      line-height: 28px;
+      &:not(.customLineHeight) {
+        line-height: 28px;
+      }
     }
   }
 
   &.h5 {
-    font-size: 20px;
-    line-height: 24px;
+    &:not(.customFontSize) {
+      font-size: 20px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 24px;
+    }
 
     &.equal-line-height {
-      line-height: 20px;
+      &:not(.customLineHeight) {
+        line-height: 20px;
+      }
     }
   }
 
   &.h6 {
-    font-size: 16px;
-    line-height: 24px;
+    &:not(.customFontSize) {
+      font-size: 16px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 24px;
+    }
 
     &.equal-line-height {
-      line-height: 16px;
+      &:not(.customLineHeight) {
+        line-height: 16px;
+      }
     }
   }
 
   &.subtitle-1 {
     font-family: "Circular Std", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+    &:not(.customFontSize) {
+      font-size: 16px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 24px;
+    }
+    &:not(.customFontWeight) {
+      font-weight: 500;
+    }
 
     &.equal-line-height {
-      line-height: 16px;
+      &:not(.customLineHeight) {
+        line-height: 16px;
+      }
     }
   }
 
   &.subtitle-2,
   &.subhead {
     font-family: "Circular Std", sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
+    &:not(.customFontSize) {
+      font-size: 14px;
+    }
+    &:not(.customLineHeight) {
+      line-height: 20px;
+    }
+    &:not(.customFontWeight) {
+      font-weight: 500;
+    }
 
     &.equal-line-height {
-      line-height: 14px;
+      &:not(.customLineHeight) {
+        line-height: 14px;
+      }
     }
   }
 }

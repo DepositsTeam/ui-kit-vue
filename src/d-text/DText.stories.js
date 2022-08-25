@@ -27,12 +27,9 @@ export default {
       control: { type: "boolean" },
     },
     fontFace: {
-      control: {type: "select"},
-      options: [
-        "circularSTD",
-        "heroNew"
-      ]
-    }
+      control: { type: "select" },
+      options: ["circularSTD", "heroNew"],
+    },
   },
 };
 
@@ -42,6 +39,22 @@ const Template = (args) => ({
     return { args };
   },
   template: `<d-text v-bind="args"><span>{{args.children}}</span></d-text>`,
+});
+
+const CustomFontSizeTemplate = ({ fontSize, ...args }) => ({
+  components: { DText },
+  setup() {
+    return { args, fontSize };
+  },
+  template: `<d-text :font-size="fontSize" v-bind="args">{{args.children}}</d-text>`,
+});
+
+const CustomFontWeightTemplate = ({ fontWeight, ...args }) => ({
+  components: { DText },
+  setup() {
+    return { args, fontWeight };
+  },
+  template: `<d-text :font-weight="fontWeight" v-bind="args">{{args.children}}</d-text>`,
 });
 
 export const Body = Template.bind({});
@@ -59,3 +72,16 @@ Overline.args = { children: "Overline", scale: "overline" };
 export const FootnoteCaps = Template.bind({});
 FootnoteCaps.args = { children: "Footnote All Caps", scale: "footnote-caps" };
 FootnoteCaps.storyName = "Footnote All Caps";
+
+export const CustomFontSize = CustomFontSizeTemplate.bind({});
+CustomFontSize.args = {
+  children: "Customized font size",
+  fontSize: "88px",
+};
+
+export const CustomFontWeight = CustomFontWeightTemplate.bind({});
+CustomFontWeight.args = {
+  children: "Customized font weight",
+  fontWeight: "700",
+  scale: "subhead",
+};

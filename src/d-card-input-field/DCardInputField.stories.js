@@ -1,7 +1,7 @@
 import DCreditCardInput from "./DCardInputField.vue";
 
 export default {
-  title: "Card Input Field",
+  title: "Forms/Card Input Field",
   component: DCreditCardInput,
   argTypes: {
     label: {

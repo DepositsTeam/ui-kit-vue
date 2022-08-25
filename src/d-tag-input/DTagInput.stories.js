@@ -1,7 +1,7 @@
 import DTagInput from "./DTagInput.vue";
 
 export default {
-  title: "Tag Input",
+  title: "Forms/Tag Input",
   component: DTagInput,
   argTypes: {
     label: {

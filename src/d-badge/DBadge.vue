@@ -1,11 +1,13 @@
 <template>
   <d-box
     :class="{
-      [`color-scheme__${colorScheme}`]: true,
+      [`color-scheme__${colorScheme}`]: !subtleTextColor,
       subtle,
       [`size__${size}`]: true,
+      subtleTextColor,
     }"
     class="ui-badge"
+    :style="computedSubtleColors"
   >
     <d-text
       :equalLineHeight="size === 'large' ? true : false"
@@ -21,6 +23,8 @@
 <script>
 import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
+// import tinycolor from "tinycolor2";
+
 export default {
   name: "DBadge",
   components: {
@@ -44,6 +48,18 @@ export default {
     text: {
       type: String,
     },
+    subtleTextColor: {
+      type: String,
+      default: null,
+    },
+  },
+  computed: {
+    // computedSubtleColors() {
+    //   const computed
+    //   if(this.subtleTextColor) {
+    //   }
+    //   return {}
+    // }
   },
 };
 </script>

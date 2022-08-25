@@ -57,7 +57,7 @@ export default {
     const styleClasses = ref(null);
     const className = uniqueRandomString(20, 8);
     const hovering = ref(false);
-    const darkMode = inject("$darkMode", null);
+    const d__darkMode = inject("d__darkMode", null);
     const forwardableInputTypes = [
       "text",
       "password",
@@ -113,11 +113,11 @@ export default {
         if (allowedCSSProps[propKey]) {
           if (props[propKey]) {
             if (propKey.startsWith("light")) {
-              if (!darkMode.value) {
+              if (d__darkMode && !d__darkMode.value) {
                 addStylesToCssProps(propKey);
               }
             } else if (propKey.startsWith("dark")) {
-              if (darkMode.value) {
+              if (d__darkMode && d__darkMode.value) {
                 addStylesToCssProps(propKey);
               }
             } else {
@@ -191,10 +191,12 @@ export default {
             [props.fontFace]: props.fontFace,
             [styleClasses.value[className]]: true,
             [props.hoverClass]: hovering.value,
-            [props.darkClass]: darkMode !== null && darkMode.value,
+            [props.darkClass]: d__darkMode !== null && d__darkMode.value,
             [props.lightClass]:
-              darkMode !== null && darkMode.value !== null && !darkMode.value,
-            dark_mode: darkMode !== null && darkMode.value,
+              d__darkMode !== null &&
+              d__darkMode.value !== null &&
+              !d__darkMode.value,
+            dark_mode: d__darkMode !== null && d__darkMode.value,
           },
           id: props.id ? props.id : uniqueRandomString(20, 8),
           value:
@@ -206,7 +208,11 @@ export default {
           type: props.type,
           disabled: props.disabled,
         },
-        [...(slots.default ? [slots.default()] : [])]
+        {
+          default: () => {
+            return [...(slots.default ? slots.default() : [])];
+          },
+        }
       );
   },
 };
@@ -417,32 +423,75 @@ export default {
   background: #ffffff;
 }
 
-.bg-gray-100 {
+.bg-gray-100,
+.bg-grey-100 {
   background: #f5f8fa;
 }
 
-.bg-gray-200 {
+.bg-gray-200,
+.bg-grey-200 {
   background: #e1e7ec;
 }
 
-.bg-gray-300 {
+.bg-gray-300,
+.bg-grey-300 {
   background: #ced6de;
 }
 
-.bg-gray-400 {
+.bg-gray-400,
+.bg-grey-400 {
   background: #b8c4ce;
 }
 
-.bg-gray-500 {
+.bg-gray-500,
+.bg-grey-500 {
   background: #8895a7;
 }
 
-.bg-gray-600 {
+.bg-gray-600,
+.bg-grey-600 {
   background: #5f6b7a;
 }
 
-.bg-gray-700 {
+.bg-gray-700,
+.bg-grey-700 {
   background: #212934;
+}
+
+.bg-neutral-100 {
+  background: #f5f8fa;
+}
+
+.bg-neutral-200 {
+  background: #e1e7ec;
+}
+
+.bg-neutral-300 {
+  background: #ced6de;
+}
+
+.bg-neutral-400 {
+  background: #b8c4ce;
+}
+
+.bg-neutral-500 {
+  background: #8895a7;
+}
+
+.bg-neutral-600 {
+  background: #6d7786;
+}
+
+.bg-neutral-700 {
+  background: #525964;
+}
+
+.bg-neutral-800 {
+  background: #363c43;
+}
+
+.bg-neutral-900 {
+  background: #1b1e21;
 }
 
 .bg-black {
@@ -647,32 +696,75 @@ export default {
   color: #ffffff;
 }
 
-.text-gray-100 {
+.text-gray-100,
+.text-grey-100 {
   color: #f5f8fa;
 }
 
-.text-gray-200 {
+.text-gray-200,
+.text-grey-200 {
   color: #e1e7ec;
 }
 
-.text-gray-300 {
+.text-gray-300,
+.text-grey-300 {
   color: #ced6de;
 }
 
-.text-gray-400 {
+.text-gray-400,
+.text-grey-400 {
   color: #b8c4ce;
 }
 
-.text-gray-500 {
+.text-gray-500,
+.text-grey-500 {
   color: #8895a7;
 }
 
-.text-gray-600 {
+.text-gray-600,
+.text-grey-600 {
   color: #5f6b7a;
 }
 
-.text-gray-700 {
+.text-gray-700,
+.text-grey-700 {
   color: #212934;
+}
+
+.text-neutral-100 {
+  color: #f5f8fa;
+}
+
+.text-neutral-200 {
+  color: #e1e7ec;
+}
+
+.text-neutral-300 {
+  color: #ced6de;
+}
+
+.text-neutral-400 {
+  color: #b8c4ce;
+}
+
+.text-neutral-500 {
+  color: #8895a7;
+}
+
+.text-neutral-600 {
+  color: #6d7786;
+}
+
+.text-neutral-700 {
+  color: #525964;
+}
+
+.text-neutral-800 {
+  color: #363c43;
+}
+
+.text-neutral-900 {
+  color: #1b1e21;
 }
 
 .text-black {

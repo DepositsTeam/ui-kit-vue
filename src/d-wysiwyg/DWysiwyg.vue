@@ -13,7 +13,7 @@
     </d-box>
     <d-box
       :class="{ focused }"
-      :style="{ ...theme }"
+      :style="{ ...d__theme }"
       class="d-wysiwyg-semantic-container"
     >
       <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
@@ -101,7 +101,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import ImageIcon from "../icons/ImageIcon.vue";
 import LinkOutlineIcon from "../icons/outline/LinkOutlineIcon.vue";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 
 export default {
   name: "DWysiwyg",
@@ -202,8 +202,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -224,7 +224,7 @@ export default {
     height: 0;
   }
   &.focused {
-    border-color: var(--primarycolor);
+    border-color: var(--lightPrimaryActionColor);
   }
   button {
     background: transparent;
@@ -234,7 +234,7 @@ export default {
     margin: 8px;
     &:hover,
     &.is-active {
-      color: var(--primarycolor);
+      color: var(--lightPrimaryActionColor);
     }
   }
 }
@@ -244,18 +244,18 @@ export default {
   border-radius: 0 0 4px 4px;
   min-height: 150px;
   &.focused {
-    border-color: var(--primarycolor);
+    border-color: var(--lightPrimaryActionColor);
   }
 }
 .d-wysiwyg-semantic-container {
   border-radius: 4px;
   &:hover {
     & > div {
-      border-color: var(--primarycolor);
+      border-color: var(--lightPrimaryActionColor);
     }
   }
   &.focused {
-    box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
+    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
   }
 }
 </style>

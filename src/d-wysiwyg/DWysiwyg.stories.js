@@ -1,7 +1,7 @@
 import DWysiwyg from "./DWysiwyg.vue";
 
 export default {
-  title: "WYSIWYG Editor",
+  title: "Forms/WYSIWYG Editor",
   component: DWysiwyg,
   argTypes: {
     label: {

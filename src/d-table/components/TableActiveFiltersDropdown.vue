@@ -61,7 +61,11 @@
       <d-button @click="updateGlobalFilter" color-scheme="primary" size="medium"
         >Apply filter</d-button
       >
-      <d-button @click="closeFilters" margin-left="16px" size="medium"
+      <d-button
+        @click="closeFilters"
+        background=" #202B3C"
+        margin-left="16px"
+        size="medium"
         >Cancel</d-button
       >
     </d-box>
@@ -185,6 +189,11 @@ const hideOtherOptions = () => (showSecondOptions.value = false);
   z-index: 100;
   min-width: 600px;
   padding: 24px;
+  &.dark_mode {
+    background: #121a26;
+    border: 1px solid #202b3c;
+    box-shadow: 0px 4px 8px #1a2535;
+  }
   .filter__row {
     display: flex;
     align-items: center;

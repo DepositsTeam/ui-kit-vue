@@ -9,7 +9,7 @@
     }"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
     :disabled="loading || disabled"
   >
     <component
@@ -39,8 +39,8 @@
 <script>
 import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import DBox from "../d-box/DBox.vue";
-import { inject, computed } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { inject } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
 export default {
   props: {
     is: {
@@ -95,6 +95,7 @@ export default {
       type: String,
       default: "Loading",
     },
+    // TODO - Add a property to break/wrap words/text.
   },
   components: { ChevronFilledDownIcon, DBox },
   emits: ["click"],
@@ -104,8 +105,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -130,6 +131,12 @@ export default {
   align-items: center;
   text-align: center;
   justify-content: center;
+  &.dark_mode.semantic__default {
+    background: #121a26;
+    border: 1px solid #202b3c;
+    box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
+    color: #cbd5e1;
+  }
 
   &.responsive {
     display: flex;
@@ -137,7 +144,7 @@ export default {
   }
 
   .ui-button__button-text {
-    white-space: normal;
+    white-space: nowrap;
 
     &.loader-text {
       &::after {
@@ -195,23 +202,44 @@ export default {
   }
 
   &.semantic__primary {
-    background: var(--primarycolor);
-    color: var(--primaryfontcolor);
-    border: 1px solid var(--primaryboxshadowcolor);
+    background: var(--lightPrimaryActionColor);
+    color: var(--lightTextColor);
+    border: 1px solid var(--lightPrimaryActionBoxShadowColor);
+
+    &.dark_mode {
+      background: var(--darkPrimaryActionColor);
+      color: var(--darkTextColor);
+      border: 1px solid var(--darkPrimaryActionBoxShadowColor);
+
+      &:hover {
+        background: var(--darkPrimaryActionHoverColor);
+        color: var(--darkPrimaryActionTextHoverColor);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px var(--darkPrimaryActionBoxShadowColor);
+      }
+
+      &:disabled,
+      &.state__disabled {
+        background: var(--darkPrimaryActionDisabledColor);
+        color: var(--darkSubtleTextColor);
+      }
+    }
 
     &:hover {
-      background: var(--primaryhovercolor);
-      color: var(--primarytexthovercolor);
+      background: var(--lightPrimaryActionHoverColor);
+      color: var(--lightPrimaryActionTextHoverColor);
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);
+      box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
     }
 
     &:disabled,
     &.state__disabled {
-      background: var(--primarydisabledbtncolor);
-      color: var(--primarytextdisabledcolor);
+      background: var(--lightPrimaryActionDisabledColor);
+      color: var(--lightSubtleTextColor);
       cursor: not-allowed;
       border-color: transparent;
     }
@@ -267,23 +295,23 @@ export default {
   }
 
   &.semantic__outline {
-    color: var(--outlinecolor);
-    border: 1px solid var(--outlinecolor);
+    color: var(--lightPrimaryActionColor);
+    border: 1px solid var(--lightPrimaryActionColor);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     background: transparent;
 
     &:focus {
-      box-shadow: 0 0 0 3px var(--outlineboxshadowcolor);
+      box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
     }
 
     &:hover:not(:disabled):not(.state_disabled) {
-      background: var(--outlinecolor);
-      color: var(--primaryfontcolor);
-      box-shadow: 0 1px 0 var(--outlineboxshadowcolor);
+      background: var(--lightPrimaryActionColor);
+      color: var(--lightPrimaryActionTextColor);
+      box-shadow: 0 1px 0 var(--lightOutlineActionBoxShadowColor);
     }
 
     &:focus:hover {
-      box-shadow: 0 0 0 3px var(--outlineboxshadowcolor);
+      box-shadow: 0 0 0 3px var(--lightOutlineActionBoxShadowColor);
     }
 
     &:disabled,

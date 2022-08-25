@@ -1,7 +1,7 @@
 import DSwitch from "./DSwitch.vue";
 
 export default {
-  title: "Switch",
+  title: "Forms/Switch",
   component: DSwitch,
   argTypes: {
     colorScheme: {

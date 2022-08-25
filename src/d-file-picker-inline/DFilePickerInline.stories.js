@@ -1,7 +1,7 @@
 import DFilePickerInline from "./DFilePickerInline.vue";
 
 export default {
-  title: "File Picker (Inline)",
+  title: "Forms/File Picker (Inline)",
   component: DFilePickerInline,
   argTypes: {},
 };

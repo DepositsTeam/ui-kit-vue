@@ -1,19 +1,25 @@
 <template>
   <div
     :style="{
-      ...(avatar.imgURL ? { backgroundImage: `url(${avatar.imgURL})` } : {}),
+      ...(avatar && avatar.imgURL
+        ? { backgroundImage: `url(${avatar.imgURL})` }
+        : {}),
     }"
     class="ui-avatar"
     :class="generateAvatarClassName(avatar, index)"
   >
     <d-text
-      v-if="!avatar.imgURL"
+      v-if="(avatar && !avatar.imgURL) || extras"
       equalLineHeight
       :scale="size === 'small' ? 'overline' : 'footnote'"
     >
-      {{ getInitials(avatar.name) }}
+      <span v-if="extras">+{{ extras }}</span>
+      <span v-else>{{ getInitials(avatar.name) }}</span>
     </d-text>
-    <div v-if="avatar.status && !stacked" class="ui-avatar__avatar-status" />
+    <div
+      v-if="avatar && avatar.status && !stacked"
+      class="ui-avatar__avatar-status"
+    />
   </div>
   <ChevronFilledDownIcon
     v-if="dropDown && !stacked"
@@ -35,7 +41,10 @@ export default {
   props: {
     avatar: {
       type: Object,
-      required: true,
+      default: undefined,
+    },
+    extras: {
+      type: Number,
     },
     stacked: {
       type: Boolean,
@@ -50,9 +59,9 @@ export default {
       type: String,
     },
   },
-  data: () => ({
-    colorSchemes,
-  }),
+  setup() {
+    return { colorSchemes };
+  },
   methods: {
     getInitials,
     generateAvatarColorScheme: function (avatar, index) {
@@ -63,12 +72,14 @@ export default {
           : colorSchemes[index % colorSchemes.length])
       );
     },
-    generateAvatarClassName: function (avatar, index = 0) {
-      return {
-        [`background__${this.generateAvatarColorScheme(avatar, index)}`]:
-          !avatar.imgURL,
-        [`status__${avatar.status}`]: avatar.status,
-      };
+    generateAvatarClassName: function (avatar = null, index = 0) {
+      return avatar
+        ? {
+            [`background__${this.generateAvatarColorScheme(avatar, index)}`]:
+              !avatar.imgURL,
+            [`status__${avatar.status}`]: avatar.status,
+          }
+        : ["background__extra"];
     },
   },
 };

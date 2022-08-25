@@ -2,6 +2,7 @@
   <d-box
     class="ui-text-field__wrapper"
     :class="[wrapperClass, `size__${size}`]"
+    :style="{ ...d__theme }"
   >
     <d-box is="label">
       <d-text
@@ -13,7 +14,7 @@
         {{ label }}
       </d-text>
     </d-box>
-    <div
+    <d-box
       class="ui-select-field__wrapper ui-text-field__input-wrapper"
       :class="{ 'has-error': errorMessage, disabled }"
     >
@@ -35,7 +36,6 @@
         @change="$emit('update:modelValue', $event.target.value)"
         is="select"
         :disabled="disabled"
-        :style="{ ...theme }"
       >
         <option
           v-for="(option, index) in computedOptions"
@@ -46,7 +46,7 @@
         </option>
       </d-box>
       <ChevronFilledDownIcon class="ui-text-field__right-icon" />
-    </div>
+    </d-box>
     <d-box v-if="errorMessage" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
@@ -67,7 +67,7 @@ import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import keyGen from "../utils/keyGen";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 
 export default {
   name: "DSelect",
@@ -139,8 +139,8 @@ export default {
     keyGen,
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -160,13 +160,26 @@ export default {
     pointer-events: none;
   }
 
+  &.dark_mode::after {
+    background: var(--darkInputBackgroundColor);
+  }
+
   &.has-error::after {
     background: #fff0f2;
+  }
+
+  &.has-error.dark_mode::after {
+    background: #350a12;
   }
 
   &:disabled::after,
   &.disabled::after {
     background: #f2f3f4;
+  }
+
+  &.disabled.dark_mode::after,
+  &.dark_mode:disabled::after {
+    background: var(--darkInputDisabledColor);
   }
 
   &.background-caret {

@@ -140,13 +140,24 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 101%;
   left: 0;
+  &.dark_mode {
+    background: #121a26;
+    border: 1px solid #202b3c;
+    box-shadow: 0px 4px 8px #1a2535;
+  }
   .ui-table__heading-cell__dropdown-item {
     display: flex;
     justify-content: space-between;
     padding: 8px 16px;
     color: #5f6b7a;
+    &.dark_mode {
+      color: #94a3b8;
+    }
     &:hover {
       background: #f5f8fa;
+      &.dark_mode {
+        background: #202b3c;
+      }
     }
 
     & > div {

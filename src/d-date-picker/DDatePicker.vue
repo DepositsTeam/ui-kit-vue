@@ -125,7 +125,6 @@ export default {
       }
     },
     fire: function () {
-      console.log(this);
       if (this.formatDate)
         this.$emit(
           "update:modelValue",

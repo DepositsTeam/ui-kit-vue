@@ -6,7 +6,7 @@
       disabled,
       'has-error': localErrorMessage || errorMessage,
     }"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box is="label">
       <d-text
@@ -75,7 +75,7 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
@@ -210,8 +210,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>

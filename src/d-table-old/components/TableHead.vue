@@ -58,7 +58,6 @@ export default {
     const selectedRows = inject("selectedRows");
 
     const recentlyOpened = () => {
-      console.log("I got opened");
     };
 
     return {

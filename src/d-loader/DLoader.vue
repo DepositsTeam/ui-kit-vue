@@ -2,7 +2,7 @@
   <d-box
     :class="{ fullPage, loading }"
     class="ui-d-loader"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box v-if="loading">
       <div v-if="loader === 'ring'" class="ring-loader">
@@ -19,7 +19,7 @@
 <script>
 import { DBox } from "../main";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 
 export default {
   name: "DLoader",
@@ -41,8 +41,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
@@ -60,11 +60,15 @@ export default {
       width: 100%;
       height: 100vh;
       z-index: 99999999999999;
-      background: white;
+      background: var(--lightBackgroundColor);
       align-items: center;
       justify-content: center;
       &.dark_mode {
-        background: var(--darkmodebackground);
+        background: var(--darkBackgroundColor);
+        .ring-loader div {
+          border-color: var(--darkPrimaryActionColor) transparent transparent
+            transparent;
+        }
       }
     }
   }
@@ -85,7 +89,8 @@ export default {
     border: 8px solid;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: var(--primarycolor) transparent transparent transparent;
+    border-color: var(--lightPrimaryActionColor) transparent transparent
+      transparent;
 
     &:nth-child(1) {
       animation-delay: -0.45s;

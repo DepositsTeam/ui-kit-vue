@@ -1,7 +1,7 @@
 import DTextarea from "./DTextarea.vue";
 
 export default {
-  title: "Text Area",
+  title: "Forms/Text Area",
   component: DTextarea,
   argTypes: {
     label: {

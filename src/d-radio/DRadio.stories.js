@@ -1,7 +1,8 @@
 import DRadio from "./DRadio.vue";
+import DarkModeProvider from "../providers/DarkModeProvider.vue";
 
 export default {
-  title: "Radio",
+  title: "Forms/Radio",
   component: DRadio,
   argTypes: {
     ringed: {
@@ -32,13 +33,50 @@ const Template = (args) => ({
   template: `<d-radio v-bind="args" />`,
 });
 
+const DarkModeTemplate = (args) => ({
+  components: { DRadio, DarkModeProvider },
+  data: () => ({
+    value: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <dark-mode-provider :dark-mode="true">
+      <d-radio v-bind="args" />
+    </dark-mode-provider>
+    `,
+});
+
+const DarkModeTemplateFactory = () => {
+  const Bound = DarkModeTemplate.bind({});
+  Bound.decorators = [
+    () => ({
+      template:
+        '<div style="padding: 3em; background: #121A26;"><story /></div>',
+    }),
+  ];
+  return Bound;
+};
+
 export const Default = Template.bind({});
 Default.args = {
   label: "Checking",
 };
 
+export const DarkDefault = DarkModeTemplateFactory();
+DarkDefault.args = {
+  label: "Checking",
+};
+
 export const Ringed = Template.bind({});
 Ringed.args = {
+  label: "Checking",
+  ringed: true,
+};
+
+export const DarkRinged = DarkModeTemplateFactory();
+DarkRinged.args = {
   label: "Checking",
   ringed: true,
 };

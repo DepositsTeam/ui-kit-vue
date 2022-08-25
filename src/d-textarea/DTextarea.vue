@@ -2,7 +2,7 @@
   <d-box
     class="ui-text-field__wrapper ui-text-area__wrapper"
     :class="[`size__${size}`]"
-    :style="{ ...theme }"
+    :style="{ ...d__theme }"
   >
     <d-box is="label" class="ui-text-area__label">
       <d-text
@@ -53,7 +53,7 @@ import DBox from "../d-box/DBox.vue";
 import DText from "../d-text/DText.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import { inject } from "vue";
-import defaultTheme from "../providers/default-theme";
+import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 
 export default {
@@ -69,15 +69,12 @@ export default {
       type: String,
     },
   },
-  mounted() {
-  },  
+  mounted() {},
   methods: {
     handleInputEvents(e) {
       this.$emit("update:modelValue", e.target.value);
       this.$emit("input", e.target.value);
-      this.$nextTick(() => {
-       
-      })
+      this.$nextTick(() => {});
     },
     handleChangeEvents(e) {
       this.$emit("change", e.target.value);
@@ -99,8 +96,8 @@ export default {
     },
   },
   setup() {
-    const theme = inject("theme", defaultTheme);
-    return { theme };
+    const d__theme = inject("d__theme", defaultThemeVars);
+    return { d__theme };
   },
 };
 </script>
