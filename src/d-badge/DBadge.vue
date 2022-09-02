@@ -7,12 +7,13 @@
       subtleTextColor,
     }"
     class="ui-badge"
-    :style="computedSubtleColors"
   >
     <d-text
       :equalLineHeight="size === 'large' ? true : false"
       class="ui-badge__text"
       :scale="size === 'large' ? 'footnote' : 'overline'"
+      :font-size="size === 'huge' ? '12px' : null"
+      margin-y="0"
     >
       <span v-if="text">{{ text }}</span>
       <slot v-else></slot>
@@ -43,7 +44,8 @@ export default {
     },
     size: {
       type: String,
-      validator: (value) => ["small", "medium", "large"].includes(value),
+      validator: (value) =>
+        ["small", "medium", "large", "huge"].includes(value),
     },
     text: {
       type: String,
@@ -66,9 +68,11 @@ export default {
 
 <style lang="scss" scoped>
 .ui-badge {
-  display: inline-block;
+  display: inline-flex;
   border-radius: 900000000px;
   padding: 2px 8px;
+  align-items: center;
+  justify-content: center;
   color: white;
 }
 
@@ -84,6 +88,12 @@ export default {
   &.size__medium,
   &.size__large {
     padding: 4px 8px;
+  }
+
+  &.size__huge {
+    height: 30px;
+    min-width: 60px;
+    padding: 7px 14px;
   }
 
   &.color-scheme__neutral {

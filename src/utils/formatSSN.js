@@ -17,5 +17,14 @@ export function formatSSN(ssn) {
     .join("");
 
   // enforce max length
-  return val.substring(0, 11);
+  const sssn = val.substring(0, 11);
+  let starredSsn = "";
+  for (let i = 0; i < sssn.length; i++) {
+    if (sssn[i] !== "-") {
+      starredSsn += "*";
+    } else {
+      starredSsn += "-";
+    }
+  }
+  return [sssn, starredSsn];
 }

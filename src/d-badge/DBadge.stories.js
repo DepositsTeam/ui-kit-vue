@@ -13,7 +13,7 @@ export default {
     },
     size: {
       control: { type: "select" },
-      options: ["small", "medium", "large"],
+      options: ["small", "medium", "large", "huge"],
     },
   },
 };
@@ -278,4 +278,51 @@ SubtleLargeBlue.args = {
   subtle: true,
   colorScheme: "blue",
   size: "large",
+};
+
+export const SubtleHugeNeutral = Template.bind({});
+SubtleHugeNeutral.args = {
+  children: "Neutral",
+  subtle: true,
+  size: "huge",
+};
+
+export const SubtleHugeGreen = Template.bind({});
+SubtleHugeGreen.args = {
+  children: "Green",
+  subtle: true,
+  colorScheme: "green",
+  size: "huge",
+};
+
+export const SubtleHugeRed = Template.bind({});
+SubtleHugeRed.args = {
+  children: "Red",
+  subtle: true,
+  colorScheme: "red",
+  size: "huge",
+};
+
+export const SubtleHugeYellow = Template.bind({});
+SubtleHugeYellow.args = {
+  children: "Yellow",
+  subtle: true,
+  colorScheme: "yellow",
+  size: "huge",
+};
+
+export const SubtleHugeCyan = Template.bind({});
+SubtleHugeCyan.args = {
+  children: "Cyan",
+  subtle: true,
+  colorScheme: "cyan",
+  size: "huge",
+};
+
+export const SubtleHugeBlue = Template.bind({});
+SubtleHugeBlue.args = {
+  children: "Blue",
+  subtle: true,
+  colorScheme: "blue",
+  size: "huge",
 };

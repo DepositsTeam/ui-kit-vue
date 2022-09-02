@@ -224,8 +224,8 @@ export default {
         }
       } else if (this.ssn) {
         const formatted = formatSSN(e.target.value);
-        e.target.value = formatted;
-        this.$emit("update:modelValue", formatted);
+        e.target.value = formatted[1];
+        this.$emit("update:modelValue", formatted[0]);
       } else {
         this.$emit("update:modelValue", e.target.value);
       }

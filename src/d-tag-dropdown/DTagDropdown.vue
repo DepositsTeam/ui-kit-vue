@@ -170,7 +170,9 @@ const inputTags = computed(() => {
     if (typeof option === "string") {
       return props.modelValue.includes(option);
     } else {
-      return props.modelValue.includes(option.value);
+      return props.modelValue === "" || props.modelValue
+        ? props.modelValue.includes(option.value)
+        : false;
     }
   });
 });
