@@ -30,6 +30,11 @@
             {{ description }}
           </d-text>
           <slot name="button"></slot>
+          <d-box v-if="button" margin-top="16px">
+            <d-button @click="emitClick" size="small">{{
+              button.text
+            }}</d-button>
+          </d-box>
         </div>
       </d-box>
     </d-box>
@@ -42,83 +47,71 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DHeading from "../d-heading/DHeading.vue";
-import DText from "../d-text/DText.vue";
-import CloseIcon from "../icons/CloseIcon.vue";
-import InfoIcon from "../icons/InfoIcon.vue";
-import WarningIcon from "../icons/WarningIcon.vue";
-import ErrorIcon from "../icons/ErrorIcon.vue";
-import CheckIcon from "../icons/CheckIcon.vue";
+<script setup>
+import { DBox, DButton, DHeading, DText } from "../main";
+import {
+  CloseIcon,
+  InfoIcon,
+  WarningIcon,
+  ErrorIcon,
+  CheckIcon,
+} from "../main";
+import { ref } from "vue";
+
+const emit = defineEmits(["button-clicked"]);
+
+const props = defineProps({
+  message: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  colorScheme: {
+    type: String,
+    default: "default",
+    validator: (value) =>
+      ["default", "info", "warning", "error", "success"].includes(value),
+  },
+  theme: {
+    type: String,
+    default: "flat",
+    validator: (value) => ["flat", "filled", "inline"].includes(value),
+  },
+  button: {
+    type: Object,
+  },
+  action: {
+    type: Function,
+  },
+  closable: {
+    type: Boolean,
+  },
+  onClose: {
+    type: Function,
+  },
+  bordered: {
+    type: Boolean,
+    default: false,
+  },
+});
 const schemeIcons = {
   info: InfoIcon,
   warning: WarningIcon,
   error: ErrorIcon,
   success: CheckIcon,
 };
-export default {
-  name: "DAlert",
-  data: () => ({
-    showAlert: true,
-  }),
-  setup() {
-    return { schemeIcons };
-  },
-  components: {
-    DBox,
-    DHeading,
-    DText,
-    CloseIcon,
-  },
-  props: {
-    message: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
-    colorScheme: {
-      type: String,
-      default: "default",
-      validator: (value) =>
-        ["default", "info", "warning", "error", "success"].includes(value),
-    },
-    theme: {
-      type: String,
-      default: "flat",
-      validator: (value) => ["flat", "filled", "inline"].includes(value),
-    },
-    button: {
-      type: Object,
-    },
-    action: {
-      type: Function,
-    },
-    closable: {
-      type: Boolean,
-    },
-    onClose: {
-      type: Function,
-    },
-    bordered: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {
-    remove: function () {
-      this.showAlert = false;
-    },
-    handleRemoval: function () {
-      if (this.onClose && typeof this.onClose === "function") {
-        this.onClose();
-      } else {
-        this.remove();
-      }
-    },
-  },
+const showAlert = ref(true);
+
+const remove = () => {
+  showAlert.value = false;
 };
+const handleRemoval = () => {
+  if (props.onClose && typeof props.onClose === "function") {
+    props.onClose();
+  } else remove();
+};
+const emitClick = () => emit("button-clicked");
 </script>
 
 <style lang="scss" scoped>
@@ -131,6 +124,34 @@ export default {
   background: #fff;
   &.dark_mode {
     background: transparent;
+    border-color: #202b3c;
+    .ui-alert__header-text {
+      color: #cbd5e1;
+    }
+    .ui-alert__body {
+      color: #94a3b8;
+    }
+    &.theme__flat {
+      &.color-scheme__info {
+        border-color: #0d7fe9;
+        border-left: 4px solid #0d7fe9;
+      }
+
+      &.color-scheme__warning {
+        border-color: #ff9505;
+        border-left: 4px solid #ff9505;
+      }
+
+      &.color-scheme__error {
+        border-color: #d62f4b;
+        border-left: 4px solid #d62f4b;
+      }
+
+      &.color-scheme__success {
+        border-color: #00b058;
+        border-left: 4px solid #00b058;
+      }
+    }
   }
 
   &.is-toast {
@@ -207,6 +228,9 @@ export default {
 
   &.theme__filled {
     background: #f5f8fa;
+    &.dark_mode {
+      background: #202b3c;
+    }
 
     &.color-scheme__info {
       background: #0d7fe9;
@@ -224,16 +248,22 @@ export default {
       background: #00b058;
     }
 
-    &:not(.color-scheme__default):not(.color-scheme__warning) {
+    &:not(.color-scheme__default) {
       .ui-alert__header-text,
       .ui-alert__header-icon {
         color: #fff;
       }
     }
 
-    &.color-scheme__warning .ui-alert__header-icon {
-      color: #000;
+    &:not(.color-scheme__warning) {
+      .ui-alert__header-text{
+        color: #fff;
+      }
     }
+
+    //&.color-scheme__warning .ui-alert__header-icon {
+    //  color: #000;
+    //}
 
     &.color-scheme__info .ui-alert__body {
       color: #ddefff;

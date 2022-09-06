@@ -227,6 +227,7 @@ DarkFlatSuccessButton.args = {
 
 export const FlatWarningButton = Template.bind({});
 FlatWarningButton.args = {
+  message: "This is an alert",
   colorScheme: "warning",
   button: {
     text: "Default Button",
@@ -235,6 +236,7 @@ FlatWarningButton.args = {
 
 export const DarkFlatWarningButton = DarkModeTemplateFactory();
 DarkFlatWarningButton.args = {
+  message: "This is an alert",
   colorScheme: "warning",
   button: {
     text: "Default Button",
