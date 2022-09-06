@@ -1,44 +1,46 @@
 <template>
-    <svg
-      :width="width"
-      :height="height"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      v-bind="$attrs"
-    >
-      <path
-        d="M21 7H3"
-        :stroke="smartColor || stroke"
-        :stroke-width="strokeWidth"
-        :stroke-linecap="strokeLineCap"
-        :stroke-linejoin="strokeLineJoin"
-      />
-      <path
-        d="M18 10L21 7L18 4"
-        :stroke="smartColor || stroke"
-        :stroke-width="strokeWidth"
-        :stroke-linecap="strokeLineCap"
-        :stroke-linejoin="strokeLineJoin"
-      />
-      <path
-        d="M6 20L3 17L6 14"
-        :stroke="smartColor || stroke"
-        :stroke-width="strokeWidth"
-        :stroke-linecap="strokeLineCap"
-        :stroke-linejoin="strokeLineJoin"
-      />
-      <path
-        d="M3 17H21"
-        :stroke="smartColor || stroke"
-        :stroke-width="strokeWidth"
-        :stroke-linecap="strokeLineCap"
-        :stroke-linejoin="strokeLineJoin"
-      />
-    </svg>
+  <d-box
+    is="svg"
+    :width="width"
+    :height="height"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    v-bind="$attrs"
+  >
+    <path
+      d="M21 7H3"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+    <path
+      d="M18 10L21 7L18 4"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+    <path
+      d="M6 20L3 17L6 14"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+    <path
+      d="M3 17H21"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+  </d-box>
 </template>
 
 <script setup>
+import { DBox } from "../main";
 defineProps({
   smartColor: {
     type: String,

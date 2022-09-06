@@ -91,7 +91,7 @@ export default {
       }
     });
     const darkModeIsEnabled = computed(
-      () => darkMode !== null && darkMode.value
+      () => darkMode !== null && darkMode !== undefined && darkMode.value
     );
 
     const uniqueID = uniqueRandomString(20);
@@ -131,7 +131,7 @@ export default {
       }
     };
 
-    const generateClassProps = (alertMe = false) => {
+    const generateClassProps = () => {
       const savedCss = {};
       for (let prop in props) {
         if (allowedCSSProps[prop]) {

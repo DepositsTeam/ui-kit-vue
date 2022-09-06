@@ -1,5 +1,5 @@
 <template>
-  <svg
+  <d-box is="svg"
     :width="width"
     :height="height"
     viewBox="0 0 25 24"
@@ -22,10 +22,11 @@
       d="M14.3662 13.1C13.9621 13.1 13.627 12.76 13.627 12.35C13.627 6.10004 14.8787 4.79008 18.4566 2.64008C18.8114 2.43008 19.2648 2.55009 19.4717 2.90009C19.6787 3.26009 19.5604 3.72006 19.2155 3.93006C16.022 5.85006 15.1054 6.65004 15.1054 12.35C15.1054 12.76 14.7703 13.1 14.3662 13.1Z"
       :fill="smartColor || fill"
     />
-  </svg>
+  </d-box>
 </template>
 
 <script setup>
+import { DBox } from "../main";
 defineProps({
   smartColor: {
     type: String,

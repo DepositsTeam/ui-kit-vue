@@ -1,5 +1,6 @@
 <template>
-  <svg
+  <d-box
+    is="svg"
     :width="width"
     :height="height"
     viewBox="0 0 24 24"
@@ -34,10 +35,11 @@
       :stroke-linecap="strokeLineCap"
       :stroke-linejoin="strokeLineJoin"
     />
-  </svg>
+  </d-box>
 </template>
 
 <script setup>
+import { DBox } from "../main";
 defineProps({
   smartColor: {
     type: String,

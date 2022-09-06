@@ -1,23 +1,25 @@
 <template>
-    <svg
-      :width="width"
-      :height="height"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      v-bind="$attrs"
-    >
-      <path
-        d="M6 6L18 18M6 18L18 6L6 18Z"
-        :stroke="smartColor || stroke"
-        :stroke-width="strokeWidth"
-        :stroke-linecap="strokeLineCap"
-        :stroke-linejoin="strokeLineJoin"
-      />
-    </svg>
+  <d-box
+    is="svg"
+    :width="width"
+    :height="height"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    v-bind="$attrs"
+  >
+    <path
+      d="M6 6L18 18M6 18L18 6L6 18Z"
+      :stroke="smartColor || stroke"
+      :stroke-width="strokeWidth"
+      :stroke-linecap="strokeLineCap"
+      :stroke-linejoin="strokeLineJoin"
+    />
+  </d-box>
 </template>
 
 <script setup>
+import { DBox } from "../main";
 defineProps({
   smartColor: {
     type: String,
