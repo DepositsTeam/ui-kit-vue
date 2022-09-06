@@ -3,13 +3,17 @@
     :class="{
       [`color-scheme__${colorScheme}`]: !subtleTextColor,
       subtle,
-      [`size__${size}`]: true,
+      [`size__${size}`]: !customSize,
+      size_custom: customSize,
       subtleTextColor,
     }"
     class="ui-badge"
+    :style="{
+      '--size': typeof customSize === 'number' ? `${customSize}px` : customSize,
+    }"
   >
     <d-text
-      :equalLineHeight="size === 'large' ? true : false"
+      :equalLineHeight="size === 'large'"
       class="ui-badge__text"
       :scale="size === 'large' ? 'footnote' : 'overline'"
       :font-size="size === 'huge' ? '12px' : null"
@@ -21,49 +25,34 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-// import tinycolor from "tinycolor2";
+<script setup>
+import { DBox, DText } from "../main";
 
-export default {
-  name: "DBadge",
-  components: {
-    DBox,
-    DText,
+defineProps({
+  colorScheme: {
+    type: String,
+    validator: (value) =>
+      ["neutral", "green", "red", "yellow", "cyan", "blue"].includes(value),
+    default: "neutral",
   },
-  props: {
-    colorScheme: {
-      type: String,
-      validator: (value) =>
-        ["neutral", "green", "red", "yellow", "cyan", "blue"].includes(value),
-      default: "neutral",
-    },
-    subtle: {
-      type: Boolean,
-    },
-    size: {
-      type: String,
-      validator: (value) =>
-        ["small", "medium", "large", "huge"].includes(value),
-    },
-    text: {
-      type: String,
-    },
-    subtleTextColor: {
-      type: String,
-      default: null,
-    },
+  subtle: {
+    type: Boolean,
   },
-  computed: {
-    // computedSubtleColors() {
-    //   const computed
-    //   if(this.subtleTextColor) {
-    //   }
-    //   return {}
-    // }
+  size: {
+    type: [String],
+    validator: (value) => ["small", "medium", "large", "huge"].includes(value),
   },
-};
+  customSize: {
+    type: [Number, String],
+  },
+  text: {
+    type: String,
+  },
+  subtleTextColor: {
+    type: String,
+    default: null,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +63,9 @@ export default {
   align-items: center;
   justify-content: center;
   color: white;
+  &.dark_mode {
+    color: #121a26;
+  }
 }
 
 .ui-badge__text {
@@ -81,6 +73,10 @@ export default {
 }
 
 .ui-badge {
+  &.size_custom {
+    padding: 2px 8px;
+    height: var(--size);
+  }
   &.size__small {
     padding: 2px 8px;
   }
@@ -98,57 +94,99 @@ export default {
 
   &.color-scheme__neutral {
     background: #8895a7;
+    &.dark_mode {
+      background: #64748b;
+    }
   }
 
   &.color-scheme__green {
     background: #00b058;
+    &.dark_mode {
+      background: #2eab6c;
+    }
   }
 
   &.color-scheme__red {
     background: #d62f4b;
+    &.dark_mode {
+      background: #df5e74;
+    }
   }
 
   &.color-scheme__yellow {
     background: #ff9505;
+    &.dark_mode {
+      background: #dc8104;
+    }
   }
 
   &.color-scheme__cyan {
     background: #0c9ccc;
+    &.dark_mode {
+      background: #0c9ccc;
+    }
   }
 
   &.color-scheme__blue {
     background: #0d7fe9;
+    &.dark_mode {
+      background: #418be1;
+    }
   }
 
   &.subtle {
     &.color-scheme__neutral {
       color: #212934;
       background: #e1e7ec;
+      &.dark_mode {
+        background: #202b3c;
+        color: #cbd5e1;
+      }
     }
 
     &.color-scheme__green {
       color: #158957;
       background: #c4efdf;
+      &.dark_mode {
+        background: #175636;
+        color: #32ba75;
+      }
     }
 
     &.color-scheme__red {
       color: #842432;
       background: #fcc5ce;
+      &.dark_mode {
+        background: #911c30;
+        color: #e88898;
+      }
     }
 
     &.color-scheme__yellow {
       color: #e08304;
       background: #fff0db;
+      &.dark_mode {
+        background: #6e4102;
+        color: #ef8c04;
+      }
     }
 
     &.color-scheme__cyan {
       color: #0b87b0;
       background: #bdf3fc;
+      &.dark_mode {
+        background: #0b5169;
+        color: #0b87b0;
+      }
     }
 
     &.color-scheme__blue {
       color: #0059ac;
       background: #ddefff;
+      &.dark_mode {
+        background: #2a4c76;
+        color: #91b2dc;
+      }
     }
   }
 }
