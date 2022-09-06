@@ -1,5 +1,5 @@
 <template>
-  <div
+  <d-box
     :style="{
       ...(avatar && avatar.imgURL
         ? { backgroundImage: `url(${avatar.imgURL})` }
@@ -16,72 +16,61 @@
       <span v-if="extras">+{{ extras }}</span>
       <span v-else>{{ getInitials(avatar.name) }}</span>
     </d-text>
-    <div
+    <d-box
       v-if="avatar && avatar.status && !stacked"
       class="ui-avatar__avatar-status"
     />
-  </div>
+  </d-box>
   <ChevronFilledDownIcon
     v-if="dropDown && !stacked"
     class="ui-avatar__dropdown-icon"
   />
 </template>
 
-<script>
+<script setup>
 import getInitials from "./utils/getInitials";
-import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
-import DText from "../d-text/DText.vue";
+import { DBox, DText } from "../main";
+import { ChevronFilledDownIcon } from "../main";
 const colorSchemes = ["cyan", "green", "orange", "red", "gray", "blue"];
-export default {
-  name: "AvatarContent",
-  components: {
-    ChevronFilledDownIcon,
-    DText,
+
+defineProps({
+  avatar: {
+    type: Object,
+    default: undefined,
   },
-  props: {
-    avatar: {
-      type: Object,
-      default: undefined,
-    },
-    extras: {
-      type: Number,
-    },
-    stacked: {
-      type: Boolean,
-    },
-    dropDown: {
-      type: Boolean,
-    },
-    index: {
-      type: Number,
-    },
-    size: {
-      type: String,
-    },
+  extras: {
+    type: Number,
   },
-  setup() {
-    return { colorSchemes };
+  stacked: {
+    type: Boolean,
   },
-  methods: {
-    getInitials,
-    generateAvatarColorScheme: function (avatar, index) {
-      return (
-        avatar.colorScheme ||
-        (index < colorSchemes.length
-          ? colorSchemes[index]
-          : colorSchemes[index % colorSchemes.length])
-      );
-    },
-    generateAvatarClassName: function (avatar = null, index = 0) {
-      return avatar
-        ? {
-            [`background__${this.generateAvatarColorScheme(avatar, index)}`]:
-              !avatar.imgURL,
-            [`status__${avatar.status}`]: avatar.status,
-          }
-        : ["background__extra"];
-    },
+  dropDown: {
+    type: Boolean,
   },
+  index: {
+    type: Number,
+  },
+  size: {
+    type: String,
+  },
+});
+
+const generateAvatarColorScheme = (avatar, index) => {
+  return (
+    avatar.colorScheme ||
+    (index < colorSchemes.length
+      ? colorSchemes[index]
+      : colorSchemes[index % colorSchemes.length])
+  );
+};
+const generateAvatarClassName = (avatar = null, index = 0) => {
+  return avatar
+    ? {
+        [`background__${generateAvatarColorScheme(avatar, index)}`]:
+          !avatar.imgURL,
+        [`status__${avatar.status}`]: avatar.status,
+      }
+    : ["background__extra"];
 };
 </script>
 

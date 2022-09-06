@@ -43,56 +43,48 @@
   </d-box>
 </template>
 
-<script>
+<script setup>
 // Find a way to keep this markup clean while using scoped CSS
 import DBox from "../d-box/DBox.vue";
 import keyGen from "../utils/keyGen";
 import AvatarContent from "./AvatarContent.vue";
-export default {
-  name: "DAvatar",
-  components: {
-    DBox,
-    AvatarContent,
+import { computed } from "vue";
+
+const props = defineProps({
+  subtle: {
+    type: Boolean,
   },
-  computed: {
-    extraAvatars: function () {
-      return this.avatars && this.avatars.length
-        ? this.avatars.length - this.visibleAvatars
-        : 0;
-    },
-    avatarsToShow: function () {
-      return this.avatars.slice(0, this.visibleAvatars);
-    },
+  stacked: {
+    type: Boolean,
   },
-  props: {
-    subtle: {
-      type: Boolean,
-    },
-    stacked: {
-      type: Boolean,
-    },
-    size: {
-      type: String,
-      validator: (value) => ["small", "medium", "large"].includes(value),
-      default: "large",
-    },
-    avatar: {
-      type: Object,
-    },
-    avatars: {
-      type: Array,
-    },
-    dropDown: {
-      type: Boolean,
-    },
-    visibleAvatars: {
-      type: Number,
-    },
+  size: {
+    type: String,
+    validator: (value) => ["small", "medium", "large"].includes(value),
+    default: "large",
   },
-  methods: {
-    keyGen,
+  avatar: {
+    type: Object,
   },
-};
+  avatars: {
+    type: Array,
+  },
+  dropDown: {
+    type: Boolean,
+  },
+  visibleAvatars: {
+    type: Number,
+  },
+});
+
+const extraAvatars = computed(() => {
+  return props.avatars && props.avatars.length
+    ? props.avatars.length - props.visibleAvatars
+    : 0;
+});
+
+const avatarsToShow = computed(() => {
+  return props.avatars.slice(0, props.visibleAvatars);
+});
 </script>
 
 <style lang="scss">
@@ -169,32 +161,56 @@ export default {
   &.background__cyan {
     background: #bdf3fc;
     color: #085e7a;
+    &.dark_mode {
+      background: #0b5169;
+      color: #36bdea;
+    }
   }
 
   &.background__green {
     background: #c4efdf;
     color: #1f624a;
+    &.dark_mode {
+      background: #175636;
+      color: #36c77d;
+    }
   }
 
   &.background__orange {
     background: #fff0db;
     color: #995a06;
+    &.dark_mode {
+      background: #6e4102;
+      color: #fb9810;
+    }
   }
 
   &.background__red {
     background: #fcc5ce;
     color: #5c1e27;
+    &.dark_mode {
+      background: #911c30;
+      color: #eb98a6;
+    }
   }
 
   &.background__grey,
   &.background__gray {
     background: #e1e7ec;
     color: #212934;
+    &.dark_mode {
+      background: #202b3c;
+      color: #cbd5e1;
+    }
   }
 
   &.background__blue {
     background: #ddefff;
     color: #003f79;
+    &.dark_mode {
+      background: #2a4c76;
+      color: #7da7db;
+    }
   }
 }
 
@@ -202,6 +218,10 @@ export default {
   &.background__extra {
     background: #e1e7ec;
     color: #212934;
+    &.dark_mode {
+      background: #121a26;
+      color: #cbd5e1;
+    }
   }
 
   > .ui-avatar__avatar-status {
@@ -212,6 +232,9 @@ export default {
     border-radius: 50%;
     bottom: 0;
     right: -5%;
+    &.dark_mode {
+      border-color: #121a26;
+    }
   }
 
   &.status__green > .ui-avatar__avatar-status {
@@ -265,6 +288,9 @@ export default {
   &.stacked {
     .ui-avatar {
       border: 3px solid #fff;
+      &.dark_mode {
+        border-color: #121a26;
+      }
     }
 
     > .ui-avatar__wrapper:not(:first-child) {
