@@ -1,16 +1,6 @@
 <script>
-import {
-  h,
-  ref,
-  inject,
-  onMounted,
-  onBeforeUpdate,
-  onBeforeMount,
-  computed,
-} from "vue";
+import { h, inject, computed } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
-import jss from "jss";
-import preset from "jss-preset-default";
 import uniqueRandomString from "../utils/uniqueRandomString";
 
 export default {
@@ -31,6 +21,9 @@ export default {
       type: [Number, String],
     },
     ...Object.assign({}, allowedCSSProps),
+    cursor: {
+      type: String,
+    },
     hoverClass: {
       type: [String, Object, Array],
     },
@@ -100,7 +93,6 @@ export default {
     const darkModeIsEnabled = computed(
       () => darkMode !== null && darkMode.value
     );
-    const styleClasses = ref(null);
 
     const uniqueID = uniqueRandomString(20);
     const uniqueClass = uniqueRandomString(20);
@@ -139,7 +131,7 @@ export default {
       }
     };
 
-    const generateClassProps = () => {
+    const generateClassProps = (alertMe = false) => {
       const savedCss = {};
       for (let prop in props) {
         if (allowedCSSProps[prop]) {
@@ -160,6 +152,7 @@ export default {
 
         const styleTag = document.createElement("style");
         styleTag.id = uniqueID;
+        styleTag.setAttribute("type", "text/css");
         styleTag.innerHTML = `.${uniqueClass}{${cssRules}}`;
         document.head.appendChild(styleTag);
       }
