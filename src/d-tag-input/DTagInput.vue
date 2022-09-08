@@ -14,7 +14,7 @@
         {{ label }}
       </d-text>
     </d-box>
-    <div class="ui-tag-input__input-wrapper">
+    <d-box class="ui-tag-input__input-wrapper">
       <d-box
         is="div"
         v-for="(tag, index) in inputTags"
@@ -31,6 +31,8 @@
         <CloseIcon
           @click="handleDeleteTag(index)"
           class="ui-tag-input__close-icon"
+          height="16px"
+          width="16px"
         />
       </d-box>
       <d-textfield
@@ -44,17 +46,14 @@
         v-model="input"
         :size="size"
       />
-    </div>
+    </d-box>
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import DTextfield from "../d-textfield/DTextfield.vue";
-import CloseIcon from "../icons/CloseIcon.vue";
+<script setup>
+import { DBox, DText, DTextfield, CloseIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { inject } from "vue";
+import { inject, ref, nextTick, onMounted } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 const _tagDelimiterKey = {
@@ -62,89 +61,83 @@ const _tagDelimiterKey = {
   enter: "Enter",
   comma: ",",
 };
-export default {
-  name: "DTagInput",
-  components: {
-    DBox,
-    DText,
-    DTextfield,
-    CloseIcon,
-  },
-  emits: ["tag-added", "tag-deleted", "text-changed", "tag-changed"],
-  data: () => ({
-    input: "",
-    inputTags: [],
-    isKeyReleased: "",
-  }),
-  props: {
-    ...inputProps,
-    values: {
-      type: Array,
-      default: () => ["Option 1", "Option 2", "Option 3"],
-    },
-    tagDelimiterKey: {
-      type: String,
-      validator: (value) => ["enter", "comma", "space"].includes(value),
-      default: "enter",
-    },
-    // TODO Make input, tags and the tag names customizable
-  },
-  methods: {
-    keyGen,
-    setIsKeyReleased: function (value) {
-      this.isKeyReleased = value;
-    },
-    handleDeleteTag: function (index) {
-      const deletedTag = this.inputTags[index];
-      let oldTagArray = this.inputTags;
-      this.inputTags = this.inputTags.filter((tag, i) => i !== index);
-      this.$nextTick(() => {
-        this.$emit("tag-deleted", deletedTag, this.inputTags);
-        this.$emit("tag-changed", oldTagArray, this.inputTags);
-      });
-    },
-    handleKeyDown: function (event) {
-      const newTag = this.input.trim();
-      let oldTagArray = this.inputTags;
-      const key = _tagDelimiterKey[this.tagDelimiterKey];
-      if (
-        event.key === key &&
-        newTag.length &&
-        !this.inputTags.includes(newTag)
-      ) {
-        event.preventDefault();
-        this.inputTags.push(newTag);
-        this.$nextTick(() => {
-          this.$emit("tag-added", newTag, oldTagArray);
-          this.$emit("tag-changed", oldTagArray, this.inputTags);
-        });
-        this.input = "";
-      }
 
-      if (
-        event.key === "Backspace" &&
-        !this.input.length &&
-        this.inputTags.length &&
-        this.isKeyReleased
-      ) {
-        event.preventDefault();
-        const tagsArray = [...this.inputTags];
-        const deletedTag = tagsArray.pop();
-        this.inputTags = tagsArray;
-        this.input = deletedTag;
+const d__theme = inject("d__theme", defaultThemeVars);
 
-        this.$nextTick(() => {
-          this.$emit("tag-deleted", deletedTag, this.inputTags);
-          this.$emit("tag-changed", oldTagArray, this.inputTags);
-        });
-      }
-      this.isKeyReleased = false;
-    },
+const emit = defineEmits([
+  "tag-added",
+  "tag-deleted",
+  "text-changed",
+  "tag-changed",
+  "update:modelValue",
+]);
+
+const props = defineProps({
+  ...inputProps,
+  values: {
+    type: Array,
+    default: () => ["Option 1", "Option 2", "Option 3"],
   },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
+  tagDelimiterKey: {
+    type: String,
+    validator: (value) => ["enter", "comma", "space"].includes(value),
+    default: "enter",
   },
+  // TODO Make input, tags and the tag names customizable
+});
+
+const input = ref("");
+const inputTags = ref([]);
+const isKeyReleased = ref("");
+
+// TODO -> Make this component work with v-model
+
+const setIsKeyReleased = (value) => {
+  isKeyReleased.value = value;
+};
+
+const handleDeleteTag = (index) => {
+  const deletedTag = inputTags.value[index];
+  let oldTagArray = inputTags.value;
+  inputTags.value = inputTags.value.filter((tag, i) => i !== index);
+  nextTick(() => {
+    emit("tag-deleted", deletedTag, inputTags.value);
+    emit("tag-changed", oldTagArray, inputTags.value);
+  });
+};
+
+const handleKeyDown = (event) => {
+  const newTag = input.value.trim();
+  let oldTagArray = inputTags.value;
+  const key = _tagDelimiterKey[props.tagDelimiterKey];
+  if (event.key === key && newTag.length && !inputTags.value.includes(newTag)) {
+    event.preventDefault();
+    inputTags.value.push(newTag);
+    nextTick(() => {
+      emit("tag-added", newTag, oldTagArray);
+      emit("tag-changed", oldTagArray, inputTags.value);
+    });
+    input.value = "";
+  }
+
+  if (
+    event.key === "Backspace" &&
+    !input.value.length &&
+    inputTags.value.length &&
+    isKeyReleased.value
+  ) {
+    event.preventDefault();
+    const tagsArray = [...inputTags.value];
+    const deletedTag = tagsArray.pop();
+    inputTags.value = tagsArray;
+    input.value = deletedTag;
+
+    nextTick(() => {
+      emit("tag-deleted", deletedTag, inputTags.value);
+      emit("tag-changed", oldTagArray, inputTags.value);
+    });
+  }
+  isKeyReleased.value = false;
 };
 </script>
 
@@ -152,11 +145,15 @@ export default {
 .ui-tag-input__input-wrapper {
   border: 1px solid #ced6de;
   border-radius: 4px;
-  box-shadow: 0px 1px 2px rgba(63, 63, 68, 0.1);
+  box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    border-color: var(--darkInputBorderColor);
+  }
 
   /* overflow: scroll; */
   /* width: 100%; */
@@ -212,6 +209,10 @@ export default {
   border-radius: 4px;
   margin-right: 4px;
   padding: 0 8px;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    color: #cbd5e1;
+  }
 }
 
 .ui-tag-input__wrapper {
@@ -232,8 +233,8 @@ export default {
 }
 
 .ui-tag-input__close-icon {
-  height: 8px;
-  width: 8px;
+  height: 16px;
+  width: 16px;
   margin-left: 12px;
   cursor: pointer;
 }
