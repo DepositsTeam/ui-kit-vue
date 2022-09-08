@@ -31,6 +31,7 @@
       @keypress="handleKeypressEvent"
       @focus="handleFocusEvent"
       @blur="handleBlurEvent"
+      :disabled="disabled"
     >
       {{ modelValue }}
     </d-box>
@@ -48,57 +49,60 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import ErrorIcon from "../icons/ErrorIcon.vue";
-import { inject } from "vue";
+<script setup>
+import { DBox, DText, ErrorIcon } from "../main";
+import { inject, nextTick } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 
-export default {
-  name: "DTextarea",
-  components: {
-    DBox,
-    ErrorIcon,
-    DText,
+const d__theme = inject("d__theme", defaultThemeVars);
+
+defineProps({
+  ...inputProps,
+  textAreaClassName: {
+    type: String,
   },
-  props: {
-    ...inputProps,
-    textAreaClassName: {
-      type: String,
-    },
-  },
-  mounted() {},
-  methods: {
-    handleInputEvents(e) {
-      this.$emit("update:modelValue", e.target.value);
-      this.$emit("input", e.target.value);
-      this.$nextTick(() => {});
-    },
-    handleChangeEvents(e) {
-      this.$emit("change", e.target.value);
-    },
-    handleKeydownEvent(e) {
-      this.$emit("keydown", e);
-    },
-    handleKeyupEvent(e) {
-      this.$emit("keyup", e);
-    },
-    handleKeypressEvent(e) {
-      this.$emit("keypress", e);
-    },
-    handleFocusEvent(e) {
-      this.$emit("focus", e);
-    },
-    handleBlurEvent(e) {
-      this.$emit("blur", e);
-    },
-  },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
-  },
+});
+
+const emit = defineEmits([
+  "update:modelValue",
+  "input",
+  "change",
+  "keydown",
+  "keyup",
+  "keypress",
+  "focus",
+  "blur",
+]);
+
+const handleInputEvents = (e) => {
+  emit("update:modelValue", e.target.value);
+  emit("input", e.target.value);
+  nextTick(() => {});
+};
+
+const handleChangeEvents = (e) => {
+  emit("change", e.target.value);
+};
+
+const handleKeydownEvent = (e) => {
+  emit("keydown", e);
+};
+
+const handleKeyupEvent = (e) => {
+  emit("keyup", e);
+};
+
+const handleKeypressEvent = (e) => {
+  emit("keypress", e);
+};
+
+const handleFocusEvent = (e) => {
+  emit("focus", e);
+};
+
+const handleBlurEvent = (e) => {
+  emit("blur", e);
 };
 </script>
 
@@ -111,7 +115,7 @@ export default {
   border-radius: 6px;
   background: #ffffff;
   border: 1px solid #ced6de;
-  box-shadow: 0px 1px 2px rgba(63, 63, 68, 0.1);
+  box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
   padding: 12px 12px 24px 12px;
   font-family: "Circular Std", sans-serif;
   font-weight: 400;
@@ -125,14 +129,30 @@ export default {
     color: #b8c4ce;
   }
 
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    border-color: var(--darkInputBorderColor);
+    color: #ffffff;
+    &::placeholder {
+      color: var(--darkInputLabelColor);
+    }
+  }
+
   &:hover:not(:disabled):not([disabled]):not(.has-error) {
     border-color: #0db9e9;
+    &.dark_mode {
+      border-color: var(--darkPrimaryActionColor);
+    }
   }
 
   &:focus:not(:disabled):not([disabled]):not(.has-error) {
     border-color: #0db9e9;
     box-shadow: 0px 0px 0px 3px rgba(67, 210, 250, 0.25);
     outline: none;
+    &.dark_mode {
+      border-color: var(--darkPrimaryActionColor);
+      box-shadow: 0 0 0 3px var(--darkPrimaryActionBoxShadowColor);
+    }
   }
   &:focus {
     outline: none;
@@ -142,6 +162,11 @@ export default {
     background: rgba(245, 248, 250, 0.5);
     color: #e1e7ec;
     cursor: not-allowed;
+    &.dark_mode {
+      background: var(--darkInputDisabledColor);
+      border-color: var(--darkInputBorderColor);
+      color: var(--darkInputDisabledTextColor);
+    }
   }
 }
 
@@ -154,6 +179,9 @@ export default {
   font-size: 14px;
   line-height: 16px;
   color: #212934;
+  &.dark_mode {
+    color: var(--darkInputLabelColor);
+  }
 }
 
 .ui-text-area::placeholder {
@@ -169,6 +197,10 @@ export default {
 .ui-text-area__textarea.has-error {
   background: #fff0f2;
   border-color: #d62f4b;
+  &.dark_mode {
+    background: #350a12;
+    border-color: #df5e74;
+  }
 }
 
 .ui-text-area__error-text {

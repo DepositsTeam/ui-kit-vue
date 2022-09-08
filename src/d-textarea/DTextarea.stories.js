@@ -1,4 +1,5 @@
 import DTextarea from "./DTextarea.vue";
+import DarkModeProvider from "../providers/DarkModeProvider.vue";
 
 export default {
   title: "Forms/Text Area",
@@ -32,7 +33,7 @@ const Template = (args) => ({
     DTextarea,
   },
   data: () => ({
-    text: "dd"
+    text: "dd",
   }),
   setup: function () {
     return { args };
@@ -40,8 +41,40 @@ const Template = (args) => ({
   template: `<d-textarea v-bind="args" v-model="text" />`,
 });
 
+const DarkModeTemplate = (args) => ({
+  components: { DTextarea, DarkModeProvider },
+  data: () => ({
+    value: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <dark-mode-provider :dark-mode="true">
+      <d-textarea v-bind="args" v-model="value" />
+    </dark-mode-provider>
+    `,
+});
+
+const DarkModeTemplateFactory = () => {
+  const Bound = DarkModeTemplate.bind({});
+  Bound.decorators = [
+    () => ({
+      template:
+        '<div style="padding: 3em; background: #121A26;"><story /></div>',
+    }),
+  ];
+  return Bound;
+};
+
 export const Default = Template.bind({});
 Default.args = {
+  label: "Form Label",
+  placeholder: "Input placeholder",
+};
+
+export const DefaultDark = DarkModeTemplateFactory();
+DefaultDark.args = {
   label: "Form Label",
   placeholder: "Input placeholder",
 };
@@ -53,8 +86,22 @@ Disabled.args = {
   disabled: true,
 };
 
+export const DisabledDark = DarkModeTemplateFactory();
+DisabledDark.args = {
+  label: "Form Label",
+  placeholder: "Input placeholder",
+  disabled: true,
+};
+
 export const Error = Template.bind({});
 Error.args = {
+  label: "Form Label",
+  placeholder: "Input placeholder",
+  errorMessage: "Error message",
+};
+
+export const ErrorDark = DarkModeTemplateFactory();
+ErrorDark.args = {
   label: "Form Label",
   placeholder: "Input placeholder",
   errorMessage: "Error message",
