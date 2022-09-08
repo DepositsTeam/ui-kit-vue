@@ -37,6 +37,7 @@
         v-model:value="date"
         :format="format"
         :placeholder="placeholder || format"
+        :range="range"
       >
         <template #icon-calendar>
           <CalendarIcon class="ui-text-field__right-icon relative" />
@@ -112,18 +113,29 @@ const props = defineProps({
   placeholder: {
     type: String,
   },
+  range: {
+    type: Boolean,
+  },
 });
 
 onMounted(() => {
   if (props.modelValue) {
-    date.value = moment(props.modelValue, props.format);
+    date.value = Array.isArray(props.modelValue)
+      ? props.modelValue
+      : moment(props.modelValue, props.format);
   }
 });
 
 watch(
   () => props.modelValue,
   (val) => {
-    if (val) date.value = moment(val, props.format).toDate();
+    if (val) {
+      if (Array.isArray(val)) {
+        date.value = val;
+      } else {
+        date.value = moment(val, props.format).toDate();
+      }
+    }
   }
 );
 
@@ -134,7 +146,7 @@ const handleKeyEvents = (e) => {
 };
 
 const fire = () => {
-  if (props.formatDate)
+  if (props.formatDate && !Array.isArray(date.value))
     emit("update:modelValue", moment(date.value).format(props.format)).toDate();
   else emit("update:modelValue", date.value);
 };
