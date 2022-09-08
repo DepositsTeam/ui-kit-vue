@@ -1,5 +1,9 @@
 <template>
-  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+  <d-box
+    class="ui-text-field__wrapper"
+    :class="[`size__${size}`]"
+    :style="{ ...d__theme }"
+  >
     <d-box v-if="label" is="label">
       <d-text
         :class="labelClass"
@@ -21,8 +25,11 @@
           'has-error': errorMessage,
           'has-left-icon': leftIcon,
           'has-right-icon': dropDown || rightIcon,
+          dark_mode: darkMode,
         }"
-        input-class="ui-text-field__input"
+        :input-attr="{
+          class: { dark_mode: darkMode, 'ui-text-field__input': true },
+        }"
         v-bind="$attrs"
         @keypress="handleKeyEvents"
         @change="fire"
@@ -57,82 +64,79 @@
   </d-box>
 </template>
 
-<script>
+<script setup>
 // TODO - Fix bug with console spitting error after date change
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import ErrorIcon from "../icons/ErrorIcon.vue";
-import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
+import {
+  DBox,
+  DText,
+  ErrorIcon,
+  ChevronFilledDownIcon,
+  CloseIcon,
+  CalendarIcon,
+} from "../main";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
-import CloseIcon from "../icons/CloseIcon.vue";
-import CalendarIcon from "../icons/CalendarIcon.vue";
 import moment from "moment";
 import DatePicker from "vue-datepicker-next";
 import "vue-datepicker-next/index.css";
 import inputProps from "../utils/inputProps";
-export default {
-  name: "DDatePicker",
-  emits: ["update:modelValue", "blur"],
-  components: {
-    ErrorIcon,
-    ChevronFilledDownIcon,
-    DBox,
-    DText,
-    CloseIcon,
-    CalendarIcon,
-    DatePicker,
+import { inject, ref, onMounted, watch } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
+
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const darkMode = inject("d__darkMode", false);
+
+const date = ref(null);
+
+const emit = defineEmits(["update:modelValue", "blur"]);
+
+const props = defineProps({
+  ...inputProps,
+  dropDown: {
+    type: Boolean,
   },
-  props: {
-    ...inputProps,
-    dropDown: {
-      type: Boolean,
-    },
-    rightIcon: {
-      type: Object,
-    },
-    leftIcon: {
-      type: Object,
-    },
-    format: {
-      type: String,
-      default: "MM-DD-YYYY",
-    },
-    formatDate: {
-      type: Boolean,
-      default: false,
-    },
-    placeholder: {
-      type: String,
-    },
+  rightIcon: {
+    type: Object,
   },
-  data: () => ({
-    date: null,
-  }),
-  mounted() {
-    if (this.modelValue) {
-      this.date = moment(this.modelValue, this.format);
-    }
+  leftIcon: {
+    type: Object,
   },
-  watch: {
-    modelValue: function (val) {
-      if (val) this.date = moment(val, this.format).toDate();
-    },
+  format: {
+    type: String,
+    default: "MM-DD-YYYY",
   },
-  methods: {
-    handleKeyEvents(e) {
-      if (this.onlyNumbers) {
-        return allowOnlyNumbers(e);
-      }
-    },
-    fire: function () {
-      if (this.formatDate)
-        this.$emit(
-          "update:modelValue",
-          moment(this.date).format(this.format)
-        ).toDate();
-      else this.$emit("update:modelValue", this.date);
-    },
+  formatDate: {
+    type: Boolean,
+    default: false,
   },
+  placeholder: {
+    type: String,
+  },
+});
+
+onMounted(() => {
+  if (props.modelValue) {
+    date.value = moment(props.modelValue, props.format);
+  }
+});
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val) date.value = moment(val, props.format).toDate();
+  }
+);
+
+const handleKeyEvents = (e) => {
+  if (props.onlyNumbers) {
+    return allowOnlyNumbers(e);
+  }
+};
+
+const fire = () => {
+  if (props.formatDate)
+    emit("update:modelValue", moment(date.value).format(props.format)).toDate();
+  else emit("update:modelValue", date.value);
 };
 </script>
 

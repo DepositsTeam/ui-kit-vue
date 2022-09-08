@@ -47,20 +47,26 @@ export default {
 
 const Template = (args) => ({
   components: { DDatePicker },
+  data: () => ({
+    date: null,
+  }),
   setup() {
     return { args };
   },
-  template: `<d-date-picker v-bind="args" />`,
+  template: `<d-date-picker v-model="date" v-bind="args" />`,
 });
 
 const DarkModeTemplate = (args) => ({
   components: { DDatePicker, DarkModeProvider },
+  data: () => ({
+    date: null,
+  }),
   setup() {
     return { args };
   },
   template: `
     <dark-mode-provider :dark-mode="true">
-      <d-date-picker v-bind="args" />
+      <d-date-picker v-model="date" v-bind="args" />
     </dark-mode-provider>
     `,
 });
