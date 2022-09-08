@@ -96,6 +96,7 @@ defineProps({
     background: #8895a7;
     &.dark_mode {
       background: #64748b;
+      color: #121a26;
     }
   }
 
@@ -103,6 +104,7 @@ defineProps({
     background: #00b058;
     &.dark_mode {
       background: #2eab6c;
+      color: #121a26;
     }
   }
 
@@ -110,6 +112,7 @@ defineProps({
     background: #d62f4b;
     &.dark_mode {
       background: #df5e74;
+      color: #121a26;
     }
   }
 
@@ -117,6 +120,7 @@ defineProps({
     background: #ff9505;
     &.dark_mode {
       background: #dc8104;
+      color: #121a26;
     }
   }
 
@@ -124,6 +128,7 @@ defineProps({
     background: #0c9ccc;
     &.dark_mode {
       background: #0c9ccc;
+      color: #121a26;
     }
   }
 
@@ -131,6 +136,7 @@ defineProps({
     background: #0d7fe9;
     &.dark_mode {
       background: #418be1;
+      color: #121a26;
     }
   }
 
