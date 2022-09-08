@@ -1,4 +1,5 @@
 import DCreditCardInput from "./DCardInputField.vue";
+import DarkModeProvider from "../providers/DarkModeProvider.vue";
 
 export default {
   title: "Forms/Card Input Field",
@@ -45,4 +46,33 @@ const Template = (args) => ({
   template: `<d-credit-card-input v-model:card-exp="cardExp" v-model:card-no="args.cardNo" v-model:card-cvv="cardCVC" v-bind="args" />`,
 });
 
+const DarkModeTemplate = (args) => ({
+  components: { DCreditCardInput, DarkModeProvider },
+  data: () => ({
+    cardNo: "",
+    cardCVC: "",
+    cardExp: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <dark-mode-provider :dark-mode="true">
+    <d-credit-card-input v-model:card-exp="cardExp" v-model:card-no="args.cardNo" v-model:card-cvv="cardCVC" v-bind="args" />
+    </dark-mode-provider>
+    `,
+});
+
+const DarkModeTemplateFactory = () => {
+  const Bound = DarkModeTemplate.bind({});
+  Bound.decorators = [
+    () => ({
+      template:
+        '<div style="padding: 3em; background: #121A26;"><story /></div>',
+    }),
+  ];
+  return Bound;
+};
+
 export const Default = Template.bind({});
+export const DefaultDark = DarkModeTemplateFactory();

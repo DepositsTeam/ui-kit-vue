@@ -97,330 +97,339 @@
   </d-box>
 </template>
 
-<script>
+<script setup>
+import { DBox, DText, ScanCardIcon, CardIcon, ErrorIcon } from "../main";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
-import ScanCardIcon from "../icons/ScanCardIcon.vue";
-import CardIcon from "../icons/CardIcon.vue";
 import CardBrands, { BRAND_ALIAS } from "./card-brands";
-import ErrorIcon from "../icons/ErrorIcon.vue";
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import { inject } from "vue";
+import { inject, ref } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 
-export default {
-  name: "DCreditCardInput",
-  components: {
-    ScanCardIcon,
-    CardIcon,
-    ErrorIcon,
-    DBox,
-    DText,
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const props = defineProps({
+  ...inputProps,
+  cardCvv: {
+    type: String,
+    default: "",
   },
-  props: {
-    ...inputProps,
-    cardCvv: {
-      type: String,
-      default: "",
-    },
-    cardExp: {
-      type: String,
-      default: "",
-    },
-    cardNo: {
-      type: String,
-      default: "",
-    },
+  cardExp: {
+    type: String,
+    default: "",
   },
-  data: () => ({
-    selectedCard: -1,
-    cardNoDisplay: "",
-    targetPosition: null,
-    pseudoCardInputIsFocused: false,
-  }),
-  methods: {
-    allowOnlyNumbers,
-    handleCardCVVBlur: function () {
-      this.pseudoCardInputIsFocused = false;
-    },
-    handleCardCVVFocus: function () {
-      this.pseudoCardInputIsFocused = true;
-    },
-    handleCardExpBlur: function () {
-      this.pseudoCardInputIsFocused = false;
-    },
-    handleCardExpFocus: function () {
-      this.pseudoCardInputIsFocused = true;
-    },
-    handleCardExpInput: function (e) {
-      this.$emit("update:cardExp", e.target.value);
-      const value = e.target.value;
-      if (value.length === 2) {
-        if (value > 12 || !isFinite(value)) {
-          e.preventDefault();
-          return;
-        } else {
-          this.$emit("update:cardExp", `${value}/`);
-          e.target.value = `${value}/`;
-          return;
-        }
-      }
-      if (value.length === 3) {
-        if (value.charAt(2) !== "/" || value.substring(0, 2) > 12) {
-          e.preventDefault();
-          this.$emit("update:cardExp", e.target.value.substring(0, 2));
-          e.target.value = e.target.value.substring(0, 2);
-          return;
-        }
-      }
-      if (value.length === 1 && value === "/") {
-        this.$emit("update:cardExp", "");
-        e.target.value = "";
-      }
-      if (value.length === 5) {
-        e.preventDefault();
-        this.$refs.cardCVCInput.$el.focus();
-        return;
-      }
-    },
-    handleCardNoBlur: function (e) {
+  cardNo: {
+    type: String,
+    default: "",
+  },
+});
+
+const emit = defineEmits(["update:cardNo", "update:cardCvv", "update:cardExp"]);
+
+const cardExpInput = ref(null);
+const pseudoInput = ref(null);
+const cardNoInput = ref(null);
+const cardCVCInput = ref(null);
+
+const selectedCard = ref(-1);
+const cardNoDisplay = ref("");
+const targetPosition = ref(null);
+const pseudoCardInputIsFocused = ref(false);
+
+const handleCardCVVBlur = () => (pseudoCardInputIsFocused.value = false);
+
+const handleCardCVVFocus = () => (pseudoCardInputIsFocused.value = true);
+
+const handleCardExpBlur = () => (pseudoCardInputIsFocused.value = false);
+
+const handleCardExpFocus = () => (pseudoCardInputIsFocused.value = true);
+
+const handleCardExpInput = (e) => {
+  emit("update:cardExp", e.target.value);
+  const value = e.target.value;
+  if (value.length === 2) {
+    if (value > 12 || !isFinite(value)) {
       e.preventDefault();
-      this.pseudoCardInputIsFocused = false;
-      const stringCardNo = this.cardNo + "";
-      const strippedCardNo = stringCardNo.replace(/\s/g, "");
-      if (this.selectedCard == BRAND_ALIAS.AMEX) {
-        if (strippedCardNo.length === 15) {
-          this.cardNoDisplay = `**** ${stringCardNo.substring(
-            stringCardNo.length - 4
-          )}`;
+      return;
+    } else {
+      emit("update:cardExp", `${value}/`);
+      e.target.value = `${value}/`;
+      return;
+    }
+  }
+  if (value.length === 3) {
+    if (value.charAt(2) !== "/" || value.substring(0, 2) > 12) {
+      e.preventDefault();
+      emit("update:cardExp", e.target.value.substring(0, 2));
+      e.target.value = e.target.value.substring(0, 2);
+      return;
+    }
+  }
+  if (value.length === 1 && value === "/") {
+    emit("update:cardExp", "");
+    e.target.value = "";
+  }
+  if (value.length === 5) {
+    e.preventDefault();
+    cardCVCInput.value.$el.focus();
+    return;
+  }
+};
+
+const handleCardNoBlur = (e) => {
+  e.preventDefault();
+  pseudoCardInputIsFocused.value = false;
+  const stringCardNo = props.cardNo + "";
+  const strippedCardNo = stringCardNo.replace(/\s/g, "");
+  if (selectedCard.value == BRAND_ALIAS.AMEX) {
+    if (strippedCardNo.length === 15) {
+      cardNoDisplay.value = `**** ${stringCardNo.substring(
+        stringCardNo.length - 4
+      )}`;
+    }
+  } else {
+    if (strippedCardNo.length >= 16) {
+      cardNoDisplay.value = `**** ${stringCardNo.substring(
+        stringCardNo.length - 4
+      )}`;
+    }
+  }
+};
+
+const handleCardNoChange = () => {
+  setTimeout(() => {
+    if (targetPosition.value !== null) {
+      const position =
+        targetPosition.value !== null
+          ? targetPosition.value.key == "Backspace"
+            ? targetPosition.value.pos - 1
+            : targetPosition.value.pos
+          : props.cardNo.length;
+      cardNoInput.value.current.selectionStart =
+        targetPosition.value !== null ? position : this.cardNo.length;
+      cardNoInput.value.current.selectionEnd =
+        targetPosition.value !== null ? position : this.cardNo.length;
+      targetPosition.value = null;
+    }
+  });
+};
+
+const handleCardNoFocus = () => {
+  pseudoCardInputIsFocused.value = true;
+  cardNoDisplay.value = props.cardNo;
+};
+
+const handleCardNoInput = (e) => {
+  const value = e.target.value.replace(/\s/g, "");
+  const parse = (type) => {
+    switch (type) {
+      case BRAND_ALIAS.AMEX:
+        cardNoInput.value.$el.setAttribute("maxlength", 17);
+        cardCVCInput.value.$el.setAttribute("maxlength", 4);
+        break;
+      default:
+        cardNoInput.value.$el.setAttribute("maxlength", 19);
+        cardCVCInput.value.$el.setAttribute("maxlength", 3);
+        break;
+    }
+    let pseudoValue = "";
+    for (let i = 0; i < value.length; i++) {
+      pseudoValue += value.charAt(i);
+      let strippedPseudoValue = pseudoValue.replace(/\s/g, "");
+      if (type === BRAND_ALIAS.AMEX) {
+        if (strippedPseudoValue.length === 4) {
+          pseudoValue += " ";
+        }
+        if (strippedPseudoValue.length === 10) {
+          pseudoValue += " ";
         }
       } else {
-        if (strippedCardNo.length >= 16) {
-          this.cardNoDisplay = `**** ${stringCardNo.substring(
-            stringCardNo.length - 4
-          )}`;
+        if (strippedPseudoValue.length % 4 === 0) {
+          pseudoValue += " ";
         }
       }
-    },
-    handleCardNoChange: function () {
-      setTimeout(() => {
-        if (this.targetPosition !== null) {
-          const position =
-            this.targetPosition !== null
-              ? this.targetPosition.key == "Backspace"
-                ? this.targetPosition.pos - 1
-                : this.targetPosition.pos
-              : this.cardNo.length;
-          this.$refs.cardNoInput.current.selectionStart =
-            this.targetPosition !== null ? position : this.cardNo.length;
-          this.$refs.cardNoInput.current.selectionEnd =
-            this.targetPosition !== null ? position : this.cardNo.length;
-          this.targetPosition = null;
-        }
-      });
-    },
-    handleCardNoFocus: function () {
-      this.pseudoCardInputIsFocused = true;
-      this.cardNoDisplay = this.cardNo;
-    },
-    handleCardNoInput: function (e) {
-      const value = e.target.value.replace(/\s/g, "");
-      const parse = (type) => {
-        switch (type) {
-          case BRAND_ALIAS.AMEX:
-            this.$refs.cardNoInput.$el.setAttribute("maxlength", 17);
-            this.$refs.cardCVCInput.$el.setAttribute("maxlength", 4);
-            break;
-          default:
-            this.$refs.cardNoInput.$el.setAttribute("maxlength", 19);
-            this.$refs.cardCVCInput.$el.setAttribute("maxlength", 3);
-            break;
-        }
-        let pseudoValue = "";
-        for (let i = 0; i < value.length; i++) {
-          pseudoValue += value.charAt(i);
-          let strippedPseudoValue = pseudoValue.replace(/\s/g, "");
-          if (type === BRAND_ALIAS.AMEX) {
-            if (strippedPseudoValue.length === 4) {
-              pseudoValue += " ";
-            }
-            if (strippedPseudoValue.length === 10) {
-              pseudoValue += " ";
-            }
-          } else {
-            if (strippedPseudoValue.length % 4 === 0) {
-              pseudoValue += " ";
-            }
-          }
-        }
-        return pseudoValue.trim();
-      };
-      switch (value.charAt(0)) {
-        case "5":
-          this.selectedCard = BRAND_ALIAS.MASTERCARD;
-          this.$emit("update:cardNo", parse(BRAND_ALIAS.MASTERCARD));
-          this.cardNoDisplay = parse(BRAND_ALIAS.MASTERCARD);
+    }
+    return pseudoValue.trim();
+  };
+  switch (value.charAt(0)) {
+    case "5":
+      selectedCard.value = BRAND_ALIAS.MASTERCARD;
+      emit("update:cardNo", parse(BRAND_ALIAS.MASTERCARD));
+      cardNoDisplay.value = parse(BRAND_ALIAS.MASTERCARD);
 
-          break;
-        case "3":
-          if (value.length >= 2) {
-            if (value.charAt(1) == "4" || value.charAt(1) == "7") {
-              this.selectedCard = BRAND_ALIAS.AMEX;
-            } else {
-              this.selectedCard = BRAND_ALIAS.NOCARD;
-            }
-          } else {
-            this.selectedCard = BRAND_ALIAS.AMEX;
-          }
-          this.$emit("update:cardNo", parse(BRAND_ALIAS.AMEX));
-          this.cardNoDisplay = parse(BRAND_ALIAS.AMEX);
-
-          break;
-        case "6":
-          this.selectedCard = BRAND_ALIAS.DISCOVER;
-          this.$emit("update:cardNo", parse(BRAND_ALIAS.DISCOVER));
-          this.cardNoDisplay = parse(BRAND_ALIAS.DISCOVER);
-
-          break;
-        case "4":
-          this.selectedCard = BRAND_ALIAS.VISACARD;
-          this.$emit("update:cardNo", parse(BRAND_ALIAS.VISACARD));
-          this.cardNoDisplay = parse(BRAND_ALIAS.VISACARD);
-
-          break;
-        default:
-          this.selectedCard = BRAND_ALIAS.NOCARD;
-          this.$emit("update:cardNo", parse(BRAND_ALIAS.NOCARD));
-          this.cardNoDisplay = parse(null);
-      }
-    },
-    handleCardNoKeyDown: function (e) {
-      if (e.key == "Backspace" || e.key == "Delete") {
-        if (this.cardNoDisplay.length != e.target.selectionStart) {
-          this.targetPosition = { pos: e.target.selectionStart, key: e.key };
-        }
-      }
-    },
-    handleCardNoKeyPress: function (e) {
-      allowOnlyNumbers(e);
-      const strippedCardNo = this.cardNoDisplay.replace(/\s/g, "");
-
-      if (
-        e.key != "Backspace" &&
-        e.key != "Delete" &&
-        e.key != "ArrowUp" &&
-        e.key != "ArrowLeft" &&
-        e.key != "ArrowDown" &&
-        e.key != "ArrowRight"
-      ) {
-        if (this.selectedCard === BRAND_ALIAS.AMEX) {
-          if (strippedCardNo.length === 15) {
-            e.preventDefault();
-            this.$refs.cardNoInput.$el.blur();
-            this.$refs.cardExpInput.$el.focus();
-            return;
-          }
+      break;
+    case "3":
+      if (value.length >= 2) {
+        if (value.charAt(1) == "4" || value.charAt(1) == "7") {
+          selectedCard.value = BRAND_ALIAS.AMEX;
         } else {
-          if (strippedCardNo.length >= 16) {
-            e.preventDefault();
-            this.$refs.cardNoInput.$el.blur();
-            this.$refs.cardExpInput.$el.focus();
-            return;
-          }
+          selectedCard.value = BRAND_ALIAS.NOCARD;
         }
+      } else {
+        selectedCard.value = BRAND_ALIAS.AMEX;
       }
-    },
-    refreshMaskedCardNo: function () {
-      this.cardNoDisplay = `**** ${this.cardNo.substring(
-        this.cardNo.length - 4
-      )}`;
-    },
-  },
-  emits: ["update:cardNo", "update:cardCvv", "update:cardExp"],
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme, CardBrands };
-  },
+      emit("update:cardNo", parse(BRAND_ALIAS.AMEX));
+      cardNoDisplay.value = parse(BRAND_ALIAS.AMEX);
+
+      break;
+    case "6":
+      selectedCard.value = BRAND_ALIAS.DISCOVER;
+      emit("update:cardNo", parse(BRAND_ALIAS.DISCOVER));
+      cardNoDisplay.value = parse(BRAND_ALIAS.DISCOVER);
+
+      break;
+    case "4":
+      selectedCard.value = BRAND_ALIAS.VISACARD;
+      emit("update:cardNo", parse(BRAND_ALIAS.VISACARD));
+      cardNoDisplay.value = parse(BRAND_ALIAS.VISACARD);
+
+      break;
+    default:
+      selectedCard.value = BRAND_ALIAS.NOCARD;
+      emit("update:cardNo", parse(BRAND_ALIAS.NOCARD));
+      cardNoDisplay.value = parse(null);
+  }
+};
+
+const handleCardNoKeyDown = (e) => {
+  if (e.key == "Backspace" || e.key == "Delete") {
+    if (cardNoDisplay.value.length != e.target.selectionStart) {
+      targetPosition.value = { pos: e.target.selectionStart, key: e.key };
+    }
+  }
+};
+
+const handleCardNoKeyPress = (e) => {
+  allowOnlyNumbers(e);
+  const strippedCardNo = cardNoDisplay.value.replace(/\s/g, "");
+
+  if (
+    e.key != "Backspace" &&
+    e.key != "Delete" &&
+    e.key != "ArrowUp" &&
+    e.key != "ArrowLeft" &&
+    e.key != "ArrowDown" &&
+    e.key != "ArrowRight"
+  ) {
+    if (selectedCard.value === BRAND_ALIAS.AMEX) {
+      if (strippedCardNo.length === 15) {
+        e.preventDefault();
+        cardNoInput.value.$el.blur();
+        cardExpInput.value.$el.focus();
+        return;
+      }
+    } else {
+      if (strippedCardNo.length >= 16) {
+        e.preventDefault();
+        cardNoInput.value.$el.blur();
+        cardExpInput.value.$el.focus();
+        return;
+      }
+    }
+  }
 };
 </script>
 
-<style lang="sass" scoped>
-.ui-card-input-field__wrapper
-  display: flex
-  flex-direction: column
-
-.ui-card-input-field__pseudo-input
-  background: #fff
-  box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1)
-  border: 1px solid #CED6DE
-  border-radius: 4px
-  font-family: "Circular Std", sans-serif
-  font-size: 16px
-  font-weight: 400
-  padding: 16px
-  color: #212934
-  display: flex
-  align-items: center
-  & *
-    font-family: "Circular Std", sans-serif
-    font-size: 16px
-
-  &.hasError, &.hasError input
-    background: #fff0f2
-    border-color: #d62f4b
-
-  &.focus:not(.hasError)
-    border-color: var(--lightPrimaryActionColor)
-    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor)
-  &:hover:not(.hasError)
-    border-color: var(--lightPrimaryActionColor)
-
-.ui-card-input-field__inputs
-  display: flex
-  justify-content: space-between
-  flex: 1
-
-.ui-card-input__pushed-right
-  display: flex
-
-.ui-card-input-field__pseudo-input input
-  border: none
-
-  &::placeholder
-    color: #B8C4CE
-
-  &:focus
-    border: none
-    outline: none
-
-.ui-card-input-field__cvv, .ui-card-input-field__exp
-  width: 60px
-  background: transparent
-.ui-card-input-field__cvv
-  @media only screen and (max-width: 375px)
-    width: 40px
-
-.ui-card-input-field__card-no
-  margin-right: 8px
-  @media only screen and (max-width: 500px)
-    width: 142px
-  @media only screen and (max-width: 450px)
-    width: 122px
-  @media only screen and (max-width: 400px)
-    width: 92px
-  @media only screen and (min-width: 500px)
-    flex: 1
-
-.ui-card-input-field__left-icon
-  margin-right: 8px
-  height: 24px
-
-.ui-card-input-field__right-icon
-  @media only screen and (max-width: 500px)
-    height: 24px
-  @media only screen and (max-width: 375px)
-    height: 20px
-  @media only screen and (max-width: 350px)
-    display: none
+<style lang="scss" scoped>
+.ui-card-input-field__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.ui-card-input-field__pseudo-input {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
+  border: 1px solid #ced6de;
+  border-radius: 4px;
+  font-family: "Circular Std", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 16px;
+  color: #212934;
+  display: flex;
+  align-items: center;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    border-color: var(--darkInputBorderColor);
+  }
+  & * {
+    font-family: "Circular Std", sans-serif;
+    font-size: 16px;
+  }
+  &.hasError,
+  &.hasError input {
+    background: #fff0f2;
+    border-color: #d62f4b;
+  }
+  &.focus:not(.hasError) {
+    border-color: var(--lightPrimaryActionColor);
+    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+  }
+  &:hover:not(.hasError) {
+    border-color: var(--lightPrimaryActionColor);
+  }
+}
+.ui-card-input-field__inputs {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+.ui-card-input__pushed-right {
+  display: flex;
+}
+.ui-card-input-field__pseudo-input input {
+  border: none;
+  &::placeholder {
+    color: #b8c4ce;
+  }
+  &:focus {
+    border: none;
+    outline: none;
+  }
+  &.dark_mode {
+    background: transparent;
+    color: #fff;
+    &::placeholder {
+      color: var(--darkInputLabelColor);
+    }
+  }
+}
+.ui-card-input-field__cvv,
+.ui-card-input-field__exp {
+  width: 60px;
+  background: transparent;
+}
+.ui-card-input-field__cvv {
+  @media only screen and (max-width: 375px) {
+    width: 40px;
+  }
+}
+.ui-card-input-field__card-no {
+  margin-right: 8px;
+  @media only screen and (max-width: 500px) {
+    width: 142px;
+  }
+  @media only screen and (max-width: 450px) {
+    width: 122px;
+  }
+  @media only screen and (max-width: 400px) {
+    width: 92px;
+  }
+  @media only screen and (min-width: 500px) {
+    flex: 1;
+  }
+}
+.ui-card-input-field__left-icon {
+  margin-right: 8px;
+  height: 24px;
+}
+.ui-card-input-field__right-icon {
+  @media only screen and (max-width: 500px) {
+    height: 24px;
+  }
+  @media only screen and (max-width: 375px) {
+    height: 20px;
+  }
+  @media only screen and (max-width: 350px) {
+    display: none;
+  }
+}
 </style>

@@ -79,7 +79,7 @@ export default {
     ];
     const computedType = computed(() => {
       if (typeof props.is === "string" && props.is.toLowerCase() === "input") {
-        return props.type ? props.type : "text";
+        return props.type ? props.type.toLowerCase() : "text";
       } else {
         return undefined;
       }
@@ -212,7 +212,7 @@ export default {
           onInput: function (e) {
             if (
               props.is.toLowerCase() === "input" &&
-              forwardableInputTypes.includes(props.type.toLowerCase())
+              forwardableInputTypes.includes(computedType.value)
             ) {
               emit("update:modelValue", e.target.value);
             }
