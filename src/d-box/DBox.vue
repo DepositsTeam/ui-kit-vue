@@ -3,6 +3,9 @@ import { h, inject, computed } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 
+const unitizeValue = (value) =>
+  parseFloat(value) == value ? `${value}px` : value;
+
 export default {
   props: {
     is: {
@@ -90,6 +93,29 @@ export default {
         return undefined;
       }
     });
+    const svgWidth = computed(() => {
+      if (
+        typeof props.is === "string" &&
+        props.is.toLowerCase() === "svg" &&
+        props.width
+      ) {
+        return props.width;
+      } else {
+        return undefined;
+      }
+    });
+    const svgHeight = computed(() => {
+      if (
+        typeof props.is === "string" &&
+        props.is.toLowerCase() === "svg" &&
+        props.height
+      ) {
+        return props.height;
+      } else {
+        return undefined;
+      }
+    });
+
     const darkModeIsEnabled = computed(
       () => darkMode !== null && darkMode !== undefined && darkMode.value
     );
@@ -111,20 +137,24 @@ export default {
         cleansedPropKey[0].toLowerCase() + cleansedPropKey.substring(1);
       switch (cleansedPropKey) {
         case "marginX":
-          cssProps["margin-left"] = props[propKey];
-          cssProps["margin-right"] = props[propKey];
+          cssProps["margin-left"] = unitizeValue(props[propKey]);
+          cssProps["margin-right"] = unitizeValue(props[propKey]);
           break;
         case "marginY":
-          cssProps["margin-top"] = props[propKey];
-          cssProps["margin-bottom"] = props[propKey];
+          cssProps["margin-top"] = unitizeValue(props[propKey]);
+          cssProps["margin-bottom"] = unitizeValue(props[propKey]);
           break;
         case "paddingX":
-          cssProps["padding-left"] = props[propKey];
-          cssProps["padding-right"] = props[propKey];
+          cssProps["padding-left"] = unitizeValue(props[propKey]);
+          cssProps["padding-right"] = unitizeValue(props[propKey]);
           break;
         case "paddingY":
-          cssProps["padding-top"] = props[propKey];
-          cssProps["padding-bottom"] = props[propKey];
+          cssProps["padding-top"] = unitizeValue(props[propKey]);
+          cssProps["padding-bottom"] = unitizeValue(props[propKey]);
+          break;
+        case "width":
+        case "height":
+          cssProps[propKey] = unitizeValue(props[propKey]);
           break;
         default:
           cssProps[convertCssProps(cleansedPropKey)] = props[propKey];
@@ -209,6 +239,8 @@ export default {
             [props.fontFace]: props.fontFace,
             dark_mode: darkModeIsEnabled.value,
           },
+          ...(svgWidth.value ? { width: svgWidth.value } : {}),
+          ...(svgHeight.value ? { height: svgHeight.value } : {}),
         },
         slots.default ? slots.default() : undefined
       );

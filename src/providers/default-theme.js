@@ -44,6 +44,7 @@ const defaultTheme = {
   darkInputBackgroundColor: "#1F2B3B",
   darkInputLabelColor: "#94A3B8",
   darkInputBorderColor: "#384860",
+  darkInputIconColor: "#94A3B8",
   darkBackgroundColor: "#121A26",
   darkInputDisabledTextColor: "rgba(148, 163, 184, 0.8)",
 };
