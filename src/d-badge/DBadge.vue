@@ -18,6 +18,7 @@
       :scale="size === 'large' ? 'footnote' : 'overline'"
       :font-size="size === 'huge' ? '12px' : null"
       margin-y="0"
+      dark-class=""
     >
       <span v-if="text">{{ text }}</span>
       <slot v-else></slot>
