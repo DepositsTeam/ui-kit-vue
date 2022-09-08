@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-dropdown">
+  <d-box class="ui-dropdown" :style="{ ...d__theme }">
     <d-textfield
       :label="label"
       :font-face="fontFace"
@@ -29,7 +29,12 @@
         :class="{ active: selectedIndex === index }"
         @mouseenter="updateSelectedIndex(index)"
       >
-        <d-text margin-y="0" scale="subhead" font-face="circularSTD">
+        <d-text
+          dark-class=""
+          margin-y="0"
+          scale="subhead"
+          font-face="circularSTD"
+        >
           {{ typeof option === "string" ? option : option.text }}
         </d-text>
       </d-box>
@@ -48,7 +53,11 @@ import {
   onUnmounted,
   nextTick,
   watch,
+  inject,
 } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
+
+const d__theme = inject("d__theme", defaultThemeVars);
 
 const emit = defineEmits(["update:modelValue"]);
 const mounted = ref(false);
@@ -202,14 +211,25 @@ const handleKeyDown = (e) => {
     background: white;
     border-radius: 6px;
     border: 1px solid #e1e7ec;
+    &.dark_mode {
+      background: var(--darkInputBackgroundColor);
+      border-color: var(--darkInputBackgroundColor);
+    }
     .ui-dropdown__option {
       padding: 16px 8px;
       cursor: pointer;
+      &.dark_mode {
+        color: #94a3b8;
+      }
       &.active,
       &:hover {
         background: #f2fafc;
         color: #0db9e9;
         position: relative;
+        &.dark_mode {
+          background: #041d25;
+          color: #0db9e9;
+        }
         &::after {
           content: "";
           position: absolute;
@@ -219,6 +239,9 @@ const handleKeyDown = (e) => {
           height: 100%;
           border-radius: 0 2px 2px 0;
           background: #0db9e9;
+          &.dark_mode {
+            background: (var--darkPrimaryActionColor);
+          }
         }
       }
     }

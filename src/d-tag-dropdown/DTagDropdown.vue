@@ -32,6 +32,8 @@
           <CloseIcon
             class="ui-tag-dropdown__close-icon"
             @click="handleDeleteTag(tag)"
+            height="16px"
+            width="16px"
           />
         </d-box>
         <d-textfield
@@ -67,13 +69,18 @@
           class="ui-tag-dropdown__dropdown__option"
           v-for="(option, index) in computedOptions"
           :key="`option-${index}`"
+          :class="{
+            selected: selectedOptions.includes(
+              typeof option === 'string' ? option : option.value
+            ),
+          }"
         >
           <d-checkbox
             :value="typeof option === 'string' ? option : option.value"
             v-model="selectedOptions"
           >
             <d-text
-              color="#5F6B7A"
+              dark-class=""
               margin-y="0"
               font-face="circularSTD"
               scale="subhead"
@@ -205,12 +212,16 @@ const ___theme = inject("___theme", defaultThemeVars);
 .ui-tag-dropdown__input-wrapper {
   border: 1px solid #ced6de;
   border-radius: 4px;
-  box-shadow: 0px 1px 2px rgba(63, 63, 68, 0.1);
+  box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
   justify-content: space-between;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    border-color: var(--darkInputBorderColor);
+  }
   .ui-tag-dropdown__input-wrapper__left {
     display: flex;
     align-items: center;
@@ -278,6 +289,10 @@ const ___theme = inject("___theme", defaultThemeVars);
   border-radius: 4px;
   margin-right: 4px;
   padding: 0 8px;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    color: #cbd5e1;
+  }
 }
 
 .ui-tag-dropdown__wrapper {
@@ -298,8 +313,8 @@ const ___theme = inject("___theme", defaultThemeVars);
 }
 
 .ui-tag-dropdown__close-icon {
-  height: 8px;
-  width: 8px;
+  height: 16px;
+  width: 16px;
   margin-left: 12px;
   cursor: pointer;
 }
@@ -310,16 +325,33 @@ const ___theme = inject("___theme", defaultThemeVars);
 
 .ui-tag-dropdown__dropdown__header {
   box-shadow: inset 0px -1px 0px #e1e7ec;
+  &.dark_mode {
+    box-shadow: none;
+    border-bottom: 1px solid var(--darkInputBorderColor);
+  }
 }
 
 .ui-tag-dropdown__dropdown {
   border-radius: 6px;
   background: #fff;
   border: 1px solid #e1e7ec;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    border-color: var(--darkInputBorderColor);
+  }
 }
 
 .ui-tag-dropdown__dropdown__option {
   padding: 8px 16px;
+  &.dark_mode {
+    color: #94a3b8;
+    border-left: 2px solid transparent;
+    &:hover,
+    &.selected {
+      background: #041d25;
+      border-left: 2px solid var(--darkPrimaryActionColor);
+    }
+  }
 }
 
 /* .ui-tag-dropdown__wrapper.size__massive .ui-tag-dropdown__input-wrapper{
