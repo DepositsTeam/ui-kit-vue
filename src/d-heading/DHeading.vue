@@ -72,11 +72,10 @@ export default {
     },
     lightClass: {
       type: String,
-      default: "text-neutral-700",
     },
     darkClass: {
       type: String,
-      default: "text-neutral-",
+      default: "text-neutral-300",
     },
   },
   components: {

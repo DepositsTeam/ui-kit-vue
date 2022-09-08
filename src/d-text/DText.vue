@@ -92,6 +92,14 @@ export default {
     center: {
       type: Boolean,
     },
+    lightClass: {
+      type: String,
+      default: "",
+    },
+    darkClass: {
+      type: String,
+      default: "text-neutral-600",
+    },
   },
 };
 </script>

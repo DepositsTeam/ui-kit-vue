@@ -198,8 +198,8 @@ export default {
             emit("keypress", e);
           },
           id: props.id ? props.id : uniqueID,
-          ...(computedType.value ? { type: computedType } : {}),
-          ...(computedValue.value ? { value: computedValue } : {}),
+          ...(computedType.value ? { type: computedType.value } : {}),
+          ...(computedValue.value ? { value: computedValue.value } : {}),
           disabled: props.disabled,
           class: {
             // [styleClasses.value[uniqueClass]]: true,
