@@ -1,5 +1,8 @@
 <template>
-  <d-box v-bind="{ ...computedMargin, ...computedWidth }" class="ui-card__wrapper">
+  <d-box
+    v-bind="{ ...computedMargin, ...computedWidth }"
+    class="ui-card__wrapper"
+  >
     <slot name="header"></slot>
     <d-box
       :is="radio || checkbox ? 'label' : 'div'"
@@ -12,6 +15,7 @@
         hasHeader: $slots.header,
         hasFooter: $slots.footer,
         selected: !!props.modelValue,
+        [cardClass]: true,
       }"
       marginLeft="0"
       marginRight="0"
@@ -20,7 +24,6 @@
       marginTop="0"
       marginBottom="0"
       width="100%"
-      v-bind="$attrs"
     >
       <d-radio
         class="ui-card__form-selector"
@@ -107,6 +110,9 @@ const props = defineProps({
   border: {
     type: Boolean,
     default: false,
+  },
+  cardClass: {
+    type: String,
   },
   ...wrapperProps,
 });

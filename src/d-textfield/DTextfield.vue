@@ -32,6 +32,7 @@
           invisible,
           disabled,
           oneCharWide,
+          [inputClass]: true,
         }"
         :max="max"
         :min="min"
@@ -66,7 +67,6 @@
         marginTop="0"
         marginBottom="0"
         width="100%"
-        v-bind="$attrs"
       />
       <component
         class="ui-text-field__right-icon"
@@ -154,6 +154,9 @@ const props = defineProps({
   type: {
     type: String,
     default: "text",
+  },
+  inputClass: {
+    type: String,
   },
 });
 
