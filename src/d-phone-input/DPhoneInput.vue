@@ -30,7 +30,7 @@
         placeholder="+1"
         ref="phoneInputRef"
         :maxLength="4"
-        :disabled="disabled"
+        :disabled="isUs || disabled"
         v-model="countryCode"
         @focus="updateCountryCodeIsFocused(true)"
         @blur="updateCountryCodeIsFocused(false)"
@@ -73,150 +73,155 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import ErrorIcon from "../icons/ErrorIcon.vue";
-import { inject } from "vue";
+<script setup>
+import { DBox, DText, ErrorIcon } from "../main";
+import { inject, ref, computed, onMounted, watch } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
-export default {
-  name: "DPhoneInput",
-  components: {
-    DBox,
-    DText,
-    ErrorIcon,
+
+const countryCodeIsFocused = ref(false);
+const phoneInputRef = ref(null);
+
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const emit = defineEmits([
+  "update:code",
+  "update:phoneNumber",
+  "local-error-changed",
+]);
+
+const props = defineProps({
+  ...inputProps,
+  code: {
+    type: String,
   },
-  data: () => ({
-    countryCodeIsFocused: false,
-  }),
-  emits: ["update:code", "update:phoneNumber", "local-error-changed"],
-  props: {
-    ...inputProps,
-    code: {
-      type: String,
-    },
-    phoneNumber: {
-      type: String,
-    },
-    leftIcon: {
-      type: Object,
-    },
-    rightIcon: {
-      type: Object,
-    },
+  phoneNumber: {
+    type: String,
   },
-  computed: {
-    number: {
-      get() {
-        if (this.phoneNumber) {
-          if (this.countryCode && countryCodes[this.countryCode]) {
-            const asYouType = new AsYouType({
-              defaultCountry: countryCodes[this.countryCode][0],
-            }).input(this.phoneNumber);
-            return asYouType;
-          } else {
-            return formatIncompletePhoneNumber(this.phoneNumber);
-          }
-        } else {
+  leftIcon: {
+    type: Object,
+  },
+  rightIcon: {
+    type: Object,
+  },
+  isUs: {
+    type: Boolean,
+  },
+});
+
+const countryCode = computed({
+  get() {
+    return props.code;
+  },
+  set(value) {
+    emit("update:code", value);
+  },
+});
+
+const number = computed({
+  get() {
+    if (props.phoneNumber) {
+      if (countryCode.value && countryCodes[countryCode.value]) {
+        const asYouType = new AsYouType({
+          defaultCountry: countryCodes[countryCode.value][0],
+        }).input(props.phoneNumber);
+        return asYouType;
+      } else {
+        return formatIncompletePhoneNumber(props.phoneNumber);
+      }
+    } else {
+      return "";
+    }
+  },
+  set(value) {
+    // console.log(
+    //   new AsYouType({ defaultCountry: countryCodes[this.countryCode][0] }).input(value)
+    // );
+    emit("update:phoneNumber", value);
+  },
+});
+
+const localErrorMessage = computed(() => {
+  if (countryCode.value.length && !countryCodes[countryCode.value]) {
+    return "Please enter a valid country code";
+  } else {
+    if (props.phoneNumber && props.phoneNumber.length) {
+      if (countryCode.value && countryCode.value.length) {
+        const asYouType = new AsYouType({
+          defaultCountry: countryCodes[countryCode.value][0],
+        });
+        asYouType.input(props.phoneNumber);
+        if (asYouType.getNumber() && asYouType.getNumber().isPossible()) {
           return "";
-        }
-      },
-      set(value) {
-        // console.log(
-        //   new AsYouType({ defaultCountry: countryCodes[this.countryCode][0] }).input(value)
-        // );
-        this.$emit("update:phoneNumber", value);
-      },
-    },
-    countryCode: {
-      get() {
-        return this.code;
-      },
-      set(value) {
-        this.$emit("update:code", value);
-      },
-    },
-    localErrorMessage() {
-      if (this.countryCode.length && !countryCodes[this.countryCode]) {
-        return "Please enter a valid country code";
-      } else {
-        if (this.phoneNumber && this.phoneNumber.length) {
-          if (this.countryCode && this.countryCode.length) {
-            const asYouType = new AsYouType({
-              defaultCountry: countryCodes[this.countryCode][0],
-            });
-            asYouType.input(this.phoneNumber);
-            if (asYouType.getNumber() && asYouType.getNumber().isPossible()) {
-              return "";
-            } else {
-              return "Please enter a valid phone number";
-            }
-          } else {
-            return "";
-          }
         } else {
-          return "";
+          return "Please enter a valid phone number";
         }
-      }
-    },
-  },
-  mounted: function () {
-    this.resizeCountryCodeAutomatically();
-  },
-  methods: {
-    allowOnlyNumbers,
-    updateCountryCodeIsFocused: function (value) {
-      this.countryCodeIsFocused = value;
-    },
-    resizeCountryCodeAutomatically: function () {
-      const elem = this.$refs.phoneInputRef.$el;
-      const value = this.code;
-      elem.style.width = "calc(" + (value.length + 2) + "ch + 4px)";
-      const wrapper = elem.closest(".ui-text-field__wrapper");
-      let offset;
-      if (wrapper.classList.contains("size__small")) {
-        offset = 16;
-      } else if (wrapper.classList.contains("size__xlarge")) {
-        offset = 20;
       } else {
-        offset = 26;
+        return "";
       }
-      elem.nextSibling.style.paddingLeft =
-        "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
-    },
-    resizeCountryCodeOnType: function (elem) {
-      const value = elem.target.value;
-      elem.target.style.width = "calc(" + value.length + "ch + 4px)";
-      const wrapper = elem.target.closest(".ui-text-field__wrapper");
-      let offset;
-      if (wrapper.classList.contains("size__small")) {
-        offset = 16;
-      } else if (wrapper.classList.contains("size__xlarge")) {
-        offset = 20;
-      } else {
-        offset = 26;
-      }
-      elem.target.nextSibling.style.paddingLeft =
-        "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
-    },
-  },
-  watch: {
-    code: function () {
-      this.resizeCountryCodeAutomatically();
-    },
-    localErrorMessage: function (val) {
-      this.$emit("local-error-changed", !!val);
-    },
-  },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
-  },
+    } else {
+      return "";
+    }
+  }
+});
+
+const updateCountryCodeIsFocused = (value) => {
+  countryCodeIsFocused.value = value;
 };
+
+const resizeCountryCodeAutomatically = () => {
+  const elem = phoneInputRef.value.$el;
+  const value = props.code;
+  elem.style.width = "calc(" + (value.length + 2) + "ch + 4px)";
+  const wrapper = elem.closest(".ui-text-field__wrapper");
+  let offset;
+  if (wrapper.classList.contains("size__small")) {
+    offset = 16;
+  } else if (wrapper.classList.contains("size__xlarge")) {
+    offset = 20;
+  } else {
+    offset = 26;
+  }
+  elem.nextSibling.style.paddingLeft =
+    "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
+};
+
+const resizeCountryCodeOnType = (elem) => {
+  const value = elem.target.value;
+  elem.target.style.width = "calc(" + value.length + "ch + 4px)";
+  const wrapper = elem.target.closest(".ui-text-field__wrapper");
+  let offset;
+  if (wrapper.classList.contains("size__small")) {
+    offset = 16;
+  } else if (wrapper.classList.contains("size__xlarge")) {
+    offset = 20;
+  } else {
+    offset = 26;
+  }
+  elem.target.nextSibling.style.paddingLeft =
+    "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
+};
+
+onMounted(() => {
+  resizeCountryCodeAutomatically();
+  if (props.isUs) {
+    emit("update:code", "+1");
+  }
+});
+
+watch(
+  () => props.code,
+  () => {
+    resizeCountryCodeAutomatically();
+  }
+);
+
+watch(localErrorMessage, (val) => {
+  emit("local-error-changed", !!val);
+});
 </script>
 
 <style lang="scss" scoped>

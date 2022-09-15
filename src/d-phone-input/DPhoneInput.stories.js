@@ -75,6 +75,20 @@ DarkDefault.args = {
   label: "Form Label",
 };
 
+export const OnlyUS = Template.bind({});
+OnlyUS.args = {
+  placeholder: "US Number",
+  label: "Form Label",
+  isUs: true,
+};
+
+export const DarkOnlyUS = DarkModeTemplateFactory();
+DarkOnlyUS.args = {
+  placeholder: "US Number",
+  label: "Form Label",
+  isUs: true,
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   placeholder: "Input placeholder",
