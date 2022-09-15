@@ -50,7 +50,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-tag-input @tag-added="onTagAdded" @text-changed="onTextChanged" @tag-deleted="onTagDeleted" @tag-changed="onTagChanged" :values="input" v-bind="args" />`,
+  template: `<d-tag-input @tag-added="onTagAdded" @text-changed="onTextChanged" @tag-deleted="onTagDeleted" @tag-changed="onTagChanged" v-model="input" v-bind="args" />`,
 });
 
 const DarkModeTemplate = (args) => ({

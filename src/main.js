@@ -257,6 +257,7 @@ export { default as CallFilledIcon } from "./icons/filled/CallFilledIcon.vue";
 export { default as CategoryFilledIcon } from "./icons/filled/CategoryFilledIcon.vue";
 export { default as EyeFilledIcon } from "./icons/filled/EyeFilledIcon.vue";
 export { default as FrameFilledIcon } from "./icons/filled/FrameFilledIcon.vue";
+export { default as GithubFilledIcon } from "./icons/filled/GithubFilledIcon.vue";
 export { default as HomeFilledIcon } from "./icons/filled/HomeFilledIcon.vue";
 export { default as LocationFilledIcon } from "./icons/filled/LocationFilledIcon.vue";
 export { default as Logout2FilledIcon } from "./icons/filled/Logout2FilledIcon.vue";
@@ -283,6 +284,7 @@ export { default as WalletDuotoneIcon } from "./icons/duo-tone/WalletDuotoneIcon
 // Outline Icons
 export { default as CheckOutlineIcon } from "./icons/outline/CheckOutlineIcon.vue";
 export { default as DocumentCodeOutlineIcon } from "./icons/outline/DocumentCodeOutlineIcon.vue";
+export { default as GithubOutlineIcon } from "./icons/outline/GithubOutlineIcon.vue";
 export { default as LinkOutlineIcon } from "./icons/outline/LinkOutlineIcon.vue";
 export { default as MoneyChangeOutlineIcon } from "./icons/outline/MoneyChangeOutlineIcon.vue";
 export { default as Profile2UserOutlineIcon } from "./icons/outline/Profile2UserOutlineIcon.vue";

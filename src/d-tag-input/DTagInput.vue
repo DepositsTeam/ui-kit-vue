@@ -53,7 +53,7 @@
 <script setup>
 import { DBox, DText, DTextfield, CloseIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { inject, ref, nextTick, onMounted } from "vue";
+import { inject, ref, nextTick, onBeforeMount } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 const _tagDelimiterKey = {
@@ -74,9 +74,9 @@ const emit = defineEmits([
 
 const props = defineProps({
   ...inputProps,
-  values: {
+  modelValue: {
     type: Array,
-    default: () => ["Option 1", "Option 2", "Option 3"],
+    default: () => [],
   },
   tagDelimiterKey: {
     type: String,
@@ -92,6 +92,12 @@ const isKeyReleased = ref("");
 
 // TODO -> Make this component work with v-model
 
+onBeforeMount(() => {
+  if (props.modelValue.length) {
+    inputTags.value = props.modelValue;
+  }
+});
+
 const setIsKeyReleased = (value) => {
   isKeyReleased.value = value;
 };
@@ -103,6 +109,7 @@ const handleDeleteTag = (index) => {
   nextTick(() => {
     emit("tag-deleted", deletedTag, inputTags.value);
     emit("tag-changed", oldTagArray, inputTags.value);
+    emit("update:modelValue", inputTags.value);
   });
 };
 
@@ -116,6 +123,7 @@ const handleKeyDown = (event) => {
     nextTick(() => {
       emit("tag-added", newTag, oldTagArray);
       emit("tag-changed", oldTagArray, inputTags.value);
+      emit("update:modelValue", inputTags.value);
     });
     input.value = "";
   }
@@ -135,6 +143,7 @@ const handleKeyDown = (event) => {
     nextTick(() => {
       emit("tag-deleted", deletedTag, inputTags.value);
       emit("tag-changed", oldTagArray, inputTags.value);
+      emit("update:modelValue", inputTags.value);
     });
   }
   isKeyReleased.value = false;
