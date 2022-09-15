@@ -10,6 +10,7 @@
         :class="labelClass"
         class="ui-text-field__label"
         scale="subhead"
+        :font-face="labelFontFace"
       >
         {{ label }}
       </d-text>

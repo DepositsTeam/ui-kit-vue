@@ -3,7 +3,6 @@
     class="ui-text-field__wrapper"
     :style="{ ...d__theme }"
     :class="[`size__${size}`]"
-    v-bind="{ ...computedMargin, ...computedWidth }"
   >
     <d-box v-if="!!label && !invisible" is="label">
       <d-text

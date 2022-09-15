@@ -1,8 +1,5 @@
 <template>
-  <d-box
-    v-bind="{ ...computedMargin, ...computedWidth }"
-    class="ui-card__wrapper"
-  >
+  <d-box class="ui-card__wrapper">
     <slot name="header"></slot>
     <d-box
       :is="radio || checkbox ? 'label' : 'div'"

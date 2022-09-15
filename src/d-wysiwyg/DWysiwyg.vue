@@ -273,4 +273,8 @@ export default {
   pointer-events: none;
   height: 0;
 }
+.ProseMirror.ProseMirror-focused {
+  outline: none;
+  border: none;
+}
 </style>

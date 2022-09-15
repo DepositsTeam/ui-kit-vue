@@ -1,5 +1,5 @@
 <script>
-import { h, inject, computed } from "vue";
+import { h, inject, computed, onMounted } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 
@@ -120,8 +120,8 @@ export default {
       () => darkMode !== null && darkMode !== undefined && darkMode.value
     );
 
-    const uniqueID = uniqueRandomString(20);
-    const uniqueClass = uniqueRandomString(20);
+    const uniqueID = "auto_generated" + uniqueRandomString(20);
+    const uniqueClass = "auto_generated" + uniqueRandomString(20);
 
     const convertCssProps = (str) =>
       str
@@ -177,18 +177,20 @@ export default {
         }
       }
       const savedCssEntries = Object.entries(savedCss);
+      let cssRules = "box-sizing: border-box;";
       if (savedCssEntries.length) {
-        const cssRules = savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
-
-        const styleTag = document.createElement("style");
-        styleTag.id = uniqueID;
-        styleTag.setAttribute("type", "text/css");
-        styleTag.innerHTML = `.${uniqueClass}{${cssRules}}`;
-        document.head.appendChild(styleTag);
+        cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
       }
+      const styleTag = document.createElement("style");
+      styleTag.id = uniqueID;
+      styleTag.setAttribute("type", "text/css");
+      styleTag.innerHTML = `.${uniqueClass}{${cssRules}}`;
+      document.head.appendChild(styleTag);
     };
 
-    generateClassProps();
+    onMounted(() => {
+      generateClassProps();
+    });
 
     return () =>
       h(
@@ -234,8 +236,8 @@ export default {
           class: {
             // [styleClasses.value[uniqueClass]]: true,
             [uniqueClass]: true,
-            [props.darkClass]: darkModeIsEnabled.value,
-            [props.lightClass]: !darkModeIsEnabled.value,
+            [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
+            [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
             [props.fontFace]: props.fontFace,
             dark_mode: darkModeIsEnabled.value,
           },
