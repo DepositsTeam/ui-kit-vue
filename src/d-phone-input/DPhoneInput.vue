@@ -52,7 +52,10 @@
         @keypress="allowOnlyNumbers"
       />
     </d-box>
-    <div v-if="localErrorMessage || errorMessage" class="ui-text-field__error">
+    <d-box
+      v-if="localErrorMessage || errorMessage"
+      class="ui-text-field__error"
+    >
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
@@ -66,7 +69,7 @@
           {{ errorMessage }}
         </span>
       </d-text>
-    </div>
+    </d-box>
   </d-box>
 </template>
 
@@ -235,6 +238,10 @@ export default {
   outline: none;
   font-family: "Circular Std", sans-serif;
   color: #212934;
+  &.dark_mode {
+    background: var(--darkInputBackgroundColor);
+    color: #fff;
+  }
 
   &::placeholder {
     color: #b8c4ce;
@@ -270,17 +277,31 @@ export default {
 .ui-text-field[disabled] + .ui-text-field__country-code {
   background: #edeeef;
   cursor: not-allowed;
+  &.dark_mode {
+    background: var(--darkInputDisabledColor);
+    color: var(--darkInputLabelColor);
+  }
 }
 .ui-text-field__input.has-error + .ui-text-field__country-code {
   background: #fff0f2;
+  &.dark_mode {
+    background: #350a12;
+  }
 }
 .ui-text-field__wrapper {
   &.has-error .ui-text-field__country-code {
     background: #fff0f2;
+    &.dark_mode {
+      background: #350a12;
+    }
   }
   &.disabled .ui-text-field__country-code {
     background: #edeeef;
     cursor: not-allowed;
+    &.dark_mode {
+      background: var(--darkInputDisabledColor);
+      color: var(--darkInputLabelColor);
+    }
   }
 }
 </style>
