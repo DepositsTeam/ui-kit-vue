@@ -118,6 +118,13 @@ export default {
   position: relative;
   .ui-text-field__input {
     flex: 3;
+    &.dark_mode {
+      .ui-text {
+        &:not(.placeholder) {
+          color: #ffffff;
+        }
+      }
+    }
   }
   .pseudo-button {
     flex: 1;
@@ -135,5 +142,12 @@ export default {
   border-radius: 0 6px 6px 0;
   padding-left: 32px;
   padding-right: 32px;
+  &.dark_mode {
+    background: var(--darkInputBorderColor);
+    border-color: var(--darkInputBorderColor);
+    .ui-text {
+      color: #ffffff;
+    }
+  }
 }
 </style>

@@ -91,6 +91,11 @@ Range.args = {
   range: true,
 };
 
+export const DarkRange = DarkModeTemplateFactory();
+DarkRange.args = {
+  range: true,
+};
+
 export const SizeMassive = Template.bind({});
 SizeMassive.args = {
   label: "Form Label",
