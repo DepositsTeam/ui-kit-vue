@@ -1,5 +1,5 @@
 <template>
-  <d-box>
+  <d-box class="ui-wysiwyg__wrapper" :style="{ ...d__theme }">
     <d-box v-if="!!label" is="label">
       <d-text
         margin-top="0px"
@@ -11,11 +11,7 @@
         {{ label }}
       </d-text>
     </d-box>
-    <d-box
-      :class="{ focused }"
-      :style="{ ...d__theme }"
-      class="d-wysiwyg-semantic-container"
-    >
+    <d-box :class="{ focused }" class="d-wysiwyg-semantic-container">
       <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
         <button
           @click="editor.chain().focus().toggleBold().run()"
@@ -209,6 +205,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ui-wysiwyg__wrapper {
+  &.dark_mode {
+    .ui-text-field__label {
+      color: var(--darkInputLabelColor);
+    }
+  }
+}
 .d-wysisyg-controls {
   width: 100%;
   display: flex;
@@ -256,6 +259,23 @@ export default {
   }
   &.focused {
     box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+  }
+  &.dark_mode {
+    .d-wysiwyg-editor {
+      background-color: var(--darkInputBackgroundColor);
+      border-color: var(--darkInputBorderColor);
+      color: #fff;
+    }
+    .d-wysisyg-controls {
+      background-color: var(--darkInputBackgroundColor);
+      border-color: var(--darkInputBorderColor);
+      button {
+        color: #cbd5e1;
+        &.is-active {
+          color: var(--darkPrimaryActionColor);
+        }
+      }
+    }
   }
 }
 </style>

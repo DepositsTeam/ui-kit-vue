@@ -5,6 +5,12 @@
     :class="{
       [`state__disabled`]: disabled,
       [`semantic__${colorScheme}`]: colorScheme,
+      custom_color: switchColor,
+      custom_thumb_color: thumbColor,
+    }"
+    :style="{
+      '--customswitchcolor': switchColor,
+      '--customthumbcolor': thumbColor,
     }"
   >
     <d-box is="div" class="ui-switch">
@@ -21,29 +27,29 @@
   </d-box>
 </template>
 
-<script>
-import DText from "../d-text/DText.vue";
-import DBox from "../d-box/DBox.vue";
-export default {
-  name: "DSwitch",
-  props: {
-    colorScheme: {
-      type: String,
-      validator: (value) =>
-        ["primary", "danger", "success", "outline", "invisible"].includes(
-          value
-        ),
-      default: "success",
-    },
-    disabled: {
-      type: Boolean,
-    },
-    label: {
-      type: String,
-    },
+<script setup>
+import { DText, DBox } from "../main";
+
+defineProps({
+  colorScheme: {
+    type: String,
+    validator: (value) =>
+      ["primary", "danger", "success", "outline", "invisible"].includes(value),
+    default: "success",
   },
-  components: { DBox, DText },
-};
+  disabled: {
+    type: Boolean,
+  },
+  label: {
+    type: String,
+  },
+  switchColor: {
+    type: String,
+  },
+  thumbColor: {
+    type: String,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +57,20 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
+  &.custom_color {
+    .ui-switch {
+      input:checked + .ui-slider {
+        background: var(--customswitchcolor);
+      }
+    }
+  }
+  &.custom_thumb_color {
+    .ui-slider {
+      &:before {
+        background-color: var(--customthumbcolor);
+      }
+    }
+  }
 }
 
 .state__disabled > .ui-switch > .ui-slider {
@@ -59,6 +79,9 @@ export default {
 
 .ui-switch__label-text {
   padding: 0 10px;
+  &.dark_mode {
+    color: #fff;
+  }
 
   /* border: 1px gray solid; */
 }

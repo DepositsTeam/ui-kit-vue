@@ -156,6 +156,19 @@ const handleKeyDown = async (e, index) => {
       });
     }
   }
+  // if (e.key === "Backspace" || e.key === "Delete") {
+  //   if (index !== 0) {
+  //     if (!data.value[index].value) {
+  //       let nextInput = document
+  //         .getElementById(data.value[index - 1].id)
+  //         .getElementsByTagName("input")[0];
+  //       nextInput.focus();
+  //       setTimeout(() => {
+  //         nextInput.select();
+  //       });
+  //     }
+  //   }
+  // }
 };
 
 onMounted(() => {
