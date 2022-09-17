@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-tabs" :class="{ horizontal }">
+  <d-box class="ui-tabs" :class="{ horizontal }" :style="{ ...d__theme }">
     <d-box
       v-for="(tab, index) in tabs"
       :key="`tab_${index}_${keyGen()}`"
@@ -11,48 +11,43 @@
         {{ tab.text }}
       </d-text>
     </d-box>
-  </div>
+  </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
+<script setup>
+import { DBox, DText } from "../main";
 import keyGen from "../utils/keyGen";
-export default {
-  name: "DTab",
-  components: {
-    DBox,
-    DText,
+import { inject } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
+
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const props = defineProps({
+  tabs: {
+    type: Array,
   },
-  props: {
-    tabs: {
-      type: Array,
-    },
-    horizontal: {
-      type: Boolean,
-    },
-    spacing: {
-      type: String,
-    },
+  horizontal: {
+    type: Boolean,
   },
-  methods: {
-    keyGen,
-    generateSpacing: function (index) {
-      if (index < this.tabs.length - 1) {
-        if (this.horizontal) {
-          return {
-            marginRight: this.spacing || 0,
-          };
-        } else {
-          return {
-            marginBottom: this.spacing || 0,
-          };
-        }
-      } else {
-        return {};
-      }
-    },
+  spacing: {
+    type: String,
   },
+});
+
+const generateSpacing = (index) => {
+  if (index < props.tabs.length - 1) {
+    if (props.horizontal) {
+      return {
+        marginRight: props.spacing || 0,
+      };
+    } else {
+      return {
+        marginBottom: props.spacing || 0,
+      };
+    }
+  } else {
+    return {};
+  }
 };
 </script>
 
@@ -63,14 +58,32 @@ export default {
   padding: 8px 16px;
   border-radius: 4px;
 
+  &.dark_mode {
+    color: #94a3b8;
+
+    &:hover {
+      background: var(--darkInputBackgroundColor);
+      .ui-text {
+        color: var(--darkPrimaryActionColor);
+      }
+    }
+
+    &:active {
+      background: var(--darkPrimaryActionColor);
+      .ui-text {
+        color: #fff;
+      }
+    }
+  }
+
   &:hover {
-    color: #0d7fe9;
+    color: var(--lightPrimaryActionColor);
     background: #f5f8fa;
   }
 
   &:active {
     color: #fff;
-    background: #0d7fe9;
+    background: var(--lightPrimaryActionColor);
   }
 }
 
