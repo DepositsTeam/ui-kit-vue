@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-pagination">
+  <d-box class="ui-pagination" :style="{ ...d__theme }">
     <d-box
       :class="{ disabled: disablePrev }"
       class="ui-pagination__control"
@@ -43,110 +43,106 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import ChevronArrowLeftIcon from "../icons/ChevronArrowLeftIcon.vue";
-import ChevronArrowRightIcon from "../icons/ChevronArrowRightIcon.vue";
+<script setup>
+import {
+  DBox,
+  DText,
+  ChevronArrowLeftIcon,
+  ChevronArrowRightIcon,
+} from "../main";
 import rangedArray from "../utils/rangedArray";
-export default {
-  name: "DPagination",
-  emits: ["page-changed"],
-  components: {
-    DBox,
-    ChevronArrowLeftIcon,
-    ChevronArrowRightIcon,
-    DText,
-  },
-  props: {
-    totalPages: {
-      type: [Number, String],
-      default: 30,
-    },
-    currentPage: {
-      type: [Number, String],
-      default: 1,
-    },
-    currentPageSiblings: {
-      type: [Number, String],
-      default: 3,
-    },
-  },
-  data: () => ({
-    initializedCurrentPage: 1,
-    renderedPages: [],
-  }),
-  mounted() {
-    this.initializedCurrentPage = this.intCurrentPage;
-  },
-  computed: {
-    disablePrev: function () {
-      return this.initializedCurrentPage === 1;
-    },
-    disableNext: function () {
-      return this.initializedCurrentPage === this.intTotalPages;
-    },
-    intCurrentPage: function () {
-      return parseInt(this.currentPage);
-    },
-    intTotalPages: function () {
-      return parseInt(this.totalPages);
-    },
-    intCurrentPageSiblings: function () {
-      return parseInt(this.currentPageSiblings);
-    },
-    visiblePages: function () {
-      const dots = "...";
-      let renderedPages = [];
-      const doubleVisibleSiblings = this.intCurrentPageSiblings * 2;
-      let middleMin = this.initializedCurrentPage - this.intCurrentPageSiblings;
-      let middleMax = this.initializedCurrentPage + this.intCurrentPageSiblings;
+import { ref, computed, onMounted, inject } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
 
-      if (this.totalPages <= doubleVisibleSiblings + 2) {
-        renderedPages = rangedArray(1, this.intTotalPages);
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const emit = defineEmits(["page-changed"]);
+
+const props = defineProps({
+  totalPages: {
+    type: [Number, String],
+    default: 30,
+  },
+  currentPage: {
+    type: [Number, String],
+    default: 1,
+  },
+  currentPageSiblings: {
+    type: [Number, String],
+    default: 3,
+  },
+});
+
+const initializedCurrentPage = ref(1);
+
+const intTotalPages = computed(() => parseInt(props.totalPages));
+
+const intCurrentPage = computed(() => parseInt(props.currentPage));
+
+const intCurrentPageSiblings = computed(() =>
+  parseInt(props.currentPageSiblings)
+);
+
+const visiblePages = computed(() => {
+  const dots = "...";
+  let renderedPages = [];
+  const doubleVisibleSiblings = intCurrentPageSiblings.value * 2;
+  let middleMin = initializedCurrentPage.value - intCurrentPageSiblings.value;
+  let middleMax = initializedCurrentPage.value + intCurrentPageSiblings.value;
+
+  if (props.totalPages <= doubleVisibleSiblings + 2) {
+    renderedPages = rangedArray(1, intTotalPages.value);
+  } else {
+    if (initializedCurrentPage.value < doubleVisibleSiblings) {
+      renderedPages = [
+        ...rangedArray(1, doubleVisibleSiblings),
+        dots,
+        intTotalPages.value,
+      ];
+    } else {
+      if (
+        initializedCurrentPage.value <
+        intTotalPages.value - doubleVisibleSiblings
+      ) {
+        const rangedArrayHolder = rangedArray(middleMin, middleMax);
+        const sub = rangedArrayHolder.includes(1)
+          ? [...rangedArrayHolder, dots]
+          : [1, dots, ...rangedArrayHolder, dots];
+        renderedPages = [...sub, intTotalPages.value];
       } else {
-        if (this.initializedCurrentPage < doubleVisibleSiblings) {
-          renderedPages = [
-            ...rangedArray(1, doubleVisibleSiblings),
-            dots,
-            this.intTotalPages,
-          ];
-        } else {
-          if (
-            this.initializedCurrentPage <
-            this.intTotalPages - doubleVisibleSiblings
-          ) {
-            const rangedArrayHolder = rangedArray(middleMin, middleMax);
-            const sub = rangedArrayHolder.includes(1)
-              ? [...rangedArrayHolder, dots]
-              : [1, dots, ...rangedArrayHolder, dots];
-            renderedPages = [...sub, this.intTotalPages];
-          } else {
-            renderedPages = [
-              1,
-              dots,
-              ...rangedArray(
-                this.intTotalPages - doubleVisibleSiblings,
-                this.intTotalPages
-              ),
-            ];
-          }
-        }
+        renderedPages = [
+          1,
+          dots,
+          ...rangedArray(
+            intTotalPages.value - doubleVisibleSiblings,
+            intTotalPages.value
+          ),
+        ];
       }
+    }
+  }
 
-      return renderedPages;
-    },
-  },
-  methods: {
-    updatePage: function (page) {
-      page = parseInt(page);
-      if (page > this.intTotalPages || page < 1 || page === "...") {
-        return;
-      }
-      this.initializedCurrentPage = page;
-      this.$emit("page-changed", page);
-    },
-  },
+  return renderedPages;
+});
+
+const disablePrev = computed(() => initializedCurrentPage.value === 1);
+
+const disableNext = computed(
+  () => initializedCurrentPage.value === intTotalPages.value
+);
+
+onMounted(() => {
+  initializedCurrentPage.value = intCurrentPage.value;
+});
+
+const updatePage = (page) => {
+  if (page === "...") return;
+  page = parseInt(page);
+  if (page > intTotalPages.value || page < 1 || isNaN(page)) {
+    return;
+  }
+  initializedCurrentPage.value = page;
+  emit("page-changed", page);
 };
 </script>
 
@@ -160,8 +156,18 @@ export default {
   margin-right: 8px;
 }
 
+.ui-pagination__page-number {
+  margin-right: 12px;
+  cursor: pointer;
+  &.dark_mode {
+    .ui-text {
+      color: #f1f5f9;
+    }
+  }
+}
+
 .ui-pagination__page-number__active {
-  background: #0db9e9;
+  background: var(--lightPrimaryActionColor);
   border-radius: 4px;
   height: 32px;
   width: 32px;
@@ -169,11 +175,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.ui-pagination__page-number {
-  margin-right: 12px;
-  cursor: pointer;
+  &.dark_mode {
+    .ui-text {
+      color: var(--darkBackgroundColor);
+    }
+  }
 }
 
 .ui-pagination__page-number_last {
@@ -183,7 +189,7 @@ export default {
 
 .ui-pagination__left-arrow,
 .ui-pagination__right-arrow {
-  color: #0db9e9;
+  color: var(--lightPrimaryActionColor);
 }
 
 .ui-pagination__control {
@@ -192,7 +198,7 @@ export default {
   cursor: pointer;
 
   .ui-pagination__text {
-    color: #0db9e9;
+    color: var(--lightPrimaryActionColor);
   }
 
   &.disabled {
@@ -205,6 +211,9 @@ export default {
 
     .ui-pagination__text {
       color: #8895a7;
+      &.dark_mode {
+        color: #64748b;
+      }
     }
   }
 
