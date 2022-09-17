@@ -1,5 +1,11 @@
 import DModal from "./DModal.vue";
-import { DButton, DTextfield, DarkModeProvider } from "../main";
+import {
+  DarkModeProvider,
+  DAutoLayout,
+  DBox,
+  DButton,
+  DTextfield,
+} from "../main";
 
 export default {
   title: "Modal",
@@ -28,6 +34,7 @@ const Template = (args) => ({
     DModal,
     DButton,
     DTextfield,
+    DAutoLayout,
   },
   data: () => ({
     show: false,
@@ -42,7 +49,7 @@ const Template = (args) => ({
   },
   template: `
     <d-modal :show="show" @closeModal="setShow(false)" v-bind="args">
-      <template v-slot>${args.children}</template>
+    <template v-slot>${args.children}</template>
     </d-modal>
     <d-button
       @click="setShow(true)"
@@ -57,6 +64,9 @@ const DarkModeTemplate = (args) => ({
     DModal,
     DButton,
     DTextfield,
+    DBox,
+    DarkModeProvider,
+    DAutoLayout,
   },
   data: () => ({
     show: false,
@@ -71,14 +81,14 @@ const DarkModeTemplate = (args) => ({
   },
   template: `
     <dark-mode-provider :dark-mode="true">
-      <d-modal :show="show" @closeModal="setShow(false)" v-bind="args">
-        <template v-slot>${args.children}</template>
-      </d-modal>
-      <d-button
-        @click="setShow(true)"
-      >
+    <d-modal :show="show" @closeModal="setShow(false)" v-bind="args">
+      <template v-slot>${args.children}</template>
+    </d-modal>
+    <d-button
+      @click="setShow(true)"
+    >
       Toggle Modal
-      </d-button>
+    </d-button>
     </dark-mode-provider>
   `,
 });
@@ -99,14 +109,16 @@ export const Default = Template.bind({});
 Default.args = {
   heading: "Title",
   children: `
-    <div>
+    <d-box>
+    <d-auto-layout direction="vertical">
       <d-textfield width="900px" label="Form label" />
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
       <d-button responsive size="huge" colorScheme="primary" margin-top="2rem">
         Primary Button
       </d-button>
-    </div>
+      </d-auto-layout>
+    </d-box>
       `,
 };
 
@@ -115,14 +127,16 @@ export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   heading: "Title",
   children: `
-    <div>
+    <d-box>
+    <d-auto-layout direction="vertical">
       <d-textfield width="900px" label="Form label" />
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
       <d-button responsive size="huge" colorScheme="primary" margin-top="2rem">
         Primary Button
       </d-button>
-    </div>
+      </d-auto-layout>
+    </d-box>
       `,
 };
 
@@ -132,6 +146,8 @@ GreyBody.args = {
   heading: "Title",
   greyContent: true,
   children: `
+<d-box>
+<d-auto-layout direction="vertical">
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
@@ -143,8 +159,9 @@ GreyBody.args = {
       >
         Primary Button
       </d-button>
-    </>
-  `,
+      </d-auto-layout>
+    </d-box>
+`,
 };
 
 export const DarkGreyBody = DarkModeTemplateFactory();
@@ -153,6 +170,8 @@ DarkGreyBody.args = {
   heading: "Title",
   greyContent: true,
   children: `
+    <d-box>
+    <d-auto-layout direction="vertical">
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
       <d-textfield label="Form label" />
@@ -164,6 +183,7 @@ DarkGreyBody.args = {
       >
         Primary Button
       </d-button>
-    </>
+      </d-auto-layout>
+    </d-box>
   `,
 };

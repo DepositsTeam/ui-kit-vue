@@ -167,7 +167,7 @@ const handleCloseClicks = (e) => {
       max-width: var(--modalwidth);
     }
     &.dark_mode {
-      background: var(--darkInputBackgroundColor);
+      background: var(--darkBackgroundColor);
     }
   }
 
@@ -177,6 +177,9 @@ const handleCloseClicks = (e) => {
     align-items: center;
     padding: 24px;
     background: white;
+    &.dark_mode {
+      background: var(--darkBackgroundColor);
+    }
   }
 
   .ui-modal__body {
@@ -186,7 +189,7 @@ const handleCloseClicks = (e) => {
   &.greyContent .ui-modal__content {
     background: #f5f8fa;
     &.dark_mode {
-      background: var(--darkInputBackgroundColor);
+      background: var(--darkBackgroundColor);
     }
   }
 
