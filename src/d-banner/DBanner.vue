@@ -3,6 +3,7 @@
     v-if="visible"
     :class="{ [`color-scheme__${colorScheme}`]: true, alignTop, full }"
     class="ui-banner"
+    :style="{ ...d__theme }"
   >
     <d-box @click="$emit('click')" class="text-content">
       <component
@@ -36,79 +37,70 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import InfoIcon from "../icons/InfoIcon.vue";
-import WarningIcon from "../icons/WarningIcon.vue";
-import ErrorIcon from "../icons/ErrorIcon.vue";
-import CheckIcon from "../icons/CheckIcon.vue";
-import CloseIcon from "../icons/CloseIcon.vue";
+<script setup>
+import { ref, inject } from "vue";
+import {
+  DBox,
+  DText,
+  InfoIcon,
+  WarningIcon,
+  ErrorIcon,
+  CheckIcon,
+  CloseIcon,
+} from "../main";
+import { defaultThemeVars } from "../providers/default-theme";
+
 const schemeIcons = {
   info: InfoIcon,
   warning: WarningIcon,
   error: ErrorIcon,
   success: CheckIcon,
 };
-export default {
-  name: "DBanner",
-  emits: ["removed", "click"],
-  data: () => ({
-    visible: true,
-  }),
-  setup() {
-    return { schemeIcons };
+const emit = defineEmits(["removed", "click"]);
+
+defineProps({
+  title: {
+    type: String,
   },
-  components: {
-    DBox,
-    DText,
-    CloseIcon,
+  full: {
+    type: Boolean,
+    default: true,
   },
-  props: {
-    title: {
-      type: String,
-    },
-    full: {
-      type: Boolean,
-      default: true,
-    },
-    description: {
-      type: String,
-    },
-    colorScheme: {
-      type: String,
-      validator: (value) =>
-        ["default", "info", "warning", "error", "success"].includes(value),
-      default: "default",
-    },
-    removable: {
-      type: Boolean,
-    },
-    onRemove: {
-      type: Function,
-    },
-    alignTop: {
-      type: Boolean,
-    },
-    icon: {
-      type: Object,
-    },
-    noIcon: {
-      type: Boolean,
-      default: false,
-    },
+  description: {
+    type: String,
   },
-  methods: {
-    remove: function () {
-      this.$emit("removed");
-      if (this.onRemove && typeof this.onRemove === "function") {
-        this.onRemove();
-      } else {
-        this.visible = false;
-      }
-    },
+  colorScheme: {
+    type: String,
+    validator: (value) =>
+      ["default", "info", "warning", "error", "success"].includes(value),
+    default: "default",
   },
+  removable: {
+    type: Boolean,
+  },
+  onRemove: {
+    type: Function,
+  },
+  alignTop: {
+    type: Boolean,
+  },
+  icon: {
+    type: Object,
+  },
+  noIcon: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const visible = ref(true);
+
+const remove = () => {
+  emit("removed");
+  visible.value = false;
 };
+
+const d__theme = inject("d__theme", defaultThemeVars);
 </script>
 
 <style lang="scss" scoped>
@@ -158,12 +150,38 @@ export default {
     color: #5f6b7a;
   }
 
+  .ui-banner__title {
+    &.dark_mode {
+      color: #fff;
+    }
+  }
+
+  .ui-banner__description {
+    &.dark_mode {
+      color: #94a3b8;
+    }
+  }
+
   &.color-scheme__default {
     background: #f5f8fa;
+    &.dark_mode {
+      background: var(--darkInputBackgroundColor);
+    }
   }
 
   &.color-scheme__success {
     background: #edfff9;
+    &.dark_mode {
+      background: #081e13;
+
+      .ui-banner__title {
+        color: #53d091;
+      }
+
+      .ui-banner-icon {
+        color: #2eab6c;
+      }
+    }
 
     .ui-banner-icon {
       color: #00b058;
@@ -173,6 +191,18 @@ export default {
   &.color-scheme__error {
     background: #fff0f2;
 
+    &.dark_mode {
+      background: #350a12;
+
+      .ui-banner__title {
+        color: #eea7b3;
+      }
+
+      .ui-banner-icon {
+        color: #df5e74;
+      }
+    }
+
     .ui-banner-icon {
       color: #d62f4b;
     }
@@ -181,6 +211,18 @@ export default {
   &.color-scheme__warning {
     background: #fff8f0;
 
+    &.dark_mode {
+      background: #271701;
+
+      .ui-banner__title {
+        color: #fca835;
+      }
+
+      .ui-banner-icon {
+        color: #dc8104;
+      }
+    }
+
     .ui-banner-icon {
       color: #ff9505;
     }
@@ -188,6 +230,14 @@ export default {
 
   &.color-scheme__info {
     background: #f7fbff;
+
+    &.dark_mode {
+      background: #f7fbff;
+
+      .ui-banner__title {
+        color: #051b30;
+      }
+    }
 
     .ui-banner-icon {
       color: #0d7fe9;
