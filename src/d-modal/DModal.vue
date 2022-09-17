@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div v-if="show" class="root-portal">
+    <d-box v-if="show" class="root-portal" :style="{ ...d__theme }">
       <d-box
         class="ui-modal ui-modal__closerr"
         @click="handleCloseClicks"
@@ -24,12 +24,6 @@
             />
           </d-box>
           <d-box class="ui-modal__body" :class="{ bodyClasses }">
-            <!-- <d-text
-              scale="body"
-              class="text-center text-black font-weight-600"
-              v-if="roundedBorders && heading"
-              >{{ heading }}</d-text
-            > -->
             <d-text
               scale="subhead"
               v-if="contentText"
@@ -71,89 +65,80 @@
           </d-box>
         </d-box>
       </d-box>
-    </div>
+    </d-box>
   </Teleport>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DButton from "../d-button/DButton.vue";
-import DText from "../d-text/DText.vue";
-import CloseIcon from "../icons/CloseIcon.vue";
-import DHeading from "../d-heading/DHeading.vue";
-export default {
-  name: "DModal",
-  emits: ["closeModal", "confirmAction"],
-  components: {
-    DBox,
-    CloseIcon,
-    DHeading,
-    DButton,
-    DText,
+<script setup>
+import { inject } from "vue";
+import { DBox, DButton, DText, DHeading, CloseIcon } from "../main";
+import { defaultThemeVars } from "../providers/default-theme";
+
+const emit = defineEmits(["closeModal", "confirmAction"]);
+
+const d__theme = inject("d__theme", defaultThemeVars);
+
+defineProps({
+  show: {
+    type: Boolean,
   },
-  props: {
-    show: {
-      type: Boolean,
-    },
-    greyContent: {
-      type: Boolean,
-    },
-    roundedBorders: {
-      type: Boolean,
-    },
-    requestClose: {
-      type: Function,
-    },
-    modalWidth: {
-      type: String,
-    },
-    heading: {
-      type: String,
-    },
-    headerClasses: {
-      type: [String, Object, Array],
-    },
-    bodyClasses: {
-      type: [String, Object, Array],
-    },
-    greyHeader: {
-      type: Boolean,
-    },
-    showCloseIcon: {
-      type: Boolean,
-      default: true,
-    },
-    showActions: {
-      type: Boolean,
-      default: false,
-    },
-    asyncLoading: {
-      type: Boolean,
-      default: false,
-    },
-    asyncLoadingText: {
-      type: String,
-      default: "Loading",
-    },
-    confirmBtnText: {
-      type: String,
-      default: "Yes",
-    },
-    denyBtnText: {
-      type: String,
-      default: "Cancel",
-    },
-    contentText: {
-      type: String,
-    },
+  greyContent: {
+    type: Boolean,
   },
-  methods: {
-    handleCloseClicks: function (e) {
-      if (e.target.classList.contains("ui-modal__closerr")) {
-        this.$emit("closeModal");
-      }
-    },
+  roundedBorders: {
+    type: Boolean,
   },
+  requestClose: {
+    type: Function,
+  },
+  modalWidth: {
+    type: String,
+  },
+  heading: {
+    type: String,
+  },
+  headerClasses: {
+    type: [String, Object, Array],
+  },
+  bodyClasses: {
+    type: [String, Object, Array],
+  },
+  greyHeader: {
+    type: Boolean,
+  },
+  showCloseIcon: {
+    type: Boolean,
+    default: true,
+  },
+  showActions: {
+    type: Boolean,
+    default: false,
+  },
+  asyncLoading: {
+    type: Boolean,
+    default: false,
+  },
+  asyncLoadingText: {
+    type: String,
+    default: "Loading",
+  },
+  confirmBtnText: {
+    type: String,
+    default: "Yes",
+  },
+  denyBtnText: {
+    type: String,
+    default: "Cancel",
+  },
+  contentText: {
+    type: String,
+  },
+});
+
+const handleCloseClicks = (e) => {
+  if (e.target.classList.contains("ui-modal__closerr")) {
+    emit("closeModal");
+  }
 };
 </script>
 
@@ -181,6 +166,9 @@ export default {
     &.maxWidth {
       max-width: var(--modalwidth);
     }
+    &.dark_mode {
+      background: var(--darkInputBackgroundColor);
+    }
   }
 
   .ui-modal__heading {
@@ -197,6 +185,9 @@ export default {
 
   &.greyContent .ui-modal__content {
     background: #f5f8fa;
+    &.dark_mode {
+      background: var(--darkInputBackgroundColor);
+    }
   }
 
   &.greyHeader .ui-modal__heading {

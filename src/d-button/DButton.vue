@@ -246,9 +246,35 @@ export default {
   }
 
   &.semantic__danger {
-    background: #d62f4b;
+    background: #df5e74;
     border: 1px solid rgba(33, 41, 52, 0.07);
     color: #fff;
+
+    &.dark_mode {
+      background: #df5e74;
+      color: #121a26;
+      border: 1px solid rgba(33, 41, 52, 0.07);
+      /* Button Shadow */
+
+      box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
+
+      &:hover {
+        background: #e47588;
+        border: 1px solid rgba(33, 41, 52, 0.07);
+        /* Button Shadow */
+
+        box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(214, 47, 75, 0.3);
+      }
+
+      &:disabled,
+      &.state__disabled {
+        background: #350a12;
+      }
+    }
 
     &:hover {
       background: #ad283d;
@@ -271,6 +297,29 @@ export default {
     background: #00b058;
     border: 1px solid rgba(33, 41, 52, 0.07);
     color: #fff;
+
+    &.dark_mode {
+      background: #2eab6c;
+      color: #121a26;
+      box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
+
+      &:hover {
+        background: #2a9b62;
+        border: 1px solid rgba(33, 41, 52, 0.07);
+        /* Button Shadow */
+
+        box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
+      }
+
+      &:focus {
+        box-shadow: 0px 0px 0px 3px rgba(0, 176, 88, 0.3);
+      }
+
+      &:disabled,
+      &.state__disabled {
+        background: #175636;
+      }
+    }
 
     &:hover {
       background: #27c079;
