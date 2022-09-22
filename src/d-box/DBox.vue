@@ -250,8 +250,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import url("https://assets.deposits.com/fonts/css/CircularSTD.css");
-@import url("https://assets.deposits.com/fonts/css/HeroNew.css");
+@import url("https://assets.deposits.inc/fonts/css/CircularSTD.css");
+@import url("https://assets.deposits.inc/fonts/css/HeroNew.css");
 
 .heroNew {
   font-family: "Hero New", sans-serif;

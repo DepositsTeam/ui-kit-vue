@@ -42,44 +42,38 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import { inject } from "vue";
+<script setup>
+import { DBox, DText } from "../main";
+import { inject, ref, onMounted } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
-export default {
-  name: "DFilePicker",
-  components: { DBox, DText },
-  emits: ["change"],
-  data: () => ({
-    selectedFileName: "",
-  }),
-  props: {
-    ...inputProps,
-    placeholder: {
-      type: String,
-      default: "No file selected...",
-    },
-    btnText: {
-      type: String,
-      default: "Choose File",
-    },
+
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const props = defineProps({
+  ...inputProps,
+  placeholder: {
+    type: String,
+    default: "No file selected...",
   },
-  methods: {
-    updateName: function (e) {
-      let files = e.target.files || e.dataTransfer.files;
-      this.selectedFileName = !files ? this.placeholder : files[0].name;
-      this.$emit("change", files[0]);
-    },
+  btnText: {
+    type: String,
+    default: "Choose File",
   },
-  mounted() {
-    this.selectedFileName = this.placeholder;
-  },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
-  },
+});
+
+const emit = defineEmits(["change"]);
+
+const selectedFileName = ref("");
+
+onMounted(() => {
+  selectedFileName.value = props.placeholder;
+});
+
+const updateName = (e) => {
+  let files = e.target.files || e.dataTransfer.files;
+  selectedFileName.value = !files ? props.placeholder : files[0].name;
+  emit("change", files[0]);
 };
 </script>
 

@@ -255,6 +255,7 @@ export { default as BookFilledIcon } from "./icons/filled/BookFilledIcon.vue";
 export { default as BuildingFilledIcon } from "./icons/filled/BuildingFilledIcon.vue";
 export { default as CallFilledIcon } from "./icons/filled/CallFilledIcon.vue";
 export { default as CategoryFilledIcon } from "./icons/filled/CategoryFilledIcon.vue";
+export { default as CloudUploadFilledIcon } from "./icons/filled/CloudUploadFilledIcon.vue";
 export { default as EyeFilledIcon } from "./icons/filled/EyeFilledIcon.vue";
 export { default as FrameFilledIcon } from "./icons/filled/FrameFilledIcon.vue";
 export { default as GithubFilledIcon } from "./icons/filled/GithubFilledIcon.vue";

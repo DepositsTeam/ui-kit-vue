@@ -88,7 +88,7 @@ SubtleLargeAvatars.args = {
     {
       status: "green",
       name: "Charles Babbage",
-      imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+      imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     },
   ],
 };
@@ -124,7 +124,7 @@ SubtleDarkLargeAvatars.args = {
     {
       status: "green",
       name: "Charles Babbage",
-      imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+      imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     },
   ],
 };
@@ -161,7 +161,7 @@ SubtleMediumAvatars.args = {
     {
       status: "green",
       name: "Charles Babbage",
-      imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+      imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     },
   ],
 };
@@ -198,7 +198,7 @@ SubtleDarkMediumAvatars.args = {
     {
       status: "green",
       name: "Charles Babbage",
-      imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+      imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     },
   ],
 };
@@ -235,7 +235,7 @@ SubtleSmallAvatars.args = {
     {
       status: "green",
       name: "Charles Babbage",
-      imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+      imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     },
   ],
 };
@@ -272,7 +272,7 @@ SubtleDarkSmallAvatars.args = {
     {
       status: "green",
       name: "Charles Babbage",
-      imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+      imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     },
   ],
 };
@@ -550,21 +550,21 @@ DarkCyanStatusGray.args = {
 export const ImageAvatar = Template.bind({});
 ImageAvatar.args = {
   avatar: {
-    imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+    imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
   },
 };
 
 export const DarkImageAvatar = DarkModeTemplateFactory();
 DarkImageAvatar.args = {
   avatar: {
-    imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+    imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
   },
 };
 
 export const ImageAvatarStatus = Template.bind({});
 ImageAvatarStatus.args = {
   avatar: {
-    imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+    imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     status: "green",
   },
 };
@@ -572,7 +572,7 @@ ImageAvatarStatus.args = {
 export const DarkImageAvatarStatus = DarkModeTemplateFactory();
 DarkImageAvatarStatus.args = {
   avatar: {
-    imgURL: "https://assets.deposits.com/img/ui-kit-demo/avatar/lady1.png",
+    imgURL: "https://assets.deposits.inc/img/ui-kit-demo/avatar/lady1.png",
     status: "green",
   },
 };
