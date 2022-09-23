@@ -41,6 +41,11 @@ const DarkModeTemplateFactory = () => {
 
 export const Default = Template.bind({});
 
+export const OneMb = Template.bind({});
+OneMb.args = {
+  fileMaxSize: 1,
+};
+
 export const Image = Template.bind({});
 Image.args = {
   accepts: "image",

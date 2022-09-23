@@ -7,7 +7,6 @@
         :class="labelClass"
         scale="subhead"
         :font-face="labelFontFace"
-        :size="size"
       >
         {{ label }}
       </d-text>
@@ -43,7 +42,7 @@
             </span>
             <span v-else>(</span>
             Max upload size:
-            {{ size }}MB)</d-text
+            {{ fileMaxSize }}MB)</d-text
           >
         </d-auto-layout>
       </slot>
@@ -83,7 +82,7 @@ const props = defineProps({
     type: String,
     default: "Choose File",
   },
-  size: {
+  fileMaxSize: {
     type: [String, Number],
     default: 100,
   },
@@ -158,7 +157,19 @@ const updateName = (e) => {
   } else {
     internalError.value = "";
   }
-  emit("change", files[0]);
+  for (let currentFile of files) {
+    if (currentFile.size > props.fileMaxSize * 1000000) {
+      internalError.value = `You cannot upload a file larger than ${props.fileMaxSize}MB`;
+    }
+  }
+  if (internalError.value) {
+    const input = file.value.$el;
+    input.setAttribute("type", "text");
+    input.setAttribute("type", "file");
+    selectedFileName.value = "";
+  } else {
+    emit("change", files[0]);
+  }
 };
 
 const emptyFile = () => {
