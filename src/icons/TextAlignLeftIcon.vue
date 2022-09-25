@@ -1,5 +1,6 @@
 <template>
-  <d-box is="svg"
+  <d-box
+    is="svg"
     :width="width"
     :height="height"
     viewBox="0 0 22 18"
@@ -25,42 +26,40 @@
   </d-box>
 </template>
 
-<script>
-export default {
-  name: "TextAlignLeftIcon",
-  props: {
-    smartColor: {
-      type: String,
-      default: "currentcolor",
-    },
-    fill: {
-      type: String,
-    },
-    stroke: {
-      type: String,
-    },
-    strokeWidth: {
-      type: String,
-      default: "1.5",
-    },
-    strokeLineCap: {
-      type: String,
-      default: "round",
-    },
-    strokeLineJoin: {
-      type: String,
-      default: "round",
-    },
-    width: {
-      type: String,
-      default: "22",
-    },
-    height: {
-      type: String,
-      default: "18",
-    },
+<script setup>
+import { DBox } from "../main";
+defineProps({
+  smartColor: {
+    type: String,
+    default: "currentcolor",
   },
-};
+  fill: {
+    type: String,
+  },
+  stroke: {
+    type: String,
+  },
+  strokeWidth: {
+    type: String,
+    default: "1.5",
+  },
+  strokeLineCap: {
+    type: String,
+    default: "round",
+  },
+  strokeLineJoin: {
+    type: String,
+    default: "round",
+  },
+  width: {
+    type: String,
+    default: "29",
+  },
+  height: {
+    type: String,
+    default: "24",
+  },
+});
 </script>
 
 <style scoped></style>

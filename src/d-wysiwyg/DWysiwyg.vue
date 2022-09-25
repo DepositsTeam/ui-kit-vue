@@ -14,6 +14,30 @@
     <d-box :class="{ focused }" class="d-wysiwyg-semantic-container">
       <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
         <button
+          @click="editor.chain().focus().setTextAlign('left').run()"
+          :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
+        >
+          <text-align-left-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().setTextAlign('center').run()"
+          :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
+        >
+          <center-align-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().setTextAlign('right').run()"
+          :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
+        >
+          <right-align-icon />
+        </button>
+        <button
+          @click="editor.chain().focus().setTextAlign('justify').run()"
+          :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }"
+        >
+          <justify-align-icon />
+        </button>
+        <button
           @click="editor.chain().focus().toggleBold().run()"
           :class="{ 'is-active': editor.isActive('bold') }"
         >
@@ -49,15 +73,12 @@
         >
           <document-code-outline-icon />
         </button>
-        <button
-          @click="editor.chain().focus().toggleCode().run()"
-          :class="{ 'is-active': editor.isActive('code') }"
-        >
+        <button @click="addImage">
           <image-icon />
         </button>
         <button
-          @click="editor.chain().focus().toggleCode().run()"
-          :class="{ 'is-active': editor.isActive('code') }"
+          @click="toggleLink"
+          :class="{ 'is-active': editor.isActive('link') }"
         >
           <link-outline-icon />
         </button>
@@ -91,6 +112,10 @@ import {
   DocumentCodeOutlineIcon,
   ImageIcon,
   LinkOutlineIcon,
+  TextAlignLeftIcon,
+  RightAlignIcon,
+  CenterAlignIcon,
+  JustifyAlignIcon,
 } from "../main";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import Underline from "@tiptap/extension-underline";
@@ -98,7 +123,9 @@ import StarterKit from "@tiptap/starter-kit";
 import Code from "@tiptap/extension-code";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
-import { ref, watch, onMounted, onBeforeMount } from "vue";
+import TextAlign from "@tiptap/extension-text-align";
+import Image from "@tiptap/extension-image";
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -153,8 +180,12 @@ onMounted(() => {
       Underline,
       Link,
       Code,
+      Image,
       Placeholder.configure({
         placeholder: props.placeholder,
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
       }),
     ],
     onUpdate: () => {
@@ -175,12 +206,49 @@ onMounted(() => {
   });
 });
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   editor.value.destroy();
 });
 
 const toggleFocusClass = (val) => {
   focused.value = val;
+};
+
+const addImage = () => {
+  const url = window.prompt("Enter your image URL");
+
+  if (url) {
+    editor.value.chain().focus().setImage({ src: url }).run();
+  }
+};
+
+const toggleLink = () => {
+  if (editor.value.isActive("link")) {
+    editor.value.chain().focus().unsetLink().run();
+  } else {
+    const previousUrl = editor.value.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === "") {
+      editor.value.chain().focus().extendMarkRange("link").unsetLink().run();
+
+      return;
+    }
+
+    // update link
+    editor.value
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: url })
+      .run();
+  }
 };
 </script>
 
@@ -232,6 +300,7 @@ const toggleFocusClass = (val) => {
 }
 .d-wysiwyg-semantic-container {
   border-radius: 4px;
+  box-shadow: 0px 1px 2px rgba(63, 63, 68, 0.1);
   &:hover {
     & > div {
       border-color: var(--light-primary-action-color);
@@ -260,7 +329,7 @@ const toggleFocusClass = (val) => {
 }
 </style>
 
-<style>
+<style lang="scss">
 .ProseMirror-focused {
   border-color: transparent;
   outline-color: transparent;
@@ -276,5 +345,20 @@ const toggleFocusClass = (val) => {
 .ProseMirror.ProseMirror-focused {
   outline: none;
   border: none;
+}
+
+.ProseMirror {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid var(--light-primary-action-color);
+    }
+  }
 }
 </style>
