@@ -191,6 +191,14 @@ const emptyFile = () => {
   justify-content: center;
   padding: 50px;
   color: #6d7786;
+  &.dark_mode {
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-primary-300);
+    color: #94a3b8;
+    .ui-text {
+      color: #94a3b8;
+    }
+  }
   .close-btn {
     display: flex;
     color: white;

@@ -85,6 +85,7 @@ const props = defineProps({
       justify-content: center;
       &.dark_mode {
         background: var(--dark-input-background-color);
+        border-color: var(--dark-primary-800);
       }
       &.active {
         &::before {
@@ -113,21 +114,35 @@ const props = defineProps({
           top: calc(var(--indicator-size) - 1px);
           position: absolute;
         }
+        &.dark_mode {
+          &::after {
+            background: #202b3c;
+          }
+        }
       }
     }
     .ui-text {
       font-weight: 500;
+      &.dark_mode {
+        color: #cbd5e1;
+      }
     }
     &.todo {
       .ui-text {
         color: #8895a7;
         font-weight: 400;
+        &.dark_mode {
+          color: #64748b;
+        }
       }
     }
     &.completed {
       .ui-text {
         color: #8895a7;
         font-weight: 400;
+        &.dark_mode {
+          color: #64748b;
+        }
       }
     }
   }
