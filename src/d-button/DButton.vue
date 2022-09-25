@@ -9,7 +9,6 @@
     }"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
-    :style="{ ...d__theme }"
     :disabled="loading || disabled"
   >
     <component
@@ -36,78 +35,66 @@
   </d-box>
 </template>
 
-<script>
-import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
-import DBox from "../d-box/DBox.vue";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-export default {
-  props: {
-    is: {
-      type: [String, Object],
-      validator: (value) => {
-        if (typeof value === "string") {
-          return ["button", "a", "span", "div"].includes(value);
-        } else return true;
-      },
-      default: "button",
+<script setup>
+import { DBox, ChevronFilledDownIcon } from "../main";
+
+const emit = defineEmits(["click"]);
+defineProps({
+  is: {
+    type: [String, Object],
+    validator: (value) => {
+      if (typeof value === "string") {
+        return ["button", "a", "span", "div"].includes(value);
+      } else return true;
     },
-    colorScheme: {
-      type: String,
-      validator: (value) =>
-        [
-          "primary",
-          "danger",
-          "success",
-          "outline",
-          "invisible",
-          "default",
-        ].includes(value),
-      default: "default",
-    },
-    disabled: {
-      type: Boolean,
-    },
-    size: {
-      type: String,
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-      default: "huge",
-    },
-    leftIcon: {
-      type: Object,
-    },
-    dropDown: {
-      type: Object,
-    },
-    responsive: {
-      type: Boolean,
-    },
-    text: {
-      type: String,
-    },
-    loading: {
-      type: Boolean,
-    },
-    loadingText: {
-      type: String,
-      default: "Loading",
-    },
-    // TODO - Add a property to break/wrap words/text.
+    default: "button",
   },
-  components: { ChevronFilledDownIcon, DBox },
-  emits: ["click"],
-  methods: {
-    handleClick: function () {
-      this.$emit("click");
-    },
+  colorScheme: {
+    type: String,
+    validator: (value) =>
+      [
+        "primary",
+        "danger",
+        "success",
+        "outline",
+        "invisible",
+        "default",
+      ].includes(value),
+    default: "default",
   },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
+  disabled: {
+    type: Boolean,
   },
+  size: {
+    type: String,
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
+    default: "huge",
+  },
+  leftIcon: {
+    type: Object,
+  },
+  dropDown: {
+    type: Object,
+  },
+  responsive: {
+    type: Boolean,
+  },
+  text: {
+    type: String,
+  },
+  loading: {
+    type: Boolean,
+  },
+  loadingText: {
+    type: String,
+    default: "Loading",
+  },
+  // TODO - Add a property to break/wrap words/text.
+});
+
+const handleClick = () => {
+  emit("click");
 };
 </script>
 
@@ -202,44 +189,44 @@ export default {
   }
 
   &.semantic__primary {
-    background: var(--lightPrimaryActionColor);
-    color: var(--lightTextColor);
-    border: 1px solid var(--lightPrimaryActionBoxShadowColor);
+    background: var(--light-primary-action-color);
+    color: var(--light-text-color);
+    border: 1px solid var(--light-primary-action-box-shadow-color);
 
     &.dark_mode {
-      background: var(--darkPrimaryActionColor);
-      color: var(--darkTextColor);
-      border: 1px solid var(--darkPrimaryActionBoxShadowColor);
+      background: var(--dark-primary-action-color);
+      color: var(--dark-text-color);
+      border: 1px solid var(--dark-primary-action-box-shadow-color);
 
       &:hover {
-        background: var(--darkPrimaryActionHoverColor);
-        color: var(--darkPrimaryActionTextHoverColor);
+        background: var(--dark-primary-action-hover-color);
+        color: var(--dark-primary-action-text-hover-color);
       }
 
       &:focus {
-        box-shadow: 0 0 0 3px var(--darkPrimaryActionBoxShadowColor);
+        box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
       }
 
       &:disabled,
       &.state__disabled {
-        background: var(--darkPrimaryActionDisabledColor);
-        color: var(--darkSubtleTextColor);
+        background: var(--dark-primary-action-disabled-color);
+        color: var(--dark-subtle-text-color);
       }
     }
 
     &:hover {
-      background: var(--lightPrimaryActionHoverColor);
-      color: var(--lightPrimaryActionTextHoverColor);
+      background: var(--light-primary-action-hover-color);
+      color: var(--light-primary-action-text-hover-color);
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+      box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
     }
 
     &:disabled,
     &.state__disabled {
-      background: var(--lightPrimaryActionDisabledColor);
-      color: var(--lightSubtleTextColor);
+      background: var(--light-primary-action-disabled-color);
+      color: var(--light-subtle-text-color);
       cursor: not-allowed;
       border-color: transparent;
     }
@@ -344,23 +331,23 @@ export default {
   }
 
   &.semantic__outline {
-    color: var(--lightPrimaryActionColor);
-    border: 1px solid var(--lightPrimaryActionColor);
+    color: var(--light-primary-action-color);
+    border: 1px solid var(--light-primary-action-color);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     background: transparent;
 
     &:focus {
-      box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+      box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
     }
 
     &:hover:not(:disabled):not(.state_disabled) {
-      background: var(--lightPrimaryActionColor);
-      color: var(--lightPrimaryActionTextColor);
-      box-shadow: 0 1px 0 var(--lightOutlineActionBoxShadowColor);
+      background: var(--light-primary-action-color);
+      color: var(--light-primary-action-text-color);
+      box-shadow: 0 1px 0 var(--light-outline-action-box-shadow-color);
     }
 
     &:focus:hover {
-      box-shadow: 0 0 0 3px var(--lightOutlineActionBoxShadowColor);
+      box-shadow: 0 0 0 3px var(--light-outline-action-box-shadow-color);
     }
 
     &:disabled,

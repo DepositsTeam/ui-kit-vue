@@ -1,9 +1,5 @@
 <template>
-  <d-box
-    :style="{ ...d__theme }"
-    class="ui-tag-input__wrapper"
-    :class="`size__${size}`"
-  >
+  <d-box class="ui-tag-input__wrapper" :class="`size__${size}`">
     <d-box is="label">
       <d-text
         :class="labelClass"
@@ -53,16 +49,13 @@
 <script setup>
 import { DBox, DText, DTextfield, CloseIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { inject, ref, nextTick, onBeforeMount } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { ref, nextTick, onBeforeMount } from "vue";
 import inputProps from "../utils/inputProps";
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
   comma: ",",
 };
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 const emit = defineEmits([
   "tag-added",
@@ -160,8 +153,8 @@ const handleKeyDown = (event) => {
   align-items: center;
   background: #fff;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
   }
 
   /* overflow: scroll; */
@@ -219,7 +212,7 @@ const handleKeyDown = (event) => {
   margin-right: 4px;
   padding: 0 8px;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
+    background: var(--dark-input-background-color);
     color: #cbd5e1;
   }
 }

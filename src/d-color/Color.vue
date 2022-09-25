@@ -24,37 +24,30 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
+<script setup>
+import { DBox } from "../main";
 import keyGen from "../utils/keyGen";
-export default {
-  name: "Color",
-  components: {
-    DBox,
+
+defineProps({
+  colorName: {
+    type: String,
+    default: "Cyan 100",
   },
-  props: {
-    colorName: {
-      type: String,
-      default: "Cyan 100",
-    },
-    colorCode: {
-      type: String,
-      default: "#F2FAFC",
-    },
-    textColor: {
-      type: String,
-    },
-    colors: {
-      type: Array,
-    },
+  colorCode: {
+    type: String,
+    default: "#F2FAFC",
   },
-  methods: {
-    keyGen,
-    getProperColorName(colorName) {
-      const colorNameArray = colorName.split(" ");
-      return `${colorNameArray[0].toLowerCase()}-${colorNameArray[1]}`;
-    },
+  textColor: {
+    type: String,
   },
+  colors: {
+    type: Array,
+  },
+});
+
+const getProperColorName = (colorName) => {
+  const colorNameArray = colorName.split(" ");
+  return `${colorNameArray[0].toLowerCase()}-${colorNameArray[1]}`;
 };
 </script>
 

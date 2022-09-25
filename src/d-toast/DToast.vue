@@ -7,84 +7,69 @@
           v-bind="toast"
           :key="`toast_${index}_${keyGen()}`"
           closable
-          :onClose="() => removeToast(index)"
+          @closed="removeToast(index)"
         />
       </d-box>
     </div>
   </Teleport>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DAlert from "../d-alert/DAlert.vue";
+<script setup>
+import { DBox, DAlert } from "../main";
 import keyGen from "../utils/keyGen";
-export default {
-  name: "DToast",
-  components: {
-    DBox,
-    DAlert,
+import { onMounted, ref, onUnmounted } from "vue";
+
+const toasts = ref([]);
+const countUp = ref(0);
+const interval = ref(null);
+
+const props = defineProps({
+  autoClose: {
+    type: Number,
   },
-  mounted() {
-    this.interval = setInterval(() => {
-      if (this.toasts.length) {
-        let holdingCountUp = 0;
-        holdingCountUp = this.countUp;
-        let currentToast = this.toasts[0];
-        const timeToClose = currentToast.autoClose || this.autoClose;
-        if (holdingCountUp >= timeToClose) {
-          let holderArray = [...this.toasts];
-          holderArray.shift();
-          this.toasts = holderArray;
-          this.countUp = 0;
-        }
-        this.countUp += 1;
-      } else {
-        this.countUp -= 1;
+  position: {
+    type: String,
+    validator: (value) =>
+      ["top-right", "top-left", "bottom-left", "bottom-right"].includes(value),
+    default: "top-right",
+  },
+  bordered: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+onMounted(() => {
+  interval.value = setInterval(() => {
+    if (toasts.value.length) {
+      let holdingCountUp = 0;
+      holdingCountUp = countUp.value;
+      let currentToast = toasts.value[0];
+      const timeToClose = currentToast.autoClose || props.autoClose;
+      if (holdingCountUp >= timeToClose) {
+        let holderArray = [...toasts.value];
+        holderArray.shift();
+        toasts.value = holderArray;
+        countUp.value = 0;
       }
-    }, 1000);
-  },
-  unmounted() {
-    clearInterval(this.interval);
-  },
-  data: () => ({
-    toasts: [],
-    countUp: 0,
-    interval: null,
-  }),
-  methods: {
-    keyGen,
-    pushToast: function (toast) {
-      if (this.toasts.length === 0) {
-        this.countUp = -1;
-      }
-      this.toasts.push(toast);
-    },
-    removeToast: function (index) {
-      let holderArray = [...this.toasts];
-      holderArray.splice(index, 1);
-      this.toasts = holderArray;
-      if (index === 0) {
-        this.countUp = 0;
-      }
-    },
-  },
-  props: {
-    autoClose: {
-      type: Number,
-    },
-    position: {
-      type: String,
-      validator: (value) =>
-        ["top-right", "top-left", "bottom-left", "bottom-right"].includes(
-          value
-        ),
-      default: "top-right",
-    },
-    bordered: {
-      type: Boolean,
-      default: true,
-    },
-  },
+      countUp.value += 1;
+    } else {
+      countUp.value -= 1;
+    }
+  }, 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(this.interval);
+});
+
+const removeToast = (index) => {
+  let holderArray = [...toasts.value];
+  holderArray.splice(index, 1);
+  toasts.value = holderArray;
+  if (index === 0) {
+    countUp.value = 0;
+  }
 };
 </script>
 

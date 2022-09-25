@@ -11,7 +11,7 @@
         {{ label }}
       </d-text>
     </d-box>
-    <d-box class="ui-file-picker-box" :style="{ ...d__theme }">
+    <d-box class="ui-file-picker-box">
       <d-box
         type="file"
         class="ui-file-picker-input"
@@ -72,10 +72,7 @@ import {
   ErrorIcon,
   DAutoLayout,
 } from "../main";
-import { inject, ref, computed } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-
-const d__theme = inject("d__theme", defaultThemeVars);
+import { ref, computed } from "vue";
 
 const props = defineProps({
   btnText: {

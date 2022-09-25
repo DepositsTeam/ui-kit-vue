@@ -17,11 +17,11 @@
   width: 100%;
   -webkit-appearance: none;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
     color: #ffffff;
     &::placeholder {
-      color: var(--darkInputLabelColor);
+      color: var(--dark-input-label-color);
     }
   }
   &.oneCharWide {
@@ -39,7 +39,7 @@
 .ui-text-field__label {
   margin-bottom: 8px;
   &.dark_mode {
-    color: var(--darkInputLabelColor);
+    color: var(--dark-input-label-color);
   }
 }
 .ui-text-field__input {
@@ -47,19 +47,19 @@
     color: #b8c4ce;
   }
   &:hover:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
-    border-color: var(--lightPrimaryActionColor);
+    border-color: var(--light-primary-action-color);
     &.dark_mode {
-      border-color: var(--darkPrimaryActionColor);
+      border-color: var(--dark-primary-action-color);
     }
   }
   &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible),
   &.focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
-    border-color: var(--lightPrimaryActionColor);
-    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+    border-color: var(--light-primary-action-color);
+    box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
     outline: none;
     &.dark_mode {
-      border-color: var(--darkPrimaryActionColor);
-      box-shadow: 0 0 0 3px var(--darkPrimaryActionBoxShadowColor);
+      border-color: var(--dark-primary-action-color);
+      box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
     }
   }
   &:focus,
@@ -70,9 +70,9 @@
     background: #edeeef;
     cursor: not-allowed;
     &.dark_mode {
-      background: var(--darkInputDisabledColor);
-      border-color: var(--darkInputBorderColor);
-      color: var(--darkInputDisabledTextColor);
+      background: var(--dark-input-disabled-color);
+      border-color: var(--dark-input-border-color);
+      color: var(--dark-input-disabled-text-color);
     }
   }
 }
@@ -80,9 +80,9 @@
   background: #edeeef;
   cursor: not-allowed;
   &.dark_mode {
-    background: var(--darkInputDisabledColor);
-    border-color: var(--darkInputBorderColor);
-    color: var(--darkInputLabelColor);
+    background: var(--dark-input-disabled-color);
+    border-color: var(--dark-input-border-color);
+    color: var(--dark-input-label-color);
   }
 }
 .ui-text-field__error {
@@ -114,7 +114,7 @@
   left: 16px;
   color: #5f6b7a;
   &.dark_mode {
-    color: var(--darkInputIconColor);
+    color: var(--dark-input-icon-color);
   }
   &.relative {
     position: relative;
@@ -126,7 +126,7 @@
   color: #5f6b7a;
   cursor: pointer;
   &.dark_mode {
-    color: var(--darkInputIconColor);
+    color: var(--dark-input-icon-color);
   }
   &.relative {
     position: relative;

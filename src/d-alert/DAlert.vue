@@ -58,9 +58,9 @@ import {
 } from "../main";
 import { ref } from "vue";
 
-const emit = defineEmits(["button-clicked"]);
+const emit = defineEmits(["closed", "button-clicked"]);
 
-const props = defineProps({
+defineProps({
   message: {
     type: String,
   },
@@ -87,9 +87,6 @@ const props = defineProps({
   closable: {
     type: Boolean,
   },
-  onClose: {
-    type: Function,
-  },
   bordered: {
     type: Boolean,
     default: false,
@@ -107,9 +104,8 @@ const remove = () => {
   showAlert.value = false;
 };
 const handleRemoval = () => {
-  if (props.onClose && typeof props.onClose === "function") {
-    props.onClose();
-  } else remove();
+  remove();
+  emit("closed");
 };
 const emitClick = () => emit("button-clicked");
 </script>
@@ -123,7 +119,7 @@ const emitClick = () => emit("button-clicked");
   align-items: flex-start;
   background: #fff;
   &.dark_mode {
-    background: transparent;
+    background: var(--dark-background-color);
     border-color: #202b3c;
     .ui-alert__header-text {
       color: #cbd5e1;
@@ -256,7 +252,7 @@ const emitClick = () => emit("button-clicked");
     }
 
     &:not(.color-scheme__warning) {
-      .ui-alert__header-text{
+      .ui-alert__header-text {
         color: #fff;
       }
     }

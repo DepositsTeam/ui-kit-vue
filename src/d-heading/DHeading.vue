@@ -20,68 +20,63 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-export default {
-  name: "DHeading",
-  props: {
-    is: {
-      type: [String, Object],
-      default: "p",
-      validator: (value) => {
-        if (typeof value !== "object") {
-          return ["h1", "h2", "h3", "h4", "h5", "h6", "p"].includes(value);
-        } else {
-          return true;
-        }
-      },
-    },
-    scale: {
-      type: String,
-      validator: (value) =>
-        ["subtitle-1", "subtitle-2", "subhead"].includes(value),
-    },
-    fontFace: {
-      type: String,
-      validator: (value) => ["heroNew", "circularSTD"].includes(value),
-      default: "heroNew",
-    },
-    fontWeight: {
-      type: [String, Number],
-    },
-    fontSize: {
-      type: [String, Number],
-    },
-    lineHeight: {
-      type: [String, Number],
-    },
-    uppercase: {
-      type: Boolean,
-    },
-    equalLineHeight: {
-      type: Boolean,
-    },
-    my0: {
-      type: Boolean,
-    },
-    center: {
-      type: Boolean,
-    },
-    level: {
-      type: [String, Number],
-    },
-    lightClass: {
-      type: String,
-    },
-    darkClass: {
-      type: String,
-      default: "text-neutral-300",
+<script setup>
+import { DBox } from "../main";
+
+defineProps({
+  is: {
+    type: [String, Object],
+    default: "p",
+    validator: (value) => {
+      if (typeof value !== "object") {
+        return ["h1", "h2", "h3", "h4", "h5", "h6", "p"].includes(value);
+      } else {
+        return true;
+      }
     },
   },
-  components: {
-    DBox,
+  scale: {
+    type: String,
+    validator: (value) =>
+      ["subtitle-1", "subtitle-2", "subhead"].includes(value),
   },
-};
+  fontFace: {
+    type: String,
+    validator: (value) => ["heroNew", "circularSTD"].includes(value),
+    default: "heroNew",
+  },
+  fontWeight: {
+    type: [String, Number],
+  },
+  fontSize: {
+    type: [String, Number],
+  },
+  lineHeight: {
+    type: [String, Number],
+  },
+  uppercase: {
+    type: Boolean,
+  },
+  equalLineHeight: {
+    type: Boolean,
+  },
+  my0: {
+    type: Boolean,
+  },
+  center: {
+    type: Boolean,
+  },
+  level: {
+    type: [String, Number],
+  },
+  lightClass: {
+    type: String,
+  },
+  darkClass: {
+    type: String,
+    default: "text-neutral-300",
+  },
+});
 </script>
 
 <style lang="scss">

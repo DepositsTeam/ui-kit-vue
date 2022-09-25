@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-wysiwyg__wrapper" :style="{ ...d__theme }">
+  <d-box class="ui-wysiwyg__wrapper">
     <d-box v-if="!!label" is="label">
       <d-text
         margin-top="0px"
@@ -77,130 +77,110 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
+<script setup>
+import {
+  DBox,
+  DText,
+  TextBoldIcon,
+  TextItalicIcon,
+  TextUnderlineIcon,
+  BlockQuoteIcon,
+  ListIcon,
+  UndoOutlineIcon,
+  RedoOutlineIcon,
+  DocumentCodeOutlineIcon,
+  ImageIcon,
+  LinkOutlineIcon,
+} from "../main";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
-import TextBoldIcon from "../icons/TextBoldIcon.vue";
-import TextItalicIcon from "../icons/TextItalicIcon.vue";
-import TextUnderlineIcon from "../icons/TextUnderlineIcon.vue";
-import BlockQuoteIcon from "../icons/BlockQuoteIcon.vue";
-import ListIcon from "../icons/List2Icon.vue";
-import UndoOutlineIcon from "../icons/outline/UndoOutlineIcon.vue";
-import RedoOutlineIcon from "../icons/outline/RedoOutlineIcon.vue";
-import DocumentCodeOutlineIcon from "../icons/outline/DocumentCodeOutlineIcon.vue";
 import Code from "@tiptap/extension-code";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
-import ImageIcon from "../icons/ImageIcon.vue";
-import LinkOutlineIcon from "../icons/outline/LinkOutlineIcon.vue";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { ref, watch, onMounted, onBeforeMount } from "vue";
 
-export default {
-  name: "DWysiwyg",
-  components: {
-    LinkOutlineIcon,
-    ImageIcon,
-    DocumentCodeOutlineIcon,
-    RedoOutlineIcon,
-    UndoOutlineIcon,
-    ListIcon,
-    BlockQuoteIcon,
-    TextUnderlineIcon,
-    TextItalicIcon,
-    TextBoldIcon,
-    DBox,
-    EditorContent,
-    DText,
+const emit = defineEmits(["update:modelValue"]);
+
+const editor = ref(null);
+const focused = ref(false);
+
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: "",
   },
-  emits: ["update:modelValue"],
-  data() {
-    return {
-      editor: null,
-      focused: false,
-    };
+  label: {
+    type: String,
   },
-  watch: {
-    modelValue(value) {
+  labelClass: {
+    type: [String, Array, Object],
+  },
+  fontFace: {
+    type: String,
+  },
+  labelFontFace: {
+    type: String,
+  },
+  placeholder: {
+    type: String,
+    default: "Type content here",
+  },
+});
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    // HTML
+    const isSame = editor.value.getHTML() === value;
+
+    // JSON
+    // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+
+    if (isSame) {
+      return;
+    }
+
+    editor.value.commands.setContent(value, false);
+  }
+);
+
+onMounted(() => {
+  editor.value = new Editor({
+    content: "",
+    extensions: [
+      StarterKit,
+      Underline,
+      Link,
+      Code,
+      Placeholder.configure({
+        placeholder: props.placeholder,
+      }),
+    ],
+    onUpdate: () => {
       // HTML
-      const isSame = this.editor.getHTML() === value;
+      emit("update:modelValue", editor.value.getHTML());
 
       // JSON
-      // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+      // this.$emit('update:modelValue', this.editor.getJSON())
+    },
+    onFocus: () => {
+      // The editor state has changed.
+      focused.value = true;
+    },
+    onBlur: () => {
+      // The editor isn’t focused anymore.
+      focused.value = false;
+    },
+  });
+});
 
-      if (isSame) {
-        return;
-      }
+onBeforeMount(() => {
+  editor.value.destroy();
+});
 
-      this.editor.commands.setContent(value, false);
-    },
-  },
-  mounted() {
-    this.editor = new Editor({
-      content: "",
-      extensions: [
-        StarterKit,
-        Underline,
-        Link,
-        Code,
-        Placeholder.configure({
-          placeholder: this.placeholder,
-        }),
-      ],
-      onUpdate: () => {
-        // HTML
-        this.$emit("update:modelValue", this.editor.getHTML());
-
-        // JSON
-        // this.$emit('update:modelValue', this.editor.getJSON())
-      },
-      onFocus: () => {
-        // The editor state has changed.
-        this.focused = true;
-      },
-      onBlur: () => {
-        // The editor isn’t focused anymore.
-        this.focused = false;
-      },
-    });
-  },
-  beforeUnmount() {
-    this.editor.destroy();
-  },
-  props: {
-    modelValue: {
-      type: String,
-      default: "",
-    },
-    label: {
-      type: String,
-    },
-    labelClass: {
-      type: [String, Array, Object],
-    },
-    fontFace: {
-      type: String,
-    },
-    labelFontFace: {
-      type: String,
-    },
-    placeholder: {
-      type: String,
-      default: "Type content here",
-    },
-  },
-  methods: {
-    toggleFocusClass: function (val) {
-      this.focused = val;
-    },
-  },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
-  },
+const toggleFocusClass = (val) => {
+  focused.value = val;
 };
 </script>
 
@@ -208,7 +188,7 @@ export default {
 .ui-wysiwyg__wrapper {
   &.dark_mode {
     .ui-text-field__label {
-      color: var(--darkInputLabelColor);
+      color: var(--dark-input-label-color);
     }
   }
 }
@@ -227,7 +207,7 @@ export default {
     height: 0;
   }
   &.focused {
-    border-color: var(--lightPrimaryActionColor);
+    border-color: var(--light-primary-action-color);
   }
   button {
     background: transparent;
@@ -237,7 +217,7 @@ export default {
     margin: 8px;
     &:hover,
     &.is-active {
-      color: var(--lightPrimaryActionColor);
+      color: var(--light-primary-action-color);
     }
   }
 }
@@ -247,32 +227,32 @@ export default {
   border-radius: 0 0 4px 4px;
   min-height: 150px;
   &.focused {
-    border-color: var(--lightPrimaryActionColor);
+    border-color: var(--light-primary-action-color);
   }
 }
 .d-wysiwyg-semantic-container {
   border-radius: 4px;
   &:hover {
     & > div {
-      border-color: var(--lightPrimaryActionColor);
+      border-color: var(--light-primary-action-color);
     }
   }
   &.focused {
-    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+    box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
   }
   &.dark_mode {
     .d-wysiwyg-editor {
-      background-color: var(--darkInputBackgroundColor);
-      border-color: var(--darkInputBorderColor);
+      background-color: var(--dark-input-background-color);
+      border-color: var(--dark-input-border-color);
       color: #fff;
     }
     .d-wysisyg-controls {
-      background-color: var(--darkInputBackgroundColor);
-      border-color: var(--darkInputBorderColor);
+      background-color: var(--dark-input-background-color);
+      border-color: var(--dark-input-border-color);
       button {
         color: #cbd5e1;
         &.is-active {
-          color: var(--darkPrimaryActionColor);
+          color: var(--dark-primary-action-color);
         }
       }
     }

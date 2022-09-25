@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <d-box v-if="show" class="root-portal" :style="{ ...d__theme }">
+    <d-box v-if="show" class="root-portal">
       <d-box
         class="ui-modal ui-modal__closerr"
         @click="handleCloseClicks"
@@ -70,13 +70,9 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
 import { DBox, DButton, DText, DHeading, CloseIcon } from "../main";
-import { defaultThemeVars } from "../providers/default-theme";
 
 const emit = defineEmits(["closeModal", "confirmAction"]);
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 defineProps({
   show: {
@@ -167,7 +163,7 @@ const handleCloseClicks = (e) => {
       max-width: var(--modalwidth);
     }
     &.dark_mode {
-      background: var(--darkBackgroundColor);
+      background: var(--dark-background-color);
     }
   }
 
@@ -178,7 +174,7 @@ const handleCloseClicks = (e) => {
     padding: 24px;
     background: white;
     &.dark_mode {
-      background: var(--darkBackgroundColor);
+      background: var(--dark-background-color);
     }
   }
 
@@ -189,7 +185,7 @@ const handleCloseClicks = (e) => {
   &.greyContent .ui-modal__content {
     background: #f5f8fa;
     &.dark_mode {
-      background: var(--darkBackgroundColor);
+      background: var(--dark-background-color);
     }
   }
 

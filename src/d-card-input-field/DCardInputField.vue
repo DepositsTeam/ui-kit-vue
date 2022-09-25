@@ -1,9 +1,5 @@
 <template>
-  <d-box
-    :class="`size__${size}`"
-    class="ui-text-field__wrapper heroNew"
-    :style="{ ...d__theme }"
-  >
+  <d-box :class="`size__${size}`" class="ui-text-field__wrapper heroNew">
     <d-box
       is="label"
       :class="labelClass"
@@ -23,7 +19,7 @@
       >
         <d-box>
           <CardIcon
-            :smart-color="d__theme['--lightPrimaryActionColor']"
+            :smart-color="d__theme['--light-primary-action-color']"
             class="ui-card-input-field__left-icon"
             v-if="selectedCard === -1"
             width="24"
@@ -101,9 +97,9 @@
 import { DBox, DText, ScanCardIcon, CardIcon, ErrorIcon } from "../main";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import CardBrands, { BRAND_ALIAS } from "./card-brands";
-import { inject, ref } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
+import { ref, inject } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
 
 const d__theme = inject("d__theme", defaultThemeVars);
 
@@ -347,8 +343,8 @@ const handleCardNoKeyPress = (e) => {
   display: flex;
   align-items: center;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
   }
   & * {
     font-family: "Circular Std", sans-serif;
@@ -360,11 +356,11 @@ const handleCardNoKeyPress = (e) => {
     border-color: #d62f4b;
   }
   &.focus:not(.hasError) {
-    border-color: var(--lightPrimaryActionColor);
-    box-shadow: 0 0 0 3px var(--lightPrimaryActionBoxShadowColor);
+    border-color: var(--light-primary-action-color);
+    box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
   }
   &:hover:not(.hasError) {
-    border-color: var(--lightPrimaryActionColor);
+    border-color: var(--light-primary-action-color);
   }
 }
 .ui-card-input-field__inputs {
@@ -388,7 +384,7 @@ const handleCardNoKeyPress = (e) => {
     background: transparent;
     color: #fff;
     &::placeholder {
-      color: var(--darkInputLabelColor);
+      color: var(--dark-input-label-color);
     }
   }
 }

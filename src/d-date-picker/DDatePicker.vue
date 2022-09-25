@@ -1,9 +1,5 @@
 <template>
-  <d-box
-    class="ui-text-field__wrapper"
-    :class="[`size__${size}`]"
-    :style="{ ...d__theme }"
-  >
+  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
     <d-box v-if="label" is="label">
       <d-text
         :class="labelClass"
@@ -81,9 +77,6 @@ import DatePicker from "vue-datepicker-next";
 import "vue-datepicker-next/index.css";
 import inputProps from "../utils/inputProps";
 import { inject, ref, onMounted, watch } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 const darkMode = inject("d__darkMode", false);
 

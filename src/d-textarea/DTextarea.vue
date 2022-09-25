@@ -2,7 +2,6 @@
   <d-box
     class="ui-text-field__wrapper ui-text-area__wrapper"
     :class="[`size__${size}`]"
-    :style="{ ...d__theme }"
   >
     <d-box is="label" class="ui-text-area__label">
       <d-text
@@ -51,11 +50,8 @@
 
 <script setup>
 import { DBox, DText, ErrorIcon } from "../main";
-import { inject, nextTick } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { nextTick } from "vue";
 import inputProps from "../utils/inputProps";
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 defineProps({
   ...inputProps,
@@ -130,18 +126,18 @@ const handleBlurEvent = (e) => {
   }
 
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
     color: #ffffff;
     &::placeholder {
-      color: var(--darkInputLabelColor);
+      color: var(--dark-input-label-color);
     }
   }
 
   &:hover:not(:disabled):not([disabled]):not(.has-error) {
     border-color: #0db9e9;
     &.dark_mode {
-      border-color: var(--darkPrimaryActionColor);
+      border-color: var(--dark-primary-action-color);
     }
   }
 
@@ -150,8 +146,8 @@ const handleBlurEvent = (e) => {
     box-shadow: 0px 0px 0px 3px rgba(67, 210, 250, 0.25);
     outline: none;
     &.dark_mode {
-      border-color: var(--darkPrimaryActionColor);
-      box-shadow: 0 0 0 3px var(--darkPrimaryActionBoxShadowColor);
+      border-color: var(--dark-primary-action-color);
+      box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
     }
   }
   &:focus {
@@ -163,9 +159,9 @@ const handleBlurEvent = (e) => {
     color: #e1e7ec;
     cursor: not-allowed;
     &.dark_mode {
-      background: var(--darkInputDisabledColor);
-      border-color: var(--darkInputBorderColor);
-      color: var(--darkInputDisabledTextColor);
+      background: var(--dark-input-disabled-color);
+      border-color: var(--dark-input-border-color);
+      color: var(--dark-input-disabled-text-color);
     }
   }
 }
@@ -180,7 +176,7 @@ const handleBlurEvent = (e) => {
   line-height: 16px;
   color: #212934;
   &.dark_mode {
-    color: var(--darkInputLabelColor);
+    color: var(--dark-input-label-color);
   }
 }
 

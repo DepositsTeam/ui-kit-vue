@@ -8,7 +8,7 @@
           v-bind="toast"
           :key="`toast_${index}_${keyGen()}`"
           closable
-          :onClose="() => removeToast(index)"
+          @closed="() => removeToast(index)"
         />
       </d-box>
     </d-box>

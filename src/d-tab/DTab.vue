@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-tabs" :class="{ horizontal }" :style="{ ...d__theme }">
+  <d-box class="ui-tabs" :class="{ horizontal }">
     <d-box
       v-for="(tab, index) in tabs"
       :key="`tab_${index}_${keyGen()}`"
@@ -17,10 +17,6 @@
 <script setup>
 import { DBox, DText } from "../main";
 import keyGen from "../utils/keyGen";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 const props = defineProps({
   tabs: {
@@ -62,14 +58,14 @@ const generateSpacing = (index) => {
     color: #94a3b8;
 
     &:hover {
-      background: var(--darkInputBackgroundColor);
+      background: var(--dark-input-background-color);
       .ui-text {
-        color: var(--darkPrimaryActionColor);
+        color: var(--dark-primary-action-color);
       }
     }
 
     &:active {
-      background: var(--darkPrimaryActionColor);
+      background: var(--dark-primary-action-color);
       .ui-text {
         color: #fff;
       }
@@ -77,13 +73,13 @@ const generateSpacing = (index) => {
   }
 
   &:hover {
-    color: var(--lightPrimaryActionColor);
+    color: var(--light-primary-action-color);
     background: #f5f8fa;
   }
 
   &:active {
     color: #fff;
-    background: var(--lightPrimaryActionColor);
+    background: var(--light-primary-action-color);
   }
 }
 

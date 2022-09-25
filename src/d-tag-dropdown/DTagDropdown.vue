@@ -219,8 +219,8 @@ const ___theme = inject("___theme", defaultThemeVars);
   background: #fff;
   justify-content: space-between;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
   }
   .ui-tag-dropdown__input-wrapper__left {
     display: flex;
@@ -290,7 +290,7 @@ const ___theme = inject("___theme", defaultThemeVars);
   margin-right: 4px;
   padding: 0 8px;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
+    background: var(--dark-input-background-color);
     color: #cbd5e1;
   }
 }
@@ -327,7 +327,7 @@ const ___theme = inject("___theme", defaultThemeVars);
   box-shadow: inset 0px -1px 0px #e1e7ec;
   &.dark_mode {
     box-shadow: none;
-    border-bottom: 1px solid var(--darkInputBorderColor);
+    border-bottom: 1px solid var(--dark-input-border-color);
   }
 }
 
@@ -336,8 +336,8 @@ const ___theme = inject("___theme", defaultThemeVars);
   background: #fff;
   border: 1px solid #e1e7ec;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
   }
 }
 
@@ -349,7 +349,7 @@ const ___theme = inject("___theme", defaultThemeVars);
     &:hover,
     &.selected {
       background: #041d25;
-      border-left: 2px solid var(--darkPrimaryActionColor);
+      border-left: 2px solid var(--dark-primary-action-color);
     }
   }
 }

@@ -1,9 +1,5 @@
 <template>
-  <d-box
-    class="ui-text-field__wrapper"
-    :style="{ ...d__theme }"
-    :class="[`size__${size}`]"
-  >
+  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
     <d-box v-if="!!label && !invisible" is="label">
       <d-text
         margin-top="0px"
@@ -103,15 +99,12 @@ import {
   EyeFilledIcon,
 } from "../main";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
-import { inject, ref, computed, onMounted } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { ref, computed, onMounted } from "vue";
 import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
 import { wrapperProps } from "../utils/wrapperProps";
 import { useWrapperProps } from "../utils/useWrapperProps";
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 const emit = defineEmits([
   "update:modelValue",

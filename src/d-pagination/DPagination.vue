@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-pagination" :style="{ ...d__theme }">
+  <d-box class="ui-pagination">
     <d-box
       :class="{ disabled: disablePrev }"
       class="ui-pagination__control"
@@ -51,10 +51,7 @@ import {
   ChevronArrowRightIcon,
 } from "../main";
 import rangedArray from "../utils/rangedArray";
-import { ref, computed, onMounted, inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-
-const d__theme = inject("d__theme", defaultThemeVars);
+import { ref, computed, onMounted } from "vue";
 
 const emit = defineEmits(["page-changed"]);
 
@@ -167,7 +164,7 @@ const updatePage = (page) => {
 }
 
 .ui-pagination__page-number__active {
-  background: var(--lightPrimaryActionColor);
+  background: var(--light-primary-action-color);
   border-radius: 4px;
   height: 32px;
   width: 32px;
@@ -177,7 +174,7 @@ const updatePage = (page) => {
   align-items: center;
   &.dark_mode {
     .ui-text {
-      color: var(--darkBackgroundColor);
+      color: var(--dark-background-color);
     }
   }
 }
@@ -189,7 +186,7 @@ const updatePage = (page) => {
 
 .ui-pagination__left-arrow,
 .ui-pagination__right-arrow {
-  color: var(--lightPrimaryActionColor);
+  color: var(--light-primary-action-color);
 }
 
 .ui-pagination__control {
@@ -198,7 +195,7 @@ const updatePage = (page) => {
   cursor: pointer;
 
   .ui-pagination__text {
-    color: var(--lightPrimaryActionColor);
+    color: var(--light-primary-action-color);
   }
 
   &.disabled {

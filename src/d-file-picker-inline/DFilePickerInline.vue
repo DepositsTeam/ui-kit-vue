@@ -2,7 +2,6 @@
   <d-box
     class="ui-text-field__wrapper d-file-picker-inline"
     :class="[`size__${size}`]"
-    :style="{ ...d__theme }"
   >
     <d-box v-if="!!label" is="label">
       <d-text
@@ -44,11 +43,8 @@
 
 <script setup>
 import { DBox, DText } from "../main";
-import { inject, ref, onMounted } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { ref, onMounted } from "vue";
 import inputProps from "../utils/inputProps";
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 const props = defineProps({
   ...inputProps,
@@ -84,11 +80,11 @@ const updateName = (e) => {
   cursor: pointer;
   &:hover {
     .pseudo-button {
-      border-color: var(--lightPrimaryActionColor);
+      border-color: var(--light-primary-action-color);
       border-left-color: #ced6de;
     }
     .ui-text-field__input {
-      border-color: var(--lightPrimaryActionColor);
+      border-color: var(--light-primary-action-color);
       border-right-color: #ced6de;
     }
   }
@@ -137,8 +133,8 @@ const updateName = (e) => {
   padding-left: 32px;
   padding-right: 32px;
   &.dark_mode {
-    background: var(--darkInputBorderColor);
-    border-color: var(--darkInputBorderColor);
+    background: var(--dark-input-border-color);
+    border-color: var(--dark-input-border-color);
     .ui-text {
       color: #ffffff;
     }

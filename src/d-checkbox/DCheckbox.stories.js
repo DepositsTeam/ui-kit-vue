@@ -31,23 +31,26 @@ export default {
 
 const Template = (args) => ({
   components: { DCheckbox },
+  data: () => ({
+    value: false,
+  }),
   setup: function () {
     return { args };
   },
-  template: `<d-checkbox v-bind="args" />`,
+  template: `<d-checkbox v-bind="args" v-model="value" />`,
 });
 
 const DarkModeTemplate = (args) => ({
   components: { DCheckbox, DarkModeProvider },
   data: () => ({
-    value: "",
+    value: false,
   }),
   setup() {
     return { args };
   },
   template: `
     <dark-mode-provider :dark-mode="true">
-      <d-checkbox v-bind="args" />
+      <d-checkbox v-bind="args" v-model="value" />
     </dark-mode-provider>
     `,
 });

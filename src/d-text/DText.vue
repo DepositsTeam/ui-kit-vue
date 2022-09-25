@@ -18,90 +18,87 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-export default {
-  name: "DText",
-  components: { DBox },
-  props: {
-    is: {
-      type: [String, Object],
-      validator: (value) => {
-        if (typeof value !== "object") {
-          return ["p", "span", "small", "sub", "sup", "subhead", "a"].includes(
-            value
-          );
-        } else {
-          return true;
-        }
-      },
-      default: "p",
+<script setup>
+import { DBox } from "../main";
+
+defineProps({
+  is: {
+    type: [String, Object],
+    validator: (value) => {
+      if (typeof value !== "object") {
+        return ["p", "span", "small", "sub", "sup", "subhead", "a"].includes(
+          value
+        );
+      } else {
+        return true;
+      }
     },
-    fontFace: {
-      type: String,
-      validator: (value) => ["heroNew", "circularSTD"].includes(value),
-      default: "heroNew",
-    },
-    scale: {
-      type: String,
-      validator: (value) =>
-        [
-          "body",
-          "p-16",
-          "subhead",
-          "p-18",
-          "overline",
-          "footnote",
-          "overline",
-          "footnote-caps",
-        ].includes(value),
-    },
-    uppercase: {
-      type: Boolean,
-    },
-    equalLineHeight: {
-      type: Boolean,
-    },
-    lineHeight: {
-      type: [Number, String],
-    },
-    fontSize: {
-      type: [Number, String],
-    },
-    fontWeight: {
-      type: [Number, String],
-    },
-    my0: {
-      type: Boolean,
-    },
-    mt0: {
-      type: Boolean,
-    },
-    mb0: {
-      type: Boolean,
-    },
-    mx0: {
-      type: Boolean,
-    },
-    ml0: {
-      type: Boolean,
-    },
-    mr0: {
-      type: Boolean,
-    },
-    center: {
-      type: Boolean,
-    },
-    lightClass: {
-      type: String,
-      default: "",
-    },
-    darkClass: {
-      type: String,
-      default: "text-neutral-600",
-    },
+    default: "p",
   },
-};
+  fontFace: {
+    type: String,
+    validator: (value) => ["heroNew", "circularSTD"].includes(value),
+    default: "heroNew",
+  },
+  scale: {
+    type: String,
+    validator: (value) =>
+      [
+        "body",
+        "p-16",
+        "subhead",
+        "p-18",
+        "overline",
+        "footnote",
+        "overline",
+        "footnote-caps",
+      ].includes(value),
+  },
+  uppercase: {
+    type: Boolean,
+  },
+  equalLineHeight: {
+    type: Boolean,
+  },
+  lineHeight: {
+    type: [Number, String],
+  },
+  fontSize: {
+    type: [Number, String],
+  },
+  fontWeight: {
+    type: [Number, String],
+  },
+  my0: {
+    type: Boolean,
+  },
+  mt0: {
+    type: Boolean,
+  },
+  mb0: {
+    type: Boolean,
+  },
+  mx0: {
+    type: Boolean,
+  },
+  ml0: {
+    type: Boolean,
+  },
+  mr0: {
+    type: Boolean,
+  },
+  center: {
+    type: Boolean,
+  },
+  lightClass: {
+    type: String,
+    default: "",
+  },
+  darkClass: {
+    type: String,
+    default: "text-neutral-600",
+  },
+});
 </script>
 
 <style lang="scss">

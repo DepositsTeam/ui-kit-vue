@@ -6,7 +6,6 @@
       disabled,
       'has-error': localErrorMessage || errorMessage,
     }"
-    :style="{ ...d__theme }"
   >
     <d-box is="label">
       <d-text
@@ -75,8 +74,7 @@
 
 <script setup>
 import { DBox, DText, ErrorIcon } from "../main";
-import { inject, ref, computed, onMounted, watch } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { ref, computed, onMounted, watch } from "vue";
 import inputProps from "../utils/inputProps";
 import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
@@ -84,8 +82,6 @@ import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);
-
-const d__theme = inject("d__theme", defaultThemeVars);
 
 const emit = defineEmits([
   "update:code",
@@ -244,7 +240,7 @@ watch(localErrorMessage, (val) => {
   font-family: "Circular Std", sans-serif;
   color: #212934;
   &.dark_mode {
-    background: var(--darkInputBackgroundColor);
+    background: var(--dark-input-background-color);
     color: #fff;
   }
 
@@ -283,8 +279,8 @@ watch(localErrorMessage, (val) => {
   background: #edeeef;
   cursor: not-allowed;
   &.dark_mode {
-    background: var(--darkInputDisabledColor);
-    color: var(--darkInputLabelColor);
+    background: var(--dark-input-disabled-color);
+    color: var(--dark-input-label-color);
   }
 }
 .ui-text-field__input.has-error + .ui-text-field__country-code {
@@ -304,8 +300,8 @@ watch(localErrorMessage, (val) => {
     background: #edeeef;
     cursor: not-allowed;
     &.dark_mode {
-      background: var(--darkInputDisabledColor);
-      color: var(--darkInputLabelColor);
+      background: var(--dark-input-disabled-color);
+      color: var(--dark-input-label-color);
     }
   }
 }

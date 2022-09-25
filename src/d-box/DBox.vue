@@ -2,6 +2,7 @@
 import { h, inject, computed, onMounted } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
+import { defaultThemeVars } from "../providers/default-theme";
 
 const unitizeValue = (value) =>
   parseFloat(value) == value ? `${value}px` : value;
@@ -61,6 +62,7 @@ export default {
   ],
   setup(props, { slots, emit }) {
     const darkMode = inject("d__darkMode");
+    const d__theme = inject("d__theme", defaultThemeVars);
     const forwardableInputTypes = [
       "text",
       "password",
@@ -243,6 +245,9 @@ export default {
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
+          style: {
+            ...d__theme,
+          },
         },
         slots.default ? slots.default() : undefined
       );
@@ -250,8 +255,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import url("https://assets.deposits.inc/fonts/css/CircularSTD.css");
-@import url("https://assets.deposits.inc/fonts/css/HeroNew.css");
+@import url("https://assets.ondeposits.com/fonts/css/CircularSTD.css");
+@import url("https://assets.ondeposits.com/fonts/css/HeroNew.css");
 
 .heroNew {
   font-family: "Hero New", sans-serif;
@@ -804,75 +809,75 @@ export default {
 }
 
 .text-primary-light-100 {
-  color: #f2fafc;
+  color: var(--light-primary-100);
 }
 
 .text-primary-light-200 {
-  color: #bdf3fc;
+  color: var(--light-primary-200);
 }
 
 .text-primary-light-300 {
-  color: #75e2fa;
+  color: var(--light-primary-300);
 }
 
 .text-primary-light-400 {
-  color: #43d2fa;
+  color: var(--light-primary-400);
 }
 
 .text-primary-light-500 {
-  color: #0db9e9;
+  color: var(--light-primary-500);
 }
 
 .text-primary-light-600 {
-  color: #0c9ccc;
+  color: var(--light-primary-600);
 }
 
 .text-primary-light-700 {
-  color: #0b87b0;
+  color: var(--light-primary-700);
 }
 
 .text-primary-light-800 {
-  color: #085e7a;
+  color: var(--light-primary-800);
 }
 
 .text-primary-light-900 {
-  color: #094357;
+  color: var(--light-primary-900);
 }
 
 .text-primary-dark-100 {
-  color: #56c7ee;
+  color: var(--dark-primary-100);
 }
 
 .text-primary-dark-200 {
-  color: #36bdea;
+  color: var(--dark-primary-200);
 }
 
 .text-primary-dark-300 {
-  color: #0b87b0;
+  color: var(--dark-primary-300);
 }
 
 .text-primary-dark-400 {
-  color: #0c9ccc;
+  color: var(--dark-primary-400);
 }
 
 .text-primary-dark-500 {
-  color: #1494bf;
+  color: var(--dark-primary-500);
 }
 
 .text-primary-dark-600 {
-  color: #1182a8;
+  color: var(--dark-primary-600);
 }
 
 .text-primary-dark-700 {
-  color: #0f6d8d;
+  color: var(--dark-primary-700);
 }
 
 .text-primary-dark-800 {
-  color: #085e7a;
+  color: var(--dark-primary-800);
 }
 
 .text-primary-dark-900 {
-  color: #094357;
+  color: var(--dark-primary-900);
 }
 
 .text-secondary-light-100 {
@@ -1308,75 +1313,75 @@ export default {
 }
 
 .bg-primary-light-100 {
-  background-color: #f2fafc;
+  background-color: var(--light-primary-100);
 }
 
 .bg-primary-light-200 {
-  background-color: #bdf3fc;
+  background-color: var(--light-primary-200);
 }
 
 .bg-primary-light-300 {
-  background-color: #75e2fa;
+  background-color: var(--light-primary-300);
 }
 
 .bg-primary-light-400 {
-  background-color: #43d2fa;
+  background-color: var(--light-primary-400);
 }
 
 .bg-primary-light-500 {
-  background-color: #0db9e9;
+  background-color: var(--light-primary-500);
 }
 
 .bg-primary-light-600 {
-  background-color: #0c9ccc;
+  background-color: var(--light-primary-600);
 }
 
 .bg-primary-light-700 {
-  background-color: #0b87b0;
+  background-color: var(--light-primary-700);
 }
 
 .bg-primary-light-800 {
-  background-color: #085e7a;
+  background-color: var(--light-primary-800);
 }
 
 .bg-primary-light-900 {
-  background-color: #094357;
+  background-color: var(--light-primary-900);
 }
 
 .bg-primary-dark-100 {
-  background-color: #56c7ee;
+  background-color: var(--dark-primary-100);
 }
 
 .bg-primary-dark-200 {
-  background-color: #36bdea;
+  background-color: var(--dark-primary-200);
 }
 
 .bg-primary-dark-300 {
-  background-color: #0b87b0;
+  background-color: var(--dark-primary-300);
 }
 
 .bg-primary-dark-400 {
-  background-color: #0c9ccc;
+  background-color: var(--dark-primary-400);
 }
 
 .bg-primary-dark-500 {
-  background-color: #1494bf;
+  background-color: var(--dark-primary-500);
 }
 
 .bg-primary-dark-600 {
-  background-color: #1182a8;
+  background-color: var(--dark-primary-600);
 }
 
 .bg-primary-dark-700 {
-  background-color: #0f6d8d;
+  background-color: var(--dark-primary-700);
 }
 
 .bg-primary-dark-800 {
-  background-color: #085e7a;
+  background-color: var(--dark-primary-800);
 }
 
 .bg-primary-dark-900 {
-  background-color: #094357;
+  background-color: var(--dark-primary-900);
 }
 
 .bg-secondary-light-100 {

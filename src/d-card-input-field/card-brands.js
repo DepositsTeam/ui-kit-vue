@@ -1,19 +1,19 @@
 export default [
   {
     brand: "American Xpress",
-    src: "https://assets.deposits.inc/img/card-brands/amexcard.svg",
+    src: "https://assets.ondeposits.com/img/card-brands/amexcard.svg",
   },
   {
     brand: "Discover",
-    src: "https://assets.deposits.inc/img/card-brands/discovercard.svg",
+    src: "https://assets.ondeposits.com/img/card-brands/discovercard.svg",
   },
   {
     brand: "Mastercard",
-    src: "https://assets.deposits.inc/img/card-brands/mastercard.svg",
+    src: "https://assets.ondeposits.com/img/card-brands/mastercard.svg",
   },
   {
     brand: "Visacard",
-    src: "https://assets.deposits.inc/img/card-brands/visacard.svg",
+    src: "https://assets.ondeposits.com/img/card-brands/visacard.svg",
   },
 ];
 

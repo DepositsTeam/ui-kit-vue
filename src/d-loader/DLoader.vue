@@ -1,9 +1,5 @@
 <template>
-  <d-box
-    :class="{ fullPage, loading }"
-    class="ui-d-loader"
-    :style="{ ...d__theme }"
-  >
+  <d-box :class="{ fullPage, loading }" class="ui-d-loader">
     <d-box v-if="loading">
       <div v-if="loader === 'ring'" class="ring-loader">
         <div></div>
@@ -16,35 +12,23 @@
   </d-box>
 </template>
 
-<script>
+<script setup>
 import { DBox } from "../main";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
 
-export default {
-  name: "DLoader",
-  components: {
-    DBox,
+defineProps({
+  fullPage: {
+    type: Boolean,
   },
-  props: {
-    fullPage: {
-      type: Boolean,
-    },
-    loading: {
-      type: Boolean,
-      default: true,
-    },
-    loader: {
-      type: String,
-      validator: (value) => ["ring"].includes(value),
-      default: "ring",
-    },
+  loading: {
+    type: Boolean,
+    default: true,
   },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
+  loader: {
+    type: String,
+    validator: (value) => ["ring"].includes(value),
+    default: "ring",
   },
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -60,13 +44,13 @@ export default {
       width: 100%;
       height: 100vh;
       z-index: 99999999999999;
-      background: var(--lightBackgroundColor);
+      background: var(--light-background-color);
       align-items: center;
       justify-content: center;
       &.dark_mode {
-        background: var(--darkBackgroundColor);
+        background: var(--dark-background-color);
         .ring-loader div {
-          border-color: var(--darkPrimaryActionColor) transparent transparent
+          border-color: var(--dark-primary-action-color) transparent transparent
             transparent;
         }
       }
@@ -89,7 +73,7 @@ export default {
     border: 8px solid;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: var(--lightPrimaryActionColor) transparent transparent
+    border-color: var(--light-primary-action-color) transparent transparent
       transparent;
 
     &:nth-child(1) {

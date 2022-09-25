@@ -45,7 +45,7 @@
 
 <script setup>
 // Find a way to keep this markup clean while using scoped CSS
-import DBox from "../d-box/DBox.vue";
+import { DBox } from "../main";
 import keyGen from "../utils/keyGen";
 import AvatarContent from "./AvatarContent.vue";
 import { computed } from "vue";

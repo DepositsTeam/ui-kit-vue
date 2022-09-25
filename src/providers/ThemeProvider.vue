@@ -3,7 +3,11 @@
 </template>
 <script setup>
 import { provide, watch, onMounted, ref } from "vue";
-import { getTextColor, hexToRgbA } from "../utils/colorManager";
+import {
+  getTextColor,
+  hexToRgbA,
+  generateColorSpectrum,
+} from "../utils/colorManager";
 import convertObjToVars from "../utils/convertObjToVars";
 import defaultTheme from "./default-theme";
 import tinycolor from "tinycolor2";
@@ -22,90 +26,99 @@ const hydrateTheme = () => {
   const computedTheme = { ...defaultTheme, ...theme.value };
 
   // Depends on light primary action color
-  computedTheme.lightPrimaryActionTextColor = getTextColor(
-    computedTheme.lightPrimaryActionColor
+  computedTheme["light-primary-action-text-color"] = getTextColor(
+    computedTheme["light-primary-action-color"]
   );
-  computedTheme.lightPrimaryActionHoverColor = `#${tinycolor(
-    computedTheme.lightPrimaryActionColor
+  computedTheme["light-primary-action-hover-color"] = `#${tinycolor(
+    computedTheme["light-primary-action-color"]
   )
     .lighten(15)
     .toHex()}`;
-  computedTheme.lightPrimaryActionDisabledColor = `#${tinycolor(
-    computedTheme.lightPrimaryActionColor
+  computedTheme["light-primary-action-disabled-color"] = `#${tinycolor(
+    computedTheme["light-primary-action-color"]
   )
     .lighten(38)
     .toHex()}`;
-  computedTheme.lightPrimaryActionDisabledTextColor = getTextColor(
-    computedTheme.lightPrimaryActionDisabledColor,
+  computedTheme["light-primary-action-disabled-text-color"] = getTextColor(
+    computedTheme["light-primary-action-disabled-color"],
     true
   );
-  computedTheme.lightPrimaryActionTextHoverColor = getTextColor(
-    computedTheme.lightPrimaryActionHoverColor
+  computedTheme["light-primary-action-text-hover-color"] = getTextColor(
+    computedTheme["light-primary-action-hover-color"]
   );
-  computedTheme.lightPrimaryActionBoxShadowColor = hexToRgbA(
-    computedTheme.lightPrimaryActionColor,
+  computedTheme["light-primary-action-box-shadow-color"] = hexToRgbA(
+    computedTheme["light-primary-action-color"],
     0.2
   );
 
   // Depends on dark primary action color
-  computedTheme.darkPrimaryActionTextColor = getTextColor(
-    computedTheme.darkPrimaryActionColor
+  computedTheme["dark-primary-action-text-color"] = getTextColor(
+    computedTheme["dark-primary-action-color"]
   );
-  computedTheme.darkPrimaryActionHoverColor = `#${tinycolor(
-    computedTheme.darkPrimaryActionColor
+  computedTheme["dark-primary-action-hover-color"] = `#${tinycolor(
+    computedTheme["dark-primary-action-color"]
   )
     .lighten(15)
     .toHex()}`;
-  computedTheme.darkPrimaryActionDisabledColor = `#${tinycolor(
-    computedTheme.darkPrimaryActionColor
+  computedTheme["dark-primary-action-disabled-color"] = `#${tinycolor(
+    computedTheme["dark-primary-action-color"]
   )
     .lighten(38)
     .toHex()}`;
-  computedTheme.darkPrimaryActionDisabledTextColor = getTextColor(
-    computedTheme.darkPrimaryActionDisabledColor,
+  computedTheme["dark-primary-action-disabled-text-color"] = getTextColor(
+    computedTheme["dark-primary-action-disabled-color"],
     true
   );
-  computedTheme.darkPrimaryActionTextHoverColor = getTextColor(
-    computedTheme.darkPrimaryActionHoverColor
+  computedTheme["dark-primary-action-text-hover-color"] = getTextColor(
+    computedTheme["dark-primary-action-hover-color"]
   );
-  computedTheme.darkPrimaryActionBoxShadowColor = hexToRgbA(
-    computedTheme.darkPrimaryActionColor,
+  computedTheme["dark-primary-action-box-shadow-color"] = hexToRgbA(
+    computedTheme["dark-primary-action-color"],
     0.2
   );
 
   // Depends on dark background color
-  computedTheme.darkInputBackgroundColor = `#${tinycolor(
-    computedTheme.darkBackgroundColor
+  computedTheme["dark-input-background-color"] = `#${tinycolor(
+    computedTheme["dark-background-color"]
   )
     .lighten(8)
     .toHex()}`;
-  computedTheme.darkInputBorderColor = `#${tinycolor(
-    computedTheme.darkInputBackgroundColor
+  computedTheme["dark-input-border-color"] = `#${tinycolor(
+    computedTheme["dark-input-background-color"]
   )
     .lighten(23)
     .toHex()}`;
-  computedTheme.darkInputLabelColor = `#${tinycolor(
-    computedTheme.darkInputBackgroundColor
+  computedTheme["dark-input-label-color"] = `#${tinycolor(
+    computedTheme["dark-input-background-color"]
   )
     .lighten(58)
     .toHex()}`;
-  computedTheme.darkInputDisabledColor = `#${tinycolor(
-    computedTheme.darkInputBackgroundColor
+  computedTheme["dark-input-disabled-color"] = `#${tinycolor(
+    computedTheme["dark-input-background-color"]
   )
     .lighten(2)
     .toHex()}`;
-  computedTheme.darkInputDisabledTextColor = hexToRgbA(
-    computedTheme.darkInputLabelColor,
+  computedTheme["dark-input-disabled-text-color"] = hexToRgbA(
+    computedTheme["dark-input-label-color"],
     0.8
   );
-  computedTheme.darkInputIconColor = `#${tinycolor(
-    computedTheme.darkInputBackgroundColor
+  computedTheme["dark-input-icon-color"] = `#${tinycolor(
+    computedTheme["dark-input-background-color"]
   )
     .lighten(58)
     .toHex()}`;
 
   themeVars.value = {
     ...convertObjToVars(computedTheme),
+    ...generateColorSpectrum(computedTheme["light-primary-action-hover-color"]),
+    ...generateColorSpectrum(
+      computedTheme["dark-primary-action-hover-color"],
+      "--dark-primary-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["dark-background-color"],
+      "--dark-background-"
+    ),
   };
 };
 

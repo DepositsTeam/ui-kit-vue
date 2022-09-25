@@ -2,7 +2,6 @@
   <d-box
     class="ui-text-field__wrapper"
     :class="[wrapperClass, `size__${size}`]"
-    :style="{ ...d__theme }"
   >
     <d-box is="label">
       <d-text
@@ -34,7 +33,7 @@
         class="has-right-icon ui-text-field__input"
         v-bind="$attrs"
         :value="modelValue"
-        @change="$emit('update:modelValue', $event.target.value)"
+        @change="emit('update:modelValue', $event.target.value)"
         is="select"
         :disabled="disabled"
       >
@@ -61,89 +60,68 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import ChevronFilledDownIcon from "../icons/ChevronFilledDownIcon.vue";
-import ErrorIcon from "../icons/ErrorIcon.vue";
+<script setup>
+import { DBox, DText, ChevronFilledDownIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { computed } from "vue";
+import inputProps from "../utils/inputProps";
 
-export default {
-  name: "DSelect",
-  emits: ["update:modelValue"],
-  computed: {
-    computedOptions: function () {
-      return this.options.map((option) => {
-        let newOption = {};
-        newOption.text = typeof option === "string" ? option : option.text;
-        if (typeof option === "string") {
-          newOption.value = option;
-        } else {
-          newOption.value =
-            option.value === undefined ? option.text : option.value;
-        }
-        return newOption;
-      });
-    },
+const emit = defineEmits(["update:modelValue"]);
+
+const props = defineProps({
+  ...inputProps,
+  label: {
+    type: String,
   },
-  props: {
-    label: {
-      type: String,
-    },
-    size: {
-      type: String,
-      default: "huge",
-      validator: (value) =>
-        ["small", "medium", "large", "xlarge", "huge", "massive"].includes(
-          value
-        ),
-    },
-    errorMessage: {
-      type: String,
-    },
-    leftIcon: {
-      type: Object,
-    },
-    modelValue: {
-      type: String,
-    },
-    onlyNumbers: {
-      type: Boolean,
-    },
-    wrapperClass: {
-      type: String,
-    },
-    options: {
-      type: Array,
-      default: () => ["Item 1", "Item 2", "item 3"],
-    },
-    placeholderEffect: {
-      type: Boolean,
-      default: true,
-    },
-    disabled: {
-      type: Boolean,
-    },
-    labelClass: {
-      type: [String, Object, Array],
-    },
+  size: {
+    type: String,
+    default: "huge",
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
   },
-  components: {
-    ErrorIcon,
-    ChevronFilledDownIcon,
-    DBox,
-    DText,
+  errorMessage: {
+    type: String,
   },
-  methods: {
-    keyGen,
+  leftIcon: {
+    type: Object,
   },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
+  modelValue: {
+    type: String,
   },
-};
+  onlyNumbers: {
+    type: Boolean,
+  },
+  wrapperClass: {
+    type: String,
+  },
+  options: {
+    type: Array,
+    default: () => ["Item 1", "Item 2", "item 3"],
+  },
+  placeholderEffect: {
+    type: Boolean,
+    default: true,
+  },
+  disabled: {
+    type: Boolean,
+  },
+  labelClass: {
+    type: [String, Object, Array],
+  },
+});
+
+const computedOptions = computed(() => {
+  return props.options.map((option) => {
+    let newOption = {};
+    newOption.text = typeof option === "string" ? option : option.text;
+    if (typeof option === "string") {
+      newOption.value = option;
+    } else {
+      newOption.value = option.value === undefined ? option.text : option.value;
+    }
+    return newOption;
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -162,7 +140,7 @@ export default {
   }
 
   &.dark_mode::after {
-    background: var(--darkInputBackgroundColor);
+    background: var(--dark-input-background-color);
   }
 
   &.has-error::after {
@@ -180,7 +158,7 @@ export default {
 
   &.disabled.dark_mode::after,
   &.dark_mode:disabled::after {
-    background: var(--darkInputDisabledColor);
+    background: var(--dark-input-disabled-color);
   }
 
   &.background-caret {

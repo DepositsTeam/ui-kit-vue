@@ -51,14 +51,14 @@ const computedThemeStyles = computed(() => {
     return {
       "--fill-color": props.darkFillColor
         ? props.darkFillColor
-        : unref(d__theme)["--darkPrimaryActionColor"],
+        : unref(d__theme)["--dark-primary-action-color"],
       "--empty-color": props.darkEmptyColor ? props.emptyColor : "#384860",
     };
   } else {
     return {
       "--fill-color": props.fillColor
         ? props.fillColor
-        : unref(d__theme)["--lightPrimaryActionColor"],
+        : unref(d__theme)["--light-primary-action-color"],
       "--empty-color": props.emptyColor ? props.emptyColor : "#CED6DE",
     };
   }

@@ -8,7 +8,6 @@
       [wrapperClass]: wrapperClass,
       disabled,
     }"
-    :style="{ ...d__theme }"
   >
     <d-box
       is="input"
@@ -35,139 +34,121 @@
   </d-box>
 </template>
 
-<script>
-import DBox from "../d-box/DBox.vue";
-import DText from "../d-text/DText.vue";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-export default {
-  name: "DCheckbox",
-  emit: ["update:modelValue"],
-  components: {
-    DBox,
-    DText,
-  },
-  props: {
-    wrapperClass: {
-      type: String,
-    },
-    disabled: {
-      type: Boolean,
-    },
-    alignToTop: {
-      type: Boolean,
-    },
-    dashed: {
-      type: Boolean,
-    },
-    label: {
-      type: String,
-    },
-    labelClass: {
-      type: String,
-    },
-    value: {
-      type: [String, Number],
-      default: "",
-    },
-    modelValue: {
-      default: false,
-    },
-    trueValue: {
-      default: true,
-    },
-    falseValue: {
-      default: false,
-    },
-    top: {
-      type: Boolean,
-      default: false,
-    },
-    values: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  computed: {
-    computedValue: function () {
-      return this.value === "" ? this.label : this.value;
-    },
-    computedTrueValue: function () {
-      if (this.value) {
-        return this.value;
-      } else {
-        return this.trueValue === true ? true : this.value;
-      }
-    },
-    isChecked: function () {
-      if (this.modelValue instanceof Array) {
-        if (this.values.length) {
-          return this.values.every((element) => {
-            return this.modelValue.includes(element);
-          });
-        }
-        return this.modelValue.includes(this.computedValue);
-      }
-      return this.modelValue === this.computedTrueValue;
-    },
-  },
-  mounted() {
-    // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
-    // console.log(getClassOf(unref(this.modelValue)));
-    // console.log("Type is", typeof unref(this.modelValue));
-    // console.log("object is", unref(this.modelValue) instanceof Array);
-    // console.log(typeof unref(this.modelValue));
-  },
-  methods: {
-    handleChange(e) {
-      if (this.disabled) {
-        return;
-      }
-      let currentlyChecked = e.target.checked;
-      // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
-      // console.log(getClassOf(this.modelValue));
-      // console.log("Type is", typeof this.modelValue);
-      // console.log("object is", this.modelValue);
-      if (this.values.length) {
-        let newValue = [...this.modelValue];
-        // TODO to look for the most efficient way to do this!!!!!! Saving space and time
-        if (currentlyChecked) {
-          this.values.forEach((value) => {
-            if (!newValue.includes(value)) {
-              newValue.push(value);
-            }
-          });
-        } else {
-          this.values.forEach((value) => {
-            if (newValue.includes(value)) {
-              newValue.splice(newValue.indexOf(value), 1);
-            }
-          });
-        }
-        this.$emit("update:modelValue", newValue);
-      } else {
-        if (this.modelValue instanceof Array) {
-          let newValue = [...this.modelValue];
-          if (currentlyChecked) {
-            newValue.push(this.computedValue);
-          } else {
-            newValue.splice(newValue.indexOf(this.computedValue), 1);
-          }
+<script setup>
+import { DBox, DText } from "../main";
+import { computed } from "vue";
 
-          this.$emit("update:modelValue", newValue);
-        } else {
-          this.$emit(
-            "update:modelValue",
-            currentlyChecked ? this.trueValue : this.falseValue
-          );
+const emit = defineEmits(["update:modelValue"]);
+
+const props = defineProps({
+  wrapperClass: {
+    type: String,
+  },
+  disabled: {
+    type: Boolean,
+  },
+  alignToTop: {
+    type: Boolean,
+  },
+  dashed: {
+    type: Boolean,
+  },
+  label: {
+    type: String,
+  },
+  labelClass: {
+    type: String,
+  },
+  value: {
+    type: [String, Number],
+    default: "",
+  },
+  modelValue: {
+    default: false,
+  },
+  trueValue: {
+    default: true,
+  },
+  falseValue: {
+    default: false,
+  },
+  top: {
+    type: Boolean,
+    default: false,
+  },
+  values: {
+    type: Array,
+    default: () => [],
+  },
+});
+
+const computedValue = computed(() =>
+  props.value === "" ? props.label : props.value
+);
+
+const computedTrueValue = computed(() => {
+  if (props.value) {
+    return props.value;
+  } else {
+    return props.trueValue === true ? true : this.value;
+  }
+});
+
+const isChecked = computed(() => {
+  if (props.modelValue instanceof Array) {
+    if (props.values.length) {
+      return props.values.every((element) => {
+        return props.modelValue.includes(element);
+      });
+    }
+    return props.modelValue.includes(computedValue.value);
+  }
+  return props.modelValue === computedTrueValue.value;
+});
+
+const handleChange = (e) => {
+  if (props.disabled) {
+    return;
+  }
+  let currentlyChecked = e.target.checked;
+  // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
+  // console.log(getClassOf(this.modelValue));
+  // console.log("Type is", typeof this.modelValue);
+  // console.log("object is", this.modelValue);
+  if (props.values.length) {
+    let newValue = [...props.modelValue];
+    // TODO to look for the most efficient way to do this!!!!!! Saving space and time
+    if (currentlyChecked) {
+      props.values.forEach((value) => {
+        if (!newValue.includes(value)) {
+          newValue.push(value);
         }
+      });
+    } else {
+      props.values.forEach((value) => {
+        if (newValue.includes(value)) {
+          newValue.splice(newValue.indexOf(value), 1);
+        }
+      });
+    }
+    emit("update:modelValue", newValue);
+  } else {
+    if (props.modelValue instanceof Array) {
+      let newValue = [...props.modelValue];
+      if (currentlyChecked) {
+        newValue.push(computedValue.value);
+      } else {
+        newValue.splice(newValue.indexOf(computedValue.value), 1);
       }
-    },
-  },
-  setup() {
-    const d__theme = inject("d__theme", defaultThemeVars);
-    return { d__theme };
-  },
+
+      emit("update:modelValue", newValue);
+    } else {
+      emit(
+        "update:modelValue",
+        currentlyChecked ? props.trueValue : props.falseValue
+      );
+    }
+  }
 };
 </script>
 
@@ -215,7 +196,7 @@ export default {
       }
 
       &:checked {
-        background-color: var(--lightPrimaryActionColor);
+        background-color: var(--light-primary-action-color);
         width: 16px;
         height: 16px;
         border: none;
@@ -232,11 +213,11 @@ export default {
 
   > input:checked {
     &:hover {
-      background-color: var(--lightPrimaryActionColor);
+      background-color: var(--light-primary-action-color);
     }
 
     &:disabled {
-      background-color: var(--lightPrimaryActionDisabledColor);
+      background-color: var(--light-primary-action-disabled-color);
       cursor: not-allowed;
     }
   }

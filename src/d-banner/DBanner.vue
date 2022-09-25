@@ -3,7 +3,6 @@
     v-if="visible"
     :class="{ [`color-scheme__${colorScheme}`]: true, alignTop, full }"
     class="ui-banner"
-    :style="{ ...d__theme }"
   >
     <d-box @click="$emit('click')" class="text-content">
       <component
@@ -38,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref, inject } from "vue";
+import { ref } from "vue";
 import {
   DBox,
   DText,
@@ -48,7 +47,6 @@ import {
   CheckIcon,
   CloseIcon,
 } from "../main";
-import { defaultThemeVars } from "../providers/default-theme";
 
 const schemeIcons = {
   info: InfoIcon,
@@ -99,8 +97,6 @@ const remove = () => {
   emit("removed");
   visible.value = false;
 };
-
-const d__theme = inject("d__theme", defaultThemeVars);
 </script>
 
 <style lang="scss" scoped>
@@ -165,7 +161,7 @@ const d__theme = inject("d__theme", defaultThemeVars);
   &.color-scheme__default {
     background: #f5f8fa;
     &.dark_mode {
-      background: var(--darkInputBackgroundColor);
+      background: var(--dark-input-background-color);
     }
   }
 
