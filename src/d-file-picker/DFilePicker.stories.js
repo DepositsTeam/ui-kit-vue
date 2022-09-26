@@ -67,3 +67,23 @@ WithLabel.args = {
 };
 
 export const DarkMode = DarkModeTemplateFactory();
+
+export const OneMbDark = DarkModeTemplateFactory();
+OneMbDark.args = {
+  fileMaxSize: 1,
+};
+
+export const ImageDark = DarkModeTemplateFactory();
+ImageDark.args = {
+  accepts: "image",
+};
+
+export const DocumentDark = DarkModeTemplateFactory();
+DocumentDark.args = {
+  accepts: "document",
+};
+
+export const CsvDark = DarkModeTemplateFactory();
+CsvDark.args = {
+  accepts: "csv",
+};

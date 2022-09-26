@@ -18,12 +18,17 @@
     <d-box display="inline-flex" class="pseudo-input" :class="{ disabled }">
       <d-box
         is="input"
+        ref="file"
         v-bind="$attrs"
         :disabled="disabled"
         @change="updateName"
+        :accept="computedAccepts"
         type="file"
       />
-      <d-box class="ui-text-field__input">
+      <d-box
+        class="ui-text-field__input"
+        :class="{ 'has-error': computedErrorMessage }"
+      >
         <d-text
           my0
           subhead
@@ -38,13 +43,24 @@
         <d-text subhead font-face="hero-new" my0>{{ btnText }}</d-text>
       </d-box>
     </d-box>
+    <d-box v-if="computedErrorMessage" class="ui-text-field__error">
+      <ErrorIcon class="ui-text-field__error-icon" />
+      <d-text
+        class="ui-text-field__error-text"
+        scale="subhead"
+        fontFace="circularSTD"
+      >
+        {{ computedErrorMessage }}
+      </d-text>
+    </d-box>
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText } from "../main";
-import { ref, onMounted } from "vue";
+import { DBox, DText, ErrorIcon } from "../main";
 import inputProps from "../utils/inputProps";
+import { useFilePicker } from "../utils/useFilePicker";
+import { ref } from "vue";
 
 const props = defineProps({
   ...inputProps,
@@ -56,21 +72,31 @@ const props = defineProps({
     type: String,
     default: "Choose File",
   },
+  fileMaxSize: {
+    type: [String, Number],
+    default: 100,
+  },
+  accepts: {
+    type: [Array, String],
+    default: () => [".csv", ".xls", ".xlsx", ".pdf"],
+    validator: (value) => {
+      if (typeof value === "string") {
+        return value === "image" || value === "document" || value === "csv";
+      } else {
+        if (Array.isArray(value)) {
+          return [...new Set(value)].length === value.length;
+        } else return false;
+      }
+    },
+  },
 });
 
-const emit = defineEmits(["change"]);
+const emit = defineEmits(["change", "cleared"]);
 
-const selectedFileName = ref("");
+const file = ref(null);
 
-onMounted(() => {
-  selectedFileName.value = props.placeholder;
-});
-
-const updateName = (e) => {
-  let files = e.target.files || e.dataTransfer.files;
-  selectedFileName.value = !files ? props.placeholder : files[0].name;
-  emit("change", files[0]);
-};
+const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
+  useFilePicker(props, emit, file);
 </script>
 
 <style lang="scss" scoped>
@@ -108,6 +134,14 @@ const updateName = (e) => {
   position: relative;
   .ui-text-field__input {
     flex: 3;
+    &.has-error {
+      background: #fff0f2;
+      border-color: #d62f4b;
+      &.dark_mode {
+        background: #350a12;
+        border-color: #df5e74;
+      }
+    }
     &.dark_mode {
       .ui-text {
         &:not(.placeholder) {

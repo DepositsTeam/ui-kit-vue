@@ -133,39 +133,59 @@
   }
 }
 .ui-text-field__wrapper {
-  &.size__massive .ui-text-field__input {
-    font-size: 16px;
-    line-height: 32px;
-    padding: 16px;
-    height: 64px;
-    &.oneCharWide {
+  &.size__massive {
+    .ui-text-field--counter_input_button {
+      height: 64px;
       width: 64px;
     }
+    .ui-text-field__input {
+      font-size: 16px;
+      line-height: 32px;
+      padding: 16px;
+      height: 64px;
 
-    &.has-left-icon {
-      padding-left: 42px;
-    }
-    &.has-right-icon {
-      padding-right: 42px;
+      &.oneCharWide {
+        width: 64px;
+      }
+
+      &.has-left-icon {
+        padding-left: 42px;
+      }
+
+      &.has-right-icon {
+        padding-right: 42px;
+      }
     }
   }
-  &.size__huge .ui-text-field__input {
-    font-size: 16px;
-    line-height: 16px;
-    padding: 20px 16px;
-    height: 56px;
-    &.oneCharWide {
+  &.size__huge {
+    .ui-text-field--counter_input_button {
+      height: 56px;
       width: 56px;
     }
+    .ui-text-field__input {
+      font-size: 16px;
+      line-height: 16px;
+      padding: 20px 16px;
+      height: 56px;
 
-    &.has-left-icon {
-      padding-left: 42px;
-    }
-    &.has-right-icon {
-      padding-right: 42px;
+      &.oneCharWide {
+        width: 56px;
+      }
+
+      &.has-left-icon {
+        padding-left: 42px;
+      }
+
+      &.has-right-icon {
+        padding-right: 42px;
+      }
     }
   }
   &.size__xlarge {
+    .ui-text-field--counter_input_button {
+      height: 48px;
+      width: 48px;
+    }
     .ui-text-field__input {
       font-size: 16px;
       line-height: 16px;
@@ -190,6 +210,10 @@
     }
   }
   &.size__large {
+    .ui-text-field--counter_input_button {
+      height: 40px;
+      width: 40px;
+    }
     .ui-text-field__input {
       font-size: 16px;
       line-height: 16px;
@@ -214,6 +238,10 @@
     }
   }
   &.size__medium {
+    .ui-text-field--counter_input_button {
+      height: 32px;
+      width: 32px;
+    }
     .ui-text-field__input {
       font-size: 16px;
       line-height: 16px;
@@ -238,6 +266,10 @@
     }
   }
   &.size__small {
+    .ui-text-field--counter_input_button {
+      height: 24px;
+      width: 24px;
+    }
     .ui-text-field__input {
       font-size: 12px;
       line-height: 12px;
