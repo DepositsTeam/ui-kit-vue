@@ -241,6 +241,7 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
 .ui-responsive__col {
   display: flex;
   width: 100%;
+  //flex: 1 0 0%;
   max-width: 100%;
   padding-left: 0;
   padding-right: 0;
@@ -250,7 +251,8 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
     @media only screen and (min-width: map.get($responsive-layout-breakpoints, $breakpoint)) {
       @for $i from 1 through 12 {
         &.ui-responsive__col-#{$breakpoint}-#{$i} {
-          flex: 0 0 calc($i / 12 * 100%);
+          flex: 0 0 auto;
+          width: calc($i / 12 * 100%);
           padding-left: var(--gutter-x);
           padding-right: var(--gutter-x);
         }

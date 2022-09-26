@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-responsive-layout" :class="{ full: full }">
+  <d-box class="ui-responsive-layout" :class="{ full, debugMode }">
     <slot></slot>
   </d-box>
 </template>
@@ -8,6 +8,9 @@
 import { DBox } from "../main";
 defineProps({
   full: {
+    type: Boolean,
+  },
+  debugMode: {
     type: Boolean,
   },
 });
@@ -22,6 +25,16 @@ defineProps({
   margin: 0 auto;
   padding: 0 16px;
   width: 100%;
+  &.debugMode {
+    border: 2px solid black;
+    .ui-responsive__row {
+      border: 2px solid purple;
+    }
+    .ui-responsive__col {
+      border: 2px solid cyan;
+    }
+  }
+
   &:not(.full) {
     @media only screen and (min-width: map.get($responsive-layout-breakpoints, "sm")) {
       padding: 0 32px;

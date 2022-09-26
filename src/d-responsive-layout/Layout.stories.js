@@ -10,12 +10,22 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { DResponsiveLayout },
+  components: { DResponsiveLayout, DRow, DCol },
   setup() {
     return { args };
   },
 
-  template: `<d-responsive-layout v-bind="args"></d-responsive-layout>`,
+  template: `<d-responsive-layout debug-mode v-bind="args">
+  <d-row>
+    <d-col :md="3">
+      Some random item
+    </d-col>
+    <d-col :md="9">
+      Item begins here
+    </d-col>
+    
+  </d-row>
+  </d-responsive-layout>`,
 });
 
 export const Default = Template.bind({});
@@ -25,7 +35,7 @@ const ColTemplate = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-responsive-layout  v-bind="args">
+  template: `<d-responsive-layout debug-mode  v-bind="args">
   <d-row>
     <d-col :xs="{span: 3, offset: 3}">
       <d-box height="90px" background="black" width="100%">

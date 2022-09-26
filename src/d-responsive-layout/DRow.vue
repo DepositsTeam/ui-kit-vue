@@ -39,6 +39,14 @@ const computedGutter = computed(() => {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  & > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: var(--gutter-x);
+    padding-left: var(--gutter-x);
+    margin-top: var(--gutter-y);
+  }
   &.align__top {
     align-items: flex-start;
   }
