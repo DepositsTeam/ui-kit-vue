@@ -30,7 +30,9 @@
         <check-outline-icon class="indicator-icon" v-if="currentStep > index" />
       </d-box>
       <slot :name="`step.${index}`">
-        <d-text margin-y="0" :font-size="fontSize">{{ step.text }}</d-text>
+        <d-text margin-y="0" :font-size="fontSize">{{
+          typeof step === "string" ? step : step.text
+        }}</d-text>
       </slot>
     </d-box>
   </d-box>
