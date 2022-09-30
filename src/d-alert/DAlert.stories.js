@@ -25,6 +25,12 @@ export default {
     closable: {
       control: { type: "boolean" },
     },
+    smartColor: {
+      control: { type: "color" },
+    },
+    iconColor: {
+      control: { type: "color" },
+    },
   },
 };
 

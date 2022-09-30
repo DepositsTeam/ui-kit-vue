@@ -5,13 +5,27 @@
       [`theme__${theme}`]: true,
       [`color-scheme__${colorScheme}`]: true,
       'is-toast': closable,
+      smartColor,
+      iconColor,
     }"
     v-if="showAlert"
+    :style="{
+      '--smart-color': smartColor,
+      '--icon-color': iconColor,
+    }"
   >
     <d-box class="ui-alert__content-wrapper">
       <d-box class="ui-alert__content">
         <component
-          v-if="colorScheme !== 'default'"
+          :is="icon"
+          v-if="icon"
+          class="ui-alert__header-icon"
+        ></component>
+        <d-box v-else-if="$slots.icon" class="ui-alert__header-icon">
+          <slot name="icon"> </slot>
+        </d-box>
+        <component
+          v-else-if="colorScheme !== 'default'"
           class="ui-alert__header-icon"
           :is="schemeIcons[colorScheme]"
         ></component>
@@ -34,6 +48,9 @@
             <d-button @click="emitClick" size="small">{{
               button.text
             }}</d-button>
+          </d-box>
+          <d-box v-else-if="$slots.button">
+            <slot name="button"></slot>
           </d-box>
         </div>
       </d-box>
@@ -91,6 +108,15 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  smartColor: {
+    type: String,
+  },
+  iconColor: {
+    type: String,
+  },
+  icon: {
+    type: Object,
+  },
 });
 const schemeIcons = {
   info: InfoIcon,
@@ -118,6 +144,11 @@ const emitClick = () => emit("button-clicked");
   display: flex;
   align-items: flex-start;
   background: #fff;
+  &.iconColor {
+    .ui-alert__header-icon {
+      color: var(--icon-color);
+    }
+  }
   &.dark_mode {
     background: var(--dark-background-color);
     border-color: #202b3c;
@@ -128,24 +159,26 @@ const emitClick = () => emit("button-clicked");
       color: #94a3b8;
     }
     &.theme__flat {
-      &.color-scheme__info {
-        border-color: #0d7fe9;
-        border-left: 4px solid #0d7fe9;
-      }
+      border-left: 4px solid;
+      &:not(.smartColor) {
+        &.color-scheme__info {
+          border-color: #0d7fe9;
+        }
 
-      &.color-scheme__warning {
-        border-color: #ff9505;
-        border-left: 4px solid #ff9505;
-      }
+        &.color-scheme__warning {
+          border-color: #ff9505;
+        }
 
-      &.color-scheme__error {
-        border-color: #d62f4b;
-        border-left: 4px solid #d62f4b;
-      }
+        &.color-scheme__error {
+          border-color: #d62f4b;
+        }
 
-      &.color-scheme__success {
-        border-color: #00b058;
-        border-left: 4px solid #00b058;
+        &.color-scheme__success {
+          border-color: #00b058;
+        }
+      }
+      &.smartColor {
+        border-color: var(--smart-color);
       }
     }
   }

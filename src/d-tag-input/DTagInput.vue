@@ -163,7 +163,7 @@ const handleKeyDown = (event) => {
 
 .ui-tag-input__input {
   /* width: 100%; */
-  min-width: 50%;
+  min-width: 320px;
   border: none;
   outline: none;
   display: flex;
@@ -172,34 +172,35 @@ const handleKeyDown = (event) => {
 }
 
 .ui-tag-input__wrapper {
+  box-sizing: border-box;
   &.size__massive .ui-tag-input__input-wrapper {
-    min-height: 64px;
-    padding: 0 16px;
+    //min-height: calc(64px - 16px);
+    padding: 2px 16px;
   }
 
   &.size__huge .ui-tag-input__input-wrapper {
-    min-height: 56px;
-    padding: 0 16px;
+    //min-height: calc(56px - 16px);
+    padding: 2px 16px;
   }
 
   &.size__xlarge .ui-tag-input__input-wrapper {
-    min-height: 48px;
-    padding: 0 12px;
+    //min-height: calc(48px - 16px);
+    padding: 2px 12px;
   }
 
   &.size__large .ui-tag-input__input-wrapper {
-    min-height: 40px;
-    padding: 0 12px;
+    //min-height: calc(40px - 16px);
+    padding: 2px 12px;
   }
 
   &.size__medium .ui-tag-input__input-wrapper {
-    min-height: 32px;
-    padding: 0 12px;
+    //min-height: calc(32px - 16px);
+    padding: 2px 12px;
   }
 
   &.size__small .ui-tag-input__input-wrapper {
-    min-height: 24px;
-    padding: 0 8px;
+    //min-height: calc(24px - 8px);
+    padding: 2px 8px;
   }
 }
 

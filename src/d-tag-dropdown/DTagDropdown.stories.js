@@ -91,6 +91,26 @@ const options = [
     text: "Commerce kit",
     value: "commerce",
   },
+  {
+    text: "Benefits",
+    value: "benefits",
+  },
+  {
+    text: "API Docs",
+    value: "api_docs",
+  },
+  {
+    text: "Console",
+    value: "console",
+  },
+  {
+    text: "Statements",
+    value: "statements",
+  },
+  {
+    text: "Payouts",
+    value: "payouts",
+  },
 ];
 
 const stringOptions = ["Commerce", "Identity", "UI", "Money", "Banking"];

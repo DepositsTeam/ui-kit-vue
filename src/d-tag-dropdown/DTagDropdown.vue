@@ -218,6 +218,7 @@ const ___theme = inject("___theme", defaultThemeVars);
   align-items: center;
   background: #fff;
   justify-content: space-between;
+  position: relative;
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
@@ -225,11 +226,15 @@ const ___theme = inject("___theme", defaultThemeVars);
   .ui-tag-dropdown__input-wrapper__left {
     display: flex;
     align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
   }
   .ui-tag-dropdown__input-wrapper__right__icon-wrapper {
     right: 16px;
     color: #5f6b7a;
     cursor: pointer;
+    position: absolute;
+    top: 30%;
     .ui-tag-dropdown__input-wrapper__right__icon-wrapper {
       cursor: pointer;
     }
@@ -241,7 +246,7 @@ const ___theme = inject("___theme", defaultThemeVars);
 
 .ui-tag-dropdown__input {
   /* width: 100%; */
-  min-width: 50%;
+  min-width: 320px;
   border: none;
   outline: none;
   display: flex;
@@ -250,34 +255,35 @@ const ___theme = inject("___theme", defaultThemeVars);
 }
 
 .ui-tag-dropdown__wrapper {
+  box-sizing: border-box;
   &.size__massive .ui-tag-dropdown__input-wrapper {
-    min-height: 64px;
-    padding: 0 16px;
+    //min-height: calc(64px - 16px);
+    padding: 2px 16px;
   }
 
   &.size__huge .ui-tag-dropdown__input-wrapper {
-    min-height: 56px;
-    padding: 0 16px;
+    //min-height: calc(56px - 16px);
+    padding: 2px 16px;
   }
 
   &.size__xlarge .ui-tag-dropdown__input-wrapper {
-    min-height: 48px;
-    padding: 0 12px;
+    //min-height: calc(48px - 16px);
+    padding: 2px 12px;
   }
 
   &.size__large .ui-tag-dropdown__input-wrapper {
-    min-height: 40px;
-    padding: 0 12px;
+    //min-height: calc(40px - 16px);
+    padding: 2px 12px;
   }
 
   &.size__medium .ui-tag-dropdown__input-wrapper {
-    min-height: 32px;
-    padding: 0 12px;
+    //min-height: calc(32px - 16px);
+    padding: 2px 12px;
   }
 
   &.size__small .ui-tag-dropdown__input-wrapper {
-    min-height: 24px;
-    padding: 0 8px;
+    //min-height: calc(24px - 8px);
+    padding: 2px 8px;
   }
 }
 
