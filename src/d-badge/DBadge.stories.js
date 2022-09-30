@@ -19,6 +19,9 @@ export default {
     customSize: {
       control: { type: "text" },
     },
+    smartColor: {
+      control: { type: "color" },
+    },
   },
 };
 

@@ -29,6 +29,12 @@ export default {
     responsive: {
       control: { type: "boolean" },
     },
+    smartColor: {
+      control: { type: "color" },
+    },
+    smartHoverColor: {
+      control: { type: "color" },
+    },
   },
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
 };

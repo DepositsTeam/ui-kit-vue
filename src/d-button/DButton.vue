@@ -6,15 +6,26 @@
       [`state__disabled`]: loading || disabled,
       [`size__${size}`]: size,
       responsive,
+      smartColor,
+      smartHoverColor,
     }"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
     :disabled="loading || disabled"
+    :style="{
+      '--smart-color': smartColor,
+      '--smart-hover-color': smartHoverColor,
+      '--smart-text-color': getTextColor(smartColor),
+      '--smart-hover-text-color': getTextColor(smartHoverColor),
+    }"
   >
+    <d-box class="ui-button__left-icon" v-if="$slots.leftIcon">
+      <slot name="leftIcon"></slot>
+    </d-box>
     <component
       smart-color="currentcolor"
       class="ui-button__left-icon"
-      v-if="leftIcon"
+      v-else-if="leftIcon"
       :is="leftIcon"
     ></component>
     <span class="ui-button__button-text" :class="{ 'loader-text': loading }">
@@ -30,13 +41,23 @@
     <ChevronFilledDownIcon
       v-if="dropDown"
       smart-color="currentcolor"
-      class="ui-button__dropdown-icon"
+      class="ui-button__right-icon"
     />
+    <d-box class="ui-button__right-icon" v-if="$slots.rightIcon">
+      <slot name="rightIcon"></slot>
+    </d-box>
+    <component
+      smart-color="currentcolor"
+      class="ui-button__right-icon"
+      v-else-if="rightIcon"
+      :is="rightIcon"
+    ></component>
   </d-box>
 </template>
 
 <script setup>
 import { DBox, ChevronFilledDownIcon } from "../main";
+import { getTextColor } from "../utils/colorManager";
 
 const emit = defineEmits(["click"]);
 defineProps({
@@ -74,6 +95,9 @@ defineProps({
   leftIcon: {
     type: Object,
   },
+  rightIcon: {
+    type: Object,
+  },
   dropDown: {
     type: Object,
   },
@@ -89,6 +113,12 @@ defineProps({
   loadingText: {
     type: String,
     default: "Loading",
+  },
+  smartColor: {
+    type: String,
+  },
+  smartHoverColor: {
+    type: String,
   },
   // TODO - Add a property to break/wrap words/text.
 });
@@ -123,6 +153,14 @@ const handleClick = () => {
     border: 1px solid #202b3c;
     box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
     color: #cbd5e1;
+  }
+  &.smartColor {
+    background: var(--smart-color);
+    color: var(--smart-text-color);
+    &.smartHoverColor:hover {
+      background: var(--smart-hover-color);
+      color: var(--smart-hover-text-color);
+    }
   }
 
   &.responsive {
@@ -168,7 +206,7 @@ const handleClick = () => {
     margin-right: 8px;
   }
 
-  .ui-button__dropdown-icon {
+  .ui-button__right-icon {
     margin-left: 8px;
   }
 

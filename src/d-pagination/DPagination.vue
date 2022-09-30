@@ -7,6 +7,7 @@
     >
       <ChevronArrowLeftIcon class="ui-pagination__left-arrow" />
       <d-text
+        margin-y="0"
         class="ui-pagination__text-previous ui-pagination__text"
         font-face="circularSTD"
         scale="subhead"
@@ -20,10 +21,10 @@
       class="ui-pagination__page-number"
       :class="{
         'ui-pagination__page-number__active':
-          this.initializedCurrentPage === visiblePage,
+          initializedCurrentPage === visiblePage,
       }"
     >
-      <d-text font-face="circularSTD" scale="subhead">
+      <d-text margin-y="0" font-face="circularSTD" scale="subhead">
         {{ visiblePage }}
       </d-text>
     </d-box>
@@ -35,6 +36,7 @@
       <d-text
         class="ui-pagination__text-next ui-pagination__text"
         font-face="circularSTD"
+        margin-y="0"
         scale="subhead"
         >Next</d-text
       >

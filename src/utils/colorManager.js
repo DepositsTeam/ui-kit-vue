@@ -140,7 +140,13 @@ export function generateColorSpectrum(color, prefix = "--light-primary-") {
   return returnedSpectrum;
 }
 
-export function getTextColor(hex, opposites = false) {
+export function getTextColor(hex, light = "#ffffff", dark = "#212934") {
+  if (!hex) {
+    return "";
+  }
+  if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+    return "";
+  }
   const hexCode = hex.charAt(0) === "#" ? hex.substr(1, 6) : hex;
 
   const hexR = parseInt(hexCode.substr(0, 2), 16);
@@ -149,13 +155,7 @@ export function getTextColor(hex, opposites = false) {
   // Gets the average value of the colors
   const contrastRatio = (hexR + hexG + hexB) / (255 * 3);
 
-  return contrastRatio >= 0.5
-    ? opposites
-      ? "#ffffff"
-      : "#212934"
-    : opposites
-    ? "#ffffff"
-    : "#212934";
+  return contrastRatio >= 0.5 ? dark : light;
 }
 
 export function hexToRgbA(hex, alpha = 1) {

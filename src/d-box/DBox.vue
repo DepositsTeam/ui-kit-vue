@@ -58,6 +58,8 @@ export default {
     "blur",
     "mouseenter",
     "mouseleave",
+    "mouseover",
+    "mousemove",
     "update:modelValue",
   ],
   setup(props, { slots, emit }) {
@@ -230,6 +232,18 @@ export default {
           },
           onKeypress: function (e) {
             emit("keypress", e);
+          },
+          onMouseleave: function (e) {
+            emit("mouseleave", e);
+          },
+          onMouseenter: function (e) {
+            emit("mouseenter", e);
+          },
+          onMouseover: function (e) {
+            emit("mouseover", e);
+          },
+          onMousemove: function (e) {
+            emit("mousemove", e);
           },
           id: props.id ? props.id : uniqueID,
           ...(computedType.value ? { type: computedType.value } : {}),

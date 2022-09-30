@@ -6,10 +6,13 @@
       [`size__${size}`]: !customSize,
       size_custom: customSize,
       subtleTextColor,
+      smartColor,
     }"
     class="ui-badge"
     :style="{
       '--size': typeof customSize === 'number' ? `${customSize}px` : customSize,
+      '--smart-color': smartColor,
+      '--smart-text-color': getTextColor(smartColor),
     }"
   >
     <d-text
@@ -28,6 +31,7 @@
 
 <script setup>
 import { DBox, DText } from "../main";
+import { getTextColor } from "../utils/colorManager";
 
 defineProps({
   colorScheme: {
@@ -53,6 +57,9 @@ defineProps({
     type: String,
     default: null,
   },
+  smartColor: {
+    type: String,
+  },
 });
 </script>
 
@@ -66,6 +73,10 @@ defineProps({
   color: white;
   &.dark_mode {
     color: #121a26;
+  }
+  &.smartColor {
+    background: var(--smart-color);
+    color: var(--smart-text-color);
   }
 }
 
@@ -93,7 +104,7 @@ defineProps({
     padding: 7px 14px;
   }
 
-  &.color-scheme__neutral {
+  &.color-scheme__neutral:not(.smartColor) {
     background: #8895a7;
     &.dark_mode {
       background: #64748b;
@@ -101,7 +112,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__green {
+  &.color-scheme__green:not(.smartColor) {
     background: #00b058;
     &.dark_mode {
       background: #2eab6c;
@@ -109,7 +120,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__red {
+  &.color-scheme__red:not(.smartColor) {
     background: #d62f4b;
     &.dark_mode {
       background: #df5e74;
@@ -117,7 +128,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__yellow {
+  &.color-scheme__yellow:not(.smartColor) {
     background: #ff9505;
     &.dark_mode {
       background: #dc8104;
@@ -125,7 +136,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__cyan {
+  &.color-scheme__cyan:not(.smartColor) {
     background: #0c9ccc;
     &.dark_mode {
       background: #0c9ccc;
@@ -133,7 +144,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__blue {
+  &.color-scheme__blue:not(.smartColor) {
     background: #0d7fe9;
     &.dark_mode {
       background: #418be1;
@@ -141,7 +152,7 @@ defineProps({
     }
   }
 
-  &.subtle {
+  &.subtle:not(.smartColor) {
     &.color-scheme__neutral {
       color: #212934;
       background: #e1e7ec;

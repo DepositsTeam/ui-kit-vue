@@ -25,6 +25,12 @@ export default {
       control: { type: "boolean" },
       default: true,
     },
+    smartColor: {
+      control: { type: "color" },
+    },
+    iconColor: {
+      control: { type: "color" },
+    },
   },
 };
 

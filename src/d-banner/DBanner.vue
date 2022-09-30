@@ -1,13 +1,32 @@
 <template>
   <d-box
     v-if="visible"
-    :class="{ [`color-scheme__${colorScheme}`]: true, alignTop, full }"
+    :class="{
+      [`color-scheme__${colorScheme}`]: true,
+      alignTop,
+      full,
+      smartColor,
+    }"
     class="ui-banner"
+    :style="{
+      '--smart-color': smartColor,
+      '--smart-title-color': getTextColor(smartColor),
+      '--smart-description-color': getTextColor(
+        smartColor,
+        '#6D7786',
+        '#94A3B8'
+      ),
+      '--icon-color': iconColor,
+    }"
   >
     <d-box @click="$emit('click')" class="text-content">
+      <d-box class="ui-banner-icon" v-if="$slots.icon" :class="{ iconColor }">
+        <slot name="icon"></slot>
+      </d-box>
       <component
-        v-if="(colorScheme !== 'default' || icon) && !noIcon"
+        v-else-if="(colorScheme !== 'default' || icon) && !noIcon"
         class="ui-banner-icon"
+        :class="{ iconColor }"
         :is="icon || schemeIcons[colorScheme]"
       ></component>
       <slot v-if="$slots.default"></slot>
@@ -39,14 +58,15 @@
 <script setup>
 import { ref } from "vue";
 import {
-  DBox,
-  DText,
-  InfoIcon,
-  WarningIcon,
-  ErrorIcon,
   CheckIcon,
   CloseIcon,
+  DBox,
+  DText,
+  ErrorIcon,
+  InfoIcon,
+  WarningIcon,
 } from "../main";
+import { getTextColor } from "../utils/colorManager";
 
 const schemeIcons = {
   info: InfoIcon,
@@ -85,9 +105,15 @@ defineProps({
   icon: {
     type: Object,
   },
+  iconColor: {
+    type: String,
+  },
   noIcon: {
     type: Boolean,
     default: false,
+  },
+  smartColor: {
+    type: String,
   },
 });
 
@@ -106,11 +132,30 @@ const remove = () => {
   justify-content: space-between;
   padding: 10px 16px;
   border-radius: 4px;
+
   &.alignTop {
     align-items: flex-start;
   }
+
   &.full {
     display: flex;
+  }
+
+  &.smartColor {
+    background: var(--smart-color);
+    color: var(--smart-description-color);
+
+    .ui-banner__title {
+      color: var(--smart-title-color);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .ui-banner_description {
+      color: var(--smart-description-color);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 
   .text-content {
@@ -119,6 +164,7 @@ const remove = () => {
 
     & > * {
       margin-right: 8px;
+
       &:last-child {
         margin-right: 0;
       }
@@ -137,13 +183,23 @@ const remove = () => {
     height: 16px;
     width: 16px;
     margin-right: 8px;
+    &.iconColor {
+      color: var(--icon-color);
+    }
   }
 
   .ui-banner__title,
   .ui-banner__description {
     margin-top: 0;
     margin-bottom: 0;
-    color: #5f6b7a;
+  }
+
+  &:not(.smartColor) {
+    .ui-banner__description {
+      &.dark_mode {
+        color: #94a3b8;
+      }
+    }
   }
 
   .ui-banner__title {
@@ -152,21 +208,17 @@ const remove = () => {
     }
   }
 
-  .ui-banner__description {
-    &.dark_mode {
-      color: #94a3b8;
-    }
-  }
-
-  &.color-scheme__default {
+  &.color-scheme__default:not(.smartColor) {
     background: #f5f8fa;
+
     &.dark_mode {
       background: var(--dark-input-background-color);
     }
   }
 
-  &.color-scheme__success {
+  &.color-scheme__success:not(.smartColor) {
     background: #edfff9;
+
     &.dark_mode {
       background: #081e13;
 
@@ -174,17 +226,17 @@ const remove = () => {
         color: #53d091;
       }
 
-      .ui-banner-icon {
+      .ui-banner-icon:not(.iconColor) {
         color: #2eab6c;
       }
     }
 
-    .ui-banner-icon {
+    .ui-banner-icon:not(.iconColor) {
       color: #00b058;
     }
   }
 
-  &.color-scheme__error {
+  &.color-scheme__error:not(.smartColor) {
     background: #fff0f2;
 
     &.dark_mode {
@@ -194,17 +246,17 @@ const remove = () => {
         color: #eea7b3;
       }
 
-      .ui-banner-icon {
+      .ui-banner-icon:not(.iconColor) {
         color: #df5e74;
       }
     }
 
-    .ui-banner-icon {
+    .ui-banner-icon:not(.iconColor) {
       color: #d62f4b;
     }
   }
 
-  &.color-scheme__warning {
+  &.color-scheme__warning:not(.smartColor) {
     background: #fff8f0;
 
     &.dark_mode {
@@ -214,17 +266,17 @@ const remove = () => {
         color: #fca835;
       }
 
-      .ui-banner-icon {
+      .ui-banner-icon:not(.iconColor) {
         color: #dc8104;
       }
     }
 
-    .ui-banner-icon {
+    .ui-banner-icon:not(.iconColor) {
       color: #ff9505;
     }
   }
 
-  &.color-scheme__info {
+  &.color-scheme__info:not(.smartColor) {
     background: #f7fbff;
 
     &.dark_mode {
@@ -235,7 +287,7 @@ const remove = () => {
       }
     }
 
-    .ui-banner-icon {
+    .ui-banner-icon:not(.iconColor) {
       color: #0d7fe9;
     }
   }
