@@ -83,6 +83,12 @@ Default.args = {
   children: "Default Button",
 };
 
+export const Pill = Template.bind({});
+Pill.args = {
+  pill: true,
+  children: "Default Button",
+};
+
 export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   children: "Default Button",

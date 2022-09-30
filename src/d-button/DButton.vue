@@ -8,6 +8,7 @@
       responsive,
       smartColor,
       smartHoverColor,
+      pill,
     }"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
@@ -120,6 +121,9 @@ defineProps({
   smartHoverColor: {
     type: String,
   },
+  pill: {
+    type: Boolean,
+  },
   // TODO - Add a property to break/wrap words/text.
 });
 
@@ -148,6 +152,9 @@ const handleClick = () => {
   align-items: center;
   text-align: center;
   justify-content: center;
+  &.pill {
+    border-radius: 900px;
+  }
   &.dark_mode.semantic__default {
     background: #121a26;
     border: 1px solid #202b3c;
