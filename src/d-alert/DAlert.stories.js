@@ -13,7 +13,7 @@ export default {
     },
     colorScheme: {
       control: { type: "select" },
-      options: ["default", "info", "warning", "error", "success"],
+      options: ["default", "info", "warning", "error", "success", "primary"],
     },
     theme: {
       control: { type: "select" },

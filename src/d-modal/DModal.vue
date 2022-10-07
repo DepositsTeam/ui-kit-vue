@@ -4,17 +4,26 @@
       <d-box
         class="ui-modal ui-modal__closerr"
         @click="handleCloseClicks"
-        :class="{ greyContent, roundedBorders, greyHeader, roundedBorders }"
+        :class="{
+          greyContent,
+          roundedBorders,
+          greyHeader,
+          roundedBorders,
+        }"
       >
         <d-box
           class="ui-modal__content"
-          :style="{ '--modalwidth': modalWidth }"
-          :class="{ maxWidth: modalWidth }"
+          :style="{
+            '--modal-width': modalWidth,
+            '--min-modal-width': minModalWidth,
+            '--max-modal-width': maxModalWidth,
+          }"
+          :class="{ maxModalWidth, minModalWidth }"
         >
           <d-box class="ui-modal__heading" :class="{ headerClasses }">
             <d-box>
               <slot name="heading" v-if="$slots.heading"></slot>
-              <d-heading my0 is="h5" v-else> {{ heading }} </d-heading>
+              <d-heading my0 is="h5" v-else> {{ heading }}</d-heading>
             </d-box>
             <CloseIcon
               smart-color="#8895A7"
@@ -70,7 +79,7 @@
 </template>
 
 <script setup>
-import { DBox, DButton, DText, DHeading, CloseIcon } from "../main";
+import { CloseIcon, DBox, DButton, DHeading, DText } from "../main";
 
 const emit = defineEmits(["closeModal", "confirmAction"]);
 
@@ -87,7 +96,13 @@ defineProps({
   requestClose: {
     type: Function,
   },
+  minModalWidth: {
+    type: String,
+  },
   modalWidth: {
+    type: String,
+  },
+  maxModalWidth: {
     type: String,
   },
   heading: {
@@ -157,11 +172,18 @@ const handleCloseClicks = (e) => {
 
   .ui-modal__content {
     background: white;
+    width: var(--modal-width);
     min-width: 315px;
     max-width: calc(100vw - 60px);
+
     &.maxWidth {
-      max-width: var(--modalwidth);
+      max-width: var(--max-modal-width);
     }
+
+    &.minWidth {
+      min-width: var(--min-modal-width);
+    }
+
     &.dark_mode {
       background: var(--dark-background-color);
     }
@@ -173,6 +195,7 @@ const handleCloseClicks = (e) => {
     align-items: center;
     padding: 24px;
     background: white;
+
     &.dark_mode {
       background: var(--dark-background-color);
     }
@@ -184,6 +207,7 @@ const handleCloseClicks = (e) => {
 
   &.greyContent .ui-modal__content {
     background: #f5f8fa;
+
     &.dark_mode {
       background: var(--dark-background-color);
     }
@@ -195,9 +219,11 @@ const handleCloseClicks = (e) => {
 
   &.roundedBorders .ui-modal__content {
     border-radius: 6px;
+
     .ui-modal__heading {
       border-radius: 6px 6px 0 0;
     }
+
     .ui-modal__body {
       border-radius: 0 0 6px 6px;
     }

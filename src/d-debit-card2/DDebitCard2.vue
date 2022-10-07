@@ -23,7 +23,7 @@
           <d-box is="img" :src="cardLogo" />
         </d-box>
         <d-box class="ui-d-debit-card__debit">
-          <d-text>debit</d-text>
+          <d-text>{{ bottomLeftText }}</d-text>
         </d-box>
       </d-box>
       <d-box
@@ -34,11 +34,11 @@
         <d-box class="ui-d-debit-card__column">
           <d-text class="ui-d-debit-card__disclaimer"
             >This card is issued by Metropolitan Commercial Bank (Member FDIC)
-            pursuant to a licence from Mastercard International.</d-text
-          >
+            pursuant to a licence from Mastercard International.
+          </d-text>
           <d-box>
             <d-box class="ui-d-debit-card__full-name">
-              <d-text> {{ firstName }} {{ lastName }} </d-text>
+              <d-text> {{ firstName }} {{ lastName }}</d-text>
             </d-box>
             <d-box class="ui-d-debit-card__bank-no-wrapper">
               <d-box class="ui-d-debit-card__bank-no top">
@@ -69,7 +69,7 @@
                   DATE
                 </d-text>
                 <d-text margin-y="0" class="ui-d-debit-card__exp__value">
-                  12/23
+                  {{ expDate }}
                 </d-text>
               </d-box>
               <d-box class="ui-d-debit-card__security">
@@ -78,16 +78,14 @@
                   CODE
                 </d-text>
                 <d-text margin-y="0" class="ui-d-debit-card__security__value">
-                  123
+                  {{ cvv }}
                 </d-text>
               </d-box>
             </d-box>
           </d-box>
           <d-box class="ui-d-debit-card__support">
             <d-text>
-              For Support Visit: <br />
-              ondeposits.com/cards/help <br />
-              +1 (885-786-2114)
+              <span v-html="footnote" />
             </d-text>
           </d-box>
         </d-box>
@@ -135,6 +133,29 @@ const props = defineProps({
   },
   hoverFlip: {
     type: Boolean,
+    default: true,
+  },
+  defaultFace: {
+    type: String,
+    validator: (value) => ["front", "back"].includes(value),
+  },
+  bottomLeftText: {
+    type: String,
+    default: "debit",
+  },
+  expDate: {
+    type: String,
+    default: "12/23",
+  },
+  cvv: {
+    type: String,
+    default: "123",
+  },
+  footnote: {
+    type: String,
+    default: `For Support Visit: <br />
+              ondeposits.com/cards/help <br />
+              +1 (885-786-2114)`,
   },
 });
 
@@ -222,29 +243,37 @@ const calcAngle = (e) => {
     transform: rotateY(1turn);
   }
 }
+
 .ui-d-debit-card__wrapper {
   perspective: 200em;
 }
+
 .ui-d-debit-card {
   display: flex;
   transform-style: preserve-3d;
   width: var(--debit-card-width);
   max-width: 600px;
   aspect-ratio: 16/25;
+
   &.rotate {
     animation: rot 4s ease-in-out infinite;
   }
+
   &.hoverFlip {
     transition: transform 1s ease-in-out;
     transform: rotateY(0turn);
+
     &.faceFront {
       transform: rotateY(0turn);
     }
+
     &.faceBack {
       transform: rotateY(0.5turn);
     }
   }
+
   backface-visibility: hidden;
+
   .ui-d-debit-card__front,
   .ui-d-debit-card__back {
     backface-visibility: hidden;
@@ -257,72 +286,89 @@ const calcAngle = (e) => {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+
     &.theme__dark {
       background: linear-gradient(
         180deg,
         rgba(33, 41, 52, 0.85) 0%,
         #1b232d 100%
       );
+
       &.dark_mode {
         border: 0.39px inset rgba(#cbd5e1, 0.15);
       }
+
       .ui-d-debit-card__debit {
         .ui-text {
           color: #ffffff;
         }
       }
+
       .ui-d-debit-card__support {
         .ui-text {
           color: #ffffff;
         }
       }
+
       .ui-d-debit-card__full-name {
         .ui-text {
           color: #ffffff;
         }
       }
+
       .ui-d-debit-card__bar {
         background: #f5f8fa;
+
         &.dark_mode {
           background: var(--dark-background-color);
         }
       }
+
       .ui-d-debit-card__disclaimer {
         color: #ffffff;
       }
+
       .ui-d-debit-card__exp {
         .ui-d-debit-card__exp__heading {
           color: #ffffff;
         }
+
         .ui-d-debit-card__exp__value {
           color: #ffffff;
         }
       }
+
       .ui-d-debit-card__security {
         .ui-d-debit-card__security__heading {
           color: #ffffff;
         }
+
         .ui-d-debit-card__security__value {
           color: #ffffff;
         }
       }
+
       .ui-d-debit-card__bank-no-wrapper {
         .ui-d-debit-card__bank-no {
           &.top {
             border-right: 2px solid #ffffff;
+
             &::after {
               background: #ffffff;
             }
           }
+
           &.bottom {
             border-left: 2px solid #ffffff;
           }
+
           .ui-text {
             color: #ffffff;
           }
         }
       }
     }
+
     &.theme__grey {
       background: linear-gradient(
         180deg,
@@ -330,37 +376,45 @@ const calcAngle = (e) => {
         #e1e7ec 100%
       );
     }
+
     .ui-d-debit-card__brand {
       display: flex;
       justify-content: flex-end;
       padding: 5%;
+
       img {
         width: 33%;
         transform-style: preserve-3d;
         height: auto;
       }
     }
+
     .ui-d-debit-card__logo {
       display: flex;
       justify-content: center;
+
       img {
         width: 65%;
         transform-style: preserve-3d;
         height: auto;
       }
     }
+
     .ui-d-debit-card__debit {
       padding: 5%;
+
       .ui-text {
         color: #525964;
         font-weight: 600;
       }
     }
   }
+
   .ui-d-debit-card__back {
     display: flex;
     flex-direction: row;
     transform: rotateY(180deg);
+
     .ui-d-debit-card__support {
       color: #525964;
       font-size: 10px;
@@ -368,48 +422,58 @@ const calcAngle = (e) => {
       text-align: center;
       margin-bottom: 15%;
     }
+
     .ui-d-debit-card__exp_security {
       width: 60%;
       margin-left: 35%;
     }
+
     .ui-d-debit-card__exp {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10%;
       margin-top: 10%;
+
       .ui-d-debit-card__exp__heading {
         color: #525964;
         font-size: 10px;
       }
+
       .ui-d-debit-card__exp__value {
         color: #525964;
         font-size: 14px;
       }
     }
+
     .ui-d-debit-card__security {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .ui-d-debit-card__security__heading {
         color: #525964;
         font-size: 10px;
       }
+
       .ui-d-debit-card__security__value {
         color: #525964;
         font-size: 14px;
       }
     }
+
     .ui-d-debit-card__bar {
       margin-left: 8%;
       height: 100%;
       background: #525964;
       width: 15%;
       flex: 0 0 15%;
+
       &.dark_mode {
         background: var(--dark-background-color);
       }
     }
+
     .ui-d-debit-card__disclaimer {
       font-size: 9px;
       padding: 5% 5% 10%;
@@ -417,11 +481,13 @@ const calcAngle = (e) => {
       font-weight: 300;
       letter-spacing: 0.5px;
     }
+
     .ui-d-debit-card__column {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
+
     .ui-d-debit-card__full-name {
       display: flex;
       justify-content: flex-end;
@@ -430,10 +496,12 @@ const calcAngle = (e) => {
       padding-right: 5%;
       color: #525964;
     }
+
     .ui-d-debit-card__bank-no-wrapper {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+
       .ui-d-debit-card__bank-no {
         display: inline-flex;
         justify-content: flex-end;
@@ -441,9 +509,11 @@ const calcAngle = (e) => {
         margin-bottom: 16px;
         padding: 0 2%;
         flex: 0 0 0;
+
         &.top {
           border-right: 2px solid #525964;
           position: relative;
+
           &::after {
             content: "";
             position: absolute;
@@ -455,15 +525,18 @@ const calcAngle = (e) => {
             background: #525964;
           }
         }
+
         &.bottom {
           border-left: 2px solid #525964;
         }
+
         .ui-text {
           color: #525964;
           font-size: 19px;
           font-weight: 300;
           letter-spacing: 1.5px;
         }
+
         span:first-child {
           margin-right: 8px;
         }

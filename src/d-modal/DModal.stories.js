@@ -23,6 +23,12 @@ export default {
     modalWidth: {
       control: { type: "text" },
     },
+    maxModalWidth: {
+      control: { type: "text" },
+    },
+    minModalWidth: {
+      control: { type: "text" },
+    },
     heading: {
       control: { type: "text" },
     },

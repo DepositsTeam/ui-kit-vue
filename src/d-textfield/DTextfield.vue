@@ -18,6 +18,9 @@
         class="ui-text-field__left-icon"
         @click="emitLeftIconClicked"
       ></component>
+      <d-box v-else-if="$slots.leftIcon" class="ui-text-field__left-icon">
+        <slot name="leftIcon"></slot>
+      </d-box>
       <d-box
         class="ui-text-field__input"
         :class="{
@@ -75,6 +78,9 @@
         "
         @click="emitRightIconClicked"
       ></component>
+      <d-box v-else-if="$slots.leftIcon" class="ui-text-field__right-icon">
+        <slot name="rightIcon"></slot>
+      </d-box>
     </d-box>
     <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />

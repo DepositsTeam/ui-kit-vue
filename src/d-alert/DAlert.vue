@@ -12,6 +12,26 @@
     :style="{
       '--smart-color': smartColor,
       '--icon-color': iconColor,
+      '--light-primary-title-text-color': getTextColor(
+        d__theme['--light-primary-action-color'],
+        '#ffffff',
+        '#212934'
+      ),
+      '--light-primary-description-text-color': getTextColor(
+        d__theme['--light-primary-action-color'],
+        '#ffffff',
+        '#5f6b7a'
+      ),
+      '--dark-primary-title-text-color': getTextColor(
+        d__theme['--dark-primary-action-color'],
+        '#ffffff',
+        '#212934'
+      ),
+      '--dark-primary-description-text-color': getTextColor(
+        d__theme['--dark-primary-action-color'],
+        '#ffffff',
+        '#5f6b7a'
+      ),
     }"
   >
     <d-box class="ui-alert__content-wrapper">
@@ -73,9 +93,12 @@ import {
   ErrorIcon,
   CheckIcon,
 } from "../main";
-import { ref } from "vue";
+import { inject, ref } from "vue";
+import { getTextColor } from "../utils/colorManager";
+import { defaultThemeVars } from "../providers/default-theme";
 
 const emit = defineEmits(["closed", "button-clicked"]);
+const d__theme = inject("d__theme", defaultThemeVars);
 
 defineProps({
   message: {
@@ -88,7 +111,9 @@ defineProps({
     type: String,
     default: "default",
     validator: (value) =>
-      ["default", "info", "warning", "error", "success"].includes(value),
+      ["default", "info", "warning", "error", "success", "primary"].includes(
+        value
+      ),
   },
   theme: {
     type: String,
@@ -161,6 +186,12 @@ const emitClick = () => emit("button-clicked");
     &.theme__flat {
       border-left: 4px solid;
       &:not(.smartColor) {
+        &.color-scheme__primary {
+          border-color: var(--light-primary-action-color);
+          &.dark_mode {
+            border-color: var(--dark-primary-action-color);
+          }
+        }
         &.color-scheme__info {
           border-color: #0d7fe9;
         }
@@ -218,36 +249,45 @@ const emitClick = () => emit("button-clicked");
     }
   }
 
-  &.color-scheme__warning {
+  &.smartColor {
     &.is-toast {
       border-color: #ff9505;
-      border-left: 4px solid #ff9505;
-    }
-
-    .ui-alert__header-icon {
-      color: #ff9505;
+      border-left: 4px solid var(--smart-color);
     }
   }
 
-  &.color-scheme__error {
-    &.is-toast {
-      border-color: #d62f4b;
-      border-left: 4px solid #d62f4b;
+  &:not(.smartColor) {
+    &.color-scheme__warning {
+      &.is-toast {
+        border-color: #ff9505;
+        border-left: 4px solid #ff9505;
+      }
+
+      .ui-alert__header-icon {
+        color: #ff9505;
+      }
     }
 
-    .ui-alert__header-icon {
-      color: #d62f4b;
-    }
-  }
+    &.color-scheme__error {
+      &.is-toast {
+        border-color: #d62f4b;
+        border-left: 4px solid #d62f4b;
+      }
 
-  &.color-scheme__success {
-    &.is-toast {
-      border-color: #00b058;
-      border-left: 4px solid #00b058;
+      .ui-alert__header-icon {
+        color: #d62f4b;
+      }
     }
 
-    .ui-alert__header-icon {
-      color: #00b058;
+    &.color-scheme__success {
+      &.is-toast {
+        border-color: #00b058;
+        border-left: 4px solid #00b058;
+      }
+
+      .ui-alert__header-icon {
+        color: #00b058;
+      }
     }
   }
 
@@ -259,6 +299,17 @@ const emitClick = () => emit("button-clicked");
     background: #f5f8fa;
     &.dark_mode {
       background: #202b3c;
+      &.color-scheme__primary {
+        background: var(--dark-primary-action-color);
+        .ui-alert__header-text {
+          color: var(--dark-primary-title-text-color);
+        }
+        .ui-alert__body {
+          color: var(--dark-primary-description-text-color);
+        }
+      }
+    }
+    &:not(.smartColor) {
     }
 
     &.color-scheme__info {
