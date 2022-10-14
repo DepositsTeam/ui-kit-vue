@@ -25,6 +25,12 @@ const updateTheme = (newTheme) => {
 const hydrateTheme = () => {
   const computedTheme = { ...defaultTheme, ...theme.value };
 
+  if (computedTheme.primaryColor) {
+    computedTheme["light-primary-action-color"] = computedTheme.primaryColor;
+    computedTheme["dark-primary-action-color"] = computedTheme.primaryColor;
+    computedTheme["primarycolor"] = computedTheme.primaryColor;
+  }
+
   // Depends on light primary action color
   // Configure the light primary themes whenever we hydrate the themes
   computedTheme["light-primary-action-text-color"] = getTextColor(

@@ -20,10 +20,14 @@ export function formatSSN(ssn) {
   const sssn = val.substring(0, 11);
   let starredSsn = "";
   for (let i = 0; i < sssn.length; i++) {
-    if (sssn[i] !== "-") {
-      starredSsn += "*";
+    if (i >= sssn.length - 4) {
+      starredSsn += sssn[i];
     } else {
-      starredSsn += "-";
+      if (sssn[i] !== "-") {
+        starredSsn += "*";
+      } else {
+        starredSsn += "-";
+      }
     }
   }
   return [sssn, starredSsn];
