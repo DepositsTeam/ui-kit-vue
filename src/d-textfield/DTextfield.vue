@@ -78,7 +78,7 @@
         "
         @click="emitRightIconClicked"
       ></component>
-      <d-box v-else-if="$slots.leftIcon" class="ui-text-field__right-icon">
+      <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
         <slot name="rightIcon"></slot>
       </d-box>
     </d-box>
