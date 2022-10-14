@@ -16,6 +16,14 @@
     :style="{
       '--smart-color': smartColor,
       '--smart-hover-color': smartHoverColor,
+      ...(smartColor
+        ? {
+            '--smart-calculated-hover-color': smartCalculatedHoverColor,
+            '--smart-calculated-hover-text-color': getTextColor(
+              smartCalculatedHoverColor
+            ),
+          }
+        : {}),
       '--smart-text-color': getTextColor(smartColor),
       '--smart-hover-text-color': getTextColor(smartHoverColor),
     }"
@@ -59,9 +67,11 @@
 <script setup>
 import { DBox, ChevronFilledDownIcon } from "../main";
 import { getTextColor } from "../utils/colorManager";
+import tinycolor from "tinycolor2";
+import { computed } from "vue";
 
 const emit = defineEmits(["click"]);
-defineProps({
+const props = defineProps({
   is: {
     type: [String, Object],
     validator: (value) => {
@@ -130,6 +140,10 @@ defineProps({
 const handleClick = () => {
   emit("click");
 };
+
+const smartCalculatedHoverColor = computed(() =>
+  tinycolor(props.smartColor).darken(10).toHexString()
+);
 </script>
 
 <style lang="scss" scoped>
@@ -164,6 +178,10 @@ const handleClick = () => {
   &.smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
+    &:hover {
+      background: var(--smart-calculated-hover-color);
+      color: var(--smart-calculated-hover-text-color);
+    }
     &.smartHoverColor:hover {
       background: var(--smart-hover-color);
       color: var(--smart-hover-text-color);

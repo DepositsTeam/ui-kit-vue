@@ -385,6 +385,21 @@ const totalPages = computed(() => {
       & > *:not(:last-child) {
         margin-right: 8px;
       }
+      @media only screen and (max-width: 380px) {
+        flex-direction: column;
+        align-items: flex-start;
+        & > *:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 8px;
+        }
+      }
+    }
+    @media only screen and (max-width: 720px) {
+      flex-direction: column;
+      align-items: flex-start;
+      & > :first-child {
+        margin-bottom: 16px;
+      }
     }
   }
   .ui-table__heading-row {
