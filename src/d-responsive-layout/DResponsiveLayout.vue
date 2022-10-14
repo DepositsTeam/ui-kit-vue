@@ -24,6 +24,7 @@ defineProps({
   display: flex;
   margin: 0 auto;
   padding: 0 16px;
+  flex-direction: column;
   width: 100%;
   &.debugMode {
     border: 2px solid black;

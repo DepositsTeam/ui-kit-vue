@@ -12,6 +12,7 @@
       v-if="(avatar && !avatar.imgURL) || extras"
       equalLineHeight
       :scale="size === 'small' ? 'overline' : 'footnote'"
+      margin-y="0"
     >
       <span v-if="extras">+{{ extras }}</span>
       <span v-else>{{ getInitials(avatar.name) }}</span>

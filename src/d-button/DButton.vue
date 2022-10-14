@@ -155,7 +155,7 @@ const handleClick = () => {
   &.pill {
     border-radius: 900px;
   }
-  &.dark_mode.semantic__default {
+  &.dark_mode.semantic__default:not(.smartColor) {
     background: #121a26;
     border: 1px solid #202b3c;
     box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
@@ -233,7 +233,7 @@ const handleClick = () => {
     border-color: transparent;
   }
 
-  &.semantic__primary {
+  &.semantic__primary:not(.smartColor) {
     background: var(--light-primary-action-color);
     color: var(--light-text-color);
     border: 1px solid var(--light-primary-action-box-shadow-color);
@@ -277,13 +277,13 @@ const handleClick = () => {
     }
   }
 
-  &.semantic__danger {
-    background: #df5e74;
+  &.semantic__danger:not(.smartColor) {
+    background: var(--light-danger-color);
     border: 1px solid rgba(33, 41, 52, 0.07);
     color: #fff;
 
     &.dark_mode {
-      background: #df5e74;
+      background: var(--dark-danger-color);
       color: #121a26;
       border: 1px solid rgba(33, 41, 52, 0.07);
       /* Button Shadow */
@@ -291,7 +291,7 @@ const handleClick = () => {
       box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
 
       &:hover {
-        background: #e47588;
+        background: var(--dark-danger-400);
         border: 1px solid rgba(33, 41, 52, 0.07);
         /* Button Shadow */
 
@@ -299,7 +299,7 @@ const handleClick = () => {
       }
 
       &:focus {
-        box-shadow: 0 0 0 3px rgba(214, 47, 75, 0.3);
+        box-shadow: 0 0 0 3px var(--dark-danger-box-shadow-color);
       }
 
       &:disabled,
@@ -309,34 +309,34 @@ const handleClick = () => {
     }
 
     &:hover {
-      background: #ad283d;
+      background: var(--light-danger-600);
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(214, 47, 75, 0.3);
+      box-shadow: 0 0 0 3px var(--light-danger-box-shadow-color);
     }
 
     &:disabled,
     &.state__disabled {
-      background: #fff0f2;
+      background: var(--light-danger-100);
       color: #fff;
       cursor: not-allowed;
       border-color: transparent;
     }
   }
 
-  &.semantic__success {
-    background: #00b058;
+  &.semantic__success:not(.smartColor) {
+    background: var(--light-success-color);
     border: 1px solid rgba(33, 41, 52, 0.07);
     color: #fff;
 
     &.dark_mode {
-      background: #2eab6c;
+      background: var(--dark-success-color);
       color: #121a26;
       box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
 
       &:hover {
-        background: #2a9b62;
+        background: var(--dark-success-600);
         border: 1px solid rgba(33, 41, 52, 0.07);
         /* Button Shadow */
 
@@ -344,26 +344,26 @@ const handleClick = () => {
       }
 
       &:focus {
-        box-shadow: 0px 0px 0px 3px rgba(0, 176, 88, 0.3);
+        box-shadow: 0px 0px 0px 3px var(--dark-success-box-shadow-color);
       }
 
       &:disabled,
       &.state__disabled {
-        background: #175636;
+        background: var(--dark-success-800);
       }
     }
 
     &:hover {
-      background: #27c079;
+      background: var(--light-success-600);
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(0, 176, 88, 0.3);
+      box-shadow: 0 0 0 3px var(--light-success-box-shadow-color);
     }
 
     &:disabled,
     &.state__disabled {
-      background: #c4efdf;
+      background: var(--light-success-100);
       color: #fff;
       cursor: not-allowed;
       border-color: transparent;
@@ -375,24 +375,41 @@ const handleClick = () => {
     box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
   }
 
-  &.semantic__outline {
+  &.semantic__outline:not(.smartColor) {
     color: var(--light-primary-action-color);
     border: 1px solid var(--light-primary-action-color);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     background: transparent;
 
+    &.dark_mode {
+      border-color: var(--dark-primary-action-color);
+      color: var(--dark-primary-action-color);
+    }
+
     &:focus {
       box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
+      &.dark_mode {
+        box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
+      }
     }
 
     &:hover:not(:disabled):not(.state_disabled) {
       background: var(--light-primary-action-color);
       color: var(--light-primary-action-text-color);
       box-shadow: 0 1px 0 var(--light-outline-action-box-shadow-color);
+
+      &.dark_mode {
+        background: var(--dark-primary-action-color);
+        color: var(--dark-primary-action-text-color);
+        box-shadow: 0 1px 0 var(--dark-outline-action-box-shadow-color);
+      }
     }
 
     &:focus:hover {
       box-shadow: 0 0 0 3px var(--light-outline-action-box-shadow-color);
+      &.dark_mode {
+        box-shadow: 0 0 0 3px var(--dark-outline-action-box-shadow-color);
+      }
     }
 
     &:disabled,
@@ -408,23 +425,27 @@ const handleClick = () => {
     }
   }
 
-  &.semantic__invisible {
-    color: #0d7fe9;
+  &.semantic__invisible:not(.smartColor) {
+    color: var(--light-primary-action-color);
     border-color: transparent;
     background: transparent;
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+
+    &.dark_mode {
+      color: var(--dark-primary-action-color);
+    }
 
     &:focus {
       box-shadow: 0 0 0 3px rgba(27, 92, 224, 0.2);
     }
 
     &:hover {
-      color: #0059ac;
+      color: var(--light-primary-700);
     }
 
     &:disabled,
     &.state__disabled {
-      color: #acd7ff;
+      color: var(--light-primary-200);
       cursor: not-allowed;
       box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }

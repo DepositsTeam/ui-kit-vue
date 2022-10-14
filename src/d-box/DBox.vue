@@ -1,5 +1,5 @@
 <script>
-import { h, inject, computed, onMounted } from "vue";
+import { h, inject, computed, onMounted, unref } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { defaultThemeVars } from "../providers/default-theme";
@@ -260,7 +260,7 @@ export default {
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
           style: {
-            ...d__theme,
+            ...unref(d__theme),
           },
         },
         slots.default ? slots.default() : undefined

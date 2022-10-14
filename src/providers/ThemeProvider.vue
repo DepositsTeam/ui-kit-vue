@@ -26,9 +26,11 @@ const hydrateTheme = () => {
   const computedTheme = { ...defaultTheme, ...theme.value };
 
   // Depends on light primary action color
+  // Configure the light primary themes whenever we hydrate the themes
   computedTheme["light-primary-action-text-color"] = getTextColor(
     computedTheme["light-primary-action-color"]
   );
+
   computedTheme["light-primary-action-hover-color"] = `#${tinycolor(
     computedTheme["light-primary-action-color"]
   )
@@ -49,6 +51,50 @@ const hydrateTheme = () => {
   computedTheme["light-primary-action-box-shadow-color"] = hexToRgbA(
     computedTheme["light-primary-action-color"],
     0.2
+  );
+
+  // Configure the semantic color text and boxshadow colors whenever we hydrate the theme
+  computedTheme["light-danger-box-shadow-color"] = hexToRgbA(
+    computedTheme["light-danger-color"],
+    0.2
+  );
+  computedTheme["light-warning-box-shadow-color"] = hexToRgbA(
+    computedTheme["light-warning-color"],
+    0.2
+  );
+  computedTheme["light-success-box-shadow-color"] = hexToRgbA(
+    computedTheme["light-success-color"],
+    0.2
+  );
+  computedTheme["dark-danger-box-shadow-color"] = hexToRgbA(
+    computedTheme["dark-danger-color"],
+    0.2
+  );
+  computedTheme["dark-warning-box-shadow-color"] = hexToRgbA(
+    computedTheme["dark-warning-color"],
+    0.2
+  );
+  computedTheme["dark-success-box-shadow-color"] = hexToRgbA(
+    computedTheme["dark-success-color"],
+    0.2
+  );
+  computedTheme["light-danger-text-color"] = getTextColor(
+    computedTheme["light-danger-color"]
+  );
+  computedTheme["dark-danger-text-color"] = getTextColor(
+    computedTheme["dark-danger-color"]
+  );
+  computedTheme["light-success-text-color"] = getTextColor(
+    computedTheme["light-success-color"]
+  );
+  computedTheme["dark-success-text-color"] = getTextColor(
+    computedTheme["dark-success-color"]
+  );
+  computedTheme["light-warning-text-color"] = getTextColor(
+    computedTheme["light-warning-color"]
+  );
+  computedTheme["dark-warning-text-color"] = getTextColor(
+    computedTheme["dark-warning-color"]
   );
 
   // Depends on dark primary action color
@@ -110,14 +156,38 @@ const hydrateTheme = () => {
 
   themeVars.value = {
     ...convertObjToVars(computedTheme),
-    ...generateColorSpectrum(computedTheme["light-primary-action-hover-color"]),
+    ...generateColorSpectrum(computedTheme["light-primary-action-color"]),
     ...generateColorSpectrum(
-      computedTheme["dark-primary-action-hover-color"],
+      computedTheme["dark-primary-action-color"],
       "--dark-primary-"
     ),
     ...generateColorSpectrum(
       computedTheme["dark-background-color"],
       "--dark-background-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["light-danger-color"],
+      "--light-danger-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["dark-danger-color"],
+      "--dark-danger-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["light-success-color"],
+      "--light-success-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["dark-success-color"],
+      "--dark-success-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["light-warning-color"],
+      "--light-warning-"
+    ),
+    ...generateColorSpectrum(
+      computedTheme["dark-warning-color"],
+      "--dark-warning-"
     ),
   };
 };

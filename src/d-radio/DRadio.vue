@@ -146,11 +146,15 @@ const emitClick = () => {
       background: white;
       &.dark_mode {
         background: #202b3c;
+        border-color: var(--dark-primary-action-color);
       }
     }
 
     &:hover > input {
       border-color: var(--light-primary-action-color);
+      &.dark_mode {
+        border-color: var(--dark-primary-action-color);
+      }
     }
   }
 
@@ -161,6 +165,10 @@ const emitClick = () => {
     outline: 2px solid var(--light-primary-action-color);
     outline-offset: 1px;
     border-color: transparent;
+    &.dark_mode {
+      background: var(--dark-primary-action-color);
+      outline: 2px solid var(--dark-primary-action-color);
+    }
   }
 }
 </style>
