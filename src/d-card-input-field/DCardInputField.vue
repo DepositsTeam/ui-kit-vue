@@ -329,6 +329,48 @@ const handleCardNoKeyPress = (e) => {
 .ui-card-input-field__wrapper {
   display: flex;
   flex-direction: column;
+  &.size__massive {
+    height: 64px;
+    .ui-card-input-field__pseudo-input {
+      height: 64px;
+    }
+  }
+  &.size__huge {
+    height: 56px;
+    .ui-card-input-field__pseudo-input {
+      height: 56px;
+    }
+  }
+  &.size__xlarge {
+    height: 48px;
+    .ui-card-input-field__pseudo-input {
+      height: 48px;
+    }
+  }
+  &.size__large {
+    height: 40px;
+    .ui-card-input-field__pseudo-input {
+      height: 40px;
+    }
+  }
+  &.size__medium {
+    height: 32px;
+    .ui-card-input-field__pseudo-input {
+      height: 32px;
+    }
+  }
+  &.size__small {
+    height: 24px;
+    .ui-card-input-field__pseudo-input {
+      height: 24px;
+      padding: 8px 16px;
+      input {
+        height: 20px;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 .ui-card-input-field__pseudo-input {
   background: #fff;
@@ -367,9 +409,11 @@ const handleCardNoKeyPress = (e) => {
   display: flex;
   justify-content: space-between;
   flex: 1;
+  align-items: center;
 }
 .ui-card-input__pushed-right {
   display: flex;
+  align-items: center;
 }
 .ui-card-input-field__pseudo-input input {
   border: none;
@@ -428,4 +472,5 @@ const handleCardNoKeyPress = (e) => {
     display: none;
   }
 }
+
 </style>

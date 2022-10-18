@@ -4,7 +4,7 @@
       [`color-scheme__${colorScheme}`]: !subtleTextColor,
       subtle,
       [`size__${size}`]: !customSize,
-      size_custom: customSize,
+      sizeCustom: customSize,
       subtleTextColor,
       smartColor,
     }"
@@ -85,23 +85,25 @@ defineProps({
 }
 
 .ui-badge {
-  &.size_custom {
+  &.sizeCustom {
     padding: 2px 8px;
     height: var(--size);
   }
-  &.size__small {
-    padding: 2px 8px;
-  }
+  &:not(.sizeCustom) {
+    &.size__small {
+      padding: 2px 8px;
+    }
 
-  &.size__medium,
-  &.size__large {
-    padding: 4px 8px;
-  }
+    &.size__medium,
+    &.size__large {
+      padding: 4px 8px;
+    }
 
-  &.size__huge {
-    height: 30px;
-    min-width: 60px;
-    padding: 7px 14px;
+    &.size__huge {
+      height: 30px;
+      min-width: 60px;
+      padding: 7px 14px;
+    }
   }
 
   &.color-scheme__neutral:not(.smartColor) {

@@ -80,6 +80,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import "../scss/textfield";
 .ui-text-field--counter_input_button {
   display: flex;
   height: 100%;

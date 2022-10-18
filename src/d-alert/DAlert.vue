@@ -251,7 +251,7 @@ const emitClick = () => emit("button-clicked");
 
   &.smartColor {
     &.is-toast {
-      border-color: #ff9505;
+      border-color: var(--smart-color);
       border-left: 4px solid var(--smart-color);
     }
   }
