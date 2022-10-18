@@ -17,4 +17,4 @@ deploy_development:
     - npm install
     - npm run build-storybook
     - npm run build
-    - npm run publish
+    - npm publish
