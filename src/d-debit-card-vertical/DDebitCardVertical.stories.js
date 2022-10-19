@@ -1,8 +1,8 @@
-import DDebitCard2 from "./DDebitCard2.vue";
+import DDebitCardVertical from "./DDebitCardVertical.vue";
 import { DarkModeProvider } from "../main";
 
 export default {
-  component: DDebitCard2,
+  component: DDebitCardVertical,
   title: "Vertical Debit Card",
   argTypes: {
     brand: {
@@ -38,24 +38,24 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { DDebitCard2 },
+  components: { DDebitCardVertical },
   setup() {
     return { args };
   },
   template: `
-    <d-debit-card2 v-bind="args" />
+    <d-debit-card-vertical v-bind="args" />
   `,
 });
 
 const DarkModeTemplate = (args) => ({
-  components: { DDebitCard2, DarkModeProvider },
+  components: { DDebitCardVertical, DarkModeProvider },
   setup() {
     return { args };
   },
   template: `
     <div style="padding: 3em; background: #121A26;">
     <dark-mode-provider :dark-mode="true">
-      <d-debit-card2 v-bind="args" />
+      <d-debit-card-vertical v-bind="args" />
     </dark-mode-provider>
     </div>
   `,
