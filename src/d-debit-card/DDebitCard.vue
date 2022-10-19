@@ -44,17 +44,15 @@
 
 <script setup>
 import { DBox, DText } from "../main";
-import { ref, computed } from "vue";
 import rfid from "./rfid.svg";
-import logo from "./Logo.svg";
-import { BRAND_ALIAS } from "../d-card-input-field/card-brands";
-import CardBrands from "./CardBrands";
+import defaultLogo from "./Logo.svg";
+import { CardBrands } from "../utils/debitCardUtils";
+import { useDebitCard } from "../utils/composables/useDebitCard";
 
-const hidden = ref(true);
 const props = defineProps({
   logo: {
     type: String,
-    default: logo,
+    default: defaultLogo,
   },
   cardNo: {
     type: String,
@@ -83,89 +81,8 @@ const props = defineProps({
   },
 });
 
-const toggleHidden = () => (hidden.value = !hidden.value);
-
-const formatCardNo = (e) => {
-  const value = e.replace(/\s/g, "");
-  const parse = (type) => {
-    let pseudoValue = "";
-    for (let i = 0; i < value.length; i++) {
-      pseudoValue += value.charAt(i);
-      let strippedPseudoValue = pseudoValue.replace(/\s/g, "");
-      if (type === BRAND_ALIAS.AMEX) {
-        if (strippedPseudoValue.length === 4) {
-          pseudoValue += " ";
-        }
-        if (strippedPseudoValue.length === 10) {
-          pseudoValue += " ";
-        }
-      } else {
-        if (strippedPseudoValue.length % 4 === 0) {
-          pseudoValue += " ";
-        }
-      }
-    }
-    return pseudoValue.trim();
-  };
-  switch (value.charAt(0)) {
-    case "5":
-      return parse(BRAND_ALIAS.MASTERCARD);
-    case "3":
-      if (value.length >= 2) {
-        if (value.charAt(1) == "4" || value.charAt(1) == "7") {
-          return parse(BRAND_ALIAS.AMEX);
-        } else {
-          return parse(BRAND_ALIAS.NOCARD);
-        }
-      } else {
-        return parse(BRAND_ALIAS.AMEX);
-      }
-    case "6":
-      return parse(BRAND_ALIAS.DISCOVER);
-    case "4":
-      return parse(BRAND_ALIAS.VISACARD);
-    default:
-      return parse(BRAND_ALIAS.NOCARD);
-  }
-};
-
-const starifyCard = (cardNo) => {
-  const middle = cardNo.slice(4, -4).replace(/./g, "*");
-  const first = cardNo.substring(0, 4);
-  const last = cardNo.substring(cardNo.length - 4);
-  return first + middle + last;
-};
-
-const computedCardNo = computed(() => {
-  if (hidden.value) {
-    return formatCardNo(starifyCard(props.cardNo));
-  } else {
-    return formatCardNo(props.cardNo);
-  }
-});
-
-const computedExp = computed(() => {
-  if (hidden.value) {
-    return props.exp
-      .split("/")
-      .map((item) => item.replace(/./g, "*"))
-      .join("/");
-  } else {
-    return props.exp;
-  }
-});
-
-const computedCVV = computed(() => {
-  if (hidden.value) {
-    return props.cvv.replace(/./g, "*");
-  } else {
-    return props.cvv;
-  }
-});
-
-const cardBrand = computed(() => {
-  return `https://assets.ondeposits.com/img/debit-card-brands/svg/${props.brand}_light.svg`;
-});
+const { computedCardNo, computedExp, computedCVV, cardBrand, toggleHidden } =
+  useDebitCard(props);
 </script>
 
 <style scoped lang="scss">

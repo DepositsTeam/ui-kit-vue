@@ -12,6 +12,7 @@ export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
 export { default as DCol } from "./d-responsive-layout/DCol.vue";
 export { default as DRow } from "./d-responsive-layout/DRow.vue";
 export { default as DDatePicker } from "./d-date-picker/DDatePicker.vue";
+export { default as DDebitCard } from "./d-debit-card/DDebitCard.vue";
 export { default as DDropdown } from "./d-dropdown/DDropdown.vue";
 export { default as DFilePicker } from "./d-file-picker/DFilePicker.vue";
 export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
