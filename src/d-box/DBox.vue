@@ -255,7 +255,9 @@ export default {
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
             [props.fontFace]:
-              props.fontFace && props.is.toLowerCase() !== "svg",
+              props.fontFace &&
+              typeof props.is === "string" &&
+              props.is.toLowerCase() !== "svg",
             dark_mode: darkModeIsEnabled.value,
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
