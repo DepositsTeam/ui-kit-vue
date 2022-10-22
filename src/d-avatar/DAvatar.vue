@@ -31,14 +31,16 @@
         />
       </d-box>
     </d-box>
-    <d-box v-else>
-      <avatar-content
-        :avatar="avatar"
-        :index="0"
-        :stacked="stacked"
-        :drop-down="dropDown"
-        :size="size"
-      />
+    <d-box class="ui-avatars__wrapper" v-else>
+      <d-box class="ui-avatar__wrapper">
+        <avatar-content
+          :avatar="avatar"
+          :index="0"
+          :stacked="stacked"
+          :drop-down="dropDown"
+          :size="size"
+        />
+      </d-box>
     </d-box>
   </d-box>
 </template>
