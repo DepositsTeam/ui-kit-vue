@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 .ui-text-field__input-wrapper {
   display: inline-flex;
   align-items: center;
@@ -16,6 +19,7 @@
   color: #212934;
   width: 100%;
   -webkit-appearance: none;
+  box-sizing: border-box;
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
