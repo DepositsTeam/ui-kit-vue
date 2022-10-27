@@ -48,6 +48,7 @@ defineProps({
   },
   stroke: {
     type: String,
+    default: "#ffffff",
   },
   strokeWidth: {
     type: String,
