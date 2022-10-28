@@ -1882,8 +1882,8 @@ export default {
     margin-right: calc(8px * #{$i});
   }
   .px-#{$i} {
-    padding-left: calc(8px * #{$i});
-    padding-right: calc(8px * #{$i});
+    padding-left: calc(8px * #{$i}) !important;
+    padding-right: calc(8px * #{$i}) !important;
   }
   .my-#{$i} {
     margin-top: calc(8px * #{$i});

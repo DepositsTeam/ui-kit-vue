@@ -11,6 +11,7 @@
 <script setup>
 import { DBox } from "../main";
 import { computed } from "vue";
+
 const props = defineProps({
   alignment: {
     type: String,

@@ -163,7 +163,7 @@ const handleKeyDown = (event) => {
 
 .ui-tag-input__input {
   /* width: 100%; */
-  min-width: 320px;
+  min-width: 80px;
   border: none;
   outline: none;
   display: flex;
@@ -212,6 +212,8 @@ const handleKeyDown = (event) => {
   border-radius: 4px;
   margin-right: 4px;
   padding: 0 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   &.dark_mode {
     background: var(--dark-input-background-color);
     color: #cbd5e1;
