@@ -179,7 +179,7 @@ const computedModelValue = computed(() => {
   if (props.decimal) {
     return number_format(props.modelValue, 2);
   }
-  return props.modelValue ? props.modelValue : 0;
+  return props.modelValue ? props.modelValue : "0";
 });
 
 const increase = () => {
