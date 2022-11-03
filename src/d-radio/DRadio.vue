@@ -5,6 +5,7 @@
     :class="{
       ringed,
       alignToTop,
+      alignRight,
     }"
     @click="emitClick"
   >
@@ -59,6 +60,9 @@ const props = defineProps({
   labelClass: {
     type: [String, Object, Array],
   },
+  alignRight: {
+    type: Boolean,
+  },
 });
 
 const mounted = ref(false);
@@ -87,9 +91,21 @@ const emitClick = () => {
 
 <style lang="scss" scoped>
 .ui-radio__wrapper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   cursor: pointer;
+
+  &.alignRight {
+    flex-direction: row-reverse;
+    > {
+      input {
+        &.hasLabel {
+          margin-right: 0;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
 
   .ui-radio__label-text.ui-text {
     &.dark_mode {
