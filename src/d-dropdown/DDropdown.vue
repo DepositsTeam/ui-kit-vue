@@ -48,7 +48,7 @@
         </d-box>
       </template>
     </d-textfield>
-    <d-box v-if="showOptions" class="ui-dropdown__options">
+    <d-box v-show="showOptions" class="ui-dropdown__options">
       <d-box
         v-for="(option, index) in computedOptions"
         :key="`option-${index}`"
@@ -171,10 +171,11 @@ const computedOptions = computed(() => {
           .includes(inputValue.value.toLowerCase());
       }
     });
-  } else return [...props.options];
+  } else return props.options;
 });
 
 const handleClickedOption = async (option) => {
+  console.log(option);
   if (typeof option === "string") {
     inputValue.value = option;
     emit("update:modelValue", option);
@@ -219,7 +220,7 @@ const handleBlur = async () => {
       inputValue.value = "";
       selectedOption.value = null;
     }
-  }, 100);
+  }, 300);
 };
 
 const handleLeave = (e) => {
@@ -242,12 +243,18 @@ const handleKeyDown = (e) => {
       break;
     case "Enter":
       handleClickedOption(computedOptions.value[selectedIndex.value]);
+      break;
+    case "Escape":
+      handleBlur();
+      e.target.blur();
+      break;
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .ui-dropdown {
+  position: relative;
   .ui-dropdown__options {
     width: 100%;
     background: white;
@@ -255,6 +262,9 @@ const handleKeyDown = (e) => {
     border: 1px solid #e1e7ec;
     max-height: 400px;
     overflow-y: auto;
+    position: absolute;
+    z-index: 99;
+    top: 100%;
     &.dark_mode {
       background: var(--dark-input-background-color);
       border-color: var(--dark-input-background-color);
