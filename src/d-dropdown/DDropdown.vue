@@ -19,7 +19,35 @@
       @blur="handleBlur"
       drop-down
       @right-icon-clicked="toggleDropdown"
-    />
+    >
+      <template
+        #leftIcon
+        v-if="
+          ($slots.icon ||
+            (typeof selectedOption === 'object' && selectedOption.icon)) &&
+          selectedOption
+        "
+      >
+        <d-box class="ui-dropdown__icon" v-if="$slots.icon">
+          <slot name="icon" v-bind="selectedOption"></slot>
+        </d-box>
+
+        <d-box
+          v-if="
+            typeof selectedOption === 'object' &&
+            selectedOption.icon &&
+            !$slots.icon
+          "
+          class="ui-dropdown__icon"
+        >
+          <d-box
+            is="img"
+            :alt="selectedOption.text"
+            :src="selectedOption.icon"
+          />
+        </d-box>
+      </template>
+    </d-textfield>
     <d-box v-if="showOptions" class="ui-dropdown__options">
       <d-box
         v-for="(option, index) in computedOptions"
@@ -29,6 +57,16 @@
         :class="{ active: selectedIndex === index }"
         @mouseenter="updateSelectedIndex(index)"
       >
+        <d-box class="ui-dropdown__icon" v-if="$slots.icon">
+          <slot name="icon" v-bind="option"></slot>
+        </d-box>
+
+        <d-box
+          v-if="typeof option === 'object' && option.icon && !$slots.icon"
+          class="ui-dropdown__icon"
+        >
+          <d-box is="img" :alt="option.text" :src="option.icon" />
+        </d-box>
         <d-text
           dark-class=""
           margin-y="0"
@@ -107,8 +145,12 @@ watch(
 const inputValue = ref("");
 const showOptions = ref(false);
 const selectedIndex = ref(-1);
+const selectedOption = ref(null);
 
-watch(inputValue, () => {
+watch(inputValue, (val, prevVal) => {
+  if (!val && prevVal && !showOptions.value) {
+    return;
+  }
   if (!showOptions.value && mounted.value) {
     showOptions.value = true;
   }
@@ -140,6 +182,7 @@ const handleClickedOption = async (option) => {
     inputValue.value = option.text;
     emit("update:modelValue", option.value);
   }
+  selectedOption.value = option;
   await nextTick();
   showOptions.value = false;
 };
@@ -150,7 +193,7 @@ const handleFocus = () => {
 
 const handleBlur = async () => {
   await nextTick();
-  setTimeout(() => {
+  setTimeout(async () => {
     showOptions.value = false;
     let exactMatch = false;
     for (let option of computedOptions.value) {
@@ -158,6 +201,7 @@ const handleBlur = async () => {
         if (option.toLowerCase() === inputValue.value.toLowerCase()) {
           exactMatch = true;
           inputValue.value = option;
+          selectedOption.value = option;
           emit("update:modelValue", option);
           break;
         }
@@ -165,6 +209,7 @@ const handleBlur = async () => {
         if (option.text.toLowerCase() === inputValue.value.toLowerCase()) {
           exactMatch = true;
           inputValue.value = option.text;
+          selectedOption.value = option;
           emit("update:modelValue", option.value);
           break;
         }
@@ -172,6 +217,7 @@ const handleBlur = async () => {
     }
     if (!exactMatch) {
       inputValue.value = "";
+      selectedOption.value = null;
     }
   }, 100);
 };
@@ -207,6 +253,8 @@ const handleKeyDown = (e) => {
     background: white;
     border-radius: 6px;
     border: 1px solid #e1e7ec;
+    max-height: 400px;
+    overflow-y: auto;
     &.dark_mode {
       background: var(--dark-input-background-color);
       border-color: var(--dark-input-background-color);
@@ -214,6 +262,11 @@ const handleKeyDown = (e) => {
     .ui-dropdown__option {
       padding: 16px 8px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      .ui-dropdown__icon {
+        margin-right: 8px;
+      }
       &.dark_mode {
         color: #94a3b8;
       }

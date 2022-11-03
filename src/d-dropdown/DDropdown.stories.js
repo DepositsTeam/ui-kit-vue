@@ -40,6 +40,9 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    options: {
+      control: { type: "object" },
+    },
   },
 };
 
