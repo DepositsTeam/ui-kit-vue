@@ -7,6 +7,7 @@
       dashed,
       [wrapperClass]: wrapperClass,
       disabled,
+      alignRight,
     }"
   >
     <d-box
@@ -79,6 +80,9 @@ const props = defineProps({
   values: {
     type: Array,
     default: () => [],
+  },
+  alignRight: {
+    type: Boolean,
   },
 });
 
@@ -154,8 +158,21 @@ const handleChange = (e) => {
 
 <style lang="scss" scoped>
 .ui-checkbox__wrapper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  cursor: pointer;
+
+  &.alignRight {
+    flex-direction: row-reverse;
+    > {
+      input {
+        &.hasLabel {
+          margin-right: 0;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
 
   .ui-checkbox__label-wrap.ui-text {
     &.dark_mode {

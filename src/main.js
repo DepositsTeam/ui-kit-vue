@@ -12,6 +12,9 @@ export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
 export { default as DCol } from "./d-responsive-layout/DCol.vue";
 export { default as DRow } from "./d-responsive-layout/DRow.vue";
 export { default as DDatePicker } from "./d-date-picker/DDatePicker.vue";
+export { default as DDebitCard } from "./d-debit-card/DDebitCard.vue";
+export { default as DDebitCardBalance } from "./d-debit-card-balance/DDebitCardBalance.vue";
+export { default as DDebitCardVertical } from "./d-debit-card-vertical/DDebitCardVertical.vue";
 export { default as DDropdown } from "./d-dropdown/DDropdown.vue";
 export { default as DFilePicker } from "./d-file-picker/DFilePicker.vue";
 export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
@@ -28,7 +31,7 @@ export { default as DResponsiveLayout } from "./d-responsive-layout/DResponsiveL
 export { default as DSelect } from "./d-select/DSelect.vue";
 export { default as DStepper } from "./d-stepper/DStepper.vue";
 export { default as DSwitch } from "./d-switch/DSwitch.vue";
-export { default as DTab } from "./d-tab/DTab.vue";
+  export { default as DTabs } from "./d-tabs/DTabs.vue";
 export { default as DTable } from "./d-table/DTable.vue";
 export { default as DTagDropdown } from "./d-tag-dropdown/DTagDropdown.vue";
 export { default as DTagInput } from "./d-tag-input/DTagInput.vue";

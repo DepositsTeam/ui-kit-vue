@@ -1,10 +1,23 @@
 import DTagDropdown from "./DTagDropdown.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
+import { inputArgTypes } from "../utils/inputProps";
+import { ExternalLinkIcon } from "../main";
 
 export default {
   title: "Forms/Tag Dropdown",
   component: DTagDropdown,
-  argTypes: {},
+  argTypes: {
+    ...inputArgTypes,
+    placeholder: {
+      control: { type: "text" },
+    },
+    showCheckboxes: {
+      control: { type: "boolean" },
+    },
+    options: {
+      control: { type: "object" },
+    },
+  },
 };
 
 const Template = (args) => ({
@@ -161,4 +174,11 @@ export const PredefinedOptionsDark = DarkModeTemplateFactory(
 PredefinedOptionsDark.args = {
   options: [...options],
   label: "Predefined Options",
+};
+
+export const LeftIcon = PredefinedTemplate.bind({});
+LeftIcon.args = {
+  options: [...options],
+  label: "Predefined Options",
+  leftIcon: ExternalLinkIcon,
 };

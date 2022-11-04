@@ -4,6 +4,7 @@
     :class="{
       [`direction__${direction}`]: direction,
       [`align__${alignment}`]: alignment,
+      wrap,
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -38,12 +39,16 @@ defineProps({
         "bottom-right",
       ].includes(value),
   },
+  wrap: Boolean,
 });
 </script>
 
 <style lang="scss">
 .d-auto-layout {
   display: flex;
+  &.wrap {
+    flex-wrap: wrap;
+  }
   &.direction__horizontal {
     flex-direction: row;
     & > *:not(:last-child) {

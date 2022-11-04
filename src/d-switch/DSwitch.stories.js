@@ -21,6 +21,9 @@ export default {
     switchColor: {
       control: { type: "color" },
     },
+    alignRight: {
+      control: { type: "boolean" },
+    },
   },
 };
 

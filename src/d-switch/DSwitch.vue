@@ -7,6 +7,7 @@
       [`semantic__${colorScheme}`]: colorScheme,
       custom_color: switchColor,
       custom_thumb_color: thumbColor,
+      alignRight,
     }"
     :style="{
       '--customswitchcolor': switchColor,
@@ -49,14 +50,22 @@ defineProps({
   thumbColor: {
     type: String,
   },
+  alignRight: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .ui-switch__wrapper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   cursor: pointer;
+
+  &.alignRight {
+    flex-direction: row-reverse;
+  }
   &.custom_color {
     .ui-switch {
       input:checked + .ui-slider {

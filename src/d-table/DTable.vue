@@ -1,7 +1,19 @@
 <template>
-  <d-box class="ui-table__container">
+  <d-box
+    class="ui-table__container"
+    :style="{
+      '--smart-color': smartColor,
+      '--smart-text-color': getTextColor(smartColor),
+    }"
+  >
     <d-box class="ui-table__header">
-      <d-box v-if="search">
+      <d-box
+        v-if="search"
+        class="ui-table__header__search-wrapper"
+        :class="{
+          [searchAlignment]: buttonActionsEnabled ? false : searchAlignment,
+        }"
+      >
         <d-textfield
           :left-icon="SearchIcon"
           :placeholder="searchPlaceholder"
@@ -9,7 +21,12 @@
           size="large"
         />
       </d-box>
-      <d-box class="ui-table__header-btns">
+      <d-box
+        class="ui-table__header-btns"
+        :class="{
+          [buttonActionsAlignment]: search ? false : buttonActionsAlignment,
+        }"
+      >
         <d-button
           v-if="enableCustomizeView"
           @click="toggleCustomizeViewModal(true)"
@@ -121,6 +138,7 @@
                 width: column.width,
                 minWidth: column.minWidth,
                 maxWidth: column.maxWidth,
+                smartColor,
               }"
               :style="{
                 ...getColumnWidth(column),
@@ -191,6 +209,7 @@
         :current-page="currentPage"
         :current-page-siblings="currentPageSiblings"
         @page-changed="handlePageChange"
+        :smart-color="smartColor"
       />
     </d-box>
     <table-customize-view-modal
@@ -239,6 +258,7 @@ import uniqueRandomString from "../utils/uniqueRandomString";
 import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
 import { useCsvExport } from "./composables/useCsvExport";
+import { getTextColor } from "../utils/colorManager";
 
 const props = defineProps({ ...tableProps });
 const emit = defineEmits(["page-updated"]);
@@ -367,6 +387,10 @@ const totalPages = computed(() => {
   }
   return Math.ceil(props.data.length / props.itemsPerPage);
 });
+
+const buttonActionsEnabled = computed(
+  () => props.enableCustomizeView && props.enableCsvExport
+);
 </script>
 
 <style lang="scss">
@@ -379,9 +403,26 @@ const totalPages = computed(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+    .ui-table__header__search-wrapper {
+      display: flex;
+      &.left,
+      &.right {
+        flex: 1;
+      }
+      &.right {
+        justify-content: flex-end;
+      }
+    }
     .ui-table__header-btns {
       display: flex;
       align-items: center;
+      &.left,
+      &.right {
+        flex: 1;
+      }
+      &.right {
+        justify-content: flex-end;
+      }
       & > *:not(:last-child) {
         margin-right: 8px;
       }
@@ -434,19 +475,39 @@ const totalPages = computed(() => {
   .ui-table__heading-cell {
     position: relative;
     cursor: pointer;
-    &.dark_mode {
+    &.smartColor {
+      &:hover {
+        .ui-table__heading-cell-text.ui-text {
+          color: var(--smart-color);
+        }
+        .ui-table__heading-cell__icon {
+          color: var(--smart-color);
+        }
+        color: var(--smart-color);
+      }
+    }
+    &.dark_mode:not(.smartColor) {
       .ui-table__heading-cell-text.ui-text {
         color: #f1f5f9;
+      }
+      &:hover {
+        .ui-table__heading-cell-text.ui-text {
+          color: var(--dark-primary-color);
+        }
+        .ui-table__heading-cell__icon {
+          color: var(--dark-primary-color);
+        }
+        color: var(--dark-primary-color);
       }
     }
     &:hover {
       .ui-table__heading-cell-text.ui-text {
-        color: #0db9e9;
+        color: var(--light-primary-color);
       }
       .ui-table__heading-cell__icon {
-        color: #0db9e9;
+        color: var(--light-primary-color);
       }
-      color: #0db9e9;
+      color: var(--light-primary-color);
     }
   }
   .ui-table__heading-cell,

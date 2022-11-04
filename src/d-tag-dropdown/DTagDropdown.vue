@@ -2,7 +2,9 @@
   <d-box
     :style="{ ...___theme }"
     class="ui-tag-dropdown__wrapper"
-    :class="`size__${size}`"
+    :class="{
+      [`size__${size}`]: true,
+    }"
   >
     <d-box is="label">
       <d-text
@@ -14,7 +16,25 @@
         {{ label }}
       </d-text>
     </d-box>
-    <d-box class="ui-tag-dropdown__input-wrapper" @click="toggleOptions">
+    <d-box
+      class="ui-tag-dropdown__input-wrapper"
+      :class="{ emptyDropdown: !inputTags.length, hasError: !!errorMessage }"
+      @click="toggleOptions"
+    >
+      <d-box
+        class="ui-tag-dropdown__left-icon"
+        v-if="leftIcon || $slots.leftIcon"
+      >
+        <component
+          :is="leftIcon"
+          v-if="leftIcon"
+          class="ui-text-field__left-icon"
+          @click="emitLeftIconClicked"
+        ></component>
+        <d-box v-else-if="$slots.leftIcon" class="ui-text-field__left-icon">
+          <slot name="leftIcon"></slot>
+        </d-box>
+      </d-box>
       <d-box class="ui-tag-dropdown__input-wrapper__left">
         <d-box
           is="div"
@@ -36,16 +56,28 @@
             width="16px"
           />
         </d-box>
-        <d-textfield
-          readonly
-          invisible
-          class="ui-tag-dropdown__input"
-          autoFocus
-          :size="size"
-        />
+        <d-text
+          v-if="placeholder && !inputTags.length"
+          class="ui-tag-dropdown__placeholder"
+          my0
+        >
+          {{ placeholder }}
+        </d-text>
       </d-box>
       <d-box class="ui-tag-dropdown__input-wrapper__right">
-        <d-box class="ui-tag-dropdown__input-wrapper__right__icon-wrapper">
+        <component
+          class="ui-text-field__right-icon"
+          v-if="rightIcon"
+          :is="rightIcon"
+          @click="emitRightIconClicked"
+        ></component>
+        <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
+          <slot name="rightIcon"></slot>
+        </d-box>
+        <d-box
+          v-else
+          class="ui-tag-dropdown__input-wrapper__right__icon-wrapper"
+        >
           <chevron-filled-down-icon
             class="ui-tag-dropdown__input-wrapper__right__icon-wrapper"
           />
@@ -61,6 +93,7 @@
           v-model="inputValue"
           :left-icon="SearchIcon"
           :placeholder="placeholder"
+          size="large"
         />
       </d-box>
 
@@ -69,13 +102,17 @@
           class="ui-tag-dropdown__dropdown__option"
           v-for="(option, index) in computedOptions"
           :key="`option-${index}`"
+          @click="selectOption(option)"
           :class="{
             selected: selectedOptions.includes(
               typeof option === 'string' ? option : option.value
             ),
+            dropdownMode: !showCheckboxes,
           }"
+          :cursor="showCheckboxes ? 'auto' : 'pointer'"
         >
           <d-checkbox
+            v-if="showCheckboxes"
             :value="typeof option === 'string' ? option : option.value"
             v-model="selectedOptions"
           >
@@ -87,8 +124,21 @@
               >{{ typeof option === "string" ? option : option.text }}</d-text
             >
           </d-checkbox>
+          <d-text v-else margin-y="0" font-face="circularSTD" scale="subhead">
+            {{ typeof option === "string" ? option : option.text }}
+          </d-text>
         </d-box>
       </d-box>
+    </d-box>
+    <d-box v-if="errorMessage" class="ui-text-field__error">
+      <ErrorIcon class="ui-text-field__error-icon" />
+      <d-text
+        class="ui-text-field__error-text"
+        scale="subhead"
+        fontFace="circularSTD"
+      >
+        {{ errorMessage }}
+      </d-text>
     </d-box>
   </d-box>
 </template>
@@ -102,6 +152,7 @@ import {
   ChevronFilledDownIcon,
   DCheckbox,
   SearchIcon,
+  ErrorIcon,
 } from "../main";
 import keyGen from "../utils/keyGen";
 import {
@@ -127,9 +178,25 @@ const props = defineProps({
   modelValue: {
     type: Array,
   },
+  showCheckboxes: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits([
+  "update:modelValue",
+  "leftIconClicked",
+  "rightIconClicked",
+]);
+
+const emitLeftIconClicked = (e) => {
+  emit("leftIconClicked", e);
+};
+
+const emitRightIconClicked = (e) => {
+  emit("rightIconClicked", e);
+};
 
 const inputValue = ref("");
 const showOptions = ref(false);
@@ -140,7 +207,18 @@ watch(props.modelValue, (val) => {
 });
 
 const computedOptions = computed(() => {
-  return props.options.filter((option) => {
+  let prefilteredOptions = [...props.options];
+
+  if (!props.showCheckboxes) {
+    prefilteredOptions = [...props.options].filter(
+      (option) =>
+        !selectedOptions.value.includes(
+          typeof option === "object" ? option.value : option
+        )
+    );
+  }
+
+  return prefilteredOptions.filter((option) => {
     if (typeof option === "string") {
       return option.toLowerCase().includes(inputValue.value.toLowerCase());
     } else {
@@ -157,6 +235,15 @@ const selectedOptions = computed({
     emit("update:modelValue", value);
   },
 });
+
+const selectOption = (option) => {
+  if (!props.showCheckboxes) {
+    const optionValue = typeof option === "object" ? option.value : option;
+    const currentSelectedOptions = [...selectedOptions.value];
+    currentSelectedOptions.push(optionValue);
+    emit("update:modelValue", currentSelectedOptions);
+  }
+};
 
 const toggleOptions = async () => {
   showOptions.value = !showOptions.value;
@@ -214,11 +301,14 @@ const ___theme = inject("___theme", defaultThemeVars);
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   background: #fff;
   justify-content: space-between;
   position: relative;
+  &.hasError {
+    background: #fff0f2;
+    border-color: #d62f4b;
+  }
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
@@ -229,12 +319,16 @@ const ___theme = inject("___theme", defaultThemeVars);
     width: 100%;
     flex-wrap: wrap;
   }
+  .ui-tag-dropdown__input-wrapper__right,
+  .ui-tag-dropdown__left-icon {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 32px;
+  }
   .ui-tag-dropdown__input-wrapper__right__icon-wrapper {
     right: 16px;
     color: #5f6b7a;
-    cursor: pointer;
-    position: absolute;
-    top: 30%;
     .ui-tag-dropdown__input-wrapper__right__icon-wrapper {
       cursor: pointer;
     }
@@ -256,34 +350,67 @@ const ___theme = inject("___theme", defaultThemeVars);
 
 .ui-tag-dropdown__wrapper {
   box-sizing: border-box;
+  .ui-tag-dropdown__placeholder {
+    color: rgba(#b8c4ce, 0.5);
+    font-family: "Hero New", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
   &.size__massive .ui-tag-dropdown__input-wrapper {
     //min-height: calc(64px - 16px);
+    &.emptyDropdown {
+      height: 64px;
+    }
     padding: 2px 16px;
+    min-height: calc(64px - 8px);
   }
 
   &.size__huge .ui-tag-dropdown__input-wrapper {
     //min-height: calc(56px - 16px);
+    &.emptyDropdown {
+      height: 56px;
+    }
     padding: 2px 16px;
+    min-height: calc(56px - 8px);
   }
 
   &.size__xlarge .ui-tag-dropdown__input-wrapper {
     //min-height: calc(48px - 16px);
+    &.emptyDropdown {
+      height: 48px;
+    }
     padding: 2px 12px;
+    min-height: calc(48px - 8px);
   }
 
   &.size__large .ui-tag-dropdown__input-wrapper {
     //min-height: calc(40px - 16px);
+    &.emptyDropdown {
+      height: 40px;
+    }
     padding: 2px 12px;
+    min-height: calc(40px - 8px);
   }
 
   &.size__medium .ui-tag-dropdown__input-wrapper {
     //min-height: calc(32px - 16px);
+    &.emptyDropdown {
+      height: 32px;
+    }
     padding: 2px 12px;
+    min-height: calc(32px - 8px);
   }
 
   &.size__small .ui-tag-dropdown__input-wrapper {
     //min-height: calc(24px - 8px);
+    &.emptyDropdown {
+      height: 24px;
+    }
+    .ui-tag-dropdown__placeholder {
+      font-size: 12px;
+    }
     padding: 2px 8px;
+    min-height: calc(42px - 8px);
   }
 }
 
@@ -294,6 +421,8 @@ const ___theme = inject("___theme", defaultThemeVars);
   white-space: nowrap;
   border-radius: 4px;
   margin-right: 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   padding: 0 8px;
   &.dark_mode {
     background: var(--dark-input-background-color);
@@ -349,6 +478,31 @@ const ___theme = inject("___theme", defaultThemeVars);
 
 .ui-tag-dropdown__dropdown__option {
   padding: 8px 16px;
+  &.dropdownMode {
+    &:hover,
+    &:active {
+      background: #f2fafc;
+      color: #0db9e9;
+      position: relative;
+      &.dark_mode {
+        background: #041d25;
+        color: #0db9e9;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0.5px;
+        width: 2px;
+        height: 100%;
+        border-radius: 0 2px 2px 0;
+        background: #0db9e9;
+        &.dark_mode {
+          background: (var--dark-primary-action-color);
+        }
+      }
+    }
+  }
   &.dark_mode {
     color: #94a3b8;
     border-left: 2px solid transparent;

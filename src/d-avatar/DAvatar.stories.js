@@ -172,7 +172,7 @@ SubtleDarkMediumAvatars.args = {
   size: "medium",
   avatars: [
     {
-      status: "green",
+      status: "grey",
       name: "Charles Babbage",
     },
     {

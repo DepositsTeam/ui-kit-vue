@@ -20,6 +20,9 @@ export default {
     disabled: {
       control: { type: "boolean" },
     },
+    alignRight: {
+      control: { type: "boolean" },
+    },
   },
 };
 
