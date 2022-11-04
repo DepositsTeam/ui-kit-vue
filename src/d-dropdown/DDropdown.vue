@@ -100,6 +100,9 @@ const props = defineProps({
   options: {
     type: Array,
   },
+  returnObjModel: {
+    type: Boolean,
+  },
   ...inputProps,
 });
 
@@ -175,13 +178,16 @@ const computedOptions = computed(() => {
 });
 
 const handleClickedOption = async (option) => {
-  console.log(option);
   if (typeof option === "string") {
     inputValue.value = option;
     emit("update:modelValue", option);
   } else {
     inputValue.value = option.text;
-    emit("update:modelValue", option.value);
+    if (props.returnObjModel) {
+      emit("update:modelValue", option);
+    } else {
+      emit("update:modelValue", option.value);
+    }
   }
   selectedOption.value = option;
   await nextTick();
@@ -211,7 +217,11 @@ const handleBlur = async () => {
           exactMatch = true;
           inputValue.value = option.text;
           selectedOption.value = option;
-          emit("update:modelValue", option.value);
+          if (props.returnObjModel) {
+            emit("update:modelValue", option);
+          } else {
+            emit("update:modelValue", option.value);
+          }
           break;
         }
       }

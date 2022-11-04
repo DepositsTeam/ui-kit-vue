@@ -44,11 +44,23 @@ export default {
 
 const Template = (args) => ({
   components: { DCountryDropdown },
+  data: () => ({
+    country: "",
+    states: [],
+  }),
   setup() {
     return { args };
   },
+  methods: {
+    hydrateStates: function (states) {
+      this.states = states;
+      console.log(states);
+    },
+  },
   template: `
-    <d-country-dropdown v-bind="args" />`,
+    <d-country-dropdown v-bind="args" v-model="country" @states-changed="hydrateStates" />
+    <p>Selected states: {{states}}</p>
+  `,
 });
 
 export const Default = Template.bind({});
