@@ -62,6 +62,19 @@ export default {
     searchPlaceholder: {
       control: { type: "text" },
     },
+    buttonActionsAlignment: {
+      control: { type: "select" },
+      options: ["left", "right"],
+      default: "left",
+    },
+    searchAlignment: {
+      control: { type: "select" },
+      options: ["left", "right"],
+      default: "left",
+    },
+    smartColor: {
+      control: { type: "color" },
+    },
   },
 };
 

@@ -31,7 +31,7 @@ export { default as DResponsiveLayout } from "./d-responsive-layout/DResponsiveL
 export { default as DSelect } from "./d-select/DSelect.vue";
 export { default as DStepper } from "./d-stepper/DStepper.vue";
 export { default as DSwitch } from "./d-switch/DSwitch.vue";
-export { default as DTab } from "./d-tab/DTab.vue";
+  export { default as DTabs } from "./d-tabs/DTabs.vue";
 export { default as DTable } from "./d-table/DTable.vue";
 export { default as DTagDropdown } from "./d-tag-dropdown/DTagDropdown.vue";
 export { default as DTagInput } from "./d-tag-input/DTagInput.vue";

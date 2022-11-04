@@ -25,8 +25,8 @@
         class="ui-text-field__input"
         :class="{
           'has-error': showError || errorMessage,
-          'has-left-icon': leftIcon,
-          'has-right-icon': dropDown || rightIcon,
+          'has-left-icon': leftIcon || $slots.leftIcon,
+          'has-right-icon': dropDown || rightIcon || $slots.rightIcon,
           invisible,
           disabled,
           oneCharWide,

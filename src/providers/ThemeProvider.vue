@@ -28,6 +28,8 @@ const hydrateTheme = () => {
   if (computedTheme.primaryColor) {
     computedTheme["light-primary-action-color"] = computedTheme.primaryColor;
     computedTheme["dark-primary-action-color"] = computedTheme.primaryColor;
+    computedTheme["light-primary-color"] = computedTheme.primaryColor;
+    computedTheme["dark-primary-color"] = computedTheme.primaryColor;
     computedTheme["primarycolor"] = computedTheme.primaryColor;
   }
 
@@ -37,23 +39,30 @@ const hydrateTheme = () => {
     computedTheme["light-primary-action-color"]
   );
 
+  computedTheme["light-primary-color"] =
+    computedTheme["light-primary-action-color"];
+
   computedTheme["light-primary-action-hover-color"] = `#${tinycolor(
     computedTheme["light-primary-action-color"]
   )
     .lighten(15)
     .toHex()}`;
+
   computedTheme["light-primary-action-disabled-color"] = `#${tinycolor(
     computedTheme["light-primary-action-color"]
   )
     .lighten(38)
     .toHex()}`;
+
   computedTheme["light-primary-action-disabled-text-color"] = getTextColor(
     computedTheme["light-primary-action-disabled-color"],
     true
   );
+
   computedTheme["light-primary-action-text-hover-color"] = getTextColor(
     computedTheme["light-primary-action-hover-color"]
   );
+
   computedTheme["light-primary-action-box-shadow-color"] = hexToRgbA(
     computedTheme["light-primary-action-color"],
     0.2
@@ -64,41 +73,52 @@ const hydrateTheme = () => {
     computedTheme["light-danger-color"],
     0.2
   );
+
   computedTheme["light-warning-box-shadow-color"] = hexToRgbA(
     computedTheme["light-warning-color"],
     0.2
   );
+
   computedTheme["light-success-box-shadow-color"] = hexToRgbA(
     computedTheme["light-success-color"],
     0.2
   );
+
   computedTheme["dark-danger-box-shadow-color"] = hexToRgbA(
     computedTheme["dark-danger-color"],
     0.2
   );
+
   computedTheme["dark-warning-box-shadow-color"] = hexToRgbA(
     computedTheme["dark-warning-color"],
     0.2
   );
+
   computedTheme["dark-success-box-shadow-color"] = hexToRgbA(
     computedTheme["dark-success-color"],
     0.2
   );
+
   computedTheme["light-danger-text-color"] = getTextColor(
     computedTheme["light-danger-color"]
   );
+
   computedTheme["dark-danger-text-color"] = getTextColor(
     computedTheme["dark-danger-color"]
   );
+
   computedTheme["light-success-text-color"] = getTextColor(
     computedTheme["light-success-color"]
   );
+
   computedTheme["dark-success-text-color"] = getTextColor(
     computedTheme["dark-success-color"]
   );
+
   computedTheme["light-warning-text-color"] = getTextColor(
     computedTheme["light-warning-color"]
   );
+
   computedTheme["dark-warning-text-color"] = getTextColor(
     computedTheme["dark-warning-color"]
   );
@@ -107,23 +127,31 @@ const hydrateTheme = () => {
   computedTheme["dark-primary-action-text-color"] = getTextColor(
     computedTheme["dark-primary-action-color"]
   );
+
+  computedTheme["light-primary-color"] =
+    computedTheme["light-primary-action-color"];
+
   computedTheme["dark-primary-action-hover-color"] = `#${tinycolor(
     computedTheme["dark-primary-action-color"]
   )
     .lighten(15)
     .toHex()}`;
+
   computedTheme["dark-primary-action-disabled-color"] = `#${tinycolor(
     computedTheme["dark-primary-action-color"]
   )
     .lighten(38)
     .toHex()}`;
+
   computedTheme["dark-primary-action-disabled-text-color"] = getTextColor(
     computedTheme["dark-primary-action-disabled-color"],
     true
   );
+
   computedTheme["dark-primary-action-text-hover-color"] = getTextColor(
     computedTheme["dark-primary-action-hover-color"]
   );
+
   computedTheme["dark-primary-action-box-shadow-color"] = hexToRgbA(
     computedTheme["dark-primary-action-color"],
     0.2
@@ -135,25 +163,30 @@ const hydrateTheme = () => {
   )
     .lighten(8)
     .toHex()}`;
+
   computedTheme["dark-input-border-color"] = `#${tinycolor(
     computedTheme["dark-input-background-color"]
   )
     .lighten(23)
     .toHex()}`;
+
   computedTheme["dark-input-label-color"] = `#${tinycolor(
     computedTheme["dark-input-background-color"]
   )
     .lighten(58)
     .toHex()}`;
+
   computedTheme["dark-input-disabled-color"] = `#${tinycolor(
     computedTheme["dark-input-background-color"]
   )
     .lighten(2)
     .toHex()}`;
+
   computedTheme["dark-input-disabled-text-color"] = hexToRgbA(
     computedTheme["dark-input-label-color"],
     0.8
   );
+
   computedTheme["dark-input-icon-color"] = `#${tinycolor(
     computedTheme["dark-input-background-color"]
   )

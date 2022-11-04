@@ -116,6 +116,7 @@ const defaultTheme = {
   "dark-background-color": "#121A26",
   "dark-input-disabled-text-color": "rgba(148, 163, 184, 0.8)",
 
+  "light-primary-color": "#0db9e9",
   "light-primary-100": "#f2fafc",
   "light-primary-200": "#bdf3fc",
   "light-primary-300": "#75e2fa",
@@ -126,11 +127,12 @@ const defaultTheme = {
   "light-primary-800": "#085e7a",
   "light-primary-900": "#094357",
 
+  "dark-primary-color": "#0db9e9",
   "dark-primary-100": "#56c7ee",
   "dark-primary-200": "#36bdea",
-  "dark-primary-300": "#0b87b0",
-  "dark-primary-400": "#0c9ccc",
-  "dark-primary-500": "#1494bf",
+  "dark-primary-300": "#0ea2d3",
+  "dark-primary-400": "#0b7fa5",
+  "dark-primary-500": "#0db9e9",
   "dark-primary-600": "#1182a8",
   "dark-primary-700": "#0f6d8d",
   "dark-primary-800": "#085e7a",
