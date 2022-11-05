@@ -1,4 +1,5 @@
 import DCountryDropdown from "./DCountryDropdown.vue";
+import { DSelect } from "../main";
 
 export default {
   component: DCountryDropdown,
@@ -43,22 +44,26 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { DCountryDropdown },
+  components: { DCountryDropdown, DSelect },
   data: () => ({
     country: "",
     states: [],
+    selectedState: "",
   }),
   setup() {
     return { args };
   },
   methods: {
     hydrateStates: function (states) {
-      this.states = states;
-      console.log(states);
+      this.states = states.map((state) => ({
+        text: state.name,
+        value: state.name,
+      }));
     },
   },
   template: `
     <d-country-dropdown v-bind="args" v-model="country" @states-changed="hydrateStates" />
+    <d-select name="States" :options="states" v-model="selectedState" />
     <p>Selected states: {{states}}</p>
   `,
 });
