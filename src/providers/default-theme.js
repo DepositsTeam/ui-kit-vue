@@ -30,7 +30,7 @@ const defaultTheme = {
   "light-danger-200": "#FCC5CE",
   "light-danger-300": "#F99BAB",
   "light-danger-400": "#E85E75",
-  "light-danger-`500": "#D62F4B",
+  "light-danger-500": "#D62F4B",
   "light-danger-600": "#AD283D",
   "light-danger-700": "#842432",
   "light-danger-800": "#5C1E27",

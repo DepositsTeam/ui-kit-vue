@@ -1,5 +1,8 @@
 <template>
-  <d-box :class="`size__${size}`" class="ui-text-field__wrapper heroNew">
+  <d-box
+    :class="`size__${size}`"
+    class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
+  >
     <d-box
       is="label"
       :class="labelClass"
@@ -11,15 +14,17 @@
         label
       }}</d-text>
     </d-box>
-    <d-box class="ui-card-input-field__input-wrapper">
+    <d-box class="ui-card-input-field__input-wrapper" :class="`size__${size}`">
       <d-box
         class="ui-card-input-field__pseudo-input"
-        :class="{ focus: pseudoCardInputIsFocused, hasError: errorMessage }"
+        :class="{
+          focus: pseudoCardInputIsFocused,
+          hasError: computedCardErrorMessage,
+        }"
         ref="pseudoInput"
       >
         <d-box>
           <CardIcon
-            :smart-color="d__theme['--light-primary-action-color']"
             class="ui-card-input-field__left-icon"
             v-if="selectedCard === -1"
             width="24"
@@ -58,6 +63,8 @@
               @focus="handleCardExpFocus"
               @blur="handleCardExpBlur"
               @keypress="allowOnlyNumbers"
+              @paste="handleCardExpInput"
+              @change="handleCardExpInput"
               @input="handleCardExpInput"
               ref="cardExpInput"
             />
@@ -70,6 +77,7 @@
               :value="cardCvv"
               @focus="handleCardCVVFocus"
               @blur="handleCardCVVBlur"
+              @keypress="allowOnlyNumbers"
               ref="cardCVCInput"
             />
             <ScanCardIcon
@@ -80,14 +88,14 @@
         </d-box>
       </d-box>
     </d-box>
-    <d-box v-if="errorMessage" class="ui-text-field__error">
+    <d-box v-if="computedCardErrorMessage" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
         class="ui-card-input-field__error-text"
         scale="subhead"
         font-face="circularSTD"
       >
-        {{ errorMessage }}
+        {{ computedCardErrorMessage }}
       </d-text>
     </d-box>
   </d-box>
@@ -98,10 +106,8 @@ import { DBox, DText, ScanCardIcon, CardIcon, ErrorIcon } from "../main";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import CardBrands, { BRAND_ALIAS } from "./card-brands";
 import inputProps from "../utils/inputProps";
-import { ref, inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-
-const d__theme = inject("d__theme", defaultThemeVars);
+import { ref, computed } from "vue";
+import cardValidator from "card-validator";
 
 const props = defineProps({
   ...inputProps,
@@ -117,6 +123,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  allowExpiredCardDateInExp: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(["update:cardNo", "update:cardCvv", "update:cardExp"]);
@@ -131,50 +141,118 @@ const cardNoDisplay = ref("");
 const targetPosition = ref(null);
 const pseudoCardInputIsFocused = ref(false);
 
+const cardNoError = ref(null);
+const cardExpError = ref(null);
+const cardCVCError = ref(null);
+
 const handleCardCVVBlur = () => (pseudoCardInputIsFocused.value = false);
 
-const handleCardCVVFocus = () => (pseudoCardInputIsFocused.value = true);
+const handleCardCVVFocus = () => {
+  if (cardNoError.value) {
+    cardNoInput.value.$el.focus();
+  } else if (cardExpError.value) {
+    cardExpInput.value.$el.focus();
+  } else {
+    pseudoCardInputIsFocused.value = true;
+  }
+};
 
 const handleCardExpBlur = () => (pseudoCardInputIsFocused.value = false);
 
-const handleCardExpFocus = () => (pseudoCardInputIsFocused.value = true);
+const handleCardExpFocus = () => {
+  if (cardNoError.value) {
+    cardNoInput.value.$el.focus();
+  } else if (cardCVCError.value) {
+    cardCVCInput.value.$el.focus();
+  } else {
+    pseudoCardInputIsFocused.value = true;
+  }
+};
 
 const handleCardExpInput = (e) => {
-  emit("update:cardExp", e.target.value);
-  const value = e.target.value;
-  if (value.length === 2) {
-    if (value > 12 || !isFinite(value)) {
-      e.preventDefault();
-      return;
-    } else {
-      emit("update:cardExp", `${value}/`);
-      e.target.value = `${value}/`;
-      return;
-    }
-  }
-  if (value.length === 3) {
-    if (value.charAt(2) !== "/" || value.substring(0, 2) > 12) {
-      e.preventDefault();
-      emit("update:cardExp", e.target.value.substring(0, 2));
-      e.target.value = e.target.value.substring(0, 2);
-      return;
-    }
-  }
-  if (value.length === 1 && value === "/") {
-    emit("update:cardExp", "");
-    e.target.value = "";
-  }
-  if (value.length === 5) {
-    e.preventDefault();
+  let value;
+  cardExpError.value = null;
+
+  if (cardNoError.value) {
+    cardNoInput.value.$el.focus();
+  } else if (cardCVCError.value) {
     cardCVCInput.value.$el.focus();
-    return;
+  } else {
+    if (e.type.toLowerCase() === "paste") {
+      e.preventDefault();
+      value = (e.clipboardData || window.clipboardData).getData("text");
+    } else {
+      // emit("update:cardExp", e.target.value);
+      value = e.target.value;
+    }
+
+    const validateCompleteExp = (value) => {
+      const month = value.substring(0, 2);
+      const year = value.substring(3);
+      const currentYear = new Date().getFullYear().toString().substring(2);
+      const currentMonth = new Date().getMonth() + 1;
+
+      if (month > 12) {
+        cardExpError.value =
+          "Please enter a valid month in the card expiry field";
+        cardExpInput.value.$el.value = month;
+      } else if (value.charAt(2) !== "/") {
+        cardExpInput.value.$el.value = month + "/";
+      } else if (!props.allowExpiredCardDateInExp && year < currentYear) {
+        cardExpError.value = "You've entered an expired card";
+      } else if (
+        month < currentMonth &&
+        year == currentYear &&
+        !props.allowExpiredCardDateInExp
+      ) {
+        cardExpError.value = "You've entered an expired card";
+      } else {
+        cardExpInput.value.$el.value = value;
+        emit("update:cardExp", value);
+        cardCVCInput.value.$el.focus();
+      }
+    };
+
+    if (value.length < 5) {
+      if (value.length === 1 && value != 0 && value != 1) {
+        cardExpError.value =
+          "Please enter a valid month in the card expiry field";
+      } else if (
+        (value.length >= 2 && value.substring(0, 2) > 12) ||
+        !isFinite(Number(value.substring(0, 2)))
+      ) {
+        e.preventDefault();
+        cardExpError.value =
+          "Please enter a valid month in the card expiry field";
+        e.target.value = !isFinite(value) ? "" : value.substring(0, 2);
+      } else if (value.length >= 3 && value.charAt(2) !== "/") {
+        e.target.value = value.substring(0, 2) + "/";
+      } else {
+        if (value.length === 2) {
+          if (
+            e.inputType &&
+            e.inputType !== "deleteContentBackward" &&
+            e.inputType !== "deleteContentForward"
+          ) {
+            e.target.value = value + "/";
+            emit("update:cardExp", value + "/");
+          }
+        } else {
+          emit("update:cardExp", value);
+        }
+      }
+    } else if (value.length === 5) {
+      validateCompleteExp(value);
+    } else {
+      e.target.value = "";
+    }
   }
 };
 
 const handleCardNoBlur = (e) => {
   e.preventDefault();
   pseudoCardInputIsFocused.value = false;
-  const stringCardNo = props.cardNo + "";
+  const stringCardNo = props.cardNo ? props.cardNo + "" : cardNoDisplay.value;
   const strippedCardNo = stringCardNo.replace(/\s/g, "");
   if (selectedCard.value == BRAND_ALIAS.AMEX) {
     if (strippedCardNo.length === 15) {
@@ -210,8 +288,14 @@ const handleCardNoChange = () => {
 };
 
 const handleCardNoFocus = () => {
-  pseudoCardInputIsFocused.value = true;
-  cardNoDisplay.value = props.cardNo;
+  if (cardExpError.value) {
+    cardExpInput.value.$el.focus();
+  } else if (cardCVCError.value) {
+    cardCVCInput.value.$el.focus();
+  } else {
+    pseudoCardInputIsFocused.value = true;
+    cardNoDisplay.value = props.cardNo;
+  }
 };
 
 const handleCardNoInput = (e) => {
@@ -251,6 +335,7 @@ const handleCardNoInput = (e) => {
       selectedCard.value = BRAND_ALIAS.MASTERCARD;
       emit("update:cardNo", parse(BRAND_ALIAS.MASTERCARD));
       cardNoDisplay.value = parse(BRAND_ALIAS.MASTERCARD);
+      validateCardNo(value);
 
       break;
     case "3":
@@ -265,24 +350,50 @@ const handleCardNoInput = (e) => {
       }
       emit("update:cardNo", parse(BRAND_ALIAS.AMEX));
       cardNoDisplay.value = parse(BRAND_ALIAS.AMEX);
+      validateCardNo(value);
 
       break;
     case "6":
       selectedCard.value = BRAND_ALIAS.DISCOVER;
       emit("update:cardNo", parse(BRAND_ALIAS.DISCOVER));
       cardNoDisplay.value = parse(BRAND_ALIAS.DISCOVER);
+      validateCardNo(value);
 
       break;
     case "4":
       selectedCard.value = BRAND_ALIAS.VISACARD;
       emit("update:cardNo", parse(BRAND_ALIAS.VISACARD));
       cardNoDisplay.value = parse(BRAND_ALIAS.VISACARD);
+      validateCardNo(value);
 
       break;
     default:
       selectedCard.value = BRAND_ALIAS.NOCARD;
       emit("update:cardNo", parse(BRAND_ALIAS.NOCARD));
       cardNoDisplay.value = parse(null);
+  }
+};
+
+const validateCardNo = (cardNo) => {
+  cardNoError.value = null;
+  const validatedCardNo = cardValidator.number(cardNo.replaceAll(" ", ""));
+  console.log(validatedCardNo);
+  if (validatedCardNo && validatedCardNo.card) {
+    cardNoInput.value.$el.setAttribute(
+      "maxlength",
+      validatedCardNo.card.lengths[validatedCardNo.card.lengths.length - 1] +
+        validatedCardNo.card.gaps.length
+    );
+    cardCVCInput.value.$el.setAttribute(
+      "maxlength",
+      validatedCardNo.card.code.size
+    );
+  }
+
+  if (!validatedCardNo.isPotentiallyValid) {
+    cardNoError.value = `Please enter a valid ${validatedCardNo.card.niceType} card number`;
+  } else {
+    cardNoError.value = null;
   }
 };
 
@@ -293,6 +404,20 @@ const handleCardNoKeyDown = (e) => {
     }
   }
 };
+
+const computedCardErrorMessage = computed(() => {
+  if (cardNoError.value) {
+    return cardNoError.value;
+  } else if (cardExpError.value) {
+    return cardExpError.value;
+  } else if (cardCVCError.value) {
+    return cardCVCError.value;
+  } else if (props.errorMessage) {
+    return props.errorMessage;
+  } else {
+    return false;
+  }
+});
 
 const handleCardNoKeyPress = (e) => {
   allowOnlyNumbers(e);
@@ -434,7 +559,7 @@ const handleCardNoKeyPress = (e) => {
 }
 .ui-card-input-field__cvv,
 .ui-card-input-field__exp {
-  width: 60px;
+  width: 70px;
   background: transparent;
 }
 .ui-card-input-field__cvv {
@@ -460,6 +585,10 @@ const handleCardNoKeyPress = (e) => {
 .ui-card-input-field__left-icon {
   margin-right: 8px;
   height: 24px;
+  color: var(--light-primary-action-color);
+  &.dark_mode {
+    color: var(--dark-primary-action-color);
+  }
 }
 .ui-card-input-field__right-icon {
   @media only screen and (max-width: 500px) {
@@ -472,5 +601,4 @@ const handleCardNoKeyPress = (e) => {
     display: none;
   }
 }
-
 </style>

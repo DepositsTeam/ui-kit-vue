@@ -60,6 +60,7 @@ export default {
     "mouseleave",
     "mouseover",
     "mousemove",
+    "paste",
     "update:modelValue",
   ],
   setup(props, { slots, emit }) {
@@ -244,6 +245,9 @@ export default {
           },
           onMousemove: function (e) {
             emit("mousemove", e);
+          },
+          onPaste: function (e) {
+            emit("paste", e);
           },
           id: props.id ? props.id : uniqueID,
           ...(computedType.value ? { type: computedType.value } : {}),

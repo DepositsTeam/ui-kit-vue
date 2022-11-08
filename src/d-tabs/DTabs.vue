@@ -50,7 +50,7 @@ const emit = defineEmits(["tabSwitched", "update:modelValue"]);
 const internalActive = ref(0);
 
 onMounted(() => {
-  internalActive.value = parseInt(props.initiallyActive);
+  internalActive.value = props.modelValue;
 });
 
 const generateSpacing = (index) => {
