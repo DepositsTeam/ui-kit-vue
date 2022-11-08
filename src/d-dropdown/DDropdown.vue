@@ -24,7 +24,9 @@
         #leftIcon
         v-if="
           ($slots.icon ||
-            (typeof selectedOption === 'object' && selectedOption.icon)) &&
+            (typeof selectedOption === 'object' &&
+              selectedOption &&
+              selectedOption.icon)) &&
           selectedOption
         "
       >
