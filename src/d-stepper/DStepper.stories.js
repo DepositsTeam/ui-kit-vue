@@ -11,6 +11,13 @@ export default {
     currentStep: {
       control: { type: "number" },
     },
+    scheme: {
+      control: { type: "select" },
+      options: ["variant-1", "variant-2"],
+    },
+    activeColor: {
+      control: { type: "color" },
+    },
   },
 };
 
@@ -48,6 +55,7 @@ Default.args = {
   steps: [
     {
       text: "Complete basic KYB",
+      description: "August 16, 2021 at 5:15 PM",
     },
     {
       text: "Select program use case",
