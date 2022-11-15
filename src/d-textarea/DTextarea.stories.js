@@ -25,6 +25,15 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    rows: {
+      control: { type: "text" },
+    },
+    minHeight: {
+      control: { type: "text" },
+    },
+    maxHeight: {
+      control: { type: "text" },
+    },
   },
 };
 

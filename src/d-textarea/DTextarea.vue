@@ -31,6 +31,9 @@
       @focus="handleFocusEvent"
       @blur="handleBlurEvent"
       :disabled="disabled"
+      :rows="rows"
+      :min-height="minHeight"
+      :max-height="maxHeight"
     >
       {{ modelValue }}
     </d-box>
@@ -56,6 +59,16 @@ import inputProps from "../utils/inputProps";
 defineProps({
   ...inputProps,
   textAreaClassName: {
+    type: String,
+  },
+  rows: {
+    type: String,
+  },
+  minHeight: {
+    type: String,
+    default: "50px",
+  },
+  maxHeight: {
     type: String,
   },
 });
@@ -119,7 +132,6 @@ const handleBlurEvent = (e) => {
   line-height: 16px;
   width: 100%;
   color: #444;
-  min-height: 50px;
 
   &::placeholder {
     color: #b8c4ce;

@@ -32,6 +32,13 @@ export default {
     heading: {
       control: { type: "text" },
     },
+    overlayBg: {
+      control: { type: "color" },
+    },
+    alignment: {
+      control: { type: "select" },
+      options: ["center", "top", "bottom"],
+    },
   },
 };
 

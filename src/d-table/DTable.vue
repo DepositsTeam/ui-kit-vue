@@ -157,6 +157,7 @@
             :class="{
               checked: selectedItems.includes(datum[checkboxDataSelector]),
             }"
+            @click="emitRowClickedEvent(datum)"
           >
             <d-box
               is="td"
@@ -261,7 +262,7 @@ import { useCsvExport } from "./composables/useCsvExport";
 import { getTextColor } from "../utils/colorManager";
 
 const props = defineProps({ ...tableProps });
-const emit = defineEmits(["page-updated"]);
+const emit = defineEmits(["page-updated", "row-clicked"]);
 
 const { exportCsv } = useCsvExport(props.data, props.generatedCsvName);
 
@@ -272,6 +273,10 @@ const columnHashmap = computed(() => {
   });
   return hashMap;
 });
+
+const emitRowClickedEvent = (datum) => {
+  emit("row-clicked", datum);
+};
 
 const showActiveFiltersDropdown = ref(false);
 const target = ref(null);
