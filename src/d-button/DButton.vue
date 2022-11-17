@@ -178,7 +178,12 @@ const smartCalculatedHoverColor = computed(() =>
   &.smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
-    &:hover {
+    &.semantic__outline {
+      color: var(--smart-color);
+      background: transparent;
+      border: 1px solid var(--smart-color);
+    }
+    &:hover:not(:disabled):not(.state_disabled) {
       background: var(--smart-calculated-hover-color);
       color: var(--smart-calculated-hover-text-color);
     }
