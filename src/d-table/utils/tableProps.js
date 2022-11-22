@@ -89,4 +89,8 @@ export const tableProps = {
   smartColor: {
     type: String,
   },
+  caseSensitiveSearch: {
+    type: Boolean,
+    default: false,
+  },
 };

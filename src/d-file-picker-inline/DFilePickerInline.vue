@@ -1,9 +1,9 @@
 <template>
   <d-box
     class="ui-text-field__wrapper d-file-picker-inline"
-    :class="[`size__${size}`]"
+    :class="[`size__${size}`, `variant__${variant}`]"
   >
-    <d-box v-if="!!label" is="label">
+    <d-box v-if="!!label && variant !== 'button'" is="label">
       <d-text
         margin-top="0px"
         class="ui-text-field__label"
@@ -88,6 +88,11 @@ const props = defineProps({
         } else return false;
       }
     },
+  },
+  variant: {
+    type: String,
+    default: "inline",
+    validator: (value) => ["inline", "button"].includes(value),
   },
 });
 
