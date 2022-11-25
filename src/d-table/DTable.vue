@@ -355,7 +355,8 @@ const dataFactory = computed(() => {
     filteredData = searchItems(
       searchValue.value,
       filteredData,
-      columnHashmap.value
+      columnHashmap.value,
+      props.caseSensitiveSearch
     );
   }
 

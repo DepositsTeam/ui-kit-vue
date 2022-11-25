@@ -127,6 +127,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  variant: {
+    type: String,
+    default: "variant-1",
+    validator: value => ["variant-1", "variant-2"].includes(value)
+  }
 });
 
 const emit = defineEmits(["update:cardNo", "update:cardCvv", "update:cardExp"]);

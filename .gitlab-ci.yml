@@ -9,8 +9,10 @@ deploy_development:
   only:
     - main
   script:
+    - rm -r /var/www/html/test/ui_kit/storybook/vue-ui-kit/src
+    - mkdir /var/www/html/test/ui_kit/storybook/vue-ui-kit/src
+#    Old line starts here. Wrote code above to ensure old code doesn't remain cause I noticed stale stories after pushing
     - cp -R src/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/src/
-    - cp -R public/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/public/
     - cp -R .storybook/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/.storybook/
     - cp package.json /var/www/html/test/ui_kit/storybook/vue-ui-kit/
     - cd /var/www/html/test/ui_kit/storybook/vue-ui-kit

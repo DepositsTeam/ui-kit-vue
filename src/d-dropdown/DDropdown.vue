@@ -19,6 +19,7 @@
       @blur="handleBlur"
       drop-down
       @right-icon-clicked="toggleDropdown"
+      :placeholder="placeholder"
     >
       <template
         #leftIcon

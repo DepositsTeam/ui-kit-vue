@@ -155,7 +155,7 @@ defineProps({
   alignment: {
     type: String,
     validator: (value) => ["top", "bottom", "center"].includes(value),
-    default: "center",
+    default: "top",
   },
 });
 
