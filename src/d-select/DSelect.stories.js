@@ -7,43 +7,43 @@ export default {
   component: DSelect,
   argTypes: {
     label: {
-      control: { type: "text" }
+      control: { type: "text" },
     },
     size: {
       control: { type: "select" },
-      options: ["small", "medium", "large", "xlarge", "huge", "massive"]
+      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
     },
     leftIcon: {
-      control: { type: "object" }
+      control: { type: "object" },
     },
     errorMessage: {
-      control: { type: "text" }
+      control: { type: "text" },
     },
     wrapperClass: {
-      control: { type: "text" }
+      control: { type: "text" },
     },
     options: {
       control: { type: "object" },
       table: {
-        defaultValue: ["Item 1", "Item 2", "Item 3"]
-      }
+        defaultValue: ["Item 1", "Item 2", "Item 3"],
+      },
     },
     placeholderEffect: {
       control: { type: "boolean" },
       table: {
-        defaultValue: true
-      }
+        defaultValue: true,
+      },
     },
     disabled: {
-      control: { type: "boolean" }
-    }
-  }
+      control: { type: "boolean" },
+    },
+  },
 };
 
 const DarkModeTemplate = (args) => ({
   components: { DSelect, DarkModeProvider },
   data: () => ({
-    value: ""
+    value: "",
   }),
   setup() {
     return { args };
@@ -52,7 +52,7 @@ const DarkModeTemplate = (args) => ({
     <dark-mode-provider :dark-mode="true">
     <d-select v-bind="args" />
     </dark-mode-provider>
-  `
+  `,
 });
 
 const DarkModeTemplateFactory = () => {
@@ -60,8 +60,8 @@ const DarkModeTemplateFactory = () => {
   Bound.decorators = [
     () => ({
       template:
-        "<div style=\"padding: 3em; background: #121A26;\"><story /></div>"
-    })
+        '<div style="padding: 3em; background: #121A26;"><story /></div>',
+    }),
   ];
   return Bound;
 };
@@ -72,197 +72,192 @@ const Template = (args) => ({
     return { args };
   },
   template: `
-    <d-select v-bind="args" />`
+    <d-select v-bind="args" />`,
+});
+
+const VModelTemplate = (args) => ({
+  components: { DSelect },
+  data: () => ({
+    value: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-select v-bind="args" v-model="value" />
+    <span>Selected value is: {{value}}</span>
+  `,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  placeholder: "Input placeholder",
-  label: "Form Label"
+  label: "Form Label",
 };
 
 export const DarkModeDefault = DarkModeTemplateFactory();
 DarkModeDefault.args = {
-  placeholder: "Input placeholder",
-  label: "Form Label"
+  label: "Form Label",
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  disabled: true
+  disabled: true,
 };
 
 export const DarkModeDisabled = DarkModeTemplateFactory();
 DarkModeDisabled.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  disabled: true
+  disabled: true,
 };
 
 export const Error = Template.bind({});
 Error.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  errorMessage: "Error Message"
+  errorMessage: "Error Message",
 };
 
 export const DarkModeError = DarkModeTemplateFactory();
 DarkModeError.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  errorMessage: "Error Message"
+  errorMessage: "Error Message",
 };
 
 export const LeftIcon = Template.bind({});
 LeftIcon.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  leftIcon: Search
+  leftIcon: Search,
 };
 
 export const DarkModeLeftIcon = DarkModeTemplateFactory();
 DarkModeLeftIcon.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  leftIcon: Search
+  leftIcon: Search,
 };
 
 export const DropDown = Template.bind({});
 DropDown.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  dropDown: true
+  dropDown: true,
 };
 
 export const DarkModeDropDown = DarkModeTemplateFactory();
 DarkModeDropDown.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
-  dropDown: true
+  dropDown: true,
 };
 
 export const LeftIconAndDropDown = Template.bind({});
 LeftIconAndDropDown.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
-  leftIcon: Search
+  leftIcon: Search,
 };
 
 export const DarkModeLeftIconAndDropDown = DarkModeTemplateFactory();
 DarkModeLeftIconAndDropDown.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
-  leftIcon: Search
+  leftIcon: Search,
 };
 
 export const SizeMassive = Template.bind({});
 SizeMassive.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "massive"
+  size: "massive",
 };
 
 export const DarkModeSizeMassive = DarkModeTemplateFactory();
 DarkModeSizeMassive.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "massive"
+  size: "massive",
 };
 
 export const SizeHuge = Template.bind({});
 SizeHuge.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "huge"
+  size: "huge",
 };
 
 export const DarkModeSizeHuge = DarkModeTemplateFactory();
 DarkModeSizeHuge.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "huge"
+  size: "huge",
 };
 
 export const SizeXLarge = Template.bind({});
 SizeXLarge.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "xlarge"
+  size: "xlarge",
 };
 
 export const DarkModeXLarge = DarkModeTemplateFactory();
 DarkModeXLarge.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "xlarge"
+  size: "xlarge",
 };
 
 export const SizeLarge = Template.bind({});
 SizeLarge.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "large"
+  size: "large",
 };
 
 export const DarkModeSizeLarge = DarkModeTemplateFactory();
 DarkModeSizeLarge.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "large"
+  size: "large",
 };
 
 export const SizeMedium = Template.bind({});
 SizeMedium.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "medium"
+  size: "medium",
 };
 
 export const DarkModeSizeMedium = DarkModeTemplateFactory();
 DarkModeSizeMedium.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "medium"
+  size: "medium",
 };
 
 export const SizeSmall = Template.bind({});
 SizeSmall.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "small"
+  size: "small",
 };
 
 export const DarkModeSizeSmall = DarkModeTemplateFactory();
 DarkModeSizeSmall.args = {
-  placeholder: "Input placeholder",
   label: "Form Label",
   dropDown: true,
   leftIcon: Search,
-  size: "small"
+  size: "small",
+};
+
+export const VModel = VModelTemplate.bind({});
+VModelTemplate.args = {
+  size: "medium",
 };
