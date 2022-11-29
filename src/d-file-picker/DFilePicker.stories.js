@@ -4,7 +4,44 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/File Picker",
   component: DFilePicker,
-  argTypes: {},
+  argTypes: {
+    btnText: {
+      control: { type: "text" },
+      default: "Choose File",
+    },
+    fileMaxSize: {
+      control: { type: "text" },
+      default: "100",
+    },
+    accepts: {
+      control: { type: "object" },
+      default: [".csv", ".xls", ".xlsx", ".pdf"],
+    },
+    label: {
+      control: { type: "text" },
+    },
+    errorMessage: {
+      control: { type: "text" },
+    },
+    disabled: {
+      control: { type: "boolean" },
+    },
+    labelFontFace: {
+      control: { type: "select" },
+      options: ["heroNew", "circularSTD"],
+    },
+    labelClass: {
+      control: { type: "text" },
+    },
+    maxFiles: {
+      control: { type: "text" },
+    },
+    variant: {
+      control: { type: "select" },
+      options: ["default", "btn"],
+      default: "default",
+    },
+  },
 };
 
 const Template = (args) => ({

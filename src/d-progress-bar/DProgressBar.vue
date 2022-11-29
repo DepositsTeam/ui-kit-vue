@@ -2,10 +2,12 @@
   <d-box
     class="ui-progress-bar"
     :style="{ ...d__theme, ...computedThemeStyles }"
+    :class="{ [variant]: variant }"
   >
     <d-box
       class="ui-progress-bar__active"
       :style="{ '--width': `${computedProgressWidth}%` }"
+      :class="{ [variant]: variant }"
     />
   </d-box>
 </template>
@@ -44,22 +46,38 @@ const props = defineProps({
   darkEmptyColor: {
     type: String,
   },
+  variant: {
+    type: String,
+    default: "variant-1",
+    validator: (value) => ["variant-1", "variant-2"].includes(value),
+  },
+  height: {
+    type: String,
+    default: "6px",
+  },
 });
 
 const computedThemeStyles = computed(() => {
   if (darkModeIsEnabled.value) {
     return {
-      "--fill-color": props.darkFillColor
-        ? props.darkFillColor
-        : unref(d__theme)["--dark-primary-action-color"],
-      "--empty-color": props.darkEmptyColor ? props.emptyColor : "#384860",
+      "--fill-color":
+        props.darkFillColor || unref(d__theme)["--dark-primary-action-color"],
+      "--empty-color": props.darkEmptyColor
+        ? props.emptyColor
+        : props.variant === "variant-2"
+        ? unref(d__theme)["--dark-primary-200"]
+        : "#384860",
+      "--height": props.height,
     };
   } else {
     return {
-      "--fill-color": props.fillColor
-        ? props.fillColor
-        : unref(d__theme)["--light-primary-action-color"],
-      "--empty-color": props.emptyColor ? props.emptyColor : "#CED6DE",
+      "--fill-color":
+        props.fillColor || unref(d__theme)["--light-primary-action-color"],
+      "--empty-color":
+        props.emptyColor || props.variant === "variant-2"
+          ? unref(d__theme)["--light-primary-200"]
+          : "#384860",
+      "--height": props.height,
     };
   }
 });
@@ -78,7 +96,7 @@ const computedProgressWidth = computed(() => {
 <style lang="scss" scoped>
 .ui-progress-bar {
   width: 100%;
-  height: 6px;
+  height: var(--height);
   border-radius: 30px;
   position: relative;
   background: var(--empty-color);
@@ -90,6 +108,9 @@ const computedProgressWidth = computed(() => {
     background: var(--fill-color);
     width: var(--width);
     height: 100%;
+    &.variant-2 {
+      border-radius: 30px 0 0 30px;
+    }
   }
 }
 </style>
