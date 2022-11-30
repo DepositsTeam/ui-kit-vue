@@ -261,12 +261,12 @@ const smartCalculatedHoverColor = computed(() =>
 
   &.semantic__primary:not(.smartColor) {
     background: var(--light-primary-action-color);
-    color: var(--light-text-color);
+    color: var(--light-primary-action-text-color);
     border: 1px solid var(--light-primary-action-box-shadow-color);
 
     &.dark_mode {
       background: var(--dark-primary-action-color);
-      color: var(--dark-text-color);
+      color: var(--dark-primary-action-text-color);
       border: 1px solid var(--dark-primary-action-box-shadow-color);
 
       &:hover,
