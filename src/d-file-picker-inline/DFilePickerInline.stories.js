@@ -1,10 +1,16 @@
 import DFilePickerInline from "./DFilePickerInline.vue";
 import { DarkModeProvider } from "../main";
+import { inputArgTypes } from "../utils/inputProps";
 
 export default {
   title: "Forms/File Picker (Inline)",
   component: DFilePickerInline,
-  argTypes: {},
+  argTypes: {
+    ...inputArgTypes,
+    placeholder: {
+      control: { type: "text" },
+    },
+  },
 };
 
 const Template = (args) => ({
@@ -40,6 +46,11 @@ const DarkModeTemplateFactory = () => {
 };
 
 export const Default = Template.bind({});
+export const Button = Template.bind({});
+Button.args = {
+  variant: "button",
+  btnText: "+ Upload front of driver's license",
+};
 export const Error = Template.bind({});
 Error.args = {
   errorMessage: "This is a random error",

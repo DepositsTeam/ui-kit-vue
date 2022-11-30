@@ -2,6 +2,7 @@
   <d-box
     class="ui-text-field__wrapper d-file-picker-inline"
     :class="[`size__${size}`, `variant__${variant}`]"
+    v-if="variant === 'inline'"
   >
     <d-box v-if="!!label && variant !== 'button'" is="label">
       <d-text
@@ -54,10 +55,26 @@
       </d-text>
     </d-box>
   </d-box>
+  <d-box class="ui-text-field__wrapper d-file-picker-inline-btn" v-else>
+    <d-box
+      is="input"
+      ref="file"
+      v-bind="$attrs"
+      :disabled="disabled"
+      @change="updateName"
+      :accept="computedAccepts"
+      @mouseenter="toggleInputIsHovered(true)"
+      @mouseleave="toggleInputIsHovered(false)"
+      type="file"
+    />
+    <d-button :class="{ hover: inputIsHovered }" v-bind="$attrs">
+      {{ btnText }}
+    </d-button>
+  </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, ErrorIcon } from "../main";
+import { DBox, DText, ErrorIcon, DButton } from "../main";
 import inputProps from "../utils/inputProps";
 import { useFilePicker } from "../utils/useFilePicker";
 import { ref } from "vue";
@@ -99,6 +116,9 @@ const props = defineProps({
 const emit = defineEmits(["change", "cleared"]);
 
 const file = ref(null);
+const inputIsHovered = ref(false);
+
+const toggleInputIsHovered = (val) => (inputIsHovered.value = val);
 
 const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
   useFilePicker(props, emit, file);
@@ -177,6 +197,23 @@ const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
     .ui-text {
       color: #ffffff;
     }
+  }
+}
+
+.d-file-picker-inline-btn {
+  position: relative;
+  display: inline-flex;
+  input {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
   }
 }
 </style>

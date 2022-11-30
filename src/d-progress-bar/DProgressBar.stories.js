@@ -26,6 +26,15 @@ export default {
     darkEmptyColor: {
       control: { type: "color" },
     },
+    variant: {
+      control: { type: "select" },
+      options: ["variant-1", "variant-2"],
+      default: "variant-1",
+    },
+    height: {
+      control: { type: "text" },
+      default: "6px",
+    },
   },
 };
 
@@ -94,4 +103,17 @@ export const ThreeOutOfFiveDark = DarkModeTemplateFactory();
 ThreeOutOfFiveDark.args = {
   totalSteps: 5,
   currentStep: 3,
+};
+
+export const Variant2 = Template.bind({});
+Variant2.args = {
+  variant: "variant-2",
+  percentage: 25,
+};
+
+export const Variant2CustomHeight = Template.bind({});
+Variant2CustomHeight.args = {
+  variant: "variant-2",
+  percentage: 25,
+  height: "8px",
 };
