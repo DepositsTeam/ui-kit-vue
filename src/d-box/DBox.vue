@@ -15,8 +15,6 @@ export default {
     },
     fontFace: {
       type: String,
-      default: "heroNew",
-      validator: (value) => ["heroNew", "circularSTD"].includes(value),
     },
     modelValue: {
       type: [Number, String],
@@ -66,6 +64,12 @@ export default {
   setup(props, { slots, emit }) {
     const darkMode = inject("d__darkMode");
     const d__theme = inject("d__theme", defaultThemeVars);
+    const defaultFontFace = inject("defaultFontFace", null);
+    const computedFontFace = computed(() => {
+      return props.fontFace || unref(defaultFontFace)
+        ? unref(defaultFontFace)
+        : "heroNew";
+    });
     const forwardableInputTypes = [
       "text",
       "password",
@@ -258,8 +262,8 @@ export default {
             [uniqueClass]: true,
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
-            [props.fontFace]:
-              props.fontFace &&
+            [computedFontFace.value]:
+              computedFontFace.value &&
               typeof props.is === "string" &&
               props.is.toLowerCase() !== "svg",
             dark_mode: darkModeIsEnabled.value,

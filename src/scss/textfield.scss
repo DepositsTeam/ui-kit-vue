@@ -186,6 +186,14 @@
         padding-right: 42px;
       }
     }
+    .ui-text-field__left-icon {
+      height: 20px;
+      width: 20px;
+    }
+    .ui-text-field__right-icon {
+      height: 20px;
+      width: 20px;
+    }
   }
   &.size__xlarge {
     .ui-text-field--counter_input_button {
@@ -211,9 +219,13 @@
     }
     .ui-text-field__left-icon {
       left: 12px;
+      height: 20px;
+      width: 20px;
     }
     .ui-text-field__right-icon {
       right: 12px;
+      height: 20px;
+      width: 20px;
     }
   }
   &.size__large {
@@ -239,9 +251,13 @@
     }
     .ui-text-field__left-icon {
       left: 12px;
+      height: 20px;
+      width: 20px;
     }
     .ui-text-field__right-icon {
       right: 12px;
+      height: 20px;
+      width: 20px;
     }
   }
   &.size__medium {
@@ -267,9 +283,13 @@
     }
     .ui-text-field__left-icon {
       left: 12px;
+      height: 18px;
+      width: 18px;
     }
     .ui-text-field__right-icon {
       right: 12px;
+      height: 18px;
+      width: 18px;
     }
   }
   &.size__small {

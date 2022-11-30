@@ -137,6 +137,7 @@ const defaultTheme = {
   "dark-primary-700": "#0f6d8d",
   "dark-primary-800": "#085e7a",
   "dark-primary-900": "#094357",
+  "default-font-face": null,
 };
 
 export const defaultThemeVars = {
