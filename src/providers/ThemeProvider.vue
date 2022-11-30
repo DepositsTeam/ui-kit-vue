@@ -21,6 +21,10 @@ const props = defineProps({
 
 const theme = ref({});
 
+const defaultFontFace = ref(null);
+
+provide("defaultFontFace", defaultFontFace);
+
 const themeVars = ref({
   ...defaultTheme,
 });
@@ -203,6 +207,12 @@ const hydrateTheme = () => {
   )
     .lighten(58)
     .toHex()}`;
+
+  if (computedTheme["default-font-face"]) {
+    defaultFontFace.value = computedTheme["default-font-face"];
+  } else {
+    defaultFontFace.value = null;
+  }
 
   themeVars.value = {
     ...convertObjToVars(computedTheme),

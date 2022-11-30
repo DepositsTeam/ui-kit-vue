@@ -1,6 +1,7 @@
 <template>
   <d-box
     class="ui-heading"
+    :font-face="computedFontFace"
     :class="{
       [scale]: scale && !level,
       [is]: is,
@@ -22,8 +23,11 @@
 
 <script setup>
 import { DBox } from "../main";
+import { computed, inject } from "vue";
 
-defineProps({
+const defaultFontFace = inject("defaultFontFace");
+
+const props = defineProps({
   is: {
     type: [String, Object],
     default: "p",
@@ -43,7 +47,6 @@ defineProps({
   fontFace: {
     type: String,
     validator: (value) => ["heroNew", "circularSTD"].includes(value),
-    default: "heroNew",
   },
   fontWeight: {
     type: [String, Number],
@@ -76,6 +79,12 @@ defineProps({
     type: String,
     default: "text-neutral-300",
   },
+});
+
+const computedFontFace = computed(() => {
+  return props.fontFace || defaultFontFace.value
+    ? defaultFontFace.value
+    : "heroNew";
 });
 </script>
 

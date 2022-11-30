@@ -49,7 +49,7 @@
         @keypress="handleKeypressEvent"
         @focus="handleFocusEvent"
         @blur="handleBlurEvent"
-        :font-face="fontFace"
+        :font-face="computedFontFace"
         :type="localType"
         :autocomplete="autocomplete"
         :form="form"
@@ -105,7 +105,7 @@ import {
   EyeFilledIcon,
 } from "../main";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, inject } from "vue";
 import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
@@ -158,6 +158,14 @@ const props = defineProps({
   inputClass: {
     type: String,
   },
+});
+
+const defaultFontFace = inject("defaultFontFace");
+
+const computedFontFace = computed(() => {
+  return props.fontFace || defaultFontFace.value
+    ? defaultFontFace.value
+    : "heroNew";
 });
 
 const { computedMargin, computedWidth } = useWrapperProps(props);

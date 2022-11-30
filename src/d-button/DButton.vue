@@ -10,6 +10,7 @@
       smartHoverColor,
       pill,
     }"
+    :font-face="fontFace"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
     :disabled="loading || disabled"
@@ -81,6 +82,9 @@ const props = defineProps({
     },
     default: "button",
   },
+  fontFace: {
+    type: String
+  },
   colorScheme: {
     type: String,
     validator: (value) =>
@@ -148,7 +152,6 @@ const smartCalculatedHoverColor = computed(() =>
 
 <style lang="scss" scoped>
 .ui-button {
-  font-family: "Hero New", sans-serif;
   font-size: 14px;
   line-height: 16px;
   font-weight: 500;
