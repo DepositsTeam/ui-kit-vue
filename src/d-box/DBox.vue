@@ -62,7 +62,7 @@ export default {
     "update:modelValue",
   ],
   setup(props, { slots, emit }) {
-    const darkMode = inject("d__darkMode");
+    const darkMode = inject("d__darkMode", null);
     const d__theme = inject("d__theme", defaultThemeVars);
     const defaultFontFace = inject("defaultFontFace", null);
     const computedFontFace = computed(() => {
@@ -274,7 +274,11 @@ export default {
             ...unref(d__theme),
           },
         },
-        slots.default ? slots.default() : undefined
+        {
+          default() {
+            return slots.default ? slots.default() : undefined;
+          },
+        }
       );
   },
 };

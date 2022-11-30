@@ -160,7 +160,7 @@ const props = defineProps({
   },
 });
 
-const defaultFontFace = inject("defaultFontFace");
+const defaultFontFace = inject("defaultFontFace", null);
 
 const computedFontFace = computed(() => {
   return props.fontFace || unref(defaultFontFace)
