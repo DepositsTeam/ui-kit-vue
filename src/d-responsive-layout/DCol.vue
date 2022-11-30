@@ -240,6 +240,7 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
 
 .ui-responsive__col {
   display: flex;
+  flex-direction: column;
   width: 100%;
   //flex: 1 0 0%;
   max-width: 100%;

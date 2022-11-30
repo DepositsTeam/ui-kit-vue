@@ -41,6 +41,12 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    currency: {
+      control: { type: "boolean" },
+    },
+    percentage: {
+      control: { type: "boolean" },
+    },
   },
 };
 

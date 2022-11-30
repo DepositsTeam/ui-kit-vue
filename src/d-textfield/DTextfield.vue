@@ -111,6 +111,7 @@ import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
 import { wrapperProps } from "../utils/wrapperProps";
 import { useWrapperProps } from "../utils/useWrapperProps";
+import { formatPercentage } from "../utils/formatPercentage";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -146,6 +147,7 @@ const props = defineProps({
   oneCharWide: Boolean,
   isPassword: Boolean,
   ssn: Boolean,
+  percentage: Boolean,
   maxlength: {
     type: [String, Number],
   },
@@ -195,11 +197,14 @@ const emitRightIconClicked = (e) => {
 };
 
 const handleKeyEvents = (e) => {
-  if (props.onlyNumbers) {
+  if (props.onlyNumbers || props.ssn) {
     return allowOnlyNumbers(e);
   }
   if (props.currency) {
     return currencies(e);
+  }
+  if (props.percentage) {
+    return allowOnlyNumbers(e, true);
   }
 };
 
@@ -240,6 +245,12 @@ const handleInputEvents = (e) => {
     const formatted = formatSSN(e.target.value);
     localSSN.value = formatted;
     emit("update:modelValue", formatted[0]);
+  } else if (props.percentage) {
+    try {
+      emit("update:modelValue", formatPercentage(e.target.value));
+    } catch (err) {
+      emit("update:modelValue", "");
+    }
   } else {
     emit("update:modelValue", e.target.value);
   }
@@ -277,6 +288,9 @@ const handleFocusEvent = (e) => {
       emit("update:modelValue", e.target.value.substring(1));
     }
   }
+  if (props.percentage) {
+    emit("update:modelValue", e.target.value.replaceAll("%", ""));
+  }
   if (props.ssn && localSSN.value.length) {
     e.target.value = localSSN.value[0];
   }
@@ -295,6 +309,17 @@ const handleBlurEvent = (e) => {
       );
     } else {
       emit("update:modelValue", "$0.00");
+    }
+  }
+  if (props.percentage) {
+    const value = e.target.value;
+    if (value) {
+      const parsedValue = parseFloat(value.replaceAll("%", ""));
+      const renderedValue =
+        parsedValue < 0 ? 0 : parsedValue > 100 ? 100 : parsedValue;
+      emit("update:modelValue", `${renderedValue}%`);
+    } else {
+      emit("update:modelValue", "0%");
     }
   }
   if (props.ssn && localSSN.value.length) {
