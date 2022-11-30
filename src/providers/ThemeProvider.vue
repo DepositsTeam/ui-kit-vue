@@ -2,7 +2,7 @@
   <slot></slot>
 </template>
 <script setup>
-import { provide, watch, onMounted, ref } from "vue";
+import { provide, watch, onMounted, ref, onBeforeMount } from "vue";
 import {
   getTextColor,
   hexToRgbA,
@@ -11,6 +11,13 @@ import {
 import convertObjToVars from "../utils/convertObjToVars";
 import defaultTheme from "./default-theme";
 import tinycolor from "tinycolor2";
+
+const props = defineProps({
+  initialTheme: {
+    type: Object,
+    default: null,
+  },
+});
 
 const theme = ref({});
 
@@ -23,7 +30,11 @@ const updateTheme = (newTheme) => {
 };
 
 const hydrateTheme = () => {
-  const computedTheme = { ...defaultTheme, ...theme.value };
+  let initialTheme = { ...defaultTheme };
+  if (props.initialTheme) {
+    initialTheme = { ...defaultTheme, ...props.initialTheme };
+  }
+  const computedTheme = { ...initialTheme, ...theme.value };
 
   if (computedTheme.primaryColor) {
     computedTheme["light-primary-action-color"] = computedTheme.primaryColor;
