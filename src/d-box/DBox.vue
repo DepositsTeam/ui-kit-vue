@@ -64,10 +64,10 @@ export default {
   setup(props, { slots, emit }) {
     const darkMode = inject("d__darkMode");
     const d__theme = inject("d__theme", defaultThemeVars);
-    const defaultFontFace = inject("defaultFontFace");
+    const defaultFontFace = inject("defaultFontFace", null);
     const computedFontFace = computed(() => {
-      return props.fontFace || defaultFontFace.value
-        ? defaultFontFace.value
+      return props.fontFace || unref(defaultFontFace)
+        ? unref(defaultFontFace)
         : "heroNew";
     });
     const forwardableInputTypes = [

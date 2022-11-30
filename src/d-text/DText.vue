@@ -21,9 +21,9 @@
 
 <script setup>
 import { DBox } from "../main";
-import { inject, computed } from "vue";
+import { inject, computed, unref } from "vue";
 
-const defaultFontFace = inject("defaultFontFace");
+const defaultFontFace = inject("defaultFontFace", null);
 
 const props = defineProps({
   is: {
@@ -104,8 +104,8 @@ const props = defineProps({
 });
 
 const computedFontFace = computed(() => {
-  return props.fontFace || defaultFontFace.value
-    ? defaultFontFace.value
+  return props.fontFace || unref(defaultFontFace)
+    ? unref(defaultFontFace)
     : "heroNew";
 });
 </script>

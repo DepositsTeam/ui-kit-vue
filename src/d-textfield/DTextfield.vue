@@ -105,7 +105,7 @@ import {
   EyeFilledIcon,
 } from "../main";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
-import { ref, computed, onMounted, inject } from "vue";
+import { ref, computed, onMounted, inject, unref, nextTick } from "vue";
 import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
@@ -163,8 +163,8 @@ const props = defineProps({
 const defaultFontFace = inject("defaultFontFace");
 
 const computedFontFace = computed(() => {
-  return props.fontFace || defaultFontFace.value
-    ? defaultFontFace.value
+  return props.fontFace || unref(defaultFontFace)
+    ? unref(defaultFontFace)
     : "heroNew";
 });
 
@@ -284,7 +284,7 @@ const handleKeypressEvent = (e) => {
   return handleKeyEvents(e);
 };
 
-const handleFocusEvent = (e) => {
+const handleFocusEvent = async (e) => {
   emit("focus", e);
   if (props.currency) {
     if (props.emitOnlyCurrencyValue) {
@@ -292,12 +292,18 @@ const handleFocusEvent = (e) => {
         "update:modelValue",
         e.target.value.substring(1).replaceAll("$", "").replaceAll(",", "")
       );
+      await nextTick();
+      e.target.select();
     } else {
       emit("update:modelValue", e.target.value.substring(1));
+      await nextTick();
+      e.target.select();
     }
   }
   if (props.percentage) {
     emit("update:modelValue", e.target.value.replaceAll("%", ""));
+    await nextTick();
+    e.target.select();
   }
   if (props.ssn && localSSN.value.length) {
     e.target.value = localSSN.value[0];

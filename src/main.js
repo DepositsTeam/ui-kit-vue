@@ -279,6 +279,7 @@ export { default as FrameFilledIcon } from "./icons/filled/FrameFilledIcon.vue";
 export { default as GithubFilledIcon } from "./icons/filled/GithubFilledIcon.vue";
 export { default as HomeFilledIcon } from "./icons/filled/HomeFilledIcon.vue";
 export { default as LocationFilledIcon } from "./icons/filled/LocationFilledIcon.vue";
+export { default as LockFilledIcon } from "./icons/filled/LockFilledIcon.vue";
 export { default as Logout2FilledIcon } from "./icons/filled/Logout2FilledIcon.vue";
 export { default as MessageFilledIcon } from "./icons/filled/MessageFilledIcon.vue";
 export { default as MoneyChangeFilledIcon } from "./icons/filled/MoneyChangeFilledIcon.vue";
