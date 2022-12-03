@@ -265,6 +265,7 @@ export { default as ArrowSwapFilledIcon } from "./icons/filled/ArrowSwapFilledIc
 export { default as Atm1FilledIcon } from "./icons/filled/Atm1FilledIcon.vue";
 export { default as BankFilledIcon } from "./icons/filled/BankFilledIcon.vue";
 export { default as BookFilledIcon } from "./icons/filled/BookFilledIcon.vue";
+export { default as BoxFilledIcon } from "./icons/filled/BoxFilledIcon.vue";
 export { default as BuildingFilledIcon } from "./icons/filled/BuildingFilledIcon.vue";
 export { default as CallFilledIcon } from "./icons/filled/CallFilledIcon.vue";
 export { default as CardsFilledIcon } from "./icons/filled/CardsFilledIcon.vue";
@@ -274,6 +275,7 @@ export { default as CloudUploadFilledIcon } from "./icons/filled/CloudUploadFill
 export { default as CopyFilledIcon } from "./icons/filled/CopyFilledIcon.vue";
 export { default as DashboardFilledIcon } from "./icons/filled/DashboardFilledIcon.vue";
 export { default as Deposit2FilledIcon } from "./icons/filled/Deposit2FilledIcon.vue";
+export { default as ElementPlusFilledIcon } from "./icons/filled/ElementPlusFilledIcon.vue";
 export { default as EyeFilledIcon } from "./icons/filled/EyeFilledIcon.vue";
 export { default as FrameFilledIcon } from "./icons/filled/FrameFilledIcon.vue";
 export { default as GithubFilledIcon } from "./icons/filled/GithubFilledIcon.vue";
@@ -293,6 +295,8 @@ export { default as PersonalCardFilledIcon } from "./icons/filled/PersonalCardFi
 export { default as PresentationChartFilledIcon } from "./icons/filled/PresentationChartFilledIcon.vue";
 export { default as Profile2UserFilledIcon } from "./icons/filled/Profile2UserFilledIcon.vue";
 export { default as Receipt2FilledIcon } from "./icons/filled/Receipt2FilledIcon.vue";
+export { default as ReceiveSquareFilledIcon } from "./icons/filled/ReceiveSquareFilledIcon.vue";
+export { default as RefreshSquareFilledIcon } from "./icons/filled/RefreshSquareFilledIcon.vue";
 export { default as Send2FilledIcon } from "./icons/filled/Send2FilledIcon.vue";
 export { default as Setting2FilledIcon } from "./icons/filled/Setting2FilledIcon.vue";
 export { default as SettingFilledIcon } from "./icons/filled/SettingFilledIcon.vue";
@@ -315,11 +319,13 @@ export { default as WalletDuotoneIcon } from "./icons/duo-tone/WalletDuotoneIcon
 // Outline Icons
 export { default as ArrowSwapHorizontalOutlineIcon } from "./icons/outline/ArrowSwapHorizontalOutlineIcon.vue";
 export { default as ArrowSwapOutlineIcon } from "./icons/outline/ArrowSwapOutlineIcon.vue";
+export { default as BoxOutlineIcon } from "./icons/outline/BoxOutlineIcon.vue";
 export { default as CardsOutlineIcon } from "./icons/outline/CardsOutlineIcon.vue";
 export { default as CategoryOutlineIcon } from "./icons/outline/CategoryOutlineIcon.vue";
 export { default as ChartOutlineIcon } from "./icons/outline/ChartOutlineIcon.vue";
 export { default as CheckOutlineIcon } from "./icons/outline/CheckOutlineIcon.vue";
 export { default as DocumentCodeOutlineIcon } from "./icons/outline/DocumentCodeOutlineIcon.vue";
+export { default as ElementPlusOutlineIcon } from "./icons/outline/ElementPlusOutlineIcon.vue";
 export { default as ExchangeVerticalOutlineIcon } from "./icons/outline/ExchangeVerticalOutlineIcon.vue";
 export { default as FrameOutlineIcon } from "./icons/outline/FrameOutlineIcon.vue";
 export { default as GithubOutlineIcon } from "./icons/outline/GithubOutlineIcon.vue";
@@ -330,7 +336,9 @@ export { default as PresentationChartOutlineIcon } from "./icons/outline/Present
 export { default as Profile2UserOutlineIcon } from "./icons/outline/Profile2UserOutlineIcon.vue";
 export { default as Receipt2OutlineIcon } from "./icons/outline/Receipt2OutlineIcon.vue";
 export { default as ReceiptOutlineIcon } from "./icons/outline/ReceiptOutlineIcon.vue";
+export { default as ReceiveSquareOutlineIcon } from "./icons/outline/ReceiveSquareOutlineIcon.vue";
 export { default as RedoOutlineIcon } from "./icons/outline/RedoOutlineIcon.vue";
+export { default as RefreshSquareOutlineIcon } from "./icons/outline/RefreshSquareOutlineIcon.vue";
 export { default as Send2OutlineIcon } from "./icons/outline/Send2OutlineIcon.vue";
 export { default as SendOutlineIcon } from "./icons/outline/SendOutlineIcon.vue";
 export { default as Setting2OutlineIcon } from "./icons/outline/Setting2OutlineIcon.vue";
