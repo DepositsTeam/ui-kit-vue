@@ -66,7 +66,9 @@ export default {
     const d__theme = inject("d__theme", defaultThemeVars);
     const defaultFontFace = inject("defaultFontFace", null);
     const computedFontFace = computed(() => {
-      return props.fontFace || unref(defaultFontFace)
+      return props.fontFace
+        ? props.fontFace
+        : unref(defaultFontFace)
         ? unref(defaultFontFace)
         : "heroNew";
     });
