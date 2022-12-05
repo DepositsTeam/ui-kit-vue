@@ -82,6 +82,7 @@ const removeToast = (index) => {
 };
 provide("___pushToast", pushToast);
 provide("d__pushToast", pushToast);
+provide("pushToast", pushToast);
 </script>
 
 <style lang="scss" scoped>
