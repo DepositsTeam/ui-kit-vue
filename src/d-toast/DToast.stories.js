@@ -104,7 +104,7 @@ Default.args = {
 
 export const ToastWithDescription = ToastWrapper();
 ToastWithDescription.args = {
-  colorScheme: "info",
+  colorScheme: "error",
   message: "I am a tooltip no ",
   autoClose: 3,
   description: "I am a random one with a description",

@@ -22,12 +22,18 @@ const props = defineProps({
     type: [String, Number, Object],
     default: "16px",
   },
+  gutterX: {
+    type: [String, Number],
+  },
+  gutterY: {
+    type: [String, Number],
+  },
 });
 
 const computedGutter = computed(() => {
   return {
-    x: props.gutter,
-    y: props.gutter,
+    x: props.gutterX || props.gutter,
+    y: props.gutterY || props.gutter,
   };
 });
 </script>
