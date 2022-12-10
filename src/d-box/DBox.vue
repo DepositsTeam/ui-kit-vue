@@ -177,18 +177,13 @@ export default {
       for (let prop in props) {
         if (allowedCSSProps[prop]) {
           if (props[prop]) {
-            console.log(prop);
             if (prop.startsWith("light") || prop.startsWith("dark")) {
-              console.log("----------This prop got to the or check", prop);
               if (prop.startsWith("light") && !darkModeIsEnabled.value) {
-                console.log("----------This prop got to the light check", prop);
                 addStylesToCssProps(prop, savedCss);
               } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
-                console.log("----------This prop got to the dark check", prop);
                 addStylesToCssProps(prop, savedCss);
               }
             } else {
-              console.log("----------This prop got to the none check", prop);
               addStylesToCssProps(prop, savedCss);
             }
           }

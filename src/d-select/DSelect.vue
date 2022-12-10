@@ -3,7 +3,7 @@
     class="ui-text-field__wrapper"
     :class="[wrapperClass, `size__${size}`]"
   >
-    <d-box is="label">
+    <d-box is="label" v-if="label">
       <d-text
         margin-top="0px"
         :class="labelClass"
@@ -16,7 +16,7 @@
     </d-box>
     <d-box
       class="ui-select-field__wrapper ui-text-field__input-wrapper"
-      :class="{ 'has-error': errorMessage, disabled }"
+      :class="{ 'has-error': errorMessage, disabled, pill }"
     >
       <component
         v-if="leftIcon"
@@ -30,6 +30,7 @@
           'has-left-icon': leftIcon,
           'select-placeholder': placeholderEffect && modelValue === '',
           'active-placeholder': internalValue === '' && placeholder,
+          pill,
         }"
         class="has-right-icon ui-text-field__input"
         v-bind="$attrs"
@@ -115,6 +116,9 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: "- Select -",
+  },
+  pill: {
+    type: Boolean,
   },
 });
 

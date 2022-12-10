@@ -31,6 +31,7 @@
           disabled,
           oneCharWide,
           [inputClass]: true,
+          pill,
         }"
         :max="max"
         :min="min"
@@ -157,6 +158,9 @@ const props = defineProps({
   },
   inputClass: {
     type: String,
+  },
+  pill: {
+    type: Boolean,
   },
 });
 

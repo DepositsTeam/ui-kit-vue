@@ -20,6 +20,9 @@
   width: 100%;
   -webkit-appearance: none;
   box-sizing: border-box;
+  &.pill {
+    border-radius: 900px;
+  }
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
