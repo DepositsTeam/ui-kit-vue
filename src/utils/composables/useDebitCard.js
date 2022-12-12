@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import {
   asteriskCardNo,
   asteriskCvv,
@@ -8,6 +8,12 @@ import {
 
 export const useDebitCard = (props) => {
   const hidden = ref(true);
+
+  onMounted(() => {
+    if (!props.enableHiding) {
+      hidden.value = false;
+    }
+  });
 
   const computedCardNo = computed(() => {
     if (hidden.value) {
@@ -37,7 +43,11 @@ export const useDebitCard = (props) => {
     return `https://assets.ondeposits.com/img/debit-card-brands/svg/${props.brand}_light.svg`;
   });
 
-  const toggleHidden = () => (hidden.value = !hidden.value);
+  const toggleHidden = () => {
+    if (props.enableHiding) {
+      hidden.value = !hidden.value;
+    }
+  };
 
   return {
     hidden,

@@ -1,35 +1,37 @@
 <template>
-  <d-box class="ui-wysiwyg__wrapper">
-    <d-box v-if="!!label" is="label">
-      <d-text
-        margin-top="0px"
+  <div class="ui-wysiwyg__wrapper">
+    <label v-if="!!label">
+      <p
         class="ui-text-field__label"
         :class="labelClass"
         scale="subhead"
         :font-face="labelFontFace"
       >
         {{ label }}
-      </d-text>
-    </d-box>
-    <d-box :class="{ focused }" class="d-wysiwyg-semantic-container">
-      <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
-        <d-text
+      </p>
+    </label>
+    <div :class="{ focused }" class="d-wysiwyg-semantic-container">
+      <div :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
+        <p
           @click="editor.commands.toggleHeading({ level: 1 })"
           :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
         >
           Title
-        </d-text>
+        </p>
 
         <div id="headings">
           <div id="headings-visible" @click="toggleOptions">
             {{ selectedHeading }}
           </div>
           <div v-if="showOptions" id="heading-options">
-            <div @click="editor.commands.toggleHeading({ level: 2 })">H2</div>
-            <div @click="editor.commands.toggleHeading({ level: 3 })">H3</div>
-            <div @click="editor.commands.toggleHeading({ level: 4 })">H4</div>
-            <div @click="editor.commands.toggleHeading({ level: 5 })">H5</div>
-            <div @click="editor.commands.toggleHeading({ level: 6 })">H6</div>
+            <div
+              v-for="(heading, index) in availableHeadings"
+              :key="`heading-${index}`"
+              class="heading-option"
+              @click="editor.commands.toggleHeading({ level: heading })"
+            >
+              H{{ heading }}
+            </div>
           </div>
         </div>
 
@@ -108,20 +110,18 @@
         <button @click="editor.chain().focus().redo().run()">
           <redo-outline-icon />
         </button>
-      </d-box>
+      </div>
       <editor-content
         :class="{ focused }"
         class="d-wysiwyg-editor"
         :editor="editor"
       />
-    </d-box>
-  </d-box>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import {
-  DBox,
-  DText,
   TextBoldIcon,
   TextItalicIcon,
   TextUnderlineIcon,
@@ -146,7 +146,14 @@ import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
 import Image from "@tiptap/extension-image";
 import Heading from "@tiptap/extension-heading";
-import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue";
+import {
+  ref,
+  watch,
+  onMounted,
+  onUnmounted,
+  onBeforeUnmount,
+  computed,
+} from "vue";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -178,8 +185,22 @@ const props = defineProps({
 
 const showOptions = ref(false);
 
+onMounted(() => {
+  window.addEventListener("click", checkClicks);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("click", checkClicks);
+});
+
 const toggleOptions = () => {
   showOptions.value = !showOptions.value;
+};
+
+const checkClicks = (e) => {
+  if (showOptions.value && !e.target.closest("#headings")) {
+    showOptions.value = false;
+  }
 };
 
 watch(
@@ -215,7 +236,7 @@ onMounted(() => {
         types: ["heading", "paragraph"],
       }),
       Heading.configure({
-        levels: [1, 2, 3],
+        levels: [1, 2, 3, 4, 5, 6],
       }),
     ],
     onUpdate: () => {
@@ -239,6 +260,8 @@ onMounted(() => {
 onBeforeUnmount(() => {
   editor.value.destroy();
 });
+
+const availableHeadings = [2, 3, 4, 5, 6];
 
 const toggleFocusClass = (val) => {
   focused.value = val;
@@ -302,6 +325,7 @@ const selectedHeading = computed(() => {
 
 <style lang="scss" scoped>
 .ui-wysiwyg__wrapper {
+  font-family: sans-serif;
   &.dark_mode {
     .ui-text-field__label {
       color: var(--dark-input-label-color);
@@ -317,6 +341,10 @@ const selectedHeading = computed(() => {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   justify-content: center;
 
+  & > * {
+    margin-right: 8px;
+  }
+
   &::-webkit-scrollbar {
     /* WebKit */
     width: 0;
@@ -330,7 +358,6 @@ const selectedHeading = computed(() => {
     border: none;
     color: #5f6b7a;
     cursor: pointer;
-    margin: 8px;
     &:hover,
     &.is-active {
       color: var(--light-primary-action-color);
@@ -418,10 +445,15 @@ const selectedHeading = computed(() => {
     position: absolute;
     background: white;
     border-radius: 5px;
-    padding: 8px;
     z-index: 9000000;
     top: 100%;
-    border: 1px soolid
+    border: 1px solid #e6e6e6;
+  }
+  .heading-option {
+    &:hover {
+      background: #f8f8f8;
+    }
+    padding: 7px;
   }
 }
 </style>
