@@ -181,7 +181,7 @@ export default {
         newSpecialRootStyle.id = "specialRootStyle";
         newSpecialRootStyle.setAttribute("type", "text/css");
         const style = Object.entries(unref(d__theme))
-          .map(([k, v]) => `${k}:${v}`)
+          .map(([k, v]) => `${k.startsWith("--") ? k : `--${k}`}:${v}`)
           .join(";");
         newSpecialRootStyle.innerHTML = `:root{${style}}`;
         document.head.appendChild(newSpecialRootStyle);
