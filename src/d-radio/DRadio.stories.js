@@ -23,6 +23,10 @@ export default {
     alignRight: {
       control: { type: "boolean" },
     },
+    ringSize: {
+      control: { type: "text" },
+      default: "16px",
+    },
   },
 };
 
