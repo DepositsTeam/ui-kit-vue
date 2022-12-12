@@ -21,6 +21,7 @@
       type="radio"
       :class="{
         hasLabel: label || $slots.default,
+        ringed,
       }"
     />
     <d-box class="ui-radio__label-wrap" v-if="$slots.default">
@@ -179,7 +180,7 @@ const emitClick = () => {
     }
   }
 
-  > input:checked {
+  > input:checked:not(.ringed) {
     background: var(--light-primary-action-color);
     width: calc(var(--ring-size) - 4px);
     height: calc(var(--ring-size) - 4px);

@@ -173,6 +173,19 @@ export default {
     };
 
     const generateClassProps = () => {
+      const specialRootStyle = document.head.querySelector(
+        "style#specialRootStyle"
+      );
+      if (!specialRootStyle) {
+        let newSpecialRootStyle = document.createElement("style");
+        newSpecialRootStyle.id = "specialRootStyle";
+        newSpecialRootStyle.setAttribute("type", "text/css");
+        const style = Object.entries(unref(d__theme))
+          .map(([k, v]) => `${k}:${v}`)
+          .join(";");
+        newSpecialRootStyle.innerHTML = `:root{${style}}`;
+        document.head.appendChild(newSpecialRootStyle);
+      }
       const savedCss = {};
       for (let prop in props) {
         if (allowedCSSProps[prop]) {
@@ -274,9 +287,7 @@ export default {
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
-          style: {
-            ...unref(d__theme),
-          },
+          style: {},
         },
         {
           default() {
