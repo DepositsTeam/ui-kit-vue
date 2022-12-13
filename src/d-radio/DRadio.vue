@@ -8,6 +8,7 @@
       alignRight,
     }"
     @click="emitClick"
+    :style="{ '--ring-size': ringSize }"
   >
     <d-box
       is="input"
@@ -20,6 +21,7 @@
       type="radio"
       :class="{
         hasLabel: label || $slots.default,
+        ringed,
       }"
     />
     <d-box class="ui-radio__label-wrap" v-if="$slots.default">
@@ -62,6 +64,10 @@ const props = defineProps({
   },
   alignRight: {
     type: Boolean,
+  },
+  ringSize: {
+    type: String,
+    default: "16px",
   },
 });
 
@@ -132,8 +138,8 @@ const emitClick = () => {
         margin-right: 8px;
       }
       position: relative;
-      height: 15px;
-      width: 15px;
+      height: var(--ring-size);
+      width: var(--ring-size);
       border-radius: 50%;
       background: white;
       border: 2px solid #ced6de;
@@ -149,14 +155,14 @@ const emitClick = () => {
 
   &.ringed {
     > input {
-      height: 16px;
-      width: 16px;
+      height: var(--ring-size);
+      width: var(--ring-size);
       border: 1px solid #ced6de;
     }
 
     > input:checked {
-      height: 16px;
-      width: 16px;
+      height: var(--ring-size);
+      width: var(--ring-size);
       border: 5px solid var(--light-primary-action-color);
       outline: none;
       background: white;
@@ -174,11 +180,11 @@ const emitClick = () => {
     }
   }
 
-  > input:checked {
+  > input:checked:not(.ringed) {
     background: var(--light-primary-action-color);
-    width: 12px;
-    height: 12px;
-    outline: 2px solid var(--light-primary-action-color);
+    width: calc(var(--ring-size) - 4px);
+    height: calc(var(--ring-size) - 4px);
+    outline: 3px solid var(--light-primary-action-color);
     outline-offset: 1px;
     border-color: transparent;
     &.dark_mode {

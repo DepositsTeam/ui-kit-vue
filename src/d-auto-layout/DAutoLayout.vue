@@ -5,6 +5,7 @@
       [`direction__${direction}`]: direction,
       [`align__${alignment}`]: alignment,
       wrap,
+      stretchItems
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -40,6 +41,10 @@ defineProps({
       ].includes(value),
   },
   wrap: Boolean,
+  stretchItems: {
+    type: Boolean,
+    default: false,
+  }
 });
 </script>
 
@@ -53,6 +58,9 @@ defineProps({
     flex-direction: row;
     & > *:not(:last-child) {
       margin-right: var(--spacing-value);
+    }
+    &.stretchItems > * {
+      flex: 1;
     }
     &.align__top-left {
       align-items: flex-start;

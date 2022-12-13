@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.285",
+  "version": "0.0.295",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -28,6 +28,7 @@
   "dependencies": {
     "@floating-ui/dom": "^0.4.5",
     "@tiptap/extension-code": "^2.0.0-beta.26",
+    "@tiptap/extension-heading": "^2.0.0-beta.207",
     "@tiptap/extension-image": "^2.0.0-beta.196",
     "@tiptap/extension-link": "^2.0.0-beta.38",
     "@tiptap/extension-placeholder": "^2.0.0-beta.48",

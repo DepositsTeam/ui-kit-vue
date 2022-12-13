@@ -126,6 +126,10 @@ const props = defineProps({
     validator: (value) => ["dark", "light"].includes(value),
     default: "light",
   },
+  enableHiding: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const computedLogo = computed(() => {

@@ -44,7 +44,7 @@ defineProps({
 .ui-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--min-grid-width), 1fr));
-  grid-auto-rows: minmax(var(--min-grid-height), auto);
+  grid-auto-rows: minmax(var(--min-grid-height), 1fr);
   column-gap: var(--col-gutter);
   row-gap: var(--row-gutter);
   @media only screen and (max-width: 460px) {

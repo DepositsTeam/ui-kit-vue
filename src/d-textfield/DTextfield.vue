@@ -31,6 +31,7 @@
           disabled,
           oneCharWide,
           [inputClass]: true,
+          pill,
         }"
         :max="max"
         :min="min"
@@ -158,9 +159,12 @@ const props = defineProps({
   inputClass: {
     type: String,
   },
+  pill: {
+    type: Boolean,
+  },
 });
 
-const defaultFontFace = inject("defaultFontFace");
+const defaultFontFace = inject("defaultFontFace", null);
 
 const computedFontFace = computed(() => {
   return props.fontFace || unref(defaultFontFace)

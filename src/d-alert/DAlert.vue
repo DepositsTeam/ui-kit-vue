@@ -49,7 +49,7 @@
           class="ui-alert__header-icon"
           :is="schemeIcons[colorScheme]"
         ></component>
-        <div class="ui-alert__text">
+        <d-box class="ui-alert__text" flex="1">
           <d-box v-if="message" class="ui-alert__header">
             <d-heading scale="subtitle-2" class="ui-alert__header-text">
               {{ message }}
@@ -72,7 +72,7 @@
           <d-box v-else-if="$slots.button">
             <slot name="button"></slot>
           </d-box>
-        </div>
+        </d-box>
       </d-box>
     </d-box>
     <CloseIcon

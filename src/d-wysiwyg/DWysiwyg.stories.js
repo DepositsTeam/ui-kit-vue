@@ -1,7 +1,9 @@
 import DWysiwyg from "./DWysiwyg.vue";
+import KnockOffWyswig from "./KnockOffWyswig.vue";
 import { DarkModeProvider } from "../main";
 
 export default {
+  components: DWysiwyg,
   title: "Forms/WYSIWYG Editor",
   component: DWysiwyg,
   argTypes: {
@@ -30,6 +32,17 @@ const Template = (args) => ({
     return { args };
   },
   template: `<d-wysiwyg v-bind="args" v-model="value"  />`,
+});
+
+const KnockOffTemplate = (args) => ({
+  components: { KnockOffWyswig },
+  data: () => ({
+    value: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<knock-off-wyswig v-bind="args" v-model="value"  />`,
 });
 
 const DarkModeTemplate = (args) => ({
@@ -63,4 +76,9 @@ export const Default = Template.bind({});
 export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   label: "WYSIWYG Input area",
+};
+
+export const KnockOffWyswigMode = KnockOffTemplate.bind({});
+KnockOffWyswigMode.args = {
+  label: "Wsiwig",
 };

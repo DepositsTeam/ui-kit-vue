@@ -62,11 +62,13 @@ export default {
     "update:modelValue",
   ],
   setup(props, { slots, emit }) {
-    const darkMode = inject("d__darkMode");
+    const darkMode = inject("d__darkMode", null);
     const d__theme = inject("d__theme", defaultThemeVars);
     const defaultFontFace = inject("defaultFontFace", null);
     const computedFontFace = computed(() => {
-      return props.fontFace || unref(defaultFontFace)
+      return props.fontFace
+        ? props.fontFace
+        : unref(defaultFontFace)
         ? unref(defaultFontFace)
         : "heroNew";
     });
@@ -171,14 +173,29 @@ export default {
     };
 
     const generateClassProps = () => {
+      const specialRootStyle = document.head.querySelector(
+        "style#specialRootStyle"
+      );
+      if (!specialRootStyle) {
+        let newSpecialRootStyle = document.createElement("style");
+        newSpecialRootStyle.id = "specialRootStyle";
+        newSpecialRootStyle.setAttribute("type", "text/css");
+        const style = Object.entries(unref(d__theme))
+          .map(([k, v]) => `${k.startsWith("--") ? k : `--${k}`}: ${v}`)
+          .join(";");
+        newSpecialRootStyle.innerHTML = `:root{${style}}`;
+        document.head.appendChild(newSpecialRootStyle);
+      }
       const savedCss = {};
       for (let prop in props) {
         if (allowedCSSProps[prop]) {
           if (props[prop]) {
-            if (prop.startsWith("light") && !darkModeIsEnabled.value) {
-              addStylesToCssProps(prop, savedCss);
-            } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
-              addStylesToCssProps(prop, savedCss);
+            if (prop.startsWith("light") || prop.startsWith("dark")) {
+              if (prop.startsWith("light") && !darkModeIsEnabled.value) {
+                addStylesToCssProps(prop, savedCss);
+              } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
+                addStylesToCssProps(prop, savedCss);
+              }
             } else {
               addStylesToCssProps(prop, savedCss);
             }
@@ -274,7 +291,11 @@ export default {
             ...unref(d__theme),
           },
         },
-        slots.default ? slots.default() : undefined
+        {
+          default() {
+            return slots.default ? slots.default() : undefined;
+          },
+        }
       );
   },
 };
