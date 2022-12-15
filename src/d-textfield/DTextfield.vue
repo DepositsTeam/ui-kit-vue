@@ -162,6 +162,9 @@ const props = defineProps({
   pill: {
     type: Boolean,
   },
+  onlyNumbers: {
+    type: Boolean,
+  },
 });
 
 const defaultFontFace = inject("defaultFontFace", null);

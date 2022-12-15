@@ -1,5 +1,5 @@
 <template>
-  <d-box :class="{ fullPage, loading }" class="ui-d-loader">
+  <d-box :class="{ fullPage, loading, translucent }" class="ui-d-loader">
     <d-box v-if="loading">
       <div v-if="loader === 'ring'" class="ring-loader">
         <div></div>
@@ -28,6 +28,9 @@ defineProps({
     validator: (value) => ["ring"].includes(value),
     default: "ring",
   },
+  translucent: {
+    type: Boolean,
+  },
 });
 </script>
 
@@ -47,8 +50,14 @@ defineProps({
       background: var(--light-background-color);
       align-items: center;
       justify-content: center;
+      &.translucent {
+        background: rgba(var(--light-background-color), 0.5);
+      }
       &.dark_mode {
         background: var(--dark-background-color);
+        &.translucent {
+          background: rgba(var(--dark-background-color), 0.5);
+        }
         .ring-loader div {
           border-color: var(--dark-primary-action-color) transparent transparent
             transparent;

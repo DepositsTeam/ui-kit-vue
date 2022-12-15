@@ -93,6 +93,13 @@ Default.args = {
   label: "Form Label",
 };
 
+export const OnlyNumbers = Template.bind({});
+OnlyNumbers.args = {
+  placeholder: "Input placeholder",
+  label: "Form Label",
+  onlyNumbers: true,
+};
+
 export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   placeholder: "Input placeholder",
