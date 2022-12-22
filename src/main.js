@@ -280,6 +280,7 @@ export { default as EyeFilledIcon } from "./icons/filled/EyeFilledIcon.vue";
 export { default as FrameFilledIcon } from "./icons/filled/FrameFilledIcon.vue";
 export { default as GithubFilledIcon } from "./icons/filled/GithubFilledIcon.vue";
 export { default as HomeFilledIcon } from "./icons/filled/HomeFilledIcon.vue";
+export { default as Home2FilledIcon } from "./icons/filled/Home2FilledIcon.vue";
 export { default as LocationFilledIcon } from "./icons/filled/LocationFilledIcon.vue";
 export { default as LockFilledIcon } from "./icons/filled/LockFilledIcon.vue";
 export { default as Logout2FilledIcon } from "./icons/filled/Logout2FilledIcon.vue";
@@ -340,6 +341,7 @@ export { default as ReceiptOutlineIcon } from "./icons/outline/ReceiptOutlineIco
 export { default as ReceiveSquareOutlineIcon } from "./icons/outline/ReceiveSquareOutlineIcon.vue";
 export { default as RedoOutlineIcon } from "./icons/outline/RedoOutlineIcon.vue";
 export { default as RefreshSquareOutlineIcon } from "./icons/outline/RefreshSquareOutlineIcon.vue";
+export { default as ReloadOutlineIcon } from "./icons/outline/ReloadOutlineIcon.vue";
 export { default as Send2OutlineIcon } from "./icons/outline/Send2OutlineIcon.vue";
 export { default as SendOutlineIcon } from "./icons/outline/SendOutlineIcon.vue";
 export { default as Setting2OutlineIcon } from "./icons/outline/Setting2OutlineIcon.vue";
