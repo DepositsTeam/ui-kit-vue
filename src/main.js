@@ -330,6 +330,7 @@ export { default as ElementPlusOutlineIcon } from "./icons/outline/ElementPlusOu
 export { default as ExchangeVerticalOutlineIcon } from "./icons/outline/ExchangeVerticalOutlineIcon.vue";
 export { default as FrameOutlineIcon } from "./icons/outline/FrameOutlineIcon.vue";
 export { default as GithubOutlineIcon } from "./icons/outline/GithubOutlineIcon.vue";
+export { default as GridOutlineIcon } from "./icons/outline/GridOutlineIcon.vue";
 export { default as LinkOutlineIcon } from "./icons/outline/LinkOutlineIcon.vue";
 export { default as LogoutOutlineIcon } from "./icons/outline/LogoutOutlineIcon.vue";
 export { default as MoneyChangeOutlineIcon } from "./icons/outline/MoneyChangeOutlineIcon.vue";
@@ -348,6 +349,7 @@ export { default as Setting2OutlineIcon } from "./icons/outline/Setting2OutlineI
 export { default as SettingOutlineIcon } from "./icons/outline/SettingOutlineIcon.vue";
 export { default as ShieldTickOutlineIcon } from "./icons/outline/ShieldTickOutlineIcon.vue";
 export { default as StackOutlineIcon } from "./icons/outline/StackOutlineIcon.vue";
+export { default as TableOutlineIcon } from "./icons/outline/TableOutlineIcon.vue";
 export { default as Tag2OutlineIcon } from "./icons/outline/Tag2OutlineIcon.vue";
 export { default as TagOutlineIcon } from "./icons/outline/TagOutlineIcon.vue";
 export { default as TrashOutlineIcon } from "./icons/outline/TrashOutlineIcon.vue";
