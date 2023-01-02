@@ -24,7 +24,7 @@
       />
       <d-box is="span" class="ui-slider round" />
     </d-box>
-    <d-text class="ui-switch__label-text">{{ label }}</d-text>
+    <d-text v-if="label" class="ui-switch__label-text">{{ label }}</d-text>
   </d-box>
 </template>
 
