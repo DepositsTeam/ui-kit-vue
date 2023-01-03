@@ -12,6 +12,9 @@
     :style="{
       '--customswitchcolor': switchColor,
       '--customthumbcolor': thumbColor,
+      '--switch-height': switchHeight,
+      '--switch-width': switchWidth,
+      '--thumb-size': thumbSize,
     }"
   >
     <d-box is="div" class="ui-switch">
@@ -36,24 +39,36 @@ defineProps({
     type: String,
     validator: (value) =>
       ["primary", "danger", "success", "outline", "invisible"].includes(value),
-    default: "success",
+    default: "success"
   },
   disabled: {
-    type: Boolean,
+    type: Boolean
   },
   label: {
-    type: String,
+    type: String
   },
   switchColor: {
-    type: String,
+    type: String
   },
   thumbColor: {
-    type: String,
+    type: String
   },
   alignRight: {
     type: Boolean,
-    default: false,
+    default: false
   },
+  thumbSize: {
+    type: String,
+    default: "18px"
+  },
+  switchWidth: {
+    type: String,
+    default: "56px"
+  },
+  switchHeight: {
+    type: String,
+    default: "26px"
+  }
 });
 </script>
 
@@ -66,6 +81,7 @@ defineProps({
   &.alignRight {
     flex-direction: row-reverse;
   }
+
   &.custom_color {
     .ui-switch {
       input:checked + .ui-slider {
@@ -73,6 +89,7 @@ defineProps({
       }
     }
   }
+
   &.custom_thumb_color {
     .ui-slider {
       &:before {
@@ -88,6 +105,7 @@ defineProps({
 
 .ui-switch__label-text {
   padding: 0 10px;
+
   &.dark_mode {
     color: #fff;
   }
@@ -98,8 +116,8 @@ defineProps({
 .ui-switch {
   position: relative;
   display: inline-block;
-  width: 56px;
-  height: 26px;
+  width: var(--switch-width);
+  height: var(--switch-height);
 
   input {
     opacity: 0;
@@ -126,8 +144,8 @@ defineProps({
   &:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
+    height: var(--thumb-size);
+    width: var(--thumb-size);
     left: 4px;
     bottom: 4px;
     background-color: white;
