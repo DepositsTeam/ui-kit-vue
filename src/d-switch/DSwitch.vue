@@ -49,9 +49,11 @@ defineProps({
   },
   switchColor: {
     type: String,
+    default: "#cccccc",
   },
   thumbColor: {
     type: String,
+    default: "#ffffff",
   },
   alignRight: {
     type: Boolean,
@@ -140,6 +142,9 @@ defineProps({
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  &.dark_mode {
+    background-color: #4f627d;
+  }
 
   &:before {
     position: absolute;
@@ -172,6 +177,9 @@ input:checked + .ui-slider {
 
 .semantic__outline input:checked + .ui-slider.round {
   background-color: #ccc;
+  &.dark_mode {
+    background-color: #4f627d;
+  }
 }
 
 .semantic__invisible input:checked + .ui-slider.round {
@@ -184,9 +192,24 @@ input {
   }
 
   &:checked + .ui-slider:before {
-    -webkit-transform: translateX(calc(var(--switch-width) - var(--thumb-size) - ((var(--switch-height) - var(--thumb-size)))));
-    -ms-transform: translateX(calc(var(--switch-width) - var(--thumb-size) - ((var(--switch-height) - var(--thumb-size)))));
-    transform: translateX(calc(var(--switch-width) - var(--thumb-size) - ((var(--switch-height) - var(--thumb-size)))));
+    -webkit-transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
+    -ms-transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
+    transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
   }
 }
 
