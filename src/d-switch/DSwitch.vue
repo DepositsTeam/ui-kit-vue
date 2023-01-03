@@ -39,36 +39,36 @@ defineProps({
     type: String,
     validator: (value) =>
       ["primary", "danger", "success", "outline", "invisible"].includes(value),
-    default: "success"
+    default: "success",
   },
   disabled: {
-    type: Boolean
+    type: Boolean,
   },
   label: {
-    type: String
+    type: String,
   },
   switchColor: {
-    type: String
+    type: String,
   },
   thumbColor: {
-    type: String
+    type: String,
   },
   alignRight: {
     type: Boolean,
-    default: false
+    default: false,
   },
   thumbSize: {
     type: String,
-    default: "18px"
+    default: "18px",
   },
   switchWidth: {
     type: String,
-    default: "56px"
+    default: "56px",
   },
   switchHeight: {
     type: String,
-    default: "26px"
-  }
+    default: "26px",
+  },
 });
 </script>
 
@@ -146,8 +146,8 @@ defineProps({
     content: "";
     height: var(--thumb-size);
     width: var(--thumb-size);
-    left: 4px;
-    bottom: 4px;
+    left: calc((var(--switch-height) - var(--thumb-size)) / 2);
+    bottom: calc((var(--switch-height) - var(--thumb-size)) / 2);
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -184,9 +184,9 @@ input {
   }
 
   &:checked + .ui-slider:before {
-    -webkit-transform: translateX(29px);
-    -ms-transform: translateX(29px);
-    transform: translateX(29px);
+    -webkit-transform: translateX(calc(var(--switch-width) - var(--thumb-size) - ((var(--switch-height) - var(--thumb-size)))));
+    -ms-transform: translateX(calc(var(--switch-width) - var(--thumb-size) - ((var(--switch-height) - var(--thumb-size)))));
+    transform: translateX(calc(var(--switch-width) - var(--thumb-size) - ((var(--switch-height) - var(--thumb-size)))));
   }
 }
 

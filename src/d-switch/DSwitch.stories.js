@@ -24,6 +24,18 @@ export default {
     alignRight: {
       control: { type: "boolean" },
     },
+    thumbSize: {
+      control: { type: "text" },
+      default: "18px",
+    },
+    switchWidth: {
+      control: { type: "text" },
+      default: "56px",
+    },
+    switchHeight: {
+      control: { type: "text" },
+      default: "26px",
+    },
   },
 };
 
