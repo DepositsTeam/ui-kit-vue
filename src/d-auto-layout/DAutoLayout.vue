@@ -74,7 +74,7 @@ defineProps({
       align-items: flex-start;
       justify-content: flex-end;
     }
-    &.align__center-right {
+    &.align__center-left {
       align-items: center;
       justify-content: flex-start;
     }
