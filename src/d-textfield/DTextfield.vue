@@ -149,6 +149,7 @@ const props = defineProps({
   isPassword: Boolean,
   ssn: Boolean,
   percentage: Boolean,
+  address: Boolean,
   maxlength: {
     type: [String, Number],
   },
