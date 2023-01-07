@@ -37,7 +37,7 @@
         <check-outline-icon class="indicator-icon" v-if="currentStep > index" />
       </d-box>
       <d-box class="ui-step__content">
-        <slot name="step" v-bind="step">
+        <slot name="step" v-bind="typeof step === 'object' ? step : {}">
           <d-text
             margin-y="0"
             class="ui-step__content-title"
@@ -48,7 +48,7 @@
             margin-y="0"
             font-face="circularSTD"
             scale="subhead"
-            v-if="step.description"
+            v-if="typeof step !== 'string' && step.description"
             color="#878B9A"
           >
             {{ step.description }}
@@ -153,6 +153,11 @@ defineProps({
           background: #94a3b8;
           border-radius: 50%;
         }
+        &.completed {
+          &::before {
+            display: none;
+          }
+        }
       }
       &.dark_mode {
         background: var(--dark-input-background-color);
@@ -171,6 +176,9 @@ defineProps({
           background: var(--active-color-bg);
           &::before {
             background: var(--active-color);
+          }
+          &.activeColor {
+            border-color: var(--active-color);
           }
         }
       }

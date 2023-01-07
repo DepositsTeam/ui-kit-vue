@@ -4,6 +4,12 @@
       ...(avatar && avatar.imgURL
         ? { backgroundImage: `url(${avatar.imgURL})` }
         : {}),
+      ...(avatar && avatar.smartColor
+        ? {
+            '--smart-color': avatar.smartColor,
+            '--smart-text-color': getTextColor(avatar.smartColor),
+          }
+        : {}),
     }"
     class="ui-avatar"
     :class="generateAvatarClassName(avatar, index)"
@@ -32,6 +38,8 @@
 import getInitials from "./utils/getInitials";
 import { DBox, DText } from "../main";
 import { ChevronFilledDownIcon } from "../main";
+import { getTextColor } from "../utils/colorManager";
+
 const colorSchemes = ["cyan", "green", "orange", "red", "gray", "blue"];
 
 defineProps({
@@ -70,6 +78,7 @@ const generateAvatarClassName = (avatar = null, index = 0) => {
         [`background__${generateAvatarColorScheme(avatar, index)}`]:
           !avatar.imgURL,
         [`status__${avatar.status}`]: avatar.status,
+        background__smartColor: avatar.smartColor,
       }
     : ["background__extra"];
 };

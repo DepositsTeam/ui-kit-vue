@@ -3,6 +3,7 @@ import { h, inject, computed, onMounted, unref } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { defaultThemeVars } from "../providers/default-theme";
+import convertObjToVars from "../utils/convertObjToVars";
 
 const unitizeValue = (value) =>
   parseFloat(value) == value ? `${value}px` : value;
@@ -202,8 +203,17 @@ export default {
           }
         }
       }
-      const savedCssEntries = Object.entries(savedCss);
-      let cssRules = "box-sizing: border-box;";
+      const savedCssEntries = Object.entries({
+        ...savedCss,
+        ...convertObjToVars(unref(d__theme)),
+      });
+      let cssRules = `
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+      `;
       if (savedCssEntries.length) {
         cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
       }
@@ -287,9 +297,7 @@ export default {
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
-          style: {
-            ...unref(d__theme),
-          },
+          style: {},
         },
         {
           default() {

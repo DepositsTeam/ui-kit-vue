@@ -27,6 +27,10 @@ export default {
       control: { type: "text" },
       default: "16px",
     },
+    ringThickness: {
+      control: { type: "text" },
+      default: "5px",
+    },
   },
 };
 

@@ -8,7 +8,7 @@
       alignRight,
     }"
     @click="emitClick"
-    :style="{ '--ring-size': ringSize }"
+    :style="{ '--ring-size': ringSize, '--ring-thickness': ringThickness }"
   >
     <d-box
       is="input"
@@ -68,6 +68,10 @@ const props = defineProps({
   ringSize: {
     type: String,
     default: "16px",
+  },
+  ringThickness: {
+    type: String,
+    default: "5px",
   },
 });
 
@@ -163,7 +167,7 @@ const emitClick = () => {
     > input:checked {
       height: var(--ring-size);
       width: var(--ring-size);
-      border: 5px solid var(--light-primary-action-color);
+      border: var(--ring-thickness) solid var(--light-primary-action-color);
       outline: none;
       background: white;
       &.dark_mode {

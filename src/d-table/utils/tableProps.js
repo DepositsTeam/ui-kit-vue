@@ -93,4 +93,8 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  enableRowHoverCursor: {
+    type: Boolean,
+    default: false,
+  },
 };
