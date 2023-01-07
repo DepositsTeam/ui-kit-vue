@@ -138,11 +138,19 @@ const defaultTheme = {
   "dark-primary-800": "#085e7a",
   "dark-primary-900": "#094357",
   "default-font-face": null,
+  "dark-background-100": "#e5e6e7",
+  "dark-background-200": "#bfc1c4",
+  "dark-background-300": "#868a90",
+  "dark-background-400": "#474d57",
+  "dark-background-500": "#121a26",
+  "dark-background-600": "#0f141c",
+  "dark-background-700": "#0e141c",
+  "dark-background-800": "#0a0d13",
+  "dark-background-900": "#070a0c",
 };
 
 export const defaultThemeVars = {
   ...convertObjToVars(defaultTheme),
-  ...generateColorSpectrum("#121A26", "--dark-background-"),
 };
 
 export default defaultTheme;

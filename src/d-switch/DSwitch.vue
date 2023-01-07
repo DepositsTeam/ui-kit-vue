@@ -12,6 +12,9 @@
     :style="{
       '--customswitchcolor': switchColor,
       '--customthumbcolor': thumbColor,
+      '--switch-height': switchHeight,
+      '--switch-width': switchWidth,
+      '--thumb-size': thumbSize,
     }"
   >
     <d-box is="div" class="ui-switch">
@@ -24,7 +27,7 @@
       />
       <d-box is="span" class="ui-slider round" />
     </d-box>
-    <d-text class="ui-switch__label-text">{{ label }}</d-text>
+    <d-text v-if="label" class="ui-switch__label-text">{{ label }}</d-text>
   </d-box>
 </template>
 
@@ -46,13 +49,27 @@ defineProps({
   },
   switchColor: {
     type: String,
+    default: "#cccccc",
   },
   thumbColor: {
     type: String,
+    default: "#ffffff",
   },
   alignRight: {
     type: Boolean,
     default: false,
+  },
+  thumbSize: {
+    type: String,
+    default: "18px",
+  },
+  switchWidth: {
+    type: String,
+    default: "56px",
+  },
+  switchHeight: {
+    type: String,
+    default: "26px",
   },
 });
 </script>
@@ -66,6 +83,7 @@ defineProps({
   &.alignRight {
     flex-direction: row-reverse;
   }
+
   &.custom_color {
     .ui-switch {
       input:checked + .ui-slider {
@@ -73,6 +91,7 @@ defineProps({
       }
     }
   }
+
   &.custom_thumb_color {
     .ui-slider {
       &:before {
@@ -88,6 +107,7 @@ defineProps({
 
 .ui-switch__label-text {
   padding: 0 10px;
+
   &.dark_mode {
     color: #fff;
   }
@@ -98,8 +118,8 @@ defineProps({
 .ui-switch {
   position: relative;
   display: inline-block;
-  width: 56px;
-  height: 26px;
+  width: var(--switch-width);
+  height: var(--switch-height);
 
   input {
     opacity: 0;
@@ -122,14 +142,17 @@ defineProps({
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  &.dark_mode {
+    background-color: #4f627d;
+  }
 
   &:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
-    left: 4px;
-    bottom: 4px;
+    height: var(--thumb-size);
+    width: var(--thumb-size);
+    left: calc((var(--switch-height) - var(--thumb-size)) / 2);
+    bottom: calc((var(--switch-height) - var(--thumb-size)) / 2);
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -154,6 +177,9 @@ input:checked + .ui-slider {
 
 .semantic__outline input:checked + .ui-slider.round {
   background-color: #ccc;
+  &.dark_mode {
+    background-color: #4f627d;
+  }
 }
 
 .semantic__invisible input:checked + .ui-slider.round {
@@ -166,9 +192,24 @@ input {
   }
 
   &:checked + .ui-slider:before {
-    -webkit-transform: translateX(29px);
-    -ms-transform: translateX(29px);
-    transform: translateX(29px);
+    -webkit-transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
+    -ms-transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
+    transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
   }
 }
 

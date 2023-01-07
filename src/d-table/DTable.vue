@@ -156,6 +156,7 @@
             :key="`table__column_${index}`"
             :class="{
               checked: selectedItems.includes(datum[checkboxDataSelector]),
+              enableHover: enableRowHoverCursor,
             }"
             @click="emitRowClickedEvent(datum)"
           >
@@ -458,6 +459,9 @@ const buttonActionsEnabled = computed(
   }
   .ui-table__body-row {
     &:hover {
+      &.enableHover {
+        cursor: pointer;
+      }
       td {
         background: #f5f8fa;
         &.dark_mode {

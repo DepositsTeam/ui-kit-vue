@@ -75,6 +75,9 @@ export default {
     smartColor: {
       control: { type: "color" },
     },
+    enableRowHoverCursor: {
+      control: { type: "boolean" },
+    },
   },
 };
 

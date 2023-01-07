@@ -22,9 +22,14 @@
           'has-left-icon': leftIcon,
           'has-right-icon': dropDown || rightIcon,
           dark_mode: darkMode,
+          [fontFace]: fontFace,
         }"
         :input-attr="{
-          class: { dark_mode: darkMode, 'ui-text-field__input': true },
+          class: {
+            dark_mode: darkMode,
+            'ui-text-field__input': true,
+            [fontFace]: fontFace,
+          },
         }"
         v-bind="$attrs"
         @keypress="handleKeyEvents"
@@ -39,7 +44,7 @@
           <CalendarIcon class="ui-text-field__right-icon relative" />
         </template>
         <template #icon-clear>
-          <CloseIcon class="ui-text-field__right-icon" />
+          <CloseIcon class="ui-text-field__right-icon relative" />
         </template>
       </date-picker>
       <component
@@ -86,6 +91,10 @@ const emit = defineEmits(["update:modelValue", "blur"]);
 
 const props = defineProps({
   ...inputProps,
+  fontFace: {
+    type: String,
+    default: "heroNew",
+  },
   dropDown: {
     type: Boolean,
   },
@@ -156,5 +165,10 @@ const fire = () => {
 .mx-input-wrapper,
 .mx-datepicker {
   width: 100%;
+}
+.mx-input-wrapper:hover {
+  .mx-icon-calendar {
+    display: none;
+  }
 }
 </style>

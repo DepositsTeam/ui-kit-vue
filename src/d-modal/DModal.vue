@@ -25,7 +25,8 @@
           }"
           :class="{ maxModalWidth, minModalWidth }"
         >
-          <d-box class="ui-modal__heading" :class="{ headerClasses }">
+          <slot name="customHeading" v-if="$slots.customHeading"></slot>
+          <d-box v-else class="ui-modal__heading" :class="{ headerClasses }">
             <d-box>
               <slot name="heading" v-if="$slots.heading"></slot>
               <d-heading my0 is="h5" v-else> {{ heading }}</d-heading>

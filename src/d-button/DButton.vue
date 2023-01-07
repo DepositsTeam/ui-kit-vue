@@ -83,7 +83,7 @@ const props = defineProps({
     default: "button",
   },
   fontFace: {
-    type: String
+    type: String,
   },
   colorScheme: {
     type: String,
@@ -284,8 +284,9 @@ const smartCalculatedHoverColor = computed(() =>
 
       &:disabled,
       &.state__disabled {
-        background: var(--dark-primary-action-disabled-color);
-        color: var(--dark-subtle-text-color);
+        //background: var(--dark-primary-action-disabled-color);
+        //color: var(--dark-subtle-text-color);
+        opacity: 0.5;
       }
     }
 

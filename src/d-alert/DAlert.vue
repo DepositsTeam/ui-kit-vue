@@ -196,6 +196,13 @@ const emitClick = () => emit("button-clicked");
           border-color: #0d7fe9;
         }
 
+        &.color-scheme__primary {
+          border-color: var(--light-primary-action-color);
+          &.dark_mode {
+            border-color: var(--dark-primary-action-color);
+          }
+        }
+
         &.color-scheme__warning {
           border-color: #ff9505;
         }
@@ -238,17 +245,6 @@ const emitClick = () => emit("button-clicked");
     margin-right: 12px;
   }
 
-  &.color-scheme__info {
-    &.is-toast {
-      border-color: #0d7fe9;
-      border-left: 4px solid #0d7fe9;
-    }
-
-    .ui-alert__header-icon {
-      color: #0d7fe9;
-    }
-  }
-
   &.smartColor {
     &.is-toast {
       border-color: var(--smart-color);
@@ -257,6 +253,37 @@ const emitClick = () => emit("button-clicked");
   }
 
   &:not(.smartColor) {
+    &.color-scheme__info {
+      &.is-toast {
+        border-color: #0d7fe9;
+        border-left: 4px solid #0d7fe9;
+      }
+
+      .ui-alert__header-icon {
+        color: #0d7fe9;
+      }
+    }
+    &.color-scheme__primary {
+      &.is-toast {
+        border-color: var(--light-primary-action-color);
+        border-left: 4px solid var(--light-primary-action-color);
+      }
+
+      .ui-alert__header-icon {
+        color: var(--light-primary-action-color);
+      }
+
+      &.dark_mode {
+        &.is-toast {
+          border-color: var(--dark-primary-action-color);
+          border-left: 4px solid var(--dark-primary-action-color);
+        }
+
+        .ui-alert__header-icon {
+          color: var(--dark-primary-action-color);
+        }
+      }
+    }
     &.color-scheme__warning {
       &.is-toast {
         border-color: #ff9505;
@@ -296,20 +323,30 @@ const emitClick = () => emit("button-clicked");
   }
 
   &.theme__filled {
-    background: #f5f8fa;
-    &.dark_mode {
-      background: #202b3c;
+    &:not(.smartColor) {
+      background: #f5f8fa;
+
+      &.dark_mode {
+        background: #202b3c;
+      }
       &.color-scheme__primary {
-        background: var(--dark-primary-action-color);
+        background: var(--light-primary-action-color);
         .ui-alert__header-text {
-          color: var(--dark-primary-title-text-color);
+          color: var(--light-primary-title-text-color);
         }
         .ui-alert__body {
-          color: var(--dark-primary-description-text-color);
+          color: var(--light-primary-description-text-color);
+        }
+        &.dark_mode {
+          background: var(--dark-primary-action-color);
+          .ui-alert__header-text {
+            color: var(--dark-primary-title-text-color);
+          }
+          .ui-alert__body {
+            color: var(--dark-primary-description-text-color);
+          }
         }
       }
-    }
-    &:not(.smartColor) {
     }
 
     &.color-scheme__info {

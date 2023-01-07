@@ -2,7 +2,7 @@
   <slot></slot>
 </template>
 <script setup>
-import { provide, watch, onMounted, ref, onBeforeMount } from "vue";
+import { provide, watch, onMounted, ref } from "vue";
 import {
   getTextColor,
   hexToRgbA,
