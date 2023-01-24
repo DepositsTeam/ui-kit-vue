@@ -118,6 +118,7 @@ const emitClick = () => {
   }
 
   .ui-radio__label-text.ui-text {
+    flex: 1;
     &.dark_mode {
       color: #cbd5e1;
     }

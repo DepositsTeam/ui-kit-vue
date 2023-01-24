@@ -123,6 +123,13 @@ defineProps({
             transparent 6px 9px
           );
         }
+        &.dark_mode::after {
+          background: repeating-linear-gradient(
+            to bottom,
+            #202b3c 0px 3px,
+            transparent 6px 9px
+          );
+        }
       }
       &.dark_mode {
         &::after {

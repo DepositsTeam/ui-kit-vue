@@ -162,6 +162,10 @@ const handleChange = (e) => {
   align-items: center;
   cursor: pointer;
 
+  &.disabled {
+    cursor: not-allowed;
+  }
+
   &.alignRight {
     flex-direction: row-reverse;
     > {
@@ -175,6 +179,7 @@ const handleChange = (e) => {
   }
 
   .ui-checkbox__label-wrap.ui-text {
+    flex: 1;
     &.dark_mode {
       color: #cbd5e1;
     }

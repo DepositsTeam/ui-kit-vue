@@ -56,7 +56,7 @@
       <d-text
         class="ui-text-field__error-text"
         scale="subhead"
-        fontFace="circularSTD"
+        font-face="circularSTD"
       >
         {{ computedErrorMessage }}
       </d-text>

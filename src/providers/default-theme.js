@@ -1,6 +1,5 @@
 import convertObjToVars from "../utils/convertObjToVars";
 import {
-  generateColorSpectrum,
   getTextColor,
   hexToRgbA,
 } from "../utils/colorManager";

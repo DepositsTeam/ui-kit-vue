@@ -94,6 +94,7 @@
         class="ui-card-input-field__error-text"
         scale="subhead"
         font-face="circularSTD"
+        margin-y="0px"
       >
         {{ computedCardErrorMessage }}
       </d-text>
@@ -130,8 +131,8 @@ const props = defineProps({
   variant: {
     type: String,
     default: "variant-1",
-    validator: value => ["variant-1", "variant-2"].includes(value)
-  }
+    validator: (value) => ["variant-1", "variant-2"].includes(value),
+  },
 });
 
 const emit = defineEmits(["update:cardNo", "update:cardCvv", "update:cardExp"]);
@@ -395,7 +396,7 @@ const validateCardNo = (cardNo) => {
     );
   }
 
-  if (!validatedCardNo.isPotentiallyValid) {
+  if (!validatedCardNo.isPotentiallyValid && validatedCardNo.card) {
     cardNoError.value = `Please enter a valid ${validatedCardNo.card.niceType} card number`;
   } else {
     cardNoError.value = null;
