@@ -202,7 +202,7 @@ export const data = [
     qty: "2",
     state: "Louisiana",
   },
-]
+];
 
 export const paginatedData = [
   {
@@ -82215,18 +82215,6 @@ export const paginatedData = [
   },
 ];
 
-const returnLink = (url) => ({
-  components: {
-    DText,
-    SettingFilledIcon,
-    DBox,
-  },
-  setup() {
-    return { url };
-  },
-  template: `<d-box class="text-cyan-500" display="inline-flex" align-items="center"><setting-filled-icon height="18px" width="18px" /><d-text margin-left="4px" my0 font-face="circularSTD" class="text-cyan-500" :href="url"> Manage</d-text></d-box>`,
-});
-
 export const customComponentData = [
   {
     name: "Cree Cicchino",
@@ -82250,6 +82238,6 @@ export const customComponentData = [
     company: "Cool Ghost",
     country: "US",
     qty: "2",
-    state: returnLink("/url"),
+    state: "Mexico",
   },
 ];

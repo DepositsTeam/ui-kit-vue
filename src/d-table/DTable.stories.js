@@ -1,4 +1,5 @@
 import DTable from "./DTable.vue";
+import { DBadge } from "../main";
 import {
   columns,
   data,
@@ -87,6 +88,18 @@ const Template = (args) => ({
     return { args };
   },
   template: `<d-table v-bind="args" />`,
+});
+
+const CustomComponentTemplate = (args) => ({
+  components: { DTable, DBadge },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args">
+      
+    </d-table>
+  `,
 });
 
 const DarkModeTemplate = (args) => ({

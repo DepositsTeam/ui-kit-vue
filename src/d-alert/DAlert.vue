@@ -65,7 +65,7 @@
           </d-text>
           <slot name="button"></slot>
           <d-box v-if="button" margin-top="16px">
-            <d-button @click="emitClick" size="small">{{
+            <d-button v-bind="{ ...button }" @click="emitClick" size="small">{{
               button.text
             }}</d-button>
           </d-box>
@@ -344,6 +344,106 @@ const emitClick = () => emit("button-clicked");
           }
           .ui-alert__body {
             color: var(--dark-primary-description-text-color);
+          }
+        }
+      }
+
+      &.color-scheme__info {
+        background: #0d7fe9;
+        .ui-alert__header-text {
+          color: #ffffff;
+        }
+        .ui-alert__body {
+          color: #ddefff;
+        }
+        .ui-alert__header-icon {
+          color: #fff;
+        }
+        &.dark_mode {
+          background: #0d7fe9;
+          .ui-alert__header-text {
+            color: #ffffff;
+          }
+          .ui-alert__body {
+            color: #ddefff;
+          }
+          .ui-alert__header-icon {
+            color: #fff;
+          }
+        }
+      }
+
+      &.color-scheme__warning {
+        background: #ff9505;
+        .ui-alert__header-text {
+          color: #525964;
+        }
+        .ui-alert__body {
+          color: #573302;
+        }
+        .ui-alert__header-icon {
+          color: #525964;
+        }
+        &.dark_mode {
+          background: #dc8104;
+          .ui-alert__header-text {
+            color: #cbd5e1;
+          }
+          .ui-alert__body {
+            color: #271701;
+          }
+          .ui-alert__header-icon {
+            color: #cbd5e1;
+          }
+        }
+      }
+
+      &.color-scheme__danger {
+        background: #d62f4b;
+        .ui-alert__header-text {
+          color: #fff;
+        }
+        .ui-alert__body {
+          color: #fff0f2;
+        }
+        .ui-alert__header-icon {
+          color: #fff;
+        }
+        &.dark_mode {
+          background: #df5e74;
+          .ui-alert__header-text {
+            color: #fff;
+          }
+          .ui-alert__body {
+            color: #350a12;
+          }
+          .ui-alert__header-icon {
+            color: #fff;
+          }
+        }
+      }
+
+      &.color-scheme__success {
+        background: #00b058;
+        .ui-alert__header-text {
+          color: #fff;
+        }
+        .ui-alert__body {
+          color: #edfff9;
+        }
+        .ui-alert__header-icon {
+          color: #fff;
+        }
+        &.dark_mode {
+          background: #2eab6c;
+          .ui-alert__header-text {
+            color: #fff;
+          }
+          .ui-alert__body {
+            color: #081e13;
+          }
+          .ui-alert__header-icon {
+            color: #fff;
           }
         }
       }
