@@ -79,6 +79,14 @@
           {{ typeof option === "string" ? option : option.text }}
         </d-text>
       </d-box>
+      <d-box
+        display="flex"
+        justify-content="center"
+        alignment="center"
+        v-if="fetching"
+      >
+        <d-loader transform="scale(0.25)"></d-loader>
+      </d-box>
     </d-box>
   </d-box>
 </template>
@@ -95,6 +103,7 @@ import {
   nextTick,
   watch,
 } from "vue";
+import DLoader from "../d-loader/DLoader.vue";
 
 const emit = defineEmits(["update:modelValue"]);
 const mounted = ref(false);
@@ -104,6 +113,9 @@ const props = defineProps({
     type: Array,
   },
   returnObjModel: {
+    type: Boolean,
+  },
+  fetching: {
     type: Boolean,
   },
   ...inputProps,

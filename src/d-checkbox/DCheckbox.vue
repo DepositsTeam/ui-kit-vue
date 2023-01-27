@@ -9,6 +9,9 @@
       disabled,
       alignRight,
     }"
+    :style="{
+      '--checkbox-size': size,
+    }"
   >
     <d-box
       is="input"
@@ -83,6 +86,10 @@ const props = defineProps({
   },
   alignRight: {
     type: Boolean,
+  },
+  size: {
+    type: String,
+    default: "16px",
   },
 });
 
@@ -162,6 +169,10 @@ const handleChange = (e) => {
   align-items: center;
   cursor: pointer;
 
+  &.disabled {
+    cursor: not-allowed;
+  }
+
   &.alignRight {
     flex-direction: row-reverse;
     > {
@@ -175,6 +186,7 @@ const handleChange = (e) => {
   }
 
   .ui-checkbox__label-wrap.ui-text {
+    flex: 1;
     &.dark_mode {
       color: #cbd5e1;
     }
@@ -194,8 +206,8 @@ const handleChange = (e) => {
         margin-right: 8px;
       }
       position: relative;
-      height: 16px;
-      width: 16px;
+      height: var(--checkbox-size);
+      width: var(--checkbox-size);
       background: white;
       border: 1px solid #ced6de;
       border-radius: 2px;
@@ -214,8 +226,8 @@ const handleChange = (e) => {
 
       &:checked {
         background-color: var(--light-primary-action-color);
-        width: 16px;
-        height: 16px;
+        width: var(--checkbox-size);
+        height: var(--checkbox-size);
         border: none;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 4L4 6.5L9 1.5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         background-repeat: no-repeat;

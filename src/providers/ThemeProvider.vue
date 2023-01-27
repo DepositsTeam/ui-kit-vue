@@ -39,13 +39,14 @@ const hydrateTheme = () => {
     initialTheme = { ...defaultTheme, ...props.initialTheme };
   }
   const computedTheme = { ...initialTheme, ...theme.value };
-
-  if (computedTheme.primaryColor) {
-    computedTheme["light-primary-action-color"] = computedTheme.primaryColor;
-    computedTheme["dark-primary-action-color"] = computedTheme.primaryColor;
-    computedTheme["light-primary-color"] = computedTheme.primaryColor;
-    computedTheme["dark-primary-color"] = computedTheme.primaryColor;
-    computedTheme["primarycolor"] = computedTheme.primaryColor;
+  const primaryColor =
+    computedTheme.primaryColor || computedTheme["primary-color"];
+  if (primaryColor) {
+    computedTheme["light-primary-action-color"] = primaryColor;
+    computedTheme["dark-primary-action-color"] = primaryColor;
+    computedTheme["light-primary-color"] = primaryColor;
+    computedTheme["dark-primary-color"] = primaryColor;
+    computedTheme["primarycolor"] = primaryColor;
   }
 
   // Depends on light primary action color

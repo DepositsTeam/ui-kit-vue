@@ -137,6 +137,17 @@ Default.args = {
   options: [...options],
 };
 
+export const TextOptions = Template.bind({});
+TextOptions.args = {
+  options: [
+    "Banking kit",
+    "Money kit",
+    "Identity kit",
+    "UI kit",
+    "Commerce kit",
+  ],
+};
+
 export const DefaultDark = DarkModeTemplateFactory();
 DefaultDark.args = {
   options: [...options],

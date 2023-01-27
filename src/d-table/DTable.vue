@@ -59,17 +59,25 @@
           font-face="circularSTD"
           scale="p-16"
           >{{ filter.column.display }}
-          <d-box light-color="#64748B" dark-color="#CBD5E1" is="span">{{
-            filter.selectedFilter.toLowerCase()
-          }}</d-box>
+          <d-box
+            light-color="#64748B"
+            class="activeFiltersTrigger"
+            dark-color="#64748B"
+            is="span"
+            >{{ filter.selectedFilter.toLowerCase() }}</d-box
+          >
           {{ filter.selectedFilterValue }}
-          <span v-if="filter.join">
+          <d-box is="span" class="activeFiltersTrigger" v-if="filter.join">
             {{ filter.join }}
-            <d-box light-color="#64748B" dark-color="#CBD5E1" is="span">{{
-              filter.selectedFilter2.toLowerCase()
-            }}</d-box>
+            <d-box
+              light-color="#64748B"
+              class="activeFiltersTrigger"
+              dark-color="#64748B"
+              is="span"
+              >{{ filter.selectedFilter2.toLowerCase() }}</d-box
+            >
             {{ filter.selectedFilterValue2 }}
-          </span>
+          </d-box>
         </d-text>
         <close-icon
           @click="
@@ -86,7 +94,6 @@
         />
       </d-box>
       <d-box
-        :class="{ active: showActiveFiltersDropdown }"
         class="ui-table__active-filter-group activeFiltersBox"
         v-if="sortConfiguration"
       >

@@ -305,4 +305,10 @@ watch(localErrorMessage, (val) => {
     }
   }
 }
+.ui-text-field__country-code {
+  background: transparent !important;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
 </style>
