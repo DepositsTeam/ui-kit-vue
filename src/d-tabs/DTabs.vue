@@ -12,6 +12,7 @@
       :class="{
         active: internalActive === index,
         disabled: typeof tab === 'object' && tab.disabled,
+        inline,
       }"
       @click="switchActiveTabs(index, tab)"
     >
@@ -42,6 +43,9 @@ const props = defineProps({
   modelValue: {
     type: [Number, String],
     default: 0,
+  },
+  inline: {
+    type: Boolean,
   },
 });
 
@@ -93,7 +97,12 @@ const switchActiveTabs = (index, tab) => {
     color: #94a3b8;
 
     &:hover {
-      background: var(--dark-input-background-color);
+      &:not(.inline) {
+        background: var(--dark-primary-action-color);
+      }
+      &.inline {
+        color: var(--dark-primary-action-color);
+      }
       .ui-text {
         color: var(--dark-primary-action-color);
       }
@@ -104,7 +113,14 @@ const switchActiveTabs = (index, tab) => {
 
     &:active:not(.disabled),
     &.active:not(.disabled) {
-      background: var(--dark-primary-action-color);
+      &:not(.inline) {
+        background: var(--dark-primary-action-color);
+      }
+      &.inline {
+        .ui-text {
+          color: var(--dark-primary-action-color);
+        }
+      }
       .ui-text {
         color: #fff;
       }
@@ -117,7 +133,10 @@ const switchActiveTabs = (index, tab) => {
 
   &:hover {
     color: var(--light-primary-action-color);
-    background: #f5f8fa;
+    &:not(.inline) {
+      background: #f5f8fa;
+    }
+
     &.disabled {
       opacity: 0.5;
     }
@@ -126,7 +145,12 @@ const switchActiveTabs = (index, tab) => {
   &:active:not(.disabled),
   &.active:not(.disabled) {
     color: #fff;
-    background: var(--light-primary-action-color);
+    &.inline {
+      color: var(--light-primary-action-color);
+    }
+    &:not(.inline) {
+      background: var(--light-primary-action-color);
+    }
   }
 }
 
