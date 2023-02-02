@@ -17,6 +17,9 @@ export default {
     initiallyActive: {
       control: { type: "text" },
     },
+    inline: {
+      control: { type: "boolean" },
+    },
   },
 };
 
