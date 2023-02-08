@@ -13,9 +13,6 @@ defineProps({
   debugMode: {
     type: Boolean,
   },
-  noPadding: {
-    type: Boolean,
-  },
 });
 </script>
 

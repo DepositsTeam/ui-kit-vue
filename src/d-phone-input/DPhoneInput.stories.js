@@ -36,6 +36,24 @@ const Template = (args) => ({
   template: `<d-phone-input v-bind="args" v-model:code.lazy="code" v-model:phone-number="number"  />`,
 });
 
+const InitialNumberWithoutHyphenTemplate = (args) => ({
+  components: { DPhoneInput },
+  data: () => ({
+    code: "",
+    number: "+13384938384",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<d-phone-input v-bind="args" v-model:code.lazy="code" v-model:phone-number="number"  />`,
+});
+
+export const InitialNumberWithoutHyphen =
+  InitialNumberWithoutHyphenTemplate.bind({});
+InitialNumberWithoutHyphen.args = {
+  isUs: true,
+};
+
 const DarkModeTemplate = (args) => ({
   components: { DPhoneInput, DarkModeProvider },
   data: () => ({
