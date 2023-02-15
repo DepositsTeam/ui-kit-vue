@@ -1,5 +1,8 @@
 <template>
-  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+  <d-box
+    class="ui-text-field__wrapper"
+    :class="{ [`size__${size}`]: true, [wrapperClass]: wrapperClass }"
+  >
     <d-box v-if="label" is="label">
       <d-text
         :class="labelClass"
@@ -31,7 +34,7 @@
             [fontFace]: fontFace,
           },
         }"
-        v-bind="$attrs"
+        v-bind="{ ...$attrs, ...$props }"
         @keypress="handleKeyEvents"
         @change="fire"
         @blur="$emit('blur')"

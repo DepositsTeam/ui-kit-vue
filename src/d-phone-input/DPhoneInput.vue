@@ -120,13 +120,22 @@ const countryCode = computed({
 const number = computed({
   get() {
     if (props.phoneNumber) {
-      if (countryCode.value && countryCodes[countryCode.value]) {
+      if (props.isUs) {
         const asYouType = new AsYouType({
-          defaultCountry: countryCodes[countryCode.value][0],
-        }).input(props.phoneNumber);
-        return asYouType;
+          defaultCountry: countryCodes["+1"][1],
+        });
+        asYouType.input(props.phoneNumber);
+        return asYouType.getNumber().formatNational();
       } else {
-        return formatIncompletePhoneNumber(props.phoneNumber);
+        if (countryCode.value && countryCodes[countryCode.value]) {
+          const asYouType = new AsYouType({
+            defaultCountry: countryCodes[countryCode.value][0],
+          });
+          asYouType.input(props.phoneNumber);
+          return asYouType.getNumber().formatNational();
+        } else {
+          return formatIncompletePhoneNumber(props.phoneNumber);
+        }
       }
     } else {
       return "";

@@ -1,47 +1,21 @@
-# deposits-ui-kit-vue
+# Deposits Vue UI Kit
 
-This template should help get you started developing with Vue 3 in Vite.
-## Recommended IDE Setup
+The Deposits Vue UI Kit is a collection of reusable, fully themeable and customizable Vue UI components. It includes a lot of the basics as well as amazing components tied to Fintech applications that can help drastically reduce development time. It can help improve development time and increase consistency in your fintech applications.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+## 📖 Demo Links
+###  Storybook Demo Link
 
-## Customize configuration
+https://ui-kit.deposits.dev/storybook/vue
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+###  Figma UI Link
+https://www.figma.com/file/Wi9wPkCWJIbzyriC0oKAW9/Deposits-UI-Kit%2FDesign-System
 
-## Project Setup
+### Documentation
+https://doc.api.deposits.dev/docs/ui-kit/vue
 
-```sh
-npm install
-```
+## Getting Started with Deposits Vue UI Kit
+#### `npm install @deposits/ui-kit-vue`
 
-### Compile and Hot-Reload for Development
+### Getting Started
+For more information on how to import and use our components, visit our [Getting Started Guide](https://doc.api.deposits.dev/docs/ui-kit/vue/getting-started)
 
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Cypress Component Testing](https://docs.cypress.io/guides/component-testing/introduction)
-
-```sh
-npm run test:unit # or `npm run test:unit:ci` for headless testing
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run build
-npm run test:e2e # or `npm run test:e2e:ci` for headless testing
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```

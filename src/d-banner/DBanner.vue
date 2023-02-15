@@ -36,13 +36,13 @@
         font-face="circularSTD"
         v-else
       >
-        <slot name="text" v-if="$slots.text"></slot>
         <span>{{ title }}</span></d-text
       >
       <d-text
         scale="subhead"
         class="ui-banner__description"
         font-face="circularSTD"
+        v-if="!$slots.default && description"
         ><span v-html="description"></span
       ></d-text>
     </d-box>
@@ -96,9 +96,6 @@ defineProps({
   removable: {
     type: Boolean,
   },
-  onRemove: {
-    type: Function,
-  },
   alignTop: {
     type: Boolean,
   },
@@ -134,7 +131,13 @@ const remove = () => {
   border-radius: 4px;
 
   &.alignTop {
-    align-items: flex-start;
+    .text-content {
+      align-items: flex-start;
+      .ui-text {
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
   }
 
   &.full {
@@ -182,7 +185,10 @@ const remove = () => {
   .ui-banner-icon {
     height: 16px;
     width: 16px;
+    min-width: 16px;
+    min-height: 16px;
     margin-right: 8px;
+    flex: 1;
     &.iconColor {
       color: var(--icon-color);
     }
@@ -196,6 +202,7 @@ const remove = () => {
 
   &:not(.smartColor) {
     .ui-banner__description {
+      color: #6d7786;
       &.dark_mode {
         color: #94a3b8;
       }
@@ -280,10 +287,14 @@ const remove = () => {
     background: #f7fbff;
 
     &.dark_mode {
-      background: #f7fbff;
+      background: rgba(#0d7fe9, 0.2);
 
       .ui-banner__title {
-        color: #051b30;
+        color: #ffffff;
+      }
+
+      .ui-banner__description {
+        color: #ffffff;
       }
     }
 

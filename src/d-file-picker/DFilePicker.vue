@@ -47,9 +47,7 @@
           >
         </d-auto-layout>
       </slot>
-      <d-text font-face="circularSTD" margin-top="16px">{{
-        selectedFileName
-      }}</d-text>
+      <d-text font-face="circularSTD">{{ selectedFileName }}</d-text>
     </d-box>
     <d-box v-if="computedErrorMessage" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
@@ -77,10 +75,6 @@ import { useFilePicker } from "../utils/useFilePicker";
 import { ref } from "vue";
 
 const props = defineProps({
-  btnText: {
-    type: String,
-    default: "Choose File",
-  },
   fileMaxSize: {
     type: [String, Number],
     default: 100,

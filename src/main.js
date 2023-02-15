@@ -7,6 +7,7 @@ export { default as DBanner } from "./d-banner/DBanner.vue";
 export { default as DBox } from "./d-box/DBox.vue";
 export { default as DButton } from "./d-button/DButton.vue";
 export { default as DCard } from "./d-card/DCard.vue";
+export { default as DCounter } from "./d-counter/DCounter.vue";
 export { default as DCardInputField } from "./d-card-input-field/DCardInputField.vue";
 export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
 export { default as DCol } from "./d-responsive-layout/DCol.vue";

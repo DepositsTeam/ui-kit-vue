@@ -20,7 +20,7 @@
       <d-box
         is="input"
         ref="file"
-        v-bind="$attrs"
+        v-bind="{ ...$attrs, ...$props }"
         :disabled="disabled"
         @change="updateName"
         :accept="computedAccepts"
@@ -29,6 +29,8 @@
       <d-box
         class="ui-text-field__input"
         :class="{ 'has-error': computedErrorMessage }"
+        display="flex"
+        align-items="center"
       >
         <d-text
           my0
@@ -59,7 +61,7 @@
     <d-box
       is="input"
       ref="file"
-      v-bind="$attrs"
+      v-bind="{ ...$attrs, ...$props }"
       :disabled="disabled"
       @change="updateName"
       :accept="computedAccepts"
@@ -92,6 +94,10 @@ const props = defineProps({
   fileMaxSize: {
     type: [String, Number],
     default: 100,
+  },
+  maxFiles: {
+    type: [String, Number],
+    default: 1,
   },
   accepts: {
     type: [Array, String],

@@ -187,14 +187,16 @@ const emitClick = () => {
 
   > input:checked:not(.ringed) {
     background: var(--light-primary-action-color);
-    width: calc(var(--ring-size) - 4px);
-    height: calc(var(--ring-size) - 4px);
+    width: calc(var(--ring-size) - 8px);
+    height: calc(var(--ring-size) - 8px);
     outline: 3px solid var(--light-primary-action-color);
     outline-offset: 1px;
     border-color: transparent;
+    margin: 4px 12px 4px 4px;
+
     &.dark_mode {
       background: var(--dark-primary-action-color);
-      outline: 2px solid var(--dark-primary-action-color);
+      outline: 3px solid var(--dark-primary-action-color);
     }
   }
 }

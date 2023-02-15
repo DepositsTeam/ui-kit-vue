@@ -76,10 +76,6 @@ const props = defineProps({
   falseValue: {
     default: false,
   },
-  top: {
-    type: Boolean,
-    default: false,
-  },
   values: {
     type: Array,
     default: () => [],
