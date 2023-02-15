@@ -7,40 +7,46 @@
     }"
   >
     <d-box class="ui-table__header">
-      <d-box
-        v-if="search"
+      <d-auto-layout
+        v-if="$slots['table-header-left'] || search"
         class="ui-table__header__search-wrapper"
         :class="{
           [searchAlignment]: buttonActionsEnabled ? false : searchAlignment,
         }"
       >
-        <d-textfield
-          :left-icon="SearchIcon"
-          :placeholder="searchPlaceholder"
-          v-model="searchValue"
-          size="large"
-        />
-      </d-box>
+        <slot name="table-search">
+          <d-textfield
+            :left-icon="SearchIcon"
+            :placeholder="searchPlaceholder"
+            v-model="searchValue"
+            size="large"
+          />
+        </slot>
+        <slot name="table-header-left"></slot>
+      </d-auto-layout>
       <d-box
         class="ui-table__header-btns"
         :class="{
           [buttonActionsAlignment]: search ? false : buttonActionsAlignment,
         }"
       >
-        <d-button
+        <slot name="table-header-right"></slot>
+        <d-box
           v-if="enableCustomizeView"
           @click="toggleCustomizeViewModal(true)"
-          size="medium"
         >
-          Customize view
-        </d-button>
-        <d-button
-          v-if="enableCsvExport"
-          size="medium"
-          :left-icon="ExternalLinkIcon"
-          @click="exportCsv"
-          >Export</d-button
-        >
+          <slot name="customize-view-button">
+            <d-button size="medium"> Customize view </d-button>
+          </slot>
+        </d-box>
+
+        <d-box v-if="enableCsvExport" @click="exportCsv">
+          <slot name="export-csv-button">
+            <d-button size="medium" :left-icon="ExternalLinkIcon"
+              >Export</d-button
+            >
+          </slot>
+        </d-box>
       </d-box>
     </d-box>
     <d-box ref="trigger" class="ui-table__active-filters">
@@ -268,9 +274,17 @@ import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
 import { useCsvExport } from "./composables/useCsvExport";
 import { getTextColor } from "../utils/colorManager";
+import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
 
 const props = defineProps({ ...tableProps });
-const emit = defineEmits(["page-updated", "row-clicked"]);
+const emit = defineEmits([
+  "page-updated",
+  "row-clicked",
+  "search",
+  "filter",
+  "sort",
+  "export",
+]);
 
 const { exportCsv } = useCsvExport(props.data, props.generatedCsvName);
 
