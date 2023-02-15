@@ -20,6 +20,10 @@ export default {
     inline: {
       control: { type: "boolean" },
     },
+    scheme: {
+      control: { type: "select" },
+      options: ["button", "underline", "inline"],
+    },
   },
 };
 

@@ -331,3 +331,19 @@ DarkSizeSmall.args = {
   leftIcon: Search,
   size: "small",
 };
+
+export const DefaultSSNTemplate = (args) => ({
+  components: { DTextfield },
+  data: () => ({
+    vall: "123456789",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<d-textfield v-model="vall" v-bind="args" />`,
+});
+
+export const DefaultSSN = DefaultSSNTemplate.bind({});
+DefaultSSN.args = {
+  percentage: true,
+};

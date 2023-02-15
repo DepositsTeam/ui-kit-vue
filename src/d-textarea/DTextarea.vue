@@ -71,6 +71,10 @@ defineProps({
   maxHeight: {
     type: String,
   },
+  width: {
+    type: String,
+    default: "100%",
+  },
 });
 
 const emit = defineEmits([

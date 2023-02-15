@@ -33,6 +33,7 @@
           [inputClass]: true,
           pill,
         }"
+        ref="inputField"
         :max="max"
         :min="min"
         :maxlength="maximumLength"
@@ -106,7 +107,7 @@ import {
   EyeFilledIcon,
 } from "../main";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
-import { ref, computed, onMounted, inject, unref, nextTick } from "vue";
+import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
 import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
@@ -178,9 +179,13 @@ const computedFontFace = computed(() => {
 
 const { computedMargin, computedWidth } = useWrapperProps(props);
 
+const inputField = ref();
+
 const localType = ref("text");
 
 const localSSN = ref([]);
+
+const focused = ref(false);
 
 const passwordIcon = computed(() =>
   localType.value === "text" ? EyeFilledIcon : NoEyeFilledIcon
@@ -194,11 +199,65 @@ const maximumLength = computed(() => {
   }
 });
 
+const initializeModelValue = () => {
+  if (!focused.value) {
+    if (props.currency) {
+      if (!props.modelValue) {
+        inputField.value.$el.value = "$0.00";
+      } else {
+        let value = props.modelValue.replaceAll("$", "").replaceAll(",", ""),
+          regex = new RegExp(/^\d*(\.\d{0,2})?$/);
+        if (regex.test(value)) {
+          if (props.emitOnlyCurrencyValue) {
+            emit("update:modelValue", `${number_format(value)}`);
+          } else {
+            emit(
+              "update:modelValue",
+              `$${number_format(
+                parseFloat(value.split(",").join("").replaceAll("$", "")),
+                2
+              )}`
+            );
+          }
+          inputField.value.$el.value = `$${number_format(
+            parseFloat(value.split(",").join("").replaceAll("$", "")),
+            2
+          )}`;
+        }
+      }
+    } else if (props.ssn) {
+      if (!props.modelValue) {
+        inputField.value.$el.value = "";
+      } else {
+        const formatted = formatSSN(props.modelValue);
+        localSSN.value = formatted;
+        inputField.value.$el.value = localSSN.value[1];
+      }
+    } else if (props.percentage) {
+      if (!props.modelValue) {
+        inputField.value.$el.value = "0%";
+      } else {
+        try {
+          const parsedValue = formatPercentage(props.modelValue);
+          const renderedValue =
+            parsedValue < 0 ? 0 : parsedValue > 100 ? 100 : parsedValue;
+          emit("update:modelValue", `${renderedValue}%`);
+        } catch (err) {
+          emit("update:modelValue", "");
+        }
+      }
+    } else {
+      emit("update:modelValue", props.modelValue);
+    }
+  }
+};
+
 onMounted(() => {
   localType.value = props.type;
   if (props.isPassword) {
     localType.value = "password";
   }
+  initializeModelValue();
 });
 
 const emitLeftIconClicked = (e) => {
@@ -270,11 +329,11 @@ const handleInputEvents = (e) => {
   } else {
     emit("update:modelValue", e.target.value);
   }
-  emit("input", e.target.value);
+  emit("input", e);
 };
 
 const handleChangeEvents = (e) => {
-  emit("change", e.target.value);
+  emit("change", e);
 };
 
 const handleKeydownEvent = (e) => {
@@ -293,6 +352,7 @@ const handleKeypressEvent = (e) => {
 };
 
 const handleFocusEvent = async (e) => {
+  focused.value = true;
   emit("focus", e);
   if (props.currency) {
     if (props.emitOnlyCurrencyValue) {
@@ -347,7 +407,15 @@ const handleBlurEvent = (e) => {
   if (props.ssn && localSSN.value.length) {
     e.target.value = localSSN.value[1];
   }
+  focused.value = false;
 };
+
+watch(
+  () => props.modelValue,
+  () => {
+    initializeModelValue();
+  }
+);
 </script>
 
 <style lang="scss">

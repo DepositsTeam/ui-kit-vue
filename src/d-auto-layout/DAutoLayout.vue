@@ -5,7 +5,7 @@
       [`direction__${direction}`]: direction,
       [`align__${alignment}`]: alignment,
       wrap,
-      stretchItems
+      stretchItems,
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -44,7 +44,7 @@ defineProps({
   stretchItems: {
     type: Boolean,
     default: false,
-  }
+  },
 });
 </script>
 

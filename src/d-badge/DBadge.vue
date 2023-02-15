@@ -1,11 +1,10 @@
 <template>
   <d-box
     :class="{
-      [`color-scheme__${colorScheme}`]: !subtleTextColor,
+      [`color-scheme__${colorScheme}`]: colorScheme,
       subtle,
       [`size__${size}`]: !customSize,
       sizeCustom: customSize,
-      subtleTextColor,
       smartColor,
     }"
     class="ui-badge"
@@ -52,10 +51,6 @@ defineProps({
   },
   text: {
     type: String,
-  },
-  subtleTextColor: {
-    type: String,
-    default: null,
   },
   smartColor: {
     type: String,

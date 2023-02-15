@@ -16,26 +16,32 @@
       :key="`step-${index}`"
       class="ui-step"
       :class="{
-        active: currentStep === index,
-        completed: currentStep > index,
-        todo: currentStep < index,
+        active: !stepMode || currentStep === index,
+        completed: stepMode && currentStep > index,
+        todo: stepMode && currentStep < index,
         last: index === steps.length - 1,
         [scheme]: scheme,
       }"
     >
-      <d-box
-        class="ui-step__indicator"
-        :class="{
-          active: currentStep === index,
-          completed: currentStep > index,
-          todo: currentStep < index,
-          last: index === steps.length - 1,
-          [scheme]: scheme,
-          activeColor,
-        }"
-      >
-        <check-outline-icon class="indicator-icon" v-if="currentStep > index" />
-      </d-box>
+      <slot name="step-indicator" v-bind="step">
+        <d-box
+          class="ui-step__indicator"
+          :class="{
+            active: !stepMode || currentStep === index,
+            completed: stepMode && currentStep > index,
+            todo: stepMode && currentStep < index,
+            last: index === steps.length - 1,
+            [scheme]: scheme,
+            activeColor,
+          }"
+        >
+          <check-outline-icon
+            class="indicator-icon"
+            v-if="currentStep > index"
+          />
+        </d-box>
+      </slot>
+
       <d-box class="ui-step__content">
         <slot name="step" v-bind="typeof step === 'object' ? step : {}">
           <d-text
@@ -50,8 +56,8 @@
             scale="subhead"
             v-if="typeof step !== 'string' && step.description"
             color="#878B9A"
+            v-html="step.description"
           >
-            {{ step.description }}
           </d-text>
         </slot>
       </d-box>
@@ -62,6 +68,13 @@
 <script setup>
 import { DBox, DText, CheckOutlineIcon } from "../main";
 import tinycolor from "tinycolor2";
+import { onMounted, useSlots } from "vue";
+
+const slots = useSlots();
+
+onMounted(() => {
+  console.log(slots);
+});
 
 defineProps({
   steps: {
@@ -90,6 +103,10 @@ defineProps({
   },
   activeColor: {
     type: String,
+  },
+  stepMode: {
+    type: Boolean,
+    default: true,
   },
 });
 </script>

@@ -32,7 +32,6 @@ const DarkModeTemplate = (args) => ({
         <d-counter v-model="value" v-bind="args" />
       </dark-mode-provider>
     </div>
-        
     `,
 });
 

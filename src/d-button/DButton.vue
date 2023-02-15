@@ -177,10 +177,24 @@ const smartCalculatedHoverColor = computed(() =>
     border: 1px solid #202b3c;
     box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
     color: #cbd5e1;
+    &.hover,
+    &:hover {
+      background: #202b3c;
+    }
+    &:focus {
+      box-shadow: 0px 0px 0px 3px rgba(27, 92, 224, 0.2);
+      border: 1px solid #384860;
+    }
+    &:disabled,
+    &.state__disabled {
+      background: #121a26;
+      color: #384860;
+    }
   }
   &.smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
+    border-color: transparent;
     &.semantic__outline {
       color: var(--smart-color);
       background: transparent;
@@ -190,6 +204,9 @@ const smartCalculatedHoverColor = computed(() =>
     &.hover:not(:disabled):not(.state_disabled) {
       background: var(--smart-calculated-hover-color);
       color: var(--smart-calculated-hover-text-color);
+    }
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(var(--smart-color), 0.2);
     }
     &.smartHoverColor:hover,
     &.smartHoverColor.hover {

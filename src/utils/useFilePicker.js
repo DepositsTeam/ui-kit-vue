@@ -31,7 +31,13 @@ export const useFilePicker = (props, emit, file) => {
 
   const updateName = (e) => {
     let files = e.target.files || e.dataTransfer.files;
-    selectedFileName.value = !files ? "" : files[0].name;
+    let newName = "";
+    let index = 0;
+    for (let file of files) {
+      newName += `${index > 0 ? ", " : ""}${file.name}`;
+      index += 1;
+    }
+    selectedFileName.value = newName;
     if (files.length > props.maxFiles) {
       internalError.value = `You cannot upload more than ${props.maxFiles} file(s) at once`;
     } else {

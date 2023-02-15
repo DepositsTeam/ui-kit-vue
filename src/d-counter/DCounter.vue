@@ -126,15 +126,6 @@ const props = defineProps({
   modelValue: {
     type: Number,
   },
-  dropDown: {
-    type: Boolean,
-  },
-  rightIcon: {
-    type: Object,
-  },
-  leftIcon: {
-    type: Object,
-  },
   maxlength: {
     type: [String, Number],
   },

@@ -17,10 +17,15 @@ const Template = (args) => ({
   components: {
     DFilePickerInline,
   },
+  methods: {
+    changeFile: function (file) {
+      console.log(file);
+    },
+  },
   setup() {
     return { args };
   },
-  template: `<d-file-picker-inline v-bind="args" />`,
+  template: `<d-file-picker-inline @change="changeFile" v-bind="args" />`,
 });
 
 const DarkModeTemplate = (args) => ({
@@ -98,4 +103,10 @@ DocumentDark.args = {
 export const CsvDark = DarkModeTemplateFactory();
 CsvDark.args = {
   accepts: "csv",
+};
+
+export const MultipleFiles = Template.bind({});
+MultipleFiles.args = {
+  multiple: true,
+  maxFiles: 5,
 };

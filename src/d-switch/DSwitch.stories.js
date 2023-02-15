@@ -1,4 +1,5 @@
 import DSwitch from "./DSwitch.vue";
+import { DBox } from "../main";
 import { DarkModeProvider } from "../main";
 
 export default {
@@ -59,6 +60,22 @@ const DarkModeTemplate = (args) => ({
     `,
 });
 
+const VModelledTemplate = (args) => ({
+  components: { DSwitch, DBox },
+  setup() {
+    return { args };
+  },
+  data: () => ({
+    currentState: true,
+  }),
+  template: `
+    <d-box>
+      <d-switch v-bind="args" v-model="currentState" />
+      <d-box>{{JSON.stringify(currentState)}}</d-box>
+    </d-box>
+  `,
+});
+
 const DarkModeTemplateFactory = () => {
   const Bound = DarkModeTemplate.bind({});
   Bound.decorators = [
@@ -79,3 +96,5 @@ export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   label: "I agree to the terms and conditions",
 };
+
+export const ModelledMode = VModelledTemplate.bind({});

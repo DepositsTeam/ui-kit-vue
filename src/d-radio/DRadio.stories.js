@@ -91,3 +91,17 @@ DarkRinged.args = {
   label: "Checking",
   ringed: true,
 };
+
+const MultipleRadiosTemplate = (args) => ({
+  components: { DRadio },
+  data: () => ({
+    checkValue: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<d-radio label="Yes" value="yes" v-model="checkValue" />
+  <d-radio label="No" value="no"  />`,
+});
+
+export const Multiple = MultipleRadiosTemplate.bind({});

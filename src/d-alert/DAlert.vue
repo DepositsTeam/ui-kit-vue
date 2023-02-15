@@ -123,15 +123,8 @@ defineProps({
   button: {
     type: Object,
   },
-  action: {
-    type: Function,
-  },
   closable: {
     type: Boolean,
-  },
-  bordered: {
-    type: Boolean,
-    default: false,
   },
   smartColor: {
     type: String,

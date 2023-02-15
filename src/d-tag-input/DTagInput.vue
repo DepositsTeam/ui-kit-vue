@@ -49,7 +49,7 @@
 <script setup>
 import { DBox, DText, DTextfield, CloseIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { ref, nextTick, onBeforeMount } from "vue";
+import { ref, nextTick, onBeforeMount, watch } from "vue";
 import inputProps from "../utils/inputProps";
 const _tagDelimiterKey = {
   space: " ",
@@ -89,6 +89,10 @@ onBeforeMount(() => {
   if (props.modelValue.length) {
     inputTags.value = props.modelValue;
   }
+});
+
+watch(input, () => {
+  emit("text-changed", input.value);
 });
 
 const setIsKeyReleased = (value) => {
