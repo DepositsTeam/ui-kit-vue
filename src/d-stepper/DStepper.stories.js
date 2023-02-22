@@ -1,5 +1,5 @@
 import DStepper from "./DStepper.vue";
-import { DarkModeProvider } from "../main";
+import { DarkModeProvider, DBox } from "../main";
 
 export default {
   component: DStepper,
@@ -10,6 +10,16 @@ export default {
     },
     currentStep: {
       control: { type: "number" },
+    },
+    scheme: {
+      control: { type: "select" },
+      options: ["variant-1", "variant-2"],
+    },
+    activeColor: {
+      control: { type: "color" },
+    },
+    stepMode: {
+      control: { type: "boolean" },
     },
   },
 };
@@ -48,6 +58,7 @@ Default.args = {
   steps: [
     {
       text: "Complete basic KYB",
+      description: "August 16, 2021 at 5:15 PM",
     },
     {
       text: "Select program use case",
@@ -66,6 +77,27 @@ SecondStep.args = {
   steps: [
     {
       text: "Complete basic KYB",
+      description: "August 16, 2021 at 5:15 PM",
+    },
+    {
+      text: "Select program use case",
+      description: "August 16, 2021 at 5:15 PM <br /> Mode: Circumvented",
+    },
+    {
+      text: "Configure program",
+    },
+    {
+      text: "Demo & launch program",
+    },
+  ],
+  currentStep: 1,
+};
+
+export const NonStepMode = Template.bind({});
+NonStepMode.args = {
+  steps: [
+    {
+      text: "Complete basic KYB",
     },
     {
       text: "Select program use case",
@@ -77,7 +109,28 @@ SecondStep.args = {
       text: "Demo & launch program",
     },
   ],
-  currentStep: 1,
+  stepMode: false,
+};
+
+export const NonStepModeWithDescription = Template.bind({});
+NonStepModeWithDescription.args = {
+  steps: [
+    {
+      text: "Complete basic KYB",
+      description: "August 16, 2021 at 5:15 PM",
+    },
+    {
+      text: "Select program use case",
+      description: "August 16, 2021 at 5:15 PM <br /> Mode: Circumvented",
+    },
+    {
+      text: "Configure program",
+    },
+    {
+      text: "Demo & launch program",
+    },
+  ],
+  stepMode: false,
 };
 
 export const ArrayOfStrings = Template.bind({});
@@ -155,6 +208,36 @@ ArrayOfStringsSecondStepDark.args = {
     "Select program use case",
     "Configure program",
     "Demo & launch program",
+  ],
+  currentStep: 1,
+};
+
+const CustomIndicatorTemplate = (args) => ({
+  components: { DStepper, DBox },
+  setup() {
+    return { args };
+  },
+  template: `<d-stepper v-bind="args">
+  <template #step-indicator="data">
+  </template>
+  </d-stepper>`,
+});
+
+export const CustomIndicator = CustomIndicatorTemplate.bind({});
+CustomIndicator.args = {
+  steps: [
+    {
+      text: "Complete basic KYB",
+    },
+    {
+      text: "Select program use case",
+    },
+    {
+      text: "Configure program",
+    },
+    {
+      text: "Demo & launch program",
+    },
   ],
   currentStep: 1,
 };

@@ -14,6 +14,9 @@ export default {
     currentPageSiblings: {
       control: { type: "number" },
     },
+    smartColor: {
+      control: { type: "color" },
+    },
   },
 };
 

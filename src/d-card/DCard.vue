@@ -29,6 +29,8 @@
         v-bind="$attrs"
         v-model="updateValue"
         :value="value"
+        :ring-size="ringSize"
+        :ring-thickness="ringThickness"
       />
       <d-checkbox
         class="ui-card__form-selector"
@@ -110,6 +112,14 @@ const props = defineProps({
   },
   cardClass: {
     type: String,
+  },
+  ringSize: {
+    type: String,
+    default: "16px",
+  },
+  ringThickness: {
+    type: String,
+    default: "5px",
   },
   ...wrapperProps,
 });

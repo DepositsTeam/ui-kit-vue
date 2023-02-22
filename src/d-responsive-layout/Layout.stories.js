@@ -17,10 +17,10 @@ const Template = (args) => ({
 
   template: `<d-responsive-layout debug-mode v-bind="args">
   <d-row>
-    <d-col :md="3">
+    <d-col :xs="3" :sm="12">
       Some random item
     </d-col>
-    <d-col :md="9">
+    <d-col :xs="9" :sm="12">
       Item begins here
     </d-col>
     
@@ -37,11 +37,11 @@ const ColTemplate = (args) => ({
   },
   template: `<d-responsive-layout debug-mode  v-bind="args">
   <d-row>
-    <d-col :xs="{span: 3, offset: 3}">
+    <d-col :xs="{span: 3, offset: 3}" >
       <d-box height="90px" background="black" width="100%">
       </d-box>
     </d-col>
-    <d-col :xs="6" >
+    <d-col :xs="6">
       <d-box height="90px" background="blue" width="100%">
       </d-box>
     </d-col>

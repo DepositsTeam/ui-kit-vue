@@ -9,6 +9,11 @@
           roundedBorders,
           greyHeader,
           roundedBorders,
+          overlayBg,
+          [`modal__${alignment}`]: alignment,
+        }"
+        :style="{
+          '--overlay-bg': overlayBg,
         }"
       >
         <d-box
@@ -20,7 +25,8 @@
           }"
           :class="{ maxModalWidth, minModalWidth }"
         >
-          <d-box class="ui-modal__heading" :class="{ headerClasses }">
+          <slot name="customHeading" v-if="$slots.customHeading"></slot>
+          <d-box v-else class="ui-modal__heading" :class="{ headerClasses }">
             <d-box>
               <slot name="heading" v-if="$slots.heading"></slot>
               <d-heading my0 is="h5" v-else> {{ heading }}</d-heading>
@@ -144,6 +150,14 @@ defineProps({
   contentText: {
     type: String,
   },
+  overlayBg: {
+    type: String,
+  },
+  alignment: {
+    type: String,
+    validator: (value) => ["top", "bottom", "center"].includes(value),
+    default: "top",
+  },
 });
 
 const handleCloseClicks = (e) => {
@@ -156,15 +170,29 @@ const handleCloseClicks = (e) => {
 <style lang="scss" scoped>
 .ui-modal {
   background: rgba(0, 0, 0, 0.35);
+  &.overlayBg {
+    background: var(--overlay-bg);
+  }
 
   /* position: fixed; */
   width: 100%;
   height: 100vh;
   display: flex;
-  align-items: flex-start;
   justify-content: center;
   padding: 24px;
   overflow-y: scroll;
+
+  &.modal__top {
+    align-items: flex-start;
+  }
+
+  &.modal__center {
+    align-items: center;
+  }
+
+  &.modal__bottom {
+    align-items: flex-end;
+  }
 
   &.visibility__visible {
     display: flex;

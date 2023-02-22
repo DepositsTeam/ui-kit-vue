@@ -1,29 +1,52 @@
 <template>
-  <d-box class="ui-table__container">
+  <d-box
+    class="ui-table__container"
+    :style="{
+      '--smart-color': smartColor,
+      '--smart-text-color': getTextColor(smartColor),
+    }"
+  >
     <d-box class="ui-table__header">
-      <d-box v-if="search">
-        <d-textfield
-          :left-icon="SearchIcon"
-          :placeholder="searchPlaceholder"
-          v-model="searchValue"
-          size="large"
-        />
-      </d-box>
-      <d-box class="ui-table__header-btns">
-        <d-button
+      <d-auto-layout
+        v-if="$slots['table-header-left'] || search"
+        class="ui-table__header__search-wrapper"
+        :class="{
+          [searchAlignment]: buttonActionsEnabled ? false : searchAlignment,
+        }"
+      >
+        <slot name="table-search">
+          <d-textfield
+            :left-icon="SearchIcon"
+            :placeholder="searchPlaceholder"
+            v-model="searchValue"
+            size="large"
+          />
+        </slot>
+        <slot name="table-header-left"></slot>
+      </d-auto-layout>
+      <d-box
+        class="ui-table__header-btns"
+        :class="{
+          [buttonActionsAlignment]: search ? false : buttonActionsAlignment,
+        }"
+      >
+        <slot name="table-header-right"></slot>
+        <d-box
           v-if="enableCustomizeView"
           @click="toggleCustomizeViewModal(true)"
-          size="medium"
         >
-          Customize view
-        </d-button>
-        <d-button
-          v-if="enableCsvExport"
-          size="medium"
-          :left-icon="ExternalLinkIcon"
-          @click="exportCsv"
-          >Export</d-button
-        >
+          <slot name="customize-view-button">
+            <d-button size="medium"> Customize view </d-button>
+          </slot>
+        </d-box>
+
+        <d-box v-if="enableCsvExport" @click="exportCsv">
+          <slot name="export-csv-button">
+            <d-button size="medium" :left-icon="ExternalLinkIcon"
+              >Export</d-button
+            >
+          </slot>
+        </d-box>
       </d-box>
     </d-box>
     <d-box ref="trigger" class="ui-table__active-filters">
@@ -42,17 +65,25 @@
           font-face="circularSTD"
           scale="p-16"
           >{{ filter.column.display }}
-          <d-box light-color="#64748B" dark-color="#CBD5E1" is="span">{{
-            filter.selectedFilter.toLowerCase()
-          }}</d-box>
+          <d-box
+            light-color="#64748B"
+            class="activeFiltersTrigger"
+            dark-color="#64748B"
+            is="span"
+            >{{ filter.selectedFilter.toLowerCase() }}</d-box
+          >
           {{ filter.selectedFilterValue }}
-          <span v-if="filter.join">
+          <d-box is="span" class="activeFiltersTrigger" v-if="filter.join">
             {{ filter.join }}
-            <d-box light-color="#64748B" dark-color="#CBD5E1" is="span">{{
-              filter.selectedFilter2.toLowerCase()
-            }}</d-box>
+            <d-box
+              light-color="#64748B"
+              class="activeFiltersTrigger"
+              dark-color="#64748B"
+              is="span"
+              >{{ filter.selectedFilter2.toLowerCase() }}</d-box
+            >
             {{ filter.selectedFilterValue2 }}
-          </span>
+          </d-box>
         </d-text>
         <close-icon
           @click="
@@ -69,7 +100,6 @@
         />
       </d-box>
       <d-box
-        :class="{ active: showActiveFiltersDropdown }"
         class="ui-table__active-filter-group activeFiltersBox"
         v-if="sortConfiguration"
       >
@@ -121,6 +151,7 @@
                 width: column.width,
                 minWidth: column.minWidth,
                 maxWidth: column.maxWidth,
+                smartColor,
               }"
               :style="{
                 ...getColumnWidth(column),
@@ -138,7 +169,9 @@
             :key="`table__column_${index}`"
             :class="{
               checked: selectedItems.includes(datum[checkboxDataSelector]),
+              enableHover: enableRowHoverCursor,
             }"
+            @click="emitRowClickedEvent(datum)"
           >
             <d-box
               is="td"
@@ -191,6 +224,7 @@
         :current-page="currentPage"
         :current-page-siblings="currentPageSiblings"
         @page-changed="handlePageChange"
+        :smart-color="smartColor"
       />
     </d-box>
     <table-customize-view-modal
@@ -239,9 +273,18 @@ import uniqueRandomString from "../utils/uniqueRandomString";
 import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
 import { useCsvExport } from "./composables/useCsvExport";
+import { getTextColor } from "../utils/colorManager";
+import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
 
 const props = defineProps({ ...tableProps });
-const emit = defineEmits(["page-updated"]);
+const emit = defineEmits([
+  "page-updated",
+  "row-clicked",
+  "search",
+  "filter",
+  "sort",
+  "export",
+]);
 
 const { exportCsv } = useCsvExport(props.data, props.generatedCsvName);
 
@@ -252,6 +295,10 @@ const columnHashmap = computed(() => {
   });
   return hashMap;
 });
+
+const emitRowClickedEvent = (datum) => {
+  emit("row-clicked", datum);
+};
 
 const showActiveFiltersDropdown = ref(false);
 const target = ref(null);
@@ -330,7 +377,8 @@ const dataFactory = computed(() => {
     filteredData = searchItems(
       searchValue.value,
       filteredData,
-      columnHashmap.value
+      columnHashmap.value,
+      props.caseSensitiveSearch
     );
   }
 
@@ -367,6 +415,10 @@ const totalPages = computed(() => {
   }
   return Math.ceil(props.data.length / props.itemsPerPage);
 });
+
+const buttonActionsEnabled = computed(
+  () => props.enableCustomizeView && props.enableCsvExport
+);
 </script>
 
 <style lang="scss">
@@ -379,9 +431,26 @@ const totalPages = computed(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+    .ui-table__header__search-wrapper {
+      display: flex;
+      &.left,
+      &.right {
+        flex: 1;
+      }
+      &.right {
+        justify-content: flex-end;
+      }
+    }
     .ui-table__header-btns {
       display: flex;
       align-items: center;
+      &.left,
+      &.right {
+        flex: 1;
+      }
+      &.right {
+        justify-content: flex-end;
+      }
       & > *:not(:last-child) {
         margin-right: 8px;
       }
@@ -411,6 +480,9 @@ const totalPages = computed(() => {
   }
   .ui-table__body-row {
     &:hover {
+      &.enableHover {
+        cursor: pointer;
+      }
       td {
         background: #f5f8fa;
         &.dark_mode {
@@ -434,19 +506,39 @@ const totalPages = computed(() => {
   .ui-table__heading-cell {
     position: relative;
     cursor: pointer;
-    &.dark_mode {
+    &.smartColor {
+      &:hover {
+        .ui-table__heading-cell-text.ui-text {
+          color: var(--smart-color);
+        }
+        .ui-table__heading-cell__icon {
+          color: var(--smart-color);
+        }
+        color: var(--smart-color);
+      }
+    }
+    &.dark_mode:not(.smartColor) {
       .ui-table__heading-cell-text.ui-text {
         color: #f1f5f9;
+      }
+      &:hover {
+        .ui-table__heading-cell-text.ui-text {
+          color: var(--dark-primary-color);
+        }
+        .ui-table__heading-cell__icon {
+          color: var(--dark-primary-color);
+        }
+        color: var(--dark-primary-color);
       }
     }
     &:hover {
       .ui-table__heading-cell-text.ui-text {
-        color: #0db9e9;
+        color: var(--light-primary-color);
       }
       .ui-table__heading-cell__icon {
-        color: #0db9e9;
+        color: var(--light-primary-color);
       }
-      color: #0db9e9;
+      color: var(--light-primary-color);
     }
   }
   .ui-table__heading-cell,

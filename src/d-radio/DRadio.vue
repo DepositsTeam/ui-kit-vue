@@ -5,8 +5,10 @@
     :class="{
       ringed,
       alignToTop,
+      alignRight,
     }"
     @click="emitClick"
+    :style="{ '--ring-size': ringSize, '--ring-thickness': ringThickness }"
   >
     <d-box
       is="input"
@@ -19,6 +21,7 @@
       type="radio"
       :class="{
         hasLabel: label || $slots.default,
+        ringed,
       }"
     />
     <d-box class="ui-radio__label-wrap" v-if="$slots.default">
@@ -59,6 +62,17 @@ const props = defineProps({
   labelClass: {
     type: [String, Object, Array],
   },
+  alignRight: {
+    type: Boolean,
+  },
+  ringSize: {
+    type: String,
+    default: "16px",
+  },
+  ringThickness: {
+    type: String,
+    default: "5px",
+  },
 });
 
 const mounted = ref(false);
@@ -87,11 +101,24 @@ const emitClick = () => {
 
 <style lang="scss" scoped>
 .ui-radio__wrapper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   cursor: pointer;
 
+  &.alignRight {
+    flex-direction: row-reverse;
+    > {
+      input {
+        &.hasLabel {
+          margin-right: 0;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
   .ui-radio__label-text.ui-text {
+    flex: 1;
     &.dark_mode {
       color: #cbd5e1;
     }
@@ -116,8 +143,8 @@ const emitClick = () => {
         margin-right: 8px;
       }
       position: relative;
-      height: 15px;
-      width: 15px;
+      height: var(--ring-size);
+      width: var(--ring-size);
       border-radius: 50%;
       background: white;
       border: 2px solid #ced6de;
@@ -133,15 +160,15 @@ const emitClick = () => {
 
   &.ringed {
     > input {
-      height: 16px;
-      width: 16px;
+      height: var(--ring-size);
+      width: var(--ring-size);
       border: 1px solid #ced6de;
     }
 
     > input:checked {
-      height: 16px;
-      width: 16px;
-      border: 5px solid var(--light-primary-action-color);
+      height: var(--ring-size);
+      width: var(--ring-size);
+      border: var(--ring-thickness) solid var(--light-primary-action-color);
       outline: none;
       background: white;
       &.dark_mode {
@@ -158,16 +185,18 @@ const emitClick = () => {
     }
   }
 
-  > input:checked {
+  > input:checked:not(.ringed) {
     background: var(--light-primary-action-color);
-    width: 12px;
-    height: 12px;
-    outline: 2px solid var(--light-primary-action-color);
+    width: calc(var(--ring-size) - 8px);
+    height: calc(var(--ring-size) - 8px);
+    outline: 3px solid var(--light-primary-action-color);
     outline-offset: 1px;
     border-color: transparent;
+    margin: 4px 12px 4px 4px;
+
     &.dark_mode {
       background: var(--dark-primary-action-color);
-      outline: 2px solid var(--dark-primary-action-color);
+      outline: 3px solid var(--dark-primary-action-color);
     }
   }
 }

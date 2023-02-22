@@ -1,7 +1,13 @@
 <template>
-  <d-box class="ui-pagination">
+  <d-box
+    class="ui-pagination"
+    :style="{
+      '--smart-color': smartColor,
+      '--smart-text-color': getTextColor(smartColor),
+    }"
+  >
     <d-box
-      :class="{ disabled: disablePrev }"
+      :class="{ disabled: disablePrev, smartColor }"
       class="ui-pagination__control"
       @click="updatePage(initializedCurrentPage - 1)"
     >
@@ -22,6 +28,7 @@
       :class="{
         'ui-pagination__page-number__active':
           initializedCurrentPage === visiblePage,
+        smartColor,
       }"
     >
       <d-text margin-y="0" font-face="circularSTD" scale="subhead">
@@ -30,7 +37,7 @@
     </d-box>
     <d-box
       class="ui-pagination__control"
-      :class="{ disabled: disableNext }"
+      :class="{ disabled: disableNext, smartColor }"
       @click="updatePage(initializedCurrentPage + 1)"
     >
       <d-text
@@ -54,6 +61,7 @@ import {
 } from "../main";
 import rangedArray from "../utils/rangedArray";
 import { ref, computed, onMounted } from "vue";
+import { getTextColor } from "../utils/colorManager";
 
 const emit = defineEmits(["page-changed"]);
 
@@ -69,6 +77,9 @@ const props = defineProps({
   currentPageSiblings: {
     type: [Number, String],
     default: 3,
+  },
+  smartColor: {
+    type: String,
   },
 });
 
@@ -174,7 +185,11 @@ const updatePage = (page) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  &.dark_mode {
+  &.smartColor {
+    background: var(--smart-color);
+    color: var(--smart-text-color);
+  }
+  &.dark_mode:not(.smartColor) {
     .ui-text {
       color: var(--dark-background-color);
     }
@@ -186,17 +201,28 @@ const updatePage = (page) => {
   margin-right: 8px;
 }
 
-.ui-pagination__left-arrow,
-.ui-pagination__right-arrow {
-  color: var(--light-primary-action-color);
-}
-
 .ui-pagination__control {
   display: flex;
   align-items: center;
   cursor: pointer;
 
+  &.smartColor:not(.disabled) {
+    .ui-pagination__text {
+      color: var(--smart-color);
+    }
+
+    .ui-pagination__left-arrow,
+    .ui-pagination__right-arrow {
+      color: var(--smart-color);
+    }
+  }
+
   .ui-pagination__text {
+    color: var(--light-primary-action-color);
+  }
+
+  .ui-pagination__left-arrow,
+  .ui-pagination__right-arrow {
     color: var(--light-primary-action-color);
   }
 

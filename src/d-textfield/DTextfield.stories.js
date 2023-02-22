@@ -41,6 +41,12 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    currency: {
+      control: { type: "boolean" },
+    },
+    percentage: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -85,6 +91,13 @@ export const Default = Template.bind({});
 Default.args = {
   placeholder: "Input placeholder",
   label: "Form Label",
+};
+
+export const OnlyNumbers = Template.bind({});
+OnlyNumbers.args = {
+  placeholder: "Input placeholder",
+  label: "Form Label",
+  onlyNumbers: true,
 };
 
 export const DarkDefault = DarkModeTemplateFactory();
@@ -317,4 +330,20 @@ DarkSizeSmall.args = {
   dropDown: true,
   leftIcon: Search,
   size: "small",
+};
+
+export const DefaultSSNTemplate = (args) => ({
+  components: { DTextfield },
+  data: () => ({
+    vall: "123456789",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<d-textfield v-model="vall" v-bind="args" />`,
+});
+
+export const DefaultSSN = DefaultSSNTemplate.bind({});
+DefaultSSN.args = {
+  percentage: true,
 };

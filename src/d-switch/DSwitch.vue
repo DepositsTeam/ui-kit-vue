@@ -7,10 +7,14 @@
       [`semantic__${colorScheme}`]: colorScheme,
       custom_color: switchColor,
       custom_thumb_color: thumbColor,
+      alignRight,
     }"
     :style="{
       '--customswitchcolor': switchColor,
       '--customthumbcolor': thumbColor,
+      '--switch-height': switchHeight,
+      '--switch-width': switchWidth,
+      '--thumb-size': thumbSize,
     }"
   >
     <d-box is="div" class="ui-switch">
@@ -20,21 +24,25 @@
         type="checkbox"
         :disabled="disabled"
         v-bind="$attrs"
+        :value="computedValue"
+        @change="handleChange"
+        :checked="isChecked"
       />
       <d-box is="span" class="ui-slider round" />
     </d-box>
-    <d-text class="ui-switch__label-text">{{ label }}</d-text>
+    <d-text v-if="label" class="ui-switch__label-text">{{ label }}</d-text>
   </d-box>
 </template>
 
 <script setup>
 import { DText, DBox } from "../main";
+import { computed } from "vue";
 
-defineProps({
+const props = defineProps({
   colorScheme: {
     type: String,
     validator: (value) =>
-      ["primary", "danger", "success", "outline", "invisible"].includes(value),
+      ["primary", "danger", "success", "warning"].includes(value),
     default: "success",
   },
   disabled: {
@@ -48,15 +56,125 @@ defineProps({
   },
   thumbColor: {
     type: String,
+    default: "#ffffff",
+  },
+  alignRight: {
+    type: Boolean,
+    default: false,
+  },
+  thumbSize: {
+    type: String,
+    default: "18px",
+  },
+  switchWidth: {
+    type: String,
+    default: "56px",
+  },
+  switchHeight: {
+    type: String,
+    default: "26px",
+  },
+  value: {
+    type: [String, Number],
+    default: "",
+  },
+  modelValue: {
+    default: false,
+  },
+  trueValue: {
+    default: true,
+  },
+  falseValue: {
+    default: false,
+  },
+  values: {
+    type: Array,
+    default: () => [],
   },
 });
+
+const emit = defineEmits(["update:modelValue"]);
+
+const computedValue = computed(() =>
+  props.value === "" ? props.label : props.value
+);
+
+const computedTrueValue = computed(() => {
+  if (props.value) {
+    return props.value;
+  } else {
+    return props.trueValue === true ? true : this.value;
+  }
+});
+
+const isChecked = computed(() => {
+  if (props.modelValue instanceof Array) {
+    if (props.values.length) {
+      return props.values.every((element) => {
+        return props.modelValue.includes(element);
+      });
+    }
+    return props.modelValue.includes(computedValue.value);
+  }
+  return props.modelValue === computedTrueValue.value;
+});
+
+const handleChange = (e) => {
+  if (props.disabled) {
+    return;
+  }
+  let currentlyChecked = e.target.checked;
+  // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
+  // console.log(getClassOf(this.modelValue));
+  // console.log("Type is", typeof this.modelValue);
+  // console.log("object is", this.modelValue);
+  if (props.values.length) {
+    let newValue = [...props.modelValue];
+    // TODO to look for the most efficient way to do this!!!!!! Saving space and time
+    if (currentlyChecked) {
+      props.values.forEach((value) => {
+        if (!newValue.includes(value)) {
+          newValue.push(value);
+        }
+      });
+    } else {
+      props.values.forEach((value) => {
+        if (newValue.includes(value)) {
+          newValue.splice(newValue.indexOf(value), 1);
+        }
+      });
+    }
+    emit("update:modelValue", newValue);
+  } else {
+    if (props.modelValue instanceof Array) {
+      let newValue = [...props.modelValue];
+      if (currentlyChecked) {
+        newValue.push(computedValue.value);
+      } else {
+        newValue.splice(newValue.indexOf(computedValue.value), 1);
+      }
+
+      emit("update:modelValue", newValue);
+    } else {
+      emit(
+        "update:modelValue",
+        currentlyChecked ? props.trueValue : props.falseValue
+      );
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .ui-switch__wrapper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   cursor: pointer;
+
+  &.alignRight {
+    flex-direction: row-reverse;
+  }
+
   &.custom_color {
     .ui-switch {
       input:checked + .ui-slider {
@@ -64,6 +182,7 @@ defineProps({
       }
     }
   }
+
   &.custom_thumb_color {
     .ui-slider {
       &:before {
@@ -79,6 +198,7 @@ defineProps({
 
 .ui-switch__label-text {
   padding: 0 10px;
+
   &.dark_mode {
     color: #fff;
   }
@@ -89,8 +209,8 @@ defineProps({
 .ui-switch {
   position: relative;
   display: inline-block;
-  width: 56px;
-  height: 26px;
+  width: var(--switch-width);
+  height: var(--switch-height);
 
   input {
     opacity: 0;
@@ -113,14 +233,17 @@ defineProps({
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  &.dark_mode {
+    background-color: #4f627d;
+  }
 
   &:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
-    left: 4px;
-    bottom: 4px;
+    height: var(--thumb-size);
+    width: var(--thumb-size);
+    left: calc((var(--switch-height) - var(--thumb-size)) / 2);
+    bottom: calc((var(--switch-height) - var(--thumb-size)) / 2);
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -132,7 +255,7 @@ input:checked + .ui-slider {
 }
 
 .semantic__primary input:checked + .ui-slider.round {
-  background-color: #0db9e9;
+  background-color: var(--light-primary-action-color);
 }
 
 .semantic__danger input:checked + .ui-slider.round {
@@ -145,6 +268,9 @@ input:checked + .ui-slider {
 
 .semantic__outline input:checked + .ui-slider.round {
   background-color: #ccc;
+  &.dark_mode {
+    background-color: #4f627d;
+  }
 }
 
 .semantic__invisible input:checked + .ui-slider.round {
@@ -157,9 +283,24 @@ input {
   }
 
   &:checked + .ui-slider:before {
-    -webkit-transform: translateX(29px);
-    -ms-transform: translateX(29px);
-    transform: translateX(29px);
+    -webkit-transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
+    -ms-transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
+    transform: translateX(
+      calc(
+        var(--switch-width) - var(--thumb-size) -
+          ((var(--switch-height) - var(--thumb-size)))
+      )
+    );
   }
 }
 

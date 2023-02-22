@@ -28,6 +28,14 @@ export default {
     value: {
       control: { type: "text" },
     },
+    ringSize: {
+      control: { type: "text" },
+      default: "16px",
+    },
+    ringThickness: {
+      control: { type: "text" },
+      default: "5px",
+    },
   },
 };
 

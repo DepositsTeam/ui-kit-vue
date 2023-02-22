@@ -1,5 +1,8 @@
 <template>
-  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+  <d-box
+    class="ui-text-field__wrapper"
+    :class="{ [`size__${size}`]: true, [wrapperClass]: wrapperClass }"
+  >
     <d-box v-if="label" is="label">
       <d-text
         :class="labelClass"
@@ -22,11 +25,16 @@
           'has-left-icon': leftIcon,
           'has-right-icon': dropDown || rightIcon,
           dark_mode: darkMode,
+          [fontFace]: fontFace,
         }"
         :input-attr="{
-          class: { dark_mode: darkMode, 'ui-text-field__input': true },
+          class: {
+            dark_mode: darkMode,
+            'ui-text-field__input': true,
+            [fontFace]: fontFace,
+          },
         }"
-        v-bind="$attrs"
+        v-bind="{ ...$attrs, ...$props }"
         @keypress="handleKeyEvents"
         @change="fire"
         @blur="$emit('blur')"
@@ -39,7 +47,7 @@
           <CalendarIcon class="ui-text-field__right-icon relative" />
         </template>
         <template #icon-clear>
-          <CloseIcon class="ui-text-field__right-icon" />
+          <CloseIcon class="ui-text-field__right-icon relative" />
         </template>
       </date-picker>
       <component
@@ -86,6 +94,10 @@ const emit = defineEmits(["update:modelValue", "blur"]);
 
 const props = defineProps({
   ...inputProps,
+  fontFace: {
+    type: String,
+    default: "heroNew",
+  },
   dropDown: {
     type: Boolean,
   },
@@ -156,5 +168,10 @@ const fire = () => {
 .mx-input-wrapper,
 .mx-datepicker {
   width: 100%;
+}
+.mx-input-wrapper:hover {
+  .mx-icon-calendar {
+    display: none;
+  }
 }
 </style>

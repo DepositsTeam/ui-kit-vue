@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 .ui-text-field__input-wrapper {
   display: inline-flex;
   align-items: center;
@@ -16,6 +19,10 @@
   color: #212934;
   width: 100%;
   -webkit-appearance: none;
+  box-sizing: border-box;
+  &.pill {
+    border-radius: 900px;
+  }
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
@@ -141,7 +148,7 @@
     .ui-text-field__input {
       font-size: 16px;
       line-height: 32px;
-      padding: 16px;
+      //padding: 16px;
       height: 64px;
 
       &.oneCharWide {
@@ -165,7 +172,9 @@
     .ui-text-field__input {
       font-size: 16px;
       line-height: 16px;
-      padding: 20px 16px;
+      //padding: 20px 16px;
+      padding: 8px 16px;
+      vertical-align: middle;
       height: 56px;
 
       &.oneCharWide {
@@ -180,6 +189,14 @@
         padding-right: 42px;
       }
     }
+    .ui-text-field__left-icon {
+      height: 20px;
+      width: 20px;
+    }
+    .ui-text-field__right-icon {
+      height: 20px;
+      width: 20px;
+    }
   }
   &.size__xlarge {
     .ui-text-field--counter_input_button {
@@ -189,7 +206,8 @@
     .ui-text-field__input {
       font-size: 16px;
       line-height: 16px;
-      padding: 16px 12px;
+      //padding: 16px 12px;
+      padding: 8px 12px;
       height: 48px;
       &.oneCharWide {
         width: 48px;
@@ -204,9 +222,13 @@
     }
     .ui-text-field__left-icon {
       left: 12px;
+      height: 20px;
+      width: 20px;
     }
     .ui-text-field__right-icon {
       right: 12px;
+      height: 20px;
+      width: 20px;
     }
   }
   &.size__large {
@@ -232,9 +254,13 @@
     }
     .ui-text-field__left-icon {
       left: 12px;
+      height: 20px;
+      width: 20px;
     }
     .ui-text-field__right-icon {
       right: 12px;
+      height: 20px;
+      width: 20px;
     }
   }
   &.size__medium {
@@ -260,9 +286,13 @@
     }
     .ui-text-field__left-icon {
       left: 12px;
+      height: 18px;
+      width: 18px;
     }
     .ui-text-field__right-icon {
       right: 12px;
+      height: 18px;
+      width: 18px;
     }
   }
   &.size__small {

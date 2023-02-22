@@ -3,7 +3,7 @@
     class="ui-text-field__wrapper"
     :class="[wrapperClass, `size__${size}`]"
   >
-    <d-box is="label">
+    <d-box is="label" v-if="label">
       <d-text
         margin-top="0px"
         :class="labelClass"
@@ -16,7 +16,7 @@
     </d-box>
     <d-box
       class="ui-select-field__wrapper ui-text-field__input-wrapper"
-      :class="{ 'has-error': errorMessage, disabled }"
+      :class="{ 'has-error': errorMessage, disabled, pill }"
     >
       <component
         v-if="leftIcon"
@@ -29,14 +29,17 @@
           disabled,
           'has-left-icon': leftIcon,
           'select-placeholder': placeholderEffect && modelValue === '',
+          'active-placeholder': internalValue === '' && placeholder,
+          pill,
         }"
         class="has-right-icon ui-text-field__input"
         v-bind="$attrs"
-        :value="modelValue"
-        @change="emit('update:modelValue', $event.target.value)"
+        v-model="computedModelValue"
         is="select"
+        ref="select"
         :disabled="disabled"
       >
+        <option v-if="placeholder" value="">{{ placeholder }}</option>
         <option
           v-for="(option, index) in computedOptions"
           :key="`${keyGen()}_${index}`"
@@ -63,10 +66,12 @@
 <script setup>
 import { DBox, DText, ChevronFilledDownIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import inputProps from "../utils/inputProps";
 
 const emit = defineEmits(["update:modelValue"]);
+
+const internalValue = ref("");
 
 const props = defineProps({
   ...inputProps,
@@ -108,6 +113,23 @@ const props = defineProps({
   labelClass: {
     type: [String, Object, Array],
   },
+  placeholder: {
+    type: String,
+    default: "- Select -",
+  },
+  pill: {
+    type: Boolean,
+  },
+});
+
+const computedModelValue = computed({
+  get() {
+    return props.modelValue || internalValue.value;
+  },
+  set(value) {
+    internalValue.value = value;
+    emit("update:modelValue", value);
+  },
 });
 
 const computedOptions = computed(() => {
@@ -137,6 +159,12 @@ const computedOptions = computed(() => {
     right: 2px;
     z-index: 13;
     pointer-events: none;
+  }
+
+  .ui-text-field__input {
+    &.active-placeholder {
+      color: #b8c4ce;
+    }
   }
 
   &.dark_mode::after {

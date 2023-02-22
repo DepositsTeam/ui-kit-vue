@@ -31,14 +31,23 @@
         />
       </d-box>
     </d-box>
-    <d-box v-else>
-      <avatar-content
-        :avatar="avatar"
-        :index="0"
-        :stacked="stacked"
-        :drop-down="dropDown"
-        :size="size"
-      />
+    <d-box
+      class="ui-avatars__wrapper"
+      :class="{
+        subtle,
+        [`size__${size}`]: true,
+      }"
+      v-else
+    >
+      <d-box class="ui-avatar__wrapper">
+        <avatar-content
+          :avatar="avatar"
+          :index="0"
+          :stacked="stacked"
+          :drop-down="dropDown"
+          :size="size"
+        />
+      </d-box>
     </d-box>
   </d-box>
 </template>
@@ -125,33 +134,38 @@ const avatarsToShow = computed(() => {
   background-size: cover;
   background-repeat: no-repeat;
 
-  &.background__cyan {
+  &.background__smartColor {
+    background: var(--smart-color);
+    color: var(--smart-text-color);
+  }
+
+  &.background__cyan:not(.background__smartColor) {
     background: #0c9ccc;
     color: #212934;
   }
 
-  &.background__green {
+  &.background__green:not(.background__smartColor) {
     background: #00b058;
     color: #fff;
   }
 
-  &.background__orange {
+  &.background__orange:not(.background__smartColor) {
     background: #ff9505;
     color: #212934;
   }
 
-  &.background__red {
+  &.background__red:not(.background__smartColor) {
     background: #d62f4b;
     color: #fff;
   }
 
-  &.background__gray,
-  &.background__grey {
+  &.background__gray:not(.background__smartColor),
+  &.background__grey:not(.background__smartColor) {
     background: #5f6b7a;
     color: #fff;
   }
 
-  &.background__blue {
+  &.background__blue:not(.background__smartColor) {
     background: #0d7fe9;
     color: #fff;
   }

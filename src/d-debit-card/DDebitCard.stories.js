@@ -1,5 +1,5 @@
 import DDebitCard from "./DDebitCard.vue";
-import CardBrands from "./CardBrands";
+import { CardBrands } from "../utils/debitCardUtils";
 
 export default {
   component: DDebitCard,

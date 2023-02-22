@@ -76,4 +76,25 @@ export const tableProps = {
     type: String,
     default: "uuuid",
   },
+  buttonActionsAlignment: {
+    type: String,
+    default: "left",
+    validator: (value) => ["left", "right"].includes(value),
+  },
+  searchAlignment: {
+    type: String,
+    default: "left",
+    validator: (value) => ["left", "right"].includes(value),
+  },
+  smartColor: {
+    type: String,
+  },
+  caseSensitiveSearch: {
+    type: Boolean,
+    default: false,
+  },
+  enableRowHoverCursor: {
+    type: Boolean,
+    default: false,
+  },
 };

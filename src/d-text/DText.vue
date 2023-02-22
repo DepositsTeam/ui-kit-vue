@@ -1,6 +1,7 @@
 <template>
   <d-box
     class="ui-text"
+    :font-face="computedFontFace"
     :class="{
       [scale]: scale,
       uppercase,
@@ -20,8 +21,11 @@
 
 <script setup>
 import { DBox } from "../main";
+import { inject, computed, unref } from "vue";
 
-defineProps({
+const defaultFontFace = inject("defaultFontFace", null);
+
+const props = defineProps({
   is: {
     type: [String, Object],
     validator: (value) => {
@@ -38,7 +42,6 @@ defineProps({
   fontFace: {
     type: String,
     validator: (value) => ["heroNew", "circularSTD"].includes(value),
-    default: "heroNew",
   },
   scale: {
     type: String,
@@ -98,6 +101,12 @@ defineProps({
     type: String,
     default: "text-neutral-600",
   },
+});
+
+const computedFontFace = computed(() => {
+  return props.fontFace || unref(defaultFontFace)
+    ? unref(defaultFontFace)
+    : "heroNew";
 });
 </script>
 

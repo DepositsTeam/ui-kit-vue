@@ -32,6 +32,12 @@ export default {
   labelClass: {
     type: [String, Object, Array],
   },
+  leftIcon: {
+    type: Object,
+  },
+  rightIcon: {
+    type: Object,
+  },
   disabled: Boolean,
   labelFontFace: {
     type: String,
@@ -74,5 +80,43 @@ export default {
   },
   autofocus: {
     type: String,
+  },
+};
+
+export const inputArgTypes = {
+  label: {
+    control: { type: "text" },
+  },
+  placeholder: {
+    control: { type: "text" },
+  },
+  disabled: {
+    control: { type: "boolean" },
+  },
+  dropDown: {
+    control: { type: "boolean" },
+  },
+  size: {
+    control: { type: "select" },
+    options: ["small", "medium", "large", "xlarge", "huge", "massive"],
+  },
+  errorMessage: {
+    control: { type: "text" },
+  },
+  rightIcon: {
+    control: { type: "object" },
+  },
+  leftIcon: {
+    control: { type: "object" },
+  },
+  onlyNumbers: {
+    control: { type: "boolean" },
+  },
+  wrapperClass: {
+    control: { type: "text" },
+  },
+  fontFace: {
+    control: { type: "select" },
+    options: ["circularSTD", "heroNew"],
   },
 };

@@ -3,6 +3,7 @@ import { h, inject, computed, onMounted, unref } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { defaultThemeVars } from "../providers/default-theme";
+import convertObjToVars from "../utils/convertObjToVars";
 
 const unitizeValue = (value) =>
   parseFloat(value) == value ? `${value}px` : value;
@@ -15,8 +16,6 @@ export default {
     },
     fontFace: {
       type: String,
-      default: "heroNew",
-      validator: (value) => ["heroNew", "circularSTD"].includes(value),
     },
     modelValue: {
       type: [Number, String],
@@ -60,11 +59,20 @@ export default {
     "mouseleave",
     "mouseover",
     "mousemove",
+    "paste",
     "update:modelValue",
   ],
   setup(props, { slots, emit }) {
-    const darkMode = inject("d__darkMode");
+    const darkMode = inject("d__darkMode", null);
     const d__theme = inject("d__theme", defaultThemeVars);
+    const defaultFontFace = inject("defaultFontFace", null);
+    const computedFontFace = computed(() => {
+      return props.fontFace
+        ? props.fontFace
+        : unref(defaultFontFace)
+          ? unref(defaultFontFace)
+          : "heroNew";
+    });
     const forwardableInputTypes = [
       "text",
       "password",
@@ -166,22 +174,46 @@ export default {
     };
 
     const generateClassProps = () => {
+      const specialRootStyle = document.head.querySelector(
+        "style#specialRootStyle"
+      );
+      if (!specialRootStyle) {
+        let newSpecialRootStyle = document.createElement("style");
+        newSpecialRootStyle.id = "specialRootStyle";
+        newSpecialRootStyle.setAttribute("type", "text/css");
+        const style = Object.entries(unref(d__theme))
+          .map(([k, v]) => `${k.startsWith("--") ? k : `--${k}`}: ${v}`)
+          .join(";");
+        newSpecialRootStyle.innerHTML = `:root{${style}}`;
+        document.head.appendChild(newSpecialRootStyle);
+      }
       const savedCss = {};
       for (let prop in props) {
         if (allowedCSSProps[prop]) {
           if (props[prop]) {
-            if (prop.startsWith("light") && !darkModeIsEnabled.value) {
-              addStylesToCssProps(prop, savedCss);
-            } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
-              addStylesToCssProps(prop, savedCss);
+            if (prop.startsWith("light") || prop.startsWith("dark")) {
+              if (prop.startsWith("light") && !darkModeIsEnabled.value) {
+                addStylesToCssProps(prop, savedCss);
+              } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
+                addStylesToCssProps(prop, savedCss);
+              }
             } else {
               addStylesToCssProps(prop, savedCss);
             }
           }
         }
       }
-      const savedCssEntries = Object.entries(savedCss);
-      let cssRules = "box-sizing: border-box;";
+      const savedCssEntries = Object.entries({
+        ...savedCss,
+        ...convertObjToVars(unref(d__theme)),
+      });
+      let cssRules = `
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+      `;
       if (savedCssEntries.length) {
         cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
       }
@@ -245,6 +277,9 @@ export default {
           onMousemove: function (e) {
             emit("mousemove", e);
           },
+          onPaste: function (e) {
+            emit("paste", e);
+          },
           id: props.id ? props.id : uniqueID,
           ...(computedType.value ? { type: computedType.value } : {}),
           ...(computedValue.value ? { value: computedValue.value } : {}),
@@ -254,16 +289,21 @@ export default {
             [uniqueClass]: true,
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
-            [props.fontFace]: props.fontFace,
+            [computedFontFace.value]:
+            computedFontFace.value &&
+            typeof props.is === "string" &&
+            props.is.toLowerCase() !== "svg",
             dark_mode: darkModeIsEnabled.value,
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
-          style: {
-            ...unref(d__theme),
-          },
+          style: {},
         },
-        slots.default ? slots.default() : undefined
+        {
+          default() {
+            return slots.default ? slots.default() : undefined;
+          },
+        }
       );
   },
 };
@@ -1038,6 +1078,42 @@ export default {
   color: #121a26;
 }
 
+.text-cool-gray-100 {
+  color: #f1f5f9;
+}
+
+.text-cool-gray-200 {
+  color: #e2e8f0;
+}
+
+.text-cool-gray-300 {
+  color: #cbd5e1;
+}
+
+.text-cool-gray-400 {
+  color: #94a3b8;
+}
+
+.text-cool-gray-500 {
+  color: #64748b;
+}
+
+.text-cool-gray-600 {
+  color: #4f627d;
+}
+
+.text-cool-gray-700 {
+  color: #384860;
+}
+
+.text-cool-gray-800 {
+  color: #202b3c;
+}
+
+.text-cool-gray-900 {
+  color: #121a26;
+}
+
 .text-caution-light-100 {
   color: #fff8f0;
 }
@@ -1326,6 +1402,78 @@ export default {
   color: #350a12;
 }
 
+.text-error-light-100 {
+  color: #fff0f2;
+}
+
+.text-error-light-200 {
+  color: #fcc5ce;
+}
+
+.text-error-light-300 {
+  color: #f99bab;
+}
+
+.text-error-light-400 {
+  color: #e85e75;
+}
+
+.text-error-light-500 {
+  color: #d62f4b;
+}
+
+.text-error-light-600 {
+  color: #ad283d;
+}
+
+.text-error-light-700 {
+  color: #842432;
+}
+
+.text-error-light-800 {
+  color: #5c1e27;
+}
+
+.text-error-light-900 {
+  color: #331418;
+}
+
+.text-error-dark-100 {
+  color: #eea7b3;
+}
+
+.text-error-dark-200 {
+  color: #eb98a6;
+}
+
+.text-error-dark-300 {
+  color: #e88898;
+}
+
+.text-error-dark-400 {
+  color: #e47588;
+}
+
+.text-error-dark-500 {
+  color: #df5e74;
+}
+
+.text-error-dark-600 {
+  color: #d93f59;
+}
+
+.text-error-dark-700 {
+  color: #c12640;
+}
+
+.text-error-dark-800 {
+  color: #911c30;
+}
+
+.text-error-dark-900 {
+  color: #350a12;
+}
+
 .bg-primary-light-100 {
   background-color: var(--light-primary-100);
 }
@@ -1539,6 +1687,42 @@ export default {
 }
 
 .bg-cool-grey-900 {
+  background-color: #121a26;
+}
+
+.bg-cool-grey-100 {
+  background-color: #f1f5f9;
+}
+
+.bg-cool-gray-200 {
+  background-color: #e2e8f0;
+}
+
+.bg-cool-gray-300 {
+  background-color: #cbd5e1;
+}
+
+.bg-cool-gray-400 {
+  background-color: #94a3b8;
+}
+
+.bg-cool-gray-500 {
+  background-color: #64748b;
+}
+
+.bg-cool-gray-600 {
+  background-color: #4f627d;
+}
+
+.bg-cool-gray-700 {
+  background-color: #384860;
+}
+
+.bg-cool-gray-800 {
+  background-color: #202b3c;
+}
+
+.bg-cool-gray-900 {
   background-color: #121a26;
 }
 
@@ -1879,8 +2063,8 @@ export default {
     margin-right: calc(8px * #{$i});
   }
   .px-#{$i} {
-    padding-left: calc(8px * #{$i});
-    padding-right: calc(8px * #{$i});
+    padding-left: calc(8px * #{$i}) !important;
+    padding-right: calc(8px * #{$i}) !important;
   }
   .my-#{$i} {
     margin-top: calc(8px * #{$i});

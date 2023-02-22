@@ -40,6 +40,9 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    options: {
+      control: { type: "object" },
+    },
   },
 };
 
@@ -132,6 +135,17 @@ const options = [
 export const Default = Template.bind({});
 Default.args = {
   options: [...options],
+};
+
+export const TextOptions = Template.bind({});
+TextOptions.args = {
+  options: [
+    "Banking kit",
+    "Money kit",
+    "Identity kit",
+    "UI kit",
+    "Commerce kit",
+  ],
 };
 
 export const DefaultDark = DarkModeTemplateFactory();

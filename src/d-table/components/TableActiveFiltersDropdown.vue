@@ -45,6 +45,7 @@
         font-face="circularSTD"
         v-model="localFilter.filter.selectedFilter2"
         :options="availableFilters"
+        :disabled="!localFilter.filter.join"
       />
       <d-textfield
         size="medium"
@@ -52,12 +53,13 @@
         font-face="circularSTD"
         placeholder="Type something"
         v-model="localFilter.filter.selectedFilterValue2"
+        :disabled="!localFilter.filter.join"
       />
-      <d-box cursor="pointer" @click="hideOtherOptions">
-        <close-icon />
+      <d-box class="close__icon" cursor="pointer" @click="hideOtherOptions">
+        <close-icon class="close__icon" />
       </d-box>
     </d-box>
-    <d-box display="flex" margin-top="16px">
+    <d-box display="inline-flex" margin-top="16px">
       <d-button @click="updateGlobalFilter" color-scheme="primary" size="medium"
         >Apply filter</d-button
       >
@@ -69,14 +71,20 @@
         >Cancel</d-button
       >
     </d-box>
-    <d-box
-      v-if="!showSecondOptions"
-      @click="showOtherOptions"
-      class="condition"
-    >
-      <d-box cursor="pointer" display="inline-block" class="text-blue-500 text"
+    <d-box @click="showOtherOptions" class="condition">
+      <d-box
+        cursor="pointer"
+        display="inline-block"
+        light-class="text-primary-light-500"
+        dark-class="text-primary-dark-500"
+        class="text"
         ><add-icon />
-        <d-text my0 scale="footnote" font-face="heroNew"
+        <d-text
+          my0
+          scale="footnote"
+          font-face="heroNew"
+          light-class="text-primary-light-500"
+          dark-class="text-primary-dark-500"
           >Add condition</d-text
         ></d-box
       >
@@ -141,6 +149,9 @@ onMounted(() => {
     localFilter.filter.join = filter.value.join;
     localFilter.filter.selectedFilter2 = filter.value.selectedFilter2;
     localFilter.filter.selectedFilterValue2 = filter.value.selectedFilterValue2;
+    if (filter.value.join) {
+      showSecondOptions.value = true;
+    }
   }
   window.addEventListener("click", closeActiveFiltersDropdownOnOutsideClick);
   window.addEventListener("keydown", closeActiveFiltersDropdownOnEsc);
@@ -156,6 +167,7 @@ const updateGlobalFilter = () => {
     selectedFilterValue2: localFilter.filter.selectedFilterValue2,
   };
   updateFilterValue(detachedLocalFilter);
+  emit("close");
 };
 
 onBeforeUnmount(() => {
@@ -173,7 +185,9 @@ onBeforeUnmount(() => {
 
 const showSecondOptions = ref(false);
 
-const showOtherOptions = () => (showSecondOptions.value = true);
+const showOtherOptions = () => {
+  showSecondOptions.value = true;
+};
 const hideOtherOptions = () => (showSecondOptions.value = false);
 </script>
 
@@ -199,6 +213,7 @@ const hideOtherOptions = () => (showSecondOptions.value = false);
     align-items: center;
     & > * {
       flex: 1;
+
       &:first-child {
         margin-right: 16px;
       }
@@ -214,6 +229,9 @@ const hideOtherOptions = () => (showSecondOptions.value = false);
           flex: 1;
         }
       }
+      &.dark_mode {
+        background: #202b3c;
+      }
     }
   }
   .filter__radios {
@@ -226,9 +244,15 @@ const hideOtherOptions = () => (showSecondOptions.value = false);
   }
   .condition {
     margin-top: 16px;
+    display: inline-flex;
     .text {
-      display: flex;
+      display: inline-flex;
       align-items: center;
+    }
+  }
+  .close__icon {
+    &.dark_mode {
+      color: #94a3b8;
     }
   }
 }

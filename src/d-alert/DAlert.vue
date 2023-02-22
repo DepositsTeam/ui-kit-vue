@@ -49,7 +49,7 @@
           class="ui-alert__header-icon"
           :is="schemeIcons[colorScheme]"
         ></component>
-        <div class="ui-alert__text">
+        <d-box class="ui-alert__text" flex="1">
           <d-box v-if="message" class="ui-alert__header">
             <d-heading scale="subtitle-2" class="ui-alert__header-text">
               {{ message }}
@@ -65,14 +65,14 @@
           </d-text>
           <slot name="button"></slot>
           <d-box v-if="button" margin-top="16px">
-            <d-button @click="emitClick" size="small">{{
+            <d-button v-bind="{ ...button }" @click="emitClick" size="small">{{
               button.text
             }}</d-button>
           </d-box>
           <d-box v-else-if="$slots.button">
             <slot name="button"></slot>
           </d-box>
-        </div>
+        </d-box>
       </d-box>
     </d-box>
     <CloseIcon
@@ -123,15 +123,8 @@ defineProps({
   button: {
     type: Object,
   },
-  action: {
-    type: Function,
-  },
   closable: {
     type: Boolean,
-  },
-  bordered: {
-    type: Boolean,
-    default: false,
   },
   smartColor: {
     type: String,
@@ -196,6 +189,13 @@ const emitClick = () => emit("button-clicked");
           border-color: #0d7fe9;
         }
 
+        &.color-scheme__primary {
+          border-color: var(--light-primary-action-color);
+          &.dark_mode {
+            border-color: var(--dark-primary-action-color);
+          }
+        }
+
         &.color-scheme__warning {
           border-color: #ff9505;
         }
@@ -238,17 +238,6 @@ const emitClick = () => emit("button-clicked");
     margin-right: 12px;
   }
 
-  &.color-scheme__info {
-    &.is-toast {
-      border-color: #0d7fe9;
-      border-left: 4px solid #0d7fe9;
-    }
-
-    .ui-alert__header-icon {
-      color: #0d7fe9;
-    }
-  }
-
   &.smartColor {
     &.is-toast {
       border-color: var(--smart-color);
@@ -257,6 +246,37 @@ const emitClick = () => emit("button-clicked");
   }
 
   &:not(.smartColor) {
+    &.color-scheme__info {
+      &.is-toast {
+        border-color: #0d7fe9;
+        border-left: 4px solid #0d7fe9;
+      }
+
+      .ui-alert__header-icon {
+        color: #0d7fe9;
+      }
+    }
+    &.color-scheme__primary {
+      &.is-toast {
+        border-color: var(--light-primary-action-color);
+        border-left: 4px solid var(--light-primary-action-color);
+      }
+
+      .ui-alert__header-icon {
+        color: var(--light-primary-action-color);
+      }
+
+      &.dark_mode {
+        &.is-toast {
+          border-color: var(--dark-primary-action-color);
+          border-left: 4px solid var(--dark-primary-action-color);
+        }
+
+        .ui-alert__header-icon {
+          color: var(--dark-primary-action-color);
+        }
+      }
+    }
     &.color-scheme__warning {
       &.is-toast {
         border-color: #ff9505;
@@ -296,20 +316,130 @@ const emitClick = () => emit("button-clicked");
   }
 
   &.theme__filled {
-    background: #f5f8fa;
-    &.dark_mode {
-      background: #202b3c;
+    &:not(.smartColor) {
+      background: #f5f8fa;
+
+      &.dark_mode {
+        background: #202b3c;
+      }
       &.color-scheme__primary {
-        background: var(--dark-primary-action-color);
+        background: var(--light-primary-action-color);
         .ui-alert__header-text {
-          color: var(--dark-primary-title-text-color);
+          color: var(--light-primary-title-text-color);
         }
         .ui-alert__body {
-          color: var(--dark-primary-description-text-color);
+          color: var(--light-primary-description-text-color);
+        }
+        &.dark_mode {
+          background: var(--dark-primary-action-color);
+          .ui-alert__header-text {
+            color: var(--dark-primary-title-text-color);
+          }
+          .ui-alert__body {
+            color: var(--dark-primary-description-text-color);
+          }
         }
       }
-    }
-    &:not(.smartColor) {
+
+      &.color-scheme__info {
+        background: #0d7fe9;
+        .ui-alert__header-text {
+          color: #ffffff;
+        }
+        .ui-alert__body {
+          color: #ddefff;
+        }
+        .ui-alert__header-icon {
+          color: #fff;
+        }
+        &.dark_mode {
+          background: #0d7fe9;
+          .ui-alert__header-text {
+            color: #ffffff;
+          }
+          .ui-alert__body {
+            color: #ddefff;
+          }
+          .ui-alert__header-icon {
+            color: #fff;
+          }
+        }
+      }
+
+      &.color-scheme__warning {
+        background: #ff9505;
+        .ui-alert__header-text {
+          color: #525964;
+        }
+        .ui-alert__body {
+          color: #573302;
+        }
+        .ui-alert__header-icon {
+          color: #525964;
+        }
+        &.dark_mode {
+          background: #dc8104;
+          .ui-alert__header-text {
+            color: #cbd5e1;
+          }
+          .ui-alert__body {
+            color: #271701;
+          }
+          .ui-alert__header-icon {
+            color: #cbd5e1;
+          }
+        }
+      }
+
+      &.color-scheme__danger {
+        background: #d62f4b;
+        .ui-alert__header-text {
+          color: #fff;
+        }
+        .ui-alert__body {
+          color: #fff0f2;
+        }
+        .ui-alert__header-icon {
+          color: #fff;
+        }
+        &.dark_mode {
+          background: #df5e74;
+          .ui-alert__header-text {
+            color: #fff;
+          }
+          .ui-alert__body {
+            color: #350a12;
+          }
+          .ui-alert__header-icon {
+            color: #fff;
+          }
+        }
+      }
+
+      &.color-scheme__success {
+        background: #00b058;
+        .ui-alert__header-text {
+          color: #fff;
+        }
+        .ui-alert__body {
+          color: #edfff9;
+        }
+        .ui-alert__header-icon {
+          color: #fff;
+        }
+        &.dark_mode {
+          background: #2eab6c;
+          .ui-alert__header-text {
+            color: #fff;
+          }
+          .ui-alert__body {
+            color: #081e13;
+          }
+          .ui-alert__header-icon {
+            color: #fff;
+          }
+        }
+      }
     }
 
     &.color-scheme__info {

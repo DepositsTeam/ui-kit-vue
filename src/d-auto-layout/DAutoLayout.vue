@@ -4,6 +4,8 @@
     :class="{
       [`direction__${direction}`]: direction,
       [`align__${alignment}`]: alignment,
+      wrap,
+      stretchItems,
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -38,16 +40,27 @@ defineProps({
         "bottom-right",
       ].includes(value),
   },
+  wrap: Boolean,
+  stretchItems: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <style lang="scss">
 .d-auto-layout {
   display: flex;
+  &.wrap {
+    flex-wrap: wrap;
+  }
   &.direction__horizontal {
     flex-direction: row;
     & > *:not(:last-child) {
       margin-right: var(--spacing-value);
+    }
+    &.stretchItems > * {
+      flex: 1;
     }
     &.align__top-left {
       align-items: flex-start;
@@ -61,7 +74,7 @@ defineProps({
       align-items: flex-start;
       justify-content: flex-end;
     }
-    &.align__center-right {
+    &.align__center-left {
       align-items: center;
       justify-content: flex-start;
     }

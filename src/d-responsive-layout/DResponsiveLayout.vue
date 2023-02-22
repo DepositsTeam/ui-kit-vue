@@ -26,6 +26,9 @@ defineProps({
   padding: 0 16px;
   flex-direction: column;
   width: 100%;
+  &.full {
+    padding: 0;
+  }
   &.debugMode {
     border: 2px solid black;
     .ui-responsive__row {

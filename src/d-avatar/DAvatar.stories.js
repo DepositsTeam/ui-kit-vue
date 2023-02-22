@@ -57,6 +57,37 @@ const DarkModeTemplateFactory = () => {
   return Bound;
 };
 
+export const SmartColorAvatars = Template.bind({});
+SmartColorAvatars.args = {
+  avatars: [
+    {
+      status: "green",
+      name: "Charles Babbage",
+      smartColor: "#3f3f3f",
+    },
+    {
+      status: "green",
+      name: "Charles Babbage",
+      smartColor: "#000000",
+    },
+    {
+      status: "green",
+      name: "Charles Babbage",
+      smartColor: "#6b32a8",
+    },
+    {
+      status: "green",
+      name: "Charles Babbage",
+      smartColor: "#e00b64",
+    },
+    {
+      status: "green",
+      name: "Charles Babbage",
+      smartColor: "#efefef",
+    },
+  ],
+};
+
 export const SubtleLargeAvatars = Template.bind({});
 SubtleLargeAvatars.args = {
   subtle: true,
@@ -172,7 +203,7 @@ SubtleDarkMediumAvatars.args = {
   size: "medium",
   avatars: [
     {
-      status: "green",
+      status: "grey",
       name: "Charles Babbage",
     },
     {

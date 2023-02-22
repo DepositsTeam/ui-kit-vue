@@ -2,49 +2,81 @@
   <d-box
     class="ui-stepper"
     :style="{
-      '--spacing': props.spacing,
-      '--indicator-size': props.indicatorSize,
-      ...d__theme,
+      '--spacing': spacing,
+      '--indicator-size': indicatorSize,
+      '--active-color': activeColor,
+      '--active-color-bg': activeColor
+        ? tinycolor(activeColor).lighten(43)
+        : null,
     }"
+    :class="{ [scheme]: scheme }"
   >
     <d-box
       v-for="(step, index) in steps"
       :key="`step-${index}`"
       class="ui-step"
       :class="{
-        active: currentStep === index,
-        completed: currentStep > index,
-        todo: currentStep < index,
+        active: !stepMode || currentStep === index,
+        completed: stepMode && currentStep > index,
+        todo: stepMode && currentStep < index,
         last: index === steps.length - 1,
+        [scheme]: scheme,
       }"
     >
-      <d-box
-        class="ui-step__indicator"
-        :class="{
-          active: currentStep === index,
-          completed: currentStep > index,
-          todo: currentStep < index,
-          last: index === steps.length - 1,
-        }"
-      >
-        <check-outline-icon class="indicator-icon" v-if="currentStep > index" />
-      </d-box>
-      <slot :name="`step.${index}`">
-        <d-text margin-y="0" :font-size="fontSize">{{
-          typeof step === "string" ? step : step.text
-        }}</d-text>
+      <slot name="step-indicator" v-bind="step">
+        <d-box
+          class="ui-step__indicator"
+          :class="{
+            active: !stepMode || currentStep === index,
+            completed: stepMode && currentStep > index,
+            todo: stepMode && currentStep < index,
+            last: index === steps.length - 1,
+            [scheme]: scheme,
+            activeColor,
+          }"
+        >
+          <check-outline-icon
+            class="indicator-icon"
+            v-if="currentStep > index"
+          />
+        </d-box>
       </slot>
+
+      <d-box class="ui-step__content">
+        <slot name="step" v-bind="typeof step === 'object' ? step : {}">
+          <d-text
+            margin-y="0"
+            class="ui-step__content-title"
+            :font-size="fontSize"
+            >{{ typeof step === "string" ? step : step.text }}</d-text
+          >
+          <d-text
+            margin-y="0"
+            font-face="circularSTD"
+            scale="subhead"
+            v-if="typeof step !== 'string' && step.description"
+            color="#878B9A"
+            v-html="step.description"
+          >
+          </d-text>
+        </slot>
+      </d-box>
     </d-box>
   </d-box>
 </template>
 
 <script setup>
 import { DBox, DText, CheckOutlineIcon } from "../main";
-import { inject } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
-const d__theme = inject("d__theme", defaultThemeVars);
+import tinycolor from "tinycolor2";
+import { onMounted, useSlots } from "vue";
 
-const props = defineProps({
+const slots = useSlots();
+
+onMounted(() => {
+  console.log(slots);
+});
+
+defineProps({
   steps: {
     type: Array,
   },
@@ -64,15 +96,64 @@ const props = defineProps({
     type: String,
     default: "20px",
   },
+  scheme: {
+    type: String,
+    validator: (value) => ["variant-1", "variant-2"].includes(value),
+    default: "variant-1",
+  },
+  activeColor: {
+    type: String,
+  },
+  stepMode: {
+    type: Boolean,
+    default: true,
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .ui-stepper {
+  display: flex;
+  flex-direction: column;
   .ui-step {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--spacing);
+    display: inline-flex;
+    align-items: flex-start;
+    padding-bottom: 30px;
+    min-height: var(--spacing);
+    position: relative;
+
+    &:not(.last) {
+      &::after {
+        content: "";
+        height: 100%;
+        width: 1px;
+        background: #e1e7ec;
+        left: calc((var(--indicator-size) / 2 - 1px));
+        top: calc(var(--indicator-size) / 2 - 2px);
+        position: absolute;
+      }
+      &.variant-2 {
+        &::after {
+          background: repeating-linear-gradient(
+            to bottom,
+            #e1e7ec 0px 3px,
+            transparent 6px 9px
+          );
+        }
+        &.dark_mode::after {
+          background: repeating-linear-gradient(
+            to bottom,
+            #202b3c 0px 3px,
+            transparent 6px 9px
+          );
+        }
+      }
+      &.dark_mode {
+        &::after {
+          background: #202b3c;
+        }
+      }
+    }
     .ui-step__indicator {
       display: flex;
       border: 1.5px solid #bdf3fc;
@@ -85,6 +166,23 @@ const props = defineProps({
       box-sizing: border-box;
       align-items: center;
       justify-content: center;
+      z-index: 15;
+      &.variant-2 {
+        background: #eff4f7;
+        border: none;
+        &::before {
+          content: "";
+          height: 8px;
+          width: 8px;
+          background: #94a3b8;
+          border-radius: 50%;
+        }
+        &.completed {
+          &::before {
+            display: none;
+          }
+        }
+      }
       &.dark_mode {
         background: var(--dark-input-background-color);
         border-color: var(--dark-primary-800);
@@ -98,6 +196,15 @@ const props = defineProps({
           border-radius: 50%;
           background: var(--light-primary-action-color);
         }
+        &.activeColor {
+          background: var(--active-color-bg);
+          &::before {
+            background: var(--active-color);
+          }
+          &.activeColor {
+            border-color: var(--active-color);
+          }
+        }
       }
       &.completed {
         color: var(--light-primary-action-color);
@@ -106,24 +213,8 @@ const props = defineProps({
           width: 12px;
         }
       }
-      &:not(.last) {
-        &::after {
-          content: "";
-          height: var(--spacing);
-          width: 1px;
-          background: #e1e7ec;
-          left: calc(var(--indicator-size) / 2 - 2px);
-          top: calc(var(--indicator-size) - 1px);
-          position: absolute;
-        }
-        &.dark_mode {
-          &::after {
-            background: #202b3c;
-          }
-        }
-      }
     }
-    .ui-text {
+    .ui-text.ui-step__content-title {
       font-weight: 500;
       &.dark_mode {
         color: #cbd5e1;

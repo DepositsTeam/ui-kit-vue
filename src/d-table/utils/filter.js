@@ -1,8 +1,15 @@
-export const search = (search, rows, columnHashMap) => {
+export const search = (
+  search,
+  rows,
+  columnHashMap,
+  caseSensitiveSearch = false
+) => {
   return rows.filter((row) => {
     for (let key of Object.keys(row)) {
       if (columnHashMap[key].filterable) {
-        if (row[key].includes(search)) {
+        let hayStack = caseSensitiveSearch ? row[key] : row[key].toLowerCase();
+        let needle = caseSensitiveSearch ? search : search.toLowerCase();
+        if (hayStack.includes(needle)) {
           return true;
         }
       }

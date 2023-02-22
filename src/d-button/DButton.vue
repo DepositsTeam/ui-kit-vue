@@ -10,6 +10,7 @@
       smartHoverColor,
       pill,
     }"
+    :font-face="fontFace"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
     @click="handleClick"
     :disabled="loading || disabled"
@@ -81,6 +82,9 @@ const props = defineProps({
     },
     default: "button",
   },
+  fontFace: {
+    type: String,
+  },
   colorScheme: {
     type: String,
     validator: (value) =>
@@ -148,7 +152,6 @@ const smartCalculatedHoverColor = computed(() =>
 
 <style lang="scss" scoped>
 .ui-button {
-  font-family: "Hero New", sans-serif;
   font-size: 14px;
   line-height: 16px;
   font-weight: 500;
@@ -174,15 +177,39 @@ const smartCalculatedHoverColor = computed(() =>
     border: 1px solid #202b3c;
     box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
     color: #cbd5e1;
+    &.hover,
+    &:hover {
+      background: #202b3c;
+    }
+    &:focus {
+      box-shadow: 0px 0px 0px 3px rgba(27, 92, 224, 0.2);
+      border: 1px solid #384860;
+    }
+    &:disabled,
+    &.state__disabled {
+      background: #121a26;
+      color: #384860;
+    }
   }
   &.smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
-    &:hover {
+    border-color: transparent;
+    &.semantic__outline {
+      color: var(--smart-color);
+      background: transparent;
+      border: 1px solid var(--smart-color);
+    }
+    &:hover:not(:disabled):not(.state_disabled),
+    &.hover:not(:disabled):not(.state_disabled) {
       background: var(--smart-calculated-hover-color);
       color: var(--smart-calculated-hover-text-color);
     }
-    &.smartHoverColor:hover {
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(var(--smart-color), 0.2);
+    }
+    &.smartHoverColor:hover,
+    &.smartHoverColor.hover {
       background: var(--smart-hover-color);
       color: var(--smart-hover-text-color);
     }
@@ -235,7 +262,8 @@ const smartCalculatedHoverColor = computed(() =>
     margin-left: 8px;
   }
 
-  &:hover {
+  &:hover,
+  &.hover {
     background: #e1e7ec;
   }
 
@@ -253,15 +281,16 @@ const smartCalculatedHoverColor = computed(() =>
 
   &.semantic__primary:not(.smartColor) {
     background: var(--light-primary-action-color);
-    color: var(--light-text-color);
+    color: var(--light-primary-action-text-color);
     border: 1px solid var(--light-primary-action-box-shadow-color);
 
     &.dark_mode {
       background: var(--dark-primary-action-color);
-      color: var(--dark-text-color);
+      color: var(--dark-primary-action-text-color);
       border: 1px solid var(--dark-primary-action-box-shadow-color);
 
-      &:hover {
+      &:hover,
+      &.hover {
         background: var(--dark-primary-action-hover-color);
         color: var(--dark-primary-action-text-hover-color);
       }
@@ -272,12 +301,14 @@ const smartCalculatedHoverColor = computed(() =>
 
       &:disabled,
       &.state__disabled {
-        background: var(--dark-primary-action-disabled-color);
-        color: var(--dark-subtle-text-color);
+        //background: var(--dark-primary-action-disabled-color);
+        //color: var(--dark-subtle-text-color);
+        opacity: 0.5;
       }
     }
 
-    &:hover {
+    &:hover,
+    &.hover {
       background: var(--light-primary-action-hover-color);
       color: var(--light-primary-action-text-hover-color);
     }
@@ -308,7 +339,8 @@ const smartCalculatedHoverColor = computed(() =>
 
       box-shadow: 0 1px 0 rgba(27, 31, 35, 0.05);
 
-      &:hover {
+      &:hover,
+      &.hover {
         background: var(--dark-danger-400);
         border: 1px solid rgba(33, 41, 52, 0.07);
         /* Button Shadow */
@@ -326,7 +358,8 @@ const smartCalculatedHoverColor = computed(() =>
       }
     }
 
-    &:hover {
+    &:hover,
+    &.hover {
       background: var(--light-danger-600);
     }
 
@@ -353,7 +386,8 @@ const smartCalculatedHoverColor = computed(() =>
       color: #121a26;
       box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
 
-      &:hover {
+      &:hover,
+      &.hover {
         background: var(--dark-success-600);
         border: 1px solid rgba(33, 41, 52, 0.07);
         /* Button Shadow */
@@ -371,7 +405,8 @@ const smartCalculatedHoverColor = computed(() =>
       }
     }
 
-    &:hover {
+    &:hover,
+    &.hover {
       background: var(--light-success-600);
     }
 
@@ -411,7 +446,8 @@ const smartCalculatedHoverColor = computed(() =>
       }
     }
 
-    &:hover:not(:disabled):not(.state_disabled) {
+    &:hover:not(:disabled):not(.state_disabled),
+    &.hover:not(:disabled):not(.state_disabled) {
       background: var(--light-primary-action-color);
       color: var(--light-primary-action-text-color);
       box-shadow: 0 1px 0 var(--light-outline-action-box-shadow-color);
@@ -423,7 +459,8 @@ const smartCalculatedHoverColor = computed(() =>
       }
     }
 
-    &:focus:hover {
+    &:focus:hover,
+    &.hover:focus {
       box-shadow: 0 0 0 3px var(--light-outline-action-box-shadow-color);
       &.dark_mode {
         box-shadow: 0 0 0 3px var(--dark-outline-action-box-shadow-color);
@@ -457,7 +494,8 @@ const smartCalculatedHoverColor = computed(() =>
       box-shadow: 0 0 0 3px rgba(27, 92, 224, 0.2);
     }
 
-    &:hover {
+    &:hover,
+    &.hover {
       color: var(--light-primary-700);
     }
 
