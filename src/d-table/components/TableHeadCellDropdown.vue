@@ -63,7 +63,7 @@ const target = ref(null);
 const thCell = inject("thCell");
 
 const props = defineProps({
-  column: Array,
+  column: Object,
 });
 
 const updateSortConfiguration = inject("updateSortConfiguration");

@@ -99,9 +99,6 @@ defineProps({
   roundedBorders: {
     type: Boolean,
   },
-  requestClose: {
-    type: Function,
-  },
   minModalWidth: {
     type: String,
   },
