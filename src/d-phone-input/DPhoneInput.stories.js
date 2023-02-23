@@ -40,7 +40,7 @@ const InitialNumberWithoutHyphenTemplate = (args) => ({
   components: { DPhoneInput },
   data: () => ({
     code: "",
-    number: "+13384938384",
+    number: "+13332392383",
   }),
   setup() {
     return { args };

@@ -1,5 +1,5 @@
 import DTable from "./DTable.vue";
-import { DBadge } from "../main";
+import { DBadge, DSelect } from "../main";
 import {
   columns,
   data,
@@ -7,8 +7,10 @@ import {
   customComponentData,
 } from "./data/sitcom-data";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
+import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
 
 export default {
+  components: { DAutoLayout },
   title: "Table",
   component: DTable,
   argTypes: {
@@ -90,17 +92,26 @@ const Template = (args) => ({
   template: `<d-table v-bind="args" />`,
 });
 
-const CustomComponentTemplate = (args) => ({
-  components: { DTable, DBadge },
+const ExtraHeadingsTemplate = (args) => ({
+  components: { DTable, DBadge, DAutoLayout, DSelect },
   setup() {
     return { args };
   },
   template: `
     <d-table v-bind="args">
-      
+      <template #table-header-left>
+          <d-select size="large" placeholder="Last 7 days" width="200px" />
+          <d-select size="large" placeholder="By Events" width="200px" />
+      </template>
     </d-table>
   `,
 });
+
+export const ExtraHeadings = ExtraHeadingsTemplate.bind({});
+ExtraHeadings.args = {
+  columns,
+  data,
+};
 
 const DarkModeTemplate = (args) => ({
   components: { DTable, DarkModeProvider },

@@ -74,7 +74,7 @@ const closeDropdown = () => {
   emit("close");
 };
 const props = defineProps({
-  column: Array,
+  column: Object,
 });
 // const selectedFilter = ref(null);
 // const selectedFilterValue = ref("");

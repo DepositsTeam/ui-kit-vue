@@ -98,6 +98,7 @@
 import { DBox, DText } from "../main";
 import { computed, ref } from "vue";
 
+//TODO: Fix issue with cards not rotating after first hover rotation
 const faceFront = ref(true);
 const cardElem = ref(null);
 

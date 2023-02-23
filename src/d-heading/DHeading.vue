@@ -33,7 +33,7 @@ const props = defineProps({
     default: "p",
     validator: (value) => {
       if (typeof value !== "object") {
-        return ["h1", "h2", "h3", "h4", "h5", "h6", "p"].includes(value);
+        return ["h1", "h2", "h3", "h4", "h5", "h6"].includes(value);
       } else {
         return true;
       }
@@ -42,7 +42,17 @@ const props = defineProps({
   scale: {
     type: String,
     validator: (value) =>
-      ["subtitle-1", "subtitle-2", "subhead"].includes(value),
+      [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "subtitle-1",
+        "subtitle-2",
+        "subhead",
+      ].includes(value),
   },
   fontFace: {
     type: String,
