@@ -12,7 +12,6 @@
         hasHeader: $slots.header,
         hasFooter: $slots.footer,
         selected: !!props.modelValue,
-        [cardClass]: true,
       }"
       marginLeft="0"
       marginRight="0"
@@ -105,13 +104,6 @@ const props = defineProps({
   hoverColor: {
     type: Boolean,
     default: false,
-  },
-  border: {
-    type: Boolean,
-    default: false,
-  },
-  cardClass: {
-    type: String,
   },
   ringSize: {
     type: String,

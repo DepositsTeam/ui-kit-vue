@@ -33,7 +33,7 @@
 <script setup>
 import { DBox, DText, DAutoLayout } from "../main";
 import keyGen from "../utils/keyGen";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const props = defineProps({
   tabs: {
@@ -89,6 +89,13 @@ const generateSpacing = (index) => {
   }
 };
 
+watch(
+  () => props.modelValue,
+  () => {
+    internalActive.value = props.modelValue;
+  }
+);
+
 const switchActiveTabs = (index, tab) => {
   if (typeof tab === "object" && tab.disabled) {
     return;
@@ -96,7 +103,7 @@ const switchActiveTabs = (index, tab) => {
 
   internalActive.value = index;
 
-  emit("tabSwitched", index, { index, tab });
+  emit("tabSwitched", index, tab);
   emit("update:modelValue", index);
 };
 </script>

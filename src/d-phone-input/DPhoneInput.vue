@@ -119,12 +119,14 @@ const countryCode = computed({
 
 const number = computed({
   get() {
+    console.log("I got here to update phone number", props.phoneNumber);
     if (props.phoneNumber) {
       if (props.isUs) {
         const asYouType = new AsYouType({
           defaultCountry: countryCodes["+1"][1],
         });
         asYouType.input(props.phoneNumber);
+        emit("update:phoneNumber", asYouType.getNationalNumber());
         return asYouType.getNumber().formatNational();
       } else {
         if (countryCode.value && countryCodes[countryCode.value]) {
@@ -132,8 +134,13 @@ const number = computed({
             defaultCountry: countryCodes[countryCode.value][0],
           });
           asYouType.input(props.phoneNumber);
+          emit("update:phoneNumber", asYouType.getNationalNumber());
           return asYouType.getNumber().formatNational();
         } else {
+          emit(
+            "update:phoneNumber",
+            formatIncompletePhoneNumber(props.phoneNumber)
+          );
           return formatIncompletePhoneNumber(props.phoneNumber);
         }
       }
@@ -145,6 +152,7 @@ const number = computed({
     // console.log(
     //   new AsYouType({ defaultCountry: countryCodes[this.countryCode][0] }).input(value)
     // );
+    console.log("I got here to update phone number", value);
     emit("update:phoneNumber", value);
   },
 });
@@ -215,6 +223,28 @@ onMounted(() => {
   if (props.isUs) {
     emit("update:code", "+1");
   }
+  // if (props.phoneNumber) {
+  //   if (props.isUs) {
+  //     const asYouType = new AsYouType({
+  //       defaultCountry: countryCodes["+1"][1],
+  //     });
+  //     asYouType.input(props.phoneNumber);
+  //     emit("update:phoneNumber", asYouType.getNumber().nationalNumber);
+  //   } else {
+  //     if (countryCode.value && countryCodes[countryCode.value]) {
+  //       const asYouType = new AsYouType({
+  //         defaultCountry: countryCodes[countryCode.value][0],
+  //       });
+  //       asYouType.input(props.phoneNumber);
+  //       emit("update:phoneNumber", asYouType.getNumber().nationalNumber);
+  //     } else {
+  //       emit(
+  //         "update:phoneNumber",
+  //         formatIncompletePhoneNumber(props.phoneNumber)
+  //       );
+  //     }
+  //   }
+  // }
 });
 
 watch(

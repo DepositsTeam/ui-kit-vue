@@ -48,7 +48,7 @@ import rfid from "./rfid.svg";
 import defaultLogo from "./Logo.svg";
 import { CardBrands } from "../utils/debitCardUtils";
 import { useDebitCard } from "../utils/composables/useDebitCard";
-
+// TODO: Make the debit card to have the ability to mask values.
 const props = defineProps({
   logo: {
     type: String,
@@ -78,6 +78,10 @@ const props = defineProps({
   width: {
     type: String,
     default: "336px",
+  },
+  enableHiding: {
+    type: Boolean,
+    default: true,
   },
 });
 

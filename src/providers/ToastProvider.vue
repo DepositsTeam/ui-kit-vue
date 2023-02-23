@@ -29,7 +29,7 @@ const props = defineProps({
   position: {
     type: String,
     validator: (value) =>
-      ["top-right", "top-left", "bottom-left", "bottom-right"].includes(value),
+      ["top-right", "top-left", "top-center", "bottom-left", "bottom-right"].includes(value),
     default: "top-right",
   },
   bordered: {
