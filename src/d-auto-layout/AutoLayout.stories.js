@@ -34,7 +34,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-auto-layout v-bind="args">
+  template: `<d-auto-layout :switch-breakpoint="500" v-bind="args">
     <d-box background="#0CB9E9" border-radius="6px" height="48px" width="48px" />
     <d-box background="#0CB9E9" border-radius="6px" height="48px" width="48px" />
     <d-box background="#0CB9E9" border-radius="6px" height="48px" width="48px" />

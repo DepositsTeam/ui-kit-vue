@@ -47,6 +47,9 @@ export default {
     percentage: {
       control: { type: "boolean" },
     },
+    isStrongPassword: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -91,6 +94,13 @@ export const Default = Template.bind({});
 Default.args = {
   placeholder: "Input placeholder",
   label: "Form Label",
+};
+
+export const StrongPassword = Template.bind({});
+StrongPassword.args = {
+  label: "Password",
+  placeholder: "Enter password",
+  isStrongPassword: true,
 };
 
 export const OnlyNumbers = Template.bind({});

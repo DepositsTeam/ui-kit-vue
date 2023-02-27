@@ -2,10 +2,13 @@
   <d-box
     class="d-auto-layout"
     :class="{
-      [`direction__${direction}`]: direction,
+      [`direction__${
+        direction === 'horizontal' && shouldSwitch ? 'vertical' : direction
+      }`]: direction,
       [`align__${alignment}`]: alignment,
       wrap,
       stretchItems,
+      switch: shouldSwitch,
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -15,7 +18,12 @@
 
 <script setup>
 import { DBox } from "../main";
-defineProps({
+import { onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
+
+const shouldSwitch = ref(false);
+
+const props = defineProps({
   direction: {
     type: String,
     validator: (value) => ["horizontal", "vertical"].includes(value),
@@ -24,6 +32,9 @@ defineProps({
   itemSpacing: {
     type: [String, Number],
     default: "10px",
+  },
+  switchBreakpoint: {
+    type: Number,
   },
   alignment: {
     type: String,
@@ -45,6 +56,21 @@ defineProps({
     type: Boolean,
     default: false,
   },
+});
+
+const watchForSwitch = () => {
+  if (props.switchBreakpoint) {
+    shouldSwitch.value = window.innerWidth <= props.switchBreakpoint;
+  }
+};
+
+onMounted(() => {
+  watchForSwitch();
+  window.addEventListener("resize", watchForSwitch);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", watchForSwitch);
 });
 </script>
 

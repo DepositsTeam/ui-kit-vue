@@ -70,9 +70,13 @@
       />
       <component
         class="ui-text-field__right-icon"
-        v-if="isPassword || ((dropDown || rightIcon) && !invisible)"
+        v-if="
+          isPassword ||
+          isStrongPassword ||
+          ((dropDown || rightIcon) && !invisible)
+        "
         :is="
-          isPassword
+          isPassword || isStrongPassword
             ? passwordIcon
             : dropDown
             ? ChevronFilledDownIcon
@@ -94,6 +98,31 @@
         {{ errorMessage }}
       </d-text>
     </d-box>
+    <d-box v-else>
+      <d-box
+        display="flex"
+        margin-top="8px"
+        v-if="isStrongPassword"
+        align-items="center"
+        justify-content="space-between"
+        class="password-strength-indicator"
+        :class="{ [passwordStrength]: passwordStrength }"
+      >
+        <d-text class="strength-text" my0 scale="footnote">
+          {{ !passwordStrength ? "Password strength" : passwordStrength }}
+        </d-text>
+        <d-auto-layout item-spacing="4px">
+          <d-box
+            v-for="(item, index) in Array(4)
+              .fill()
+              .map((v, i) => ++i)"
+            :key="index"
+            class="strength-indicator"
+            :class="`indicator-${item}`"
+          ></d-box>
+        </d-auto-layout>
+      </d-box>
+    </d-box>
   </d-box>
 </template>
 
@@ -105,6 +134,7 @@ import {
   ChevronFilledDownIcon,
   NoEyeFilledIcon,
   EyeFilledIcon,
+  DAutoLayout,
 } from "../main";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
 import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
@@ -126,6 +156,7 @@ const emit = defineEmits([
   "blur",
   "leftIconClicked",
   "rightIconClicked",
+  "password-strength-changed",
 ]);
 
 const props = defineProps({
@@ -148,6 +179,7 @@ const props = defineProps({
   },
   oneCharWide: Boolean,
   isPassword: Boolean,
+  isStrongPassword: Boolean,
   ssn: Boolean,
   percentage: Boolean,
   address: Boolean,
@@ -186,6 +218,8 @@ const localType = ref("text");
 const localSSN = ref([]);
 
 const focused = ref(false);
+
+const passwordStrength = ref(null);
 
 const passwordIcon = computed(() =>
   localType.value === "text" ? EyeFilledIcon : NoEyeFilledIcon
@@ -254,8 +288,11 @@ const initializeModelValue = () => {
 
 onMounted(() => {
   localType.value = props.type;
-  if (props.isPassword) {
+  if (props.isPassword || props.isStrongPassword) {
     localType.value = "password";
+  }
+  if (props.isStrongPassword) {
+    checkPasswordStrength(props.modelValue ? props.modelValue : props.value);
   }
   initializeModelValue();
 });
@@ -265,7 +302,7 @@ const emitLeftIconClicked = (e) => {
 };
 
 const emitRightIconClicked = (e) => {
-  if (props.isPassword) {
+  if (props.isPassword || props.isStrongPassword) {
     localType.value = localType.value === "text" ? "password" : "text";
   }
   emit("rightIconClicked", e);
@@ -280,6 +317,34 @@ const handleKeyEvents = (e) => {
   }
   if (props.percentage) {
     return allowOnlyNumbers(e, true);
+  }
+};
+
+const checkPasswordStrength = (value) => {
+  if (value !== undefined && value !== null) {
+    if (value.length < 8) {
+      passwordStrength.value = "Weak";
+      emit("password-strength-changed", "Weak");
+    } else {
+      passwordStrength.value = "Fair";
+      emit("password-strength-changed", "Fair");
+      if (
+        (/\d/.test(value) && /[a-z]/.test(value) && /[A-Z]/.test(value)) ||
+        /[!@#$%^&*()_+[\]{};':"\\|,.<>/?]/.test(value)
+      ) {
+        emit("password-strength-changed", "Good");
+        passwordStrength.value = "Good";
+      }
+      if (
+        /\d/.test(value) &&
+        /[a-z]/.test(value) &&
+        /[A-Z]/.test(value) &&
+        /[!@#$%^&*()_+[\]{};':"\\|,.<>/?]/.test(value)
+      ) {
+        emit("password-strength-changed", "Strong");
+        passwordStrength.value = "Strong";
+      }
+    }
   }
 };
 
@@ -326,6 +391,9 @@ const handleInputEvents = (e) => {
     } catch (err) {
       emit("update:modelValue", "");
     }
+  } else if (props.isStrongPassword) {
+    checkPasswordStrength(e.target.value);
+    emit("update:modelValue", e.target.value);
   } else {
     emit("update:modelValue", e.target.value);
   }
@@ -420,4 +488,50 @@ watch(
 
 <style lang="scss">
 @import "../scss/textfield";
+.strength-indicator {
+  height: 6px;
+  width: 32px;
+  background: #e1e7ec;
+  border-radius: 90px;
+}
+.password-strength-indicator {
+  &.Weak {
+    .indicator-1 {
+      background: #d62f4b;
+    }
+    .strength-text.ui-text {
+      color: #d62f4b;
+    }
+  }
+  &.Fair {
+    .indicator-1,
+    .indicator-2 {
+      background: #ffb44f;
+    }
+    .strength-text.ui-text {
+      color: #ffb44f;
+    }
+  }
+  &.Good {
+    .indicator-1,
+    .indicator-2,
+    .indicator-3 {
+      background: #0d7fe9;
+    }
+    .strength-text.ui-text {
+      color: #0d7fe9;
+    }
+  }
+  &.Strong {
+    .indicator-1,
+    .indicator-2,
+    .indicator-3,
+    .indicator-4 {
+      background: #27c079;
+    }
+    .strength-text.ui-text {
+      color: #27c079;
+    }
+  }
+}
 </style>
