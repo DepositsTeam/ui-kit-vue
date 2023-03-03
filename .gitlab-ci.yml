@@ -16,7 +16,9 @@ deploy_development:
     - cp -R .storybook/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/.storybook/
     - cp package.json /var/www/html/test/ui_kit/storybook/vue-ui-kit/
     - cd /var/www/html/test/ui_kit/storybook/vue-ui-kit
-    - cp -R storybook-static /var/www/html/test/ui_kit/storybook/vue-ui-kit
+    - rm -r /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
+    - mkdir /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
+    - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
 #    - npm install
 #    - npm run build-storybook
 #    - npm run build

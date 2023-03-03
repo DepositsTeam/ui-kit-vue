@@ -297,8 +297,14 @@ const columnHashmap = computed(() => {
 });
 
 const emitRowClickedEvent = (e, datum) => {
-  console.log(e.target);
-  emit("row-clicked", datum);
+  const tagName = e.target.tagName.toLowerCase();
+  switch (tagName) {
+    case "a":
+    case "button":
+      break;
+    default:
+      emit("row-clicked", datum);
+  }
 };
 
 const showActiveFiltersDropdown = ref(false);
