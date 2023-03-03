@@ -30,6 +30,9 @@ export default {
         defaultValue: "huge",
       },
     },
+    hideScanIcon: {
+      control: { type: "boolean" },
+    },
   },
 };
 

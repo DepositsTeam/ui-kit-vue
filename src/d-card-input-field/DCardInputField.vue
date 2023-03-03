@@ -81,6 +81,7 @@
               ref="cardCVCInput"
             />
             <ScanCardIcon
+              v-if="!hideScanIcon"
               smart-color="#B8C4CE"
               class="ui-card-input-field__right-icon"
             />
@@ -132,6 +133,10 @@ const props = defineProps({
     type: String,
     default: "variant-1",
     validator: (value) => ["variant-1", "variant-2"].includes(value),
+  },
+  hideScanIcon: {
+    type: Boolean,
+    default: false,
   },
 });
 
