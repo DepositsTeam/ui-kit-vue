@@ -70,8 +70,8 @@ export default {
       return props.fontFace
         ? props.fontFace
         : unref(defaultFontFace)
-          ? unref(defaultFontFace)
-          : "heroNew";
+        ? unref(defaultFontFace)
+        : "heroNew";
     });
     const forwardableInputTypes = [
       "text",
@@ -290,9 +290,9 @@ export default {
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
             [computedFontFace.value]:
-            computedFontFace.value &&
-            typeof props.is === "string" &&
-            props.is.toLowerCase() !== "svg",
+              computedFontFace.value &&
+              typeof props.is === "string" &&
+              props.is.toLowerCase() !== "svg",
             dark_mode: darkModeIsEnabled.value,
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
