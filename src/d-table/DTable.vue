@@ -171,7 +171,7 @@
               checked: selectedItems.includes(datum[checkboxDataSelector]),
               enableHover: enableRowHoverCursor,
             }"
-            @click="emitRowClickedEvent(datum)"
+            @click="(e) => emitRowClickedEvent(e, datum)"
           >
             <d-box
               is="td"
@@ -296,7 +296,8 @@ const columnHashmap = computed(() => {
   return hashMap;
 });
 
-const emitRowClickedEvent = (datum) => {
+const emitRowClickedEvent = (e, datum) => {
+  console.log(e.target);
   emit("row-clicked", datum);
 };
 
