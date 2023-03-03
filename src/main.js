@@ -275,6 +275,7 @@ export { default as ChartFilledIcon } from "./icons/filled/ChartFilledIcon.vue";
 export { default as CloudUploadFilledIcon } from "./icons/filled/CloudUploadFilledIcon.vue";
 export { default as CopyFilledIcon } from "./icons/filled/CopyFilledIcon.vue";
 export { default as DashboardFilledIcon } from "./icons/filled/DashboardFilledIcon.vue";
+export { default as Dashboard2FilledIcon } from "./icons/filled/Dashboard2FilledIcon.vue";
 export { default as Deposit2FilledIcon } from "./icons/filled/Deposit2FilledIcon.vue";
 export { default as ElementPlusFilledIcon } from "./icons/filled/ElementPlusFilledIcon.vue";
 export { default as EyeFilledIcon } from "./icons/filled/EyeFilledIcon.vue";
