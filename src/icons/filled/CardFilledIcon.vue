@@ -1,0 +1,80 @@
+<template>
+  <d-box
+    is="svg"
+    :width="width"
+    :height="height"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clip-path="url(#clip0_356_13476)">
+      <path
+        d="M22 7.54999C22 8.20999 21.46 8.74999 20.8 8.74999H3.2C2.54 8.74999 2 8.20999 2 7.54999V7.53999C2 5.24999 3.85 3.39999 6.14 3.39999H17.85C20.14 3.39999 22 5.25999 22 7.54999Z"
+        :fill="smartColor || fill"
+      />
+      <path
+        d="M2 11.45V16.46C2 18.75 3.85 20.6 6.14 20.6H17.85C20.14 20.6 22 18.74 22 16.45V11.45C22 10.79 21.46 10.25 20.8 10.25H3.2C2.54 10.25 2 10.79 2 11.45ZM8 17.25H6C5.59 17.25 5.25 16.91 5.25 16.5C5.25 16.09 5.59 15.75 6 15.75H8C8.41 15.75 8.75 16.09 8.75 16.5C8.75 16.91 8.41 17.25 8 17.25ZM14.5 17.25H10.5C10.09 17.25 9.75 16.91 9.75 16.5C9.75 16.09 10.09 15.75 10.5 15.75H14.5C14.91 15.75 15.25 16.09 15.25 16.5C15.25 16.91 14.91 17.25 14.5 17.25Z"
+        :fill="smartColor || fill"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_356_13476">
+        <d-box
+          is="rect"
+          class="card-rectangle"
+          width="24"
+          height="24"
+          :fill="white"
+        />
+      </clipPath>
+    </defs>
+  </d-box>
+</template>
+
+<script setup>
+import { DBox } from "../../main";
+import { inject, unref } from "vue";
+const darkMode = inject("d__darkMode", null);
+const finalDarkMode = unref(darkMode);
+defineProps({
+  smartColor: {
+    type: String,
+    default: "currentcolor",
+  },
+  fill: {
+    type: String,
+  },
+  stroke: {
+    type: String,
+  },
+  strokeWidth: {
+    type: String,
+    default: "1.5",
+  },
+  strokeLineCap: {
+    type: String,
+    default: "round",
+  },
+  strokeLineJoin: {
+    type: String,
+    default: "round",
+  },
+  width: {
+    type: String,
+    default: "24",
+  },
+  height: {
+    type: String,
+    default: "24",
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+rect {
+  fill: var(--light-background-color);
+  &.dark_mode {
+    fill: var(--dark-background-color);
+  }
+}
+</style>
