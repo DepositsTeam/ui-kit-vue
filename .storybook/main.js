@@ -16,7 +16,7 @@ module.exports = {
     "storyStoreV7": true
   },
   async viteFinal(config, { configType }) {
-    config.base = ''; //  './' also works, but i like "assets/.." urls better than "./assets/..." urls.
+    config.base = './'; //  './' also works, but i like "assets/.." urls better than "./assets/..." urls.
     return config;
   },
 }
