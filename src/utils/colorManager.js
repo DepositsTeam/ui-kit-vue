@@ -132,9 +132,12 @@ export function generateColorSpectrum(color, prefix = "--light-primary-") {
         ? overlayWithBlack(color, item.alpha)
         : overlayWithWhite(color, item.alpha);
 
-      returnedSpectrum[`${prefix}${item.level}`] = color.toHexString();
+      const colorHex = color.toHexString();
+      returnedSpectrum[`${prefix}${item.level}`] = colorHex;
+      returnedSpectrum[`${prefix}-text-${item.level}`] = getTextColor(colorHex);
     } else {
       returnedSpectrum[`${prefix}500`] = hex;
+      returnedSpectrum[`${prefix}-text-500`] = getTextColor(hex);
     }
   });
   return returnedSpectrum;

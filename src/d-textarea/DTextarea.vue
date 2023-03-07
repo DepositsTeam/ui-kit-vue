@@ -1,7 +1,7 @@
 <template>
   <d-box
     class="ui-text-field__wrapper ui-text-area__wrapper"
-    :class="[`size__${size}`]"
+    :class="[`size__${computedInputSize}`]"
   >
     <d-box is="label" class="ui-text-area__label">
       <d-text
@@ -55,8 +55,9 @@
 import { DBox, DText, ErrorIcon } from "../main";
 import { nextTick } from "vue";
 import inputProps from "../utils/inputProps";
+import { useInputSize } from "../utils/composables/useInputSize";
 
-defineProps({
+const props = defineProps({
   ...inputProps,
   textAreaClassName: {
     type: String,
@@ -76,6 +77,8 @@ defineProps({
     default: "100%",
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const emit = defineEmits([
   "update:modelValue",

@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+  <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <d-box v-if="!!label && !invisible" is="label">
       <d-text
         margin-top="0px"
@@ -144,6 +144,7 @@ import { formatSSN } from "../utils/formatSSN";
 import { wrapperProps } from "../utils/wrapperProps";
 import { useWrapperProps } from "../utils/useWrapperProps";
 import { formatPercentage } from "../utils/formatPercentage";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -200,6 +201,8 @@ const props = defineProps({
     type: Boolean,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const defaultFontFace = inject("defaultFontFace", null);
 

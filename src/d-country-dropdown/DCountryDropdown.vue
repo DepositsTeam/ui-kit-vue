@@ -3,6 +3,7 @@
     v-model="localValue"
     :options="options"
     v-bind="{ ...$attrs, ...$props }"
+    :size="computedInputSize"
     return-obj-model
   >
     <template #icon="option">
@@ -15,14 +16,19 @@
 import { DDropdown } from "../main";
 import countries from "./countries_states_cities.json";
 import { computed } from "vue";
+import inputProps from "../utils/inputProps";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const emit = defineEmits(["update:modelValue", "statesChanged"]);
 
 const props = defineProps({
+  ...inputProps,
   modelValue: {
     type: String,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const localValue = computed({
   get() {

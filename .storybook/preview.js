@@ -1,3 +1,5 @@
+import React from 'react'
+window.React = React
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {

@@ -5,7 +5,10 @@
       '--counter-spacing': spacing,
     }"
   >
-    <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+    <d-box
+      class="ui-text-field__wrapper"
+      :class="[`size__${computedInputSize}`]"
+    >
       <d-box v-if="!!label" is="label">
         <d-text
           margin-top="0px"
@@ -117,6 +120,7 @@ import inputProps from "../utils/inputProps";
 import { wrapperProps } from "../utils/wrapperProps";
 import { onMounted, computed } from "vue";
 import number_format from "../utils/number_format";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -155,6 +159,8 @@ const props = defineProps({
     type: Number,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const handleChangeEvents = (e) => {
   emit("update:modelValue", e.target.value);

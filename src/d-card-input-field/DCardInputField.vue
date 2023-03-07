@@ -1,6 +1,6 @@
 <template>
   <d-box
-    :class="`size__${size}`"
+    :class="`size__${computedInputSize}`"
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <d-box
@@ -14,7 +14,10 @@
         label
       }}</d-text>
     </d-box>
-    <d-box class="ui-card-input-field__input-wrapper" :class="`size__${size}`">
+    <d-box
+      class="ui-card-input-field__input-wrapper"
+      :class="`size__${computedInputSize}`"
+    >
       <d-box
         class="ui-card-input-field__pseudo-input"
         :class="{
@@ -110,6 +113,7 @@ import CardBrands, { BRAND_ALIAS } from "./card-brands";
 import inputProps from "../utils/inputProps";
 import { ref, computed } from "vue";
 import cardValidator from "card-validator";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const props = defineProps({
   ...inputProps,
@@ -141,6 +145,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:cardNo", "update:cardCvv", "update:cardExp"]);
+
+const { computedInputSize } = useInputSize(props);
 
 const cardExpInput = ref(null);
 const pseudoInput = ref(null);
