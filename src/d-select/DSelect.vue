@@ -1,7 +1,7 @@
 <template>
   <d-box
     class="ui-text-field__wrapper"
-    :class="[wrapperClass, `size__${size}`]"
+    :class="[wrapperClass, `size__${computedInputSize}`]"
   >
     <d-box is="label" v-if="label">
       <d-text
@@ -68,6 +68,7 @@ import { DBox, DText, ChevronFilledDownIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
 import { computed, ref } from "vue";
 import inputProps from "../utils/inputProps";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -121,6 +122,8 @@ const props = defineProps({
     type: Boolean,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const computedModelValue = computed({
   get() {

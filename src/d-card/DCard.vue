@@ -1,12 +1,21 @@
 <template>
-  <d-box class="ui-card__wrapper">
+  <d-box
+    class="ui-card__wrapper"
+    :class="{ [wrapperClass]: wrapperClass }"
+    :margin-top="marginTop"
+    :margin-bottom="marginBottom"
+    :margin-left="marginLeft"
+    :margin-right="marginRight"
+    :margin-x="marginX"
+    :margin-y="marginY"
+  >
     <slot name="header"></slot>
     <d-box
       :is="radio || checkbox ? 'label' : 'div'"
       class="ui-card"
+      v-bind="{ ...$attrs }"
       :class="{
         state__selected: selected,
-        [wrapperClass]: wrapperClass,
         shouldHover,
         border,
         hasHeader: $slots.header,

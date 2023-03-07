@@ -1,7 +1,7 @@
 <template>
   <d-box
     class="ui-text-field__wrapper d-file-picker-inline"
-    :class="[`size__${size}`, `variant__${variant}`]"
+    :class="[`size__${computedInputSize}`, `variant__${variant}`]"
     v-if="variant === 'inline'"
   >
     <d-box v-if="!!label && variant !== 'button'" is="label">
@@ -80,6 +80,7 @@ import { DBox, DText, ErrorIcon, DButton } from "../main";
 import inputProps from "../utils/inputProps";
 import { useFilePicker } from "../utils/useFilePicker";
 import { ref } from "vue";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const props = defineProps({
   ...inputProps,
@@ -120,6 +121,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["change", "cleared"]);
+
+const { computedInputSize } = useInputSize(props);
 
 const file = ref(null);
 const inputIsHovered = ref(false);

@@ -1,7 +1,10 @@
 <template>
   <d-box
     class="ui-text-field__wrapper"
-    :class="{ [`size__${size}`]: true, [wrapperClass]: wrapperClass }"
+    :class="{
+      [`size__${computedInputSize}`]: true,
+      [wrapperClass]: wrapperClass,
+    }"
   >
     <d-box v-if="label" is="label">
       <d-text
@@ -85,6 +88,7 @@ import DatePicker from "vue-datepicker-next";
 import "vue-datepicker-next/index.css";
 import inputProps from "../utils/inputProps";
 import { inject, ref, onMounted, watch } from "vue";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const darkMode = inject("d__darkMode", false);
 
@@ -122,6 +126,8 @@ const props = defineProps({
     type: Boolean,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 onMounted(() => {
   if (props.modelValue) {

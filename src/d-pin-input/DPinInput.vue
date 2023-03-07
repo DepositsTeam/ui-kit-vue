@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-text-field__wrapper" :class="[`size__${size}`]">
+  <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <d-box v-if="!!label" is="label">
       <d-text
         margin-top="0px"
@@ -7,7 +7,6 @@
         :class="labelClass"
         scale="subhead"
         :font-face="labelFontFace"
-        :size="size"
       >
         {{ label }}
       </d-text>
@@ -34,6 +33,7 @@
         maxlength="1"
         minlength="1"
         :show-error="!!errorMessage"
+        :size="computedInputSize"
       />
     </d-box>
     <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
@@ -54,6 +54,7 @@ import { DBox, DTextfield, DText, ErrorIcon } from "../main";
 import inputProps from "../utils/inputProps";
 import { ref, onMounted } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const props = defineProps({
   ...inputProps,
@@ -75,6 +76,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:modelValue"]);
+
+const { computedInputSize } = useInputSize(props);
 
 const data = ref([]);
 
@@ -167,16 +170,20 @@ const handleKeyDown = async (e, index) => {
 };
 
 onMounted(() => {
+  data.value = [];
   for (let i = 0; i < props.noOfCharacters; i++) {
     data.value.push({
       value: "",
       id: uniqueRandomString(19, 8),
     });
   }
-  if (props.modelValue) {
-    props.modelValue.split("").forEach((val, index) => {
-      data.value[index].value = val;
-    });
+
+  if (props.modelValue && data.value.length) {
+    if (props.modelValue.split("").length <= data.value.length) {
+      props.modelValue.split("").forEach((val, index) => {
+        data.value[index].value = val;
+      });
+    }
   }
 });
 </script>

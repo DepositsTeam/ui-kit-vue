@@ -5,7 +5,10 @@ addons.setConfig({
   theme: yourTheme,
 });
 
-if (!process.env.VITE_LOCAL) {
+
+if (window.location.hostname !== "localhost") {
   const iconsSidebar = document.getElementById("icons");
-  iconsSidebar.classList.add("hidden");
+  console.log(iconsSidebar);
+
+  // iconsSidebar.classList.add("hidden");
 }

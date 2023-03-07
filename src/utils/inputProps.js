@@ -7,7 +7,6 @@ export default {
   },
   size: {
     type: String,
-    default: "huge",
     validator: (value) =>
       ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
   },

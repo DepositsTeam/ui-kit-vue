@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-tag-input__wrapper" :class="`size__${size}`">
+  <d-box class="ui-tag-input__wrapper" :class="`size__${computedInputSize}`">
     <d-box is="label">
       <d-text
         :class="labelClass"
@@ -40,7 +40,7 @@
         autoFocus
         @focus="(e) => e.currentTarget.select()"
         v-model="input"
-        :size="size"
+        :size="computedInputSize"
       />
     </d-box>
   </d-box>
@@ -51,6 +51,7 @@ import { DBox, DText, DTextfield, CloseIcon } from "../main";
 import keyGen from "../utils/keyGen";
 import { ref, nextTick, onBeforeMount, watch } from "vue";
 import inputProps from "../utils/inputProps";
+import { useInputSize } from "../utils/composables/useInputSize";
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
@@ -78,6 +79,8 @@ const props = defineProps({
   },
   // TODO Make input, tags and the tag names customizable
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const input = ref("");
 const inputTags = ref([]);

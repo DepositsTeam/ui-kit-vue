@@ -3,7 +3,7 @@
     <d-textfield
       :label="label"
       :font-face="fontFace"
-      :size="size"
+      :size="computedInputSize"
       :error-message="errorMessage"
       :show-error="showError"
       :model-value="modelValue"
@@ -104,6 +104,7 @@ import {
   watch,
 } from "vue";
 import DLoader from "../d-loader/DLoader.vue";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const emit = defineEmits(["update:modelValue"]);
 const mounted = ref(false);
@@ -120,6 +121,8 @@ const props = defineProps({
   },
   ...inputProps,
 });
+
+const { computedInputSize } = useInputSize(props);
 
 onBeforeMount(() => {
   const matched = props.options.filter((option) => {
