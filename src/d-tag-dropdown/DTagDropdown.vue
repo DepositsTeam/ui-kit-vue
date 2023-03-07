@@ -3,7 +3,7 @@
     :style="{ ...___theme }"
     class="ui-tag-dropdown__wrapper"
     :class="{
-      [`size__${size}`]: true,
+      [`size__${computedInputSize}`]: true,
     }"
   >
     <d-box is="label">
@@ -166,6 +166,7 @@ import {
 } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const props = defineProps({
   ...inputProps,
@@ -183,6 +184,8 @@ const props = defineProps({
     default: true,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const emit = defineEmits([
   "update:modelValue",

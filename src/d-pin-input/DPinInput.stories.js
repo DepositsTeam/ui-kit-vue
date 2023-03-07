@@ -4,6 +4,17 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/Pin Input",
   component: DPinInput,
+  argTypes: {
+    spacing: {
+      control: { type: "text" },
+    },
+    password: {
+      control: { type: "boolean" },
+    },
+    noOfCharacters: {
+      control: { type: "number" },
+    },
+  },
 };
 
 const Template = (args) => ({
@@ -116,5 +127,3 @@ export const DarkHasError = DarkModeTemplateFactory();
 DarkHasError.args = {
   errorMessage: "I'll always show an error",
 };
-
-

@@ -23,7 +23,10 @@ const theme = ref({});
 
 const defaultFontFace = ref(null);
 
+const defaultInputSize = ref(null);
+
 provide("defaultFontFace", defaultFontFace);
+provide("defaultInputSize", defaultInputSize);
 
 const themeVars = ref({
   ...defaultTheme,
@@ -41,6 +44,7 @@ const hydrateTheme = () => {
   const computedTheme = { ...initialTheme, ...theme.value };
   const primaryColor =
     computedTheme.primaryColor || computedTheme["primary-color"];
+
   if (primaryColor) {
     computedTheme["light-primary-action-color"] = primaryColor;
     computedTheme["dark-primary-action-color"] = primaryColor;
@@ -213,6 +217,17 @@ const hydrateTheme = () => {
     defaultFontFace.value = computedTheme["default-font-face"];
   } else {
     defaultFontFace.value = null;
+  }
+
+  console.log(computedTheme);
+
+  if (computedTheme["default-input-size"]) {
+    defaultInputSize.value = computedTheme["default-input-size"];
+  } else if (computedTheme.defaultInputSize) {
+    console.log("I got here");
+    defaultInputSize.value = computedTheme.defaultInputSize;
+  } else {
+    defaultInputSize.value = "huge";
   }
 
   themeVars.value = {

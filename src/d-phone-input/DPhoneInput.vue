@@ -2,7 +2,7 @@
   <d-box
     class="ui-text-field__wrapper"
     :class="{
-      [`size__${size}`]: true,
+      [`size__${computedInputSize}`]: true,
       disabled,
       'has-error': localErrorMessage || errorMessage,
     }"
@@ -79,6 +79,7 @@ import inputProps from "../utils/inputProps";
 import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);
@@ -107,6 +108,8 @@ const props = defineProps({
     type: Boolean,
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const countryCode = computed({
   get() {

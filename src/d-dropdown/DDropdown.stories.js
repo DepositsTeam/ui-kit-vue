@@ -1,5 +1,6 @@
 import DDropdown from "./DDropdown.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
+import ThemeProvider from "../providers/ThemeProvider.vue";
 
 export default {
   title: "Forms/Dropdown",
@@ -47,14 +48,18 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { DDropdown },
+  components: { DDropdown, ThemeProvider },
   data: () => ({
     value: "",
   }),
   setup() {
     return { args };
   },
-  template: `<d-dropdown v-model="value" v-bind="args" />`,
+  template: `
+    <ThemeProvider :initial-theme="{defaultInputSize: 'medium'}">
+      <d-dropdown v-model="value" v-bind="args" />
+    </ThemeProvider>
+  `,
 });
 
 const PredefinedTemplate = (args) => ({

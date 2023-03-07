@@ -1,8 +1,5 @@
 import convertObjToVars from "../utils/convertObjToVars";
-import {
-  getTextColor,
-  hexToRgbA,
-} from "../utils/colorManager";
+import { getTextColor, hexToRgbA } from "../utils/colorManager";
 
 const defaultTheme = {
   "light-primary-action-color": "#0db9e9",
@@ -146,6 +143,7 @@ const defaultTheme = {
   "dark-background-700": "#0e141c",
   "dark-background-800": "#0a0d13",
   "dark-background-900": "#070a0c",
+
 };
 
 export const defaultThemeVars = {
