@@ -51,6 +51,7 @@
         @keypress="handleKeypressEvent"
         @focus="handleFocusEvent"
         @blur="handleBlurEvent"
+        @paste="handlePasteEvent"
         :font-face="computedFontFace"
         :type="localType"
         :autocomplete="autocomplete"
@@ -155,6 +156,7 @@ const emit = defineEmits([
   "keypress",
   "focus",
   "blur",
+  "paste",
   "leftIconClicked",
   "rightIconClicked",
   "password-strength-changed",
@@ -405,6 +407,10 @@ const handleInputEvents = (e) => {
 
 const handleChangeEvents = (e) => {
   emit("change", e);
+};
+
+const handlePasteEvent = (e) => {
+  emit("paste", e);
 };
 
 const handleKeydownEvent = (e) => {

@@ -134,10 +134,10 @@ export function generateColorSpectrum(color, prefix = "--light-primary-") {
 
       const colorHex = color.toHexString();
       returnedSpectrum[`${prefix}${item.level}`] = colorHex;
-      returnedSpectrum[`${prefix}-text-${item.level}`] = getTextColor(colorHex);
+      returnedSpectrum[`${prefix}text-${item.level}`] = getTextColor(colorHex);
     } else {
       returnedSpectrum[`${prefix}500`] = hex;
-      returnedSpectrum[`${prefix}-text-500`] = getTextColor(hex);
+      returnedSpectrum[`${prefix}text-500`] = getTextColor(hex);
     }
   });
   return returnedSpectrum;
