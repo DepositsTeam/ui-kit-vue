@@ -16,9 +16,14 @@
         :is="leftIcon"
         v-if="leftIcon"
         class="ui-text-field__left-icon"
+        tabindex="-1"
         @click="emitLeftIconClicked"
       ></component>
-      <d-box v-else-if="$slots.leftIcon" class="ui-text-field__left-icon">
+      <d-box
+        v-else-if="$slots.leftIcon"
+        tabindex="-1"
+        class="ui-text-field__left-icon"
+      >
         <slot name="leftIcon"></slot>
       </d-box>
       <d-box
@@ -51,6 +56,7 @@
         @keypress="handleKeypressEvent"
         @focus="handleFocusEvent"
         @blur="handleBlurEvent"
+        @paste="handlePasteEvent"
         :font-face="computedFontFace"
         :type="localType"
         :autocomplete="autocomplete"
@@ -155,6 +161,7 @@ const emit = defineEmits([
   "keypress",
   "focus",
   "blur",
+  "paste",
   "leftIconClicked",
   "rightIconClicked",
   "password-strength-changed",
@@ -405,6 +412,10 @@ const handleInputEvents = (e) => {
 
 const handleChangeEvents = (e) => {
   emit("change", e);
+};
+
+const handlePasteEvent = (e) => {
+  emit("paste", e);
 };
 
 const handleKeydownEvent = (e) => {

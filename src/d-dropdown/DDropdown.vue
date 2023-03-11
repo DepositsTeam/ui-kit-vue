@@ -311,11 +311,11 @@ const handleKeyDown = (e) => {
       &.active,
       &:hover {
         background: #f2fafc;
-        color: #0db9e9;
+        color: var(--light-primary-color);
         position: relative;
         &.dark_mode {
           background: #041d25;
-          color: #0db9e9;
+          color: var(--dark-primary-color);
         }
         &::after {
           content: "";
@@ -325,9 +325,9 @@ const handleKeyDown = (e) => {
           width: 2px;
           height: 100%;
           border-radius: 0 2px 2px 0;
-          background: #0db9e9;
+          background: var(--light-primary-color);
           &.dark_mode {
-            background: (var--dark-primary-action-color);
+            background: var(--dark-primary-color);
           }
         }
       }

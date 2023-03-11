@@ -30,6 +30,7 @@
         @focus="(e) => handleFocus(e, index)"
         @input="(e) => handleInput(e, index)"
         @keydown="(e) => handleKeyDown(e, index)"
+        @paste="(e) => handlePaste(e, index)"
         maxlength="1"
         minlength="1"
         :show-error="!!errorMessage"
@@ -154,19 +155,31 @@ const handleKeyDown = async (e, index) => {
       });
     }
   }
-  // if (e.key === "Backspace" || e.key === "Delete") {
-  //   if (index !== 0) {
-  //     if (!data.value[index].value) {
-  //       let nextInput = document
-  //         .getElementById(data.value[index - 1].id)
-  //         .getElementsByTagName("input")[0];
-  //       nextInput.focus();
-  //       setTimeout(() => {
-  //         nextInput.select();
-  //       });
-  //     }
-  //   }
-  // }
+  if (e.key === "Backspace" || e.key === "Delete") {
+    if (index !== 0) {
+      if (!data.value[index].value) {
+        let nextInput = document
+          .getElementById(data.value[index - 1].id)
+          .getElementsByTagName("input")[0];
+        nextInput.select();
+        e.preventDefault();
+        return;
+      }
+    }
+  }
+};
+const handlePaste = (e) => {
+  e.preventDefault();
+  const copiedText = (e.clipboardData || window.clipboardData).getData("text");
+  if (copiedText.length <= data.value.length) {
+    copiedText.split("").forEach((val, index) => {
+      data.value[index].value = val;
+    });
+    emit(
+      "update:modelValue",
+      data.value.reduce((prev, curr) => prev + curr.value, "")
+    );
+  }
 };
 
 onMounted(() => {
@@ -183,6 +196,10 @@ onMounted(() => {
       props.modelValue.split("").forEach((val, index) => {
         data.value[index].value = val;
       });
+      emit(
+        "update:modelValue",
+        data.value.reduce((prev, curr) => prev + curr.value, "")
+      );
     }
   }
 });
