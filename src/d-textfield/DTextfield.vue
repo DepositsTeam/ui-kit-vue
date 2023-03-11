@@ -16,9 +16,14 @@
         :is="leftIcon"
         v-if="leftIcon"
         class="ui-text-field__left-icon"
+        tabindex="-1"
         @click="emitLeftIconClicked"
       ></component>
-      <d-box v-else-if="$slots.leftIcon" class="ui-text-field__left-icon">
+      <d-box
+        v-else-if="$slots.leftIcon"
+        tabindex="-1"
+        class="ui-text-field__left-icon"
+      >
         <slot name="leftIcon"></slot>
       </d-box>
       <d-box
