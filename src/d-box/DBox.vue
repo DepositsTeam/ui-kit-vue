@@ -206,7 +206,11 @@ export default {
       const savedCssEntries = Object.entries({
         ...savedCss,
       });
-      const themingEngineEntries = { ...convertObjToVars(unref(d__theme)) };
+      const themingEngineRules = Object.entries({
+        ...convertObjToVars(unref(d__theme)),
+      })
+        .map(([k, v]) => `${k}:${v}`)
+        .join(";");
       let cssRules = `
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
@@ -217,10 +221,11 @@ export default {
       if (savedCssEntries.length) {
         cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
       }
+
       const styleTag = document.createElement("style");
       styleTag.id = uniqueID;
       styleTag.setAttribute("type", "text/css");
-      styleTag.innerHTML = `.${uniqueClass}{${cssRules}}.${uniqueClass}_theming_styles{${themingEngineEntries}}`;
+      styleTag.innerHTML = `.${uniqueClass}{${cssRules}} .${uniqueClass}_theming_styles{${themingEngineRules}}`;
       document.head.appendChild(styleTag);
     };
 
