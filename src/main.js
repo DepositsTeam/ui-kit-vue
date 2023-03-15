@@ -45,6 +45,9 @@ export { default as DWysiwyg } from "./d-wysiwyg/DWysiwyg.vue";
 export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";
 export { default as ToastProvider } from "./providers/ToastProvider.vue";
 export { default as ThemeProvider } from "./providers/ThemeProvider.vue";
+export { useTheme } from "./providers/composables/useTheme";
+export { useDarkMode } from "./providers/composables/useDarkMode";
+export { useToast } from "./providers/composables/useToast";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";
