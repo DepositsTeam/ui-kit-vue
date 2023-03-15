@@ -1,13 +1,9 @@
 <template>
-
+  <d-box class="d-expandable-table"></d-box>
 </template>
 
-<script>
-export default {
-  name: "DExpandableTable"
-};
+<script setup>
+import { DBox } from "../main";
 </script>
 
-<style scoped>
-
-</style>
+<style scoped lang="scss"></style>

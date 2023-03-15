@@ -205,8 +205,8 @@ export default {
       }
       const savedCssEntries = Object.entries({
         ...savedCss,
-        ...convertObjToVars(unref(d__theme)),
       });
+      const themingEngineEntries = { ...convertObjToVars(unref(d__theme)) };
       let cssRules = `
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
@@ -220,7 +220,7 @@ export default {
       const styleTag = document.createElement("style");
       styleTag.id = uniqueID;
       styleTag.setAttribute("type", "text/css");
-      styleTag.innerHTML = `.${uniqueClass}{${cssRules}}`;
+      styleTag.innerHTML = `.${uniqueClass}{${cssRules}}.${uniqueClass}_theming_styles{${themingEngineEntries}}`;
       document.head.appendChild(styleTag);
     };
 

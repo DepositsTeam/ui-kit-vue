@@ -37,8 +37,12 @@ const ColTemplate = (args) => ({
   },
   template: `<d-responsive-layout debug-mode  v-bind="args">
   <d-row>
-    <d-col :xs="{span: 3, offset: 3}" >
+    <d-col :md="{span: 3}" >
       <d-box height="90px" background="black" width="100%">
+      </d-box>
+    </d-col>
+    <d-col :md="{span: 3}" >
+      <d-box height="90px" background="purple" width="100%">
       </d-box>
     </d-col>
     <d-col :xs="6">
