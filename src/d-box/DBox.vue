@@ -287,6 +287,7 @@ export default {
           class: {
             // [styleClasses.value[uniqueClass]]: true,
             [uniqueClass]: true,
+            [`${uniqueClass}_theming_styles`]: true,
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
             [computedFontFace.value]:
