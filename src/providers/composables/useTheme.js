@@ -1,5 +1,6 @@
 import { inject, isRef } from "vue";
 import defaultTheme from "../default-theme";
+import { convertVarsToObj } from "@/utils/convertObjToVars";
 
 export const useTheme = () => {
   const injectedTheme = inject("d__theme");
@@ -16,7 +17,9 @@ export const useTheme = () => {
   };
 
   return {
-    theme: isRef(injectedTheme) ? injectedTheme.value : defaultTheme,
+    theme: isRef(injectedTheme)
+      ? convertVarsToObj(injectedTheme.value)
+      : defaultTheme,
     updateTheme,
   };
 };
