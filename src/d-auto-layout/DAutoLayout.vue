@@ -111,73 +111,55 @@ onUnmounted(() => {
     }
     &.align__top-left {
       align-items: flex-start;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-start;
       }
     }
     &.align__top-center {
       align-items: flex-start;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: center;
       }
     }
     &.align__top-right {
       align-items: flex-start;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-end;
       }
     }
     &.align__center-left {
       align-items: center;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-start;
       }
     }
     &.align__center {
       align-items: center;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: center;
       }
     }
     &.align__center-right {
       align-items: center;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-end;
       }
     }
     &.align__bottom-left {
       align-items: flex-end;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-start;
       }
     }
     &.align__bottom-center {
       align-items: flex-end;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: center;
       }
     }
     &.align__bottom-right {
       align-items: flex-end;
-      &:not(.evenly),
-      &:not(.around),
-      &:not(.between) {
+      &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-end;
       }
     }

@@ -137,6 +137,9 @@ const avatarsToShow = computed(() => {
   &.background__smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
+    .ui-text {
+      color: var(--smart-text-color);
+    }
   }
 
   &.background__cyan:not(.background__smartColor) {
