@@ -6,7 +6,7 @@ export const useDarkMode = () => {
 
   const toggleDarkMode = (value) => {
     if (updateDarkMode && typeof updateDarkMode === "function") {
-      return updateDarkMode(value);
+      updateDarkMode(value);
     } else {
       throw Error(
         "The `toggleDarkMode` function is not enabled. You probably omitted the DarkModeProvider."

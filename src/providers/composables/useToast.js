@@ -5,7 +5,7 @@ export const useToast = () => {
 
   const pushToast = (toast) => {
     if (showToast && typeof showToast === "function") {
-      return pushToast(toast);
+      return showToast(toast);
     } else {
       throw Error(
         "The `pushToast` function is not enabled. You probably omitted the ToastProvider."

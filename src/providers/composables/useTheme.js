@@ -7,7 +7,7 @@ export const useTheme = () => {
 
   const updateTheme = (theme) => {
     if (injectedUpdateTheme && typeof injectedUpdateTheme === "function") {
-      return updateTheme(theme);
+      return injectedUpdateTheme(theme);
     } else {
       throw Error(
         "The `updateTheme` function is not enabled. You probably omitted the ThemeProvider."

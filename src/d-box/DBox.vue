@@ -44,6 +44,7 @@ export default {
     },
     disabled: {
       type: Boolean,
+      default: null,
     },
   },
   emits: [
@@ -288,7 +289,7 @@ export default {
           id: props.id ? props.id : uniqueID,
           ...(computedType.value ? { type: computedType.value } : {}),
           ...(computedValue.value ? { value: computedValue.value } : {}),
-          disabled: props.disabled,
+          ...(props.disabled !== null ? { disabled: props.disabled } : {}),
           class: {
             // [styleClasses.value[uniqueClass]]: true,
             [uniqueClass]: true,
@@ -303,7 +304,6 @@ export default {
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
-          style: {},
         },
         {
           default() {
