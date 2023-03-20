@@ -1,6 +1,6 @@
-import { inject, isRef, ref, unref, watch } from "vue";
+import { inject, isRef, ref, watch } from "vue";
 import defaultTheme from "../default-theme";
-import { convertVarsToObj } from "@/utils/convertObjToVars";
+import { convertVarsToObj } from "../../utils/convertObjToVars";
 
 export const useTheme = () => {
   const injectedTheme = inject("d__theme");
