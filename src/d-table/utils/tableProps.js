@@ -97,4 +97,19 @@ export const tableProps = {
     type: Boolean,
     default: true,
   },
+  expandMode: {
+    type: Boolean,
+  },
+  expandedColumns: {
+    type: Array,
+    default: () => [],
+  },
+  mobileColumns: {
+    type: Array,
+    default: () => [],
+  },
+  mobileBreakpoint: {
+    type: Number,
+    default: 800,
+  },
 };
