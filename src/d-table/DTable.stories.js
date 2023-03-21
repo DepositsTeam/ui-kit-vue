@@ -81,6 +81,9 @@ export default {
     enableRowHoverCursor: {
       control: { type: "boolean" },
     },
+    expandMode: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -147,6 +150,22 @@ DarkModeDefault.args = {
   columns,
   data,
 };
+
+export const ExpandMode = Template.bind({});
+ExpandMode.args = {
+  data,
+  columns,
+  expandMode: true,
+  paginate: true,
+};
+
+export const ExpandModeWithSpecifiedExpandedColumns = Template.bind({});
+ExpandModeWithSpecifiedExpandedColumns.args = {
+  data,
+  columns,
+  expandMode: true,
+      expandedColumns: ["name", "city"],
+    };
 
 export const Search = Template.bind({});
 Search.args = {

@@ -22,7 +22,7 @@ export const columns = [
     maxWidth: "",
   },
   {
-    display: "Company",
+    display: "Company/Work",
     dataSelector: "company",
     uppercase: true,
     filterable: true,

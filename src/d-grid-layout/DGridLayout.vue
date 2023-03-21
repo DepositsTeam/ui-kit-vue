@@ -44,12 +44,19 @@ defineProps({
 .ui-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--min-grid-width), 1fr));
-  grid-auto-rows: minmax(var(--min-grid-height), 1fr);
+  //grid-auto-rows: 1fr;
   column-gap: var(--col-gutter);
   row-gap: var(--row-gutter);
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  grid-auto-rows: minmax(var(--min-grid-height), 1fr);
   @media only screen and (max-width: 460px) {
     display: flex;
     flex-direction: column;
+  }
+  & > * {
+    height: 100%;
   }
 }
 </style>

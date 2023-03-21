@@ -9,6 +9,9 @@
       wrap,
       stretchItems,
       switch: shouldSwitch,
+      between,
+      around,
+      evenly,
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -56,6 +59,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  between: {
+    type: Boolean,
+  },
+  around: {
+    type: Boolean,
+  },
+  evenly: {
+    type: Boolean,
+  },
 });
 
 const watchForSwitch = () => {
@@ -80,6 +92,15 @@ onUnmounted(() => {
   &.wrap {
     flex-wrap: wrap;
   }
+  &.between {
+    justify-content: space-between;
+  }
+  &.evenly {
+    justify-content: space-evenly;
+  }
+  &.around {
+    justify-content: space-around;
+  }
   &.direction__horizontal {
     flex-direction: row;
     & > *:not(:last-child) {
@@ -90,39 +111,57 @@ onUnmounted(() => {
     }
     &.align__top-left {
       align-items: flex-start;
-      justify-content: flex-start;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: flex-start;
+      }
     }
     &.align__top-center {
       align-items: flex-start;
-      justify-content: center;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: center;
+      }
     }
     &.align__top-right {
       align-items: flex-start;
-      justify-content: flex-end;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: flex-end;
+      }
     }
     &.align__center-left {
       align-items: center;
-      justify-content: flex-start;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: flex-start;
+      }
     }
     &.align__center {
       align-items: center;
-      justify-content: center;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: center;
+      }
     }
     &.align__center-right {
       align-items: center;
-      justify-content: flex-end;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: flex-end;
+      }
     }
     &.align__bottom-left {
       align-items: flex-end;
-      justify-content: flex-start;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: flex-start;
+      }
     }
     &.align__bottom-center {
       align-items: flex-end;
-      justify-content: center;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: center;
+      }
     }
     &.align__bottom-right {
       align-items: flex-end;
-      justify-content: flex-end;
+      &:not(.evenly):not(.around):not(.between) {
+        justify-content: flex-end;
+      }
     }
   }
   &.direction__vertical {

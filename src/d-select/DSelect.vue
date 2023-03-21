@@ -28,7 +28,7 @@
           'has-error': errorMessage,
           disabled,
           'has-left-icon': leftIcon,
-          'select-placeholder': placeholderEffect && modelValue === '',
+          'select-placeholder': placeholderEffect && internalValue === '',
           'active-placeholder': internalValue === '' && placeholder,
           pill,
         }"
@@ -66,7 +66,7 @@
 <script setup>
 import { DBox, DText, ChevronFilledDownIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 
@@ -121,29 +121,108 @@ const props = defineProps({
   pill: {
     type: Boolean,
   },
+  optionTitle: {
+    type: String,
+    default: "text",
+  },
+  optionValue: {
+    type: String,
+    default: "value",
+  },
+  returnFullObject: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
 
+onMounted(() => {
+  if (
+    props.modelValue &&
+    Object.values(computedOptions.value)
+      .map((option) => option.value)
+      .includes(props.modelValue)
+  ) {
+    internalValue.value = props.modelValue;
+    if (props.returnFullObject && typeof props.options[0] === "object") {
+      emit(
+        "update:modelValue",
+        computedOptions.value.filter(
+          (option) => option.value === internalValue.value
+        )[0].originalOption
+      );
+    } else {
+      emit("update:modelValue", internalValue.value);
+    }
+  }
+});
+
 const computedModelValue = computed({
   get() {
-    return props.modelValue || internalValue.value;
+    const value = internalValue.value || props.modelValue;
+    if (!value) {
+      return "";
+    } else {
+      if (typeof value === "object") {
+        return value[props.optionValue];
+      } else {
+        return value;
+      }
+    }
   },
   set(value) {
     internalValue.value = value;
-    emit("update:modelValue", value);
+    if (props.returnFullObject && typeof props.options[0] === "object") {
+      emit(
+        "update:modelValue",
+        computedOptions.value.filter(
+          (option) => option.value === internalValue.value
+        )[0].originalOption
+      );
+    } else {
+      emit("update:modelValue", internalValue.value);
+    }
   },
 });
+
+watch(
+  () => props.modelValue,
+  () => {
+    if (
+      props.modelValue &&
+      typeof props.modelValue !== "object" &&
+      props.modelValue !== internalValue.value
+    ) {
+      internalValue.value = props.modelValue;
+      if (props.returnFullObject && typeof props.options[0] === "object") {
+        emit(
+          "update:modelValue",
+          computedOptions.value.filter(
+            (option) => option.value === internalValue.value
+          )[0].originalOption
+        );
+      } else {
+        emit("update:modelValue", internalValue.value);
+      }
+    }
+  }
+);
 
 const computedOptions = computed(() => {
   return props.options.map((option) => {
     let newOption = {};
-    newOption.text = typeof option === "string" ? option : option.text;
+    newOption.text =
+      typeof option === "string" ? option : option[props.optionTitle];
     if (typeof option === "string") {
       newOption.value = option;
     } else {
-      newOption.value = option.value === undefined ? option.text : option.value;
+      newOption.value =
+        option[props.optionValue] === undefined
+          ? option[props.optionTitle]
+          : option[props.optionValue];
     }
+    newOption.originalOption = option;
     return newOption;
   });
 });

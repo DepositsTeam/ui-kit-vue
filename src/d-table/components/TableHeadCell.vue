@@ -1,7 +1,7 @@
 <template>
   <d-box ref="thCell">
     <d-box
-      :class="{ selected: isSelected }"
+      :class="{ selected: isSelected, isExpandMode }"
       class="ui-table__heading-cell__content"
       @click="toggleSelection"
       ref="trigger"
@@ -15,7 +15,7 @@
         }}</d-text
       >
       <d-box
-        v-if="column.sortable !== false"
+        v-if="column.sortable !== false && !isExpandMode"
         class="ui-table__heading-cell__icon"
       >
         <chevron-filled-down-icon
@@ -36,7 +36,7 @@
 <script setup>
 import { DBox, DText } from "../../main";
 import { ChevronFilledDownIcon } from "../../main";
-import { ref, nextTick, provide } from "vue";
+import { ref, nextTick, provide, inject } from "vue";
 import TableHeadCellDropdown from "./TableHeadCellDropdown.vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 
@@ -51,6 +51,8 @@ const props = defineProps({
 const trigger = ref(null);
 const target = ref(null);
 const thCell = ref(null);
+
+const isExpandMode = inject("isExpandMode", false);
 
 provide("thCell", thCell);
 
@@ -95,6 +97,15 @@ provide("toggleSelection", toggleSelection);
 </script>
 
 <style lang="scss" scoped>
+.ui-table__heading-cell {
+  &.isExpandMode {
+    .ui-table__heading-cell-text {
+      color: #8c97a7;
+      font-size: 12px;
+      font-weight: 450;
+    }
+  }
+}
 .ui-table__heading-cell,
 .ui-table__body-cell {
   min-width: var(--column_min_width);
