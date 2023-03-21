@@ -1,5 +1,19 @@
 <template>
   <d-box class="ui-table__active-filters-dropdown">
+    <d-box class="filter__row" margin-bottom="1rem">
+      <d-select
+        width="100%"
+        size="medium"
+        placeholder="Select column"
+        label="Column"
+        font-face="circularSTD"
+        v-model="selectedLocalColumn"
+        option-value="dataSelector"
+        option-title="display"
+        return-full-object
+        :options="columns"
+      />
+    </d-box>
     <d-box class="filter__row">
       <d-select
         size="medium"
@@ -15,6 +29,7 @@
         font-face="circularSTD"
         placeholder="Type something"
         v-model="localFilter.filter.selectedFilterValue"
+        :disabled="!availableFiltersTextMap[localFilter.filter.selectedFilter]"
       />
     </d-box>
     <d-box v-if="showSecondOptions" class="filter__radios">
@@ -53,9 +68,21 @@
         font-face="circularSTD"
         placeholder="Type something"
         v-model="localFilter.filter.selectedFilterValue2"
-        :disabled="!localFilter.filter.join"
+        :disabled="
+          !localFilter.filter.join ||
+          !availableFiltersTextMap[localFilter.filter.selectedFilter2]
+        "
       />
-      <d-box class="close__icon" cursor="pointer" @click="hideOtherOptions">
+      {{
+        JSON.stringify(
+          availableFiltersTextMap[localFilter.filter.selectedFilterValue2]
+        )
+      }}
+      <d-box
+        class="close__icon ui-table__triggerer"
+        cursor="pointer"
+        @click="hideOtherOptions"
+      >
         <close-icon class="close__icon" />
       </d-box>
     </d-box>
@@ -71,7 +98,11 @@
         >Cancel</d-button
       >
     </d-box>
-    <d-box @click="showOtherOptions" class="condition">
+    <d-box
+      @click="showOtherOptions"
+      v-if="!showSecondOptions"
+      class="condition ui-table__triggerer"
+    >
       <d-box
         cursor="pointer"
         display="inline-block"
@@ -104,10 +135,13 @@ import {
   DText,
 } from "../../main";
 import { ref, reactive, inject, onMounted, onBeforeUnmount } from "vue";
-import { availableFilters } from "../utils/reused";
+import { availableFilters, availableFiltersTextMap } from "../utils/reused";
 
 const updateFilterValue = inject("updateFilterValue");
 const filter = inject("filter");
+const columns = inject("columns");
+
+const selectedLocalColumn = ref(null);
 
 const emit = defineEmits(["close"]);
 
@@ -129,7 +163,8 @@ const localFilter = reactive({
 const closeActiveFiltersDropdownOnOutsideClick = (e) => {
   if (
     e.target.closest(".ui-table__active-filters") === null &&
-    e.target.closest(".ui-table__active-filter-group") === null
+    e.target.closest(".ui-table__active-filter-group") === null &&
+    e.target.closest(".ui-table__triggerer") === null
   ) {
     emit("close");
   }
@@ -144,6 +179,9 @@ const closeActiveFiltersDropdownOnEsc = (e) => {
 onMounted(() => {
   if (filter.value) {
     localFilter.filter.column = filter.value.column;
+    if (filter.value.column) {
+      selectedLocalColumn.value = filter.value.column.dataSelector;
+    }
     localFilter.filter.selectedFilter = filter.value.selectedFilter;
     localFilter.filter.selectedFilterValue = filter.value.selectedFilterValue;
     localFilter.filter.join = filter.value.join;
@@ -159,7 +197,7 @@ onMounted(() => {
 
 const updateGlobalFilter = () => {
   let detachedLocalFilter = {
-    column: localFilter.filter.column,
+    column: selectedLocalColumn.value,
     selectedFilter: localFilter.filter.selectedFilter,
     selectedFilterValue: localFilter.filter.selectedFilterValue,
     join: localFilter.filter.join,
@@ -188,7 +226,12 @@ const showSecondOptions = ref(false);
 const showOtherOptions = () => {
   showSecondOptions.value = true;
 };
-const hideOtherOptions = () => (showSecondOptions.value = false);
+const hideOtherOptions = () => {
+  showSecondOptions.value = false;
+  localFilter.filter.join = null;
+  localFilter.filter.selectedFilter2 = null;
+  localFilter.filter.selectedFilterValue2 = null;
+};
 </script>
 
 <style lang="scss">
@@ -245,6 +288,7 @@ const hideOtherOptions = () => (showSecondOptions.value = false);
   .condition {
     margin-top: 16px;
     display: inline-flex;
+    width: max-content;
     .text {
       display: inline-flex;
       align-items: center;

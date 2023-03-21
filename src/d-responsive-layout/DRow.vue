@@ -46,12 +46,17 @@ const computedGutter = computed(() => {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  & > .ui-responsive__col:first-child {
+    padding-left: 0;
+  }
+  & > .ui-responsive__col:last-child {
+    padding-right: 0;
+  }
   & > * {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
-    padding-right: var(--gutter-x);
-    padding-left: var(--gutter-x);
+    //padding-right: var(--gutter-x);
     margin-top: var(--gutter-y);
   }
   &.align__top {

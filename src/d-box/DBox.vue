@@ -44,6 +44,7 @@ export default {
     },
     disabled: {
       type: Boolean,
+      default: null,
     },
   },
   emits: [
@@ -205,8 +206,12 @@ export default {
       }
       const savedCssEntries = Object.entries({
         ...savedCss,
-        ...convertObjToVars(unref(d__theme)),
       });
+      const themingEngineRules = Object.entries({
+        ...convertObjToVars(unref(d__theme)),
+      })
+        .map(([k, v]) => `${k}:${v}`)
+        .join(";");
       let cssRules = `
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
@@ -217,10 +222,11 @@ export default {
       if (savedCssEntries.length) {
         cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
       }
+
       const styleTag = document.createElement("style");
       styleTag.id = uniqueID;
       styleTag.setAttribute("type", "text/css");
-      styleTag.innerHTML = `.${uniqueClass}{${cssRules}}`;
+      styleTag.innerHTML = `.${uniqueClass}{${cssRules}} .${uniqueClass}_theming_styles{${themingEngineRules}}`;
       document.head.appendChild(styleTag);
     };
 
@@ -283,10 +289,11 @@ export default {
           id: props.id ? props.id : uniqueID,
           ...(computedType.value ? { type: computedType.value } : {}),
           ...(computedValue.value ? { value: computedValue.value } : {}),
-          disabled: props.disabled,
+          ...(props.disabled !== null ? { disabled: props.disabled } : {}),
           class: {
             // [styleClasses.value[uniqueClass]]: true,
             [uniqueClass]: true,
+            [`${uniqueClass}_theming_styles`]: true,
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
             [computedFontFace.value]:
@@ -297,7 +304,6 @@ export default {
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
-          style: {},
         },
         {
           default() {

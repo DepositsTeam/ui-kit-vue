@@ -124,7 +124,7 @@ const props = defineProps({
   theme: {
     type: String,
     validator: (value) => ["dark", "light"].includes(value),
-    default: "light",
+    default: "dark",
   },
   enableHiding: {
     type: Boolean,

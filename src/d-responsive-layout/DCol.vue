@@ -254,7 +254,7 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
         &.ui-responsive__col-#{$breakpoint}-#{$i} {
           flex: 0 0 auto;
           width: calc($i / 12 * 100%);
-          padding-left: var(--gutter-x);
+          //padding-left: var(--gutter-x);
           padding-right: var(--gutter-x);
         }
         &.ui-responsive__offset-#{$breakpoint}-#{$i} {

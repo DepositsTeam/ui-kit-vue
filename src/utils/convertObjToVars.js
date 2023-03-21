@@ -6,4 +6,16 @@ const convertObjToVars = (obj) =>
     }))
   );
 
+export const convertVarsToObj = (vars) =>
+  Object.assign(
+    {},
+    ...Object.keys(vars).map((key) => {
+      if (key.substring(0, 2) === "--") {
+        return { [key.substring(2)]: vars[key] };
+      } else {
+        return { key: vars[key] };
+      }
+    })
+  );
+
 export default convertObjToVars;

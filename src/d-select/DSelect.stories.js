@@ -37,6 +37,15 @@ export default {
     disabled: {
       control: { type: "boolean" },
     },
+    optionTitle: {
+      control: { type: "text" },
+    },
+    optionValue: {
+      control: { type: "text" },
+    },
+    returnFullObject: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -85,6 +94,37 @@ const VModelTemplate = (args) => ({
   },
   template: `
     <d-select v-bind="args" v-model="value" />
+    <span>Selected value is: {{value}}</span>
+  `,
+});
+
+const PreselectedVModelTemplate = (args) => ({
+  components: { DSelect },
+  data: () => ({
+    value: "001",
+    options: [
+      {
+        id: "001",
+        name: "Ted Mosby",
+        sitcom: "How I Met Your Mother",
+      },
+      {
+        id: "002",
+        name: "Cameron Tucker",
+        sitcom: "Modern Family",
+      },
+      {
+        id: "003",
+        name: "Ron Swanson",
+        sitcom: "Parks and Recreation",
+      },
+    ],
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-select v-bind="args" v-model="value" :options="options" />
     <span>Selected value is: {{value}}</span>
   `,
 });
@@ -258,6 +298,13 @@ DarkModeSizeSmall.args = {
 };
 
 export const VModel = VModelTemplate.bind({});
-VModelTemplate.args = {
+VModel.args = {
   size: "medium",
+};
+
+export const PreselectedVModel = PreselectedVModelTemplate.bind({});
+PreselectedVModel.args = {
+  optionTitle: "name",
+  optionValue: "id",
+  returnFullObject: true,
 };
