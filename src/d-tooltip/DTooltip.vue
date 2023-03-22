@@ -30,7 +30,7 @@ const props = defineProps({
     default: "hover",
   },
   timeout: {
-    type: Number,
+    type: [Number, Boolean],
     default: 3,
   },
 });
@@ -121,10 +121,12 @@ onUnmounted(() => {
 .ui-tooltip {
   background: #222;
   color: white;
-  font-weight: bold;
   padding: 5px;
   border-radius: 4px;
-  font-size: 90%;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  max-width: 320px;
   width: max-content;
   position: absolute;
   top: 0;
