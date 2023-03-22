@@ -609,6 +609,7 @@ const buttonActionsEnabled = computed(
     }
   }
   .ui-table__container {
+    flex: 1;
     &.expandMode {
       background: #fff;
       border-right: 0.5px solid #e2e8f0;
