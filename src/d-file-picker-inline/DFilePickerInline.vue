@@ -4,18 +4,21 @@
     :class="[`size__${computedInputSize}`, `variant__${variant}`]"
     v-if="variant === 'inline'"
   >
-    <d-box v-if="!!label && variant !== 'button'" is="label">
-      <d-text
-        margin-top="0px"
-        class="ui-text-field__label"
-        :class="labelClass"
-        scale="subhead"
-        :font-face="labelFontFace"
-        :size="size"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box v-if="!!label && variant !== 'button'" is="label">
+        <d-text
+          margin-top="0px"
+          class="ui-text-field__label"
+          :class="labelClass"
+          scale="subhead"
+          :font-face="labelFontFace"
+          :size="size"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box display="inline-flex" class="pseudo-input" :class="{ disabled }">
       <d-box
         is="input"

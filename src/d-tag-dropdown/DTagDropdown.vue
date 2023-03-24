@@ -6,16 +6,19 @@
       [`size__${computedInputSize}`]: true,
     }"
   >
-    <d-box is="label">
-      <d-text
-        :class="labelClass"
-        :font-face="labelFontFace"
-        class="ui-tag-dropdown__label"
-        scale="subhead"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box is="label">
+        <d-text
+          :class="labelClass"
+          :font-face="labelFontFace"
+          class="ui-tag-dropdown__label"
+          scale="subhead"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box
       class="ui-tag-dropdown__input-wrapper"
       :class="{ emptyDropdown: !inputTags.length, hasError: !!errorMessage }"
@@ -100,20 +103,18 @@
       <d-box class="ui-tag-dropdown__dropdown__options">
         <d-box
           class="ui-tag-dropdown__dropdown__option"
-          v-for="(option, index) in computedOptions"
+          v-for="(option, index) in visibleOptions"
           :key="`option-${index}`"
           @click="selectOption(option)"
           :class="{
-            selected: selectedOptions.includes(
-              typeof option === 'string' ? option : option.value
-            ),
+            selected: selectedOptions.includes(option.value),
             dropdownMode: !showCheckboxes,
           }"
           :cursor="showCheckboxes ? 'auto' : 'pointer'"
         >
           <d-checkbox
             v-if="showCheckboxes"
-            :value="typeof option === 'string' ? option : option.value"
+            :value="option.value"
             v-model="selectedOptions"
           >
             <d-text
@@ -121,11 +122,11 @@
               margin-y="0"
               font-face="circularSTD"
               scale="subhead"
-              >{{ typeof option === "string" ? option : option.text }}</d-text
+              >{{ option.text }}</d-text
             >
           </d-checkbox>
           <d-text v-else margin-y="0" font-face="circularSTD" scale="subhead">
-            {{ typeof option === "string" ? option : option.text }}
+            {{ option.text }}
           </d-text>
         </d-box>
       </d-box>
@@ -145,28 +146,21 @@
 
 <script setup>
 import {
+  ChevronFilledDownIcon,
+  CloseIcon,
   DBox,
+  DCheckbox,
   DText,
   DTextfield,
-  CloseIcon,
-  ChevronFilledDownIcon,
-  DCheckbox,
-  SearchIcon,
   ErrorIcon,
+  SearchIcon,
 } from "../main";
 import keyGen from "../utils/keyGen";
-import {
-  inject,
-  ref,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  computed,
-  watch,
-} from "vue";
+import { computed, inject, nextTick, onMounted, onUnmounted, ref } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
+import { useDropdown } from "../utils/composables/useDropdown";
 
 const props = defineProps({
   ...inputProps,
@@ -183,9 +177,22 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  optionTitle: {
+    type: String,
+    default: "text",
+  },
+  optionValue: {
+    type: String,
+    default: "value",
+  },
+  returnFullObject: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
+const { computedOptions } = useDropdown(props);
 
 const emit = defineEmits([
   "update:modelValue",
@@ -205,46 +212,46 @@ const inputValue = ref("");
 const showOptions = ref(false);
 const validInput = ref(null);
 
-watch(props.modelValue, (val) => {
-  emit("update:modelValue", val);
-});
+const emitSelectedOptions = (options) => {
+  if (props.returnFullObject) {
+    emit(
+      "update:modelValue",
+      computedOptions.value
+        .filter((option) => options.includes(option.value))
+        .map((option) => option.originalOption)
+    );
+  } else {
+    emit("update:modelValue", options);
+  }
+};
 
-const computedOptions = computed(() => {
-  let prefilteredOptions = [...props.options];
-
+const visibleOptions = computed(() => {
+  let prefilteredOptions = computedOptions.value;
   if (!props.showCheckboxes) {
-    prefilteredOptions = [...props.options].filter(
-      (option) =>
-        !selectedOptions.value.includes(
-          typeof option === "object" ? option.value : option
-        )
+    prefilteredOptions = computedOptions.value.filter(
+      (option) => !selectedOptions.value.includes(option.value)
     );
   }
 
   return prefilteredOptions.filter((option) => {
-    if (typeof option === "string") {
-      return option.toLowerCase().includes(inputValue.value.toLowerCase());
-    } else {
-      return option.text.toLowerCase().includes(inputValue.value.toLowerCase());
-    }
+    return option.text.toLowerCase().includes(inputValue.value.toLowerCase());
   });
 });
 
 const selectedOptions = computed({
   get() {
-    return [...props.modelValue];
+    return [...computedModelValue.value];
   },
   set(value) {
-    emit("update:modelValue", value);
+    emitSelectedOptions(value);
   },
 });
 
 const selectOption = (option) => {
   if (!props.showCheckboxes) {
-    const optionValue = typeof option === "object" ? option.value : option;
     const currentSelectedOptions = [...selectedOptions.value];
-    currentSelectedOptions.push(optionValue);
-    emit("update:modelValue", currentSelectedOptions);
+    currentSelectedOptions.push(option.value);
+    emitSelectedOptions(currentSelectedOptions);
   }
 };
 
@@ -262,16 +269,28 @@ const hideOptionsOnOutsideClick = (e) => {
   }
 };
 
-const inputTags = computed(() => {
-  return [...props.options].filter((option) => {
-    if (typeof option === "string") {
-      return props.modelValue.includes(option);
+const computedModelValue = computed(() => {
+  if (Array.isArray(props.modelValue)) {
+    return [...props.modelValue].map((option) => {
+      if (typeof option === "object") {
+        return option[props.optionValue];
+      } else {
+        return option;
+      }
+    });
+  } else {
+    if (typeof props.modelValue === "object") {
+      return [];
     } else {
-      return props.modelValue === "" || props.modelValue
-        ? props.modelValue.includes(option.value)
-        : false;
+      return [props.modelValue];
     }
-  });
+  }
+});
+
+const inputTags = computed(() => {
+  return computedOptions.value.filter((option) =>
+    computedModelValue.value.includes(option.value)
+  );
 });
 
 const handleDeleteTag = (currentTag) => {
@@ -279,16 +298,16 @@ const handleDeleteTag = (currentTag) => {
   // let oldTagArray = inputTags.value;
   emit(
     "update:modelValue",
-    [...props.modelValue].filter((tag) => {
-      return typeof currentTag === "string"
-        ? tag !== currentTag
-        : tag !== currentTag.value;
-    })
+    [...computedModelValue.value].filter((tag) => tag !== currentTag)
   );
 };
 
 onMounted(() => {
   window.addEventListener("click", hideOptionsOnOutsideClick);
+  if (selectedOptions.value) {
+    emitSelectedOptions(selectedOptions.value);
+  }
+  console.log(selectedOptions.value);
 });
 
 onUnmounted(() => {

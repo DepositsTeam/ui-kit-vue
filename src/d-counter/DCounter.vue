@@ -9,17 +9,20 @@
       class="ui-text-field__wrapper"
       :class="[`size__${computedInputSize}`]"
     >
-      <d-box v-if="!!label" is="label">
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <slot name="label">
+        <d-box v-if="!!label" is="label">
+          <d-text
+            margin-top="0px"
+            class="ui-text-field__label"
+            :class="labelClass"
+            scale="subhead"
+            :font-face="labelFontFace"
+          >
+            {{ label }}
+          </d-text>
+        </d-box>
+      </slot>
+
       <d-box class="ui-text-field__input-wrapper">
         <button
           class="ui-text-field--counter_input_button left"

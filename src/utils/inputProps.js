@@ -80,6 +80,9 @@ export default {
   autofocus: {
     type: String,
   },
+  readonly: {
+    type: Boolean,
+  },
 };
 
 export const inputArgTypes = {

@@ -7,16 +7,19 @@
       'has-error': localErrorMessage || errorMessage,
     }"
   >
-    <d-box is="label">
-      <d-text
-        :class="labelClass"
-        :font-face="labelFontFace"
-        class="ui-text-field__label"
-        scale="subhead"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box is="label">
+        <d-text
+          :class="labelClass"
+          :font-face="labelFontFace"
+          class="ui-text-field__label"
+          scale="subhead"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box
       :class="{ disabled }"
       class="ui-text-field__input-wrapper ui-text-field__phone-input"

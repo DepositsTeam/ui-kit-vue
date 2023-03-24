@@ -3,17 +3,20 @@
     class="ui-text-field__wrapper ui-text-area__wrapper"
     :class="[`size__${computedInputSize}`]"
   >
-    <d-box is="label" class="ui-text-area__label">
-      <d-text
-        margin-top="0px"
-        :class="labelClass"
-        scale="subhead"
-        class="ui-text-area__label"
-        :font-face="labelFontFace"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box is="label" class="ui-text-area__label">
+        <d-text
+          margin-top="0px"
+          :class="labelClass"
+          scale="subhead"
+          class="ui-text-area__label"
+          :font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box
       class="ui-text-area__textarea ui-text-field__input"
       :class="{

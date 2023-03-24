@@ -3,17 +3,19 @@
     class="ui-text-field__wrapper"
     :class="[wrapperClass, `size__${computedInputSize}`]"
   >
-    <d-box is="label" v-if="label">
-      <d-text
-        margin-top="0px"
-        :class="labelClass"
-        class="ui-text-field__label"
-        scale="subhead"
-        :font-face="labelFontFace"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box is="label" v-if="label">
+        <d-text
+          margin-top="0px"
+          :class="labelClass"
+          class="ui-text-field__label"
+          scale="subhead"
+          :font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
     <d-box
       class="ui-select-field__wrapper ui-text-field__input-wrapper"
       :class="{ 'has-error': errorMessage, disabled, pill }"
@@ -69,6 +71,7 @@ import keyGen from "../utils/keyGen";
 import { computed, ref, onMounted, watch } from "vue";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
+import { useDropdown } from "../utils/composables/useDropdown";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -136,6 +139,7 @@ const props = defineProps({
 });
 
 const { computedInputSize } = useInputSize(props);
+const { computedOptions } = useDropdown(props);
 
 onMounted(() => {
   if (
@@ -208,24 +212,6 @@ watch(
     }
   }
 );
-
-const computedOptions = computed(() => {
-  return props.options.map((option) => {
-    let newOption = {};
-    newOption.text =
-      typeof option === "string" ? option : option[props.optionTitle];
-    if (typeof option === "string") {
-      newOption.value = option;
-    } else {
-      newOption.value =
-        option[props.optionValue] === undefined
-          ? option[props.optionTitle]
-          : option[props.optionValue];
-    }
-    newOption.originalOption = option;
-    return newOption;
-  });
-});
 </script>
 
 <style lang="scss" scoped>
