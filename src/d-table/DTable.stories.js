@@ -164,8 +164,8 @@ ExpandModeWithSpecifiedExpandedColumns.args = {
   data,
   columns,
   expandMode: true,
-      expandedColumns: ["name", "city"],
-    };
+  expandedColumns: ["name", "city"],
+};
 
 export const Search = Template.bind({});
 Search.args = {
@@ -275,4 +275,75 @@ DarkModeCustomComponent.args = {
   columns,
   data: customComponentData,
   paginate: true,
+};
+
+export const PipedColumnExampleMultiplyQtyByTwo = Template.bind({});
+PipedColumnExampleMultiplyQtyByTwo.args = {
+  columns: [
+    {
+      display: "Name",
+      dataSelector: "name",
+      uppercase: true,
+      sortable: true,
+      filterable: true,
+      width: "",
+      minWidth: "",
+      maxWidth: "",
+      pipe: (value) => value.toUpperCase(),
+    },
+    {
+      display: "City",
+      dataSelector: "city",
+      uppercase: true,
+      sortable: true,
+      filterable: true,
+      width: "",
+      minWidth: "",
+      maxWidth: "",
+    },
+    {
+      display: "Company/Work",
+      dataSelector: "company",
+      uppercase: true,
+      filterable: true,
+      width: "",
+      minWidth: "",
+      maxWidth: "",
+    },
+    {
+      display: "Country",
+      dataSelector: "country",
+      uppercase: true,
+      sortable: true,
+      filterable: false,
+      width: "",
+      minWidth: "",
+      maxWidth: "",
+    },
+    {
+      display: "Qty",
+      dataSelector: "qty",
+      uppercase: true,
+      sortable: true,
+      sortNumerically: true,
+      filterable: true,
+      width: "80px",
+      minWidth: "80px",
+      maxWidth: "80px",
+      position: "right",
+      pipe: (value) => value * 2,
+    },
+    {
+      display: "State",
+      dataSelector: "state",
+      uppercase: true,
+      sortable: false,
+      filterable: true,
+      width: "",
+      minWidth: "",
+      maxWidth: "",
+      excludeFromCSV: true,
+    },
+  ],
+  data,
 };
