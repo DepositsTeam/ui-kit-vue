@@ -40,6 +40,21 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    optionTitle: {
+      control: { type: "text" },
+      table: {
+        defaultValue: "name",
+      },
+    },
+    optionValue: {
+      control: { type: "text" },
+      table: {
+        defaultValue: "iso2",
+      },
+    },
+    returnFullObject: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -65,10 +80,24 @@ const Template = (args) => ({
     <d-country-dropdown v-bind="args" v-model="country" @states-changed="hydrateStates" />
     <d-select name="States" :options="states" v-model="selectedState" />
     <p>Selected states: {{states}}</p>
+    <p>Selected country: {{country}}</p>
   `,
 });
 
 export const Default = Template.bind({});
 Default.args = {
   label: "Select a country",
+};
+
+export const ReturnFullObject = Template.bind({});
+ReturnFullObject.args = {
+  label: "Select a country",
+  returnFullObject: true,
+};
+
+export const UseDifferentTitleAndValue = Template.bind({});
+UseDifferentTitleAndValue.args = {
+  label: "Select a country",
+  optionTitle: "iso3",
+  optionValue: "iso2",
 };

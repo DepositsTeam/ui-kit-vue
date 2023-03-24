@@ -15,7 +15,7 @@ export const useDarkMode = () => {
   };
 
   return {
-    isDarkModeEnabled: isRef(darkMode) ? !!darkMode.value : false,
+    isDarkModeEnabled: darkMode,
     toggleDarkMode,
   };
 };

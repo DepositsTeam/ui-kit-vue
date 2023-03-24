@@ -50,10 +50,13 @@
           />
         </d-box>
       </template>
+      <template #label>
+        <slot name="label"></slot>
+      </template>
     </d-textfield>
     <d-box v-show="showOptions" class="ui-dropdown__options">
       <d-box
-        v-for="(option, index) in computedOptions"
+        v-for="(option, index) in visibleOptions"
         :key="`option-${index}`"
         class="ui-dropdown__option"
         @click="handleClickedOption(option)"
@@ -92,7 +95,7 @@
 </template>
 
 <script setup>
-import { DBox, DTextfield, DText } from "../main";
+import { DBox, DTextfield, DText, DLoader } from "../main";
 import inputProps from "../utils/inputProps";
 import {
   ref,
@@ -103,8 +106,8 @@ import {
   nextTick,
   watch,
 } from "vue";
-import DLoader from "../d-loader/DLoader.vue";
 import { useInputSize } from "../utils/composables/useInputSize";
+import { useDropdown } from "../utils/composables/useDropdown";
 
 const emit = defineEmits(["update:modelValue"]);
 const mounted = ref(false);
@@ -113,8 +116,17 @@ const props = defineProps({
   options: {
     type: Array,
   },
-  returnObjModel: {
+  optionTitle: {
+    type: String,
+    default: "text",
+  },
+  optionValue: {
+    type: String,
+    default: "value",
+  },
+  returnFullObject: {
     type: Boolean,
+    default: false,
   },
   fetching: {
     type: Boolean,
@@ -123,16 +135,24 @@ const props = defineProps({
 });
 
 const { computedInputSize } = useInputSize(props);
+const { computedOptions } = useDropdown(props);
 
 onBeforeMount(() => {
-  const matched = props.options.filter((option) => {
-    return typeof option === "string"
-      ? option === props.modelValue
-      : option.value === props.modelValue;
-  });
+  const realValue =
+    typeof props.modelValue === "object"
+      ? props.modelValue[props.optionValue]
+      : props.modelValue;
+  const matched = [...computedOptions.value].filter(
+    (option) => option.value === realValue
+  );
   if (matched.length) {
-    inputValue.value =
-      typeof matched[0] === "string" ? matched[0] : matched[0].text;
+    const matchedOption = matched[0];
+    inputValue.value = matchedOption.text;
+    emitOption({
+      text: matchedOption[props.optionTitle],
+      value: matchedOption[props.optionValue],
+      originalOption: matchedOption.originalOption,
+    });
   } else {
     inputValue.value = "";
   }
@@ -140,6 +160,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
   window.addEventListener("click", handleLeave);
+
   mounted.value = true;
 });
 
@@ -151,12 +172,12 @@ onUnmounted(() => {
 watch(
   () => props.modelValue,
   (val) => {
-    const matched = props.options.filter((option) => {
-      return typeof option === "string" ? option === val : option.value === val;
-    });
+    const realValue = typeof val === "object" ? val[props.optionValue] : val;
+    const matched = [...computedOptions.value].filter(
+      (option) => option.value === realValue
+    );
     if (matched.length) {
-      inputValue.value =
-        typeof matched[0] === "string" ? matched[0] : matched[0].text;
+      inputValue.value = matched[0].text;
     } else {
       inputValue.value = "";
     }
@@ -177,39 +198,34 @@ watch(inputValue, (val, prevVal) => {
   }
 });
 
+const emitOption = (option) => {
+  if (props.returnFullObject) {
+    emit("update:modelValue", option.originalOption);
+  } else {
+    emit("update:modelValue", option.value);
+  }
+};
+
 const toggleDropdown = () => (showOptions.value = !showOptions.value);
 
 const updateSelectedIndex = (index) => (selectedIndex.value = index);
 
-const computedOptions = computed(() => {
+const visibleOptions = computed(() => {
   if (inputValue.value) {
-    return [...props.options].filter((option) => {
-      if (typeof option === "string") {
-        return option.toLowerCase().includes(inputValue.value.toLowerCase());
-      } else {
-        return option.text
-          .toLowerCase()
-          .includes(inputValue.value.toLowerCase());
-      }
-    });
-  } else return props.options;
+    return [...computedOptions.value].filter((option) =>
+      option.text.toLowerCase().includes(inputValue.value.toLowerCase())
+    );
+  } else return computedOptions.value;
 });
 
 const handleClickedOption = async (option) => {
-  if (typeof option === "string") {
-    inputValue.value = option;
-    emit("update:modelValue", option);
-  } else {
+  if (option) {
     inputValue.value = option.text;
-    if (props.returnObjModel) {
-      emit("update:modelValue", option);
-    } else {
-      emit("update:modelValue", option.value);
-    }
+    emitOption(option);
+    selectedOption.value = option;
+    await nextTick();
+    showOptions.value = false;
   }
-  selectedOption.value = option;
-  await nextTick();
-  showOptions.value = false;
 };
 
 const handleFocus = () => {
@@ -221,27 +237,13 @@ const handleBlur = async () => {
   setTimeout(async () => {
     showOptions.value = false;
     let exactMatch = false;
-    for (let option of computedOptions.value) {
-      if (typeof option === "string") {
-        if (option.toLowerCase() === inputValue.value.toLowerCase()) {
-          exactMatch = true;
-          inputValue.value = option;
-          selectedOption.value = option;
-          emit("update:modelValue", option);
-          break;
-        }
-      } else {
-        if (option.text.toLowerCase() === inputValue.value.toLowerCase()) {
-          exactMatch = true;
-          inputValue.value = option.text;
-          selectedOption.value = option;
-          if (props.returnObjModel) {
-            emit("update:modelValue", option);
-          } else {
-            emit("update:modelValue", option.value);
-          }
-          break;
-        }
+    for (let option of visibleOptions.value) {
+      if (option.text.toLowerCase() === inputValue.value.toLowerCase()) {
+        exactMatch = true;
+        inputValue.value = option.text;
+        selectedOption.value = option;
+        emitOption(option);
+        break;
       }
     }
     if (!exactMatch) {
@@ -260,17 +262,17 @@ const handleLeave = (e) => {
 const handleKeyDown = (e) => {
   switch (e.key) {
     case "ArrowDown":
-      if (selectedIndex.value + 1 <= computedOptions.value.length - 1)
+      if (selectedIndex.value + 1 <= visibleOptions.value.length - 1)
         updateSelectedIndex(selectedIndex.value + 1);
       else updateSelectedIndex(0);
       break;
     case "ArrowUp":
       if (selectedIndex.value - 1 >= 0)
         updateSelectedIndex(selectedIndex.value - 1);
-      else updateSelectedIndex(computedOptions.value.length - 1);
+      else updateSelectedIndex(visibleOptions.value.length - 1);
       break;
     case "Enter":
-      handleClickedOption(computedOptions.value[selectedIndex.value]);
+      handleClickedOption(visibleOptions.value[selectedIndex.value]);
       break;
     case "Escape":
       handleBlur();

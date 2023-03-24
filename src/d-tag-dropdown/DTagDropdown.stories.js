@@ -39,7 +39,10 @@ const PredefinedTemplate = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-tag-dropdown v-model="value" v-bind="args" />`,
+  template: `
+    <d-tag-dropdown v-model="value" v-bind="args" />
+    <p>Selected value is {{value}}</p>
+  `,
 });
 
 const DarkModePredefinedTemplate = (args) => ({
@@ -156,7 +159,7 @@ StringOptions.args = {
   label: "String Options",
 };
 
-export const StringOptionsDark = DarkModeTemplate();
+export const StringOptionsDark = DarkModeTemplateFactory();
 StringOptionsDark.args = {
   options: [...stringOptions],
   label: "String Options",
@@ -166,6 +169,13 @@ export const PredefinedOptions = PredefinedTemplate.bind({});
 PredefinedOptions.args = {
   options: [...options],
   label: "Predefined Options",
+};
+
+export const PredefinedOptionsWithFullObject = PredefinedTemplate.bind({});
+PredefinedOptionsWithFullObject.args = {
+  options: [...options],
+  label: "Predefined Options",
+  returnFullObject: true,
 };
 
 export const PredefinedOptionsDark = DarkModeTemplateFactory(

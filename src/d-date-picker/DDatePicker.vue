@@ -6,16 +6,19 @@
       [wrapperClass]: wrapperClass,
     }"
   >
-    <d-box v-if="label" is="label">
-      <d-text
-        :class="labelClass"
-        :font-face="labelFontFace"
-        class="ui-text-field__label"
-        scale="subhead"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box v-if="label" is="label">
+        <d-text
+          :class="labelClass"
+          :font-face="labelFontFace"
+          class="ui-text-field__label"
+          scale="subhead"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box class="ui-text-field__input-wrapper">
       <component
         :is="leftIcon"

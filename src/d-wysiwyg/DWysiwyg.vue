@@ -1,16 +1,19 @@
 <template>
   <d-box class="ui-wysiwyg__wrapper">
-    <d-box v-if="!!label" is="label">
-      <d-text
-        margin-top="0px"
-        class="ui-text-field__label"
-        :class="labelClass"
-        scale="subhead"
-        :font-face="labelFontFace"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box v-if="!!label" is="label">
+        <d-text
+          margin-top="0px"
+          class="ui-text-field__label"
+          :class="labelClass"
+          scale="subhead"
+          :font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box :class="{ focused }" class="d-wysiwyg-semantic-container">
       <d-box :class="{ focused }" class="d-wysisyg-controls" v-if="editor">
         <button
