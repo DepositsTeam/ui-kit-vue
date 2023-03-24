@@ -1,15 +1,18 @@
 <template>
   <d-box class="ui-tag-input__wrapper" :class="`size__${computedInputSize}`">
-    <d-box is="label">
-      <d-text
-        :class="labelClass"
-        :font-face="labelFontFace"
-        class="ui-tag-input__label"
-        scale="subhead"
-      >
-        {{ label }}
-      </d-text>
-    </d-box>
+    <slot name="label">
+      <d-box is="label">
+        <d-text
+          :class="labelClass"
+          :font-face="labelFontFace"
+          class="ui-tag-input__label"
+          scale="subhead"
+        >
+          {{ label }}
+        </d-text>
+      </d-box>
+    </slot>
+
     <d-box class="ui-tag-input__input-wrapper">
       <d-box
         is="div"

@@ -70,7 +70,10 @@ const PredefinedTemplate = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-dropdown v-model="value" v-bind="args" />`,
+  template: `
+    <d-dropdown v-model="value" v-bind="args" />
+    <p>Selected value is: {{value}}</p>
+  `,
 });
 
 const DarkModePredefinedTemplate = (args) => ({
@@ -174,6 +177,13 @@ export const Predefined = PredefinedTemplate.bind({});
 Predefined.args = {
   label: "Predefined Dropdown",
   options: [...options],
+};
+
+export const PredefinedReturnFullObject = PredefinedTemplate.bind({});
+PredefinedReturnFullObject.args = {
+  label: "Predefined Dropdown",
+  options: [...options],
+  returnFullObject: true,
 };
 
 export const PredefinedDark = DarkModeTemplateFactory(

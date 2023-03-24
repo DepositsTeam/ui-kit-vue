@@ -3,17 +3,19 @@
     :class="`size__${computedInputSize}`"
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
-    <d-box
-      is="label"
-      :class="labelClass"
-      :font-face="labelFontFace"
-      class="ui-text-field__label"
-      scale="subhead"
-    >
-      <d-text class="ui-card-input-field__label" scale="subhead">{{
-        label
-      }}</d-text>
-    </d-box>
+    <slot name="label">
+      <d-box
+        is="label"
+        :class="labelClass"
+        :font-face="labelFontFace"
+        class="ui-text-field__label"
+        scale="subhead"
+      >
+        <d-text class="ui-card-input-field__label" scale="subhead">{{
+          label
+        }}</d-text>
+      </d-box>
+    </slot>
     <d-box
       class="ui-card-input-field__input-wrapper"
       :class="`size__${computedInputSize}`"
