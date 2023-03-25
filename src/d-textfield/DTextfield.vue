@@ -34,7 +34,13 @@
         :class="{
           'has-error': showError || errorMessage,
           'has-left-icon': leftIcon || $slots.leftIcon,
-          'has-right-icon': dropDown || rightIcon || $slots.rightIcon,
+          'has-right-icon':
+            dropDown ||
+            isPassword ||
+            isStrongPassword ||
+            copyMode ||
+            rightIcon ||
+            $slots.rightIcon,
           invisible,
           disabled,
           oneCharWide,
