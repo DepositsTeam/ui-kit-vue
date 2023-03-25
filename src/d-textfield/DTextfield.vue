@@ -80,18 +80,8 @@
       />
       <component
         class="ui-text-field__right-icon"
-        v-if="
-          isPassword ||
-          isStrongPassword ||
-          ((dropDown || rightIcon) && !invisible)
-        "
-        :is="
-          isPassword || isStrongPassword
-            ? passwordIcon
-            : dropDown
-            ? ChevronFilledDownIcon
-            : rightIcon
-        "
+        v-if="showRightIcon"
+        :is="computedRightIcon"
         @click="emitRightIconClicked"
       ></component>
       <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
@@ -145,6 +135,7 @@ import {
   NoEyeFilledIcon,
   EyeFilledIcon,
   DAutoLayout,
+  CopyIcon,
 } from "../main";
 import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
 import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
@@ -155,6 +146,7 @@ import { wrapperProps } from "../utils/wrapperProps";
 import { useWrapperProps } from "../utils/useWrapperProps";
 import { formatPercentage } from "../utils/formatPercentage";
 import { useInputSize } from "../utils/composables/useInputSize";
+import copy from "copy-to-clipboard";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -191,6 +183,7 @@ const props = defineProps({
   },
   oneCharWide: Boolean,
   isPassword: Boolean,
+  copyMode: Boolean,
   isStrongPassword: Boolean,
   ssn: Boolean,
   percentage: Boolean,
@@ -319,6 +312,11 @@ const emitRightIconClicked = (e) => {
   if (props.isPassword || props.isStrongPassword) {
     localType.value = localType.value === "text" ? "password" : "text";
   }
+  if (props.copyMode) {
+    copy(props.modelValue);
+    alert("Copied!");
+    // TODO: Replace with a tooltip
+  }
   emit("rightIconClicked", e);
 };
 
@@ -333,6 +331,26 @@ const handleKeyEvents = (e) => {
     return allowOnlyNumbers(e, true);
   }
 };
+
+const showRightIcon = computed(
+  () =>
+    props.isPassword ||
+    props.isStrongPassword ||
+    props.copyMode ||
+    ((props.dropDown || props.rightIcon) && !props.invisible)
+);
+
+const computedRightIcon = computed(() => {
+  if (props.isPassword || props.isStrongPassword) {
+    return passwordIcon.value;
+  } else if (props.dropDown) {
+    return ChevronFilledDownIcon;
+  } else if (props.copyMode) {
+    return CopyIcon;
+  } else {
+    return props.rightIcon;
+  }
+});
 
 const checkPasswordStrength = (value) => {
   if (value !== undefined && value !== null) {
