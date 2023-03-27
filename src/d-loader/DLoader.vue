@@ -5,6 +5,7 @@
     :style="{
       '--smart-color': computedColor,
       '--loader-size': loaderSize,
+      '--ring-thickness': ringThickness,
     }"
   >
     <d-box v-if="loading" class="ui-d-loader__wrapper">
@@ -43,6 +44,10 @@ const props = defineProps({
     validator: (value) =>
       ["ring", "equalizer", "ringed-circle"].includes(value),
     default: "ring",
+  },
+  ringThickness: {
+    type: String,
+    default: "8px",
   },
   loaderSize: {
     type: String,
@@ -117,7 +122,7 @@ const computedColor = computed(() => {
     width: calc(var(--loader-size) * 0.8)
     height: calc(var(--loader-size) * 0.8)
     margin: calc(var(--loader-size) / 10)
-    border: 8px solid
+    border: calc(var(--loader-size) * 0.1) solid
     border-radius: 50%
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite
     border-color: var(--smart-color) transparent transparent transparent

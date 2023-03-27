@@ -38,11 +38,20 @@
       v-else-if="leftIcon"
       :is="leftIcon"
     ></component>
-    <span class="ui-button__button-text" :class="{ 'loader-text': loading }">
-      <span v-if="loading" class>
+    <span
+      class="ui-button__button-text"
+      :class="{ 'loader-text': loading && loaderType === 'text' }"
+    >
+      <span v-if="loading">
         <slot v-if="loaderType === 'text'" name="loadingText">
           <span v-if="loadingText">{{ loadingText }}</span>
         </slot>
+        <d-loader
+          v-else
+          loader-size="1.5em"
+          :smart-color="computedTextColor"
+          :loader="loaderType"
+        />
       </span>
       <span v-else>
         <span v-if="text">{{ text }}</span>
@@ -67,10 +76,25 @@
 </template>
 
 <script setup>
-import { DBox, ChevronFilledDownIcon } from "../main";
+import { DBox, ChevronFilledDownIcon, DLoader } from "../main";
 import { getTextColor } from "../utils/colorManager";
 import tinycolor from "tinycolor2";
-import { computed } from "vue";
+import { computed, inject, unref } from "vue";
+import { defaultThemeVars } from "../providers/default-theme";
+
+const d__theme = inject("d__theme", defaultThemeVars);
+
+const darkMode = inject("d__darkMode");
+
+const darkModeIsEnabled = computed(
+  () => darkMode !== null && darkMode !== undefined && darkMode.value
+);
+
+const computedTextColor = computed(() => {
+  return darkModeIsEnabled.value
+    ? unref(d__theme)["--dark-primary-action-text-color"]
+    : unref(d__theme)["--light-primary-action-text-color"];
+});
 
 const emit = defineEmits(["click"]);
 const props = defineProps({
