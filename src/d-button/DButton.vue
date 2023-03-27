@@ -40,8 +40,9 @@
     ></component>
     <span class="ui-button__button-text" :class="{ 'loader-text': loading }">
       <span v-if="loading" class>
-        <span v-if="loadingText">{{ loadingText }}</span>
-        <slot name="loadingText"></slot>
+        <slot v-if="loaderType === 'text'" name="loadingText">
+          <span v-if="loadingText">{{ loadingText }}</span>
+        </slot>
       </span>
       <span v-else>
         <span v-if="text">{{ text }}</span>
@@ -124,6 +125,11 @@ const props = defineProps({
   },
   loading: {
     type: Boolean,
+  },
+  loaderType: {
+    type: String,
+    default: "text",
+    validator: (value) => ["text", "ring"].includes(value),
   },
   loadingText: {
     type: String,

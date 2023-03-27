@@ -8,7 +8,6 @@
           greyContent,
           roundedBorders,
           greyHeader,
-          roundedBorders,
           overlayBg,
           [`modal__${alignment}`]: alignment,
         }"

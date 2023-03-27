@@ -23,7 +23,10 @@
         [scheme]: scheme,
       }"
     >
-      <slot name="step-indicator" v-bind="step">
+      <slot
+        name="step-indicator"
+        v-bind="typeof step === 'object' ? step : { step: step }"
+      >
         <d-box
           class="ui-step__indicator"
           :class="{
@@ -68,15 +71,11 @@
 <script setup>
 import { DBox, DText, CheckOutlineIcon } from "../main";
 import tinycolor from "tinycolor2";
-import { onMounted, useSlots } from "vue";
+import { onBeforeMount, onMounted, useSlots } from "vue";
 
 const slots = useSlots();
 
-onMounted(() => {
-  console.log(slots);
-});
-
-defineProps({
+const props = defineProps({
   steps: {
     type: Array,
   },
@@ -108,6 +107,14 @@ defineProps({
     type: Boolean,
     default: true,
   },
+});
+
+onMounted(() => {
+  console.log(slots);
+});
+
+onBeforeMount(() => {
+  console.log(props.steps);
 });
 </script>
 
