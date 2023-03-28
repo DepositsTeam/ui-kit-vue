@@ -1,20 +1,11 @@
-import { inject, isRef, ref, watch } from "vue";
-import defaultTheme from "../default-theme";
-import { convertVarsToObj } from "../../utils/convertObjToVars";
+import { inject } from "vue";
+import { defaultThemeVars } from "../default-theme";
 
 export const useTheme = () => {
-  const injectedTheme = inject("d__theme");
+  const returnedTheme = inject("d__theme", defaultThemeVars);
   const injectedUpdateTheme = inject("d__updateTheme");
-  const returnedTheme = ref(defaultTheme);
-
-  watch(injectedTheme, () => {
-    if (isRef(injectedTheme)) {
-      returnedTheme.value = convertVarsToObj(injectedTheme.value);
-    }
-  });
 
   const updateTheme = (theme) => {
-    console.log("RETURNED_THEME", returnedTheme);
     if (injectedUpdateTheme && typeof injectedUpdateTheme === "function") {
       return injectedUpdateTheme(theme);
     } else {
