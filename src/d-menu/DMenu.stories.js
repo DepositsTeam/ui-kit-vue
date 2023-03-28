@@ -17,7 +17,7 @@ const Template = (args) => ({
     return { args };
   },
   template: `<d-menu v-bind="args" >
-  <d-button>Dropdown Menu</d-button>
+  <d-button>...</d-button>
   </d-menu>`,
 });
 
@@ -39,4 +39,37 @@ Default.args = {
 export const StringOptions = Template.bind({});
 StringOptions.args = {
   options: ["Edit", "Delete", "Create"],
+};
+
+export const CustomOptionColor = Template.bind({});
+CustomOptionColor.args = {
+  options: [
+    {
+      text: "Edit",
+    },
+    {
+      text: "Delete",
+      textColor: "#D62F4B",
+    },
+    {
+      text: "Create",
+    },
+  ],
+};
+
+export const HoverTrigger = Template.bind({});
+HoverTrigger.args = {
+  trigger: "hover",
+  options: [
+    {
+      text: "Edit",
+    },
+    {
+      text: "Delete",
+      textColor: "#D62F4B",
+    },
+    {
+      text: "Create",
+    },
+  ],
 };

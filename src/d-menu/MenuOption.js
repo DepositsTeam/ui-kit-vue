@@ -5,6 +5,7 @@ export default class MenuOption {
     if (typeof option === "string") {
       this.text = option;
       this.uuid = uniqueRandomString(30, 8);
+      this.fontFace = "circularSTD";
       this.originalOption = option;
     } else {
       const originalOption = { ...option };
@@ -17,6 +18,7 @@ export default class MenuOption {
         className = "",
         onClick = undefined,
         onHover = undefined,
+        fontFace = "circularSTD",
         ...otherArgs
       } = option;
       this.leftIcon = leftIcon;
@@ -25,6 +27,7 @@ export default class MenuOption {
       this.href = href;
       this.to = to;
       this.textColor = textColor;
+      this.fontFace = fontFace;
       this.className = className;
       this.onClick = onClick;
       this.onHover = onHover;
