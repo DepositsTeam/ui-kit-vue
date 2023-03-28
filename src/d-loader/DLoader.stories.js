@@ -13,7 +13,19 @@ export default {
     },
     loader: {
       control: { type: "select" },
-      options: ["ring"],
+      options: ["ring", "equalizer", "ringed-circle"],
+    },
+    smartColor: {
+      control: { type: "color" },
+    },
+    translucent: {
+      control: { type: "boolean" },
+    },
+    loaderSize: {
+      control: { type: "string" },
+      table: {
+        defaultValue: "80px",
+      },
     },
   },
 };
@@ -30,6 +42,19 @@ const Template = (args) => ({
 });
 
 export const Default = Template.bind({});
+Default.args = {
+  fullPage: false,
+};
+
+export const EqualizerLoader = Template.bind({});
+EqualizerLoader.args = {
+  loader: "equalizer",
+};
+
+export const RingedCircle = Template.bind({});
+RingedCircle.args = {
+  loader: "ringed-circle",
+};
 
 export const FullPage = Template.bind({});
 FullPage.args = {

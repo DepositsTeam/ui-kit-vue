@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.383",
+  "version": "0.0.393",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -40,6 +40,7 @@
     "@tiptap/starter-kit": "^2.0.0-beta.185",
     "@tiptap/vue-3": "^2.0.0-beta.91",
     "card-validator": "^8.1.1",
+    "copy-to-clipboard": "^3.3.3",
     "export-to-csv": "^0.2.1",
     "libphonenumber-js": "^1.10.21",
     "moment": "^2.29.4",
@@ -47,7 +48,8 @@
     "tinycolor2": "^1.6.0",
     "vue": "^3.2.47",
     "vue-datepicker-next": "^1.0.2",
-    "vue-draggable-next": "^2.1.1"
+    "vue-draggable-next": "^2.1.1",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

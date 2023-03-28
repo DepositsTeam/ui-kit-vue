@@ -50,6 +50,9 @@ export default {
     isStrongPassword: {
       control: { type: "boolean" },
     },
+    copyMode: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -356,4 +359,19 @@ export const DefaultSSNTemplate = (args) => ({
 export const DefaultSSN = DefaultSSNTemplate.bind({});
 DefaultSSN.args = {
   percentage: true,
+};
+
+const PredefinedTemplate = (args) => ({
+  components: { DTextfield },
+  data: () => ({
+    value: "Something worthy of copying",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<d-textfield v-model="value" v-bind="args" />`,
+});
+export const CopyMode = PredefinedTemplate.bind({});
+CopyMode.args = {
+  copyMode: true,
 };

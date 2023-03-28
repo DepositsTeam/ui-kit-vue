@@ -218,8 +218,7 @@ const CustomIndicatorTemplate = (args) => ({
     return { args };
   },
   template: `<d-stepper v-bind="args">
-  <template #step-indicator="data">
-  </template>
+  
   </d-stepper>`,
 });
 

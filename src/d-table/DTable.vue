@@ -238,7 +238,7 @@
                 <slot
                   v-if="$slots[`item.${column.dataSelector}`]"
                   :name="`item.${column.dataSelector}`"
-                  v-bind="datum"
+                  v-bind="transformDataWithColumnPipe(datum)"
                 ></slot>
                 <d-text
                   font-face="circularSTD"
@@ -246,7 +246,7 @@
                   my0
                   class="ui-table__body-cell-text"
                 >
-                  {{ datum[column.dataSelector] }}
+                  {{ transformDataWithColumnPipe(datum)[column.dataSelector] }}
                 </d-text>
               </d-box>
               <d-box
@@ -377,6 +377,21 @@ const columnHashmap = computed(() => {
   return hashMap;
 });
 
+const transformDataWithColumnPipe = (datum) => {
+  return Object.keys(datum).reduce((previousValue, key) => {
+    if (
+      columnHashmap.value[key] &&
+      columnHashmap.value[key].pipe &&
+      typeof columnHashmap.value[key].pipe === "function"
+    ) {
+      previousValue[key] = columnHashmap.value[key].pipe(datum[key]);
+    } else {
+      previousValue[key] = datum[key];
+    }
+    return previousValue;
+  }, {});
+};
+
 const emitRowClickedEvent = (e, datum, index) => {
   if (props.expandMode) {
     if (!isExpanded.value) {
@@ -390,7 +405,6 @@ const emitRowClickedEvent = (e, datum, index) => {
           }
           return column;
         } else {
-          console.log(props.expandedColumns, column.dataSelector);
           column.visible = props.expandedColumns.includes(column.dataSelector);
           return column;
         }

@@ -3,7 +3,7 @@ const path = require("path");
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import bundleScss from 'rollup-plugin-bundle-scss';
+import bundleScss from "rollup-plugin-bundle-scss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +14,7 @@ export default defineConfig({
       fileName: (format) => `deposits-vue-ui-kit.${format}.js`,
     },
     rollupOptions: {
-      external: ["vue"],
+      external: ["vue", "vue-router"],
       output: {
         // Provide global variables to use in the UMD build
         // Add external deps here
@@ -24,7 +24,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), bundleScss({ exclusive: false }),],
+  plugins: [vue(), bundleScss({ exclusive: false })],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
