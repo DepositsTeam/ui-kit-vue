@@ -63,7 +63,6 @@
           >
             {{ description }}
           </d-text>
-          <slot name="button"></slot>
           <d-box v-if="button" margin-top="16px">
             <d-button v-bind="{ ...button }" @click="emitClick" size="small">{{
               button.text

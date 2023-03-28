@@ -23,6 +23,7 @@ export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePicker
 export { default as DGridLayout } from "./d-grid-layout/DGridLayout.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
 export { default as DLoader } from "./d-loader/DLoader.vue";
+export { default as DMenu } from "./d-menu/DMenu.vue";
 export { default as DModal } from "./d-modal/DModal.vue";
 export { default as DPagination } from "./d-pagination/DPagination.vue";
 export { default as DPhoneInput } from "./d-phone-input/DPhoneInput.vue";

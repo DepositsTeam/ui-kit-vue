@@ -2,6 +2,7 @@ import { inject } from "vue";
 
 export const useToast = () => {
   const showToast = inject("d__pushToast");
+  const injectedClearToasts = inject("d__clearToasts");
 
   const pushToast = (toast) => {
     if (showToast && typeof showToast === "function") {
@@ -13,5 +14,9 @@ export const useToast = () => {
     }
   };
 
-  return { pushToast };
+  const clearToasts = () => {
+    return injectedClearToasts();
+  };
+
+  return { pushToast, clearToasts };
 };

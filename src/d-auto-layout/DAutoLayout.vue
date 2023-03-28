@@ -12,6 +12,7 @@
       between,
       around,
       evenly,
+      full__width__items: fullWidthItems,
     }"
     :style="{ '--spacing-value': itemSpacing }"
   >
@@ -66,6 +67,9 @@ const props = defineProps({
     type: Boolean,
   },
   evenly: {
+    type: Boolean,
+  },
+  fullWidthItems: {
     type: Boolean,
   },
 });
@@ -166,6 +170,9 @@ onUnmounted(() => {
   }
   &.direction__vertical {
     flex-direction: column;
+    &.full__width__items > * {
+      width: 100%;
+    }
     & > *:not(:last-child) {
       margin-bottom: var(--spacing-value);
     }

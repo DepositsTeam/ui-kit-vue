@@ -35,6 +35,25 @@ export default {
     smartHoverColor: {
       control: { type: "color" },
     },
+    loaderType: {
+      control: { type: "select" },
+      options: ["text", "ring", "equalizer", "ringed-circle"],
+      table: {
+        defaultValue: "text",
+      },
+    },
+    pill: {
+      control: { type: "boolean" },
+    },
+    loading: {
+      control: { type: "boolean" },
+    },
+    loadingText: {
+      control: { type: "text" },
+      table: {
+        defaultValue: "Loading",
+      },
+    },
   },
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
 };
@@ -107,6 +126,30 @@ PrimaryLoading.args = {
   loading: true,
 };
 PrimaryLoading.storyName = "Loading";
+
+export const PrimaryRingLoader = Template.bind({});
+PrimaryRingLoader.args = {
+  children: "Primary ring loader",
+  colorScheme: "primary",
+  loading: true,
+  loaderType: "ring",
+};
+
+export const PrimaryEqualizerLoader = Template.bind({});
+PrimaryEqualizerLoader.args = {
+  children: "Primary ring loader",
+  colorScheme: "primary",
+  loading: true,
+  loaderType: "equalizer",
+};
+
+export const PrimaryRingedCircleLoader = Template.bind({});
+PrimaryRingedCircleLoader.args = {
+  children: "Primary ring loader",
+  colorScheme: "primary",
+  loading: true,
+  loaderType: "ringed-circle",
+};
 
 export const DarkPrimaryLoading = DarkModeTemplateFactory();
 DarkPrimaryLoading.args = {
