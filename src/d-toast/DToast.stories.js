@@ -1,5 +1,5 @@
 import DToast from "./DToast.vue";
-import { DButton, ToastProvider, DarkModeProvider } from "../main";
+import { DButton, ToastProvider, DarkModeProvider, useToast } from "../main";
 
 export default {
   title: "Toast",
@@ -20,23 +20,28 @@ export default {
 
 const Template = (args) => ({
   components: { DToast, DButton },
-  inject: ["d__pushToast"],
+  inject: ["d__pushToast", "d__clearToasts"],
   data: () => ({
     count: 1,
   }),
   setup() {
-    return { args };
+    const { pushToast, clearToasts } = useToast();
+    return { args, pushToast, clearToasts };
   },
   methods: {
-    pushToast() {
+    pushToastFunction() {
       const differentArgs = { ...args };
       differentArgs.message += this.count;
-      this.d__pushToast(differentArgs);
+      this.pushToast(differentArgs);
       this.count += 1;
+    },
+    clearToastsFunction() {
+      this.clearToasts();
     },
   },
   template: `
-    <d-button @click="pushToast">Show Toast</d-button>
+    <d-button @click="pushToastFunction">Show Toast</d-button>
+    <d-button @click="clearToastsFunction">Clear Toasts</d-button>
   `,
 });
 

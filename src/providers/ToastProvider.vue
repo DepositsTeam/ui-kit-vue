@@ -29,7 +29,13 @@ const props = defineProps({
   position: {
     type: String,
     validator: (value) =>
-      ["top-right", "top-left", "top-center", "bottom-left", "bottom-right"].includes(value),
+      [
+        "top-right",
+        "top-left",
+        "top-center",
+        "bottom-left",
+        "bottom-right",
+      ].includes(value),
     default: "top-right",
   },
   bordered: {
@@ -72,6 +78,11 @@ const pushToast = (toast) => {
   }
   toasts.value.push(toast);
 };
+
+const clearToasts = () => {
+  toasts.value = [];
+  clearInterval(interval.value);
+};
 const removeToast = (index) => {
   let holderArray = [...toasts.value];
   holderArray.splice(index, 1);
@@ -83,6 +94,9 @@ const removeToast = (index) => {
 provide("___pushToast", pushToast);
 provide("d__pushToast", pushToast);
 provide("pushToast", pushToast);
+provide("clearToasts", clearToasts);
+provide("d__clearToasts", clearToasts);
+provide("___clearToasts", clearToasts);
 </script>
 
 <style lang="scss" scoped>
