@@ -174,10 +174,15 @@ const handleOptionHover = (option) => {
   font-weight: 500;
   max-width: 320px;
   width: max-content;
+  z-index: 999;
   position: absolute;
   top: 0;
   left: 0;
   border: 0.5px solid #f1f1f1;
+  &.dark_mode {
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
+  }
   &.hidden {
     display: none;
   }
@@ -188,6 +193,9 @@ const handleOptionHover = (option) => {
   &.custom_color {
     color: var(--custom-option-color);
   }
+  &.dark_mode:not(.custom_color) {
+    color: var(--dark-subtle-text-color);
+  }
 }
 .d-context-menu-dropdown-target {
   display: inline-block;
@@ -195,8 +203,17 @@ const handleOptionHover = (option) => {
 .d-context-menu-dropdown-option {
   cursor: pointer;
   padding: 10px 16px;
+  &:first-child {
+    border-radius: 6px 6px 0 0;
+  }
+  &:last-child {
+    border-radius: 0 0 6px 6px;
+  }
   &:hover {
     background: #f7f7f7;
+    &.dark_mode {
+      background: var(--dark-input-border-color);
+    }
   }
 }
 .d-context-menu-dropdown-wrapper {
