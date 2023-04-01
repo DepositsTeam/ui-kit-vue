@@ -1,8 +1,20 @@
 <script>
-import { h, inject, computed, onMounted, unref } from "vue";
+import {
+  h,
+  inject,
+  computed,
+  onMounted,
+  unref,
+  ref,
+  onBeforeMount,
+  watch,
+} from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
-import { defaultThemeVars } from "../providers/default-theme";
+import {
+  defaultThemeVars,
+  insertThemeToPage,
+} from "../providers/default-theme";
 import convertObjToVars from "../utils/convertObjToVars";
 
 const unitizeValue = (value) =>
@@ -67,6 +79,8 @@ export default {
     const darkMode = inject("d__darkMode", null);
     const d__theme = inject("d__theme", defaultThemeVars);
     const defaultFontFace = inject("defaultFontFace", null);
+
+    onBeforeMount(() => {});
     const computedFontFace = computed(() => {
       return props.fontFace
         ? props.fontFace
@@ -133,8 +147,8 @@ export default {
       () => darkMode !== null && darkMode !== undefined && darkMode.value
     );
 
-    const uniqueID = "auto_generated" + uniqueRandomString(20);
-    const uniqueClass = "auto_generated" + uniqueRandomString(20);
+    const uniqueID = ref("auto_generated" + uniqueRandomString(20));
+    const uniqueClass = ref("auto_generated" + uniqueRandomString(20));
 
     const convertCssProps = (str) =>
       str
@@ -179,14 +193,7 @@ export default {
         "style#specialRootStyle"
       );
       if (!specialRootStyle) {
-        let newSpecialRootStyle = document.createElement("style");
-        newSpecialRootStyle.id = "specialRootStyle";
-        newSpecialRootStyle.setAttribute("type", "text/css");
-        const style = Object.entries(unref(d__theme))
-          .map(([k, v]) => `${k.startsWith("--") ? k : `--${k}`}: ${v}`)
-          .join(";");
-        newSpecialRootStyle.innerHTML = `:root{${style}}`;
-        document.head.appendChild(newSpecialRootStyle);
+        insertThemeToPage(unref(d__theme));
       }
       const savedCss = {};
       for (let prop in props) {
@@ -222,17 +229,33 @@ export default {
       if (savedCssEntries.length) {
         cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
       }
-
-      const styleTag = document.createElement("style");
-      styleTag.id = uniqueID;
-      styleTag.setAttribute("type", "text/css");
-      styleTag.innerHTML = `.${uniqueClass}{${cssRules}} .${uniqueClass}_theming_styles{${themingEngineRules}}`;
-      document.head.appendChild(styleTag);
+      const existingTag = document.head.querySelector(
+        `style#${uniqueID.value}`
+      );
+      let styleTag;
+      if (existingTag) {
+        styleTag = existingTag;
+        styleTag.innerHTML = "";
+      } else {
+        styleTag = document.createElement("style");
+        styleTag.id = uniqueID.value;
+        styleTag.setAttribute("type", "text/css");
+      }
+      styleTag.innerHTML = `.${uniqueClass.value}{${cssRules}} .${uniqueClass.value}_theming_styles{${themingEngineRules}}`;
+      if (!existingTag) {
+        document.head.appendChild(styleTag);
+      }
     };
 
     onMounted(() => {
       generateClassProps();
     });
+
+    // TODO: Find a more efficient way to only watch the CSS props in the next watcher
+
+    watch(props, generateClassProps);
+
+    watch(d__theme, generateClassProps);
 
     return () =>
       h(
@@ -286,14 +309,14 @@ export default {
           onPaste: function (e) {
             emit("paste", e);
           },
-          id: props.id ? props.id : uniqueID,
+          id: props.id ? props.id : uniqueID.value,
           ...(computedType.value ? { type: computedType.value } : {}),
           ...(computedValue.value ? { value: computedValue.value } : {}),
           ...(props.disabled !== null ? { disabled: props.disabled } : {}),
           class: {
             // [styleClasses.value[uniqueClass]]: true,
-            [uniqueClass]: true,
-            [`${uniqueClass}_theming_styles`]: true,
+            [uniqueClass.value]: true,
+            [`${uniqueClass.value}_theming_styles`]: true,
             [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
             [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
             [computedFontFace.value]:

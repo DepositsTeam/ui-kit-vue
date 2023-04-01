@@ -125,7 +125,6 @@ const countryCode = computed({
 
 const number = computed({
   get() {
-    console.log("I got here to update phone number", props.phoneNumber);
     if (props.phoneNumber) {
       if (props.isUs) {
         const asYouType = new AsYouType({
@@ -155,10 +154,6 @@ const number = computed({
     }
   },
   set(value) {
-    // console.log(
-    //   new AsYouType({ defaultCountry: countryCodes[this.countryCode][0] }).input(value)
-    // );
-    console.log("I got here to update phone number", value);
     emit("update:phoneNumber", value);
   },
 });

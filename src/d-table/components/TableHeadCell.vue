@@ -96,7 +96,7 @@ const toggleSelection = async (e) => {
 provide("toggleSelection", toggleSelection);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ui-table__heading-cell {
   &.isExpandMode {
     .ui-table__heading-cell-text {

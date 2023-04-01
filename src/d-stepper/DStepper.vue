@@ -71,11 +71,8 @@
 <script setup>
 import { DBox, DText, CheckOutlineIcon } from "../main";
 import tinycolor from "tinycolor2";
-import { onBeforeMount, onMounted, useSlots } from "vue";
 
-const slots = useSlots();
-
-const props = defineProps({
+defineProps({
   steps: {
     type: Array,
   },
@@ -107,14 +104,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-});
-
-onMounted(() => {
-  console.log(slots);
-});
-
-onBeforeMount(() => {
-  console.log(props.steps);
 });
 </script>
 

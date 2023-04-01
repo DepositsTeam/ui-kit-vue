@@ -9,7 +9,7 @@ import {
   generateColorSpectrum,
 } from "../utils/colorManager";
 import convertObjToVars from "../utils/convertObjToVars";
-import defaultTheme from "./default-theme";
+import defaultTheme, { insertThemeToPage } from "./default-theme";
 import tinycolor from "tinycolor2";
 
 const props = defineProps({
@@ -42,8 +42,12 @@ const hydrateTheme = () => {
     initialTheme = { ...defaultTheme, ...props.initialTheme };
   }
   const computedTheme = { ...initialTheme, ...theme.value };
-  const primaryColor =
-    computedTheme.primaryColor || computedTheme["primary-color"];
+  let primaryColor;
+  if (computedTheme.primaryColor) {
+    primaryColor = computedTheme.primaryColor;
+  } else {
+    primaryColor = computedTheme["primary-color"];
+  }
 
   if (primaryColor) {
     computedTheme["light-primary-action-color"] = primaryColor;
@@ -219,12 +223,9 @@ const hydrateTheme = () => {
     defaultFontFace.value = null;
   }
 
-  console.log(computedTheme);
-
   if (computedTheme["default-input-size"]) {
     defaultInputSize.value = computedTheme["default-input-size"];
   } else if (computedTheme.defaultInputSize) {
-    console.log("I got here");
     defaultInputSize.value = computedTheme.defaultInputSize;
   } else {
     defaultInputSize.value = "huge";
@@ -266,6 +267,8 @@ const hydrateTheme = () => {
       "--dark-warning-"
     ),
   };
+
+  insertThemeToPage(themeVars.value);
 };
 
 provide("___updateTheme", updateTheme);

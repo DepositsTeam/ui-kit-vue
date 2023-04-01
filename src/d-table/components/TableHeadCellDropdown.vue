@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ui-table__heading-cell__dropdown {
   background: #ffffff;
   border: 1px solid #e1e7ec;
