@@ -13,10 +13,15 @@ const Template = (args) => ({
     DButton,
   },
   data: () => ({}),
+  methods: {
+    consoleOption: function (option) {
+
+    },
+  },
   setup() {
     return { args };
   },
-  template: `<d-menu v-bind="args" >
+  template: `<d-menu v-bind="args" @option-clicked="(option) => consoleOption(option, item)">
   <d-button>...</d-button>
   </d-menu>`,
 });
@@ -63,10 +68,13 @@ HoverTrigger.args = {
   options: [
     {
       text: "Edit",
+      onClick: (option) => alert("I clicked " + option.text),
     },
     {
       text: "Delete",
       textColor: "#D62F4B",
+      onHover: (option) =>
+        alert("I hovered an option with color " + option.textColor),
     },
     {
       text: "Create",

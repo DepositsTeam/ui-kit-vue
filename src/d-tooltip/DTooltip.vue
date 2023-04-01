@@ -1,16 +1,16 @@
 <template>
   <d-box
-    class="ui-tooltip-wrapper"
+    class="d-ui-tooltip-wrapper"
     @click="handleClick"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <d-box ref="targetRef" class="ui-tooltip-target">
+    <d-box ref="targetRef" class="d-ui-tooltip-target">
       <slot></slot>
     </d-box>
-    <d-box ref="tooltipRef" class="ui-tooltip" :class="{ hidden }">
+    <d-box ref="tooltipRef" class="d-ui-tooltip" :class="{ hidden }">
       {{ tooltip }}
-      <d-box class="ui-tooltip__arrow" ref="arrowRef"></d-box>
+      <d-box class="d-ui-tooltip__arrow" ref="arrowRef"></d-box>
     </d-box>
   </d-box>
 </template>
@@ -75,13 +75,13 @@ const updateTooltip = () => {
 };
 
 const removeOnClickOutside = (e) => {
-  if (!e.target.closest(".ui-tooltip-wrapper") && props.trigger === "click") {
+  if (!e.target.closest(".d-ui-tooltip-wrapper") && props.trigger === "click") {
     hidden.value = true;
   }
 };
 
 const handleClick = (e) => {
-  if (e.target.closest(".ui-tooltip-wrapper")) {
+  if (e.target.closest(".d-ui-tooltip-wrapper")) {
     if (hidden.value && props.trigger === "click") {
       hidden.value = false;
       updateTooltip();
@@ -118,7 +118,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-.ui-tooltip {
+.d-ui-tooltip {
   background: #222;
   color: white;
   padding: 5px;
@@ -135,10 +135,10 @@ onUnmounted(() => {
     display: none;
   }
 }
-.ui-tooltip-target {
+.d-ui-tooltip-target {
   display: inline-block;
 }
-.ui-tooltip__arrow {
+.d-ui-tooltip__arrow {
   position: absolute;
   background: #222;
   width: 8px;

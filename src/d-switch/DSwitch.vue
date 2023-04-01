@@ -124,10 +124,6 @@ const handleChange = (e) => {
     return;
   }
   let currentlyChecked = e.target.checked;
-  // var getClassOf = Function.prototype.call.bind(Object.prototype.toString);
-  // console.log(getClassOf(this.modelValue));
-  // console.log("Type is", typeof this.modelValue);
-  // console.log("object is", this.modelValue);
   if (props.values.length) {
     let newValue = [...props.modelValue];
     // TODO to look for the most efficient way to do this!!!!!! Saving space and time

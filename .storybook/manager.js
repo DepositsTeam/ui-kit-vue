@@ -8,7 +8,6 @@ addons.setConfig({
 
 if (window.location.hostname !== "localhost") {
   const iconsSidebar = document.getElementById("icons");
-  console.log(iconsSidebar);
 
   // iconsSidebar.classList.add("hidden");
 }
