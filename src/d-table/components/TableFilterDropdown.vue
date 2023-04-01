@@ -185,7 +185,7 @@ const selectedFilterValue = computed({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ui-table__filters {
   background: #ffffff;
   border: 1px solid #e1e7ec;

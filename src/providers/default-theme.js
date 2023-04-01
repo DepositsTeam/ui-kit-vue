@@ -1,5 +1,6 @@
 import convertObjToVars from "../utils/convertObjToVars";
 import { getTextColor, hexToRgbA } from "../utils/colorManager";
+import { unref } from "vue";
 
 const defaultTheme = {
   "light-primary-action-color": "#0db9e9",
@@ -143,7 +144,29 @@ const defaultTheme = {
   "dark-background-700": "#0e141c",
   "dark-background-800": "#0a0d13",
   "dark-background-900": "#070a0c",
+};
 
+export const insertThemeToPage = (themeObject) => {
+  const specialRootStyle = document.head.querySelector(
+    "style#specialRootStyle"
+  );
+  let newSpecialRootStyle;
+  if (!specialRootStyle) {
+    newSpecialRootStyle = document.createElement("style");
+    newSpecialRootStyle.id = "specialRootStyle";
+    newSpecialRootStyle.setAttribute("type", "text/css");
+  } else {
+    newSpecialRootStyle = specialRootStyle;
+    newSpecialRootStyle.innerHTML = "";
+  }
+
+  const style = Object.entries(themeObject)
+    .map(([k, v]) => `${k.startsWith("--") ? k : `--${k}`}: ${v}`)
+    .join(";");
+  newSpecialRootStyle.innerHTML = `:root{${style}}`;
+  if (!specialRootStyle) {
+    document.head.appendChild(newSpecialRootStyle);
+  }
 };
 
 export const defaultThemeVars = {

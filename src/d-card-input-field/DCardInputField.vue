@@ -396,7 +396,6 @@ const handleCardNoInput = (e) => {
 const validateCardNo = (cardNo) => {
   cardNoError.value = null;
   const validatedCardNo = cardValidator.number(cardNo.replaceAll(" ", ""));
-  console.log(validatedCardNo);
   if (validatedCardNo && validatedCardNo.card) {
     cardNoInput.value.$el.setAttribute(
       "maxlength",

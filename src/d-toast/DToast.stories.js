@@ -126,20 +126,20 @@ export const DefaultDark = DarkToastWrapper();
 DefaultDark.args = {
   colorScheme: "info",
   message: "I am a tooltip no ",
-  autoClose: 3,
+  timeout: 3,
 };
 
 export const ToastWithDescriptionDark = DarkToastWrapper();
 ToastWithDescriptionDark.args = {
   colorScheme: "info",
   message: "I am a tooltip no ",
-  autoClose: 3,
+  timeout: 3,
   description: "I am a random one with a description",
 };
 
 export const ToastWithOnlyDescriptionDark = DarkToastWrapper();
 ToastWithOnlyDescriptionDark.args = {
   colorScheme: "success",
-  autoClose: 3,
+  timeout: 3,
   description: "I am a random one with a description",
 };

@@ -307,7 +307,6 @@ onMounted(() => {
   if (selectedOptions.value) {
     emitSelectedOptions(selectedOptions.value);
   }
-  console.log(selectedOptions.value);
 });
 
 onUnmounted(() => {
