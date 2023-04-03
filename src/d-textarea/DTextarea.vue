@@ -2,6 +2,7 @@
   <d-box
     class="ui-text-field__wrapper ui-text-area__wrapper"
     :class="[`size__${computedInputSize}`]"
+    :width="width"
   >
     <slot name="label">
       <d-box is="label" class="ui-text-area__label">
@@ -77,7 +78,6 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: "100%",
   },
 });
 

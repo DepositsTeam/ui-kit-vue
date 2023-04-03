@@ -49,6 +49,18 @@ const hydrateTheme = () => {
     primaryColor = computedTheme["primary-color"];
   }
 
+  let backgroundColor;
+  if (computedTheme.backgroundColor) {
+    backgroundColor = computedTheme.backgroundColor;
+  } else {
+    backgroundColor = computedTheme["background-color"];
+  }
+
+  if (backgroundColor) {
+    computedTheme["light-background-color"] = backgroundColor;
+    computedTheme["dark-background-color"] = backgroundColor;
+  }
+
   if (primaryColor) {
     computedTheme["light-primary-action-color"] = primaryColor;
     computedTheme["dark-primary-action-color"] = primaryColor;
