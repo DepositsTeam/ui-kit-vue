@@ -115,3 +115,10 @@ ErrorDark.args = {
   placeholder: "Input placeholder",
   errorMessage: "Error message",
 };
+
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+  label: "Form label",
+  placeholder: "Input placeholder",
+  width: "100%",
+};
