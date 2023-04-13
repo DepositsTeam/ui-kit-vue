@@ -47,13 +47,14 @@
 </template>
 
 <script setup>
-import { DBox, DText } from "../../main";
 import {
+  DBox,
+  DText,
   SortAscendingIcon,
   SortDescendingIcon,
   FunnelIcon,
   ChevronFilledRightIcon,
-} from "../../icons";
+} from "../../main";
 import { ref, onBeforeUnmount, onMounted, nextTick, inject } from "vue";
 import TableFilterDropdown from "./TableFilterDropdown.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
