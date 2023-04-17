@@ -25,6 +25,7 @@
         :key="option.uuid"
         @click="handleOptionClick(option)"
         @mouseenter="handleOptionHover(option)"
+        :class="{ disabled: option.disabled }"
       >
         <d-text
           my0
@@ -145,23 +146,27 @@ onUnmounted(() => {
 });
 
 const handleOptionClick = (option) => {
-  if (option.to) {
-    router.push(option.to);
-  } else if (option.href) {
-    window.open(option.href, "_blank");
-  } else {
-    if (option.onClick && typeof option.onClick === "function") {
-      option.onClick(option.originalOption);
+  if (!option.disabled) {
+    if (option.to) {
+      router.push(option.to);
+    } else if (option.href) {
+      window.open(option.href, "_blank");
+    } else {
+      if (option.onClick && typeof option.onClick === "function") {
+        option.onClick(option.originalOption);
+      }
     }
-  }
 
-  emit("option-clicked", option.originalOption);
-  hidden.value = true;
+    emit("option-clicked", option.originalOption);
+    hidden.value = true;
+  }
 };
 
 const handleOptionHover = (option) => {
-  if (option.onHover && typeof option.onHover === "function") {
-    option.onHover(option.originalOption);
+  if (!option.disabled) {
+    if (option.onHover && typeof option.onHover === "function") {
+      option.onHover(option.originalOption);
+    }
   }
 };
 </script>
@@ -202,6 +207,10 @@ const handleOptionHover = (option) => {
 }
 .d-context-menu-dropdown-option {
   cursor: pointer;
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
   padding: 10px 16px;
   &:first-child {
     border-radius: 6px 6px 0 0;

@@ -47,6 +47,7 @@
           [inputClass]: true,
           pill,
         }"
+        font-face="circularSTD"
         ref="inputField"
         :max="max"
         :min="min"

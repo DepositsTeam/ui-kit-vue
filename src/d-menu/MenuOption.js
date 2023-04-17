@@ -7,6 +7,7 @@ export default class MenuOption {
       this.uuid = uniqueRandomString(30, 8);
       this.fontFace = "circularSTD";
       this.originalOption = option;
+      this.disabled = false;
     } else {
       const originalOption = { ...option };
       const {
@@ -19,6 +20,7 @@ export default class MenuOption {
         onClick = undefined,
         onHover = undefined,
         fontFace = "circularSTD",
+        disabled = false,
         ...otherArgs
       } = option;
       this.leftIcon = leftIcon;
@@ -31,6 +33,7 @@ export default class MenuOption {
       this.className = className;
       this.onClick = onClick;
       this.onHover = onHover;
+      this.disabled = disabled;
       this.uuid = uniqueRandomString(30, 8);
       this.originalOption = originalOption;
     }

@@ -6,6 +6,7 @@
       [`size__${size}`]: !customSize,
       sizeCustom: customSize,
       smartColor,
+      noWrap,
     }"
     class="ui-badge"
     :style="{
@@ -55,6 +56,9 @@ defineProps({
   smartColor: {
     type: String,
   },
+  noWrap: {
+    type: Boolean,
+  },
 });
 </script>
 
@@ -66,6 +70,14 @@ defineProps({
   align-items: center;
   justify-content: center;
   color: white;
+  &.noWrap {
+    white-space: nowrap;
+    word-break: keep-all;
+    .ui-badge__text {
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+  }
   &.dark_mode {
     color: #121a26;
   }

@@ -9,6 +9,7 @@
       smartColor,
       smartHoverColor,
       pill,
+      noWrap,
     }"
     :font-face="fontFace"
     :is="typeof is === 'string' ? is.toLowerCase() : is"
@@ -168,6 +169,9 @@ const props = defineProps({
   pill: {
     type: Boolean,
   },
+  noWrap: {
+    type: Boolean,
+  },
   // TODO - Add a property to break/wrap words/text.
 });
 
@@ -199,6 +203,15 @@ const smartCalculatedHoverColor = computed(() =>
   align-items: center;
   text-align: center;
   justify-content: center;
+  &.noWrap {
+    white-space: nowrap;
+    word-break: keep-all;
+    .ui-button__button-text,
+    .ui-button__button-text * {
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+  }
   &.pill {
     border-radius: 900px;
   }
