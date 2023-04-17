@@ -452,6 +452,7 @@ const smartCalculatedHoverColor = computed(() =>
       &.state__disabled {
         //background: var(--dark-success-800);
         opacity: 0.5;
+        cursor: not-allowed;
       }
     }
 
