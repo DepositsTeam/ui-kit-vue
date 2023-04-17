@@ -7,9 +7,10 @@
     <d-box
       v-for="(tab, index) in tabs"
       :key="`tab_${index}_${keyGen()}`"
-      :is="is ? is : tab.is ? tab.is : `a`"
+      :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
       v-bind="{ ...generateSpacing(index), ...$props }"
       class="ui-tab"
+      :to="tab.to"
       :class="{
         active: internalActive === index,
         disabled: typeof tab === 'object' && tab.disabled,
@@ -34,6 +35,7 @@
 import { DBox, DText, DAutoLayout } from "../main";
 import keyGen from "../utils/keyGen";
 import { onMounted, ref, watch } from "vue";
+import { RouterLink } from "vue-router";
 
 const props = defineProps({
   tabs: {

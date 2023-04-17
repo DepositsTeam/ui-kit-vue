@@ -14,9 +14,7 @@ const Template = (args) => ({
   },
   data: () => ({}),
   methods: {
-    consoleOption: function (option) {
-
-    },
+    consoleOption: function (option) {},
   },
   setup() {
     return { args };
@@ -58,6 +56,27 @@ CustomOptionColor.args = {
     },
     {
       text: "Create",
+    },
+  ],
+};
+
+export const DisabledOption = Template.bind({});
+DisabledOption.args = {
+  options: [
+    {
+      text: "Edit",
+      onClick: (option) => alert("I clicked " + option.text),
+    },
+    {
+      text: "Delete",
+      textColor: "#D62F4B",
+      onHover: (option) =>
+        alert("I hovered an option with color " + option.textColor),
+      disabled: true,
+    },
+    {
+      text: "Create",
+      disabled: true,
     },
   ],
 };
