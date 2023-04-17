@@ -1,5 +1,5 @@
 import DStepper from "./DStepper.vue";
-import { DarkModeProvider, DBox } from "../main";
+import { DarkModeProvider, DBox, DText, DBadge } from "../main";
 
 export default {
   component: DStepper,
@@ -239,4 +239,33 @@ CustomIndicator.args = {
     },
   ],
   currentStep: 1,
+};
+
+const CustomSlotStepperTemplate = (args) => ({
+  components: { DStepper, DText, DBadge },
+  setup() {
+    return { args };
+  },
+  template: `<d-stepper v-bind="args">
+  <template v-slot:step="item">
+  <d-text>{{item.arandomfieldhere}}</d-text>
+  </template>
+  
+  </d-stepper>`,
+});
+
+export const CustomSlotStepper = CustomSlotStepperTemplate.bind({});
+
+CustomSlotStepper.args = {
+  steps: [
+    {
+      text: "Complete basic KYB",
+    },
+    {
+      text: "Different text",
+    },
+    {
+      text: "yet different text",
+    },
+  ],
 };
