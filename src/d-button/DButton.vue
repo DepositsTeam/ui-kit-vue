@@ -110,6 +110,7 @@ const props = defineProps({
   },
   fontFace: {
     type: String,
+    default: "heroNew",
   },
   colorScheme: {
     type: String,
