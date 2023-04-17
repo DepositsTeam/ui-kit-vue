@@ -106,7 +106,7 @@ const props = defineProps({
 const computedFontFace = computed(() => {
   return props.fontFace || unref(defaultFontFace)
     ? unref(defaultFontFace)
-    : "heroNew";
+    : "circularSTD";
 });
 </script>
 

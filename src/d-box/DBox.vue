@@ -86,7 +86,7 @@ export default {
         ? props.fontFace
         : unref(defaultFontFace)
         ? unref(defaultFontFace)
-        : "heroNew";
+        : "circularSTD";
     });
     const forwardableInputTypes = [
       "text",

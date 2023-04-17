@@ -47,7 +47,6 @@
           [inputClass]: true,
           pill,
         }"
-        font-face="circularSTD"
         ref="inputField"
         :max="max"
         :min="min"
@@ -220,7 +219,7 @@ const defaultFontFace = inject("defaultFontFace", null);
 const computedFontFace = computed(() => {
   return props.fontFace || unref(defaultFontFace)
     ? unref(defaultFontFace)
-    : "heroNew";
+    : "circularSTD";
 });
 
 const { computedMargin, computedWidth } = useWrapperProps(props);
