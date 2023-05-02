@@ -7,7 +7,7 @@
     }"
   >
     <d-box class="ui-table__container" :class="{ expandMode, isExpanded }">
-      <d-box class="ui-table__header">
+      <d-box class="ui-table__header custom-scroll-bar">
         <d-auto-layout
           v-if="$slots['table-header-left'] || search"
           class="ui-table__header__search-wrapper"
@@ -17,6 +17,7 @@
         >
           <slot name="table-search" v-if="!expandMode">
             <d-textfield
+              v-if="search"
               :left-icon="SearchIcon"
               :placeholder="searchPlaceholder"
               v-model="searchValue"
@@ -28,7 +29,10 @@
         <d-box
           class="ui-table__header-btns"
           :class="{
-            [buttonActionsAlignment]: search ? false : buttonActionsAlignment,
+            [buttonActionsAlignment]:
+              search || $slots['table-header-left']
+                ? false
+                : buttonActionsAlignment,
           }"
         >
           <slot name="table-header-right"></slot>
@@ -607,6 +611,7 @@ const buttonActionsEnabled = computed(
 .ui-table__container-wrapper {
   display: flex;
   align-items: flex-start;
+  width: 100%;
   .ui-table__card {
     min-width: 390px;
     width: max-content;
@@ -624,6 +629,8 @@ const buttonActionsEnabled = computed(
   }
   .ui-table__container {
     flex: 1;
+    overflow: auto;
+
     &.expandMode {
       background: #fff;
       border-right: 0.5px solid #e2e8f0;
@@ -684,8 +691,12 @@ const buttonActionsEnabled = computed(
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
+      gap: 16px;
+      overflow: auto;
+      padding-bottom: 4px;
       .ui-table__header__search-wrapper {
         display: flex;
+        flex: 1;
         &.left,
         &.right {
           flex: 1;
@@ -830,8 +841,38 @@ const buttonActionsEnabled = computed(
       border-radius: 4px;
       width: 100%;
       overflow: auto;
+      scrollbar-color: #929292 #e1e7ec;
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        //box-shadow: inset 0 0 5px grey;
+        background: #e1e7ec;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #929292;
+        border-radius: 10px;
+      }
       &.dark_mode {
         border-color: #202b3c;
+        scrollbar-color: #64748b #202b3c;
+        scrollbar-width: thin;
+        &::-webkit-scrollbar {
+          height: 8px;
+        }
+        &::-webkit-scrollbar-track {
+          //box-shadow: inset 0 0 5px grey;
+          background: #202b3c;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #64748b;
+          border-radius: 10px;
+          transition: 0.8s;
+          &:hover {
+            background: #5b697d;
+          }
+        }
       }
     }
     .ui-table {
