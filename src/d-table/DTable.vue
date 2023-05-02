@@ -237,6 +237,11 @@
                 class="ui-table__body-cell"
                 :style="{
                   ...getColumnWidth(column),
+                  ...(datum?.deposits_row_config?.background
+                    ? {
+                        background: datum.deposits_row_config.background,
+                      }
+                    : {}),
                 }"
               >
                 <slot
