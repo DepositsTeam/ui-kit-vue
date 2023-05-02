@@ -34,7 +34,7 @@ export default {
       control: { type: "boolean" },
     },
     format: {
-      control: { type: "string" },
+      control: { type: "text" },
     },
     formatDate: {
       control: { type: "boolean" },
@@ -53,7 +53,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-date-picker v-model="date" v-bind="args" />`,
+  template: `<d-date-picker v-model="date" v-bind="args" /><p>{{date}}</p>`,
 });
 
 const DarkModeTemplate = (args) => ({
@@ -166,4 +166,31 @@ export const DarkSizeSmall = DarkModeTemplateFactory();
 DarkSizeSmall.args = {
   label: "Form Label",
   size: "small",
+};
+
+export const FormatDateIsTrue = Template.bind({});
+FormatDateIsTrue.args = {
+  label: "Form Label",
+  size: "medium",
+  formatDate: true,
+};
+
+const DefaultValueTemplate = (args) => ({
+  components: {
+    DDatePicker,
+  },
+  data: () => ({
+    date: "05-06-2021",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `<d-date-picker v-model="date"  v-bind="args" /> <p>{{date}}</p>`,
+});
+
+export const FormatDateIsTrueWithDefaultValue = DefaultValueTemplate.bind({});
+FormatDateIsTrueWithDefaultValue.args = {
+  label: "Form Label",
+  size: "medium",
+  formatDate: true,
 };

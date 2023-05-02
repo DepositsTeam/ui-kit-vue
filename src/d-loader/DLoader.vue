@@ -1,6 +1,6 @@
 <template>
   <d-box
-    :class="{ fullPage: false, loading, translucent }"
+    :class="{ fullPage, loading, translucent }"
     class="ui-d-loader"
     :style="{
       '--smart-color': computedColor,
