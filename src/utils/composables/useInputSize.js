@@ -1,7 +1,7 @@
-import { computed, inject, unref } from "vue";
+import { computed, inject, ref, unref } from "vue";
 
 export const useInputSize = (props) => {
-  const defaultInputSize = inject("defaultInputSize");
+  const defaultInputSize = inject("defaultInputSize", ref("huge"));
 
   const computedInputSize = computed(() => {
     const injectedSize = unref(defaultInputSize);

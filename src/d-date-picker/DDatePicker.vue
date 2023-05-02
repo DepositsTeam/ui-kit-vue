@@ -176,6 +176,11 @@ const fire = () => {
   }
 };
 </script>
+<script>
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <style lang="scss">
 @import "../scss/textfield";

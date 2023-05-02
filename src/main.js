@@ -41,7 +41,6 @@ export { default as DTagInput } from "./d-tag-input/DTagInput.vue";
 export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
-export { default as DToast } from "./d-toast/DToast.vue";
 export { default as DTooltip } from "./d-tooltip/DTooltip.vue";
 export { default as DWysiwyg } from "./d-wysiwyg/DWysiwyg.vue";
 export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";

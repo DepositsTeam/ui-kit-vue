@@ -18,7 +18,7 @@ import { computed, inject, unref } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
 
 const d__theme = inject("d__theme", defaultThemeVars);
-const darkMode = inject("d__darkMode");
+const darkMode = inject("d__darkMode", false);
 
 const darkModeIsEnabled = computed(
   () => darkMode !== null && darkMode !== undefined && darkMode.value
