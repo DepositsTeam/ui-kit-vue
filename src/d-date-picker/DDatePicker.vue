@@ -97,7 +97,7 @@ const darkMode = inject("d__darkMode", false);
 
 const date = ref(null);
 
-const emit = defineEmits(["update:modelValue", "blur"]);
+const emit = defineEmits(["update:modelValue", "blur", "change"]);
 
 const props = defineProps({
   ...inputProps,
@@ -124,6 +124,8 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
+    default:
+      "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
   },
   range: {
     type: Boolean,
@@ -134,9 +136,13 @@ const { computedInputSize } = useInputSize(props);
 
 onMounted(() => {
   if (props.modelValue) {
-    date.value = Array.isArray(props.modelValue)
-      ? props.modelValue
-      : moment(props.modelValue, props.format);
+    if (props.formatDate) {
+      date.value = moment(props.modelValue, props.format).toDate();
+    } else {
+      date.value = Array.isArray(props.modelValue)
+        ? props.modelValue
+        : moment(props.modelValue, props.format);
+    }
   }
 });
 
@@ -160,9 +166,14 @@ const handleKeyEvents = (e) => {
 };
 
 const fire = () => {
-  if (props.formatDate && !Array.isArray(date.value))
-    emit("update:modelValue", moment(date.value).format(props.format)).toDate();
-  else emit("update:modelValue", date.value);
+  if (props.formatDate && !Array.isArray(date.value)) {
+    emit("update:modelValue", moment(date.value).format(props.format));
+    emit("change", moment(date.value).format(props.format))
+  }
+  else {
+    emit("update:modelValue", date.value);
+    emit("change", date.value)
+  }
 };
 </script>
 
@@ -173,6 +184,9 @@ const fire = () => {
 <style lang="scss">
 .mx-datepicker svg {
   fill: none;
+}
+.ui-text-field__input-wrapper .mx-datepicker .ui-text-field__input {
+  padding-right: 60px;
 }
 .mx-input-wrapper,
 .mx-datepicker {

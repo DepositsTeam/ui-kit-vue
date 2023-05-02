@@ -53,7 +53,7 @@ defineProps({
       padding: 0 56px;
     }
     @media only screen and (min-width: map.get($responsive-layout-breakpoints, "xxl")) {
-      max-width: calc(1400px - (56px * 2));
+      max-width: calc(1920px - (56px * 2));
       width: 100%;
     }
   }

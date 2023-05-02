@@ -58,30 +58,42 @@ const CustomFontWeightTemplate = ({ fontWeight, ...args }) => ({
 });
 
 export const Body = Template.bind({});
-Body.args = { children: "Body" };
+Body.args = { children: "The quick brown fox jumps over the lazy dog." };
 
 export const Paragraph18 = Template.bind({});
-Paragraph18.args = { children: "Paragraph18", scale: "p-18" };
+Paragraph18.args = {
+  children: "The quick brown fox jumps over the lazy dog.",
+  scale: "p-18",
+};
 
 export const Footnote = Template.bind({});
-Footnote.args = { children: "Footnote", scale: "footnote" };
+Footnote.args = {
+  children: "The quick brown fox jumps over the lazy dog.",
+  scale: "footnote",
+};
 
 export const Overline = Template.bind({});
-Overline.args = { children: "Overline", scale: "overline" };
+Overline.args = {
+  children: "The quick brown fox jumps over the lazy dog.",
+  scale: "overline",
+};
 
 export const FootnoteCaps = Template.bind({});
-FootnoteCaps.args = { children: "Footnote All Caps", scale: "footnote-caps" };
+FootnoteCaps.args = {
+  children: "The quick brown fox jumps over the lazy dog.",
+  scale: "footnote-caps",
+};
 FootnoteCaps.storyName = "Footnote All Caps";
 
 export const CustomFontSize = CustomFontSizeTemplate.bind({});
 CustomFontSize.args = {
-  children: "Customized font size",
+  children: "The quick brown fox jumps over the lazy dog.",
   fontSize: "88px",
 };
 
 export const CustomFontWeight = CustomFontWeightTemplate.bind({});
 CustomFontWeight.args = {
-  children: "Customized font weight",
+  children: "The quick brown fox jumps over the lazy dog.",
   fontWeight: "700",
   scale: "subhead",
 };

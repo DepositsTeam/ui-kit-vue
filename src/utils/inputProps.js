@@ -40,6 +40,7 @@ export default {
   disabled: Boolean,
   labelFontFace: {
     type: String,
+    default: "heroNew",
   },
   autocomplete: {
     type: String,
