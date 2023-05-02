@@ -97,7 +97,7 @@ const darkMode = inject("d__darkMode", false);
 
 const date = ref(null);
 
-const emit = defineEmits(["update:modelValue", "blur"]);
+const emit = defineEmits(["update:modelValue", "blur", "change"]);
 
 const props = defineProps({
   ...inputProps,
@@ -166,9 +166,14 @@ const handleKeyEvents = (e) => {
 };
 
 const fire = () => {
-  if (props.formatDate && !Array.isArray(date.value))
+  if (props.formatDate && !Array.isArray(date.value)) {
     emit("update:modelValue", moment(date.value).format(props.format));
-  else emit("update:modelValue", date.value);
+    emit("change", moment(date.value).format(props.format))
+  }
+  else {
+    emit("update:modelValue", date.value);
+    emit("change", date.value)
+  }
 };
 </script>
 

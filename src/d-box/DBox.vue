@@ -341,6 +341,42 @@ export default {
 @import url("https://assets.ondeposits.com/fonts/css/CircularSTD.css");
 @import url("https://assets.ondeposits.com/fonts/css/HeroNew.css");
 
+.custom-scroll-bar {
+  scrollbar-color: #929292 #e1e7ec;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    //box-shadow: inset 0 0 5px grey;
+    background: #e1e7ec;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #929292;
+    border-radius: 10px;
+  }
+  &.dark_mode {
+    border-color: #202b3c;
+    scrollbar-color: #64748b #202b3c;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      //box-shadow: inset 0 0 5px grey;
+      background: #202b3c;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #64748b;
+      border-radius: 10px;
+      transition: 0.8s;
+      &:hover {
+        background: #5b697d;
+      }
+    }
+  }
+}
+
 .heroNew {
   font-family: "Hero New", sans-serif;
 }

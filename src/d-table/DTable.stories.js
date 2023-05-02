@@ -1,16 +1,13 @@
 import DTable from "./DTable.vue";
 import { DBadge, DSelect } from "../main";
-import {
-  columns,
-  data,
-  paginatedData,
-  customComponentData,
-} from "./data/sitcom-data";
+import { data, paginatedData, customComponentData } from "./data/sitcom-data";
+import { overflowColumns, sitcomColumns } from "./data/columns";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
+import { overflowColumnsData } from "./data/data";
 
 export default {
-  components: { DAutoLayout },
+  components: { DBadge, DAutoLayout },
   title: "Table",
   component: DTable,
   argTypes: {
@@ -105,6 +102,7 @@ const ExtraHeadingsTemplate = (args) => ({
       <template #table-header-left>
           <d-select size="large" placeholder="Last 7 days" width="200px" />
           <d-select size="large" placeholder="By Events" width="200px" />
+        <d-select size="large" placeholder="All environments" width="200px" />
       </template>
     </d-table>
   `,
@@ -112,8 +110,10 @@ const ExtraHeadingsTemplate = (args) => ({
 
 export const ExtraHeadings = ExtraHeadingsTemplate.bind({});
 ExtraHeadings.args = {
-  columns,
+  columns: sitcomColumns,
   data,
+  enableCsvExport: true,
+  enableCustomizeView: true,
 };
 
 const DarkModeTemplate = (args) => ({
@@ -141,20 +141,20 @@ const DarkModeTemplateFactory = () => {
 
 export const Default = Template.bind({});
 Default.args = {
-  columns,
+  columns: sitcomColumns,
   data,
 };
 
 export const DarkModeDefault = DarkModeTemplateFactory();
 DarkModeDefault.args = {
-  columns,
+  columns: sitcomColumns,
   data,
 };
 
 export const ExpandMode = Template.bind({});
 ExpandMode.args = {
   data,
-  columns,
+  columns: sitcomColumns,
   expandMode: true,
   paginate: true,
 };
@@ -162,7 +162,7 @@ ExpandMode.args = {
 export const ExpandModeWithSpecifiedExpandedColumns = Template.bind({});
 ExpandModeWithSpecifiedExpandedColumns.args = {
   data,
-  columns,
+  columns: sitcomColumns,
   expandMode: true,
   expandedColumns: ["name", "city"],
 };
@@ -171,20 +171,20 @@ export const Search = Template.bind({});
 Search.args = {
   search: true,
   data,
-  columns,
+  columns: sitcomColumns,
 };
 
 export const DarkModeSearch = DarkModeTemplateFactory();
 DarkModeSearch.args = {
   search: true,
-  columns,
+  columns: sitcomColumns,
   data,
 };
 
 export const Checkboxes = Template.bind({});
 Checkboxes.args = {
   search: true,
-  columns,
+  columns: sitcomColumns,
   data,
   showCheckboxes: true,
 };
@@ -193,7 +193,7 @@ export const DarkModeCheckboxes = DarkModeTemplateFactory();
 DarkModeCheckboxes.args = {
   search: true,
   showCheckboxes: true,
-  columns,
+  columns: sitcomColumns,
   data,
 };
 
@@ -202,7 +202,7 @@ ButtonActions.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data,
 };
 
@@ -211,7 +211,7 @@ DarkModeButtonActions.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data,
 };
 
@@ -220,7 +220,7 @@ Pagination.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data: paginatedData,
   paginate: true,
 };
@@ -230,7 +230,7 @@ DarkModePagination.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data: paginatedData,
   paginate: true,
 };
@@ -240,7 +240,7 @@ RightPagination.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data: paginatedData,
   paginate: true,
   paginateRight: true,
@@ -251,7 +251,7 @@ DarkModeRightPagination.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data: paginatedData,
   paginate: true,
   paginateRight: true,
@@ -262,7 +262,7 @@ CustomComponent.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data: customComponentData,
   paginate: true,
 };
@@ -272,7 +272,7 @@ DarkModeCustomComponent.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
-  columns,
+  columns: sitcomColumns,
   data: customComponentData,
   paginate: true,
 };
@@ -346,4 +346,42 @@ PipedColumnExampleMultiplyQtyByTwo.args = {
     },
   ],
   data,
+};
+
+const OverflowTableTemplate = (args) => ({
+  components: {
+    DTable,
+    DBadge,
+    DarkModeProvider,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <dark-mode-provider :dark-mode="args.darkMode">
+  <d-table v-bind="args">
+    <template v-slot:item.tags="item">
+      <d-badge v-for="(tag, index) in item.tags" :key="index">
+        {{tag}}
+      </d-badge>
+    </template>
+  </d-table>
+    </dark-mode-provider>
+  `,
+});
+
+export const OverflowTable = OverflowTableTemplate.bind({});
+OverflowTable.args = {
+  columns: overflowColumns,
+  paginate: true,
+  data: overflowColumnsData,
+  darkMode: false,
+};
+
+export const DarkModeOverflowTable = OverflowTableTemplate.bind({});
+DarkModeOverflowTable.args = {
+  columns: overflowColumns,
+  paginate: true,
+  data: overflowColumnsData,
+  darkMode: true,
 };

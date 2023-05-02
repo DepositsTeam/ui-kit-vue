@@ -210,6 +210,10 @@ const props = defineProps({
   onlyNumbers: {
     type: Boolean,
   },
+  currencySymbol: {
+    type: String,
+    default: "$",
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -250,9 +254,11 @@ const initializeModelValue = () => {
   if (!focused.value) {
     if (props.currency) {
       if (!props.modelValue) {
-        inputField.value.$el.value = "$0.00";
+        inputField.value.$el.value = `${props.currencySymbol} 0.00`;
       } else {
-        let value = props.modelValue.replaceAll("$", "").replaceAll(",", ""),
+        let value = props.modelValue
+            .replaceAll(props.currencySymbol, "")
+            .replaceAll(",", ""),
           regex = new RegExp(/^\d*(\.\d{0,2})?$/);
         if (regex.test(value)) {
           if (props.emitOnlyCurrencyValue) {
@@ -260,14 +266,18 @@ const initializeModelValue = () => {
           } else {
             emit(
               "update:modelValue",
-              `$${number_format(
-                parseFloat(value.split(",").join("").replaceAll("$", "")),
+              `${props.currencySymbol} ${number_format(
+                parseFloat(
+                  value.split(",").join("").replaceAll(props.currencySymbol, "")
+                ),
                 2
               )}`
             );
           }
-          inputField.value.$el.value = `$${number_format(
-            parseFloat(value.split(",").join("").replaceAll("$", "")),
+          inputField.value.$el.value = `${props.currencySymbol} ${number_format(
+            parseFloat(
+              value.split(",").join("").replaceAll(props.currencySymbol, "")
+            ),
             2
           )}`;
         }
@@ -401,7 +411,10 @@ const handleInputEvents = (e) => {
           if (props.emitOnlyCurrencyValue) {
             emit(
               "update:modelValue",
-              tested.substr(0, i).replaceAll("$", "").replaceAll(",", "")
+              tested
+                .substr(0, i)
+                .replaceAll(props.currencySymbol, "")
+                .replaceAll(",", "")
             );
           } else {
             emit("update:modelValue", tested.substr(0, i));
@@ -413,7 +426,9 @@ const handleInputEvents = (e) => {
       if (props.emitOnlyCurrencyValue) {
         emit(
           "update:modelValue",
-          e.target.value.replaceAll("$", "").replaceAll(",", "")
+          e.target.value
+            .replaceAll(props.currencySymbol, "")
+            .replaceAll(",", "")
         );
       } else {
         emit("update:modelValue", e.target.value);
@@ -468,7 +483,10 @@ const handleFocusEvent = async (e) => {
     if (props.emitOnlyCurrencyValue) {
       emit(
         "update:modelValue",
-        e.target.value.substring(1).replaceAll("$", "").replaceAll(",", "")
+        e.target.value
+          .substring(1)
+          .replaceAll(props.currencySymbol, "")
+          .replaceAll(",", "")
       );
       await nextTick();
       e.target.select();
@@ -494,13 +512,18 @@ const handleBlurEvent = (e) => {
     if (e.target.value) {
       emit(
         "update:modelValue",
-        `$${number_format(
-          parseFloat(e.target.value.split(",").join("").replaceAll("$", "")),
+        `${props.currencySymbol} ${number_format(
+          parseFloat(
+            e.target.value
+              .split(",")
+              .join("")
+              .replaceAll(props.currencySymbol, "")
+          ),
           2
         )}`
       );
     } else {
-      emit("update:modelValue", "$0.00");
+      emit("update:modelValue", `${props.currencySymbol} 0.00`);
     }
   }
   if (props.percentage) {
