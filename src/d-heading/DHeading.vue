@@ -30,7 +30,7 @@ const defaultFontFace = inject("defaultFontFace", null);
 const props = defineProps({
   is: {
     type: [String, Object],
-    default: "p",
+    default: "h6",
     validator: (value) => {
       if (typeof value !== "object") {
         return ["h1", "h2", "h3", "h4", "h5", "h6"].includes(value);

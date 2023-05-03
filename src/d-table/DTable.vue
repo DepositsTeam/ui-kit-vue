@@ -7,7 +7,7 @@
     }"
   >
     <d-box class="ui-table__container" :class="{ expandMode, isExpanded }">
-      <d-box class="ui-table__header">
+      <d-box class="ui-table__header custom-scroll-bar">
         <d-auto-layout
           v-if="$slots['table-header-left'] || search"
           class="ui-table__header__search-wrapper"
@@ -17,6 +17,7 @@
         >
           <slot name="table-search" v-if="!expandMode">
             <d-textfield
+              v-if="search"
               :left-icon="SearchIcon"
               :placeholder="searchPlaceholder"
               v-model="searchValue"
@@ -28,7 +29,10 @@
         <d-box
           class="ui-table__header-btns"
           :class="{
-            [buttonActionsAlignment]: search ? false : buttonActionsAlignment,
+            [buttonActionsAlignment]:
+              search || $slots['table-header-left']
+                ? false
+                : buttonActionsAlignment,
           }"
         >
           <slot name="table-header-right"></slot>
@@ -166,16 +170,17 @@
         </slot>
       </d-auto-layout>
 
-      <d-box class="ui-table__wrapper">
+      <d-box ref="currentTable" class="ui-table__wrapper">
         <d-box is="table" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
               <d-box
                 is="td"
                 v-if="showCheckboxes"
-                class="ui-table__heading-cell is-checkbox"
+                class="ui-table__heading-cell is-checkbox ui-table__fixed-column"
                 :style="{
                   ...getColumnWidth(null, true),
+                  left: 0,
                 }"
               >
                 <d-checkbox v-model="selectedItems" :values="computedItemsID" />
@@ -191,9 +196,12 @@
                   maxWidth: column.maxWidth,
                   smartColor,
                   isExpandMode: expandMode,
+                  'ui-table__fixed-column': column.fixed,
+                  [`ui-table__column-${column.dataSelector}`]: true,
                 }"
                 :style="{
                   ...getColumnWidth(column),
+                  ...(column.leftOffset ? { left: column.leftOffset } : {}),
                 }"
               >
                 <table-head-cell :column="column" />
@@ -216,9 +224,10 @@
               <d-box
                 is="td"
                 v-if="showCheckboxes"
-                class="ui-table__body-cell is-checkbox"
+                class="ui-table__body-cell is-checkbox ui-table__fixed-column"
                 :style="{
                   ...getColumnWidth(null, true),
+                  left: 0,
                 }"
               >
                 <d-checkbox
@@ -231,8 +240,17 @@
                 v-for="(column, index) in filteredRenderedColumns"
                 :key="`table_column__${index}`"
                 class="ui-table__body-cell"
+                :class="{
+                  'ui-table__fixed-column': column.fixed,
+                }"
                 :style="{
                   ...getColumnWidth(column),
+                  ...(datum?.deposits_row_config?.background
+                    ? {
+                        background: datum.deposits_row_config.background,
+                      }
+                    : {}),
+                  ...(column.leftOffset ? { left: column.leftOffset } : {}),
                 }"
               >
                 <slot
@@ -340,6 +358,7 @@ import {
   provide,
   shallowRef,
   onMounted,
+  watch,
   onUnmounted,
 } from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
@@ -362,6 +381,8 @@ const emit = defineEmits([
   "export",
 ]);
 const isExpanded = ref(false);
+
+const currentTable = ref(null);
 
 const viewportShrunkToMobile = ref(false);
 
@@ -527,10 +548,27 @@ const hideColumnsOnMobile = () => {
   }
 };
 
-onMounted(() => {
+const calculateColumnOffset = () => {
+  let initialOffset = props.showCheckboxes ? 50 : 0;
+  const clonedRenderedColumns = [...renderedColumns.value];
+  renderedColumns.value = clonedRenderedColumns.map((column) => {
+    if (column.fixed) {
+      column.leftOffset = initialOffset + "px";
+      initialOffset += currentTable.value.$el
+        .getElementsByClassName(`ui-table__column-${column.dataSelector}`)[0]
+        .getBoundingClientRect().width;
+      return column;
+    }
+    return column;
+  });
+};
+
+onMounted(async () => {
   updateRenderedColumns(props.columns.map((column) => new Column(column)));
   hideColumnsOnMobile();
   window.addEventListener("resize", hideColumnsOnMobile);
+  await nextTick();
+  calculateColumnOffset();
 });
 
 onUnmounted(() => {
@@ -601,12 +639,19 @@ const totalPages = computed(() => {
 const buttonActionsEnabled = computed(
   () => props.enableCustomizeView && props.enableCsvExport
 );
+
+watch(renderedColumns, (newVal, oldVal) => {
+  if (newVal.length !== oldVal.length) {
+    calculateColumnOffset();
+  }
+});
 </script>
 
 <style lang="scss">
 .ui-table__container-wrapper {
   display: flex;
   align-items: flex-start;
+  width: 100%;
   .ui-table__card {
     min-width: 390px;
     width: max-content;
@@ -624,6 +669,9 @@ const buttonActionsEnabled = computed(
   }
   .ui-table__container {
     flex: 1;
+    overflow: auto;
+    position: relative;
+
     &.expandMode {
       background: #fff;
       border-right: 0.5px solid #e2e8f0;
@@ -684,8 +732,12 @@ const buttonActionsEnabled = computed(
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
+      gap: 16px;
+      overflow: auto;
+      padding-bottom: 4px;
       .ui-table__header__search-wrapper {
         display: flex;
+        flex: 1;
         &.left,
         &.right {
           flex: 1;
@@ -727,8 +779,14 @@ const buttonActionsEnabled = computed(
     .ui-table__heading-row {
       background: #f5f8fa;
       border-radius: 4px 4px 0 0;
+      td {
+        background: #f5f8fa;
+      }
       &.dark_mode {
         background: #202b3c;
+        td {
+          background: #202b3c;
+        }
       }
     }
     .ui-table__body-row {
@@ -800,6 +858,12 @@ const buttonActionsEnabled = computed(
       min-width: var(--column_min_width);
       flex: 1;
       padding: 12px 16px;
+      z-index: 1;
+      &.ui-table__fixed-column {
+        position: sticky;
+        left: 0;
+        z-index: 30;
+      }
       &.is-checkbox {
         width: var(--column_width);
         max-width: var(--column_max_width);
@@ -830,8 +894,38 @@ const buttonActionsEnabled = computed(
       border-radius: 4px;
       width: 100%;
       overflow: auto;
+      scrollbar-color: #929292 #e1e7ec;
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        //box-shadow: inset 0 0 5px grey;
+        background: #e1e7ec;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #929292;
+        border-radius: 10px;
+      }
       &.dark_mode {
         border-color: #202b3c;
+        scrollbar-color: #64748b #202b3c;
+        scrollbar-width: thin;
+        &::-webkit-scrollbar {
+          height: 8px;
+        }
+        &::-webkit-scrollbar-track {
+          //box-shadow: inset 0 0 5px grey;
+          background: #202b3c;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #64748b;
+          border-radius: 10px;
+          transition: 0.8s;
+          &:hover {
+            background: #5b697d;
+          }
+        }
       }
     }
     .ui-table {

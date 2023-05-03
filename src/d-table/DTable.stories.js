@@ -1,7 +1,16 @@
 import DTable from "./DTable.vue";
 import { DBadge, DSelect } from "../main";
-import { data, paginatedData, customComponentData } from "./data/sitcom-data";
-import { overflowColumns, sitcomColumns } from "./data/columns";
+import {
+  data,
+  paginatedData,
+  customComponentData,
+  customRowData,
+} from "./data/sitcom-data";
+import {
+  overflowColumns,
+  overflowFixedColumns,
+  sitcomColumns,
+} from "./data/columns";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
 import { overflowColumnsData } from "./data/data";
@@ -143,6 +152,12 @@ export const Default = Template.bind({});
 Default.args = {
   columns: sitcomColumns,
   data,
+};
+
+export const ChangeColorForRow = Template.bind({});
+ChangeColorForRow.args = {
+  columns: sitcomColumns,
+  data: customRowData,
 };
 
 export const DarkModeDefault = DarkModeTemplateFactory();
@@ -384,4 +399,22 @@ DarkModeOverflowTable.args = {
   paginate: true,
   data: overflowColumnsData,
   darkMode: true,
+};
+
+export const FixedColumnOverflowTable = OverflowTableTemplate.bind({});
+FixedColumnOverflowTable.args = {
+  columns: overflowFixedColumns,
+  paginate: true,
+  data: overflowColumnsData,
+  darkMode: false,
+};
+
+export const FixedColumnOverflowTableWithCheckboxes =
+  OverflowTableTemplate.bind({});
+FixedColumnOverflowTableWithCheckboxes.args = {
+  columns: overflowFixedColumns,
+  paginate: true,
+  data: overflowColumnsData,
+  darkMode: false,
+  showCheckboxes: true,
 };

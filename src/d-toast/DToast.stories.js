@@ -1,9 +1,7 @@
-import DToast from "./DToast.vue";
 import { DButton, ToastProvider, DarkModeProvider, useToast } from "../main";
 
 export default {
   title: "Toast",
-  component: DToast,
   argTypes: {
     autoClose: {
       control: { type: "text" },
@@ -19,7 +17,7 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { DToast, DButton },
+  components: { DButton },
   inject: ["d__pushToast", "d__clearToasts"],
   data: () => ({
     count: 1,
@@ -59,7 +57,7 @@ const ToastWrapper = () => {
 };
 
 const DarkModeTemplate = (args) => ({
-  components: { DToast, DButton, DarkModeProvider },
+  components: { DButton, DarkModeProvider },
   inject: ["d__pushToast"],
   data: () => ({
     count: 1,

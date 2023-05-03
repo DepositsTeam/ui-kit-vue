@@ -155,6 +155,10 @@
         width: 64px;
       }
 
+      &.date-picker {
+        padding-right: 48px;
+      }
+
       &.has-left-icon {
         padding-left: 42px;
       }
@@ -179,6 +183,10 @@
 
       &.oneCharWide {
         width: 56px;
+      }
+
+      &.date-picker {
+        padding-right: 48px;
       }
 
       &.has-left-icon {
@@ -209,8 +217,13 @@
       //padding: 16px 12px;
       padding: 8px 12px;
       height: 48px;
+
       &.oneCharWide {
         width: 48px;
+      }
+
+      &.date-picker {
+        padding-right: 44px;
       }
 
       &.has-left-icon {
@@ -241,8 +254,13 @@
       line-height: 16px;
       padding: 8px 12px;
       height: 40px;
+
       &.oneCharWide {
         width: 40px;
+      }
+
+      &.date-picker {
+        padding-right: 44px;
       }
 
       &.has-left-icon {
@@ -273,8 +291,13 @@
       line-height: 16px;
       padding: 8px 12px;
       height: 32px;
+
       &.oneCharWide {
         width: 32px;
+      }
+
+      &.date-picker {
+        padding-right: 44px;
       }
 
       &.has-left-icon {
@@ -307,6 +330,9 @@
       height: 24px;
       &.oneCharWide {
         width: 24px;
+      }
+      &.date-picker {
+        padding-right: 36px;
       }
 
       &.has-left-icon {

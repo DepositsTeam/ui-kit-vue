@@ -20,6 +20,7 @@ import DBox from "../d-box/DBox.vue";
 import DAlert from "../d-alert/DAlert.vue";
 import keyGen from "../utils/keyGen";
 import { onMounted, onUnmounted, provide, ref } from "vue";
+import uniqueRandomString from "../utils/uniqueRandomString";
 
 const props = defineProps({
   autoClose: {
@@ -45,25 +46,21 @@ const props = defineProps({
 });
 
 const toasts = ref([]);
-const countUp = ref(0);
 const interval = ref(null);
 
 onMounted(() => {
   interval.value = setInterval(() => {
     if (toasts.value.length) {
-      let holdingCountUp = 0;
-      holdingCountUp = countUp.value;
-      let currentToast = toasts.value[0];
-      const timeToClose = currentToast.timeout || props.autoClose;
-      if (holdingCountUp >= timeToClose) {
-        let holderArray = [...toasts.value];
-        holderArray.shift();
-        toasts.value = holderArray;
-        countUp.value = 0;
-      }
-      countUp.value += 1000;
-    } else {
-      countUp.value -= 1000;
+      const uuidsToRemove = [];
+      toasts.value.forEach((toast) => {
+        toast.remainingTime -= 1;
+        if (toast.remainingTime < 1) {
+          uuidsToRemove.push(toast.uuid);
+        }
+      });
+      uuidsToRemove.forEach((uuid) => {
+        toasts.value = [...toasts.value].filter((toast) => toast.uuid !== uuid);
+      });
     }
   }, 1000);
 });
@@ -73,23 +70,20 @@ onUnmounted(() => {
 });
 
 const pushToast = (toast) => {
-  if (toasts.value.length === 0) {
-    countUp.value = -1;
-  }
-  toasts.value.push(toast);
+  toasts.value.push({
+    ...toast,
+    uuid: uniqueRandomString(),
+    remainingTime: toast.autoClose || toast.timeout,
+  });
 };
 
 const clearToasts = () => {
   toasts.value = [];
-  clearInterval(interval.value);
 };
 const removeToast = (index) => {
   let holderArray = [...toasts.value];
   holderArray.splice(index, 1);
   toasts.value = holderArray;
-  if (index === 0) {
-    countUp.value = 0;
-  }
 };
 provide("___pushToast", pushToast);
 provide("d__pushToast", pushToast);

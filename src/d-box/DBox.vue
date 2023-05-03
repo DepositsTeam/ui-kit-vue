@@ -77,7 +77,7 @@ export default {
   ],
   setup(props, { slots, emit }) {
     const darkMode = inject("d__darkMode", null);
-    const d__theme = inject("d__theme", defaultThemeVars);
+    const d__theme = inject("d__theme", ref(defaultThemeVars));
     const defaultFontFace = inject("defaultFontFace", null);
 
     onBeforeMount(() => {});
