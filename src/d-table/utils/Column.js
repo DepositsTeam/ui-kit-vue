@@ -8,6 +8,7 @@ export default class Column {
     sortable = true,
     sortNumerically = false,
     filterable = true,
+    fixed = false,
     width = "",
     minWidth = "",
     maxWidth = "",
@@ -27,6 +28,7 @@ export default class Column {
     this.excludeFromCSV = excludeFromCSV;
     this.position = position;
     this.visible = visible;
+    this.fixed = fixed;
     this.uuid = uniqueRandomString(30, 8);
   }
 }
