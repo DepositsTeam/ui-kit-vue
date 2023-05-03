@@ -37,6 +37,7 @@
           class: {
             dark_mode: darkMode,
             'ui-text-field__input': true,
+            'date-picker': true,
             [fontFace]: fontFace,
           },
         }"
@@ -168,12 +169,16 @@ const handleKeyEvents = (e) => {
 const fire = () => {
   if (props.formatDate && !Array.isArray(date.value)) {
     emit("update:modelValue", moment(date.value).format(props.format));
-    emit("change", moment(date.value).format(props.format))
-  }
-  else {
+    emit("change", moment(date.value).format(props.format));
+  } else {
     emit("update:modelValue", date.value);
-    emit("change", date.value)
+    emit("change", date.value);
   }
+};
+</script>
+<script>
+export default {
+  inheritAttrs: false,
 };
 </script>
 
@@ -184,9 +189,6 @@ const fire = () => {
 <style lang="scss">
 .mx-datepicker svg {
   fill: none;
-}
-.ui-text-field__input-wrapper .mx-datepicker .ui-text-field__input {
-  padding-right: 60px;
 }
 .mx-input-wrapper,
 .mx-datepicker {
