@@ -642,6 +642,7 @@ const buttonActionsEnabled = computed(
 
 watch(renderedColumns, (newVal, oldVal) => {
   if (newVal.length !== oldVal.length) {
+    calculateColumnOffset();
   }
 });
 </script>
