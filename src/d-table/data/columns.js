@@ -168,7 +168,7 @@ export const overflowFixedColumns = [
     filterable: true,
     fixed: true,
     width: "",
-    minWidth: "",
+    minWidth: "200px",
     maxWidth: "",
   },
   {
@@ -177,7 +177,6 @@ export const overflowFixedColumns = [
     uppercase: true,
     sortable: true,
     filterable: true,
-    fixed: true,
     width: "",
     minWidth: "",
     maxWidth: "",
@@ -189,7 +188,7 @@ export const overflowFixedColumns = [
     sortable: true,
     filterable: true,
     width: "",
-    minWidth: "",
+    minWidth: "180px",
     maxWidth: "",
   },
   {
@@ -218,7 +217,7 @@ export const overflowFixedColumns = [
     sortable: true,
     filterable: false,
     width: "",
-    minWidth: "",
+    minWidth: "200px",
     maxWidth: "",
   },
   {
@@ -240,7 +239,7 @@ export const overflowFixedColumns = [
     sortable: false,
     filterable: true,
     width: "",
-    minWidth: "",
+    minWidth: "200px",
     maxWidth: "",
     excludeFromCSV: true,
   },
