@@ -1,7 +1,7 @@
 export const overflowColumnsData = [
   {
     customer: "Jefferson Johnson",
-    customer_email: "jefferson.archibowng@gmail.com",
+    customer_email: "jefferson.johnson@gmail.com",
     customer_phone: "+234834789504",
     transaction_ref: "934783499",
     amount: "NGN 49944",
@@ -12,7 +12,7 @@ export const overflowColumnsData = [
   },
   {
     customer: "Jefferson Johnson",
-    customer_email: "jefferson.archibowng@gmail.com",
+    customer_email: "jefferson.johnson@gmail.com",
     customer_phone: "+234834789504",
     transaction_ref: "934783499",
     amount: "NGN 49944",
@@ -23,7 +23,7 @@ export const overflowColumnsData = [
   },
   {
     customer: "Jefferson Johnson",
-    customer_email: "jefferson.archibowng@gmail.com",
+    customer_email: "jefferson.johnson@gmail.com",
     customer_phone: "+234834789504",
     transaction_ref: "934783499",
     amount: "NGN 49944",
@@ -34,7 +34,7 @@ export const overflowColumnsData = [
   },
   {
     customer: "Jefferson Johnson",
-    customer_email: "jefferson.archibowng@gmail.com",
+    customer_email: "jefferson.johnson@gmail.com",
     customer_phone: "+234834789504",
     transaction_ref: "934783499",
     amount: "NGN 49944",
