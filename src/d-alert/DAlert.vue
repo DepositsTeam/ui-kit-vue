@@ -38,14 +38,17 @@
       <d-box class="ui-alert__content">
         <component
           :is="icon"
-          v-if="icon"
+          v-if="icon && !hideIcon"
           class="ui-alert__header-icon"
         ></component>
-        <d-box v-else-if="$slots.icon" class="ui-alert__header-icon">
+        <d-box
+          v-else-if="$slots.icon && !hideIcon"
+          class="ui-alert__header-icon"
+        >
           <slot name="icon"> </slot>
         </d-box>
         <component
-          v-else-if="colorScheme !== 'default'"
+          v-else-if="colorScheme !== 'default' && !hideIcon"
           class="ui-alert__header-icon"
           :is="schemeIcons[colorScheme]"
         ></component>
@@ -133,6 +136,9 @@ defineProps({
   },
   icon: {
     type: Object,
+  },
+  hideIcon: {
+    type: Boolean,
   },
 });
 const schemeIcons = {
