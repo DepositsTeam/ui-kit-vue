@@ -4,16 +4,16 @@
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <slot name="label">
-      <d-box
-        is="label"
-        :class="labelClass"
-        :font-face="labelFontFace"
-        class="ui-text-field__label"
-        scale="subhead"
-      >
-        <d-text class="ui-card-input-field__label" scale="subhead">{{
-          label
-        }}</d-text>
+      <d-box v-if="!!label " is="label">
+        <d-text
+          margin-top="0px"
+          class="ui-text-field__label"
+          :class="labelClass"
+          scale="subhead"
+          :font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-text>
       </d-box>
     </slot>
     <d-box

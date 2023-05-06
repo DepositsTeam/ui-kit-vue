@@ -78,4 +78,5 @@ const DarkModeTemplateFactory = () => {
 };
 
 export const Default = Template.bind({});
+
 export const DefaultDark = DarkModeTemplateFactory();
