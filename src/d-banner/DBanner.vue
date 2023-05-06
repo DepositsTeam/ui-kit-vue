@@ -3,48 +3,62 @@
     v-if="visible"
     :class="{
       [`color-scheme__${colorScheme}`]: true,
+      smartColor,
       alignTop,
       full,
-      smartColor,
     }"
     class="ui-banner"
     :style="{
-      '--smart-color': smartColor,
-      '--smart-title-color': getTextColor(smartColor),
-      '--smart-description-color': getTextColor(
-        smartColor,
-        getSubtitleColor(props.smartColor)
-      ),
+      ...(smartColor
+        ? {
+            '--smart-color': smartColor,
+            '--smart-title-color': getTextColor(smartColor),
+            '--smart-description-color': getTextColor(
+              smartColor,
+              getSubtitleColor(props.smartColor)
+            ),
+          }
+        : {}),
       '--icon-color': iconColor,
     }"
   >
-    <d-box @click="$emit('click')" class="text-content">
-      <d-box class="ui-banner-icon" v-if="$slots.icon" :class="{ iconColor }">
-        <slot name="icon"> </slot>
-      </d-box>
-      <component
-        v-else-if="(colorScheme !== 'default' || icon) && !noIcon"
-        class="ui-banner-icon"
-        :class="{ iconColor }"
-        :is="icon || schemeIcons[colorScheme]"
-      ></component>
+    <d-box flex="1 1 0">
       <slot>
-        <d-text
-          scale="subhead"
-          class="ui-banner__title text-gray-700"
-          font-face="circularSTD"
-        >
-          <span>{{ title }}</span></d-text
-        >
-        <d-text
-          scale="subhead"
-          class="ui-banner__description"
-          font-face="circularSTD"
-          v-if="!$slots.default && description"
-          ><span v-html="description"></span
-        ></d-text>
+        <d-box class="ui-banner-content">
+          <d-box @click="$emit('click')" class="text-content">
+            <d-box
+              class="ui-banner-icon"
+              v-if="$slots.icon"
+              :class="{ iconColor }"
+            >
+              <slot name="icon"> </slot>
+            </d-box>
+            <component
+              v-else-if="(colorScheme !== 'default' || icon) && !noIcon"
+              class="ui-banner-icon"
+              :class="{ iconColor }"
+              :is="icon || schemeIcons[colorScheme]"
+            ></component>
+
+            <d-text
+              scale="subhead"
+              class="ui-banner__title text-gray-700"
+              font-face="circularSTD"
+            >
+              <span>{{ title }}</span></d-text
+            >
+            <d-text
+              scale="subhead"
+              class="ui-banner__description"
+              font-face="circularSTD"
+              v-if="!$slots.default && description"
+              ><span v-html="description"></span
+            ></d-text>
+          </d-box>
+        </d-box>
       </slot>
     </d-box>
+
     <CloseIcon
       v-if="removable"
       smart-color="currentcolor"
@@ -129,11 +143,17 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .ui-banner {
+  padding: 10px 16px;
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-  border-radius: 4px;
+  &.full {
+    display: flex;
+  }
+
+  .ui-banner-content {
+  }
 
   &.alignTop {
     .text-content {
@@ -143,10 +163,6 @@ onMounted(() => {
         padding-top: 0;
       }
     }
-  }
-
-  &.full {
-    display: flex;
   }
 
   &.smartColor {

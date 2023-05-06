@@ -5,8 +5,6 @@
     :class="{
       [scale]: scale,
       uppercase,
-      underline,
-      noLine,
       'equal-line-height': equalLineHeight,
       center,
       my0,
@@ -103,12 +101,6 @@ const props = defineProps({
     type: String,
     default: "text-neutral-600",
   },
-  underline: {
-    type: Boolean,
-  },
-  noLine: {
-    type: Boolean,
-  },
 });
 
 const computedFontFace = computed(() => {
@@ -132,12 +124,6 @@ const computedFontFace = computed(() => {
   }
   &.center {
     text-align: center;
-  }
-  &.underline {
-    text-decoration: underline;
-  }
-  &.noLine {
-    text-decoration: none;
   }
   &.my0 {
     margin-top: 0;
