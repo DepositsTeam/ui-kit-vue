@@ -181,3 +181,9 @@ export function hexToRgbA(hex, alpha = 1) {
   }
   throw new Error("Bad Hex");
 }
+
+export const getSubtitleColor = (hex) => {
+  hexToRgbA(hex);
+  const colorSpectrum = Object.values(generateColorSpectrum(hex));
+  return colorSpectrum[2];
+};

@@ -13,15 +13,14 @@
       '--smart-title-color': getTextColor(smartColor),
       '--smart-description-color': getTextColor(
         smartColor,
-        '#6D7786',
-        '#94A3B8'
+        getSubtitleColor(props.smartColor)
       ),
       '--icon-color': iconColor,
     }"
   >
     <d-box @click="$emit('click')" class="text-content">
       <d-box class="ui-banner-icon" v-if="$slots.icon" :class="{ iconColor }">
-        <slot name="icon"></slot>
+        <slot name="icon"> </slot>
       </d-box>
       <component
         v-else-if="(colorScheme !== 'default' || icon) && !noIcon"
@@ -29,22 +28,22 @@
         :class="{ iconColor }"
         :is="icon || schemeIcons[colorScheme]"
       ></component>
-      <slot v-if="$slots.default"></slot>
-      <d-text
-        scale="subhead"
-        class="ui-banner__title text-gray-700"
-        font-face="circularSTD"
-        v-else
-      >
-        <span>{{ title }}</span></d-text
-      >
-      <d-text
-        scale="subhead"
-        class="ui-banner__description"
-        font-face="circularSTD"
-        v-if="!$slots.default && description"
-        ><span v-html="description"></span
-      ></d-text>
+      <slot>
+        <d-text
+          scale="subhead"
+          class="ui-banner__title text-gray-700"
+          font-face="circularSTD"
+        >
+          <span>{{ title }}</span></d-text
+        >
+        <d-text
+          scale="subhead"
+          class="ui-banner__description"
+          font-face="circularSTD"
+          v-if="!$slots.default && description"
+          ><span v-html="description"></span
+        ></d-text>
+      </slot>
     </d-box>
     <CloseIcon
       v-if="removable"
@@ -56,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import {
   CheckIcon,
   CloseIcon,
@@ -66,7 +65,7 @@ import {
   InfoIcon,
   WarningIcon,
 } from "../main";
-import { getTextColor } from "../utils/colorManager";
+import { getSubtitleColor, getTextColor } from "../utils/colorManager";
 
 const schemeIcons = {
   info: InfoIcon,
@@ -76,7 +75,7 @@ const schemeIcons = {
 };
 const emit = defineEmits(["removed", "click"]);
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
   },
@@ -120,6 +119,12 @@ const remove = () => {
   emit("removed");
   visible.value = false;
 };
+
+onMounted(() => {
+  if (props.smartColor) {
+    console.log("Dancing in the sunlight", getSubtitleColor(props.smartColor));
+  }
+});
 </script>
 
 <style lang="scss" scoped>

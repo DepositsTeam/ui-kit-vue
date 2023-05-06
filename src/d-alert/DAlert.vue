@@ -11,6 +11,12 @@
     v-if="showAlert"
     :style="{
       '--smart-color': smartColor,
+      '--smart-text-header-color': getTextColor(
+        smartColor,
+        '#cbd5e1',
+        '#212934'
+      ),
+      '--smart-text-body-color': getTextColor(smartColor, '#5f6b7a', '#94a3b8'),
       '--icon-color': iconColor,
       '--light-primary-title-text-color': getTextColor(
         d__theme['--light-primary-action-color'],
@@ -248,6 +254,16 @@ const emitClick = () => emit("button-clicked");
       border-color: var(--smart-color);
       border-left: 4px solid var(--smart-color);
     }
+    &.theme__filled {
+      background: var(--smart-color);
+      border-color: transparent;
+      .ui-alert__header-text {
+        color: var(--smart-text-header-color);
+      }
+      .ui-alert__body {
+        color: var(--smart-text-body-color);
+      }
+    }
   }
 
   &:not(.smartColor) {
@@ -445,55 +461,6 @@ const emitClick = () => emit("button-clicked");
           }
         }
       }
-    }
-
-    &.color-scheme__info {
-      background: #0d7fe9;
-    }
-
-    &.color-scheme__warning {
-      background: #ff9505;
-    }
-
-    &.color-scheme__error {
-      background: #d62f4b;
-    }
-
-    &.color-scheme__success {
-      background: #00b058;
-    }
-
-    &:not(.color-scheme__default) {
-      .ui-alert__header-text,
-      .ui-alert__header-icon {
-        color: #fff;
-      }
-    }
-
-    &:not(.color-scheme__warning) {
-      .ui-alert__header-text {
-        color: #fff;
-      }
-    }
-
-    //&.color-scheme__warning .ui-alert__header-icon {
-    //  color: #000;
-    //}
-
-    &.color-scheme__info .ui-alert__body {
-      color: #ddefff;
-    }
-
-    &.color-scheme__warning .ui-alert__body {
-      color: #573302;
-    }
-
-    &.color-scheme__error .ui-alert__body {
-      color: #fff0f2;
-    }
-
-    &.color-scheme__success .ui-alert__body {
-      color: #edfff9;
     }
   }
 }
