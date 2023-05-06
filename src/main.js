@@ -30,6 +30,7 @@ export { default as DPhoneInput } from "./d-phone-input/DPhoneInput.vue";
 export { default as DPinInput } from "./d-pin-input/DPinInput.vue";
 export { default as DProgressBar } from "./d-progress-bar/DProgressBar.vue";
 export { default as DRadio } from "./d-radio/DRadio.vue";
+export { default as DRadioCard } from "./d-radio-card/DRadioCard.vue";
 export { default as DResponsiveLayout } from "./d-responsive-layout/DResponsiveLayout.vue";
 export { default as DSelect } from "./d-select/DSelect.vue";
 export { default as DStepper } from "./d-stepper/DStepper.vue";

@@ -66,6 +66,7 @@ const { isChecked, changed } = useRadio(props, emit);
   padding: 19px 16px;
   border: 1px solid #e1e7ec;
   border-radius: 8px;
+  background: white;
   .d-radio-card__icon {
     border: 1px solid #e1e7ec;
     display: flex;
