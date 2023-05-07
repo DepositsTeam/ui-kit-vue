@@ -171,6 +171,9 @@
       </d-auto-layout>
 
       <d-box ref="currentTable" class="ui-table__wrapper">
+        <d-box v-if="loading" class="ui-table-loader">
+          <d-loader />
+        </d-box>
         <d-box is="table" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
@@ -339,6 +342,7 @@
 <script setup>
 import {
   DBox,
+  DLoader,
   DTextfield,
   DButton,
   DCheckbox,
@@ -644,6 +648,9 @@ const computedItemsID = computed(() => {
 });
 
 const totalPages = computed(() => {
+  if (props.totalPages !== null && props.totalPages > 0) {
+    return props.totalPages;
+  }
   if (searchValue.value || filter.value.column) {
     return Math.ceil(dataFactory.value.length / props.itemsPerPage);
   }
@@ -976,6 +983,22 @@ const validateBackground = (background, index) => {
       overflow: auto;
       scrollbar-color: #929292 #e1e7ec;
       scrollbar-width: thin;
+      position: relative;
+
+      .ui-table-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.8);
+        &.dark_mode {
+          background: rgba(0, 0, 0, 0.8);
+        }
+      }
 
       &::-webkit-scrollbar {
         height: 8px;
