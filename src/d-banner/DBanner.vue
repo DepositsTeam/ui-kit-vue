@@ -3,49 +3,62 @@
     v-if="visible"
     :class="{
       [`color-scheme__${colorScheme}`]: true,
+      smartColor,
       alignTop,
       full,
-      smartColor,
     }"
     class="ui-banner"
     :style="{
-      '--smart-color': smartColor,
-      '--smart-title-color': getTextColor(smartColor),
-      '--smart-description-color': getTextColor(
-        smartColor,
-        '#6D7786',
-        '#94A3B8'
-      ),
+      ...(smartColor
+        ? {
+            '--smart-color': smartColor,
+            '--smart-title-color': getTextColor(smartColor),
+            '--smart-description-color': getTextColor(
+              smartColor,
+              getSubtitleColor(props.smartColor)
+            ),
+          }
+        : {}),
       '--icon-color': iconColor,
     }"
   >
-    <d-box @click="$emit('click')" class="text-content">
-      <d-box class="ui-banner-icon" v-if="$slots.icon" :class="{ iconColor }">
-        <slot name="icon"></slot>
-      </d-box>
-      <component
-        v-else-if="(colorScheme !== 'default' || icon) && !noIcon"
-        class="ui-banner-icon"
-        :class="{ iconColor }"
-        :is="icon || schemeIcons[colorScheme]"
-      ></component>
-      <slot v-if="$slots.default"></slot>
-      <d-text
-        scale="subhead"
-        class="ui-banner__title text-gray-700"
-        font-face="circularSTD"
-        v-else
-      >
-        <span>{{ title }}</span></d-text
-      >
-      <d-text
-        scale="subhead"
-        class="ui-banner__description"
-        font-face="circularSTD"
-        v-if="!$slots.default && description"
-        ><span v-html="description"></span
-      ></d-text>
+    <d-box flex="1 1 0">
+      <slot>
+        <d-box class="ui-banner-content">
+          <d-box @click="$emit('click')" class="text-content">
+            <d-box
+              class="ui-banner-icon"
+              v-if="$slots.icon"
+              :class="{ iconColor }"
+            >
+              <slot name="icon"> </slot>
+            </d-box>
+            <component
+              v-else-if="(colorScheme !== 'default' || icon) && !noIcon"
+              class="ui-banner-icon"
+              :class="{ iconColor }"
+              :is="icon || schemeIcons[colorScheme]"
+            ></component>
+
+            <d-text
+              scale="subhead"
+              class="ui-banner__title text-gray-700"
+              font-face="circularSTD"
+            >
+              <span>{{ title }}</span></d-text
+            >
+            <d-text
+              scale="subhead"
+              class="ui-banner__description"
+              font-face="circularSTD"
+              v-if="!$slots.default && description"
+              ><span v-html="description"></span
+            ></d-text>
+          </d-box>
+        </d-box>
+      </slot>
     </d-box>
+
     <CloseIcon
       v-if="removable"
       smart-color="currentcolor"
@@ -56,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import {
   CheckIcon,
   CloseIcon,
@@ -66,7 +79,7 @@ import {
   InfoIcon,
   WarningIcon,
 } from "../main";
-import { getTextColor } from "../utils/colorManager";
+import { getSubtitleColor, getTextColor } from "../utils/colorManager";
 
 const schemeIcons = {
   info: InfoIcon,
@@ -76,7 +89,7 @@ const schemeIcons = {
 };
 const emit = defineEmits(["removed", "click"]);
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
   },
@@ -120,15 +133,27 @@ const remove = () => {
   emit("removed");
   visible.value = false;
 };
+
+onMounted(() => {
+  if (props.smartColor) {
+    console.log("Dancing in the sunlight", getSubtitleColor(props.smartColor));
+  }
+});
 </script>
 
 <style lang="scss" scoped>
 .ui-banner {
+  padding: 10px 16px;
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-  border-radius: 4px;
+  &.full {
+    display: flex;
+  }
+
+  .ui-banner-content {
+  }
 
   &.alignTop {
     .text-content {
@@ -138,10 +163,6 @@ const remove = () => {
         padding-top: 0;
       }
     }
-  }
-
-  &.full {
-    display: flex;
   }
 
   &.smartColor {

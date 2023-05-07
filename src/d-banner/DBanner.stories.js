@@ -1,5 +1,5 @@
 import DBanner from "./DBanner.vue";
-import { DarkModeProvider } from "../main";
+import { DarkModeProvider, DAutoLayout, DText, DBox } from "../main";
 
 export default {
   title: "Banner",
@@ -230,3 +230,28 @@ DarkInfoRemovable.args = {
   colorScheme: "info",
   removable: true,
 };
+
+const CustomBannerTemplate = (args) => ({
+  components: {
+    DBanner,
+    DAutoLayout,
+    DText,
+    DBox,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-banner smart-color="#FFD49B" theme="filled">
+    <d-auto-layout stretch-items alignment="center">
+      <d-text center>
+        You are on a 7 day free trial. Billing will begin in 7 days. To
+        cancel,
+        <d-box is="span" color="#995A06" no-line>click here</d-box>
+      </d-text>
+    </d-auto-layout>
+    </d-banner>
+  `,
+});
+
+export const CustomBanner = CustomBannerTemplate.bind({});

@@ -171,6 +171,9 @@
       </d-auto-layout>
 
       <d-box ref="currentTable" class="ui-table__wrapper">
+        <d-box v-if="loading" class="ui-table-loader">
+          <d-loader />
+        </d-box>
         <d-box is="table" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
@@ -212,14 +215,14 @@
             <d-box
               is="tr"
               class="ui-table__body-row"
-              v-for="(datum, index) in paginatedData"
-              :key="`table__column_${index}`"
+              v-for="(datum, columnIndex) in paginatedData"
+              :key="`table__column_${columnIndex}`"
               :class="{
                 checked: selectedItems.includes(datum[checkboxDataSelector]),
                 enableHover: enableRowHoverCursor,
-                isSelected: expandedData && expandedData.index === index,
+                isSelected: expandedData && expandedData.index === columnIndex,
               }"
-              @click="(e) => emitRowClickedEvent(e, datum, index)"
+              @click="(e) => emitRowClickedEvent(e, datum, columnIndex)"
             >
               <d-box
                 is="td"
@@ -247,7 +250,10 @@
                   ...getColumnWidth(column),
                   ...(datum?.deposits_row_config?.background
                     ? {
-                        background: datum.deposits_row_config.background,
+                        background: validateBackground(
+                          datum.deposits_row_config.background,
+                          columnIndex
+                        ),
                       }
                     : {}),
                   ...(column.leftOffset ? { left: column.leftOffset } : {}),
@@ -274,6 +280,13 @@
                   '--column_width': '10px',
                   '--column_min_width': '10px',
                   '--column_max_width': '10px',
+                  ...(datum?.deposits_row_config?.background
+                    ? {
+                        background: validateBackground(
+                          datum.deposits_row_config.background
+                        ),
+                      }
+                    : {}),
                 }"
                 v-if="expandedData"
               >
@@ -329,6 +342,7 @@
 <script setup>
 import {
   DBox,
+  DLoader,
   DTextfield,
   DButton,
   DCheckbox,
@@ -370,6 +384,7 @@ import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
 import { useCsvExport } from "./composables/useCsvExport";
 import { getTextColor } from "../utils/colorManager";
+import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
 const emit = defineEmits([
@@ -548,9 +563,10 @@ const hideColumnsOnMobile = () => {
   }
 };
 
-const calculateColumnOffset = () => {
+const calculateColumnOffset = async () => {
   let initialOffset = props.showCheckboxes ? 50 : 0;
   const clonedRenderedColumns = [...renderedColumns.value];
+  await nextTick();
   renderedColumns.value = clonedRenderedColumns.map((column) => {
     if (column.fixed) {
       column.leftOffset = initialOffset + "px";
@@ -568,7 +584,9 @@ onMounted(async () => {
   hideColumnsOnMobile();
   window.addEventListener("resize", hideColumnsOnMobile);
   await nextTick();
-  calculateColumnOffset();
+  setTimeout(() => {
+    calculateColumnOffset();
+  }, 500);
 });
 
 onUnmounted(() => {
@@ -630,6 +648,9 @@ const computedItemsID = computed(() => {
 });
 
 const totalPages = computed(() => {
+  if (props.totalPages !== null && props.totalPages > 0) {
+    return props.totalPages;
+  }
   if (searchValue.value || filter.value.column) {
     return Math.ceil(dataFactory.value.length / props.itemsPerPage);
   }
@@ -645,6 +666,15 @@ watch(renderedColumns, (newVal, oldVal) => {
     calculateColumnOffset();
   }
 });
+
+const validateBackground = (background, index) => {
+  if (validateColor(background)) {
+    return background;
+  }
+  throw Error(
+    `Invalid CSS color (data[x].deposits_row_config.background) at row index ${index}: ${background}`
+  );
+};
 </script>
 
 <style lang="scss">
@@ -652,6 +682,7 @@ watch(renderedColumns, (newVal, oldVal) => {
   display: flex;
   align-items: flex-start;
   width: 100%;
+
   .ui-table__card {
     min-width: 390px;
     width: max-content;
@@ -659,6 +690,7 @@ watch(renderedColumns, (newVal, oldVal) => {
     filter: drop-shadow(0px 1px 5px rgba(63, 63, 68, 0.098));
     border-radius: 0 8px 8px 8px;
     padding: 24px;
+
     .ui-table__card-header {
       border-bottom: 0.5px solid #cbd5e1;
 
@@ -667,6 +699,7 @@ watch(renderedColumns, (newVal, oldVal) => {
       }
     }
   }
+
   .ui-table__container {
     flex: 1;
     overflow: auto;
@@ -678,27 +711,34 @@ watch(renderedColumns, (newVal, oldVal) => {
       filter: drop-shadow(0px 1px 5px rgba(63, 63, 68, 0.098));
       border-radius: 8px;
       padding-bottom: 16px;
+
       &.isExpanded {
         border-radius: 8px 0 0 8px;
       }
+
       .ui-table__filters-container {
         padding: 8px 24px;
       }
+
       .ui-table__body-cell,
       .ui-table__heading-cell {
         padding: 18px 8px;
+
         &.arrow-cell {
           padding: 18px 2px;
         }
       }
+
       .ui-table thead tr {
         td.ui-table__heading-cell:first-child {
           padding-left: 24px;
         }
+
         td.ui-table__heading-cell:last-child {
           padding-right: 24px;
         }
       }
+
       .ui-table tbody tr {
         &:not(.dark_mode) {
           border-bottom: 0.5px solid #e2e8f0;
@@ -708,6 +748,7 @@ watch(renderedColumns, (newVal, oldVal) => {
         td.ui-table__body-cell:first-child {
           padding-left: 24px;
         }
+
         td.ui-table__body-cell:last-child {
           padding-right: 24px;
         }
@@ -716,6 +757,7 @@ watch(renderedColumns, (newVal, oldVal) => {
           border-bottom: none;
         }
       }
+
       .ui-table__wrapper {
         border: none;
       }
@@ -724,9 +766,11 @@ watch(renderedColumns, (newVal, oldVal) => {
         background: transparent;
       }
     }
+
     .activeFiltersBox.dark_mode {
       color: #cbd5e1;
     }
+
     .ui-table__header {
       display: flex;
       justify-content: space-between;
@@ -735,160 +779,203 @@ watch(renderedColumns, (newVal, oldVal) => {
       gap: 16px;
       overflow: auto;
       padding-bottom: 4px;
+
       .ui-table__header__search-wrapper {
         display: flex;
         flex: 1;
+
         &.left,
         &.right {
           flex: 1;
         }
+
         &.right {
           justify-content: flex-end;
         }
       }
+
       .ui-table__header-btns {
         display: flex;
         align-items: center;
+
         &.left,
         &.right {
           flex: 1;
         }
+
         &.right {
           justify-content: flex-end;
         }
+
         & > *:not(:last-child) {
           margin-right: 8px;
         }
+
         @media only screen and (max-width: 380px) {
           flex-direction: column;
           align-items: flex-start;
+
           & > *:not(:last-child) {
             margin-right: 0;
             margin-bottom: 8px;
           }
         }
       }
+
       @media only screen and (max-width: 720px) {
         flex-direction: column;
         align-items: flex-start;
+
         & > :first-child {
           margin-bottom: 16px;
         }
       }
     }
+
     .ui-table__heading-row {
       background: #f5f8fa;
       border-radius: 4px 4px 0 0;
+
       td {
         background: #f5f8fa;
       }
+
       &.dark_mode {
         background: #202b3c;
+
         td {
           background: #202b3c;
         }
       }
     }
+
     .ui-table__body-row {
       &:hover,
       &.isSelected {
         &.enableHover {
           cursor: pointer;
         }
+
         td {
           background: #f5f8fa;
+
           &.dark_mode {
             background: #041d25;
           }
         }
       }
+
       &.checked {
         background: #f2fafc;
+
         &.dark_mode {
           background: #041d25;
         }
+
         td {
           background: #f2fafc;
+
           &.dark_mode {
             background: #041d25;
           }
         }
       }
     }
+
     .ui-table__heading-cell {
       position: relative;
       cursor: pointer;
+
       &.smartColor {
         &:hover {
           .ui-table__heading-cell-text.ui-text {
             color: var(--smart-color);
           }
+
           .ui-table__heading-cell__icon {
             color: var(--smart-color);
           }
+
           color: var(--smart-color);
         }
       }
+
       &.dark_mode:not(.smartColor) {
         .ui-table__heading-cell-text.ui-text {
           color: #f1f5f9;
         }
+
         &:hover {
           .ui-table__heading-cell-text.ui-text {
             color: var(--dark-primary-color);
           }
+
           .ui-table__heading-cell__icon {
             color: var(--dark-primary-color);
           }
+
           color: var(--dark-primary-color);
         }
       }
+
       &:hover {
         .ui-table__heading-cell-text.ui-text {
           color: var(--light-primary-color);
         }
+
         .ui-table__heading-cell__icon {
           color: var(--light-primary-color);
         }
+
         color: var(--light-primary-color);
       }
     }
+
     .ui-table__heading-cell,
     .ui-table__body-cell {
       min-width: var(--column_min_width);
       flex: 1;
       padding: 12px 16px;
       z-index: 1;
+
       &.ui-table__fixed-column {
         position: sticky;
         left: 0;
         z-index: 30;
       }
+
       &.is-checkbox {
         width: var(--column_width);
         max-width: var(--column_max_width);
       }
+
       &.width {
         width: var(--column_width);
       }
+
       &.maxWidth {
         max-width: var(--column_max_width);
       }
     }
+
     .ui-table__body-cell {
       background: #fff;
+
       &.dark_mode {
         background: #121a26;
         box-shadow: inset 0px -1px 0px #1d2632;
       }
+
       .ui-table__body-cell-text {
         color: #3f3e4d;
         font-size: 16px;
+
         &.dark_mode {
           color: #f1f5f9;
         }
       }
     }
+
     .ui-table__wrapper {
       border: 1px solid #e1e7ec;
       border-radius: 4px;
@@ -896,67 +983,99 @@ watch(renderedColumns, (newVal, oldVal) => {
       overflow: auto;
       scrollbar-color: #929292 #e1e7ec;
       scrollbar-width: thin;
+      position: relative;
+
+      .ui-table-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.8);
+        &.dark_mode {
+          background: rgba(0, 0, 0, 0.8);
+        }
+      }
+
       &::-webkit-scrollbar {
         height: 8px;
       }
+
       &::-webkit-scrollbar-track {
         //box-shadow: inset 0 0 5px grey;
         background: #e1e7ec;
       }
+
       &::-webkit-scrollbar-thumb {
         background: #929292;
         border-radius: 10px;
       }
+
       &.dark_mode {
         border-color: #202b3c;
         scrollbar-color: #64748b #202b3c;
         scrollbar-width: thin;
+
         &::-webkit-scrollbar {
           height: 8px;
         }
+
         &::-webkit-scrollbar-track {
           //box-shadow: inset 0 0 5px grey;
           background: #202b3c;
         }
+
         &::-webkit-scrollbar-thumb {
           background: #64748b;
           border-radius: 10px;
           transition: 0.8s;
+
           &:hover {
             background: #5b697d;
           }
         }
       }
     }
+
     .ui-table {
       border-collapse: collapse;
       min-width: 100%;
     }
+
     .ui-table tbody tr {
       &:not(.dark_mode) {
         border-bottom: 1px solid #e1e7ec;
       }
     }
+
     .ui-table__heading-cell__content {
       display: inline-flex;
       align-items: center;
       position: relative;
+
       &.selected {
         color: var(--light-primary-color);
         box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
         padding: 3px 8px;
         border-radius: 4px;
+
         .ui-table__heading-cell-text.ui-text {
           color: var(--light-primary-color);
         }
+
         .ui-table__heading-cell__icon {
           color: var(--light-primary-color);
         }
       }
+
       .ui-table__heading-cell__icon {
         color: #8895a7;
       }
     }
+
     .ui-table__active-filter-group {
       display: inline-flex;
       padding: 12px 16px;
@@ -966,23 +1085,28 @@ watch(renderedColumns, (newVal, oldVal) => {
       margin-top: 8px;
       margin-bottom: 8px;
       cursor: pointer;
+
       &.expandMode-filters-trigger {
         background: #f5f8fa;
         border: 1px solid #e1e7ec;
         border-radius: 6px;
         color: #6d7786;
+
         .ui-text {
           color: #6d7786;
         }
       }
+
       &.dark_mode {
         background: #202b3c;
       }
+
       &.active {
         border: 1px solid var(--light-primary-color);
         box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
       }
     }
+
     .ui-table__active-filters {
       & > * {
         &:not(:first-child) {
@@ -990,13 +1114,16 @@ watch(renderedColumns, (newVal, oldVal) => {
         }
       }
     }
+
     .ui-table__pagination {
       display: flex;
+
       &.right {
         justify-content: flex-end;
       }
     }
   }
+
   .ui-virtual-table {
     display: table;
   }

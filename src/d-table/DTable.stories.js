@@ -418,3 +418,29 @@ FixedColumnOverflowTableWithCheckboxes.args = {
   darkMode: false,
   showCheckboxes: true,
 };
+
+const AsyncPaginationTableTemplate = (args) => ({
+  components: { DTable },
+  setup() {
+    return { args };
+  },
+  methods: {
+    alertPageChange(page) {
+      alert(
+        "The page changed and the new page is " +
+          page +
+          ". I can do an ajax call to get this page's content."
+      );
+    },
+  },
+  template: `<d-table v-bind="args" @page-updated="alertPageChange" />`,
+});
+
+export const AsyncPaginationTable = AsyncPaginationTableTemplate.bind({});
+AsyncPaginationTable.args = {
+  columns: sitcomColumns,
+  data,
+  paginate: true,
+  asyncPagination: true,
+  totalPages: 7,
+};

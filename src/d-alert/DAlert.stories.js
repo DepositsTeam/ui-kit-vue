@@ -31,6 +31,9 @@ export default {
     iconColor: {
       control: { type: "color" },
     },
+    hideIcon: {
+      control: { type: "boolean" },
+    },
   },
 };
 

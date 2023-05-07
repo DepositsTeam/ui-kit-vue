@@ -73,6 +73,10 @@ const props = defineProps({
     type: String,
     default: "5px",
   },
+  checked: {
+    type: Boolean,
+    default: null,
+  },
 });
 
 const mounted = ref(false);
@@ -86,8 +90,12 @@ const computedValue = computed(() =>
 );
 
 const isChecked = computed(() => {
-  if (mounted.value) return props.modelValue === computedValue.value;
-  else return false;
+  if (props.checked !== null) {
+    return props.checked;
+  } else {
+    if (mounted.value) return props.modelValue === computedValue.value;
+    else return false;
+  }
 });
 
 const changed = () => {
