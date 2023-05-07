@@ -58,6 +58,12 @@ export default {
       type: Boolean,
       default: null,
     },
+    underline: {
+      type: Boolean,
+    },
+    noLine: {
+      type: Boolean,
+    },
   },
   emits: [
     "change",
@@ -324,6 +330,8 @@ export default {
               typeof props.is === "string" &&
               props.is.toLowerCase() !== "svg",
             dark_mode: darkModeIsEnabled.value,
+            underline: props.underline,
+            noLine: props.noLine,
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
@@ -340,6 +348,13 @@ export default {
 <style lang="scss">
 @import url("https://assets.ondeposits.com/fonts/css/CircularSTD.css");
 @import url("https://assets.ondeposits.com/fonts/css/HeroNew.css");
+
+.underline {
+  text-decoration: underline;
+}
+.noLine {
+  text-decoration: none;
+}
 
 .custom-scroll-bar {
   scrollbar-color: #929292 #e1e7ec;

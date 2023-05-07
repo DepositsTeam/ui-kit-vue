@@ -30,6 +30,12 @@ export default {
       control: { type: "select" },
       options: ["circularSTD", "heroNew"],
     },
+    underline: {
+      control: { type: "boolean" },
+    },
+    noLine: {
+      control: { type: "boolean" },
+    },
   },
 };
 

@@ -1,27 +1,45 @@
 <template>
-  <d-box class="ui-table__container-wrapper" :style="{
-    '--smart-color': smartColor,
-    '--smart-text-color': getTextColor(smartColor),
-  }">
+  <d-box
+    class="ui-table__container-wrapper"
+    :style="{
+      '--smart-color': smartColor,
+      '--smart-text-color': getTextColor(smartColor),
+    }"
+  >
     <d-box class="ui-table__container" :class="{ expandMode, isExpanded }">
       <d-box class="ui-table__header custom-scroll-bar">
-        <d-auto-layout v-if="$slots['table-header-left'] || search" class="ui-table__header__search-wrapper" :class="{
+        <d-auto-layout
+          v-if="$slots['table-header-left'] || search"
+          class="ui-table__header__search-wrapper"
+          :class="{
             [searchAlignment]: buttonActionsEnabled ? false : searchAlignment,
-          }">
+          }"
+        >
           <slot name="table-search" v-if="!expandMode">
-            <d-textfield v-if="search" :left-icon="SearchIcon" :placeholder="searchPlaceholder" v-model="searchValue"
-              size="large" />
+            <d-textfield
+              v-if="search"
+              :left-icon="SearchIcon"
+              :placeholder="searchPlaceholder"
+              v-model="searchValue"
+              size="large"
+            />
           </slot>
           <slot name="table-header-left"></slot>
         </d-auto-layout>
-        <d-box class="ui-table__header-btns" :class="{
+        <d-box
+          class="ui-table__header-btns"
+          :class="{
             [buttonActionsAlignment]:
               search || $slots['table-header-left']
                 ? false
                 : buttonActionsAlignment,
-          }">
+          }"
+        >
           <slot name="table-header-right"></slot>
-          <d-box v-if="enableCustomizeView" @click="toggleCustomizeViewModal(true)">
+          <d-box
+            v-if="enableCustomizeView"
+            @click="toggleCustomizeViewModal(true)"
+          >
             <slot name="customize-view-button">
               <d-button size="medium"> Customize view </d-button>
             </slot>
@@ -29,62 +47,123 @@
 
           <d-box v-if="enableCsvExport" @click="exportCsv">
             <slot name="export-csv-button">
-              <d-button size="medium" :left-icon="ExternalLinkIcon">Export</d-button>
+              <d-button size="medium" :left-icon="ExternalLinkIcon"
+                >Export</d-button
+              >
             </slot>
           </d-box>
         </d-box>
       </d-box>
-      <d-auto-layout class="ui-table__filters-container" :class="{ isExpandMode: expandMode }" between alignment="center">
-        <d-box ref="trigger" class="ui-table__active-filters" :class="{ isExpandMode: expandMode }">
-          <d-box v-if="expandMode"
+      <d-auto-layout
+        class="ui-table__filters-container"
+        :class="{ isExpandMode: expandMode }"
+        between
+        alignment="center"
+      >
+        <d-box
+          ref="trigger"
+          class="ui-table__active-filters"
+          :class="{ isExpandMode: expandMode }"
+        >
+          <d-box
+            v-if="expandMode"
             class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox expandMode-filters-trigger"
-            @click="toggleActiveFilters" @close="toggleActiveFilters(false)">
+            @click="toggleActiveFilters"
+            @close="toggleActiveFilters(false)"
+          >
             <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
-            <d-text font-face="circularSTD" scale="p-16" margin-x="8px" my0 v-if="!viewportShrunkToMobile"
-              class="activeFiltersTrigger activeFiltersBox">Add filter</d-text>
-            <chevron-filled-down-icon class="activeFiltersTrigger activeFiltersBox" />
+            <d-text
+              font-face="circularSTD"
+              scale="p-16"
+              margin-x="8px"
+              my0
+              v-if="!viewportShrunkToMobile"
+              class="activeFiltersTrigger activeFiltersBox"
+              >Add filter</d-text
+            >
+            <chevron-filled-down-icon
+              class="activeFiltersTrigger activeFiltersBox"
+            />
           </d-box>
-          <d-box :class="{ active: showActiveFiltersDropdown }"
-            class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox" @click="toggleActiveFilters"
-            v-if="filter.column" @close="toggleActiveFilters(false)">
+          <d-box
+            :class="{ active: showActiveFiltersDropdown }"
+            class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox"
+            @click="toggleActiveFilters"
+            v-if="filter.column"
+            @close="toggleActiveFilters(false)"
+          >
             <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
-            <d-text class="activeFiltersTrigger activeFiltersBox" margin-x="8px" my0 font-face="circularSTD"
-              scale="p-16">{{ filter.column.display }}
-              <d-box light-color="#64748B" class="activeFiltersTrigger" dark-color="#64748B" is="span">{{
-                filter.selectedFilter.toLowerCase() }}</d-box>
+            <d-text
+              class="activeFiltersTrigger activeFiltersBox"
+              margin-x="8px"
+              my0
+              font-face="circularSTD"
+              scale="p-16"
+              >{{ filter.column.display }}
+              <d-box
+                light-color="#64748B"
+                class="activeFiltersTrigger"
+                dark-color="#64748B"
+                is="span"
+                >{{ filter.selectedFilter.toLowerCase() }}</d-box
+              >
               {{ filter.selectedFilterValue }}
               <d-box is="span" class="activeFiltersTrigger" v-if="filter.join">
                 {{ filter.join }}
-                <d-box light-color="#64748B" class="activeFiltersTrigger" dark-color="#64748B" is="span">{{
-                  filter.selectedFilter2.toLowerCase() }}</d-box>
+                <d-box
+                  light-color="#64748B"
+                  class="activeFiltersTrigger"
+                  dark-color="#64748B"
+                  is="span"
+                  >{{ filter.selectedFilter2.toLowerCase() }}</d-box
+                >
                 {{ filter.selectedFilterValue2 }}
               </d-box>
             </d-text>
-            <close-icon @click="updateFilterValue({
-              column: null,
-              selectedFilter: null,
-              selectedFilterValue: null,
-              join: null,
-              selectedFilter2: null,
-              selectedFilterValue2: null,
-            })
-              " class="activeFiltersBox" />
+            <close-icon
+              @click="
+                updateFilterValue({
+                  column: null,
+                  selectedFilter: null,
+                  selectedFilterValue: null,
+                  join: null,
+                  selectedFilter2: null,
+                  selectedFilterValue2: null,
+                })
+              "
+              class="activeFiltersBox"
+            />
           </d-box>
-          <d-box class="ui-table__active-filter-group activeFiltersBox" v-if="sortConfiguration">
+          <d-box
+            class="ui-table__active-filter-group activeFiltersBox"
+            v-if="sortConfiguration"
+          >
             <sort2-icon class="activeFiltersBox" />
-            <d-text margin-x="8px" my0 font-face="circularSTD" scale="p-16" class="activeFiltersBox">{{
-              sortConfiguration.column.display }}
+            <d-text
+              margin-x="8px"
+              my0
+              font-face="circularSTD"
+              scale="p-16"
+              class="activeFiltersBox"
+              >{{ sortConfiguration.column.display }}
               <d-box color="#8895A7" is="span">is</d-box>
               {{
                 sortConfiguration.direction === "asc"
-                ? "Ascending"
-                : "Descending"
-              }}</d-text>
-            <close-icon class="activeFiltersBox" @click="updateSortConfiguration(null)" />
+                  ? "Ascending"
+                  : "Descending"
+              }}</d-text
+            >
+            <close-icon
+              class="activeFiltersBox"
+              @click="updateSortConfiguration(null)"
+            />
           </d-box>
 
-          <table-active-filters-dropdown ref="target" v-if="showActiveFiltersDropdown"
-            @close="closeActiveFiltersDropdown" />
+          <table-active-filters-dropdown
+            ref="target"
+            v-if="showActiveFiltersDropdown"
+            @close="closeActiveFiltersDropdown"
+          />
         </d-box>
         <slot name="call-to-action" v-if="expandMode">
           <d-button color-scheme="primary" size="large">+ New card</d-button>
@@ -92,69 +171,125 @@
       </d-auto-layout>
 
       <d-box ref="currentTable" class="ui-table__wrapper">
+        <d-box v-if="loading" class="ui-table-loader">
+          <d-loader />
+        </d-box>
         <d-box is="table" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
-              <d-box is="td" v-if="showCheckboxes" class="ui-table__heading-cell is-checkbox ui-table__fixed-column"
+              <d-box
+                is="td"
+                v-if="showCheckboxes"
+                class="ui-table__heading-cell is-checkbox ui-table__fixed-column"
                 :style="{
-                      ...getColumnWidth(null, true),
-                      left: 0,
-                    }">
+                  ...getColumnWidth(null, true),
+                  left: 0,
+                }"
+              >
                 <d-checkbox v-model="selectedItems" :values="computedItemsID" />
               </d-box>
-              <d-box v-for="(column, index) in filteredRenderedColumns" is="td" :key="`column__${index}`"
-                class="ui-table__heading-cell" :class="{
-                      width: column.width,
-                      minWidth: column.minWidth,
-                      maxWidth: column.maxWidth,
-                      smartColor,
-                      isExpandMode: expandMode,
-                      'ui-table__fixed-column': column.fixed,
-                      [`ui-table__column-${column.dataSelector}`]: true,
-                    }" :style="{
-          ...getColumnWidth(column),
-          ...(column.leftOffset ? { left: column.leftOffset } : {}),
-        }">
+              <d-box
+                v-for="(column, index) in filteredRenderedColumns"
+                is="td"
+                :key="`column__${index}`"
+                class="ui-table__heading-cell"
+                :class="{
+                  width: column.width,
+                  minWidth: column.minWidth,
+                  maxWidth: column.maxWidth,
+                  smartColor,
+                  isExpandMode: expandMode,
+                  'ui-table__fixed-column': column.fixed,
+                  [`ui-table__column-${column.dataSelector}`]: true,
+                }"
+                :style="{
+                  ...getColumnWidth(column),
+                  ...(column.leftOffset ? { left: column.leftOffset } : {}),
+                }"
+              >
                 <table-head-cell :column="column" />
               </d-box>
             </d-box>
           </d-box>
           <d-box is="tbody" class="ui-table__body">
-            <d-box is="tr" class="ui-table__body-row" v-for="(datum, index) in paginatedData"
-              :key="`table__column_${index}`" :class="{
-                    checked: selectedItems.includes(datum[checkboxDataSelector]),
-                    enableHover: enableRowHoverCursor,
-                    isSelected: expandedData && expandedData.index === index,
-                  }" @click="(e) => emitRowClickedEvent(e, datum, index)">
-              <d-box is="td" v-if="showCheckboxes" class="ui-table__body-cell is-checkbox ui-table__fixed-column" :style="{
-                    ...getColumnWidth(null, true),
-                    left: 0,
-                  }">
-                <d-checkbox v-model="selectedItems" :value="datum[checkboxDataSelector]" />
+            <d-box
+              is="tr"
+              class="ui-table__body-row"
+              v-for="(datum, columnIndex) in paginatedData"
+              :key="`table__column_${columnIndex}`"
+              :class="{
+                checked: selectedItems.includes(datum[checkboxDataSelector]),
+                enableHover: enableRowHoverCursor,
+                isSelected: expandedData && expandedData.index === columnIndex,
+              }"
+              @click="(e) => emitRowClickedEvent(e, datum, columnIndex)"
+            >
+              <d-box
+                is="td"
+                v-if="showCheckboxes"
+                class="ui-table__body-cell is-checkbox ui-table__fixed-column"
+                :style="{
+                  ...getColumnWidth(null, true),
+                  left: 0,
+                }"
+              >
+                <d-checkbox
+                  v-model="selectedItems"
+                  :value="datum[checkboxDataSelector]"
+                />
               </d-box>
-              <d-box is="td" v-for="(column, index) in filteredRenderedColumns" :key="`table_column__${index}`"
-                class="ui-table__body-cell" :class="{
-                      'ui-table__fixed-column': column.fixed,
-                    }" :style="{
-          ...getColumnWidth(column),
-          ...(datum?.deposits_row_config?.background
-            ? {
-              background: datum.deposits_row_config.background,
-            }
-            : {}),
-          ...(column.leftOffset ? { left: column.leftOffset } : {}),
-        }">
-                <slot v-if="$slots[`item.${column.dataSelector}`]" :name="`item.${column.dataSelector}`"
-                  v-bind="transformDataWithColumnPipe(datum)"></slot>
-                <d-text font-face="circularSTD" v-else my0 class="ui-table__body-cell-text">
+              <d-box
+                is="td"
+                v-for="(column, index) in filteredRenderedColumns"
+                :key="`table_column__${index}`"
+                class="ui-table__body-cell"
+                :class="{
+                  'ui-table__fixed-column': column.fixed,
+                }"
+                :style="{
+                  ...getColumnWidth(column),
+                  ...(datum?.deposits_row_config?.background
+                    ? {
+                        background: validateBackground(
+                          datum.deposits_row_config.background,
+                          columnIndex
+                        ),
+                      }
+                    : {}),
+                  ...(column.leftOffset ? { left: column.leftOffset } : {}),
+                }"
+              >
+                <slot
+                  v-if="$slots[`item.${column.dataSelector}`]"
+                  :name="`item.${column.dataSelector}`"
+                  v-bind="transformDataWithColumnPipe(datum)"
+                ></slot>
+                <d-text
+                  font-face="circularSTD"
+                  v-else
+                  my0
+                  class="ui-table__body-cell-text"
+                >
                   {{ transformDataWithColumnPipe(datum)[column.dataSelector] }}
                 </d-text>
               </d-box>
-              <d-box is="td" class="ui-table__body-cell arrow-cell" :style="{
+              <d-box
+                is="td"
+                class="ui-table__body-cell arrow-cell"
+                :style="{
                   '--column_width': '10px',
                   '--column_min_width': '10px',
                   '--column_max_width': '10px',
-                }" v-if="expandedData">
+                  ...(datum?.deposits_row_config?.background
+                    ? {
+                        background: validateBackground(
+                          datum.deposits_row_config.background
+                        ),
+                      }
+                    : {}),
+                }"
+                v-if="expandedData"
+              >
                 <chevron-arrow-right-icon v-if="expandedData.index === index" />
               </d-box>
             </d-box>
@@ -162,16 +297,32 @@
         </d-box>
       </d-box>
 
-      <d-box class="ui-table__pagination" :class="{ right: paginateRight }" margin-top="1rem" v-if="paginate">
-        <d-pagination :total-pages="totalPages" :current-page="currentPage" :current-page-siblings="currentPageSiblings"
-          @page-changed="handlePageChange" :smart-color="smartColor" />
+      <d-box
+        class="ui-table__pagination"
+        :class="{ right: paginateRight }"
+        margin-top="1rem"
+        v-if="paginate"
+      >
+        <d-pagination
+          :total-pages="totalPages"
+          :current-page="currentPage"
+          :current-page-siblings="currentPageSiblings"
+          @page-changed="handlePageChange"
+          :smart-color="smartColor"
+        />
       </d-box>
-      <table-customize-view-modal :columns="renderedColumns" :column-hash-map="columnHashmap"
-        :show="showCustomizeViewModal" @close-modal="toggleCustomizeViewModal(false)" />
+      <table-customize-view-modal
+        :columns="renderedColumns"
+        :column-hash-map="columnHashmap"
+        :show="showCustomizeViewModal"
+        @close-modal="toggleCustomizeViewModal(false)"
+      />
     </d-box>
     <d-box v-if="expandMode && isExpanded" class="ui-table__card">
       <d-box class="ui-table__card-header">
-        <d-text scale="subhead" class="ui-table__card-header-text">CARD DETAILS</d-text>
+        <d-text scale="subhead" class="ui-table__card-header-text"
+          >CARD DETAILS</d-text
+        >
       </d-box>
       <d-box class="ui-table__card-body">
         <slot name="expanded-card-body" v-bind="expandedData.datum">
@@ -191,6 +342,7 @@
 <script setup>
 import {
   DBox,
+  DLoader,
   DTextfield,
   DButton,
   DCheckbox,
@@ -232,6 +384,7 @@ import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
 import { useCsvExport } from "./composables/useCsvExport";
 import { getTextColor } from "../utils/colorManager";
+import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
 const emit = defineEmits([
@@ -413,7 +566,7 @@ const hideColumnsOnMobile = () => {
 const calculateColumnOffset = async () => {
   let initialOffset = props.showCheckboxes ? 50 : 0;
   const clonedRenderedColumns = [...renderedColumns.value];
-  await nextTick()
+  await nextTick();
   renderedColumns.value = clonedRenderedColumns.map((column) => {
     if (column.fixed) {
       column.leftOffset = initialOffset + "px";
@@ -433,8 +586,7 @@ onMounted(async () => {
   await nextTick();
   setTimeout(() => {
     calculateColumnOffset();
-  }, 500)
-  
+  }, 500);
 });
 
 onUnmounted(() => {
@@ -496,6 +648,9 @@ const computedItemsID = computed(() => {
 });
 
 const totalPages = computed(() => {
+  if (props.totalPages !== null && props.totalPages > 0) {
+    return props.totalPages;
+  }
   if (searchValue.value || filter.value.column) {
     return Math.ceil(dataFactory.value.length / props.itemsPerPage);
   }
@@ -511,6 +666,15 @@ watch(renderedColumns, (newVal, oldVal) => {
     calculateColumnOffset();
   }
 });
+
+const validateBackground = (background, index) => {
+  if (validateColor(background)) {
+    return background;
+  }
+  throw Error(
+    `Invalid CSS color (data[x].deposits_row_config.background) at row index ${index}: ${background}`
+  );
+};
 </script>
 
 <style lang="scss">
@@ -643,7 +807,7 @@ watch(renderedColumns, (newVal, oldVal) => {
           justify-content: flex-end;
         }
 
-        &>*:not(:last-child) {
+        & > *:not(:last-child) {
           margin-right: 8px;
         }
 
@@ -651,7 +815,7 @@ watch(renderedColumns, (newVal, oldVal) => {
           flex-direction: column;
           align-items: flex-start;
 
-          &>*:not(:last-child) {
+          & > *:not(:last-child) {
             margin-right: 0;
             margin-bottom: 8px;
           }
@@ -662,7 +826,7 @@ watch(renderedColumns, (newVal, oldVal) => {
         flex-direction: column;
         align-items: flex-start;
 
-        &> :first-child {
+        & > :first-child {
           margin-bottom: 16px;
         }
       }
@@ -686,7 +850,6 @@ watch(renderedColumns, (newVal, oldVal) => {
     }
 
     .ui-table__body-row {
-
       &:hover,
       &.isSelected {
         &.enableHover {
@@ -820,6 +983,22 @@ watch(renderedColumns, (newVal, oldVal) => {
       overflow: auto;
       scrollbar-color: #929292 #e1e7ec;
       scrollbar-width: thin;
+      position: relative;
+
+      .ui-table-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.8);
+        &.dark_mode {
+          background: rgba(0, 0, 0, 0.8);
+        }
+      }
 
       &::-webkit-scrollbar {
         height: 8px;
@@ -929,7 +1108,7 @@ watch(renderedColumns, (newVal, oldVal) => {
     }
 
     .ui-table__active-filters {
-      &>* {
+      & > * {
         &:not(:first-child) {
           margin-left: 16px;
         }

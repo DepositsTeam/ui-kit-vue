@@ -21,6 +21,10 @@ export const tableProps = {
     type: Number,
     default: 1,
   },
+  totalPages: {
+    type: Number,
+    default: null,
+  },
   currentPageSiblings: {
     type: Number,
     default: 3,

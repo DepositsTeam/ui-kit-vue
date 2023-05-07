@@ -4,16 +4,16 @@
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <slot name="label">
-      <d-box
-        is="label"
-        :class="labelClass"
-        :font-face="labelFontFace"
-        class="ui-text-field__label"
-        scale="subhead"
-      >
-        <d-text class="ui-card-input-field__label" scale="subhead">{{
-          label
-        }}</d-text>
+      <d-box v-if="!!label " is="label">
+        <d-text
+          margin-top="0px"
+          class="ui-text-field__label"
+          :class="labelClass"
+          scale="subhead"
+          :font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-text>
       </d-box>
     </slot>
     <d-box
@@ -473,37 +473,31 @@ const handleCardNoKeyPress = (e) => {
   display: flex;
   flex-direction: column;
   &.size__massive {
-    height: 64px;
     .ui-card-input-field__pseudo-input {
       height: 64px;
     }
   }
   &.size__huge {
-    height: 56px;
     .ui-card-input-field__pseudo-input {
       height: 56px;
     }
   }
   &.size__xlarge {
-    height: 48px;
     .ui-card-input-field__pseudo-input {
       height: 48px;
     }
   }
   &.size__large {
-    height: 40px;
     .ui-card-input-field__pseudo-input {
       height: 40px;
     }
   }
   &.size__medium {
-    height: 32px;
     .ui-card-input-field__pseudo-input {
       height: 32px;
     }
   }
   &.size__small {
-    height: 24px;
     .ui-card-input-field__pseudo-input {
       height: 24px;
       padding: 8px 16px;
