@@ -100,7 +100,7 @@ provide("___clearToasts", clearToasts);
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
