@@ -996,7 +996,7 @@ const validateBackground = (background, index) => {
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
         &.dark_mode {
-          background: rgba(0, 0, 0, 0.8);
+          background: rgba(var(--dark-background-color), 0.8);
         }
       }
 
