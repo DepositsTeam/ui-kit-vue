@@ -70,10 +70,11 @@ onUnmounted(() => {
 });
 
 const pushToast = (toast) => {
+  const timeout = toast.autoClose || toast.timeout;
   toasts.value.push({
     ...toast,
     uuid: uniqueRandomString(),
-    remainingTime: toast.autoClose || toast.timeout,
+    remainingTime: timeout ? timeout : 3,
   });
 };
 
