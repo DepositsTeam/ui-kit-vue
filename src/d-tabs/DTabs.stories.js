@@ -207,3 +207,57 @@ const DarkModeTemplateWithContent = (args) => ({
     </dark-mode-provider>
   `,
 });
+
+export const UnderlineSchemeTab = Template.bind({})
+UnderlineSchemeTab.args = {
+  scheme: "underline",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const InlineSchemeTab = Template.bind({})
+InlineSchemeTab.args = {
+  scheme: "inline",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};

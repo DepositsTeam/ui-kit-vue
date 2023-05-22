@@ -9,7 +9,7 @@
       :key="`tab_${index}_${keyGen()}`"
       :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
       v-bind="{ ...generateSpacing(index), ...$props }"
-      class="ui-tab"
+      class="ui-tab noLine"
       :to="tab.to"
       :class="{
         active: internalActive === index,
@@ -23,7 +23,7 @@
         name="tab-content"
         v-bind="{ tab, index, isActive: internalActive === index }"
       >
-        <d-text is="span" scale="subhead">
+        <d-text is="span" scale="subhead" no-line>
           {{ typeof tab === "object" ? tab.text : tab }}
         </d-text>
       </slot>
@@ -114,6 +114,7 @@ const switchActiveTabs = (index, tab) => {
 .ui-tabs__wrapper {
   position: relative;
   &.underline {
+    text-decoration: none;
     &::after {
       position: absolute;
       content: "";
