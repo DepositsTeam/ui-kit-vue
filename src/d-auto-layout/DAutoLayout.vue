@@ -107,9 +107,7 @@ onUnmounted(() => {
   }
   &.direction__horizontal {
     flex-direction: row;
-    & > *:not(:last-child) {
-      margin-right: var(--spacing-value);
-    }
+    gap: var(--spacing-value);
     &.stretchItems > * {
       flex: 1;
     }
@@ -170,11 +168,9 @@ onUnmounted(() => {
   }
   &.direction__vertical {
     flex-direction: column;
+    gap: var(--spacing-value);
     &.full__width__items > * {
       width: 100%;
-    }
-    & > *:not(:last-child) {
-      margin-bottom: var(--spacing-value);
     }
     &.align__top-left {
       justify-content: flex-start;
