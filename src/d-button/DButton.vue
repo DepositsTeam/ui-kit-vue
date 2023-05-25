@@ -30,49 +30,52 @@
       '--smart-hover-text-color': getTextColor(smartHoverColor),
     }"
   >
-    <d-box class="ui-button__left-icon" v-if="$slots.leftIcon">
-      <slot name="leftIcon"></slot>
+    <d-box is="span" v-if="loading">
+      <d-box is="span" v-if="loaderType === 'text'" name="loadingText">
+        <d-box is="span" v-if="loadingText">{{ loadingText }}</d-box>
+      </d-box>
+      <d-loader
+        v-else
+        loader-size="1.5em"
+        :smart-color="computedTextColor"
+        :loader="loaderType"
+      />
     </d-box>
-    <component
-      smart-color="currentcolor"
-      class="ui-button__left-icon"
-      v-else-if="leftIcon"
-      :is="leftIcon"
-    ></component>
-    <span
-      class="ui-button__button-text"
-      :class="{ 'loader-text': loading && loaderType === 'text' }"
-    >
-      <span v-if="loading">
-        <slot v-if="loaderType === 'text'" name="loadingText">
-          <span v-if="loadingText">{{ loadingText }}</span>
-        </slot>
-        <d-loader
-          v-else
-          loader-size="1.5em"
-          :smart-color="computedTextColor"
-          :loader="loaderType"
-        />
-      </span>
-      <span v-else>
-        <span v-if="text">{{ text }}</span>
-        <slot v-else></slot>
-      </span>
-    </span>
-    <ChevronFilledDownIcon
-      v-if="dropDown"
-      smart-color="currentcolor"
-      class="ui-button__right-icon"
-    />
-    <d-box class="ui-button__right-icon" v-if="$slots.rightIcon">
-      <slot name="rightIcon"></slot>
+    <d-box v-else display="inline-flex" align-items="center">
+      <d-box class="ui-button__left-icon" v-if="$slots.leftIcon">
+        <slot name="leftIcon"></slot>
+      </d-box>
+      <component
+        smart-color="currentcolor"
+        class="ui-button__left-icon"
+        v-else-if="leftIcon"
+        :is="leftIcon"
+      ></component>
+      <d-box
+        is="span"
+        class="ui-button__button-text"
+        :class="{ 'loader-text': loading && loaderType === 'text' }"
+      >
+        <d-box is="span">
+          <d-box is="span" v-if="text">{{ text }}</d-box>
+          <d-box is="span" v-else><slot></slot></d-box>
+        </d-box>
+      </d-box>
+      <ChevronFilledDownIcon
+        v-if="dropDown"
+        smart-color="currentcolor"
+        class="ui-button__right-icon"
+      />
+      <d-box class="ui-button__right-icon" v-if="$slots.rightIcon">
+        <slot name="rightIcon"></slot>
+      </d-box>
+      <component
+        smart-color="currentcolor"
+        class="ui-button__right-icon"
+        v-else-if="rightIcon"
+        :is="rightIcon"
+      ></component>
     </d-box>
-    <component
-      smart-color="currentcolor"
-      class="ui-button__right-icon"
-      v-else-if="rightIcon"
-      :is="rightIcon"
-    ></component>
   </d-box>
 </template>
 
@@ -141,7 +144,7 @@ const props = defineProps({
     type: Object,
   },
   dropDown: {
-    type: Object,
+    type: Boolean,
   },
   responsive: {
     type: Boolean,

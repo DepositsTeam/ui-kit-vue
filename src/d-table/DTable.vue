@@ -468,13 +468,30 @@ const emitRowClickedEvent = (e, datum, index) => {
       }
     }
   }
-  const tagName = e.target.tagName.toLowerCase();
-  switch (tagName) {
-    case "a":
-    case "button":
-      break;
-    default:
-      emit("row-clicked", datum);
+  let escapedQuerySelectors = [
+    ".btn",
+    ".ui-button",
+    ".d-context-menu-dropdown-wrapper",
+    "button",
+    "a",
+  ];
+  if (props.overrideDefaultEscapedRowClickSelectors) {
+    escapedQuerySelectors = [...props.escapedRowClickSelectors];
+  } else {
+    escapedQuerySelectors = [
+      ...escapedQuerySelectors,
+      ...props.escapedRowClickSelectors,
+    ];
+  }
+  let containsEscapedSelector = false;
+  escapedQuerySelectors.forEach((escapedSelector) => {
+    if (e.target.closest(escapedSelector)) {
+      containsEscapedSelector = true;
+    }
+  });
+
+  if (!containsEscapedSelector) {
+    emit("row-clicked", datum);
   }
 };
 
@@ -996,7 +1013,7 @@ const validateBackground = (background, index) => {
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
         &.dark_mode {
-          background: rgba(0, 0, 0, 0.8);
+          background: rgba(var(--dark-background-color), 0.8);
         }
       }
 

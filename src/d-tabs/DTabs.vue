@@ -1,34 +1,37 @@
 <template>
-  <d-auto-layout
-    :direction="horizontal ? 'horizontal' : 'vertical'"
-    :spacing="spacing"
-    :class="{ 'ui-tabs__wrapper': true, [scheme]: scheme && !inline }"
-  >
-    <d-box
-      v-for="(tab, index) in tabs"
-      :key="`tab_${index}_${keyGen()}`"
-      :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
-      v-bind="{ ...generateSpacing(index), ...$props }"
-      class="ui-tab"
-      :to="tab.to"
-      :class="{
-        active: internalActive === index,
-        disabled: typeof tab === 'object' && tab.disabled,
-        inline: inline || scheme === 'inline',
-        [scheme]: scheme && !inline,
-      }"
-      @click="switchActiveTabs(index, tab)"
+  <d-box class="ui-tab-card" :class="{ cardMode: scheme === 'underline_card' }">
+    <d-auto-layout
+      :direction="horizontal ? 'horizontal' : 'vertical'"
+      :spacing="spacing"
+      :class="{ 'ui-tabs__wrapper': true, [scheme]: scheme && !inline }"
     >
-      <slot
-        name="tab-content"
-        v-bind="{ tab, index, isActive: internalActive === index }"
+      <d-box
+        v-for="(tab, index) in tabs"
+        :key="`tab_${index}_${keyGen()}`"
+        :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
+        v-bind="{ ...generateSpacing(index), ...$props }"
+        class="ui-tab noLine"
+        :to="tab.to"
+        :class="{
+          active: internalActive === index,
+          disabled: typeof tab === 'object' && tab.disabled,
+          inline: inline || scheme === 'inline',
+          [scheme]: scheme && !inline,
+        }"
+        @click="switchActiveTabs(index, tab)"
       >
-        <d-text is="span" scale="subhead">
-          {{ typeof tab === "object" ? tab.text : tab }}
-        </d-text>
-      </slot>
-    </d-box>
-  </d-auto-layout>
+        <slot
+          name="tab-content"
+          v-bind="{ tab, index, isActive: internalActive === index }"
+        >
+          <d-text is="span" scale="subhead" no-line>
+            {{ typeof tab === "object" ? tab.text : tab }}
+          </d-text>
+        </slot>
+      </d-box>
+    </d-auto-layout>
+    <slot v-if="scheme === 'underline_card'"></slot>
+  </d-box>
 </template>
 
 <script setup>
@@ -59,7 +62,8 @@ const props = defineProps({
   scheme: {
     type: String,
     default: "button",
-    validator: (value) => ["button", "underline", "inline"].includes(value),
+    validator: (value) =>
+      ["button", "underline", "inline", "underline_card"].includes(value),
   },
   is: {
     type: [String, Object],
@@ -111,10 +115,33 @@ const switchActiveTabs = (index, tab) => {
 </script>
 
 <style lang="scss" scoped>
+.ui-tab-card {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  &.cardMode {
+    background: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #e2edf6;
+    &.dark_mode {
+      border-bottom-color: #202b3c;
+    }
+  }
+}
 .ui-tabs__wrapper {
   position: relative;
-  &.underline {
-    &::after {
+  align-self: flex-end;
+  &.underline_card {
+    top: 1rem;
+  }
+  &.underline,
+  &.underline_card {
+    text-decoration: none;
+    &:not(.underline_card)::after {
       position: absolute;
       content: "";
       width: 100%;
@@ -146,14 +173,15 @@ const switchActiveTabs = (index, tab) => {
     color: #94a3b8;
 
     &:hover {
-      &:not(.inline):not(.underline) {
+      &:not(.inline):not(.underline):not(.underline_card) {
         background: var(--dark-primary-action-color);
       }
       &.inline {
         color: var(--dark-primary-action-color);
       }
-      &.underline {
-        &::after {
+      &.underline,
+      &.underline_card {
+        &:not(.underline_card)::after {
           content: "";
           background: var(--dark-primary-action-color);
           position: absolute;
@@ -181,7 +209,8 @@ const switchActiveTabs = (index, tab) => {
           color: var(--dark-primary-action-color);
         }
       }
-      &.underline {
+      &.underline,
+      &.underline_card {
         .ui-text {
           color: var(--dark-primary-action-color);
         }
@@ -207,11 +236,12 @@ const switchActiveTabs = (index, tab) => {
 
   &:hover {
     color: var(--light-primary-action-color);
-    &:not(.inline):not(.underline) {
+    &:not(.inline):not(.underline):not(.underline_card) {
       background: #f5f8fa;
     }
-    &.underline {
-      &::after {
+    &.underline,
+    &.underline_card {
+      &:not(.underline_card)::after {
         background: var(--light-primary-action-color);
         content: "";
         position: absolute;
@@ -232,10 +262,11 @@ const switchActiveTabs = (index, tab) => {
     &.inline {
       color: var(--light-primary-action-color);
     }
-    &:not(.inline):not(.underline) {
+    &:not(.inline):not(.underline):not(.underline_card) {
       background: var(--light-primary-action-color);
     }
-    &.underline {
+    &.underline,
+    &.underline_card {
       color: var(--light-primary-action-color);
       &::after {
         background: var(--light-primary-action-color);

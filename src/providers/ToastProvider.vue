@@ -70,10 +70,11 @@ onUnmounted(() => {
 });
 
 const pushToast = (toast) => {
+  const timeout = toast.autoClose || toast.timeout;
   toasts.value.push({
     ...toast,
     uuid: uniqueRandomString(),
-    remainingTime: toast.autoClose || toast.timeout,
+    remainingTime: timeout ? timeout : 3,
   });
 };
 
@@ -100,7 +101,7 @@ provide("___clearToasts", clearToasts);
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 

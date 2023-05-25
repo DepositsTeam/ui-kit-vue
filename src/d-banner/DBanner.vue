@@ -209,7 +209,6 @@ onMounted(() => {
     min-width: 16px;
     min-height: 16px;
     margin-right: 8px;
-    flex: 1;
     &.iconColor {
       color: var(--icon-color);
     }

@@ -23,7 +23,7 @@
       margin-y="0"
       dark-class=""
     >
-      <span v-if="text">{{ text }}</span>
+      <d-box is="span" v-if="text">{{ text }}</d-box>
       <slot v-else></slot>
     </d-text>
   </d-box>
@@ -70,6 +70,7 @@ defineProps({
   align-items: center;
   justify-content: center;
   color: white;
+  font-weight: 500;
   &.noWrap {
     white-space: nowrap;
     word-break: keep-all;

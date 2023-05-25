@@ -28,7 +28,6 @@
 <script setup>
 import { DBox, DHeading, DAutoLayout, DText, DRadio } from "../main";
 import { useRadio } from "../utils/composables/useRadio";
-import { defineEmits } from "vue";
 
 const props = defineProps({
   heading: {
