@@ -79,6 +79,9 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  border: {
+    type: Boolean,
+  },
   icon: {
     type: Object,
   },

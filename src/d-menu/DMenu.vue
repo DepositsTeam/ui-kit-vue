@@ -227,5 +227,6 @@ const handleOptionHover = (option) => {
 }
 .d-context-menu-dropdown-wrapper {
   width: max-content;
+  position: relative;
 }
 </style>

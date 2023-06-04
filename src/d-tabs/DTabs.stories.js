@@ -328,3 +328,115 @@ UnderlineCardWithSecondaryItem.args = {
     },
   ],
 };
+
+export const UnderlineSchemeWithoutBorder = Template.bind({});
+UnderlineSchemeWithoutBorder.args = {
+  scheme: "underline",
+  hideBottomBorder: true,
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const UnderlineCardSchemeWithoutBorder = Template.bind({});
+UnderlineCardSchemeWithoutBorder.args = {
+  scheme: "underline_card",
+  hideBottomBorder: true,
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const CustomTabActiveTextColor = Template.bind({});
+CustomTabActiveTextColor.args = {
+  scheme: "underline",
+  activeTextColor: "#ff0000",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const CustomTabActiveColor = Template.bind({});
+CustomTabActiveColor.args = {
+  scheme: "underline",
+  activeIndicatorColor: "#ff0000",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};

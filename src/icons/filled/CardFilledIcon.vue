@@ -24,7 +24,7 @@
           class="card-rectangle"
           width="24"
           height="24"
-          :fill="white"
+          fill="white"
         />
       </clipPath>
     </defs>
