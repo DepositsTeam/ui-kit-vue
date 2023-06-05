@@ -37,6 +37,13 @@ Default.args = {
   description: "Add your debit / credit card information",
 };
 
+export const WithLabel = Template.bind({});
+WithLabel.args = {
+  heading: "Card",
+  description: "Add your debit / credit card information",
+  label: "Select card option",
+};
+
 const NoIconTemplate = (args) => ({
   components: { DRadioCard },
   data: () => ({
