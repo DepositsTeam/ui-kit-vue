@@ -8,6 +8,7 @@ import {
 } from "./data/sitcom-data";
 import {
   actionSitcomsTable,
+  fixedActionsTable,
   overflowColumns,
   overflowFixedColumns,
   sitcomColumns,
@@ -474,5 +475,11 @@ const ActionSitcomsTemplate = (args) => ({
 export const ActionSitcomsTable = ActionSitcomsTemplate.bind({});
 ActionSitcomsTable.args = {
   columns: actionSitcomsTable,
+  data,
+};
+
+export const FixedActionSitcomsTable = ActionSitcomsTemplate.bind({});
+FixedActionSitcomsTable.args = {
+  columns: fixedActionsTable,
   data,
 };

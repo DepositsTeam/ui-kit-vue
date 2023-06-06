@@ -1,9 +1,23 @@
 <template>
-  <d-box class="ui-tab-card" :class="{ cardMode: scheme === 'underline_card' }">
+  <d-box
+    class="ui-tab-card"
+    :class="{
+      cardMode: scheme === 'underline_card',
+      hideBottomBorder,
+    }"
+    :style="{
+      '--active-text-color': activeTextColor,
+      '--active-indicator-color': activeIndicatorColor,
+    }"
+  >
     <d-auto-layout
       :direction="horizontal ? 'horizontal' : 'vertical'"
       :spacing="spacing"
-      :class="{ 'ui-tabs__wrapper': true, [scheme]: scheme && !inline }"
+      :class="{
+        'ui-tabs__wrapper': true,
+        [scheme]: scheme && !inline,
+        hideBottomBorder,
+      }"
     >
       <d-box
         v-for="(tab, index) in tabs"
@@ -17,6 +31,8 @@
           disabled: typeof tab === 'object' && tab.disabled,
           inline: inline || scheme === 'inline',
           [scheme]: scheme && !inline,
+          customTextColor: activeTextColor,
+          customIndicatorColor: activeIndicatorColor,
         }"
         @click="switchActiveTabs(index, tab)"
       >
@@ -69,6 +85,15 @@ const props = defineProps({
     type: [String, Object],
     default: "div",
   },
+  activeTextColor: {
+    type: String,
+  },
+  activeIndicatorColor: {
+    type: String,
+  },
+  hideBottomBorder: {
+    type: Boolean,
+  },
 });
 
 const emit = defineEmits(["tabSwitched", "update:modelValue"]);
@@ -119,29 +144,35 @@ const switchActiveTabs = (index, tab) => {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   padding-right: 1rem;
   &.cardMode {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background: white;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     border-radius: 8px 8px 0 0;
-    border-bottom: 1px solid #e2edf6;
+    &:not(.hideBottomBorder) {
+      border-bottom: 1px solid #e2edf6;
+    }
     &.dark_mode {
-      border-bottom-color: #202b3c;
+      &:not(.hideBottomBorder) {
+        border-bottom-color: #202b3c;
+      }
     }
   }
 }
 .ui-tabs__wrapper {
   position: relative;
   align-self: flex-end;
+  display: flex;
+  width: 100%;
   &.underline_card {
     top: 1rem;
   }
   &.underline,
   &.underline_card {
     text-decoration: none;
-    &:not(.underline_card)::after {
+    &:not(.underline_card):not(.hideBottomBorder)::after {
       position: absolute;
       content: "";
       width: 100%;
@@ -150,10 +181,8 @@ const switchActiveTabs = (index, tab) => {
       top: calc(100% + 1px);
       background: #e2edf6;
     }
-    &.dark_mode {
-      &::after {
-        background: #202b3c;
-      }
+    &.dark_mode:not(.underline_card):not(.hideBottomBorder)::after {
+      background: #202b3c;
     }
   }
 }
@@ -175,24 +204,40 @@ const switchActiveTabs = (index, tab) => {
     &:hover {
       &:not(.inline):not(.underline):not(.underline_card) {
         background: var(--dark-primary-action-color);
+        &.customIndicatorColor {
+          background: var(--active-indicator-color);
+        }
       }
       &.inline {
         color: var(--dark-primary-action-color);
+        &.customTextColor {
+          color: var(--active-text-color);
+        }
       }
       &.underline,
       &.underline_card {
-        &:not(.underline_card)::after {
-          content: "";
-          background: var(--dark-primary-action-color);
-          position: absolute;
-          height: 3px;
-          width: 100%;
-          top: 100%;
-          left: 0;
+        &:not(.underline_card) {
+          &::after {
+            content: "";
+            background: var(--dark-primary-action-color);
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            top: 100%;
+            left: 0;
+          }
+        }
+        &.customIndicatorColor {
+          &::after {
+            background: var(--active-indicator-color);
+          }
         }
       }
       .ui-text {
         color: var(--dark-primary-action-color);
+      }
+      &.customTextColor .ui-text {
+        color: var(--active-text-color);
       }
       &.disabled {
         opacity: 0.5;
@@ -203,16 +248,25 @@ const switchActiveTabs = (index, tab) => {
     &.active:not(.disabled) {
       &:not(.inline):not(.underline) {
         background: var(--dark-primary-action-color);
+        &.customIndicatorColor {
+          background: var(--active-indicator-color);
+        }
       }
       &.inline {
         .ui-text {
           color: var(--dark-primary-action-color);
+        }
+        &.customTextColor .ui-text {
+          color: var(--active-text-color);
         }
       }
       &.underline,
       &.underline_card {
         .ui-text {
           color: var(--dark-primary-action-color);
+        }
+        &.customTextColor .ui-text {
+          color: var(--active-text-color);
         }
         &::after {
           content: "";
@@ -222,6 +276,11 @@ const switchActiveTabs = (index, tab) => {
           width: 100%;
           top: 100%;
           left: 0;
+        }
+        &.customIndicatorColor {
+          &::after {
+            background: var(--active-indicator-color);
+          }
         }
       }
       .ui-text {
@@ -241,14 +300,21 @@ const switchActiveTabs = (index, tab) => {
     }
     &.underline,
     &.underline_card {
-      &:not(.underline_card)::after {
-        background: var(--light-primary-action-color);
-        content: "";
-        position: absolute;
-        height: 3px;
-        width: 100%;
-        top: 100%;
-        left: 0;
+      &:not(.underline_card) {
+        &::after {
+          background: var(--light-primary-action-color);
+          content: "";
+          position: absolute;
+          height: 3px;
+          width: 100%;
+          top: 100%;
+          left: 0;
+        }
+        &.customIndicatorColor {
+          &::after {
+            background: var(--active-indicator-color);
+          }
+        }
       }
     }
     &.disabled {
@@ -261,13 +327,22 @@ const switchActiveTabs = (index, tab) => {
     color: #fff;
     &.inline {
       color: var(--light-primary-action-color);
+      &.customTextColor {
+        color: var(--active-text-color);
+      }
     }
     &:not(.inline):not(.underline):not(.underline_card) {
       background: var(--light-primary-action-color);
+      &.customIndicatorColor {
+        background: var(--active-indicator-color);
+      }
     }
     &.underline,
     &.underline_card {
       color: var(--light-primary-action-color);
+      &.customTextColor {
+        color: var(--active-text-color);
+      }
       &::after {
         background: var(--light-primary-action-color);
         content: "";
@@ -276,6 +351,11 @@ const switchActiveTabs = (index, tab) => {
         width: 100%;
         top: 100%;
         left: 0;
+      }
+      &.customIndicatorColor {
+        &::after {
+          background: var(--active-indicator-color);
+        }
       }
     }
   }

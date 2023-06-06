@@ -91,6 +91,9 @@ const props = defineProps({
   modelValue: {
     type: String,
   },
+  fetching: {
+    type: Boolean,
+  },
   size: {
     type: String,
     validator: (value) =>

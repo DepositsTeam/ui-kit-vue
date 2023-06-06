@@ -87,6 +87,10 @@ const props = defineProps({
     type: String,
     default: "16px",
   },
+  checked: {
+    type: Boolean,
+    default: null,
+  },
 });
 
 const computedValue = computed(() =>
@@ -102,6 +106,9 @@ const computedTrueValue = computed(() => {
 });
 
 const isChecked = computed(() => {
+  if (props.checked !== null) {
+    return props.checked;
+  }
   if (props.modelValue instanceof Array) {
     if (props.values.length) {
       return props.values.every((element) => {
@@ -115,6 +122,10 @@ const isChecked = computed(() => {
 
 const handleChange = (e) => {
   if (props.disabled) {
+    return;
+  }
+  if (props.checked !== null) {
+    e.target.checked = props.checked;
     return;
   }
   let currentlyChecked = e.target.checked;

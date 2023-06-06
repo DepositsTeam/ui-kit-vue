@@ -954,11 +954,16 @@ const validateBackground = (background, index) => {
       flex: 1;
       padding: 12px 16px;
       z-index: 1;
+      position: relative;
 
       &.ui-table__fixed-column {
         position: sticky;
         left: 0;
         z-index: 30;
+      }
+
+      &:not(.ui-table__fixed-column):hover {
+        z-index: 31;
       }
 
       &.is-checkbox {
