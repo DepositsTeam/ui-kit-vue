@@ -1,4 +1,5 @@
 import { computed } from "vue";
+import uniqueRandomString from "../../utils/uniqueRandomString";
 
 export const useDropdown = (props) => {
   const computedOptions = computed(() => {
@@ -17,7 +18,14 @@ export const useDropdown = (props) => {
             : option[props.optionValue];
       }
       newOption.originalOption = option;
-      return newOption;
+      return {
+        ...newOption,
+        unique_identifier_for_dropdown: uniqueRandomString(30, 8),
+        ...(props.optionDescription
+          ? { description: option[props.optionDescription] }
+          : {}),
+        ...(props.optionIcon ? { icon: option[props.optionIcon] } : {}),
+      };
     });
   });
 

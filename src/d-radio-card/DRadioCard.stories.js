@@ -6,6 +6,7 @@ import {
   DText,
   DBox,
   DAutoLayout,
+  BankIcon,
 } from "../main";
 
 export default {
@@ -146,3 +147,28 @@ CustomHeadingAndDescription.args = {
   heading: "One time payment",
   description: "Use this option to collect a one off payment",
 };
+
+const MultipleCardsTemplate = (args) => ({
+  components: { DRadioCard, CardIcon, BankIcon },
+  setup() {
+    return { args };
+  },
+  data: () => ({
+    value: "",
+  }),
+  template: `
+    <d-radio-card heading="Card" description="Pay with a credit card"  v-model="value" value="card" v-bind="args">
+      <template #icon>
+        <card-icon />
+      </template>
+    </d-radio-card>
+    <d-radio-card heading="Bank account" description="Pay with your bank account"  v-model="value" value="bank" v-bind="args">
+    <template #icon>
+      <bank-icon />
+    </template>
+    </d-radio-card>
+    <p>The selected value is {{value}}</p>
+  `,
+});
+
+export const MultipleCards = MultipleCardsTemplate.bind({});
