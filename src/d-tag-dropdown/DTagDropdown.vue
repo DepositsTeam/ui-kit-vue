@@ -294,11 +294,11 @@ const inputTags = computed(() => {
 });
 
 const handleDeleteTag = (currentTag) => {
-  // const deletedTag = inputTags.value[index];
-  // let oldTagArray = inputTags.value;
-  emit(
-    "update:modelValue",
-    [...computedModelValue.value].filter((tag) => tag !== currentTag)
+  const currentSelectedOptions = [...selectedOptions.value];
+  emitSelectedOptions(
+    currentSelectedOptions.filter(
+      (selectedOption) => selectedOption !== currentTag.value
+    )
   );
 };
 
