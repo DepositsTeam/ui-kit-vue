@@ -89,10 +89,11 @@
 
 <script setup>
 import { CloseIcon, DBox, DButton, DHeading, DText } from "../main";
+import { watch } from "vue";
 
 const emit = defineEmits(["closeModal", "confirmAction"]);
 
-defineProps({
+const props = defineProps({
   show: {
     type: Boolean,
   },
@@ -165,6 +166,22 @@ const handleCloseClicks = (e) => {
     emit("closeModal");
   }
 };
+
+watch(
+  () => props.show,
+  (value) => {
+    const removeModal = (e) => {
+      if (e.key === "Escape") {
+        emit("closeModal");
+      }
+    };
+    if (value) {
+      window.addEventListener("keydown", removeModal);
+    } else {
+      window.removeEventListener("keydown", removeModal);
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>

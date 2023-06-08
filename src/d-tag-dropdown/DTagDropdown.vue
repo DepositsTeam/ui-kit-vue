@@ -96,6 +96,7 @@
           v-model="inputValue"
           :left-icon="SearchIcon"
           :placeholder="placeholder"
+          @keydown="handleEsc"
           size="large"
         />
       </d-box>
@@ -211,6 +212,13 @@ const emitRightIconClicked = (e) => {
 const inputValue = ref("");
 const showOptions = ref(false);
 const validInput = ref(null);
+
+const handleEsc = (e) => {
+  if (e.key === "Escape") {
+    showOptions.value = false;
+    inputValue.value = "";
+  }
+};
 
 const emitSelectedOptions = (options) => {
   if (props.returnFullObject) {
@@ -501,7 +509,8 @@ const ___theme = inject("___theme", defaultThemeVars);
   padding: 8px 16px;
   &.dropdownMode {
     &:hover,
-    &:active {
+    &:active,
+    &.selected {
       background: #f2fafc;
       color: #0db9e9;
       position: relative;
