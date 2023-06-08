@@ -1,5 +1,5 @@
 import DRadio from "./DRadio.vue";
-import DarkModeProvider from "../providers/DarkModeProvider.vue";
+import { DAutoLayout, DarkModeProvider } from "../main";
 
 export default {
   title: "Forms/Radio",
@@ -93,15 +93,19 @@ DarkRinged.args = {
 };
 
 const MultipleRadiosTemplate = (args) => ({
-  components: { DRadio },
+  components: { DRadio, DAutoLayout },
   data: () => ({
     checkValue: "",
   }),
   setup() {
     return { args };
   },
-  template: `<d-radio label="Yes" value="yes" v-model="checkValue" />
-  <d-radio label="No" value="no"  />`,
+  template: `
+    <d-auto-layout align-items="center">
+    <d-radio label="Yes" value="yes" v-model="checkValue" />
+    <d-radio label="No" v-model="checkValue" value="no"  />
+    </d-auto-layout>
+    `,
 });
 
 export const Multiple = MultipleRadiosTemplate.bind({});

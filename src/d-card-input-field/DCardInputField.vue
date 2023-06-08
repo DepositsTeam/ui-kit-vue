@@ -559,6 +559,10 @@ const handleCardNoKeyPress = (e) => {
   &.hasError input {
     background: #fff0f2;
     border-color: #d62f4b;
+    &.dark_mode {
+      background: #350a12;
+      border-color: #df5e74;
+    }
   }
   &.focus:not(.hasError) {
     border-color: var(--light-primary-action-color);
