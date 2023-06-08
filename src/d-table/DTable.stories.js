@@ -298,8 +298,8 @@ export const PipedColumnExampleMultiplyQtyByTwo = Template.bind({});
 PipedColumnExampleMultiplyQtyByTwo.args = {
   columns: [
     {
-      display: "Profile picture",
-      dataSelector: "profile_picture",
+      display: "Name",
+      dataSelector: "name",
       uppercase: true,
       sortable: true,
       filterable: true,

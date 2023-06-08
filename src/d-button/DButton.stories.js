@@ -125,7 +125,6 @@ PrimaryLoading.args = {
   colorScheme: "primary",
   loading: true,
 };
-PrimaryLoading.storyName = "Loading";
 
 export const PrimaryRingLoader = Template.bind({});
 PrimaryRingLoader.args = {
@@ -157,7 +156,6 @@ DarkPrimaryLoading.args = {
   colorScheme: "primary",
   loading: true,
 };
-PrimaryLoading.storyName = "Dark Loading";
 
 export const Danger = Template.bind({});
 Danger.args = { children: "Danger Button", colorScheme: "danger" };
@@ -225,15 +223,15 @@ DarkInvisibleLeftIcon.args = {
   leftIcon: SearchIcon,
 };
 
-export const InvisibleLeftIconDropdown = Template.bind({});
-InvisibleLeftIconDropdown.args = {
+export const InvisibleDropdown = Template.bind({});
+InvisibleDropdown.args = {
   children: "Invisible Button",
   colorScheme: "invisible",
   dropDown: true,
 };
 
-export const DarkInvisibleLeftIconDropdown = DarkModeTemplateFactory();
-DarkInvisibleLeftIconDropdown.args = {
+export const DarkInvisibleDropdown = DarkModeTemplateFactory();
+DarkInvisibleDropdown.args = {
   children: "Invisible Button",
   colorScheme: "invisible",
   dropDown: true,

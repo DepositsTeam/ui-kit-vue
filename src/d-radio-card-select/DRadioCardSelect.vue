@@ -161,7 +161,7 @@ const handleChange = () => {
       {{ label }}
     </d-text>
     <d-box class="d-radio-card-select" cursor="pointer">
-      <d-auto-layout justify-content="space-between">
+      <d-auto-layout align-items="center" justify-content="space-between">
         <d-auto-layout>
           <d-box
             is="img"
@@ -179,7 +179,7 @@ const handleChange = () => {
             }}</d-text>
           </d-auto-layout>
         </d-auto-layout>
-        <d-auto-layout>
+        <d-auto-layout align-items="center">
           <d-box
             class="d-radio-card-select__change-button"
             v-if="computedOptions.length > 1"
