@@ -4,7 +4,7 @@
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <slot name="label">
-      <d-box v-if="!!label " is="label">
+      <d-box v-if="!!label" is="label">
         <d-text
           margin-top="0px"
           class="ui-text-field__label"
@@ -78,7 +78,7 @@
               class="ui-card-input-field__cvv"
               maxlength="3"
               placeholder="CVV"
-              @input="$emit('update:cardCvv', $event.target.value)"
+              @input="handleCardCVCInput"
               :value="cardCvv"
               @focus="handleCardCVVFocus"
               @blur="handleCardCVVBlur"
@@ -164,7 +164,33 @@ const cardNoError = ref(null);
 const cardExpError = ref(null);
 const cardCVCError = ref(null);
 
-const handleCardCVVBlur = () => (pseudoCardInputIsFocused.value = false);
+const handleCardCVVBlur = () => {
+  const validatedCardNo = cardValidator.number(
+    props.cardNo.replaceAll(" ", "")
+  );
+  if (validatedCardNo.card.code.size !== props.cardCvv.length) {
+    cardCVCError.value = `Invalid CVC size. The CVC must be ${validatedCardNo.card.code.size}`;
+    cardCVCInput.value.$el.focus();
+    cardCVCInput.value.$el.select();
+  } else {
+    cardCVCError.value = "";
+  }
+
+  pseudoCardInputIsFocused.value = false;
+};
+
+const handleCardCVCInput = (e) => {
+  emit("update:cardCvv", e.target.value);
+  const validatedCardNo = cardValidator.number(
+    props.cardNo.replaceAll(" ", "")
+  );
+  if (validatedCardNo.card.code.size === e.target.value.length) {
+    cardCVCError.value = "";
+  } else {
+    cardCVCError.value = `Invalid CVC size. The CVC must be ${validatedCardNo.card.code.size}`;
+  }
+  console.log(e.target.value);
+};
 
 const handleCardCVVFocus = () => {
   if (cardNoError.value) {

@@ -72,6 +72,20 @@ Default.args = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la.",
 };
 
+export const OnlyDescription = Template.bind({});
+OnlyDescription.args = {
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la.",
+  colorScheme: "info",
+};
+
+export const OnlyDescriptionRemoveable = Template.bind({});
+OnlyDescriptionRemoveable.args = {
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la.",
+  colorScheme: "info",
+  removable: true,
+};
 export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   title: "Title",

@@ -209,6 +209,17 @@
               >
                 <table-head-cell :column="column" />
               </d-box>
+              <d-box
+                is="td"
+                v-if="expandedData"
+                class="ui-table__heading-cell is-checkbox ui-table__fixed-column"
+                :style="{
+                  ...getColumnWidth(null, true),
+                  left: 0,
+                }"
+              >
+
+              </d-box>
             </d-box>
           </d-box>
           <d-box is="tbody" class="ui-table__body">
@@ -290,7 +301,9 @@
                 }"
                 v-if="expandedData"
               >
-                <chevron-arrow-right-icon v-if="expandedData.index === index" />
+                <chevron-arrow-right-icon
+                  v-if="expandedData.index === columnIndex"
+                />
               </d-box>
             </d-box>
           </d-box>
@@ -902,6 +915,7 @@ const validateBackground = (background, index) => {
     .ui-table__heading-cell {
       position: relative;
       cursor: pointer;
+      z-index: 35;
 
       &.smartColor {
         &:hover {
@@ -953,7 +967,6 @@ const validateBackground = (background, index) => {
       min-width: var(--column_min_width);
       flex: 1;
       padding: 12px 16px;
-      z-index: 1;
       position: relative;
 
       &.ui-table__fixed-column {

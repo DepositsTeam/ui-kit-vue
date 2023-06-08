@@ -32,7 +32,9 @@
   >
     <d-box is="span" v-if="loading">
       <d-box is="span" v-if="loaderType === 'text'" name="loadingText">
-        <d-box is="span" v-if="loadingText">{{ loadingText }}</d-box>
+        <d-box is="span" class="ui-button__button-text loader-text">
+          <d-box is="span" v-if="loadingText">{{ loadingText }}</d-box>
+        </d-box>
       </d-box>
       <d-loader
         v-else
@@ -51,15 +53,9 @@
         v-else-if="leftIcon"
         :is="leftIcon"
       ></component>
-      <d-box
-        is="span"
-        class="ui-button__button-text"
-        :class="{ 'loader-text': loading && loaderType === 'text' }"
-      >
-        <d-box is="span">
-          <d-box is="span" v-if="text">{{ text }}</d-box>
-          <d-box is="span" v-else><slot></slot></d-box>
-        </d-box>
+      <d-box class="ui-button__button-text">
+        <d-box is="span" v-if="text">{{ text }}</d-box>
+        <d-box v-else><slot></slot></d-box>
       </d-box>
       <ChevronFilledDownIcon
         v-if="dropDown"

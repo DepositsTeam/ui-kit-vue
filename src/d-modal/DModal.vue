@@ -30,12 +30,16 @@
               <slot name="heading" v-if="$slots.heading"></slot>
               <d-heading my0 is="h5" v-else> {{ heading }}</d-heading>
             </d-box>
-            <CloseIcon
-              smart-color="#8895A7"
+            <d-box
               class="ui-modal__closerr ui-modal__close-icon"
-              v-if="showCloseIcon"
               @click="handleCloseClicks"
-            />
+            >
+              <CloseIcon
+                smart-color="#8895A7"
+                class="ui-modal__closerr ui-modal__close-icon"
+                v-if="showCloseIcon"
+              />
+            </d-box>
           </d-box>
           <d-box class="ui-modal__body" :class="{ bodyClasses }">
             <d-text
