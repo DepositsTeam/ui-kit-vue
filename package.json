@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.447",
+  "version": "0.0.453",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

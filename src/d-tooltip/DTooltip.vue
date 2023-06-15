@@ -8,10 +8,12 @@
     <d-box ref="targetRef" class="d-ui-tooltip-target">
       <slot></slot>
     </d-box>
-    <d-box ref="tooltipRef" class="d-ui-tooltip" :class="{ hidden }">
-      {{ tooltip }}
-      <d-box class="d-ui-tooltip__arrow" ref="arrowRef"></d-box>
-    </d-box>
+    <Teleport to="body">
+      <d-box ref="tooltipRef" class="d-ui-tooltip" :class="{ hidden }">
+        {{ tooltip }}
+        <d-box class="d-ui-tooltip__arrow" ref="arrowRef"></d-box>
+      </d-box>
+    </Teleport>
   </d-box>
 </template>
 

@@ -174,7 +174,7 @@
         <d-box v-if="loading" class="ui-table-loader">
           <d-loader />
         </d-box>
-        <d-box is="table" class="ui-table">
+        <d-box is="table" ref="tableElem" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
               <d-box
@@ -218,7 +218,6 @@
                   left: 0,
                 }"
               >
-
               </d-box>
             </d-box>
           </d-box>
@@ -400,6 +399,7 @@ import { getTextColor } from "../utils/colorManager";
 import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
+const tableElem = ref(null);
 const emit = defineEmits([
   "page-updated",
   "row-clicked",
@@ -915,7 +915,6 @@ const validateBackground = (background, index) => {
     .ui-table__heading-cell {
       position: relative;
       cursor: pointer;
-      z-index: 35;
 
       &.smartColor {
         &:hover {
@@ -973,10 +972,6 @@ const validateBackground = (background, index) => {
         position: sticky;
         left: 0;
         z-index: 30;
-      }
-
-      &:not(.ui-table__fixed-column):hover {
-        z-index: 31;
       }
 
       &.is-checkbox {

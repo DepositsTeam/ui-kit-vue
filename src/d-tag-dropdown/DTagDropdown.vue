@@ -101,7 +101,7 @@
         />
       </d-box>
 
-      <d-box class="ui-tag-dropdown__dropdown__options">
+      <d-box class="ui-tag-dropdown__dropdown__options" @scroll="handleScroll">
         <d-box
           class="ui-tag-dropdown__dropdown__option"
           v-for="(option, index) in visibleOptions"
@@ -129,6 +129,9 @@
           <d-text v-else margin-y="0" font-face="circularSTD" scale="subhead">
             {{ option.text }}
           </d-text>
+        </d-box>
+        <d-box v-if="loading" class="ui-tag-dropdown__loader">
+          <d-loader loader-size="48px" />
         </d-box>
       </d-box>
     </d-box>
@@ -162,6 +165,7 @@ import { defaultThemeVars } from "../providers/default-theme";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
+import DLoader from "@/d-loader/DLoader.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -190,6 +194,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -199,6 +207,7 @@ const emit = defineEmits([
   "update:modelValue",
   "leftIconClicked",
   "rightIconClicked",
+  "scrolledToBottom",
 ]);
 
 const emitLeftIconClicked = (e) => {
@@ -322,6 +331,13 @@ onUnmounted(() => {
 });
 
 const ___theme = inject("___theme", defaultThemeVars);
+
+const handleScroll = (e) => {
+  const { scrollHeight, scrollTop, clientHeight } = event.target;
+  if (Math.abs(scrollHeight - clientHeight - scrollTop) < 1) {
+    emit("scrolled-to-bottom", e);
+  }
+};
 </script>
 
 <style lang="scss">
@@ -544,45 +560,9 @@ const ___theme = inject("___theme", defaultThemeVars);
   }
 }
 
-/* .ui-tag-dropdown__wrapper.size__massive .ui-tag-dropdown__input-wrapper{
-	height: 64px;
-	padding: 0 16px;
-} */
-
-/* .ui-tag-dropdown__input-wrapper{
-	border: 1px solid red;
-	display: flex;
-	align-items: center;
+.ui-tag-dropdown__loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.ui-tag-dropdown__input{
-    border: 2px solid green;
-    outline: none;
-	flex: 1;
-	display: flex;
-}
-
-.ui-tag-dropdown__input-wrapper.size__massive {
-	height: 64px;
-	padding: 0 16px;
-}
-
-
-.ui-tag-dropdown__input-tag{
-	display: flex;
-	align-items: center;
-	background: #e1e7ec;
-	white-space: nowrap;
-	border-radius: 4px;
-	margin-right: 4px;
-	padding-left: 8px;
-
-}
-
-.ui-tag-dropdown__input-tag .ui-tag-dropdown__input__tag-item{
-	fontSize: 12px;
-}
-
-
- */
 </style>
