@@ -25,11 +25,14 @@
         />
       </d-box>
     </d-box>
-    <table-head-cell-dropdown
-      v-if="isSelected && column.sortable !== false"
-      ref="target"
-      :column="column"
-    />
+
+    <Teleport to="body">
+      <table-head-cell-dropdown
+        v-if="isSelected && column.sortable !== false"
+        ref="target"
+        :column="column"
+      />
+    </Teleport>
   </d-box>
 </template>
 
@@ -98,6 +101,7 @@ provide("toggleSelection", toggleSelection);
 
 <style lang="scss">
 .ui-table__heading-cell {
+  position: relative;
   &.isExpandMode {
     .ui-table__heading-cell-text {
       color: #8c97a7;

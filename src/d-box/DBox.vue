@@ -2167,4 +2167,10 @@ svg.deposits-ui-box {
 .text-no-underline {
   text-decoration: none;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
+.cursor-disabled {
+  cursor: not-allowed;
+}
 </style>

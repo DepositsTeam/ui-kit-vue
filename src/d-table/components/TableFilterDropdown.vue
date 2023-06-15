@@ -10,6 +10,7 @@
         font-face="heroNew"
         class="text-grey-600"
         scale="footnote"
+        cursor="pointer"
         margin-right="10px"
         @click="closeDropdown"
         >Cancel</d-text
@@ -132,9 +133,11 @@ onBeforeUnmount(() => {
 
 const applyFilterColor = computed(() => {
   if (!availableFiltersTextMap[selectedFilter.value]) {
-    return "text-blue-500";
+    return "text-blue-500 cursor-pointer";
   } else {
-    return selectedFilterValue.value ? "text-blue-500" : "text-blue-300";
+    return selectedFilterValue.value
+      ? "text-blue-500 cursor-pointer"
+      : "text-blue-300 cursor-disabled";
   }
 });
 

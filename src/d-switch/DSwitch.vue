@@ -18,15 +18,12 @@
     }"
   >
     <d-box is="div" class="ui-switch">
-      <d-box
-        is="input"
+      <input
         class="ui-slider"
         type="checkbox"
-        :disabled="disabled"
+        ref="checkbox"
         v-bind="$attrs"
-        :value="computedValue"
-        @change="handleChange"
-        :checked="isChecked"
+        v-model="checkboxVModel"
       />
       <d-box is="span" class="ui-slider round" />
     </d-box>
@@ -36,7 +33,7 @@
 
 <script setup>
 import { DText, DBox } from "../main";
-import { computed } from "vue";
+import { computed, nextTick, ref, watch } from "vue";
 
 const props = defineProps({
   colorScheme: {
@@ -87,11 +84,12 @@ const props = defineProps({
   falseValue: {
     default: false,
   },
-  values: {
-    type: Array,
-    default: () => [],
+  controlled: {
+    type: Boolean,
   },
 });
+
+const checkbox = ref(null);
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -103,62 +101,31 @@ const computedTrueValue = computed(() => {
   if (props.value) {
     return props.value;
   } else {
-    return props.trueValue === true ? true : this.value;
+    return props.trueValue === true ? true : computedValue.value;
   }
 });
 
 const isChecked = computed(() => {
-  if (props.modelValue instanceof Array) {
-    if (props.values.length) {
-      return props.values.every((element) => {
-        return props.modelValue.includes(element);
-      });
-    }
-    return props.modelValue.includes(computedValue.value);
-  }
   return props.modelValue === computedTrueValue.value;
 });
 
-const handleChange = (e) => {
-  if (props.disabled) {
-    return;
-  }
-  let currentlyChecked = e.target.checked;
-  if (props.values.length) {
-    let newValue = [...props.modelValue];
-    // TODO to look for the most efficient way to do this!!!!!! Saving space and time
-    if (currentlyChecked) {
-      props.values.forEach((value) => {
-        if (!newValue.includes(value)) {
-          newValue.push(value);
-        }
-      });
-    } else {
-      props.values.forEach((value) => {
-        if (newValue.includes(value)) {
-          newValue.splice(newValue.indexOf(value), 1);
-        }
+const checkboxVModel = computed({
+  get() {
+    return isChecked.value;
+  },
+  set() {
+    emit("update:modelValue", !isChecked.value);
+    if (props.controlled) {
+      nextTick(() => {
+        checkbox.value.checked = isChecked.value;
       });
     }
-    emit("update:modelValue", newValue);
-  } else {
-    if (props.modelValue instanceof Array) {
-      let newValue = [...props.modelValue];
-      if (currentlyChecked) {
-        newValue.push(computedValue.value);
-      } else {
-        newValue.splice(newValue.indexOf(computedValue.value), 1);
-      }
+  },
+});
 
-      emit("update:modelValue", newValue);
-    } else {
-      emit(
-        "update:modelValue",
-        currentlyChecked ? props.trueValue : props.falseValue
-      );
-    }
-  }
-};
+watch(isChecked, (value) => {
+  checkbox.value.checked = value;
+});
 </script>
 
 <style lang="scss" scoped>
