@@ -1,4 +1,4 @@
-- 15-06-2023 - Eric McWinNEr 
+**- 15th June, 2023 - Eric McWinNEr** 
   - Fixed bug with the table that causes floated items to appear behind fixed columns.
   - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
   - Added a loader to tag dropdown input field
