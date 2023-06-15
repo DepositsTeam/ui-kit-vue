@@ -174,7 +174,7 @@
         <d-box v-if="loading" class="ui-table-loader">
           <d-loader />
         </d-box>
-        <d-box is="table" class="ui-table">
+        <d-box is="table" ref="tableElem" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
               <d-box
@@ -208,6 +208,16 @@
                 }"
               >
                 <table-head-cell :column="column" />
+              </d-box>
+              <d-box
+                is="td"
+                v-if="expandedData"
+                class="ui-table__heading-cell is-checkbox ui-table__fixed-column"
+                :style="{
+                  ...getColumnWidth(null, true),
+                  left: 0,
+                }"
+              >
               </d-box>
             </d-box>
           </d-box>
@@ -290,7 +300,9 @@
                 }"
                 v-if="expandedData"
               >
-                <chevron-arrow-right-icon v-if="expandedData.index === index" />
+                <chevron-arrow-right-icon
+                  v-if="expandedData.index === columnIndex"
+                />
               </d-box>
             </d-box>
           </d-box>
@@ -387,6 +399,7 @@ import { getTextColor } from "../utils/colorManager";
 import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
+const tableElem = ref(null);
 const emit = defineEmits([
   "page-updated",
   "row-clicked",
@@ -468,13 +481,30 @@ const emitRowClickedEvent = (e, datum, index) => {
       }
     }
   }
-  const tagName = e.target.tagName.toLowerCase();
-  switch (tagName) {
-    case "a":
-    case "button":
-      break;
-    default:
-      emit("row-clicked", datum);
+  let escapedQuerySelectors = [
+    ".btn",
+    ".ui-button",
+    ".d-context-menu-dropdown-wrapper",
+    "button",
+    "a",
+  ];
+  if (props.overrideDefaultEscapedRowClickSelectors) {
+    escapedQuerySelectors = [...props.escapedRowClickSelectors];
+  } else {
+    escapedQuerySelectors = [
+      ...escapedQuerySelectors,
+      ...props.escapedRowClickSelectors,
+    ];
+  }
+  let containsEscapedSelector = false;
+  escapedQuerySelectors.forEach((escapedSelector) => {
+    if (e.target.closest(escapedSelector)) {
+      containsEscapedSelector = true;
+    }
+  });
+
+  if (!containsEscapedSelector) {
+    emit("row-clicked", datum);
   }
 };
 
@@ -936,7 +966,7 @@ const validateBackground = (background, index) => {
       min-width: var(--column_min_width);
       flex: 1;
       padding: 12px 16px;
-      z-index: 1;
+      position: relative;
 
       &.ui-table__fixed-column {
         position: sticky;
@@ -996,7 +1026,7 @@ const validateBackground = (background, index) => {
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
         &.dark_mode {
-          background: rgba(0, 0, 0, 0.8);
+          background: rgba(var(--dark-background-color), 0.8);
         }
       }
 

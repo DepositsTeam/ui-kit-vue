@@ -1,5 +1,5 @@
 import DTable from "./DTable.vue";
-import { DBadge, DSelect } from "../main";
+import { DBadge, DSelect, DButton, DMenu } from "../main";
 import {
   data,
   paginatedData,
@@ -7,6 +7,8 @@ import {
   customRowData,
 } from "./data/sitcom-data";
 import {
+  actionSitcomsTable,
+  fixedActionsTable,
   overflowColumns,
   overflowFixedColumns,
   sitcomColumns,
@@ -443,4 +445,41 @@ AsyncPaginationTable.args = {
   paginate: true,
   asyncPagination: true,
   totalPages: 7,
+};
+
+const ActionSitcomsTemplate = (args) => ({
+  components: {
+    DTable,
+    DMenu,
+    DButton,
+  },
+  setup() {
+    return { args };
+  },
+  methods: {
+    handleRowClick: () => {
+      alert("Row was clicked but not button");
+    },
+  },
+  template: `
+    <d-table @row-clicked="handleRowClick" v-bind="args" >
+    <template v-slot:item.actions="item">
+        <d-menu :options="['Fintech', 'UI Kit', 'Finance', 'Identity' ]">
+          <d-button size="medium">...</d-button>
+        </d-menu>
+      </template>
+    </d-table>
+  `,
+});
+
+export const ActionSitcomsTable = ActionSitcomsTemplate.bind({});
+ActionSitcomsTable.args = {
+  columns: actionSitcomsTable,
+  data,
+};
+
+export const FixedActionSitcomsTable = ActionSitcomsTemplate.bind({});
+FixedActionSitcomsTable.args = {
+  columns: fixedActionsTable,
+  data,
 };

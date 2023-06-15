@@ -412,7 +412,7 @@ const emitClick = () => emit("button-clicked");
         }
       }
 
-      &.color-scheme__danger {
+      &.color-scheme__danger, &.color-scheme__error {
         background: #d62f4b;
         .ui-alert__header-text {
           color: #fff;

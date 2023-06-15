@@ -116,4 +116,12 @@ export const tableProps = {
     type: Number,
     default: 800,
   },
+  escapedRowClickSelectors: {
+    type: Array,
+    default: () => [],
+  },
+  overrideDefaultEscapedRowClickSelectors: {
+    type: Boolean,
+    default: false,
+  },
 };

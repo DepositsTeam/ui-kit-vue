@@ -1,5 +1,5 @@
 import DTabs from "./DTabs.vue";
-import { DarkModeProvider, DBox, DText, DCard } from "../main";
+import { DarkModeProvider, DBox, DText, DCard, DFilterDropdown } from "../main";
 
 export default {
   title: "Tabs",
@@ -22,7 +22,7 @@ export default {
     },
     scheme: {
       control: { type: "select" },
-      options: ["button", "underline", "inline"],
+      options: ["button", "underline", "inline", "underline_card"],
     },
   },
 };
@@ -207,3 +207,236 @@ const DarkModeTemplateWithContent = (args) => ({
     </dark-mode-provider>
   `,
 });
+
+export const UnderlineSchemeTab = Template.bind({});
+UnderlineSchemeTab.args = {
+  scheme: "underline",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const UnderlineCardSchemeTab = Template.bind({});
+UnderlineCardSchemeTab.args = {
+  scheme: "underline_card",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const InlineSchemeTab = Template.bind({});
+InlineSchemeTab.args = {
+  scheme: "inline",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+const UnderlineCardTemplateWithSecondaryItem = (args) => ({
+  components: { DTabs, DFilterDropdown },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-tabs v-bind="args">
+      <d-filter-dropdown :options="['All Time', 'Today', 'This month']" />
+    </d-tabs>
+  `,
+});
+
+export const UnderlineCardWithSecondaryItem =
+  UnderlineCardTemplateWithSecondaryItem.bind({});
+UnderlineCardWithSecondaryItem.args = {
+  scheme: "underline_card",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const UnderlineSchemeWithoutBorder = Template.bind({});
+UnderlineSchemeWithoutBorder.args = {
+  scheme: "underline",
+  hideBottomBorder: true,
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const UnderlineCardSchemeWithoutBorder = Template.bind({});
+UnderlineCardSchemeWithoutBorder.args = {
+  scheme: "underline_card",
+  hideBottomBorder: true,
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const CustomTabActiveTextColor = Template.bind({});
+CustomTabActiveTextColor.args = {
+  scheme: "underline",
+  activeTextColor: "#ff0000",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const CustomTabActiveColor = Template.bind({});
+CustomTabActiveColor.args = {
+  scheme: "underline",
+  activeIndicatorColor: "#ff0000",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};

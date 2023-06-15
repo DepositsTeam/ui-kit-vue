@@ -20,6 +20,7 @@ export { default as DDebitCardVertical } from "./d-debit-card-vertical/DDebitCar
 export { default as DDropdown } from "./d-dropdown/DDropdown.vue";
 export { default as DFilePicker } from "./d-file-picker/DFilePicker.vue";
 export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
+export { default as DFilterDropdown } from "./d-filter-dropdown/DFilterDropdown.vue";
 export { default as DGridLayout } from "./d-grid-layout/DGridLayout.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
 export { default as DLoader } from "./d-loader/DLoader.vue";

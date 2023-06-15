@@ -37,12 +37,14 @@
         <chevron-filled-right-icon />
       </d-box>
     </d-box>
-    <table-filter-dropdown
-      @close="closeFilterDropdown"
-      ref="target"
-      v-if="showFunnelDropdown && column.filterable !== false"
-      :column="column"
-    />
+    <Teleport to="body">
+      <table-filter-dropdown
+        @close="closeFilterDropdown"
+        ref="target"
+        v-if="showFunnelDropdown && column.filterable !== false"
+        :column="column"
+      />
+    </Teleport>
   </d-box>
 </template>
 
@@ -106,7 +108,12 @@ const toggleShowFunnelDropdown = async (e) => {
 
 const closeFilterDropdownOnOutsideClick = (e) => {
   const elem = e.target;
-  if (thCell.value && elem.closest(`#${thCell.value.$el.id}`) === null) {
+  if (
+    thCell.value &&
+    elem.closest(`#${thCell.value.$el.id}`) === null &&
+    elem.closest(`#${trigger.value.$el.id}`) === null &&
+    elem.closest(`#${target.value.$el.id}`) === null
+  ) {
     toggleSelection();
   }
 };
@@ -130,6 +137,9 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
+.ui-table__heading-cell__dropdown__wrapper {
+  position: absolute;
+}
 .ui-table__heading-cell__dropdown {
   background: #ffffff;
   border: 1px solid #e1e7ec;
@@ -141,6 +151,7 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 101%;
   left: 0;
+  z-index: 99;
   &.dark_mode {
     background: #121a26;
     border: 1px solid #202b3c;
@@ -151,6 +162,7 @@ onBeforeUnmount(() => {
     justify-content: space-between;
     padding: 8px 16px;
     color: #5f6b7a;
+    cursor: pointer;
     &.dark_mode {
       color: #94a3b8;
     }

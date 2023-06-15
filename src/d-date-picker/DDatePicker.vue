@@ -194,9 +194,5 @@ export default {
 .mx-datepicker {
   width: 100%;
 }
-.mx-input-wrapper:hover {
-  .mx-icon-calendar {
-    display: none;
-  }
-}
+
 </style>

@@ -319,6 +319,7 @@ export default {
           ...(computedType.value ? { type: computedType.value } : {}),
           ...(computedValue.value ? { value: computedValue.value } : {}),
           ...(props.disabled !== null ? { disabled: props.disabled } : {}),
+          ...(props.is === "svg" ? { focusable: false } : {}),
           class: {
             // [styleClasses.value[uniqueClass]]: true,
             [uniqueClass.value]: true,
@@ -332,6 +333,7 @@ export default {
             dark_mode: darkModeIsEnabled.value,
             underline: props.underline,
             noLine: props.noLine,
+            "deposits-ui-box": true,
           },
           ...(svgWidth.value ? { width: svgWidth.value } : {}),
           ...(svgHeight.value ? { height: svgHeight.value } : {}),
@@ -354,6 +356,13 @@ export default {
 }
 .noLine {
   text-decoration: none;
+}
+
+svg.deposits-ui-box {
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }
 
 .custom-scroll-bar {
@@ -2157,5 +2166,11 @@ export default {
 }
 .text-no-underline {
   text-decoration: none;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.cursor-disabled {
+  cursor: not-allowed;
 }
 </style>

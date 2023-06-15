@@ -6,6 +6,7 @@
     }"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
+    ref="menuWrapper"
   >
     <d-box
       ref="targetRef"
@@ -14,40 +15,42 @@
     >
       <slot></slot>
     </d-box>
-    <d-box
-      ref="dropdownRef"
-      class="d-context-menu-dropdown"
-      :class="{ hidden }"
-    >
+    <Teleport to="body">
       <d-box
-        class="d-context-menu-dropdown-option"
-        v-for="option in computedOptions"
-        :key="option.uuid"
-        @click="handleOptionClick(option)"
-        @mouseenter="handleOptionHover(option)"
-        :class="{ disabled: option.disabled }"
+        ref="dropdownRef"
+        class="d-context-menu-dropdown"
+        :class="{ hidden }"
       >
-        <d-text
-          my0
-          mx0
-          scale="subhead"
-          :style="{ '--custom-option-color': option.textColor }"
-          :font-face="option.fontFace"
-          class="d-context-menu-dropdown-option__text"
-          :class="{
-            [option.className]: option.className,
-            custom_color: option.textColor,
-          }"
-          >{{ option.text }}</d-text
+        <d-box
+          class="d-context-menu-dropdown-option"
+          v-for="option in computedOptions"
+          :key="option.uuid"
+          @click="handleOptionClick(option)"
+          @mouseenter="handleOptionHover(option)"
+          :class="{ disabled: option.disabled }"
         >
+          <d-text
+            my0
+            mx0
+            scale="subhead"
+            :style="{ '--custom-option-color': option.textColor }"
+            :font-face="option.fontFace"
+            class="d-context-menu-dropdown-option__text"
+            :class="{
+              [option.className]: option.className,
+              custom_color: option.textColor,
+            }"
+            >{{ option.text }}</d-text
+          >
+        </d-box>
       </d-box>
-    </d-box>
+    </Teleport>
   </d-box>
 </template>
 
 <script setup>
 import { DBox, DText } from "../main";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import MenuOption from "./MenuOption";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import { useRouter } from "vue-router";
@@ -69,10 +72,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["option-clicked"]);
+const emit = defineEmits(["option-clicked", "menu-state-changed"]);
 
 const targetRef = ref(null);
 const dropdownRef = ref(null);
+const menuWrapper = ref(null);
 
 const hidden = ref(true);
 const minWidth = ref("120px");
@@ -98,9 +102,14 @@ const updateDropdown = () => {
   });
 };
 
+const updateScroll = () => {
+  updateDropdown();
+};
+
 const removeOnClickOutside = (e) => {
   if (
-    !e.target.closest(".d-context-menu-dropdown-wrapper") &&
+    !e.target.closest(`#${menuWrapper.value.$el.id}`) &&
+    !e.target.closest(dropdownRef.value.$el.id) &&
     props.trigger === "click"
   ) {
     hidden.value = true;
@@ -139,10 +148,12 @@ const handleMouseLeave = () => {
 onMounted(() => {
   updateDropdown();
   window.addEventListener("click", removeOnClickOutside);
+  window.addEventListener("scroll", updateScroll);
 });
 
 onUnmounted(() => {
   window.removeEventListener("click", removeOnClickOutside);
+  window.removeEventListener("scroll", updateScroll);
 });
 
 const handleOptionClick = (option) => {
@@ -169,6 +180,10 @@ const handleOptionHover = (option) => {
     }
   }
 };
+
+watch(hidden, (val) => {
+  emit("menu-state-changed", val);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -227,5 +242,6 @@ const handleOptionHover = (option) => {
 }
 .d-context-menu-dropdown-wrapper {
   width: max-content;
+  position: relative;
 }
 </style>

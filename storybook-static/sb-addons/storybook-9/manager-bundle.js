@@ -1,0 +1,4 @@
+try{
+var h=__STORYBOOKADDONS__,{addons:s,types:_,mockChannel:g}=__STORYBOOKADDONS__;var u=__STORYBOOKTHEMING__,{CacheProvider:S,ClassNames:y,Global:x,ThemeProvider:v,background:B,color:C,convert:D,create:r,createCache:I,createGlobal:K,createReset:N,css:R,darken:k,ensure:G,ignoreSsrWarning:Y,isPropValid:w,jsx:E,keyframes:P,lighten:A,styled:H,themes:M,typography:U,useTheme:j,withTheme:F}=__STORYBOOKTHEMING__;var a=r({base:"light",brandTitle:"Deposits Fintech UI Kit",brandUrl:"https://deposits.inc",brandImage:"https://assets.ondeposits.com/img/logo/deposits/svg/logo_main.svg",brandTarget:"_self"});s.setConfig({theme:a});if(window.location.hostname!=="localhost"){let n=document.getElementById("icons")}
+}catch(e){ console.error("[Storybook] One of your manager-entries failed: " + import.meta.url, e); }
+//# sourceMappingURL=manager-bundle.js.map

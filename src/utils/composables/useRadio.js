@@ -1,4 +1,4 @@
-import { onMounted, computed, ref, defineEmits } from "vue";
+import { onMounted, computed, ref } from "vue";
 
 export const useRadio = (props, emit) => {
   const mounted = ref(false);
