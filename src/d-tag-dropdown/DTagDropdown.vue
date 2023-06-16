@@ -67,12 +67,14 @@
           {{ placeholder }}
         </d-text>
       </d-box>
-      <d-box class="ui-tag-dropdown__input-wrapper__right">
+      <d-box
+        class="ui-tag-dropdown__input-wrapper__right"
+        @click="emitRightIconClicked"
+      >
         <component
           class="ui-text-field__right-icon"
           v-if="rightIcon"
           :is="rightIcon"
-          @click="emitRightIconClicked"
         ></component>
         <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
           <slot name="rightIcon"></slot>
