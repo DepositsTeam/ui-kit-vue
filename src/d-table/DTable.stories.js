@@ -1,5 +1,12 @@
 import DTable from "./DTable.vue";
-import { DBadge, DSelect, DButton, DMenu } from "../main";
+import {
+  DTooltip,
+  DBadge,
+  DSelect,
+  DButton,
+  DMenu,
+  DTableCellText,
+} from "../main";
 import {
   data,
   paginatedData,
@@ -18,7 +25,7 @@ import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
 import { overflowColumnsData } from "./data/data";
 
 export default {
-  components: { DBadge, DAutoLayout },
+  components: { DTableCellText, DBadge, DAutoLayout },
   title: "Table",
   component: DTable,
   argTypes: {
@@ -100,7 +107,8 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-table v-bind="args" />`,
+  template: `
+    <d-table v-bind="args" />`,
 });
 
 const ExtraHeadingsTemplate = (args) => ({
@@ -110,11 +118,11 @@ const ExtraHeadingsTemplate = (args) => ({
   },
   template: `
     <d-table v-bind="args">
-      <template #table-header-left>
-          <d-select size="large" placeholder="Last 7 days" width="200px" />
-          <d-select size="large" placeholder="By Events" width="200px" />
-        <d-select size="large" placeholder="All environments" width="200px" />
-      </template>
+    <template #table-header-left>
+      <d-select size="large" placeholder="Last 7 days" width="200px" />
+      <d-select size="large" placeholder="By Events" width="200px" />
+      <d-select size="large" placeholder="All environments" width="200px" />
+    </template>
     </d-table>
   `,
 });
@@ -136,7 +144,7 @@ const DarkModeTemplate = (args) => ({
     <dark-mode-provider :dark-mode="true">
     <d-table v-bind="args" />
     </dark-mode-provider>
-    `,
+  `,
 });
 
 const DarkModeTemplateFactory = () => {
@@ -376,13 +384,13 @@ const OverflowTableTemplate = (args) => ({
   },
   template: `
     <dark-mode-provider :dark-mode="args.darkMode">
-  <d-table v-bind="args">
-    <template v-slot:item.tags="item">
-      <d-badge v-for="(tag, index) in item.tags" :key="index">
-        {{tag}}
-      </d-badge>
-    </template>
-  </d-table>
+    <d-table v-bind="args">
+      <template v-slot:item.tags="item">
+        <d-badge v-for="(tag, index) in item.tags" :key="index">
+          {{ tag }}
+        </d-badge>
+      </template>
+    </d-table>
     </dark-mode-provider>
   `,
 });
@@ -435,7 +443,8 @@ const AsyncPaginationTableTemplate = (args) => ({
       );
     },
   },
-  template: `<d-table v-bind="args" @page-updated="alertPageChange" />`,
+  template: `
+    <d-table v-bind="args" @page-updated="alertPageChange" />`,
 });
 
 export const AsyncPaginationTable = AsyncPaginationTableTemplate.bind({});
@@ -462,12 +471,12 @@ const ActionSitcomsTemplate = (args) => ({
     },
   },
   template: `
-    <d-table @row-clicked="handleRowClick" v-bind="args" >
+    <d-table @row-clicked="handleRowClick" v-bind="args">
     <template v-slot:item.actions="item">
-        <d-menu :options="['Fintech', 'UI Kit', 'Finance', 'Identity' ]">
-          <d-button size="medium">...</d-button>
-        </d-menu>
-      </template>
+      <d-menu :options="['Fintech', 'UI Kit', 'Finance', 'Identity' ]">
+        <d-button size="medium">...</d-button>
+      </d-menu>
+    </template>
     </d-table>
   `,
 });
@@ -482,4 +491,43 @@ export const FixedActionSitcomsTable = ActionSitcomsTemplate.bind({});
 FixedActionSitcomsTable.args = {
   columns: fixedActionsTable,
   data,
+};
+
+const TooltipTableTemplate = (args) => ({
+  components: {
+    DTable,
+    DTooltip,
+    DBadge,
+    DTableCellText,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args">
+    <template v-slot:item.tags="item">
+      <d-badge v-for="(tag, index) in item.tags" :key="index">
+        {{ tag }}
+      </d-badge>
+    </template>
+    <template v-slot:item.customer_email="item">
+      <d-tooltip :tooltip="item.customer_email">
+        <d-table-cell-text>{{item.customer_email}}</d-table-cell-text>
+      </d-tooltip>
+    </template>
+    <template v-slot:item.customer_phone="item">
+      <d-tooltip :tooltip="item.customer_phone">
+        <d-table-cell-text>{{item.customer_phone}}</d-table-cell-text>
+      </d-tooltip>
+    </template>
+    </d-table>
+  `,
+});
+
+export const FixedTooltipTable = TooltipTableTemplate.bind({});
+FixedTooltipTable.args = {
+  columns: overflowFixedColumns,
+  paginate: true,
+  data: overflowColumnsData,
+  darkMode: false,
 };

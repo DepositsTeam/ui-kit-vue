@@ -38,6 +38,7 @@ export { default as DStepper } from "./d-stepper/DStepper.vue";
 export { default as DSwitch } from "./d-switch/DSwitch.vue";
 export { default as DTabs } from "./d-tabs/DTabs.vue";
 export { default as DTable } from "./d-table/DTable.vue";
+export { default as DTableCellText } from "./d-table/DTableCellText.vue";
 export { default as DTagDropdown } from "./d-tag-dropdown/DTagDropdown.vue";
 export { default as DTagInput } from "./d-tag-input/DTagInput.vue";
 export { default as DText } from "./d-text/DText.vue";

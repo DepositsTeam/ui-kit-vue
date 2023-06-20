@@ -4,3 +4,8 @@
   - Added a loader to tag dropdown input field
   - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
   - Made updates to the switch component to allow true two-way binding for the on and off states
+- **20th June, 2023 - Eric McWinNEr**
+  - Updated storybook docs configuration to stop merging all stories to one long doc page by default
+  - Updated the z-index of tooltips
+  - Created new story on storybook for using tooltips in tables with fixed columns
+  - Created a new TableCellText component to be used to create table cell text when using slots in external components
