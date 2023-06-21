@@ -22,7 +22,7 @@ export default {
       control: { type: "boolean" },
     },
     loaderSize: {
-      control: { type: "string" },
+      control: { type: "text" },
       table: {
         defaultValue: "80px",
       },

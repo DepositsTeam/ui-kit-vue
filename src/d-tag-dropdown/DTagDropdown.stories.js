@@ -192,3 +192,10 @@ LeftIcon.args = {
   label: "Predefined Options",
   leftIcon: ExternalLinkIcon,
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  options: [...options],
+  label: "Loading",
+  loading: true,
+};
