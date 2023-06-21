@@ -335,7 +335,7 @@ onUnmounted(() => {
 const ___theme = inject("___theme", defaultThemeVars);
 
 const handleScroll = (e) => {
-  const { scrollHeight, scrollTop, clientHeight } = event.target;
+  const { scrollHeight, scrollTop, clientHeight } = e.target;
   if (Math.abs(scrollHeight - clientHeight - scrollTop) < 1) {
     emit("scrolled-to-bottom", e);
   }
