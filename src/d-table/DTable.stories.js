@@ -7,6 +7,8 @@ import {
   DMenu,
   DTableCellText,
   DBox,
+  DText,
+  EyeFilledIcon,
 } from "../main";
 import {
   data,
@@ -1292,5 +1294,251 @@ export const TestTableTemplate = (args) => ({
       </d-box>
     </template>
     </d-table>
+  `,
+});
+
+export const TestTableTwo = (args) => ({
+  components: {
+    DTable,
+    DBox,
+    DBadge,
+    DButton,
+    DText,
+    EyeFilledIcon,
+  },
+  setup() {
+    const columns = ref([
+      {
+        display: "ID",
+        dataSelector: "ID",
+        uppercase: true,
+        sortable: true,
+        filterable: true,
+        width: "",
+        minWidth: "",
+        maxWidth: "",
+      },
+      {
+        display: "Tenants",
+        dataSelector: "Tenants",
+        uppercase: true,
+        sortable: true,
+        filterable: true,
+        width: "",
+        minWidth: "",
+        maxWidth: "",
+      },
+      {
+        display: "Email",
+        dataSelector: "Email",
+        uppercase: true,
+        filterable: true,
+        width: "",
+        minWidth: "",
+        maxWidth: "",
+      },
+      {
+        display: "Created Date",
+        dataSelector: "Date",
+        uppercase: true,
+        sortable: true,
+        filterable: true,
+        width: "",
+        minWidth: "",
+        maxWidth: "",
+      },
+      {
+        display: "Action",
+        dataSelector: "Action",
+        uppercase: true,
+        sortable: false,
+        filterable: false,
+        position: "right",
+      },
+    ]);
+
+    const state = reactive({
+      tenants: [],
+      data: [],
+      per_page: 10,
+      currentPage: 1,
+      totalPages: 1,
+    });
+
+    onMounted(() => {
+      const data = {
+        data: [
+          {
+            id: 64,
+            name: "A new program",
+            website: "http://somethingcom.com",
+            contact_name: "Jonathan Doe",
+            contact_email: "eapriok+6378639478@gmail.com",
+            status: "active",
+            created_at: "2022-07-03T21:05:12.000000Z",
+          },
+          {
+            id: 109,
+            name: "AfroTech",
+            website: "https://afrotech.clm",
+            contact_name: "Joseph A",
+            contact_email: "joseph@renapay.com",
+            status: "active",
+            created_at: "2022-11-15T17:17:03.000000Z",
+          },
+          {
+            id: 24,
+            name: "AiBuy",
+            website: "https://aibuy.io",
+            contact_name: null,
+            contact_email: null,
+            status: "active",
+            created_at: "2022-04-06T19:06:47.000000Z",
+          },
+          {
+            id: 20,
+            name: "aibuy-demo",
+            website: "https://aibuy.com",
+            contact_name: null,
+            contact_email: null,
+            status: "active",
+            created_at: "2022-03-29T18:19:10.000000Z",
+          },
+          {
+            id: 72,
+            name: "Alias vel nihil haru",
+            website: "https://www.naxunenucimy.mobi",
+            contact_name: "Voluptas et dolor no",
+            contact_email: "kibaso@mailinator.com",
+            status: "active",
+            created_at: "2022-07-15T13:08:41.000000Z",
+          },
+          {
+            id: 30,
+            name: "Anna Rogachyova",
+            website: "https://aibuy.io",
+            contact_name: null,
+            contact_email: null,
+            status: "active",
+            created_at: "2022-04-08T12:46:21.000000Z",
+          },
+          {
+            id: 58,
+            name: "Another Team",
+            website: "https://www.deposits.com",
+            contact_name: "John Doe",
+            contact_email: "william+01@deposits.com",
+            status: "active",
+            created_at: "2022-06-30T21:49:42.000000Z",
+          },
+          {
+            id: 11,
+            name: "Ben smith",
+            website: "http://www.facebook.com",
+            contact_name: null,
+            contact_email: "",
+            status: "active",
+            created_at: "2021-10-28T11:50:02.000000Z",
+          },
+          {
+            id: 51,
+            name: "Benode",
+            website: "https://dsdsdsd.dsd",
+            contact_name: "John Doe",
+            contact_email: "b@b.com",
+            status: "active",
+            created_at: "2022-06-26T15:03:27.000000Z",
+          },
+          {
+            id: 49,
+            name: "Bernode limited",
+            website: "https://bernode.com",
+            contact_name: "Bernar",
+            contact_email: "bernard@gmail.com",
+            status: "active",
+            created_at: "2022-06-26T14:17:07.000000Z",
+          },
+        ],
+        links: {
+          first:
+            "https://api.ghost.deposits.dev/api/v1/user/get-tenants?page=1",
+          last: "https://api.ghost.deposits.dev/api/v1/user/get-tenants?page=17",
+          prev: null,
+          next: "https://api.ghost.deposits.dev/api/v1/user/get-tenants?page=2",
+        },
+        meta: {
+          current_page: 1,
+          from: 1,
+          last_page: 17,
+          path: "https://api.ghost.deposits.dev/api/v1/user/get-tenants",
+          per_page: 10,
+          to: 10,
+          total: 170,
+        },
+      };
+
+      state.data = [];
+      state.tenants = data.data;
+      if (data.data.length == 0) {
+        state.data = [];
+      }
+      state.currentPage = data.meta.current_page;
+      state.totalPages = data.meta.last_page;
+      for (let i = 0; i < data.data.length; i++) {
+        const thisTenant = data.data[i];
+
+        let tenantInfo = {
+          ID: thisTenant["id"],
+          Tenants: thisTenant["name"],
+          Email: thisTenant["contact_email"],
+          Date: moment(thisTenant["created_at"]).format("MMM DD, YYYY"),
+          Action: thisTenant["id"],
+          route: "/tenant/" + thisTenant["id"] + "/overview",
+        };
+        state.data.push(tenantInfo);
+      }
+    });
+
+    return { columns, state };
+  },
+  template: `
+  <d-table
+            :columns="columns"
+            :data="state.data"
+            :enable-csv-export="true"
+            :enable-customize-view="true"
+            :paginate="true"
+            :search="true"
+            :show-checkboxes="true"
+            padding="none"
+            paginate-right
+            searchPlaceholder="Search tenant"
+            :total-pages="state.totalPages"
+            :current-page="state.currentPage"
+            :async-pagination="true"
+            
+          >
+            <template v-slot:item.Action="item">
+              <d-box
+                is="a"
+                :to="{ name: 'TenantOverview', params: { id: item.Action } }"
+                align-items="center"
+                class="text-cyan-500"
+                display="inline-flex"
+                text-decoration="none"
+              >
+                <eye-filled-icon height="18px" width="18px" />
+                <d-text
+                  class="text-cyan-500"
+                  font-face="circularSTD"
+                  margin-left="4px"
+                  my0
+                  scale="p-16"
+                >
+                  View details
+                </d-text>
+              </d-box>
+            </template>
+          </d-table>
   `,
 });

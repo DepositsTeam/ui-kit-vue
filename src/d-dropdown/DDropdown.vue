@@ -136,6 +136,7 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 const { computedOptions } = useDropdown(props);
+const showAllValues = ref(false);
 
 onBeforeMount(() => {
   const realValue =
@@ -190,6 +191,9 @@ const selectedIndex = ref(-1);
 const selectedOption = ref(null);
 
 watch(inputValue, (val, prevVal) => {
+  if (val !== prevVal) {
+    showAllValues.value = false;
+  }
   if (!val && prevVal && !showOptions.value) {
     return;
   }
@@ -211,7 +215,7 @@ const toggleDropdown = () => (showOptions.value = !showOptions.value);
 const updateSelectedIndex = (index) => (selectedIndex.value = index);
 
 const visibleOptions = computed(() => {
-  if (inputValue.value) {
+  if (inputValue.value && !showAllValues.value) {
     return [...computedOptions.value].filter((option) =>
       option.text.toLowerCase().includes(inputValue.value.toLowerCase())
     );
@@ -225,6 +229,7 @@ const handleClickedOption = async (option) => {
     selectedOption.value = option;
     await nextTick();
     showOptions.value = false;
+    showAllValues.value = true;
   }
 };
 
@@ -236,6 +241,7 @@ const handleBlur = async () => {
   await nextTick();
   setTimeout(async () => {
     showOptions.value = false;
+    showAllValues.value;
     let exactMatch = false;
     for (let option of visibleOptions.value) {
       if (option.text.toLowerCase() === inputValue.value.toLowerCase()) {
