@@ -124,4 +124,8 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  expandModeCardTitle: {
+    type: String,
+    default: "CARD DETAILS",
+  },
 };

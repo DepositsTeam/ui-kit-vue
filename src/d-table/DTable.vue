@@ -332,9 +332,9 @@
     </d-box>
     <d-box v-if="expandMode && isExpanded" class="ui-table__card">
       <d-box class="ui-table__card-header">
-        <d-text scale="subhead" class="ui-table__card-header-text"
-          >CARD DETAILS</d-text
-        >
+        <d-text scale="subhead" class="ui-table__card-header-text">{{
+          expandModeCardTitle
+        }}</d-text>
       </d-box>
       <d-box class="ui-table__card-body">
         <slot name="expanded-card-body" v-bind="expandedData.datum">

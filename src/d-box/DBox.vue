@@ -2152,8 +2152,8 @@ svg.deposits-ui-box {
     margin-right: calc(8px * #{$i});
   }
   .px-#{$i} {
-    padding-left: calc(8px * #{$i}) !important;
-    padding-right: calc(8px * #{$i}) !important;
+    padding-left: calc(8px * #{$i});
+    padding-right: calc(8px * #{$i});
   }
   .my-#{$i} {
     margin-top: calc(8px * #{$i});
