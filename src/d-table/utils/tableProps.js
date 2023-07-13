@@ -128,4 +128,7 @@ export const tableProps = {
     type: String,
     default: "CARD DETAILS",
   },
+  asyncSearch: {
+    type: Boolean,
+  },
 };

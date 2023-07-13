@@ -1,3 +1,5 @@
+- **13th July, 2023 - Eric McWinNEr**
+  - Fixed a minor bug with the search feature for the table component
 - **21st June, 2023 - Eric McWinNEr**
   - Updated Storybook introduction page
   - Updated Loader and Tag-dropdown stories

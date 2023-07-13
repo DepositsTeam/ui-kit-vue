@@ -386,6 +386,7 @@ import {
   onMounted,
   watch,
   onUnmounted,
+  watchEffect,
 } from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { sort } from "./utils/sort";
@@ -641,7 +642,7 @@ const handlePageChange = (currentPage) => {
 const dataFactory = computed(() => {
   let filteredData = [...props.data];
 
-  if (searchValue.value) {
+  if (searchValue.value && !props.asyncSearch) {
     filteredData = searchItems(
       searchValue.value,
       filteredData,
@@ -694,6 +695,14 @@ const buttonActionsEnabled = computed(
 watch(renderedColumns, (newVal, oldVal) => {
   if (newVal.length !== oldVal.length) {
     calculateColumnOffset();
+  }
+});
+
+watchEffect(() => {
+  if (props.asyncSearch) {
+    if (searchValue.value) {
+      emit("search", searchValue.value);
+    }
   }
 });
 
