@@ -45,7 +45,7 @@
             </slot>
           </d-box>
 
-          <d-box v-if="enableCsvExport" @click="exportCsv">
+          <d-box v-if="enableCsvExport" @click="exportCSVFunction">
             <slot name="export-csv-button">
               <d-button size="medium" :left-icon="ExternalLinkIcon"
                 >Export</d-button
@@ -408,6 +408,7 @@ const emit = defineEmits([
   "filter",
   "sort",
   "export",
+  "download-csv",
 ]);
 const isExpanded = ref(false);
 
@@ -417,7 +418,15 @@ const viewportShrunkToMobile = ref(false);
 
 const expandedData = ref(null);
 
-const { exportCsv } = useCsvExport(props.data, props.generatedCsvName);
+const { exportCsv } = useCsvExport(props.generatedCsvName);
+
+const exportCSVFunction = () => {
+  if (props.asyncCSVExport) {
+    emit("download-csv");
+  } else {
+    exportCsv(props.data);
+  }
+};
 
 const columnHashmap = computed(() => {
   const hashMap = {};

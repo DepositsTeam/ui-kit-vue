@@ -1,6 +1,11 @@
 - **13th July, 2023 - Eric McWinNEr 😴**
   - Fixed a minor bug with the search feature for the table component
   - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
+  - Update the maximum height of the tag dropdown and set it to teleport to the body
+  - Updated the toast to have a higher z-index
+  - Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
+  - Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading csvs
+  - Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
 - **21st June, 2023 - Eric McWinNEr 😴**
   - Updated Storybook introduction page
   - Updated Loader and Tag-dropdown stories

@@ -131,4 +131,7 @@ export const tableProps = {
   asyncSearch: {
     type: Boolean,
   },
+  asyncCSVExport: {
+    type: Boolean,
+  },
 };

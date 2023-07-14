@@ -1,5 +1,5 @@
 import { ExportToCsv } from "export-to-csv";
-export const useCsvExport = (data, generatedCsvName) => {
+export const useCsvExport = (generatedCsvName) => {
   const options = {
     fieldSeparator: ",",
     quoteStrings: '"',
@@ -14,6 +14,9 @@ export const useCsvExport = (data, generatedCsvName) => {
 
   const csvExporter = new ExportToCsv(options);
 
-  const exportCsv = () => csvExporter.generateCsv(data);
+  const exportCsv = (data,) => {
+    console.log("Data is", data);
+    csvExporter.generateCsv(data);
+  };
   return { exportCsv };
 };
