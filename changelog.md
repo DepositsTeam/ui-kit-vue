@@ -1,3 +1,5 @@
+- **14th July, 2023 - Eric McWinNEr 😴**
+  - Added a prop to the date picker to prevent users from selecting a future date
 - **13th July, 2023 - Eric McWinNEr 😴**
   - Fixed a minor bug with the search feature for the table component
   - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
