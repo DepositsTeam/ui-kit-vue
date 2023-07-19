@@ -3,6 +3,7 @@
   - Added loader types to support the different kinds of loaders on the table
   - Made the feature to exclude columns from the csv export to work
   - Added an empty data placeholder for the table; added both a prop and a slot
+  - Changed the CSS class that makes a textfield invisible from `invisible` to `notVisible` to prevent overriding caused by other third-party libraries
 - **14th July, 2023 - Eric McWinNEr 😴**
   - Added a prop to the date picker to prevent users from selecting a future date
   - Updated the table search to be able to search for numbers
