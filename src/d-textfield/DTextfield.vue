@@ -41,7 +41,7 @@
             copyMode ||
             rightIcon ||
             $slots.rightIcon,
-          invisible,
+          notVisible: invisible,
           disabled,
           oneCharWide,
           [inputClass]: true,
