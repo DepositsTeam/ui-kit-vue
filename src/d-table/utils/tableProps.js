@@ -69,6 +69,12 @@ export const tableProps = {
   loading: {
     type: Boolean,
   },
+  loaderType: {
+    type: String,
+    validator: (value) =>
+      ["ring", "equalizer", "ringed-circle"].includes(value),
+    default: "ring",
+  },
   search: {
     type: Boolean,
   },
@@ -133,5 +139,9 @@ export const tableProps = {
   },
   asyncCSVExport: {
     type: Boolean,
+  },
+  emptyTableText: {
+    type: String,
+    default: "No data available",
   },
 };

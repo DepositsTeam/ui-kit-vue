@@ -79,6 +79,10 @@ export default {
     loading: {
       control: { type: "boolean" },
     },
+    loaderType: {
+      control: { type: "select" },
+      options: ["ring", "equalizer", "ringed-circle"],
+    },
     search: {
       control: { type: "boolean" },
     },
@@ -106,6 +110,10 @@ export default {
     },
     asyncSearch: {
       control: { type: "boolean" },
+    },
+    emptyTableText: {
+      control: { type: "text" },
+      default: "No data available",
     },
   },
 };
@@ -237,6 +245,15 @@ ButtonActions.args = {
   enableCustomizeView: true,
   columns: sitcomColumns,
   data,
+};
+
+export const EmptyTableData = Template.bind({});
+EmptyTableData.args = {
+  search: true,
+  enableCsvExport: true,
+  enableCustomizeView: true,
+  columns: sitcomColumns,
+  data: [],
 };
 
 export const DarkModeButtonActions = DarkModeTemplateFactory();
@@ -1369,7 +1386,7 @@ export const TestTableTwo = (args) => ({
       const data = {
         data: [
           {
-            id: 64,
+            id: 6456789,
             name: "A new program",
             website: "http://somethingcom.com",
             contact_name: "Jonathan Doe",

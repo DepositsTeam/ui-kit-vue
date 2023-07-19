@@ -143,7 +143,6 @@ onBeforeMount(() => {
 });
 
 const handleChange = () => {
-  console.log(props.value, props.radioValue);
   emit("update:radioValue", props.value);
 };
 </script>

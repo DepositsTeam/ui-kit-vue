@@ -15,7 +15,6 @@ export const useRadio = (props, emit) => {
     if (props.checked !== null) {
       return props.checked;
     } else {
-      console.log("I got here", props.modelValue, props.value);
       if (mounted.value) return props.modelValue === computedValue.value;
       else return false;
     }

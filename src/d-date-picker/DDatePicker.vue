@@ -144,6 +144,9 @@ const props = defineProps({
   disabledDate: {
     type: Function,
   },
+  modelValue: {
+    type: [String, Date, Array],
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -176,6 +179,8 @@ watch(
       } else {
         date.value = moment(val, props.format).toDate();
       }
+    } else {
+      date.value = null;
     }
   }
 );

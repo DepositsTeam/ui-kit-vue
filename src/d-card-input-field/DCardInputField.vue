@@ -189,7 +189,6 @@ const handleCardCVCInput = (e) => {
   } else {
     cardCVCError.value = `Invalid CVC size. The CVC must be ${validatedCardNo.card.code.size}`;
   }
-  console.log(e.target.value);
 };
 
 const handleCardCVVFocus = () => {

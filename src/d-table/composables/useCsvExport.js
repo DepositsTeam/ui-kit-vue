@@ -14,9 +14,16 @@ export const useCsvExport = (generatedCsvName) => {
 
   const csvExporter = new ExportToCsv(options);
 
-  const exportCsv = (data,) => {
-    console.log("Data is", data);
-    csvExporter.generateCsv(data);
+  const exportCsv = (data, columnHashmap) => {
+    const dataClone = [...data];
+    for (let i = 0; i < dataClone.length; i++) {
+      for (let key in dataClone[i]) {
+        if (columnHashmap[key].excludeFromCSV === true) {
+          delete dataClone[i][key];
+        }
+      }
+    }
+    csvExporter.generateCsv(dataClone);
   };
   return { exportCsv };
 };

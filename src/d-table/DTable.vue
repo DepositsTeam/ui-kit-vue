@@ -170,9 +170,13 @@
         </slot>
       </d-auto-layout>
 
-      <d-box ref="currentTable" class="ui-table__wrapper">
+      <d-box
+        ref="currentTable"
+        class="ui-table__wrapper"
+        :class="{ falseHeight: loading && paginatedData.length < 3 }"
+      >
         <d-box v-if="loading" class="ui-table-loader">
-          <d-loader />
+          <d-loader :loader="loaderType" />
         </d-box>
         <d-box is="table" ref="tableElem" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
@@ -221,7 +225,28 @@
               </d-box>
             </d-box>
           </d-box>
-          <d-box is="tbody" class="ui-table__body">
+          <d-box
+            v-if="!paginatedData.length && !loading"
+            is="tbody"
+            class="ui-table__body"
+          >
+            <d-box is="tr" class="ui-table__body-row">
+              <d-box
+                is="td"
+                class="ui-table__body-cell empty-content"
+                :colspan="
+                  showCheckboxes
+                    ? filteredRenderedColumns.length + 1
+                    : filteredRenderedColumns.length
+                "
+              >
+                <slot name="empty-table-content">
+                  <d-text center>{{ emptyTableText }}</d-text>
+                </slot>
+              </d-box>
+            </d-box>
+          </d-box>
+          <d-box is="tbody" v-else class="ui-table__body">
             <d-box
               is="tr"
               class="ui-table__body-row"
@@ -424,7 +449,7 @@ const exportCSVFunction = () => {
   if (props.asyncCSVExport) {
     emit("download-csv");
   } else {
-    exportCsv(props.data);
+    exportCsv(props.data, columnHashmap.value);
   }
 };
 
@@ -904,7 +929,7 @@ const validateBackground = (background, index) => {
           cursor: pointer;
         }
 
-        td {
+        td:not(.empty-content) {
           background: #f5f8fa;
 
           &.dark_mode {
@@ -1033,6 +1058,10 @@ const validateBackground = (background, index) => {
       scrollbar-width: thin;
       position: relative;
 
+      &.falseHeight {
+        min-height: 200px;
+      }
+
       .ui-table-loader {
         position: absolute;
         top: 0;
@@ -1043,8 +1072,25 @@ const validateBackground = (background, index) => {
         align-items: center;
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
+        z-index: 9;
+        .ui-d-loader {
+          position: relative;
+          z-index: 9;
+        }
         &.dark_mode {
-          background: rgba(var(--dark-background-color), 0.8);
+          background-color: transparent;
+          z-index: 9;
+          &::before {
+            content: "";
+            background: var(--dark-background-color);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.7;
+            z-index: 5;
+          }
         }
       }
 
