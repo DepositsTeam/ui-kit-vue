@@ -1,13 +1,30 @@
-- **21st June, 2023 - Eric McWinNEr**
+- **19th July, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with loader not working for table
+  - Added loader types to support the different kinds of loaders on the table
+  - Made the feature to exclude columns from the csv export to work
+  - Added an empty data placeholder for the table; added both a prop and a slot
+- **14th July, 2023 - Eric McWinNEr 😴**
+  - Added a prop to the date picker to prevent users from selecting a future date
+  - Updated the table search to be able to search for numbers
+  - Updated the filter configuration rules to allow string based filtering with numbers
+- **13th July, 2023 - Eric McWinNEr 😴**
+  - Fixed a minor bug with the search feature for the table component
+  - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
+  - Update the maximum height of the tag dropdown and set it to teleport to the body
+  - Updated the toast to have a higher z-index
+  - Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
+  - Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading csvs
+  - Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
+- **21st June, 2023 - Eric McWinNEr 😴**
   - Updated Storybook introduction page
   - Updated Loader and Tag-dropdown stories
-- **20th June, 2023 - Eric McWinNEr**
+- **20th June, 2023 - Eric McWinNEr 😴**
   - Updated storybook docs configuration to stop merging all stories to one long doc page by default
   - Updated the z-index of tooltips
   - Created new story on storybook for using tooltips in tables with fixed columns
   - Created a new TableCellText component to be used to create table cell text when using slots in external components
   - Corrected invalid argType in story for Loader component
-- **15th June, 2023 - Eric McWinNEr** 
+- **15th June, 2023 - Eric McWinNEr 😴** 
   - Fixed bug with the table that causes floated items to appear behind fixed columns.
   - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
   - Added a loader to tag dropdown input field

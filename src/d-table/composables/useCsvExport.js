@@ -1,5 +1,5 @@
 import { ExportToCsv } from "export-to-csv";
-export const useCsvExport = (data, generatedCsvName) => {
+export const useCsvExport = (generatedCsvName) => {
   const options = {
     fieldSeparator: ",",
     quoteStrings: '"',
@@ -14,6 +14,16 @@ export const useCsvExport = (data, generatedCsvName) => {
 
   const csvExporter = new ExportToCsv(options);
 
-  const exportCsv = () => csvExporter.generateCsv(data);
+  const exportCsv = (data, columnHashmap) => {
+    const dataClone = [...data];
+    for (let i = 0; i < dataClone.length; i++) {
+      for (let key in dataClone[i]) {
+        if (columnHashmap[key].excludeFromCSV === true) {
+          delete dataClone[i][key];
+        }
+      }
+    }
+    csvExporter.generateCsv(dataClone);
+  };
   return { exportCsv };
 };

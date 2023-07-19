@@ -45,14 +45,14 @@
 <script setup>
 import { DBox, DText } from "../main";
 import rfid from "./rfid.svg";
-import defaultLogo from "./Logo.svg";
 import { CardBrands } from "../utils/debitCardUtils";
 import { useDebitCard } from "../utils/composables/useDebitCard";
 // TODO: Make the debit card to have the ability to mask values.
 const props = defineProps({
   logo: {
     type: String,
-    default: defaultLogo,
+    default:
+      "https://assets.ondeposits.com/img/logo/renapay/svg/logo_all_white.svg",
   },
   cardNo: {
     type: String,

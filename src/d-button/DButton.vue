@@ -154,7 +154,8 @@ const props = defineProps({
   loaderType: {
     type: String,
     default: "text",
-    validator: (value) => ["text", "ring"].includes(value),
+    validator: (value) =>
+      ["text", "ring", "equalizer", "ringed-circle"].includes(value),
   },
   loadingText: {
     type: String,

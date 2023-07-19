@@ -49,6 +49,13 @@
         :format="format"
         :placeholder="placeholder || format"
         :range="range"
+        :disabled-date="
+          disableAfterToday
+            ? disabledAfterToday
+            : disabledDate
+            ? disabledDate
+            : undefined
+        "
       >
         <template #icon-calendar>
           <CalendarIcon class="ui-text-field__right-icon relative" />
@@ -131,9 +138,25 @@ const props = defineProps({
   range: {
     type: Boolean,
   },
+  disableAfterToday: {
+    type: Boolean,
+  },
+  disabledDate: {
+    type: Function,
+  },
+  modelValue: {
+    type: [String, Date, Array],
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
+
+const disabledAfterToday = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date > today;
+};
 
 onMounted(() => {
   if (props.modelValue) {
@@ -156,6 +179,8 @@ watch(
       } else {
         date.value = moment(val, props.format).toDate();
       }
+    } else {
+      date.value = null;
     }
   }
 );
@@ -194,5 +219,4 @@ export default {
 .mx-datepicker {
   width: 100%;
 }
-
 </style>

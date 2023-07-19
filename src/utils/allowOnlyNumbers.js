@@ -9,7 +9,13 @@ export const allowOnlyNumbers = (e, allowPeriod = false) => {
       value !== "Tab" &&
       value !== "Meta" &&
       value !== "Control" &&
-      value !== "v"
+      value !== "v" &&
+      value !== "a" &&
+      value !== "ArrowRight" &&
+      value !== "ArrowLeft" &&
+      value !== "ArrowUp" &&
+      value !== "ArrowDown" &&
+      value !== "Shift"
     ) {
       e.preventDefault();
       return;
