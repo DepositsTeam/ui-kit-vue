@@ -64,7 +64,9 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-textfield v-bind="args" v-model="value" />`,
+  template: `<d-textfield v-bind="args" v-model="value" />
+  <p>{{ value }}</p>
+  `,
 });
 
 const DarkModeTemplate = (args) => ({

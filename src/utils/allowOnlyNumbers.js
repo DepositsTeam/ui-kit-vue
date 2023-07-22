@@ -26,6 +26,7 @@ export const allowOnlyNumbers = (e, allowPeriod = false) => {
       return;
     }
   }
+  alert("I got here");
 };
 
 export const currencies = (e) => {
