@@ -1,3 +1,7 @@
+- **22nd July, 2023 - Eric McWinNEr 😴**
+  - Fixed bugs with the currency mode on the textfield
+- **21st July, 2023 - Eric McWinNEr 😴**
+  - Update the textfield to handle `emitOnlyCurrencyValue` prop properly.
 - **19th July, 2023 - Eric McWinNEr 😴**
   - Fixed bug with loader not working for table
   - Added loader types to support the different kinds of loaders on the table

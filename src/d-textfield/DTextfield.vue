@@ -262,7 +262,7 @@ const initializeModelValue = () => {
           regex = new RegExp(/^\d*(\.\d{0,2})?$/);
         if (regex.test(value)) {
           if (props.emitOnlyCurrencyValue) {
-            emit("update:modelValue", `${number_format(value)}`);
+            emit("update:modelValue", `${number_format(value, 2)}`);
           } else {
             emit(
               "update:modelValue",
@@ -480,21 +480,22 @@ const handleFocusEvent = async (e) => {
   focused.value = true;
   emit("focus", e);
   if (props.currency) {
-    if (props.emitOnlyCurrencyValue) {
-      emit(
-        "update:modelValue",
-        e.target.value
-          .substring(1)
-          .replaceAll(props.currencySymbol, "")
-          .replaceAll(",", "")
-      );
-      await nextTick();
-      e.target.select();
-    } else {
-      emit("update:modelValue", e.target.value.substring(1));
-      await nextTick();
-      e.target.select();
-    }
+    e.target.value = e.target.value
+      .replaceAll(props.currencySymbol, "")
+      .replaceAll(",", "");
+
+    // if (props.emitOnlyCurrencyValue) {
+    //   emit(
+    //     "update:modelValue",
+    //     e.target.value.replaceAll(props.currencySymbol, "").replaceAll(",", "")
+    //   );
+    //   await nextTick();
+    //   e.target.value = e.target.select();
+    // } else {
+    //   emit("update:modelValue", e.target.value);
+    //   await nextTick();
+    //   e.target.select();
+    // }
   }
   if (props.percentage) {
     emit("update:modelValue", e.target.value.replaceAll("%", ""));
@@ -506,22 +507,47 @@ const handleFocusEvent = async (e) => {
   }
 };
 
-const handleBlurEvent = (e) => {
+const handleBlurEvent = async (e) => {
   emit("blur", e);
   if (props.currency) {
     if (e.target.value) {
-      emit(
-        "update:modelValue",
-        `${props.currencySymbol} ${number_format(
-          parseFloat(
-            e.target.value
-              .split(",")
-              .join("")
-              .replaceAll(props.currencySymbol, "")
-          ),
-          2
-        )}`
-      );
+      if (props.emitOnlyCurrencyValue) {
+        emit(
+          "update:modelValue",
+          `${number_format(
+            parseFloat(
+              e.target.value
+                .split(",")
+                .join("")
+                .replaceAll(props.currencySymbol, "")
+            ),
+            2
+          )}`
+        );
+      } else {
+        emit(
+          "update:modelValue",
+          `${props.currencySymbol} ${number_format(
+            parseFloat(
+              e.target.value
+                .split(",")
+                .join("")
+                .replaceAll(props.currencySymbol, "")
+            ),
+            2
+          )}`
+        );
+      }
+      await nextTick();
+      e.target.value = `${props.currencySymbol} ${number_format(
+        parseFloat(
+          e.target.value
+            .split(",")
+            .join("")
+            .replaceAll(props.currencySymbol, "")
+        ),
+        2
+      )}`;
     } else {
       emit("update:modelValue", `${props.currencySymbol} 0.00`);
     }
@@ -547,6 +573,49 @@ watch(
   () => props.modelValue,
   () => {
     initializeModelValue();
+  }
+);
+
+watch(
+  () => props.emitOnlyCurrencyValue,
+  async (newValue) => {
+    if (newValue) {
+      emit(
+        "update:modelValue",
+        `${number_format(
+          parseFloat(
+            inputField.value.$el.value
+              .split(",")
+              .join("")
+              .replaceAll(props.currencySymbol, "")
+          ),
+          2
+        )}`
+      );
+      await nextTick();
+      inputField.value.$el.value = `${props.currencySymbol} ${number_format(
+        parseFloat(
+          inputField.value.$el.value
+            .split(",")
+            .join("")
+            .replaceAll(props.currencySymbol, "")
+        ),
+        2
+      )}`;
+    } else {
+      emit(
+        "update:modelValue",
+        `${props.currencySymbol} ${number_format(
+          parseFloat(
+            inputField.value.$el.value
+              .split(",")
+              .join("")
+              .replaceAll(props.currencySymbol, "")
+          ),
+          2
+        )}`
+      );
+    }
   }
 );
 </script>
