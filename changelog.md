@@ -1,3 +1,5 @@
+- **23rd July, 2023 - Eric McWinNEr 😴**
+  - Made some minor updates to the table component
 - **22nd July, 2023 - Eric McWinNEr 😴**
   - Fixed bugs with the currency mode on the textfield
 - **21st July, 2023 - Eric McWinNEr 😴**

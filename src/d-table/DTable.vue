@@ -446,7 +446,9 @@ const expandedData = ref(null);
 const { exportCsv } = useCsvExport(props.generatedCsvName);
 
 const exportCSVFunction = () => {
-  if (props.asyncCSVExport) {
+  if (props.exportCSVURL) {
+    window.open(props.exportCSVURL, "_blank");
+  } else if (props.asyncCSVExport) {
     emit("download-csv");
   } else {
     exportCsv(props.data, columnHashmap.value);
@@ -671,6 +673,9 @@ const handlePageChange = (currentPage) => {
     scopedCurrentPage.value = currentPage;
   }
   emit("page-updated", currentPage);
+  if (searchValue.value) {
+    emit("search", searchValue.value, props.currentPage);
+  }
 };
 
 const dataFactory = computed(() => {
@@ -735,9 +740,16 @@ watch(renderedColumns, (newVal, oldVal) => {
 watchEffect(() => {
   if (props.asyncSearch) {
     if (searchValue.value) {
-      emit("search", searchValue.value);
+      emit("search", searchValue.value, props.currentPage);
     }
   }
+});
+
+watch(searchValue, () => {
+  if (!props.asyncPagination) {
+    scopedCurrentPage.value = 1;
+  }
+  emit("page-updated", 1);
 });
 
 const validateBackground = (background, index) => {
