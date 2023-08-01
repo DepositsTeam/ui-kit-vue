@@ -124,7 +124,7 @@ const PreselectedVModelTemplate = (args) => ({
     return { args };
   },
   template: `
-    <d-select v-bind="args" v-model="value" :options="options" />
+    s<d-select v-bind="args" v-model="value" :options="options" />
     <span>Selected value is: {{value}}</span>
   `,
 });

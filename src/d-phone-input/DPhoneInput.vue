@@ -229,7 +229,7 @@ onMounted(() => {
   //     const asYouType = new AsYouType({
   //       defaultCountry: countryCodes["+1"][1],
   //     });
-  //     asYouType.input(props.phoneNumber);
+  //     asYouType.input(props.phoneNumber);w
   //     emit("update:phoneNumber", asYouType.getNumber().nationalNumber);
   //   } else {
   //     if (countryCode.value && countryCodes[countryCode.value]) {

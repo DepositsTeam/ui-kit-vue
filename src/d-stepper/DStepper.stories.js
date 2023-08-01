@@ -248,7 +248,7 @@ const CustomSlotStepperTemplate = (args) => ({
   },
   template: `<d-stepper v-bind="args">
   <template v-slot:step="item">
-  <d-text>{{item.arandomfieldhere}}</d-text>
+  <d-text my0>{{item.text}}</d-text>
   </template>
   
   </d-stepper>`,

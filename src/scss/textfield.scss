@@ -53,14 +53,14 @@
   &::placeholder {
     color: #b8c4ce;
   }
-  &:hover:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
+  &:hover:not(:disabled):not([disabled]):not(.has-error):not(.notVisible) {
     border-color: var(--light-primary-action-color);
     &.dark_mode {
       border-color: var(--dark-primary-action-color);
     }
   }
-  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible),
-  &.focus:not(:disabled):not([disabled]):not(.has-error):not(.invisible) {
+  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.notVisible),
+  &.focus:not(:disabled):not([disabled]):not(.has-error):not(.notVisible) {
     border-color: var(--light-primary-action-color);
     box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
     outline: none;
@@ -129,7 +129,9 @@
 }
 .ui-text-field__right-icon {
   position: absolute;
-  right: 16px;
+  &:not(.no-position) {
+    right: 16px;
+  }
   color: #5f6b7a;
   cursor: pointer;
   &.dark_mode {
@@ -239,7 +241,9 @@
       width: 20px;
     }
     .ui-text-field__right-icon {
-      right: 12px;
+      &:not(.no-position) {
+        right: 12px;
+      }
       height: 20px;
       width: 20px;
     }
@@ -276,7 +280,9 @@
       width: 20px;
     }
     .ui-text-field__right-icon {
-      right: 12px;
+      &:not(.no-position) {
+        right: 12px;
+      }
       height: 20px;
       width: 20px;
     }
@@ -313,7 +319,9 @@
       width: 18px;
     }
     .ui-text-field__right-icon {
-      right: 12px;
+      &:not(.no-position) {
+        right: 12px;
+      }
       height: 18px;
       width: 18px;
     }
@@ -348,7 +356,9 @@
       width: 16px;
     }
     .ui-text-field__right-icon {
-      right: 8px;
+      &:not(.no-position) {
+        right: 8px;
+      }
       height: 16px;
       width: 16px;
     }

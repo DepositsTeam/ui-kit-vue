@@ -13,7 +13,7 @@
       </d-box>
     </slot>
 
-    <d-box class="ui-tag-input__input-wrapper">
+    <d-box class="ui-tag-input__input-wrapper" :class="{ focus: focused }">
       <d-box
         is="div"
         v-for="(tag, index) in inputTags"
@@ -41,7 +41,8 @@
         @keydown="handleKeyDown"
         @keyup="() => setIsKeyReleased(true)"
         autoFocus
-        @focus="(e) => e.currentTarget.select()"
+        @focus="handleFocus"
+        @blur="handleBlur"
         v-model="input"
         :size="computedInputSize"
       />
@@ -59,6 +60,17 @@ const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
   comma: ",",
+};
+
+const focused = ref(false);
+
+const handleFocus = (e) => {
+  e.currentTarget.select();
+  focused.value = true;
+};
+
+const handleBlur = () => {
+  focused.value = false;
 };
 
 const emit = defineEmits([
@@ -162,6 +174,15 @@ const handleKeyDown = (event) => {
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
+  &.focus {
+    border-color: var(--light-primary-action-color);
+    box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
+    outline: none;
+    &.dark_mode {
+      border-color: var(--dark-primary-action-color);
+      box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
+    }
+  }
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
