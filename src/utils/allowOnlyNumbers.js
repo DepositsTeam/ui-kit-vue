@@ -1,32 +1,37 @@
 export const allowOnlyNumbers = (e, allowPeriod = false) => {
-  const isNumber = isFinite(parseFloat(e.key));
-  const value = e.key;
-  if (value !== ".") {
-    if (
-      !isNumber &&
-      value !== "Delete" &&
-      value !== "Backspace" &&
-      value !== "Tab" &&
-      value !== "Meta" &&
-      value !== "Control" &&
-      value !== "v" &&
-      value !== "a" &&
-      value !== "ArrowRight" &&
-      value !== "ArrowLeft" &&
-      value !== "ArrowUp" &&
-      value !== "ArrowDown" &&
-      value !== "Shift"
-    ) {
-      e.preventDefault();
-      return;
-    }
-  } else {
-    if (!allowPeriod) {
-      e.preventDefault();
-      return;
-    }
+  // Allow: Ctrl+A, Ctrl+C, Ctrl+V
+  if (
+    (e.ctrlKey || e.metaKey || e.shiftKey) &&
+    ["a", "c", "v"].includes(e.key.toLowerCase())
+  ) {
+    return; // allow the event to continue processing
   }
-  alert("I got here");
+
+  // Allow: navigation keys
+  if (
+    [
+      "Delete",
+      "Backspace",
+      "Tab",
+      "Meta",
+      "Control",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowUp",
+      "ArrowDown",
+      "Shift",
+    ].includes(e.key)
+  ) {
+    return; // allow the event to continue processing
+  }
+
+  // Allow: numeric keys and decimal point
+  const isNumberKey = e.key >= "0" && e.key <= "9";
+  const isDecimalPoint = e.key === ".";
+
+  if (!isNumberKey && (!isDecimalPoint || !allowPeriod)) {
+    e.preventDefault(); // prevent non-numeric key input
+  }
 };
 
 export const currencies = (e) => {

@@ -1,3 +1,9 @@
+- **1st August, 2023 - Eric McWinNEr 😴**
+  - Made minor update to the pin input, tag input and tag dropdown
+  - Made the right icon of the select field customizable
+  - Updated the date picker icon to make it customizable and fix the excess right padding
+- **23rd July, 2023 - Eric McWinNEr 😴**
+  - Made some minor updates to the table component
 - **22nd July, 2023 - Eric McWinNEr 😴**
   - Fixed bugs with the currency mode on the textfield
 - **21st July, 2023 - Eric McWinNEr 😴**

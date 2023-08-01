@@ -50,7 +50,11 @@
           {{ option.text }}
         </option>
       </d-box>
-      <ChevronFilledDownIcon class="ui-text-field__right-icon" />
+      <d-box class="ui-text-field__right-icon">
+        <slot name="right-icon">
+          <ChevronFilledDownIcon />
+        </slot>
+      </d-box>
     </d-box>
     <d-box v-if="errorMessage" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
