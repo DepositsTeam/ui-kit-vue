@@ -2,6 +2,7 @@
   - Made minor update to the pin input, tag input and tag dropdown
   - Made the right icon of the select field customizable
   - Updated the date picker icon to make it customizable and fix the excess right padding
+  - Updated changelog
 - **23rd July, 2023 - Eric McWinNEr 😴**
   - Made some minor updates to the table component
 - **22nd July, 2023 - Eric McWinNEr 😴**
