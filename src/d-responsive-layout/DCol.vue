@@ -245,6 +245,8 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
   //flex: 1 0 0%;
   max-width: 100%;
   padding-left: 0;
+  margin-left: 0;
+  margin-right: 0;
   padding-right: 0;
   padding-bottom: var(--gutter-y);
 
@@ -254,8 +256,6 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
         &.ui-responsive__col-#{$breakpoint}-#{$i} {
           flex: 0 0 auto;
           width: calc($i / 12 * 100%);
-          //padding-left: var(--gutter-x);
-          padding-right: var(--gutter-x);
         }
         &.ui-responsive__offset-#{$breakpoint}-#{$i} {
           margin-left: calc($i / 12 * 100%);

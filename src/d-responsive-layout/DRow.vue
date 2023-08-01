@@ -1,7 +1,7 @@
 <template>
   <d-box
     class="ui-responsive__row"
-    :class="{ [`align__${alignment}`]: alignment }"
+    :class="{ [`align__${alignment}`]: alignment, stretch }"
     :style="{ '--gutter-x': computedGutter.x, '--gutter-y': computedGutter.y }"
   >
     <slot></slot>
@@ -28,6 +28,9 @@ const props = defineProps({
   gutterY: {
     type: [String, Number],
   },
+  stretch: {
+    type: Boolean,
+  },
 });
 
 const computedGutter = computed(() => {
@@ -46,6 +49,10 @@ const computedGutter = computed(() => {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  gap: var(--gutter-x);
+  &.stretch {
+    align-items: stretch;
+  }
   & > .ui-responsive__col:first-child {
     padding-left: 0;
   }
