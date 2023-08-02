@@ -1,17 +1,22 @@
 import { ExportToCsv } from "export-to-csv";
 export const useCsvExport = (generatedCsvName) => {
+  console.log(generatedCsvName);
   const options = {
     fieldSeparator: ",",
     quoteStrings: '"',
     decimalSeparator: ".",
     showLabels: true,
-    showTitle: true,
-    title: generatedCsvName,
+    showTitle: false,
+    title: "",
+    // showTitle: true,
+    filename: generatedCsvName,
+    // title: generatedCsvName,
     useTextFile: false,
     useBom: true,
     useKeysAsHeaders: true,
   };
 
+  console.log(options);
   const csvExporter = new ExportToCsv(options);
 
   const exportCsv = (data, columnHashmap) => {
