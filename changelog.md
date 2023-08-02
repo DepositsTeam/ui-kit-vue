@@ -1,7 +1,12 @@
+- **2nd August, 2023 - Eric McWinNEr 😴**
+  - Made bugfixes to the responsive layout
+  - Fixed bug with the export csv feature on the table
+  - Fixed bug with the generated csv name on the table for the csv export
 - **1st August, 2023 - Eric McWinNEr 😴**
   - Made minor update to the pin input, tag input and tag dropdown
   - Made the right icon of the select field customizable
   - Updated the date picker icon to make it customizable and fix the excess right padding
+  - Updated changelog
 - **23rd July, 2023 - Eric McWinNEr 😴**
   - Made some minor updates to the table component
 - **22nd July, 2023 - Eric McWinNEr 😴**
