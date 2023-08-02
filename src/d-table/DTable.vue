@@ -445,6 +445,14 @@ const expandedData = ref(null);
 
 const { exportCsv } = useCsvExport(props.generatedCsvName);
 
+const columnHashmap = computed(() => {
+  const hashMap = {};
+  props.columns.forEach((column) => {
+    hashMap[column.dataSelector] = column;
+  });
+  return hashMap;
+});
+
 const exportCSVFunction = () => {
   if (props.exportCSVURL) {
     window.open(props.exportCSVURL, "_blank");
@@ -454,14 +462,6 @@ const exportCSVFunction = () => {
     exportCsv(props.data, columnHashmap.value);
   }
 };
-
-const columnHashmap = computed(() => {
-  const hashMap = {};
-  props.columns.forEach((column) => {
-    hashMap[column.dataSelector] = column;
-  });
-  return hashMap;
-});
 
 const transformDataWithColumnPipe = (datum) => {
   return Object.keys(datum).reduce((previousValue, key) => {

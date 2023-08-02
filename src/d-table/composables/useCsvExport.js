@@ -15,14 +15,19 @@ export const useCsvExport = (generatedCsvName) => {
   const csvExporter = new ExportToCsv(options);
 
   const exportCsv = (data, columnHashmap) => {
-    const dataClone = [...data];
-    for (let i = 0; i < dataClone.length; i++) {
-      for (let key in dataClone[i]) {
-        if (columnHashmap[key].excludeFromCSV === true) {
-          delete dataClone[i][key];
+    console.log(columnHashmap);
+    const dataClone = data.map((datum) => {
+      let returnedDataClone = {};
+      Object.keys(columnHashmap).forEach((key) => {
+        if (
+          !columnHashmap[key].excludeFromCSV &&
+          Object.prototype.hasOwnProperty.call(datum, key)
+        ) {
+          returnedDataClone[key] = datum[key];
         }
-      }
-    }
+      });
+      return returnedDataClone;
+    });
     csvExporter.generateCsv(dataClone);
   };
   return { exportCsv };
