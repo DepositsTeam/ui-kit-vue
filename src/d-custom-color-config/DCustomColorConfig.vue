@@ -41,7 +41,7 @@
 
 <script setup>
 import { DBox, DText } from "../main";
-import { onBeforeMount, reactive } from "vue";
+import { onBeforeMount } from "vue";
 import copy from "copy-to-clipboard";
 
 const props = defineProps({
@@ -62,9 +62,6 @@ const props = defineProps({
   colors: {
     type: Array,
   },
-});
-const payload = reactive({
-  color: "",
 });
 const emit = defineEmits(["update:modelValue"]);
 
