@@ -1,3 +1,5 @@
+- **4th August, 2023 - Eric McWinNEr 😴**
+  - Updated the badge to allow custom colors
 - **2nd August, 2023 - Eric McWinNEr 😴**
   - Made bugfixes to the responsive layout
   - Fixed bug with the export csv feature on the table
