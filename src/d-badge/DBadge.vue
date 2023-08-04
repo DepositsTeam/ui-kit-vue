@@ -6,6 +6,7 @@
       [`size__${size}`]: !customSize,
       sizeCustom: customSize,
       smartColor,
+      customColor,
       noWrap,
     }"
     class="ui-badge"
@@ -13,6 +14,8 @@
       '--size': typeof customSize === 'number' ? `${customSize}px` : customSize,
       '--smart-color': smartColor,
       '--smart-text-color': getTextColor(smartColor),
+      '--custom-background-color': customColor?.background,
+      '--custom-text-color': customColor?.color,
     }"
   >
     <d-text
@@ -59,6 +62,9 @@ defineProps({
   noWrap: {
     type: Boolean,
   },
+  customColor: {
+    type: Object,
+  },
 });
 </script>
 
@@ -85,6 +91,10 @@ defineProps({
   &.smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
+  }
+  &.customColor {
+    background: var(--custom-background-color);
+    color: var(--custom-text-color);
   }
 }
 
@@ -114,7 +124,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__neutral:not(.smartColor) {
+  &.color-scheme__neutral:not(.smartColor):not(.customColor) {
     background: #8895a7;
     &.dark_mode {
       background: #64748b;
@@ -122,7 +132,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__green:not(.smartColor) {
+  &.color-scheme__green:not(.smartColor):not(.customColor) {
     background: #00b058;
     &.dark_mode {
       background: #2eab6c;
@@ -130,7 +140,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__red:not(.smartColor) {
+  &.color-scheme__red:not(.smartColor):not(.customColor) {
     background: #d62f4b;
     &.dark_mode {
       background: #df5e74;
@@ -138,7 +148,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__yellow:not(.smartColor) {
+  &.color-scheme__yellow:not(.smartColor):not(.customColor) {
     background: #ff9505;
     &.dark_mode {
       background: #dc8104;
@@ -146,7 +156,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__cyan:not(.smartColor) {
+  &.color-scheme__cyan:not(.smartColor):not(.customColor) {
     background: #0c9ccc;
     &.dark_mode {
       background: #0c9ccc;
@@ -154,7 +164,7 @@ defineProps({
     }
   }
 
-  &.color-scheme__blue:not(.smartColor) {
+  &.color-scheme__blue:not(.smartColor):not(.customColor) {
     background: #0d7fe9;
     &.dark_mode {
       background: #418be1;
@@ -162,7 +172,7 @@ defineProps({
     }
   }
 
-  &.subtle:not(.smartColor) {
+  &.subtle:not(.smartColor):not(.customColor) {
     &.color-scheme__neutral {
       color: #212934;
       background: #e1e7ec;
