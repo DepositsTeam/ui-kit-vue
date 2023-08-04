@@ -70,7 +70,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 onBeforeMount(() => {
   if (!props.modelValue && props.colors.length > 0) {
-    props.modelValue = props.colors[0];
+    emit("update:modelValue", props.colors[0]);
   }
 });
 
