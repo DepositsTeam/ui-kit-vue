@@ -5,16 +5,19 @@ export default {
   component: DCustomColorConfig,
   argTypes: {
     label: {
-      control: { type: "string" },
+      control: { type: "text" },
+      default: "Color",
     },
     height: {
-      control: { type: "string" },
+      control: { type: "text" },
+      default: "28.997px",
     },
     width: {
-      control: { type: "string" },
+      control: { type: "text" },
+      default: "28.997px",
     },
     colors: {
-      control: { type: "array" },
+      control: { type: "object" },
     },
   },
 };
