@@ -136,7 +136,7 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 const { computedOptions } = useDropdown(props);
-const showAllValues = ref(false);
+const showAllValues = ref(true);
 
 onBeforeMount(() => {
   const realValue =
@@ -173,7 +173,8 @@ onUnmounted(() => {
 watch(
   () => props.modelValue,
   (val) => {
-    const realValue = typeof val === "object" ? val[props.optionValue] : val;
+    const realValue =
+      typeof val === "object" && val !== null ? val[props.optionValue] : val;
     const matched = [...computedOptions.value].filter(
       (option) => option.value === realValue
     );
@@ -191,22 +192,26 @@ const selectedIndex = ref(-1);
 const selectedOption = ref(null);
 
 watch(inputValue, (val, prevVal) => {
-  if (val !== prevVal) {
+  if (val !== prevVal && showOptions.value) {
     showAllValues.value = false;
   }
   if (!val && prevVal && !showOptions.value) {
     return;
   }
-  if (!showOptions.value && mounted.value) {
-    showOptions.value = true;
-  }
+  // if (!showOptions.value && mounted.value) {
+  //   showOptions.value = true;
+  // }
 });
 
 const emitOption = (option) => {
-  if (props.returnFullObject) {
-    emit("update:modelValue", option.originalOption);
+  if (option) {
+    if (props.returnFullObject) {
+      emit("update:modelValue", option.originalOption);
+    } else {
+      emit("update:modelValue", option.value);
+    }
   } else {
-    emit("update:modelValue", option.value);
+    emit("update:modelValue", null);
   }
 };
 
@@ -255,6 +260,7 @@ const handleBlur = async () => {
     if (!exactMatch) {
       inputValue.value = "";
       selectedOption.value = null;
+      emitOption(null);
     }
   }, 300);
 };

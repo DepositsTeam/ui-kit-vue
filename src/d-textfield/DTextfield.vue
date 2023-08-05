@@ -340,10 +340,7 @@ const handleKeyEvents = (e) => {
   if (props.onlyNumbers || props.ssn) {
     return allowOnlyNumbers(e);
   }
-  if (props.currency) {
-    return currencies(e);
-  }
-  if (props.percentage) {
+  if (props.currency || props.percentage) {
     return allowOnlyNumbers(e, true);
   }
 };
@@ -480,9 +477,18 @@ const handleFocusEvent = async (e) => {
   focused.value = true;
   emit("focus", e);
   if (props.currency) {
-    e.target.value = e.target.value
-      .replaceAll(props.currencySymbol, "")
-      .replaceAll(",", "");
+    emit(
+      "update:modelValue",
+      e.target.value
+        .replaceAll(props.currencySymbol, "")
+        .replaceAll(",", "")
+        .trim()
+    );
+    // e.target.value = e.target.value
+    //   .replaceAll(props.currencySymbol, "")
+    //   .replaceAll(",", "");
+    await nextTick();
+    e.target.select();
 
     // if (props.emitOnlyCurrencyValue) {
     //   emit(

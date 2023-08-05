@@ -20,16 +20,20 @@
       class="ui-select-field__wrapper ui-text-field__input-wrapper"
       :class="{ 'has-error': errorMessage, disabled, pill }"
     >
-      <component
-        v-if="leftIcon"
-        class="ui-text-field__left-icon"
-        :is="leftIcon"
-      ></component>
+      <d-box
+        v-if="$slots['left-icon'] || leftIcon"
+        class="ui-text-filed__left-icon"
+      >
+        <slot name="left-icon">
+          <component v-if="leftIcon" :is="leftIcon"></component>
+        </slot>
+      </d-box>
+
       <d-box
         :class="{
           'has-error': errorMessage,
           disabled,
-          'has-left-icon': leftIcon,
+          'has-left-icon': leftIcon || $slots['left-icon'],
           'select-placeholder': placeholderEffect && internalValue === '',
           'active-placeholder': internalValue === '' && placeholder,
           pill,

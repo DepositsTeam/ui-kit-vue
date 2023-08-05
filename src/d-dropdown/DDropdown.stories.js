@@ -66,12 +66,57 @@ const PredefinedTemplate = (args) => ({
   components: { DDropdown },
   data: () => ({
     value: "identity",
+    internalOptions: [
+      {
+        text: "Banking kit",
+        value: "banking",
+      },
+      {
+        text: "Money kit",
+        value: "money",
+      },
+      {
+        text: "Identity kit",
+        value: "identity",
+      },
+      {
+        text: "UI kit",
+        value: "ui",
+      },
+      {
+        text: "Commerce kit",
+        value: "commerce",
+      },
+    ]
   }),
   setup() {
     return { args };
   },
+  mounted() {
+    setTimeout(() => {
+      this.value = "ui";
+      this.internalOptions = [
+        {
+          text: "Money kit",
+          value: "money",
+        },
+        {
+          text: "Identity kit",
+          value: "identity",
+        },
+        {
+          text: "UI kit",
+          value: "ui",
+        },
+        {
+          text: "Commerce kit",
+          value: "commerce",
+        },
+      ]
+    }, 3000);
+  },
   template: `
-    <d-dropdown v-model="value" v-bind="args" />
+    <d-dropdown v-model="value" v-bind="args" :options="internalOptions" />
     <p>Selected value is: {{value}}</p>
   `,
 });

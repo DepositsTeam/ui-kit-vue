@@ -1,3 +1,10 @@
+- **5th August, 2023 - Eric McWinNEr 😴**
+  - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
+  - Fixed bug with currency input not working as expected
+  - Added left icon slot to the Select field
+  - Fixed font-face of date picker having hero-new instead of circular std by default
+  - Added additional configs to the loader to allow it automatically center in its container
+  - 
 - **4th August, 2023 - Eric McWinNEr 😴**
   - Updated the badge to allow custom colors
 - **2nd August, 2023 - Eric McWinNEr 😴**

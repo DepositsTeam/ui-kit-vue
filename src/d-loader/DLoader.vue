@@ -1,6 +1,6 @@
 <template>
   <d-box
-    :class="{ fullPage, loading, translucent }"
+    :class="{ fullPage, loading, translucent, centered, centeredFullHeight }"
     class="ui-d-loader"
     :style="{
       '--smart-color': computedColor,
@@ -34,6 +34,12 @@ const props = defineProps({
   fullPage: {
     type: Boolean,
     default: false,
+  },
+  centered: {
+    type: Boolean,
+  },
+  centeredFullHeight: {
+    type: Boolean,
   },
   loading: {
     type: Boolean,
@@ -102,9 +108,21 @@ const computedColor = computed(() => {
       background: rgba(var(--dark-background-color), 0.5);
     }
     .ring-loader div {
-      border-color: var(--dark-primary-action-color) transparent transparent transparent;
+      border-color: var(--dark-primary-action-color) transparent transparent
+        transparent;
     }
   }
+}
+.ui-d-loader.loading.centered,
+.ui-d-loader.loading.centeredFullHeight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.ui-d-loader.loading.centeredFullHeight {
+  min-height: 100vh;
 }
 .ui-d-loader__wrapper {
   height: var(--loader-size);
@@ -146,8 +164,7 @@ const computedColor = computed(() => {
   100% {
     transform: rotate(360deg);
   }
-};
-
+}
 
 // ORIGINAL HEIGHT = 40PX NEW HEIGHT = 80PX
 .equalizer-loader {
@@ -158,12 +175,12 @@ const computedColor = computed(() => {
   margin: calc(var(--loader-size) / 3);
   position: relative;
   background: var(--smart-color);
-  color: #FFF;
+  color: #fff;
   box-sizing: border-box;
   animation: equalizerLoader 0.3s 0.3s ease-in-out infinite alternate;
 
   &::after {
-    content: '';
+    content: "";
     width: calc(var(--loader-size) * 0.2);
     height: var(--loader-size);
     border-radius: calc(var(--loader-size) * 0.1);
@@ -173,10 +190,10 @@ const computedColor = computed(() => {
     transform: translateY(-50%);
     left: calc(var(--loader-size) / 3);
     box-sizing: border-box;
-    animation: equalizerLoader 0.3s  0.45s  ease-in-out infinite alternate;
+    animation: equalizerLoader 0.3s 0.45s ease-in-out infinite alternate;
   }
   &::before {
-    content: '';
+    content: "";
     width: calc(var(--loader-size) * 0.2);
     height: var(--loader-size);
     border-radius: calc(var(--loader-size) * 0.1);
@@ -185,7 +202,7 @@ const computedColor = computed(() => {
     top: 50%;
     transform: translateY(-50%);
     box-sizing: border-box;
-    animation: equalizerLoader 0.3s  0.45s  ease-in-out infinite alternate;
+    animation: equalizerLoader 0.3s 0.45s ease-in-out infinite alternate;
     left: calc(var(--loader-size) / 3 * -1);
     animation-delay: 0s;
   }
@@ -198,7 +215,6 @@ const computedColor = computed(() => {
     height: calc(var(--loader-size) * 0.1);
   }
 }
-
 
 .ringed-circle-loader {
   width: var(--loader-size);
@@ -222,5 +238,5 @@ const computedColor = computed(() => {
   100% {
     transform: rotate(840deg);
   }
-};
+}
 </style>
