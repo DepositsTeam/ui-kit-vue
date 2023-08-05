@@ -8,6 +8,12 @@ export default {
     fullPage: {
       control: { type: "boolean" },
     },
+    centered: {
+      control: { type: "boolean" },
+    },
+    centeredFullHeight: {
+      control: { type: "boolean" },
+    },
     loading: {
       control: { type: "boolean" },
     },
@@ -59,4 +65,14 @@ RingedCircle.args = {
 export const FullPage = Template.bind({});
 FullPage.args = {
   fullPage: true,
+};
+
+export const Centered = Template.bind({});
+Centered.args = {
+  centered: true,
+};
+
+export const CenteredFullHeight = Template.bind({});
+CenteredFullHeight.args = {
+  centeredFullHeight: true,
 };

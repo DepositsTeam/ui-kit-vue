@@ -52,6 +52,7 @@ export { default as ThemeProvider } from "./providers/ThemeProvider.vue";
 export { useTheme } from "./providers/composables/useTheme";
 export { useDarkMode } from "./providers/composables/useDarkMode";
 export { useToast } from "./providers/composables/useToast";
+export { default as number_format } from "./utils/number_format";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";

@@ -114,7 +114,6 @@ const props = defineProps({
   ...inputProps,
   fontFace: {
     type: String,
-    default: "heroNew",
   },
   dropDown: {
     type: Boolean,
