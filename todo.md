@@ -1,4 +1,4 @@
-- [ ] Restricted color config
+- [ ] Restricted color config - Bernode 🙄
 - [ ] Custom color config
 - [ ] 2fa - Presetup, initiative
 - [ ] 2fa - Presetup slot
