@@ -14,4 +14,4 @@
 - [ ] Actionable
 - [ ] Copy Input
 - [ ] Preferences
-- [ ] Vertical movable
+- [ ] Vertical movable 
