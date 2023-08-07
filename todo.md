@@ -1,0 +1,17 @@
+- [ ] Restricted color config
+- [ ] Custom color config
+- [ ] 2fa - Presetup, initiative
+- [ ] 2fa - Presetup slot
+- [x] Radio select + icons - Eric McWinNEr 😴
+- [x] Radio Select - Eric McWinNEr 😴
+- [ ] List item
+- [ ] Continous List Item
+- [ ] Actionable + Avatar
+- [ ] Static stats
+- [ ] Summary preview
+- [ ] Actionable Stats
+- [ ] Application Integration + actions
+- [ ] Actionable
+- [ ] Copy Input
+- [ ] Preferences
+- [ ] Vertical movable
