@@ -1,7 +1,7 @@
 <template>
   <d-box>
     <d-box>
-      <d-text>{{ label }}</d-text>
+      <d-text font-face="heroNew">{{ label }}</d-text>
     </d-box>
     <d-box margin-top="24px">
       <d-box class="colors">
@@ -26,7 +26,7 @@
     </d-box>
     <d-box class="color__input__field" @click="copyCode">
       <d-box class="color__input__field__left">
-        <d-text>{{ modelValue }}</d-text>
+        <d-text font-face="circularSTD">{{ modelValue }}</d-text>
       </d-box>
       <d-box class="color__input__field__right">
         <d-box
