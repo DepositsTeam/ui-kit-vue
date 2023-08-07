@@ -1,3 +1,5 @@
+- **7th August, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with inline file picker button mode having empty string
 - **5th August, 2023 - Eric McWinNEr 😴**
   - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
   - Fixed bug with currency input not working as expected
