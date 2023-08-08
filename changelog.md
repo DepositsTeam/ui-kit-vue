@@ -1,3 +1,5 @@
+- **08th August, 2023 - Bernode**
+  - Worked on custom color config component
 - **22nd July, 2023 - Eric McWinNEr 😴**
   - Fixed bugs with the currency mode on the textfield
 - **21st July, 2023 - Eric McWinNEr 😴**
