@@ -1,3 +1,5 @@
+- **08th August, 2023 - Bernode**
+  - Worked on custom color config component
 - **7th August, 2023 - Eric McWinNEr 😴**
   - Fixed bug with inline file picker button mode having empty string
 - **5th August, 2023 - Eric McWinNEr 😴**
