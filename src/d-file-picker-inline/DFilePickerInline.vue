@@ -73,7 +73,11 @@
       type="file"
     />
     <d-button :class="{ hover: inputIsHovered }" v-bind="$attrs">
-      {{ selectedFileName === placeholder ? btnText : selectedFileName }}
+      {{
+        selectedFileName === placeholder
+          ? btnText || placeholder
+          : selectedFileName
+      }}
     </d-button>
   </d-box>
 </template>

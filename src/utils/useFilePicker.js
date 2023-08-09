@@ -27,7 +27,7 @@ export const useFilePicker = (props, emit, file) => {
       : undefined
   );
 
-  const selectedFileName = ref("");
+  const selectedFileName = ref(props.placeholder);
 
   const updateName = (e) => {
     let files = e.target.files || e.dataTransfer.files;
