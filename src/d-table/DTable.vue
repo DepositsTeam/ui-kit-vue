@@ -434,6 +434,7 @@ const emit = defineEmits([
   "sort",
   "export",
   "download-csv",
+  "async-table-update",
 ]);
 const isExpanded = ref(false);
 
@@ -676,6 +677,12 @@ const handlePageChange = (currentPage) => {
   if (searchValue.value) {
     emit("search", searchValue.value, props.currentPage);
   }
+  if (props.asyncPagination && props.asyncSearch) {
+    emit("async-table-update", {
+      page: currentPage,
+      search: searchValue.value,
+    });
+  }
 };
 
 const dataFactory = computed(() => {
@@ -737,19 +744,17 @@ watch(renderedColumns, (newVal, oldVal) => {
   }
 });
 
-watchEffect(() => {
-  if (props.asyncSearch) {
-    if (searchValue.value) {
-      emit("search", searchValue.value, props.currentPage);
-    }
-  }
-});
-
 watch(searchValue, () => {
   if (!props.asyncPagination) {
     scopedCurrentPage.value = 1;
   }
   emit("page-updated", 1);
+  if (props.asyncSearch && props.asyncPagination) {
+    emit("async-table-update", {
+      page: 1,
+      search: searchValue.value,
+    });
+  }
 });
 
 const validateBackground = (background, index) => {

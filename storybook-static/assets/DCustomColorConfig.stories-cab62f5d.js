@@ -1,0 +1,17 @@
+import{g as V,j as i,k as t,u as o,l as u,q as a,m,t as p,s as D,v as k,F as B}from"./vue.esm-bundler-d253c880.js";import{B as w,f,l,a1 as E}from"./DWysiwyg-b3a0d0a9.js";import"./floating-ui.dom-c3a31ea6.js";import"./_commonjsHelpers-042e6b4d.js";const h={__name:"DCustomColorConfig",props:{modelValue:{type:String},label:{type:String},height:{type:String,default:"28.997px"},width:{type:String,default:"28.997px"},colors:{type:Array}},emits:["update:modelValue"],setup(e,{emit:d}){const r=e;V(()=>{!r.modelValue&&r.colors.length>0&&d("update:modelValue",r.colors[0])});const y=c=>d("update:modelValue",c),b=()=>{E(r.modelValue),alert("Code copied to clipboard!")};return(c,S)=>(u(),i(o(l),null,{default:t(()=>[a(o(l),null,{default:t(()=>[a(o(f),{"font-face":"heroNew"},{default:t(()=>[m(p(e.label),1)]),_:1})]),_:1}),a(o(l),{"margin-top":"24px"},{default:t(()=>[a(o(l),{class:"colors"},{default:t(()=>[(u(!0),D(B,null,k(e.colors,(s,v)=>(u(),i(o(l),{class:"color",onClick:T=>y(s),border:`1px solid ${e.modelValue===s?e.modelValue:"transparent"}`,key:v},{default:t(()=>[a(o(l),{class:"color_inner",background:s,height:e.height,width:e.width,border:`1.45px solid ${s}`},null,8,["background","height","width","border"])]),_:2},1032,["onClick","border"]))),128))]),_:1})]),_:1}),a(o(l),{class:"color__input__field",onClick:b},{default:t(()=>[a(o(l),{class:"color__input__field__left"},{default:t(()=>[a(o(f),{"font-face":"circularSTD"},{default:t(()=>[m(p(e.modelValue),1)]),_:1})]),_:1}),a(o(l),{class:"color__input__field__right"},{default:t(()=>[a(o(l),{class:"color__input__field__square",background:e.modelValue,border:`1px solid ${e.modelValue}`},null,8,["background","border"])]),_:1})]),_:1})]),_:1}))}},x=w(h,[["__scopeId","data-v-830449a7"]]);h.__docgenInfo={exportName:"default",displayName:"DCustomColorConfig",description:"",tags:{},props:[{name:"modelValue",type:{name:"string"}},{name:"label",type:{name:"string"}},{name:"height",type:{name:"string"},defaultValue:{func:!1,value:'"28.997px"'}},{name:"width",type:{name:"string"},defaultValue:{func:!1,value:'"28.997px"'}},{name:"colors",type:{name:"array"}}],events:[{name:"update:modelValue"}],sourceFiles:["/Users/ericmcwinner/Documents/Work/Projects/Work/Vue/deposits-ui-kit-vue/src/d-custom-color-config/DCustomColorConfig.vue"]};const q={title:"Forms/Custom Color Config",component:x,argTypes:{label:{control:{type:"text"},default:"Color"},height:{control:{type:"text"},default:"28.997px"},width:{control:{type:"text"},default:"28.997px"},colors:{control:{type:"object"}}}},F=e=>({components:{DCustomColorConfig:x},data:()=>({value:"#0DB9E9"}),setup(){return{args:e}},template:`
+      <d-custom-color-config v-model="value" v-bind="args"/>`}),n=F.bind({});n.args={colors:["#0DB9E9","#7B61FF","#00BBAA","#0D7FE9","#FFCC00","#27C079","#E85E75"],label:"Color",height:"28.997px",width:"28.997px"};var g,_,C;n.parameters={...n.parameters,docs:{...(g=n.parameters)==null?void 0:g.docs,source:{originalSource:`args => ({
+  components: {
+    DCustomColorConfig
+  },
+  data: () => ({
+    value: "#0DB9E9"
+  }),
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`
+      <d-custom-color-config v-model="value" v-bind="args"/>\`
+})`,...(C=(_=n.parameters)==null?void 0:_.docs)==null?void 0:C.source}}};const I=["Default"];export{n as Default,I as __namedExportsOrder,q as default};
+//# sourceMappingURL=DCustomColorConfig.stories-cab62f5d.js.map
