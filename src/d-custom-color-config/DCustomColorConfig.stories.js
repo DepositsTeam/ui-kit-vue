@@ -1,7 +1,7 @@
 import DCustomColorConfig from "./DCustomColorConfig.vue";
 
 export default {
-  title: "Custom Color Config",
+  title: "Forms/Custom Color Config",
   component: DCustomColorConfig,
   argTypes: {
     label: {

@@ -1,39 +1,42 @@
-- **08th August, 2023 - Bernode**
-  - Worked on custom color config component
+- **09th August, 2023 - Bernode 🙄**
+    - Worked on restricted color config component
+- **08th August, 2023 - Bernode 🙄**
+    - Worked on custom color config component
 - **22nd July, 2023 - Eric McWinNEr 😴**
-  - Fixed bugs with the currency mode on the textfield
+    - Fixed bugs with the currency mode on the textfield
 - **21st July, 2023 - Eric McWinNEr 😴**
-  - Update the textfield to handle `emitOnlyCurrencyValue` prop properly.
+    - Update the textfield to handle `emitOnlyCurrencyValue` prop properly.
 - **19th July, 2023 - Eric McWinNEr 😴**
-  - Fixed bug with loader not working for table
-  - Added loader types to support the different kinds of loaders on the table
-  - Made the feature to exclude columns from the csv export to work
-  - Added an empty data placeholder for the table; added both a prop and a slot
-  - Changed the CSS class that makes a textfield invisible from `invisible` to `notVisible` to prevent overriding caused by other third-party libraries
+    - Fixed bug with loader not working for table
+    - Added loader types to support the different kinds of loaders on the table
+    - Made the feature to exclude columns from the csv export to work
+    - Added an empty data placeholder for the table; added both a prop and a slot
+    - Changed the CSS class that makes a textfield invisible from `invisible` to `notVisible` to prevent overriding
+      caused by other third-party libraries
 - **14th July, 2023 - Eric McWinNEr 😴**
-  - Added a prop to the date picker to prevent users from selecting a future date
-  - Updated the table search to be able to search for numbers
-  - Updated the filter configuration rules to allow string based filtering with numbers
+    - Added a prop to the date picker to prevent users from selecting a future date
+    - Updated the table search to be able to search for numbers
+    - Updated the filter configuration rules to allow string based filtering with numbers
 - **13th July, 2023 - Eric McWinNEr 😴**
-  - Fixed a minor bug with the search feature for the table component
-  - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
-  - Update the maximum height of the tag dropdown and set it to teleport to the body
-  - Updated the toast to have a higher z-index
-  - Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
-  - Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading csvs
-  - Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
+    - Fixed a minor bug with the search feature for the table component
+    - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
+    - Update the maximum height of the tag dropdown and set it to teleport to the body
+    - Updated the toast to have a higher z-index
+    - Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
+    - Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading csvs
+    - Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
 - **21st June, 2023 - Eric McWinNEr 😴**
-  - Updated Storybook introduction page
-  - Updated Loader and Tag-dropdown stories
+    - Updated Storybook introduction page
+    - Updated Loader and Tag-dropdown stories
 - **20th June, 2023 - Eric McWinNEr 😴**
-  - Updated storybook docs configuration to stop merging all stories to one long doc page by default
-  - Updated the z-index of tooltips
-  - Created new story on storybook for using tooltips in tables with fixed columns
-  - Created a new TableCellText component to be used to create table cell text when using slots in external components
-  - Corrected invalid argType in story for Loader component
-- **15th June, 2023 - Eric McWinNEr 😴** 
-  - Fixed bug with the table that causes floated items to appear behind fixed columns.
-  - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
-  - Added a loader to tag dropdown input field
-  - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
-  - Made updates to the switch component to allow true two-way binding for the on and off states
+    - Updated storybook docs configuration to stop merging all stories to one long doc page by default
+    - Updated the z-index of tooltips
+    - Created new story on storybook for using tooltips in tables with fixed columns
+    - Created a new TableCellText component to be used to create table cell text when using slots in external components
+    - Corrected invalid argType in story for Loader component
+- **15th June, 2023 - Eric McWinNEr 😴**
+    - Fixed bug with the table that causes floated items to appear behind fixed columns.
+    - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
+    - Added a loader to tag dropdown input field
+    - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
+    - Made updates to the switch component to allow true two-way binding for the on and off states

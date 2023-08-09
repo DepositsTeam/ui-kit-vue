@@ -1,5 +1,5 @@
-- [ ] Restricted color config - Bernode 🙄
-- [ ] Custom color config
+- [x] Restricted color config - Bernode 🙄
+- [x] Custom color config - Bernode 🙄
 - [ ] 2fa - Presetup, initiative
 - [ ] 2fa - Presetup slot
 - [x] Radio select + icons - Eric McWinNEr 😴
