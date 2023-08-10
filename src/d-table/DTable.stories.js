@@ -562,14 +562,20 @@ const AsyncTableUpdateTemplate = (args) => ({
     DTable,
   },
   methods: {
-    tableUpdate: function (data) {
-      console.log("Data that changed is", data);
+    tableUpdate: function (searchValue, currentPage) {
+      console.log("Data that changed is", searchValue, currentPage);
+    },
+    pageUpdate: function (page) {
+      console.log("Pagination changed", page);
+    },
+    searchUpdate: function (search) {
+      console.log("Search changed", search);
     },
   },
   setup() {
     return { args };
   },
-  template: ` <d-table v-bind="args" @async-table-update="tableUpdate" />`,
+  template: ` <d-table v-bind="args" @page-updated="pageUpdate" @search="searchUpdate" @async-table-update="tableUpdate" />`,
 });
 
 export const AsyncTableUpdate = AsyncTableUpdateTemplate.bind({});

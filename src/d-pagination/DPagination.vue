@@ -60,8 +60,8 @@ import {
   ChevronArrowRightIcon,
 } from "../main";
 import rangedArray from "../utils/rangedArray";
-import { ref, computed, onMounted } from "vue";
 import { getTextColor } from "../utils/colorManager";
+import { ref, computed, onMounted, watch } from "vue";
 
 const emit = defineEmits(["page-changed"]);
 
@@ -91,6 +91,13 @@ const intCurrentPage = computed(() => parseInt(props.currentPage));
 
 const intCurrentPageSiblings = computed(() =>
   parseInt(props.currentPageSiblings)
+);
+
+watch(
+  () => props.currentPage,
+  () => {
+    initializedCurrentPage.value = props.currentPage;
+  }
 );
 
 const visiblePages = computed(() => {
