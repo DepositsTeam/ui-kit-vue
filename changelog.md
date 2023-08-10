@@ -1,3 +1,7 @@
+- **10th August, 2023 - Eric McWinNEr 😴**
+  - Updated pagination and search events on the table
+- **09th August, 2023 - Eric McWinNEr 😴**
+  - Updated the table and fixed bug with the asynchronous pagination/search feature
 - **08th August, 2023 - Bernode**
   - Worked on custom color config component
 - **7th August, 2023 - Eric McWinNEr 😴**
