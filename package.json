@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.493",
+  "version": "0.0.496",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,8 +27,6 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.2.3",
-    "@storybook/addons": "^7.2.1",
-    "@storybook/theming": "^7.2.1",
     "@tiptap/extension-code": "^2.0.0-beta.26",
     "@tiptap/extension-heading": "^2.0.0-beta.207",
     "@tiptap/extension-image": "^2.0.0-beta.196",
@@ -59,12 +57,14 @@
     "@cypress/vite-dev-server": "^5.0.4",
     "@cypress/vue": "^5.0.4",
     "@rushstack/eslint-patch": "^1.2.0",
+    "@storybook/addons": "^7.2.1",
     "@storybook/addon-actions": "^7.2.1",
     "@storybook/addon-essentials": "^7.2.1",
     "@storybook/addon-interactions": "^7.2.1",
     "@storybook/addon-links": "^7.2.1",
     "@storybook/addon-mdx-gfm": "^7.2.1",
     "@storybook/testing-library": "^0.2.0",
+    "@storybook/theming": "^7.2.1",
     "@storybook/vue3": "^7.2.1",
     "@storybook/vue3-vite": "^7.2.1",
     "@vitejs/plugin-vue": "^4.0.0",

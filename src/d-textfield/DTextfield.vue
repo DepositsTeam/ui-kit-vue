@@ -14,86 +14,110 @@
       </d-box>
     </slot>
 
-    <d-box class="ui-text-field__input-wrapper">
-      <component
-        :is="leftIcon"
-        v-if="leftIcon"
-        class="ui-text-field__left-icon"
-        tabindex="-1"
-        @click="emitLeftIconClicked"
-      ></component>
+    <d-auto-layout
+      class="ui-text-field__wrapper_wrapper"
+      item-spacing="0"
+      alignment="center-left"
+      :class="{ focused }"
+    >
       <d-box
-        v-else-if="$slots.leftIcon"
-        tabindex="-1"
-        class="ui-text-field__left-icon"
+        v-if="$slots.leftSection"
+        class="ui-text-field__input-section left"
+        :class="{ focused }"
       >
-        <slot name="leftIcon"></slot>
+        <slot name="leftSection"></slot>
+      </d-box>
+      <d-box class="ui-text-field__input-wrapper">
+        <component
+          :is="leftIcon"
+          v-if="leftIcon"
+          class="ui-text-field__left-icon"
+          tabindex="-1"
+          @click="emitLeftIconClicked"
+        ></component>
+        <d-box
+          v-else-if="$slots.leftIcon"
+          tabindex="-1"
+          class="ui-text-field__left-icon"
+        >
+          <slot name="leftIcon"></slot>
+        </d-box>
+        <d-box
+          class="ui-text-field__input no-focus-hover-indicator"
+          :class="{
+            'has-error': showError || errorMessage,
+            'has-left-icon': leftIcon || $slots.leftIcon,
+            'has-right-icon':
+              dropDown ||
+              isPassword ||
+              isStrongPassword ||
+              copyMode ||
+              rightIcon ||
+              $slots.rightIcon,
+            'has-left-section': $slots.leftSection,
+            'has-right-section': $slots.rightSection,
+            notVisible: invisible,
+            disabled,
+            oneCharWide,
+            [inputClass]: true,
+            pill,
+          }"
+          ref="inputField"
+          :max="max"
+          :min="min"
+          :maxlength="maximumLength"
+          :multiple="multiple"
+          :minlength="minlength"
+          :disabled="disabled"
+          :name="name"
+          :pattern="pattern"
+          :readonly="readonly"
+          is="input"
+          :value="modelValue"
+          @change="handleChangeEvents"
+          @input="handleInputEvents"
+          @keydown="handleKeydownEvent"
+          @keyup="handleKeyupEvent"
+          @keypress="handleKeypressEvent"
+          @focus="handleFocusEvent"
+          @blur="handleBlurEvent"
+          @paste="handlePasteEvent"
+          :font-face="computedFontFace"
+          :type="localType"
+          :autocomplete="autocomplete"
+          :form="form"
+          :list="list"
+          :placeholder="placeholder"
+          :required="required"
+          :step="step"
+          :autofocus="autofocus"
+          marginLeft="0"
+          marginRight="0"
+          marginX="0"
+          marginY="0"
+          marginTop="0"
+          marginBottom="0"
+          width="100%"
+        />
+        <component
+          class="ui-text-field__right-icon"
+          v-if="showRightIcon"
+          :is="computedRightIcon"
+          @click="emitRightIconClicked"
+        ></component>
+        <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
+          <slot name="rightIcon"></slot>
+        </d-box>
       </d-box>
       <d-box
-        class="ui-text-field__input"
-        :class="{
-          'has-error': showError || errorMessage,
-          'has-left-icon': leftIcon || $slots.leftIcon,
-          'has-right-icon':
-            dropDown ||
-            isPassword ||
-            isStrongPassword ||
-            copyMode ||
-            rightIcon ||
-            $slots.rightIcon,
-          notVisible: invisible,
-          disabled,
-          oneCharWide,
-          [inputClass]: true,
-          pill,
-        }"
-        ref="inputField"
-        :max="max"
-        :min="min"
-        :maxlength="maximumLength"
-        :multiple="multiple"
-        :minlength="minlength"
-        :disabled="disabled"
-        :name="name"
-        :pattern="pattern"
-        :readonly="readonly"
-        is="input"
-        :value="modelValue"
-        @change="handleChangeEvents"
-        @input="handleInputEvents"
-        @keydown="handleKeydownEvent"
-        @keyup="handleKeyupEvent"
-        @keypress="handleKeypressEvent"
-        @focus="handleFocusEvent"
-        @blur="handleBlurEvent"
-        @paste="handlePasteEvent"
-        :font-face="computedFontFace"
-        :type="localType"
-        :autocomplete="autocomplete"
-        :form="form"
-        :list="list"
-        :placeholder="placeholder"
-        :required="required"
-        :step="step"
-        :autofocus="autofocus"
-        marginLeft="0"
-        marginRight="0"
-        marginX="0"
-        marginY="0"
-        marginTop="0"
-        marginBottom="0"
-        width="100%"
-      />
-      <component
-        class="ui-text-field__right-icon"
-        v-if="showRightIcon"
-        :is="computedRightIcon"
-        @click="emitRightIconClicked"
-      ></component>
-      <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
-        <slot name="rightIcon"></slot>
+        v-if="$slots.rightSection"
+        class="ui-text-field__input-section right"
+        :class="{ focused }"
+      >
+        <slot name="rightSection"></slot>
       </d-box>
-    </d-box>
+    </d-auto-layout>
+
     <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
@@ -153,6 +177,7 @@ import { useWrapperProps } from "../utils/useWrapperProps";
 import { formatPercentage } from "../utils/formatPercentage";
 import { useInputSize } from "../utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
+import { formatEIN } from "@/utils/formatEIN";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -192,6 +217,7 @@ const props = defineProps({
   copyMode: Boolean,
   isStrongPassword: Boolean,
   ssn: Boolean,
+  ein: Boolean,
   percentage: Boolean,
   address: Boolean,
   maxlength: {
@@ -245,6 +271,8 @@ const passwordIcon = computed(() =>
 const maximumLength = computed(() => {
   if (props.ssn) {
     return 11;
+  } else if (props.ein) {
+    return 10;
   } else {
     return props.maxlength;
   }
@@ -289,6 +317,14 @@ const initializeModelValue = () => {
         const formatted = formatSSN(props.modelValue);
         localSSN.value = formatted;
         inputField.value.$el.value = localSSN.value[1];
+      }
+    } else if (props.ein) {
+      if (!props.modelValue) {
+        inputField.value.$el.value = "";
+      } else {
+        const formattedValue = formatEIN(props.modelValue);
+        inputField.value.$el.value = formattedValue;
+        emit("update:modelValue", formattedValue);
       }
     } else if (props.percentage) {
       if (!props.modelValue) {
@@ -337,7 +373,7 @@ const emitRightIconClicked = (e) => {
 };
 
 const handleKeyEvents = (e) => {
-  if (props.onlyNumbers || props.ssn) {
+  if (props.onlyNumbers || props.ssn || props.ein) {
     return allowOnlyNumbers(e);
   }
   if (props.currency || props.percentage) {
@@ -435,6 +471,8 @@ const handleInputEvents = (e) => {
     const formatted = formatSSN(e.target.value);
     localSSN.value = formatted;
     emit("update:modelValue", formatted[0]);
+  } else if (props.ein) {
+    emit("update:modelValue", formatEIN(e.target.value));
   } else if (props.percentage) {
     try {
       emit("update:modelValue", formatPercentage(e.target.value));

@@ -1,6 +1,29 @@
 * {
   box-sizing: border-box;
 }
+.ui-text-field__wrapper_wrapper {
+  border: 1px solid #ced6de;
+  border-radius: 4px;
+  overflow: hidden;
+  &.dark_mode {
+    border-color: var(--dark-input-border-color);
+  }
+  &:hover {
+    border-color: var(--light-primary-action-color);
+    &.dark_mode {
+      border-color: var(--dark-primary-action-color);
+    }
+  }
+  &.focused {
+    border-color: var(--light-primary-action-color);
+    box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
+    outline: none;
+    &.dark_mode {
+      border-color: var(--dark-primary-action-color);
+      box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
+    }
+  }
+}
 .ui-text-field__input-wrapper {
   display: inline-flex;
   align-items: center;
@@ -9,9 +32,6 @@
 }
 .ui-text-field__input {
   background: #fff;
-  box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
-  border: 1px solid #ced6de;
-  border-radius: 4px;
   font-family: "Circular Std", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -20,6 +40,24 @@
   width: 100%;
   -webkit-appearance: none;
   box-sizing: border-box;
+  &:not(.no-focus-hover-indicator) {
+    box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
+    border: 1px solid #ced6de;
+  }
+  &.no-focus-hover-indicator {
+    border: none;
+    outline: none;
+  }
+  &.has-left-section {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+  }
+  &.has-right-section {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
   &.pill {
     border-radius: 900px;
   }
@@ -53,13 +91,17 @@
   &::placeholder {
     color: #b8c4ce;
   }
-  &:hover:not(:disabled):not([disabled]):not(.has-error):not(.notVisible) {
+  &:hover:not(:disabled):not([disabled]):not(.has-error):not(.notVisible):not(
+      .no-focus-hover-indicator
+    ) {
     border-color: var(--light-primary-action-color);
     &.dark_mode {
       border-color: var(--dark-primary-action-color);
     }
   }
-  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.notVisible),
+  &:focus:not(:disabled):not([disabled]):not(.has-error):not(.notVisible):not(
+      .no-focus-hover-indicator
+    ),
   &.focus:not(:disabled):not([disabled]):not(.has-error):not(.notVisible) {
     border-color: var(--light-primary-action-color);
     box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
@@ -142,7 +184,26 @@
   }
 }
 .ui-text-field__wrapper {
+  .ui-text-field__input-section {
+    height: 100%;
+    &.focused > * {
+      border-color: var(--light-primary-action-color);
+      box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
+      outline: none;
+    }
+    &.hovered > * {
+      border-color: var(--light-primary-action-color);
+    }
+    & > * {
+      //border-color: transparent;
+      //border-bottom: 1px solid #ced6de;
+      //border-radius: 4px;
+    }
+  }
   &.size__massive {
+    .ui-text-field__input-section {
+      height: 64px;
+    }
     .ui-text-field--counter_input_button {
       height: 64px;
       width: 64px;
@@ -171,6 +232,9 @@
     }
   }
   &.size__huge {
+    .ui-text-field__input-section {
+      height: 56px;
+    }
     .ui-text-field--counter_input_button {
       height: 56px;
       width: 56px;
@@ -209,6 +273,9 @@
     }
   }
   &.size__xlarge {
+    .ui-text-field__input-section {
+      height: 48px;
+    }
     .ui-text-field--counter_input_button {
       height: 48px;
       width: 48px;
@@ -249,6 +316,9 @@
     }
   }
   &.size__large {
+    .ui-text-field__input-section {
+      height: 40px;
+    }
     .ui-text-field--counter_input_button {
       height: 40px;
       width: 40px;
@@ -288,6 +358,9 @@
     }
   }
   &.size__medium {
+    .ui-text-field__input-section {
+      height: 32px;
+    }
     .ui-text-field--counter_input_button {
       height: 32px;
       width: 32px;
@@ -327,6 +400,9 @@
     }
   }
   &.size__small {
+    .ui-text-field__input-section {
+      height: 24px;
+    }
     .ui-text-field--counter_input_button {
       height: 24px;
       width: 24px;

@@ -59,6 +59,7 @@ const computedGutter = computed(() => {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  align-content: stretch;
   &.stretch {
     align-items: stretch;
   }
@@ -76,8 +77,12 @@ const computedGutter = computed(() => {
     margin-top: var(--d-gutter-y);
   }
   &:not(.noColPadding) > * {
-    padding-right: calc(var(--d-gutter-x) * 0.5);
-    padding-left: calc(var(--d-gutter-x) * 0.5);
+    //padding-right: calc(var(--d-gutter-x) * 0.5);
+    //padding-left: calc(var(--d-gutter-x) * 0.5);
+    column-gap: calc(var(--d-gutter-x) * 0.5);
+  }
+  &:not(.noColPadding) {
+    column-gap: calc(var(--d-gutter-x) * 0.5);
   }
   &.align__top {
     align-items: flex-start;

@@ -17,7 +17,7 @@ export default {
     type: Boolean,
   },
   modelValue: {
-    type: String,
+    type: [Number, String],
   },
   onlyNumbers: {
     type: Boolean,
