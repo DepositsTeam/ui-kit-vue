@@ -1,6 +1,5 @@
 import { ExportToCsv } from "export-to-csv";
 export const useCsvExport = (generatedCsvName) => {
-  console.log(generatedCsvName);
   const options = {
     fieldSeparator: ",",
     quoteStrings: '"',
@@ -16,11 +15,9 @@ export const useCsvExport = (generatedCsvName) => {
     useKeysAsHeaders: true,
   };
 
-  console.log(options);
   const csvExporter = new ExportToCsv(options);
 
   const exportCsv = (data, columnHashmap) => {
-    console.log(columnHashmap);
     const dataClone = data.map((datum) => {
       let returnedDataClone = {};
       Object.keys(columnHashmap).forEach((key) => {
