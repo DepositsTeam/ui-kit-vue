@@ -12,6 +12,6 @@
 - [ ] Actionable Stats
 - [ ] Application Integration + actions
 - [ ] Actionable
-- [ ] Copy Input
+- [x] Copy Input
 - [ ] Preferences
 - [ ] Vertical movable 

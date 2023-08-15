@@ -1,5 +1,8 @@
+- **10th August, 2023 - Bernode 🙄**
+    - Worked on 
 - **09th August, 2023 - Bernode 🙄**
-    - Worked on restricted color config component
+  - Worked on restricted color config component
+  - Worked on copy input
 - **08th August, 2023 - Bernode 🙄**
     - Worked on custom color config component
 - **22nd July, 2023 - Eric McWinNEr 😴**

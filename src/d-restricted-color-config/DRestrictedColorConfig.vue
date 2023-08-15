@@ -8,7 +8,7 @@
       margin-bottom="1rem"
       align-items="center"
       gap="20px"
-      class="flex-wrap-sm"
+      flex-wrap="wrap"
     >
       <d-box
         v-for="(color, index) in colors"

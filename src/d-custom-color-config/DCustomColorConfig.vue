@@ -86,6 +86,7 @@ const copyCode = () => {
   display: flex;
   align-items: flex-start;
   gap: 18.848px;
+  flex-wrap: wrap;
 
   .color {
     border-radius: 10.79px;
