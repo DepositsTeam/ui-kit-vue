@@ -60,39 +60,40 @@ const computedGutter = computed(() => {
   flex-wrap: wrap;
   width: 100%;
   align-content: stretch;
+
+  &:not(.noColPadding) {
+    margin-left: calc(-1 * var(--d-gutter-x) * 0.5);
+    margin-right: calc(-1 * var(--d-gutter-x) * 0.5);
+  }
+
   &.stretch {
     align-items: stretch;
   }
-  & > .ui-responsive__col:first-child {
-    padding-left: 0;
-  }
-  & > .ui-responsive__col:last-child {
-    padding-right: 0;
-  }
+
   & > * {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
-    //padding-right: var(--gutter-x);
     margin-top: var(--d-gutter-y);
   }
+
   &:not(.noColPadding) > * {
-    //padding-right: calc(var(--d-gutter-x) * 0.5);
-    //padding-left: calc(var(--d-gutter-x) * 0.5);
-    column-gap: calc(var(--d-gutter-x) * 0.5);
+    padding-right: calc(var(--d-gutter-x) * 0.5);
+    padding-left: calc(var(--d-gutter-x) * 0.5);
   }
-  &:not(.noColPadding) {
-    column-gap: calc(var(--d-gutter-x) * 0.5);
-  }
+
   &.align__top {
     align-items: flex-start;
   }
+
   &.align__center {
     align-items: center;
   }
+
   &.align__bottom {
     align-items: flex-end;
   }
+
   & > .ui-responsive__col {
   }
 }

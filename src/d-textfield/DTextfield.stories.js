@@ -86,6 +86,11 @@ const CustomRightIconTemplate = (args) => ({
       <template #rightSection>
         <d-box width="32px" height="100%" background="#ff0000"></d-box>
       </template>
+      <template #leftSection>
+        <d-box white-space="nowrap" height="100%" background="#E1E7EC" padding="0 18px" display="inline-flex" align-items="center">
+          Demo Key
+        </d-box>
+      </template>
     </d-textfield>
   `,
 });

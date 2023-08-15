@@ -277,7 +277,7 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
           }
         } @else {
           &.ui-responsive__col-#{$breakpoint}-#{$i} {
-            width: calc($i / 12 * 100% - (var(--d-gutter-x) * 0.5));
+            width: calc($i / 12 * 100%);
           }
         }
       }
