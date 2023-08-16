@@ -1,12 +1,15 @@
 import { ExportToCsv } from "export-to-csv";
-export const useCsvExport = (data, generatedCsvName) => {
+export const useCsvExport = (generatedCsvName) => {
   const options = {
     fieldSeparator: ",",
     quoteStrings: '"',
     decimalSeparator: ".",
     showLabels: true,
-    showTitle: true,
-    title: generatedCsvName,
+    showTitle: false,
+    title: "",
+    // showTitle: true,
+    filename: generatedCsvName,
+    // title: generatedCsvName,
     useTextFile: false,
     useBom: true,
     useKeysAsHeaders: true,
@@ -14,6 +17,20 @@ export const useCsvExport = (data, generatedCsvName) => {
 
   const csvExporter = new ExportToCsv(options);
 
-  const exportCsv = () => csvExporter.generateCsv(data);
+  const exportCsv = (data, columnHashmap) => {
+    const dataClone = data.map((datum) => {
+      let returnedDataClone = {};
+      Object.keys(columnHashmap).forEach((key) => {
+        if (
+          !columnHashmap[key].excludeFromCSV &&
+          Object.prototype.hasOwnProperty.call(datum, key)
+        ) {
+          returnedDataClone[key] = datum[key];
+        }
+      });
+      return returnedDataClone;
+    });
+    csvExporter.generateCsv(dataClone);
+  };
   return { exportCsv };
 };

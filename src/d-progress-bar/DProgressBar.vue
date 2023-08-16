@@ -76,7 +76,7 @@ const computedThemeStyles = computed(() => {
       "--empty-color":
         props.emptyColor || props.variant === "variant-2"
           ? unref(d__theme)["--light-primary-200"]
-          : "#384860",
+          : "#CED6DE",
       "--height": props.height,
     };
   }

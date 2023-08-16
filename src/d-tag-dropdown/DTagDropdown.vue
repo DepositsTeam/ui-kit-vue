@@ -23,6 +23,7 @@
       class="ui-tag-dropdown__input-wrapper"
       :class="{ emptyDropdown: !inputTags.length, hasError: !!errorMessage }"
       @click="toggleOptions"
+      ref="targetRef"
     >
       <d-box
         class="ui-tag-dropdown__left-icon"
@@ -49,6 +50,8 @@
             class="ui-tag-dropdown__input-tag-text"
             scale="subhead"
             font-face="circularSTD"
+            margin-y="0"
+            my0
           >
             {{ typeof tag === "string" ? tag : tag.text }}
           </d-text>
@@ -89,54 +92,64 @@
         </d-box>
       </d-box>
     </d-box>
-    <d-box class="ui-tag-dropdown__dropdown" v-if="showOptions">
-      <d-box class="ui-tag-dropdown__dropdown__header">
-        <d-textfield
-          ref="validInput"
-          invisible
-          search
-          v-model="inputValue"
-          :left-icon="SearchIcon"
-          :placeholder="placeholder"
-          @keydown="handleEsc"
-          size="large"
-        />
-      </d-box>
+    <Teleport to="body">
+      <d-box
+        class="ui-tag-dropdown__dropdown"
+        ref="dropdownRef"
+        v-show="showOptions"
+      >
+        <d-box class="ui-tag-dropdown__dropdown__header">
+          <d-textfield
+            ref="validInput"
+            invisible
+            search
+            v-model="inputValue"
+            :left-icon="SearchIcon"
+            :placeholder="placeholder"
+            @keydown="handleEsc"
+            size="large"
+          />
+        </d-box>
 
-      <d-box class="ui-tag-dropdown__dropdown__options" @scroll="handleScroll">
         <d-box
-          class="ui-tag-dropdown__dropdown__option"
-          v-for="(option, index) in visibleOptions"
-          :key="`option-${index}`"
-          @click="selectOption(option)"
-          :class="{
-            selected: selectedOptions.includes(option.value),
-            dropdownMode: !showCheckboxes,
-          }"
-          :cursor="showCheckboxes ? 'auto' : 'pointer'"
+          class="ui-tag-dropdown__dropdown__options"
+          @scroll="handleScroll"
         >
-          <d-checkbox
-            v-if="showCheckboxes"
-            :value="option.value"
-            v-model="selectedOptions"
+          <d-box
+            class="ui-tag-dropdown__dropdown__option"
+            v-for="(option, index) in visibleOptions"
+            :key="`option-${index}`"
+            @click="selectOption(option)"
+            :class="{
+              selected: selectedOptions.includes(option.value),
+              dropdownMode: !showCheckboxes,
+            }"
+            :cursor="showCheckboxes ? 'auto' : 'pointer'"
           >
-            <d-text
-              dark-class=""
-              margin-y="0"
-              font-face="circularSTD"
-              scale="subhead"
-              >{{ option.text }}</d-text
+            <d-checkbox
+              v-if="showCheckboxes"
+              :value="option.value"
+              v-model="selectedOptions"
             >
-          </d-checkbox>
-          <d-text v-else margin-y="0" font-face="circularSTD" scale="subhead">
-            {{ option.text }}
-          </d-text>
-        </d-box>
-        <d-box v-if="loading" class="ui-tag-dropdown__loader">
-          <d-loader loader-size="48px" />
+              <d-text
+                dark-class=""
+                margin-y="0"
+                font-face="circularSTD"
+                scale="subhead"
+                >{{ option.text }}</d-text
+              >
+            </d-checkbox>
+            <d-text v-else margin-y="0" font-face="circularSTD" scale="subhead">
+              {{ option.text }}
+            </d-text>
+          </d-box>
+          <d-box v-if="loading" class="ui-tag-dropdown__loader">
+            <d-loader loader-size="48px" />
+          </d-box>
         </d-box>
       </d-box>
-    </d-box>
+    </Teleport>
+
     <d-box v-if="errorMessage" class="ui-text-field__error">
       <ErrorIcon class="ui-text-field__error-icon" />
       <d-text
@@ -168,6 +181,7 @@ import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
+import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 
 const props = defineProps({
   ...inputProps,
@@ -204,6 +218,26 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 const { computedOptions } = useDropdown(props);
+
+const targetRef = ref(null);
+const dropdownRef = ref(null);
+
+const updateDropdown = () => {
+  dropdownRef.value.$el.style.width = `${targetRef.value.$el.offsetWidth}px`;
+  computePosition(targetRef.value.$el, dropdownRef.value.$el, {
+    placement: "bottom-start",
+    middleware: [offset(0), flip(), shift({ padding: 5 })],
+  }).then(({ x, y }) => {
+    Object.assign(dropdownRef.value.$el.style, {
+      left: `${x}px`,
+      top: `${y}px`,
+    });
+  });
+};
+
+const updateScroll = () => {
+  updateDropdown();
+};
 
 const emit = defineEmits([
   "update:modelValue",
@@ -277,13 +311,14 @@ const selectOption = (option) => {
 const toggleOptions = async () => {
   showOptions.value = !showOptions.value;
   await nextTick();
+  updateDropdown();
   if (showOptions.value) {
     validInput.value.$el.getElementsByTagName("input")[0].focus();
   }
 };
 
 const hideOptionsOnOutsideClick = (e) => {
-  if (!e.target.closest(".ui-tag-dropdown__wrapper")) {
+  if (!e.target.closest(".ui-tag-dropdown__wrapper") && !e.target.closest(".ui-tag-dropdown__dropdown")) {
     showOptions.value = false;
   }
 };
@@ -322,6 +357,8 @@ const handleDeleteTag = (currentTag) => {
 };
 
 onMounted(() => {
+  updateDropdown();
+  window.addEventListener("scroll", updateScroll);
   window.addEventListener("click", hideOptionsOnOutsideClick);
   if (selectedOptions.value) {
     emitSelectedOptions(selectedOptions.value);
@@ -330,12 +367,13 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("click", hideOptionsOnOutsideClick);
+  window.removeEventListener("scroll", updateScroll);
 });
 
 const ___theme = inject("___theme", defaultThemeVars);
 
 const handleScroll = (e) => {
-  const { scrollHeight, scrollTop, clientHeight } = event.target;
+  const { scrollHeight, scrollTop, clientHeight } = e.target;
   if (Math.abs(scrollHeight - clientHeight - scrollTop) < 1) {
     emit("scrolled-to-bottom", e);
   }
@@ -397,6 +435,7 @@ const handleScroll = (e) => {
 
 .ui-tag-dropdown__wrapper {
   box-sizing: border-box;
+  position: relative;
   .ui-tag-dropdown__placeholder {
     color: rgba(#b8c4ce, 0.5);
     font-family: "Hero New", sans-serif;
@@ -503,6 +542,8 @@ const handleScroll = (e) => {
 
 .ui-tag-dropdown__input-tag-text {
   font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .ui-tag-dropdown__dropdown__header {
@@ -513,10 +554,19 @@ const handleScroll = (e) => {
   }
 }
 
+.ui-tag-dropdown__dropdown__options {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
 .ui-tag-dropdown__dropdown {
   border-radius: 6px;
   background: #fff;
   border: 1px solid #e1e7ec;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);

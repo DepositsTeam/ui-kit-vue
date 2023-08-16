@@ -348,8 +348,30 @@ export default {
 };
 </script>
 <style lang="scss">
+@use "sass:map";
+@import "../scss/variables";
 @import url("https://assets.ondeposits.com/fonts/css/CircularSTD.css");
 @import url("https://assets.ondeposits.com/fonts/css/HeroNew.css");
+
+@each $breakpoint in $breakpoints {
+  .show-#{$breakpoint} {
+    display: none;
+  }
+  .hide-#{$breakpoint} {
+    display: block;
+  }
+}
+
+@each $breakpoint in $breakpoints {
+  @media only screen and (min-width: map.get($responsive-layout-breakpoints, $breakpoint)) {
+    .show-#{$breakpoint} {
+      display: block;
+    }
+    .hide-#{$breakpoint} {
+      display: none;
+    }
+  }
+}
 
 .underline {
   text-decoration: underline;
@@ -2152,8 +2174,8 @@ svg.deposits-ui-box {
     margin-right: calc(8px * #{$i});
   }
   .px-#{$i} {
-    padding-left: calc(8px * #{$i}) !important;
-    padding-right: calc(8px * #{$i}) !important;
+    padding-left: calc(8px * #{$i});
+    padding-right: calc(8px * #{$i});
   }
   .my-#{$i} {
     margin-top: calc(8px * #{$i});

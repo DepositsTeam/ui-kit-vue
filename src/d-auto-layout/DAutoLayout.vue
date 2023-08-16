@@ -8,12 +8,13 @@
       [`align__${alignment}`]: alignment,
       wrap,
       stretchItems,
-      switch: shouldSwitch,
+      switch: shouldWidthSwitch || shouldSwitch,
       between,
       around,
       evenly,
       full__width__items: fullWidthItems,
     }"
+    ref="elem"
     :style="{ '--spacing-value': itemSpacing }"
   >
     <slot></slot>
@@ -26,6 +27,8 @@ import { onMounted, onUnmounted } from "vue";
 import { ref } from "vue";
 
 const shouldSwitch = ref(false);
+const elem = ref(null);
+const shouldWidthSwitch = ref(false);
 
 const props = defineProps({
   direction: {
@@ -38,6 +41,9 @@ const props = defineProps({
     default: "10px",
   },
   switchBreakpoint: {
+    type: Number,
+  },
+  switchWidth: {
     type: Number,
   },
   alignment: {
@@ -80,13 +86,26 @@ const watchForSwitch = () => {
   }
 };
 
+const watchForWidthSwitch = () => {
+  if (props.switchWidth) {
+    shouldWidthSwitch.value =
+      elem.value.$el.getBoundingClientRect().width <= props.switchWidth;
+    console.log(
+      elem.value.$el.getBoundingClientRect().width,
+      props.switchWidth
+    );
+  }
+};
+
 onMounted(() => {
   watchForSwitch();
   window.addEventListener("resize", watchForSwitch);
+  window.addEventListener("resize", watchForWidthSwitch);
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", watchForSwitch);
+  window.removeEventListener("resize", watchForWidthSwitch);
 });
 </script>
 
@@ -108,6 +127,9 @@ onUnmounted(() => {
   &.direction__horizontal {
     flex-direction: row;
     gap: var(--spacing-value);
+    &.switch {
+      flex-direction: column;
+    }
     &.stretchItems > * {
       flex: 1;
     }
@@ -169,6 +191,9 @@ onUnmounted(() => {
   &.direction__vertical {
     flex-direction: column;
     gap: var(--spacing-value);
+    &.switch {
+      flex-direction: row;
+    }
     &.full__width__items > * {
       width: 100%;
     }

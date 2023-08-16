@@ -33,12 +33,15 @@ import { computed } from "vue";
 const props = defineProps({
   xs: {
     type: [Number, Object],
+    default: 12,
   },
   sm: {
     type: [Number, Object],
+    default: 12,
   },
   md: {
     type: [Number, Object],
+    default: 12,
   },
   lg: {
     type: [Number, Object],
@@ -241,21 +244,20 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
 .ui-responsive__col {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  //flex: 1 0 0%;
+
+  flex: 1 0 0%;
   max-width: 100%;
   padding-left: 0;
+  margin-left: 0;
+  margin-right: 0;
   padding-right: 0;
-  padding-bottom: var(--gutter-y);
+  padding-bottom: var(--d-gutter-y);
 
   @each $breakpoint in $breakpoints {
     @media only screen and (min-width: map.get($responsive-layout-breakpoints, $breakpoint)) {
       @for $i from 1 through 12 {
         &.ui-responsive__col-#{$breakpoint}-#{$i} {
           flex: 0 0 auto;
-          width: calc($i / 12 * 100%);
-          //padding-left: var(--gutter-x);
-          padding-right: var(--gutter-x);
         }
         &.ui-responsive__offset-#{$breakpoint}-#{$i} {
           margin-left: calc($i / 12 * 100%);
@@ -268,6 +270,15 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
         }
         &.ui-responsive__offset-last {
           order: 13;
+        }
+        @if $i == 12 {
+          &.ui-responsive__col-#{$breakpoint}-#{$i} {
+            width: calc($i / 12 * 100%);
+          }
+        } @else {
+          &.ui-responsive__col-#{$breakpoint}-#{$i} {
+            width: calc($i / 12 * 100%);
+          }
         }
       }
     }

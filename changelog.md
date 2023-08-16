@@ -1,11 +1,76 @@
-- **15th June, 2023 - Eric McWinNEr** 
+- **16th August, 2023 - Eric McWinNEr 😴**
+  - Worked on auto-layout to aid responsiveness
+  - Worked on responsive layout to handle responsiveness bugs
+- **13th August, 2023 - Eric McWinNEr 😴**
+  - Added ability to switch auto-layout direction on element width
+- **12th August, 2023 - Eric McWinNEr 😴**
+  - Added left and right section to the Textfield component
+  - Fixed some of the warnings that make their way to the console
+- **11th August, 2023 - Eric McWinNEr 😴**
+  - Added EIN mode to the textfield
+- **10th August, 2023 - Eric McWinNEr 😴**
+  - Updated pagination and search events on the table
+  - Updated the responsive layout to make it more repsonsive
+- **09th August, 2023 - Eric McWinNEr 😴**
+  - Updated the table and fixed bug with the asynchronous pagination/search feature
+- **08th August, 2023 - Bernode**
+  - Worked on custom color config component
+- **7th August, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with inline file picker button mode having empty string
+- **5th August, 2023 - Eric McWinNEr 😴**
+  - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
+  - Fixed bug with currency input not working as expected
+  - Added left icon slot to the Select field
+  - Fixed font-face of date picker having hero-new instead of circular std by default
+  - Added additional configs to the loader to allow it automatically center in its container
+  - 
+- **4th August, 2023 - Eric McWinNEr 😴**
+  - Updated the badge to allow custom colors
+- **2nd August, 2023 - Eric McWinNEr 😴**
+  - Made bugfixes to the responsive layout
+  - Fixed bug with the export csv feature on the table
+  - Fixed bug with the generated csv name on the table for the csv export
+- **1st August, 2023 - Eric McWinNEr 😴**
+  - Made minor update to the pin input, tag input and tag dropdown
+  - Made the right icon of the select field customizable
+  - Updated the date picker icon to make it customizable and fix the excess right padding
+  - Updated changelog
+- **23rd July, 2023 - Eric McWinNEr 😴**
+  - Made some minor updates to the table component
+- **22nd July, 2023 - Eric McWinNEr 😴**
+  - Fixed bugs with the currency mode on the textfield
+- **21st July, 2023 - Eric McWinNEr 😴**
+  - Update the textfield to handle `emitOnlyCurrencyValue` prop properly.
+- **19th July, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with loader not working for table
+  - Added loader types to support the different kinds of loaders on the table
+  - Made the feature to exclude columns from the csv export to work
+  - Added an empty data placeholder for the table; added both a prop and a slot
+  - Changed the CSS class that makes a textfield invisible from `invisible` to `notVisible` to prevent overriding caused by other third-party libraries
+- **14th July, 2023 - Eric McWinNEr 😴**
+  - Added a prop to the date picker to prevent users from selecting a future date
+  - Updated the table search to be able to search for numbers
+  - Updated the filter configuration rules to allow string based filtering with numbers
+- **13th July, 2023 - Eric McWinNEr 😴**
+  - Fixed a minor bug with the search feature for the table component
+  - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
+  - Update the maximum height of the tag dropdown and set it to teleport to the body
+  - Updated the toast to have a higher z-index
+  - Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
+  - Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading csvs
+  - Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
+- **21st June, 2023 - Eric McWinNEr 😴**
+  - Updated Storybook introduction page
+  - Updated Loader and Tag-dropdown stories
+- **20th June, 2023 - Eric McWinNEr 😴**
+  - Updated storybook docs configuration to stop merging all stories to one long doc page by default
+  - Updated the z-index of tooltips
+  - Created new story on storybook for using tooltips in tables with fixed columns
+  - Created a new TableCellText component to be used to create table cell text when using slots in external components
+  - Corrected invalid argType in story for Loader component
+- **15th June, 2023 - Eric McWinNEr 😴** 
   - Fixed bug with the table that causes floated items to appear behind fixed columns.
   - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
   - Added a loader to tag dropdown input field
   - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
   - Made updates to the switch component to allow true two-way binding for the on and off states
-- **20th June, 2023 - Eric McWinNEr**
-  - Updated storybook docs configuration to stop merging all stories to one long doc page by default
-  - Updated the z-index of tooltips
-  - Created new story on storybook for using tooltips in tables with fixed columns
-  - Created a new TableCellText component to be used to create table cell text when using slots in external components

@@ -52,7 +52,7 @@
               class="ui-banner__description"
               font-face="circularSTD"
               v-if="!$slots.default && description"
-              ><span v-html="description"></span
+            ><span v-html="description"></span
             ></d-text>
           </d-box>
         </d-box>
@@ -134,11 +134,6 @@ const remove = () => {
   visible.value = false;
 };
 
-onMounted(() => {
-  if (props.smartColor) {
-    console.log("Dancing in the sunlight", getSubtitleColor(props.smartColor));
-  }
-});
 </script>
 
 <style lang="scss" scoped>

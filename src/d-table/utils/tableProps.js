@@ -69,6 +69,12 @@ export const tableProps = {
   loading: {
     type: Boolean,
   },
+  loaderType: {
+    type: String,
+    validator: (value) =>
+      ["ring", "equalizer", "ringed-circle"].includes(value),
+    default: "ring",
+  },
   search: {
     type: Boolean,
   },
@@ -123,5 +129,22 @@ export const tableProps = {
   overrideDefaultEscapedRowClickSelectors: {
     type: Boolean,
     default: false,
+  },
+  expandModeCardTitle: {
+    type: String,
+    default: "CARD DETAILS",
+  },
+  asyncSearch: {
+    type: Boolean,
+  },
+  asyncCSVExport: {
+    type: Boolean,
+  },
+  emptyTableText: {
+    type: String,
+    default: "No data available",
+  },
+  exportCSVURL: {
+    type: String,
   },
 };

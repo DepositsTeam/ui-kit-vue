@@ -59,6 +59,15 @@ SmallNeutral.args = {
   children: "Neutral",
 };
 
+export const CustomColor = Template.bind({});
+CustomColor.args = {
+  children: "Custom color",
+  customColor: {
+    background: "#F0F0F9",
+    color: "#6259FA",
+  },
+};
+
 export const DarkSmallNeutral = DarkModeTemplateFactory();
 DarkSmallNeutral.args = {
   children: "Neutral",

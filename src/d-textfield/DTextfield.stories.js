@@ -1,6 +1,7 @@
 import DTextfield from "./DTextfield.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import Search from "../icons/SearchIcon.vue";
+import { DBox } from "../main";
 
 export default {
   title: "Forms/Text Field",
@@ -44,6 +45,9 @@ export default {
     currency: {
       control: { type: "boolean" },
     },
+    ein: {
+      control: { type: "boolean" },
+    },
     percentage: {
       control: { type: "boolean" },
     },
@@ -64,8 +68,34 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<d-textfield v-bind="args" v-model="value" />`,
+  template: `<d-textfield v-bind="args" v-model="value" />
+  <p>{{ value }}</p>
+  `,
 });
+
+const CustomRightIconTemplate = (args) => ({
+  components: { DTextfield, DBox },
+  data: () => ({
+    value: "",
+  }),
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-textfield v-model="value" v-bind="args">
+      <template #rightSection>
+        <d-box width="32px" height="100%" background="#ff0000"></d-box>
+      </template>
+      <template #leftSection>
+        <d-box white-space="nowrap" height="100%" background="#E1E7EC" padding="0 18px" display="inline-flex" align-items="center">
+          Demo Key
+        </d-box>
+      </template>
+    </d-textfield>
+  `,
+});
+
+export const CustomRightIcon = CustomRightIconTemplate.bind({});
 
 const DarkModeTemplate = (args) => ({
   components: { DTextfield, DarkModeProvider },
@@ -145,6 +175,13 @@ CurrencyMode.args = {
   placeholder: "$0.00",
   label: "Currency Mode",
   currency: true,
+};
+
+export const EINMode = Template.bind({});
+EINMode.args = {
+  placeholder: "xx-xxxxxxx",
+  label: "Currency Mode",
+  ein: true,
 };
 
 export const DarkCurrencyMode = DarkModeTemplateFactory();
