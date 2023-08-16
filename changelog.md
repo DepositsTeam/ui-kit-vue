@@ -1,3 +1,8 @@
+- **16th August, 2023 - Eric McWinNEr 😴**
+  - Worked on auto-layout to aid responsiveness
+  - Worked on responsive layout to handle responsiveness bugs
+- **13th August, 2023 - Eric McWinNEr 😴**
+  - Added ability to switch auto-layout direction on element width
 - **12th August, 2023 - Eric McWinNEr 😴**
   - Added left and right section to the Textfield component
   - Fixed some of the warnings that make their way to the console
