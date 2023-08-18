@@ -1,13 +1,13 @@
 <template>
   <d-box>
     <d-textfield readonly v-model="payload.text">
-      <template #rightIcon>
+      <template #rightSection>
         <d-box @click="copyCode" class="copy-btn" cursor="pointer">
           <copy-filled-icon height="30px" width="30px" class="text-gray-500" />
         </d-box>
       </template>
 
-      <template #leftIcon>
+      <template #leftSection>
         <d-box v-if="label" class="label-text">
           <d-text
             font-face="heroNew"
@@ -56,6 +56,12 @@ const copyCode = () => {
 <style scoped>
 .label-text {
   border-radius: 5px 0 0 5px;
+  height: 100%;
+  padding: 0 8px;
+  white-space: nowrap;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
   background: linear-gradient(
       0deg,
       rgba(19, 48, 84, 0.03),
@@ -74,6 +80,11 @@ const copyCode = () => {
     #f7fafc;
   border: 1px solid #e1e7ec;
   border-radius: 0 5px 5px 0;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
 }
 
 .helper__text {

@@ -342,7 +342,7 @@
       >
         <d-pagination
           :total-pages="totalPages"
-          :current-page="currentPage"
+          :current-page="internalCurrentPage"
           :current-page-siblings="currentPageSiblings"
           @page-changed="handlePageChange"
           :smart-color="smartColor"
@@ -411,7 +411,6 @@ import {
   onMounted,
   watch,
   onUnmounted,
-  watchEffect,
 } from "vue";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { sort } from "./utils/sort";
@@ -434,6 +433,7 @@ const emit = defineEmits([
   "sort",
   "export",
   "download-csv",
+  "async-table-update",
 ]);
 const isExpanded = ref(false);
 
@@ -443,15 +443,9 @@ const viewportShrunkToMobile = ref(false);
 
 const expandedData = ref(null);
 
-const { exportCsv } = useCsvExport(props.generatedCsvName);
+const internalCurrentPage = ref(props.currentPage);
 
-const exportCSVFunction = () => {
-  if (props.asyncCSVExport) {
-    emit("download-csv");
-  } else {
-    exportCsv(props.data, columnHashmap.value);
-  }
-};
+const { exportCsv } = useCsvExport(props.generatedCsvName);
 
 const columnHashmap = computed(() => {
   const hashMap = {};
@@ -460,6 +454,16 @@ const columnHashmap = computed(() => {
   });
   return hashMap;
 });
+
+const exportCSVFunction = () => {
+  if (props.exportCSVURL) {
+    window.open(props.exportCSVURL, "_blank");
+  } else if (props.asyncCSVExport) {
+    emit("download-csv");
+  } else {
+    exportCsv(props.data, columnHashmap.value);
+  }
+};
 
 const transformDataWithColumnPipe = (datum) => {
   return Object.keys(datum).reduce((previousValue, key) => {
@@ -670,7 +674,17 @@ const handlePageChange = (currentPage) => {
   if (!props.asyncPagination) {
     scopedCurrentPage.value = currentPage;
   }
+  internalCurrentPage.value = currentPage;
   emit("page-updated", currentPage);
+  // if (searchValue.value) {
+  //   emit("search", searchValue.value, currentPage);
+  // }
+  if (props.asyncPagination && props.asyncSearch) {
+    emit("async-table-update", {
+      page: currentPage,
+      search: searchValue.value,
+    });
+  }
 };
 
 const dataFactory = computed(() => {
@@ -732,11 +746,25 @@ watch(renderedColumns, (newVal, oldVal) => {
   }
 });
 
-watchEffect(() => {
+watch(
+  () => props.currentPage,
+  () => {
+    internalCurrentPage.value = props.currentPage;
+  }
+);
+
+watch(searchValue, () => {
+  scopedCurrentPage.value = 1;
+
   if (props.asyncSearch) {
-    if (searchValue.value) {
-      emit("search", searchValue.value);
-    }
+    emit("search", searchValue.value, 1);
+  }
+  internalCurrentPage.value = 1;
+  if (props.asyncSearch && props.asyncPagination) {
+    emit("async-table-update", {
+      page: 1,
+      search: searchValue.value,
+    });
   }
 });
 

@@ -27,7 +27,7 @@ export const useFilePicker = (props, emit, file) => {
       : undefined
   );
 
-  const selectedFileName = ref("");
+  const selectedFileName = ref(props.placeholder);
 
   const updateName = (e) => {
     let files = e.target.files || e.dataTransfer.files;
@@ -52,14 +52,14 @@ export const useFilePicker = (props, emit, file) => {
       const input = file.value.$el;
       input.setAttribute("type", "text");
       input.setAttribute("type", "file");
-      selectedFileName.value = "";
+      selectedFileName.value = props.placeholder;
     } else {
       emit("change", files.length > 1 ? files : files[0]);
     }
   };
 
   const emptyFile = () => {
-    selectedFileName.value = "";
+    selectedFileName.value = props.placeholder;
     const input = file.value.$el;
     input.setAttribute("type", "text");
     input.setAttribute("type", "file");

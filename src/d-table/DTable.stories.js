@@ -557,6 +557,38 @@ FixedTooltipTable.args = {
   darkMode: false,
 };
 
+const AsyncTableUpdateTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  methods: {
+    tableUpdate: function (searchValue, currentPage) {
+      console.log("Data that changed is", searchValue, currentPage);
+    },
+    pageUpdate: function (page) {
+      console.log("Pagination changed", page);
+    },
+    searchUpdate: function (search) {
+      console.log("Search changed", search);
+    },
+  },
+  setup() {
+    return { args };
+  },
+  template: ` <d-table v-bind="args" @page-updated="pageUpdate" @search="searchUpdate" @async-table-update="tableUpdate" />`,
+});
+
+export const AsyncTableUpdate = AsyncTableUpdateTemplate.bind({});
+AsyncTableUpdate.args = {
+  columns: sitcomColumns,
+  data,
+  asyncPagination: true,
+  asyncSearch: true,
+  totalPages: 49,
+  paginate: true,
+  search: true,
+};
+
 export const TestTableTemplate = (args) => ({
   components: {
     DTable,

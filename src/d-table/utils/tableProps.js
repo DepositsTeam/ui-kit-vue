@@ -144,4 +144,7 @@ export const tableProps = {
     type: String,
     default: "No data available",
   },
+  exportCSVURL: {
+    type: String,
+  },
 };

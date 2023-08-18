@@ -5,8 +5,11 @@ export const useCsvExport = (generatedCsvName) => {
     quoteStrings: '"',
     decimalSeparator: ".",
     showLabels: true,
-    showTitle: true,
-    title: generatedCsvName,
+    showTitle: false,
+    title: "",
+    // showTitle: true,
+    filename: generatedCsvName,
+    // title: generatedCsvName,
     useTextFile: false,
     useBom: true,
     useKeysAsHeaders: true,
@@ -15,14 +18,18 @@ export const useCsvExport = (generatedCsvName) => {
   const csvExporter = new ExportToCsv(options);
 
   const exportCsv = (data, columnHashmap) => {
-    const dataClone = [...data];
-    for (let i = 0; i < dataClone.length; i++) {
-      for (let key in dataClone[i]) {
-        if (columnHashmap[key].excludeFromCSV === true) {
-          delete dataClone[i][key];
+    const dataClone = data.map((datum) => {
+      let returnedDataClone = {};
+      Object.keys(columnHashmap).forEach((key) => {
+        if (
+          !columnHashmap[key].excludeFromCSV &&
+          Object.prototype.hasOwnProperty.call(datum, key)
+        ) {
+          returnedDataClone[key] = datum[key];
         }
-      }
-    }
+      });
+      return returnedDataClone;
+    });
     csvExporter.generateCsv(dataClone);
   };
   return { exportCsv };

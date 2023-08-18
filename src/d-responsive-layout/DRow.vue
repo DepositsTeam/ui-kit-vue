@@ -1,8 +1,15 @@
 <template>
   <d-box
     class="ui-responsive__row"
-    :class="{ [`align__${alignment}`]: alignment }"
-    :style="{ '--gutter-x': computedGutter.x, '--gutter-y': computedGutter.y }"
+    :class="{
+      [`align__${alignment}`]: stretch !== undefined ? false : alignment,
+      stretch,
+      noColPadding,
+    }"
+    :style="{
+      '--d-gutter-x': computedGutter.x,
+      '--d-gutter-y': computedGutter.y,
+    }"
   >
     <slot></slot>
   </d-box>
@@ -28,6 +35,12 @@ const props = defineProps({
   gutterY: {
     type: [String, Number],
   },
+  stretch: {
+    type: Boolean,
+  },
+  noColPadding: {
+    type: Boolean,
+  },
 });
 
 const computedGutter = computed(() => {
@@ -46,28 +59,41 @@ const computedGutter = computed(() => {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  & > .ui-responsive__col:first-child {
-    padding-left: 0;
+  align-content: stretch;
+
+  &:not(.noColPadding) {
+    margin-left: calc(-1 * var(--d-gutter-x) * 0.5);
+    margin-right: calc(-1 * var(--d-gutter-x) * 0.5);
   }
-  & > .ui-responsive__col:last-child {
-    padding-right: 0;
+
+  &.stretch {
+    align-items: stretch;
   }
+
   & > * {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
-    //padding-right: var(--gutter-x);
-    margin-top: var(--gutter-y);
+    margin-top: var(--d-gutter-y);
   }
+
+  &:not(.noColPadding) > * {
+    padding-right: calc(var(--d-gutter-x) * 0.5);
+    padding-left: calc(var(--d-gutter-x) * 0.5);
+  }
+
   &.align__top {
     align-items: flex-start;
   }
+
   &.align__center {
     align-items: center;
   }
+
   &.align__bottom {
     align-items: flex-end;
   }
+
   & > .ui-responsive__col {
   }
 }

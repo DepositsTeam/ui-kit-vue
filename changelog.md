@@ -1,10 +1,42 @@
-- **10th August, 2023 - Bernode 🙄**
-    - Worked on 
-- **09th August, 2023 - Bernode 🙄**
-  - Worked on restricted color config component
-  - Worked on copy input
-- **08th August, 2023 - Bernode 🙄**
-    - Worked on custom color config component
+- **16th August, 2023 - Eric McWinNEr 😴**
+  - Worked on auto-layout to aid responsiveness
+  - Worked on responsive layout to handle responsiveness bugs
+- **13th August, 2023 - Eric McWinNEr 😴**
+  - Added ability to switch auto-layout direction on element width
+- **12th August, 2023 - Eric McWinNEr 😴**
+  - Added left and right section to the Textfield component
+  - Fixed some of the warnings that make their way to the console
+- **11th August, 2023 - Eric McWinNEr 😴**
+  - Added EIN mode to the textfield
+- **10th August, 2023 - Eric McWinNEr 😴**
+  - Updated pagination and search events on the table
+  - Updated the responsive layout to make it more repsonsive
+- **09th August, 2023 - Eric McWinNEr 😴**
+  - Updated the table and fixed bug with the asynchronous pagination/search feature
+- **08th August, 2023 - Bernode**
+  - Worked on custom color config component
+- **7th August, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with inline file picker button mode having empty string
+- **5th August, 2023 - Eric McWinNEr 😴**
+  - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
+  - Fixed bug with currency input not working as expected
+  - Added left icon slot to the Select field
+  - Fixed font-face of date picker having hero-new instead of circular std by default
+  - Added additional configs to the loader to allow it automatically center in its container
+  - 
+- **4th August, 2023 - Eric McWinNEr 😴**
+  - Updated the badge to allow custom colors
+- **2nd August, 2023 - Eric McWinNEr 😴**
+  - Made bugfixes to the responsive layout
+  - Fixed bug with the export csv feature on the table
+  - Fixed bug with the generated csv name on the table for the csv export
+- **1st August, 2023 - Eric McWinNEr 😴**
+  - Made minor update to the pin input, tag input and tag dropdown
+  - Made the right icon of the select field customizable
+  - Updated the date picker icon to make it customizable and fix the excess right padding
+  - Updated changelog
+- **23rd July, 2023 - Eric McWinNEr 😴**
+  - Made some minor updates to the table component
 - **22nd July, 2023 - Eric McWinNEr 😴**
     - Fixed bugs with the currency mode on the textfield
 - **21st July, 2023 - Eric McWinNEr 😴**
