@@ -13,7 +13,7 @@
   - Updated the responsive layout to make it more repsonsive
 - **09th August, 2023 - Eric McWinNEr 😴**
   - Updated the table and fixed bug with the asynchronous pagination/search feature
-- **08th August, 2023 - Bernode**
+- **08th August, 2023 - Bernode 🙄**
   - Worked on custom color config component
 - **7th August, 2023 - Eric McWinNEr 😴**
   - Fixed bug with inline file picker button mode having empty string

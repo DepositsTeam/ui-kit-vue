@@ -1,17 +1,18 @@
 - [x] Restricted color config - Bernode 🙄
 - [x] Custom color config - Bernode 🙄
-- [ ] 2fa - Presetup, initiative
-- [ ] 2fa - Presetup slot
+- [x] 2fa - Presetup, initiative - Bernode 🙄
+- [x] 2fa - Presetup slot - Bernode 🙄
 - [x] Radio select + icons - Eric McWinNEr 😴
 - [x] Radio Select - Eric McWinNEr 😴
 - [ ] List item
 - [ ] Continous List Item
 - [ ] Actionable + Avatar
-- [ ] Static stats
+- [x] Static stats - Bernode 🙄
+- [x] Static stats 2 - Bernode 🙄
 - [ ] Summary preview
 - [ ] Actionable Stats
 - [ ] Application Integration + actions
 - [ ] Actionable
-- [x] Copy Input
+- [x] Copy Input - Bernode 🙄
 - [ ] Preferences
 - [ ] Vertical movable 
