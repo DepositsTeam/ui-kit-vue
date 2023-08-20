@@ -1,6 +1,6 @@
 <template>
   <d-box>
-    <d-textfield readonly v-model="payload.text">
+    <d-textfield readonly v-model="payload.text" :size="size">
       <template #rightSection>
         <d-box @click="copyCode" class="copy-btn" cursor="pointer">
           <copy-filled-icon height="30px" width="30px" class="text-gray-500" />
@@ -40,6 +40,9 @@ const props = defineProps({
   helperText: {
     type: String,
   },
+  size: {
+    type: String,
+  },
 });
 
 const payload = reactive({
@@ -55,13 +58,9 @@ const copyCode = () => {
 
 <style scoped>
 .label-text {
-  border-radius: 5px 0 0 5px;
+  border-radius: 0 6px 6px 0;
   height: 100%;
-  padding: 0 8px;
   white-space: nowrap;
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
   background: linear-gradient(
       0deg,
       rgba(19, 48, 84, 0.03),
@@ -69,6 +68,12 @@ const copyCode = () => {
     ),
     #f7fafc;
   border: 1px solid #e1e7ec;
+  display: flex;
+  padding: 6px 16px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .copy-btn {
@@ -79,12 +84,15 @@ const copyCode = () => {
     ),
     #f7fafc;
   border: 1px solid #e1e7ec;
-  border-radius: 0 5px 5px 0;
   height: 100%;
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  width: 65px;
+  padding: 6px 12px;
   justify-content: center;
-  padding: 0 8px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 0 6px 6px 0;
 }
 
 .helper__text {
