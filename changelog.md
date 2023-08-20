@@ -1,3 +1,6 @@
+- **20th August, 2023 - Bernode 🙄**
+    - Added size props to DCopyInput Component
+    - Added size props to DCustomColorConfig Component
 - **18th August, 2023 - Bernode 🙄**
     - Added d-static-stats component
     - Added d-static-stats2 component

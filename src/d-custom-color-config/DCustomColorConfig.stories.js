@@ -19,6 +19,10 @@ export default {
     colors: {
       control: { type: "object" },
     },
+    size: {
+      control: { type: "select" },
+      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
+    },
   },
 };
 
