@@ -99,6 +99,7 @@ const watchForWidthSwitch = () => {
 
 onMounted(() => {
   watchForSwitch();
+  watchForWidthSwitch();
   window.addEventListener("resize", watchForSwitch);
   window.addEventListener("resize", watchForWidthSwitch);
 });

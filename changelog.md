@@ -1,3 +1,8 @@
+- **22nd August, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with the table customize view hydrating state before the save button is clicked
+  - Made the autolayout to calculate the switch width at the time it is mounted
+- **21st August, 2023 - Eric McWinNEr 😴**
+  - Updated the stepper component to use the active color for the check mark when completed.
 - **16th August, 2023 - Eric McWinNEr 😴**
   - Worked on auto-layout to aid responsiveness
   - Worked on responsive layout to handle responsiveness bugs
