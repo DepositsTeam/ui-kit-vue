@@ -1,3 +1,12 @@
+- **22nd August, 2023 - Eric McWinNEr 😴**
+    - Added size props to DCopyInput Component
+  - Fixed bug with the table customize view hydrating state before the save button is clicked
+    - Added size props to DCustomColorConfig Component
+  - Made the autolayout to calculate the switch width at the time it is mounted
+- **18th August, 2023 - Bernode 🙄**
+- **21st August, 2023 - Eric McWinNEr 😴**
+    - Added d-static-stats component
+  - Updated the stepper component to use the active color for the check mark when completed.
 - **20th August, 2023 - Bernode 🙄**
     - Added size props to DCopyInput Component
     - Added size props to DCustomColorConfig Component
