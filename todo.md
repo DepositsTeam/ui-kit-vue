@@ -9,9 +9,8 @@
 - [ ] Actionable + Avatar
 - [x] Static stats - Bernode 🙄
 - [x] Static stats 2 - Bernode 🙄
-- [ ] Summary preview
-- [ ] Actionable Stats
-- [ ] Application Integration + actions
+- [x] Application Integration + actions - Bernode 🙄
+- [x] Application Integration + actions 2 - Bernode 🙄
 - [ ] Actionable
 - [x] Copy Input - Bernode 🙄
 - [ ] Preferences
