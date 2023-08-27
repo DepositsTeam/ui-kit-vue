@@ -1,3 +1,6 @@
+- **27th August, 2023 - Eric McWinNEr 😴**
+  - Prevented the Text from throwing warnings for only heroNew and circularSTD
+  - Updated the column pipe function to supply the entire row object as the second argument to the pipe function 
 - **22nd August, 2023 - Eric McWinNEr 😴**
   - Fixed bug with the table customize view hydrating state before the save button is clicked
   - Made the autolayout to calculate the switch width at the time it is mounted

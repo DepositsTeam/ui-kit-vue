@@ -46,7 +46,6 @@ const props = defineProps({
   },
   fontFace: {
     type: String,
-    validator: (value) => ["heroNew", "circularSTD"].includes(value),
   },
   scale: {
     type: String,
