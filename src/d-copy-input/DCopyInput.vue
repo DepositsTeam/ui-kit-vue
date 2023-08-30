@@ -58,7 +58,6 @@ const copyCode = () => {
 
 <style scoped>
 .label-text {
-  border-radius: 0 6px 6px 0;
   height: 100%;
   white-space: nowrap;
   background: linear-gradient(
@@ -67,7 +66,7 @@ const copyCode = () => {
       rgba(19, 48, 84, 0.03)
     ),
     #f7fafc;
-  border: 1px solid #e1e7ec;
+  border-right: 1px solid #e1e7ec;
   display: flex;
   padding: 6px 16px;
   justify-content: flex-end;
@@ -83,7 +82,7 @@ const copyCode = () => {
       rgba(19, 48, 84, 0.03)
     ),
     #f7fafc;
-  border: 1px solid #e1e7ec;
+  border-left: 1px solid #e1e7ec;
   height: 100%;
   display: flex;
   width: 65px;
@@ -92,7 +91,6 @@ const copyCode = () => {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  border-radius: 0 6px 6px 0;
 }
 
 .helper__text {

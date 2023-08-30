@@ -18,13 +18,15 @@
         ></d-avatar>
       </d-box>
     </d-box>
-    <d-box class="footer">
-      <d-box class="button">+ Add tenants</d-box>
-      <d-box class="icons">
-        <edit2-icon class="icon" />
-        <delete-icon class="icon" />
+    <slot name="footer">
+      <d-box class="footer">
+        <d-box class="button">+ Add tenants</d-box>
+        <d-box class="icons">
+          <edit2-icon class="icon" />
+          <delete-icon class="icon" />
+        </d-box>
       </d-box>
-    </d-box>
+    </slot>
   </d-box>
 </template>
 
