@@ -10,7 +10,7 @@ export default {
     text: {
       control: { type: "text" },
     },
-    helperText: {
+    footnote: {
       control: { type: "text" },
     },
     size: {
@@ -35,5 +35,5 @@ export const Default = Template.bind({});
 Default.args = {
   label: "Demo Key",
   text: "dk_17j48r8qnxq9984w9429uqcwur09quw0r",
-  helperText: "**Use this key in public places such as our JS web sdk.",
+  footnote: "**Use this key in public places such as our JS web sdk.",
 };

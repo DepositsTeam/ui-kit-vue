@@ -4,10 +4,10 @@ export default {
   title: "Application Integration Action 2",
   component: DApplicationIntegrationAction2,
   argTypes: {
-    label: {
+    title: {
       control: { type: "text" },
     },
-    text: {
+    description: {
       control: { type: "text" },
     },
     logo: {
@@ -35,8 +35,8 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "QuickBooks",
-  text: "Connect Renapay to your QuickBooks account to allow seamles synchronisation of your invoices, payments and customers to QuickBooks automatically.",
+  title: "QuickBooks",
+  description: "Connect Renapay to your QuickBooks account to allow seamles synchronisation of your invoices, payments and customers to QuickBooks automatically.",
   logo: "https://play-lh.googleusercontent.com/ahJtMe0vfOlAu1XJVQ6rcaGrQBgtrEZQefHy7SXB7jpijKhu1Kkox90XDuH8RmcBOXNn",
   hasLearnMore: true,
   isDisabled: true,

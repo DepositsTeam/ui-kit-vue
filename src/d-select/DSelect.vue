@@ -54,14 +54,16 @@
           {{ option.text }}
         </option>
       </d-box>
-      <d-box class="ui-text-field__right-icon">
-        <slot name="right-icon">
-          <ChevronFilledDownIcon />
-        </slot>
+      <d-box class="ui-text-field__right-icon__wrapper">
+        <d-box class="ui-text-field__right-icon">
+          <slot name="right-icon">
+            <ChevronFilledDownIcon />
+          </slot>
+        </d-box>
       </d-box>
     </d-box>
     <d-box v-if="errorMessage" class="ui-text-field__error">
-      <ErrorIcon class="ui-text-field__error-icon" />
+      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
         scale="subhead"
@@ -226,17 +228,6 @@ watch(
 @import "../scss/textfield";
 
 .ui-select-field__wrapper {
-  &::after {
-    content: "";
-    position: absolute;
-    background: #fff;
-    height: 11px;
-    width: 11px;
-    right: 2px;
-    z-index: 13;
-    pointer-events: none;
-  }
-
   .ui-text-field__input {
     &.active-placeholder {
       color: #b8c4ce;

@@ -1,3 +1,14 @@
+- **30th August, 2023 - Eric McWinNEr 😴**
+  - Updated text fields and select fields to add ellipsis when the container is too small
+  - Fixed bug with select boxes not having rounded borders
+  - Updated the left icon and right icon system for text fields and select fields to ensure they are always properly vertically centered irrespective of the size
+  - Reduced the size of the error icon on all input fields
+  - Added error message section to tag input
+- **28th August, 2023 - Eric McWinNEr 😴**
+  - Updated the offset columns to factor in the gutter width
+- **27th August, 2023 - Eric McWinNEr 😴**
+  - Prevented the Text from throwing warnings for only heroNew and circularSTD
+  - Updated the column pipe function to supply the entire row object as the second argument to the pipe function
 - **22nd August, 2023 - Eric McWinNEr 😴**
     - Added size props to DCopyInput Component
   - Fixed bug with the table customize view hydrating state before the save button is clicked
@@ -33,12 +44,11 @@
 - **7th August, 2023 - Eric McWinNEr 😴**
     - Fixed bug with inline file picker button mode having empty string
 - **5th August, 2023 - Eric McWinNEr 😴**
-    - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
-    - Fixed bug with currency input not working as expected
-    - Added left icon slot to the Select field
-    - Fixed font-face of date picker having hero-new instead of circular std by default
-    - Added additional configs to the loader to allow it automatically center in its container
-    -
+  - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
+  - Fixed bug with currency input not working as expected
+  - Added left icon slot to the Select field
+  - Fixed font-face of date picker having hero-new instead of circular std by default
+  - Added additional configs to the loader to allow it automatically center in its container
 - **4th August, 2023 - Eric McWinNEr 😴**
     - Updated the badge to allow custom colors
 - **2nd August, 2023 - Eric McWinNEr 😴**
@@ -79,14 +89,14 @@
     - Updated Storybook introduction page
     - Updated Loader and Tag-dropdown stories
 - **20th June, 2023 - Eric McWinNEr 😴**
-    - Updated storybook docs configuration to stop merging all stories to one long doc page by default
-    - Updated the z-index of tooltips
-    - Created new story on storybook for using tooltips in tables with fixed columns
-    - Created a new TableCellText component to be used to create table cell text when using slots in external components
-    - Corrected invalid argType in story for Loader component
+  - Updated storybook docs configuration to stop merging all stories to one long doc page by default
+  - Updated the z-index of tooltips
+  - Created new story on storybook for using tooltips in tables with fixed columns
+  - Created a new TableCellText component to be used to create table cell text when using slots in external components
+  - Corrected invalid argType in story for Loader component
 - **15th June, 2023 - Eric McWinNEr 😴**
-    - Fixed bug with the table that causes floated items to appear behind fixed columns.
-    - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
-    - Added a loader to tag dropdown input field
-    - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
-    - Made updates to the switch component to allow true two-way binding for the on and off states
+  - Fixed bug with the table that causes floated items to appear behind fixed columns.
+  - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
+  - Added a loader to tag dropdown input field
+  - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
+  - Made updates to the switch component to allow true two-way binding for the on and off states

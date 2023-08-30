@@ -14,9 +14,12 @@ export default {
     text: {
       control: { type: "text" },
     },
-    colorScheme: {
+    variant: {
       control: { type: "select" },
-      options: ["primary", "outline"],
+      options: ["filled", "outline"],
+    },
+    smartColor: {
+      control: { type: "color" },
     },
   },
 };
@@ -37,5 +40,5 @@ Default.args = {
   label: "Entities",
   text: "10,432",
   icon: Profile2UserFilledIcon,
-  colorScheme: "primary",
+  colorScheme: "outline",
 };

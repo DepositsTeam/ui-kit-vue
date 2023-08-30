@@ -147,6 +147,13 @@ Label.args = {
   label: "Dropdown",
 };
 
+export const HasError = Template.bind({});
+HasError.args = {
+  options: [...options],
+  label: "Error",
+  errorMessage: "Error message",
+};
+
 export const LabelDark = DarkModeTemplateFactory();
 LabelDark.args = {
   options: [...options],

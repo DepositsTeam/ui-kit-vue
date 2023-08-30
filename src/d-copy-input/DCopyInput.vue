@@ -20,7 +20,7 @@
       </template>
     </d-textfield>
 
-    <d-text v-if="helperText" class="helper__text">{{ helperText }}</d-text>
+    <d-text v-if="footnote" class="helper__text">{{ footnote }}</d-text>
   </d-box>
 </template>
 
@@ -37,7 +37,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  helperText: {
+  footnote: {
     type: String,
   },
   size: {
@@ -85,8 +85,7 @@ const copyCode = () => {
   border-left: 1px solid #e1e7ec;
   height: 100%;
   display: flex;
-  width: 65px;
-  padding: 6px 12px;
+  padding: 6px 16px;
   justify-content: center;
   align-items: center;
   gap: 10px;

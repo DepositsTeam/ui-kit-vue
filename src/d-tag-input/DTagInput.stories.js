@@ -99,6 +99,13 @@ SizeMassive.args = {
   size: "massive",
 };
 
+export const HasError = Template.bind({});
+HasError.args = {
+  label: "Form Label",
+  size: "massive",
+  errorMessage: "Random, default error",
+};
+
 export const SizeMassiveDark = DarkModeTemplateFactory();
 SizeMassiveDark.args = {
   label: "Form Label",

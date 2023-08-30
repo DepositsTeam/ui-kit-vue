@@ -36,7 +36,7 @@
             :background="color.colorCode"
             :border="`1px solid ${color.colorCode}`"
           ></d-box>
-          <d-text font-face="circularSTD" is="span"
+          <d-text color="#2A2E33" font-face="circularSTD" is="span"
             >{{ color.colorName }}
           </d-text>
         </d-box>
@@ -92,7 +92,7 @@ const handleChangeEvents = (color) => emit("update:modelValue", color);
   border-radius: 5px;
   display: flex;
   align-items: center;
-  font-weight: bold;
+  font-weight: 450;
   transition: 0.3s ease-in-out;
 }
 </style>

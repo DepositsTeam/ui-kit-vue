@@ -472,7 +472,7 @@ const transformDataWithColumnPipe = (datum) => {
       columnHashmap.value[key].pipe &&
       typeof columnHashmap.value[key].pipe === "function"
     ) {
-      previousValue[key] = columnHashmap.value[key].pipe(datum[key]);
+      previousValue[key] = columnHashmap.value[key].pipe(datum[key], datum);
     } else {
       previousValue[key] = datum[key];
     }

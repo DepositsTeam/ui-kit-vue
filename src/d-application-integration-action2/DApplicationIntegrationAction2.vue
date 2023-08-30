@@ -1,9 +1,9 @@
 <template>
   <d-box class="application__card">
     <d-box class="header">
-      <d-box is="img" class="logo" :src="logo" :alt="label" />
-      <d-text class="label" font-face="heroNew">{{ label }}</d-text>
-      <d-text class="text" font-face="circularSTD">{{ text }}</d-text>
+      <d-box is="img" class="logo" :src="logo" :alt="title" />
+      <d-text class="label" font-face="heroNew">{{ title }}</d-text>
+      <d-text class="text" font-face="circularSTD">{{ description }}</d-text>
     </d-box>
     <d-box class="body">
       <slot name="buttons">
@@ -34,11 +34,11 @@ import { DBox, DText, DButton, ExternalLinkIcon } from "@/main";
 
 const emit = defineEmits(["connectClicked", "learnMoreClicked"]);
 defineProps({
-  label: {
+  title: {
     type: String,
     required: true,
   },
-  text: {
+  description: {
     type: String,
     required: true,
   },

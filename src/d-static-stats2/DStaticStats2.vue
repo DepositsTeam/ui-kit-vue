@@ -1,11 +1,19 @@
 <template>
-  <d-box class="card__one" @click="clickHandler">
+  <d-box
+    class="card__one"
+    :class="{ hasSmartColor: !!smartColor }"
+    @click="clickHandler"
+    :style="{
+      '--smart-color': colorSpectrumRef.color,
+      '--smart-color-background': colorSpectrumRef.background,
+    }"
+  >
     <slot name="iconContainer">
       <d-box
         class="card__icon__section"
         :class="{
-          primary_bg: colorScheme === 'primary',
-          card__bordered: colorScheme === 'outline',
+          [variant]: variant,
+          hasSmartColor: !!smartColor,
         }"
       >
         <slot name="icon">
@@ -26,8 +34,11 @@
 
 <script setup>
 import { DBox, DText } from "@/main";
+import { generateColorSpectrum } from "@/utils/colorManager";
+import { onMounted, ref, watch } from "vue";
+import defaultTheme from "@/providers/default-theme";
 
-defineProps({
+const props = defineProps({
   label: {
     type: String,
     required: true,
@@ -40,11 +51,47 @@ defineProps({
     type: Object,
     required: true,
   },
-  colorScheme: {
+  variant: {
     type: String,
-    validator: (value) => ["outline", "primary"].includes(value),
+    validator: (value) => ["outline", "filled"].includes(value),
+    default: "filled",
+  },
+  smartColor: {
+    type: String,
+    default: defaultTheme["light-primary-action-color"],
   },
 });
+
+const hydrateSmartColor = () => {
+  if (props.smartColor) {
+    const spectrum = generateColorSpectrum(props.smartColor, "smart_color_");
+    colorSpectrumRef.value = {
+      background: spectrum.smart_color_100,
+      color: spectrum.smart_color_500,
+    };
+  } else {
+    colorSpectrumRef.value = {
+      color: "",
+      background: "",
+    };
+  }
+};
+
+const colorSpectrumRef = ref({
+  color: "",
+  background: "",
+});
+
+onMounted(() => {
+  hydrateSmartColor();
+});
+
+watch(
+  () => props.smartColor,
+  (value) => {
+    hydrateSmartColor();
+  }
+);
 
 const emit = defineEmits(["click"]);
 
@@ -79,6 +126,24 @@ const clickHandler = () => {
       width: 25.714px;
       height: 25.714px;
       flex-shrink: 0;
+    }
+
+    &.filled {
+      &.hasSmartColor {
+        background: var(--smart-color-background);
+        .icon {
+          color: var(--smart-color);
+        }
+      }
+    }
+
+    &.outline {
+      &.hasSmartColor {
+        border: 1px solid var(--smart-color);
+        .icon {
+          color: var(--smart-color);
+        }
+      }
     }
   }
 
