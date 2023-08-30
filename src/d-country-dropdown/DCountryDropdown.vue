@@ -50,13 +50,14 @@ const localValue = computed({
     return props.modelValue;
   },
   set(value) {
-    if (props.returnFullObject) {
-      emit("update:modelValue", value);
-    } else {
-      emit("update:modelValue", value[props.optionValue]);
+    if (value) {
+      if (props.returnFullObject) {
+        emit("update:modelValue", value);
+      } else {
+        emit("update:modelValue", value[props.optionValue]);
+      }
+      emit("statesChanged", value.states);
     }
-
-    emit("statesChanged", value.states);
   },
 });
 </script>

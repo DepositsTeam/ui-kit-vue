@@ -79,4 +79,9 @@ const DarkModeTemplateFactory = () => {
 
 export const Default = Template.bind({});
 
+export const HasError = Template.bind({});
+HasError.args = {
+  errorMessage: "Has error",
+};
+
 export const DefaultDark = DarkModeTemplateFactory();

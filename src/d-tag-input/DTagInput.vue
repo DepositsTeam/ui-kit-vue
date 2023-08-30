@@ -13,7 +13,10 @@
       </d-box>
     </slot>
 
-    <d-box class="ui-tag-input__input-wrapper" :class="{ focus: focused }">
+    <d-box
+      class="ui-tag-input__input-wrapper"
+      :class="{ focus: focused, hasError: !!errorMessage }"
+    >
       <d-box
         is="div"
         v-for="(tag, index) in inputTags"
@@ -47,11 +50,21 @@
         :size="computedInputSize"
       />
     </d-box>
+    <d-box v-if="errorMessage" class="ui-text-field__error">
+      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
+      <d-text
+        class="ui-text-field__error-text"
+        scale="subhead"
+        fontFace="circularSTD"
+      >
+        {{ errorMessage }}
+      </d-text>
+    </d-box>
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, DTextfield, CloseIcon } from "../main";
+import { DBox, DText, DTextfield, CloseIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
 import { ref, nextTick, onBeforeMount, watch } from "vue";
 import inputProps from "../utils/inputProps";
@@ -174,6 +187,14 @@ const handleKeyDown = (event) => {
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
+  &.hasError {
+    background: #fff0f2;
+    border-color: #d62f4b;
+  }
+  &.dark_mode {
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-border-color);
+  }
   &.focus {
     border-color: var(--light-primary-action-color);
     box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);

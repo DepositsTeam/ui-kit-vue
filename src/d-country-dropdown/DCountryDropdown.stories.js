@@ -89,6 +89,12 @@ Default.args = {
   label: "Select a country",
 };
 
+export const HasError = Template.bind({});
+HasError.args = {
+  label: "Select a country",
+  errorMessage: "Error message",
+};
+
 export const ReturnFullObject = Template.bind({});
 ReturnFullObject.args = {
   label: "Select a country",

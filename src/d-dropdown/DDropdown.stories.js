@@ -87,7 +87,7 @@ const PredefinedTemplate = (args) => ({
         text: "Commerce kit",
         value: "commerce",
       },
-    ]
+    ],
   }),
   setup() {
     return { args };
@@ -112,7 +112,7 @@ const PredefinedTemplate = (args) => ({
           text: "Commerce kit",
           value: "commerce",
         },
-      ]
+      ];
     }, 3000);
   },
   template: `
@@ -188,6 +188,12 @@ const options = [
 export const Default = Template.bind({});
 Default.args = {
   options: [...options],
+};
+
+export const HasError = Template.bind({});
+HasError.args = {
+  options: [...options],
+  errorMessage: "Error Message",
 };
 
 export const TextOptions = Template.bind({});

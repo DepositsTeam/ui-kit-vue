@@ -8,16 +8,20 @@ export default {
       control: { type: "text" },
       default: "Color",
     },
-    height: {
+    colorHeight: {
       control: { type: "text" },
       default: "28.997px",
     },
-    width: {
+    colorWidth: {
       control: { type: "text" },
       default: "28.997px",
     },
     colors: {
       control: { type: "object" },
+    },
+    size: {
+      control: { type: "select" },
+      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
     },
   },
 };
@@ -27,7 +31,7 @@ const Template = (args) => ({
     DCustomColorConfig,
   },
   data: () => ({
-    value: "#0DB9E9",
+    value: "#000000",
   }),
   setup() {
     return { args };
@@ -48,6 +52,6 @@ Default.args = {
     "#E85E75",
   ],
   label: "Color",
-  height: "28.997px",
-  width: "28.997px",
+  colorHeight: "28.997px",
+  colorWidth: "28.997px",
 };

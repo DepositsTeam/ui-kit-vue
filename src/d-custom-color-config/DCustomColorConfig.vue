@@ -17,31 +17,37 @@
           <d-box
             class="color_inner"
             :background="color"
-            :height="height"
-            :width="width"
+            :height="colorHeight"
+            :width="colorWidth"
             :border="`1.45px solid ${color}`"
           ></d-box>
         </d-box>
       </d-box>
     </d-box>
-    <d-box class="color__input__field" @click="copyCode">
-      <d-box class="color__input__field__left">
-        <d-text font-face="circularSTD">{{ modelValue }}</d-text>
-      </d-box>
-      <d-box class="color__input__field__right">
-        <d-box
-          class="color__input__field__square"
-          :background="modelValue"
-          :border="`1px solid ${modelValue}`"
-        ></d-box>
-      </d-box>
-    </d-box>
+    <d-textfield
+      readonly
+      :size="size"
+      class="color__input__field"
+      v-model="payload.activeColor"
+      @click="copyCode"
+      cursor="copy"
+    >
+      <template #rightSection>
+        <d-box class="color__input__field__right">
+          <d-box
+            class="color__input__field__square"
+            :background="modelValue"
+            :border="`1px solid ${modelValue}`"
+          ></d-box>
+        </d-box>
+      </template>
+    </d-textfield>
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText } from "../main";
-import { onBeforeMount } from "vue";
+import { DBox, DText, DTextfield } from "../main";
+import { onBeforeMount, reactive } from "vue";
 import copy from "copy-to-clipboard";
 
 const props = defineProps({
@@ -51,30 +57,40 @@ const props = defineProps({
   label: {
     type: String,
   },
-  height: {
+  colorHeight: {
     type: String,
     default: "28.997px",
   },
-  width: {
+  colorWidth: {
     type: String,
     default: "28.997px",
   },
   colors: {
     type: Array,
   },
+  size: {
+    type: String,
+  },
 });
 const emit = defineEmits(["update:modelValue"]);
+const payload = reactive({
+  activeColor: props.modelValue,
+});
 
 onBeforeMount(() => {
-  if (!props.modelValue && props.colors.length > 0) {
+  if (!payload.activeColor && props.colors.length > 0) {
     emit("update:modelValue", props.colors[0]);
   }
 });
 
-const handleChangeEvents = (color) => emit("update:modelValue", color);
+const handleChangeEvents = (color) => {
+  emit("update:modelValue", color);
+
+  payload.activeColor = color;
+};
 
 const copyCode = () => {
-  copy(props.modelValue);
+  copy(payload.activeColor);
 
   alert("Code copied to clipboard!");
 };
@@ -86,6 +102,7 @@ const copyCode = () => {
   display: flex;
   align-items: flex-start;
   gap: 18.848px;
+  flex-wrap: wrap;
 
   .color {
     border-radius: 10.79px;
@@ -100,36 +117,22 @@ const copyCode = () => {
 }
 
 .color__input__field {
-  display: flex;
   margin-top: 16px;
   width: 390px;
-
-  .color__input__field__left {
-    display: flex;
-    height: 40px;
-    width: 90%;
-    padding: 12px;
-    align-items: center;
-    gap: 4px;
-    align-self: stretch;
-    border-radius: 4px 0px 0px 4px;
-    border: 1px solid var(--colors-neutral-300, #ced6de);
-    border-right: none;
-    background: var(--color-neutral-white, #fff);
-    box-shadow: 0px 1px 2px 0px rgba(63, 63, 68, 0.1);
-  }
+  border-radius: 4px;
+  cursor: copy;
 
   .color__input__field__right {
     display: flex;
-    width: 40px;
-    height: 40px;
-    padding: 12px;
+    height: 100%;
+    width: 100%;
+    padding: 12px 15px;
     justify-content: center;
     align-items: center;
     gap: 4px;
     border-radius: 0px 4px 4px 0px;
-    border: 1px solid var(--colors-neutral-300, #ced6de);
-    background: var(--color-neutral-white, #fff);
+    border-left: 1px solid #ced6de;
+    background: #fff;
     box-shadow: 0px 1px 2px 0px rgba(63, 63, 68, 0.1);
 
     .color__input__field__square {

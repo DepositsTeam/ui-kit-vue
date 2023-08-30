@@ -472,7 +472,7 @@ const transformDataWithColumnPipe = (datum) => {
       columnHashmap.value[key].pipe &&
       typeof columnHashmap.value[key].pipe === "function"
     ) {
-      previousValue[key] = columnHashmap.value[key].pipe(datum[key]);
+      previousValue[key] = columnHashmap.value[key].pipe(datum[key], datum);
     } else {
       previousValue[key] = datum[key];
     }
@@ -594,7 +594,9 @@ const toggleActiveFilters = async (e) => {
 
 const renderedColumns = shallowRef([]);
 
-const updateRenderedColumns = (value) => (renderedColumns.value = value);
+const updateRenderedColumns = (value) => {
+  renderedColumns.value = [...value];
+};
 
 const filteredRenderedColumns = computed(() =>
   renderedColumns.value.filter((column) => column.visible)
