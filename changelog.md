@@ -1,3 +1,5 @@
+- **28th August, 2023 - Eric McWinNEr 😴**
+  - Updated the offset columns to factor in the gutter width
 - **27th August, 2023 - Eric McWinNEr 😴**
   - Prevented the Text from throwing warnings for only heroNew and circularSTD
   - Updated the column pipe function to supply the entire row object as the second argument to the pipe function 
