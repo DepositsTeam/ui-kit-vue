@@ -95,7 +95,7 @@
       </d-box>
     </d-box>
     <d-box v-if="computedCardErrorMessage" class="ui-text-field__error">
-      <ErrorIcon class="ui-text-field__error-icon" />
+      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
       <d-text
         class="ui-card-input-field__error-text"
         scale="subhead"

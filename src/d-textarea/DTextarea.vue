@@ -43,7 +43,7 @@
     </d-box>
 
     <div v-if="errorMessage" class="ui-text-area__error">
-      <ErrorIcon class="ui-text-area__error-icon" />
+      <ErrorIcon height="16px" width="16px" class="ui-text-area__error-icon" />
       <d-text
         class="ui-text-area__error-text"
         scale="subhead"
@@ -226,8 +226,6 @@ const handleBlurEvent = (e) => {
 }
 
 .ui-text-area__error-icon {
-  height: 12px;
-  width: 12px;
   margin-right: 5px;
 }
 </style>

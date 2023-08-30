@@ -8,8 +8,8 @@
     rounded-borders
     @close-modal="closeModal"
   >
-    <draggable :list="state.columns" item-key="dataSelector">
-      <div v-for="element in state.columns" :key="element.dataSelector">
+    <draggable :list="state" item-key="dataSelector">
+      <div v-for="element in state" :key="element.dataSelector">
         <d-box cursor="pointer" margin-bottom="16px">
           <d-card
             cursor="move"
@@ -35,9 +35,10 @@
 </template>
 
 <script setup>
+// TODO: Fix bug with the customize view modal not resetting to the filtered columns state when reopened
 import { VueDraggableNext as Draggable } from "vue-draggable-next";
 import { DModal, DCard, MoveIcon, DBox, DButton } from "../../main";
-import { reactive, onMounted, unref, watch, inject } from "vue";
+import { shallowRef, onMounted, unref, watch, inject } from "vue";
 
 const emit = defineEmits(["close-modal"]);
 const updateRenderedColumns = inject("updateRenderedColumns");
@@ -51,23 +52,35 @@ const props = defineProps({
   },
 });
 
-const state = reactive({
-  columns: [],
-});
+const state = shallowRef([]);
+
+const hydrateState = () => {
+  state.value = [];
+  [...unref(props.columns)].forEach((column) => {
+    state.value.push(unref(column));
+  });
+};
 
 watch(
   () => props.columns,
   () => {
-    state.columns = [];
-    props.columns.forEach((column) => {
-      state.columns.push(unref(column));
-    });
+    hydrateState();
+  }
+);
+
+watch(
+  () => props.show,
+  () => {
+    console.log("-------", props.show, "------");
+    console.log("Columns are", props.columns);
+    console.log("State is", state.value);
+    hydrateState();
   }
 );
 
 onMounted(() => {
-  props.columns.forEach((column) => {
-    state.columns.push(unref(column));
+  unref(props.columns).forEach((column) => {
+    state.value.push(unref(column));
   });
 });
 
@@ -76,7 +89,10 @@ const closeModal = () => {
 };
 
 const hydrateColumns = () => {
-  const columns = state.columns;
+  const columns = [...unref(state.value)].map((column) => {
+    return column;
+  });
+
   updateRenderedColumns(columns);
   emit("close-modal");
 };

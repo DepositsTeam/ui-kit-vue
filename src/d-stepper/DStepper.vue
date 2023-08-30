@@ -163,6 +163,9 @@ defineProps({
       align-items: center;
       justify-content: center;
       z-index: 15;
+      &.activeColor {
+        border-color: #EFF4F7;
+      }
       &.variant-2 {
         background: #eff4f7;
         border: none;
@@ -204,6 +207,9 @@ defineProps({
       }
       &.completed {
         color: var(--light-primary-action-color);
+        &.activeColor {
+          color: var(--active-color);
+        }
         .indicator-icon {
           height: 12px;
           width: 12px;

@@ -37,6 +37,11 @@ const DarkModeTemplate = (args) => ({
 
 export const Default = Template.bind({});
 
+export const HasError = Template.bind({});
+HasError.args = {
+  errorMessage: "Error message",
+};
+
 export const DarkDefault = DarkModeTemplate.bind({});
 
 export const MaxIs10AndMinIs0 = Template.bind({});

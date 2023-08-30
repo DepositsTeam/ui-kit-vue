@@ -78,6 +78,11 @@ const DarkModeTemplateFactory = () => {
 
 export const Default = Template.bind({});
 
+export const HasError = Template.bind({});
+HasError.args = {
+  errorMessage: "Error message",
+};
+
 export const OneMb = Template.bind({});
 OneMb.args = {
   fileMaxSize: 1,
