@@ -132,6 +132,8 @@ const PreselectedVModelTemplate = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   label: "Form Label",
+  size: "huge",
+  options: ["Plastic off the sofa", "Flaccid gyroscopy"],
 };
 
 export const DarkModeDefault = DarkModeTemplateFactory();
