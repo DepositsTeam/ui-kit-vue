@@ -2,16 +2,16 @@
   <d-box>
     <d-textfield readonly v-model="payload.text" :size="size">
       <template #rightSection>
-        <d-box @click="copyCode" class="ui-copy-btn" cursor="pointer">
-          <copy-filled-icon height="30px" width="30px" class="ui-text-gray-500" />
+        <d-box @click="copyCode" class="copy-btn" cursor="pointer">
+          <copy-filled-icon height="30px" width="30px" class="text-gray-500" />
         </d-box>
       </template>
 
       <template #leftSection>
-        <d-box v-if="label" class="ui-label-text">
+        <d-box v-if="label" class="label-text">
           <d-text
             font-face="heroNew"
-            class="ui-text-gray-700 font-weight-700"
+            class="text-gray-700 font-weight-700"
             is="subhead"
           >
             {{ label }}
@@ -20,7 +20,7 @@
       </template>
     </d-textfield>
 
-    <d-text v-if="helperText" class="ui-helper__text">{{ helperText }}</d-text>
+    <d-text v-if="footnote" class="helper__text">{{ footnote }}</d-text>
   </d-box>
 </template>
 
@@ -37,7 +37,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  helperText: {
+  footnote: {
     type: String,
   },
   size: {
@@ -57,8 +57,7 @@ const copyCode = () => {
 </script>
 
 <style scoped>
-.ui-label-text {
-  border-radius: 0 6px 6px 0;
+.label-text {
   height: 100%;
   white-space: nowrap;
   background: linear-gradient(
@@ -67,7 +66,7 @@ const copyCode = () => {
       rgba(19, 48, 84, 0.03)
     ),
     #f7fafc;
-  border: 1px solid #e1e7ec;
+  border-right: 1px solid #e1e7ec;
   display: flex;
   padding: 6px 16px;
   justify-content: flex-end;
@@ -76,26 +75,24 @@ const copyCode = () => {
   flex-shrink: 0;
 }
 
-.ui-copy-btn {
+.copy-btn {
   background: linear-gradient(
       0deg,
       rgba(19, 48, 84, 0.03),
       rgba(19, 48, 84, 0.03)
     ),
     #f7fafc;
-  border: 1px solid #e1e7ec;
+  border-left: 1px solid #e1e7ec;
   height: 100%;
   display: flex;
-  width: 65px;
-  padding: 6px 12px;
+  padding: 6px 16px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  border-radius: 0 6px 6px 0;
 }
 
-.ui-helper__text {
+.helper__text {
   color: #2a2e33;
   font-family: Circular Std, sans-serif;
   font-size: 12px;

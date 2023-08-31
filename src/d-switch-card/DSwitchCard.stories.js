@@ -211,11 +211,8 @@ const FooterSlotTemplate = (args) => ({
   },
   template: `
     <d-switch-card v-model="value" value="value" v-bind="args">
-    <template #icon>
-      <card-icon />
-    </template>
       <template #footer>
-        <d-alert >I am an alert</d-alert>
+        <d-alert margin-top="16px" color-scheme="info" description="I am an alert" />
       </template>
     </d-switch-card>
     <p>Checkbox value is: {{value}}</p>
@@ -223,3 +220,7 @@ const FooterSlotTemplate = (args) => ({
 });
 
 export const FooterSlot = FooterSlotTemplate.bind({});
+FooterSlot.args = {
+  heading: "One time payment",
+  description: "Use this option to collect a one off payment",
+};

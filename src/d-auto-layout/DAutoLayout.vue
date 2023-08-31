@@ -90,10 +90,6 @@ const watchForWidthSwitch = () => {
   if (props.switchWidth) {
     shouldWidthSwitch.value =
       elem.value.$el.getBoundingClientRect().width <= props.switchWidth;
-    console.log(
-      elem.value.$el.getBoundingClientRect().width,
-      props.switchWidth
-    );
   }
 };
 

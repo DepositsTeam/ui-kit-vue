@@ -1,11 +1,11 @@
 <template>
-  <d-box class="ui-application__card">
-    <d-box class="ui-header">
-      <d-box is="img" class="ui-logo" :src="logo" :alt="label" />
-      <d-text class="ui-label" font-face="heroNew">{{ label }}</d-text>
-      <d-text class="ui-text" font-face="circularSTD">{{ text }}</d-text>
+  <d-box class="application__card">
+    <d-box class="header">
+      <d-box is="img" class="logo" :src="logo" :alt="title" />
+      <d-text class="label" font-face="heroNew">{{ title }}</d-text>
+      <d-text class="text" font-face="circularSTD">{{ description }}</d-text>
     </d-box>
-    <d-box class="ui-body">
+    <d-box class="body">
       <slot name="buttons">
         <d-button
           size="huge"
@@ -34,11 +34,11 @@ import { DBox, DText, DButton, ExternalLinkIcon } from "@/main";
 
 const emit = defineEmits(["connectClicked", "learnMoreClicked"]);
 defineProps({
-  label: {
+  title: {
     type: String,
     required: true,
   },
-  text: {
+  description: {
     type: String,
     required: true,
   },
@@ -58,7 +58,7 @@ defineProps({
 </script>
 
 <style scoped>
-.ui-application__card {
+.application__card {
   display: flex;
   padding: 16px;
   flex-direction: column;
@@ -67,18 +67,18 @@ defineProps({
   border-radius: 8px;
   border: 0.5px solid #e1e7ec;
 
-  .ui-header {
+  .header {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
-    .ui-logo {
+    .logo {
       width: 32px;
       height: 32px;
       border-radius: 50%;
     }
 
-    .ui-label {
+    .label {
       color: #1b1e21;
       font-size: 16px;
       font-style: normal;
@@ -87,7 +87,7 @@ defineProps({
       letter-spacing: 0.16px;
     }
 
-    .ui-text {
+    .text {
       color: #6d7786;
       font-size: 14px;
       font-style: normal;
@@ -97,7 +97,7 @@ defineProps({
     }
   }
 
-  .ui-body {
+  .body {
     display: flex;
     padding-top: 16px;
     align-items: flex-start;

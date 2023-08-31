@@ -305,7 +305,10 @@
                   my0
                   class="ui-table__body-cell-text"
                 >
-                  {{ transformDataWithColumnPipe(datum)[column.dataSelector] }}
+                  <!--                  {{ transformDataWithColumnPipe(datum)[column.dataSelector] }}-->
+                  {{
+                    transformColumnDisplayWithPipe(column.dataSelector, datum)
+                  }}
                 </d-text>
               </d-box>
               <d-box
@@ -472,12 +475,23 @@ const transformDataWithColumnPipe = (datum) => {
       columnHashmap.value[key].pipe &&
       typeof columnHashmap.value[key].pipe === "function"
     ) {
-      previousValue[key] = columnHashmap.value[key].pipe(datum[key]);
+      previousValue[key] = columnHashmap.value[key].pipe(datum[key], datum);
     } else {
       previousValue[key] = datum[key];
     }
     return previousValue;
   }, {});
+};
+
+const transformColumnDisplayWithPipe = (column, datum) => {
+  if (columnHashmap.value[column].pipe) {
+    if (datum[column]) {
+      return columnHashmap.value[column].pipe(datum[column], datum);
+    } else {
+      return columnHashmap.value[column].pipe(undefined, datum);
+    }
+  }
+  return datum[column];
 };
 
 const emitRowClickedEvent = (e, datum, index) => {

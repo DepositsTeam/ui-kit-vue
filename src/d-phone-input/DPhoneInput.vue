@@ -58,7 +58,7 @@
       v-if="localErrorMessage || errorMessage"
       class="ui-text-field__error"
     >
-      <ErrorIcon class="ui-text-field__error-icon" />
+      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
         scale="subhead"

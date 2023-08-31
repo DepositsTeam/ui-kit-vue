@@ -20,24 +20,27 @@
         >Previous</d-text
       >
     </d-box>
-    <d-box
-      v-for="(visiblePage, index) in visiblePages"
-      :key="`visiblePages_${index}`"
-      @click="updatePage(visiblePage)"
-      class="ui-pagination__page-number"
-      :class="{
-        'ui-pagination__page-number__active':
-          initializedCurrentPage === visiblePage,
-        smartColor,
-      }"
-    >
-      <d-text margin-y="0" font-face="circularSTD" scale="subhead">
-        {{ visiblePage }}
-      </d-text>
-    </d-box>
+    <d-auto-layout v-if="!hidePages" alignment="center-left" item-spacing="4px">
+      <d-box
+        v-for="(visiblePage, index) in visiblePages"
+        :key="`visiblePages_${index}`"
+        @click="updatePage(visiblePage)"
+        class="ui-pagination__page-number"
+        :class="{
+          'ui-pagination__page-number__active':
+            initializedCurrentPage === visiblePage,
+          smartColor,
+        }"
+      >
+        <d-text margin-y="0" font-face="circularSTD" scale="subhead">
+          {{ visiblePage }}
+        </d-text>
+      </d-box>
+    </d-auto-layout>
+
     <d-box
       class="ui-pagination__control"
-      :class="{ disabled: disableNext, smartColor }"
+      :class="{ disabled: disableNext, smartColor, hidePages }"
       @click="updatePage(initializedCurrentPage + 1)"
     >
       <d-text
@@ -62,6 +65,7 @@ import {
 import rangedArray from "../utils/rangedArray";
 import { getTextColor } from "../utils/colorManager";
 import { ref, computed, onMounted, watch } from "vue";
+import DAutoLayout from "@/d-auto-layout/DAutoLayout.vue";
 
 const emit = defineEmits(["page-changed"]);
 
@@ -80,6 +84,18 @@ const props = defineProps({
   },
   smartColor: {
     type: String,
+  },
+  hidePages: {
+    type: Boolean,
+  },
+  nextDisabled: {
+    type: Boolean,
+  },
+  prevDisabled: {
+    type: Boolean,
+  },
+  asyncPrevNext: {
+    type: Boolean,
   },
 });
 
@@ -142,10 +158,17 @@ const visiblePages = computed(() => {
   return renderedPages;
 });
 
-const disablePrev = computed(() => initializedCurrentPage.value === 1);
+const disablePrev = computed(
+  () =>
+    props.prevDisabled ||
+    (!props.asyncPrevNext && initializedCurrentPage.value === 1)
+);
 
 const disableNext = computed(
-  () => initializedCurrentPage.value === intTotalPages.value
+  () =>
+    props.nextDisabled ||
+    (!props.asyncPrevNext &&
+      initializedCurrentPage.value === intTotalPages.value)
 );
 
 onMounted(() => {
@@ -212,6 +235,10 @@ const updatePage = (page) => {
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  &.hidePages {
+    margin-left: 1rem;
+  }
 
   &.smartColor:not(.disabled) {
     .ui-pagination__text {

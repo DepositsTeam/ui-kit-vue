@@ -18,7 +18,11 @@
       class="ui-text-field__wrapper_wrapper"
       item-spacing="0"
       alignment="center-left"
-      :class="{ focused }"
+      :class="{
+        focused,
+        notVisible: invisible,
+        'has-error': showError || errorMessage,
+      }"
     >
       <d-box
         v-if="$slots.leftSection"
@@ -28,20 +32,16 @@
         <slot name="leftSection"></slot>
       </d-box>
       <d-box class="ui-text-field__input-wrapper">
-        <component
-          :is="leftIcon"
-          v-if="leftIcon"
-          class="ui-text-field__left-icon"
-          tabindex="-1"
-          @click="emitLeftIconClicked"
-        ></component>
         <d-box
-          v-else-if="$slots.leftIcon"
-          tabindex="-1"
+          v-if="leftIcon || $slots.leftIcon"
           class="ui-text-field__left-icon"
+          @click="emitLeftIconClicked"
         >
-          <slot name="leftIcon"></slot>
+          <slot name="leftIcon">
+            <component v-if="leftIcon" tabindex="-1" :is="leftIcon"></component>
+          </slot>
         </d-box>
+
         <d-box
           class="ui-text-field__input no-focus-hover-indicator"
           :class="{
@@ -99,14 +99,14 @@
           marginBottom="0"
           width="100%"
         />
-        <component
+        <d-box
+          v-if="showRightIcon || $slots.rightIcon"
           class="ui-text-field__right-icon"
-          v-if="showRightIcon"
-          :is="computedRightIcon"
           @click="emitRightIconClicked"
-        ></component>
-        <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
-          <slot name="rightIcon"></slot>
+        >
+          <slot name="rightIcon">
+            <component tabindex="-1" :is="computedRightIcon"></component>
+          </slot>
         </d-box>
       </d-box>
       <d-box
@@ -119,7 +119,7 @@
     </d-auto-layout>
 
     <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
-      <ErrorIcon class="ui-text-field__error-icon" />
+      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
         scale="subhead"

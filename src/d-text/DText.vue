@@ -8,6 +8,11 @@
       'equal-line-height': equalLineHeight,
       center,
       my0,
+      mt0,
+      mb0,
+      mx0,
+      ml0,
+      mr0,
       customFontWeight: fontWeight,
       customFontSize: fontSize,
       customLineHeight: lineHeight,
@@ -41,7 +46,6 @@ const props = defineProps({
   },
   fontFace: {
     type: String,
-    validator: (value) => ["heroNew", "circularSTD"].includes(value),
   },
   scale: {
     type: String,

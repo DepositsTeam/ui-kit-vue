@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.505",
+  "version": "0.0.512",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -51,20 +51,20 @@
     "vue3-apexcharts": "^1.4.1"
   },
   "peerDependencies": {
-    "vue-router": "^4.x",
-    "vue": "^3.x"
+    "vue": "^3.x",
+    "vue-router": "^4.x"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@cypress/vite-dev-server": "^5.0.4",
     "@cypress/vue": "^5.0.4",
     "@rushstack/eslint-patch": "^1.2.0",
-    "@storybook/addons": "^7.2.1",
     "@storybook/addon-actions": "^7.2.1",
     "@storybook/addon-essentials": "^7.2.1",
     "@storybook/addon-interactions": "^7.2.1",
     "@storybook/addon-links": "^7.2.1",
     "@storybook/addon-mdx-gfm": "^7.2.1",
+    "@storybook/addons": "^7.2.1",
     "@storybook/testing-library": "^0.2.0",
     "@storybook/theming": "^7.2.1",
     "@storybook/vue3": "^7.2.1",
@@ -87,7 +87,8 @@
     "storybook": "^7.2.1",
     "vite": "^4.1.4",
     "vitest": "^0.29.2",
-    "vue-loader": "^16.8.3"
+    "vue-loader": "^16.8.3",
+    "vue-router": "^4.2.4"
   },
   "license": "BSL-1.0",
   "author": "Deposits",

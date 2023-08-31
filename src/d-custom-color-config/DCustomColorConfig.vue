@@ -17,8 +17,8 @@
           <d-box
             class="ui-color_inner"
             :background="color"
-            :height="height"
-            :width="width"
+            :height="colorHeight"
+            :width="colorWidth"
             :border="`1.45px solid ${color}`"
           ></d-box>
         </d-box>
@@ -57,11 +57,11 @@ const props = defineProps({
   label: {
     type: String,
   },
-  height: {
+  colorHeight: {
     type: String,
     default: "28.997px",
   },
-  width: {
+  colorWidth: {
     type: String,
     default: "28.997px",
   },
