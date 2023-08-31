@@ -7,8 +7,12 @@ export const sort = (sortConfiguration, data) => {
         ? valueA - valueB
         : valueB - valueA;
     }
-    const valueA = a[sortConfiguration.column.dataSelector].toUpperCase();
-    const valueB = b[sortConfiguration.column.dataSelector].toUpperCase();
+    const valueA = (
+      "" + a[sortConfiguration.column.dataSelector]
+    ).toUpperCase();
+    const valueB = (
+      "" + b[sortConfiguration.column.dataSelector]
+    ).toUpperCase();
     if (valueA < valueB) {
       return sortConfiguration.direction === "asc" ? -1 : 1;
     }
