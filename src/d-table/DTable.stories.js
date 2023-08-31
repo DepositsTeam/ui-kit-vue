@@ -1363,6 +1363,7 @@ export const TestTableTwo = (args) => ({
         uppercase: true,
         sortable: true,
         filterable: true,
+        sortNumerically: true,
         width: "",
         minWidth: "",
         maxWidth: "",

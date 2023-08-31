@@ -1,3 +1,6 @@
+- **31st August, 2023 - Eric McWinNEr 😴**
+  - Fixed bug with sorting numbers alphabetically on the table
+  - Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
 - **30th August, 2023 - Eric McWinNEr 😴**
   - Updated text fields and select fields to add ellipsis when the container is too small
   - Fixed bug with select boxes not having rounded borders
