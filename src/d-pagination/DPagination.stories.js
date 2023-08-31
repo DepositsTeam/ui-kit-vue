@@ -64,3 +64,23 @@ const DarkModeTemplateFactory = () => {
 export const Default = Template.bind({});
 
 export const DarkDefault = DarkModeTemplateFactory();
+
+export const OnlyNextAndPrevAsync = Template.bind({});
+OnlyNextAndPrevAsync.args = {
+  hidePages: true,
+  asyncPrevNext: true,
+};
+
+export const DisabledPrevOnlyNextAndPrevAsync = Template.bind({});
+DisabledPrevOnlyNextAndPrevAsync.args = {
+  hidePages: true,
+  asyncPrevNext: true,
+  prevDisabled: true,
+};
+
+export const DisabledNextOnlyNextAndPrevAsync = Template.bind({});
+DisabledNextOnlyNextAndPrevAsync.args = {
+  hidePages: true,
+  asyncPrevNext: true,
+  nextDisabled: true,
+};

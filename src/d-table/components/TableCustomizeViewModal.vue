@@ -71,9 +71,6 @@ watch(
 watch(
   () => props.show,
   () => {
-    console.log("-------", props.show, "------");
-    console.log("Columns are", props.columns);
-    console.log("State is", state.value);
     hydrateState();
   }
 );

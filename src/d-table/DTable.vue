@@ -470,21 +470,13 @@ const exportCSVFunction = () => {
 
 const transformDataWithColumnPipe = (datum) => {
   return Object.keys(datum).reduce((previousValue, key) => {
-    console.log("Debugging key", key);
     if (
       columnHashmap.value[key] &&
       columnHashmap.value[key].pipe &&
       typeof columnHashmap.value[key].pipe === "function"
     ) {
-      if (key === "provider") {
-        console.log("Debugging pipe", key);
-      }
-
       previousValue[key] = columnHashmap.value[key].pipe(datum[key], datum);
     } else {
-      if (key === "provider") {
-        console.log("Debugging non-pipe", key);
-      }
       previousValue[key] = datum[key];
     }
     return previousValue;
