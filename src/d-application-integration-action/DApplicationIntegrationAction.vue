@@ -1,10 +1,10 @@
 <template>
-  <d-box class="application__card">
-    <d-box class="header">
-      <d-box class="left">
+  <d-box class="ui-application__card">
+    <d-box class="ui-header">
+      <d-box class="ui-left">
         <d-text font-face="circularSTD">{{ label }}</d-text>
       </d-box>
-      <d-box class="right">
+      <d-box class="ui-right">
         <d-button
           size="large"
           colorScheme="primary"
@@ -15,24 +15,24 @@
         </d-button>
       </d-box>
     </d-box>
-    <d-box class="body">
+    <d-box class="ui-body">
       <slot name="body">
         <d-box
-          class="card__body"
+          class="ui-card__body"
           v-for="(application, index) in applications"
           :key="`application__${index}`"
         >
-          <d-box class="left">
+          <d-box class="ui-left">
             <d-box
-              class="logo"
+              class="ui-logo"
               is="img"
               :src="application.logo"
               :alt="application.applicationName"
             ></d-box>
             <d-text>{{ application.applicationName }}</d-text>
           </d-box>
-          <d-box class="right">
-            <d-text class="text" font-face="circularSTD"
+          <d-box class="ui-right">
+            <d-text class="ui-text" font-face="circularSTD"
               >{{ application.dateConnected }}
             </d-text>
             <d-button
@@ -70,8 +70,8 @@ const revokeAccess = (application) => {
 </script>
 
 <style scoped>
-.application__card {
-  .header {
+.ui-application__card {
+  .ui-header {
     display: flex;
     padding: 16px 24px;
     justify-content: space-between;
@@ -80,7 +80,7 @@ const revokeAccess = (application) => {
     background: #fff;
     align-self: stretch;
 
-    .left {
+    .ui-left {
       color: #8c97a7;
       font-size: 14px;
       font-style: normal;
@@ -89,8 +89,8 @@ const revokeAccess = (application) => {
     }
   }
 
-  .body {
-    .card__body {
+  .ui-body {
+    .ui-card__body {
       display: flex;
       padding: 16px 24px;
       justify-content: space-between;
@@ -103,24 +103,24 @@ const revokeAccess = (application) => {
         border-radius: 0 0 8px 8px;
       }
 
-      .left {
+      .ui-left {
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .logo {
+        .ui-logo {
           width: 32px;
           height: 32px;
           border-radius: 50%;
         }
       }
 
-      .right {
+      .ui-right {
         display: flex;
         align-items: center;
         gap: 16px;
 
-        .text {
+        .ui-text {
           color: #8c97a7;
           font-size: 14px;
           font-style: normal;

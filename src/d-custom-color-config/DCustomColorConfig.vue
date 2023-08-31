@@ -4,9 +4,9 @@
       <d-text font-face="heroNew">{{ label }}</d-text>
     </d-box>
     <d-box margin-top="24px">
-      <d-box class="colors">
+      <d-box class="ui-colors">
         <d-box
-          class="color"
+          class="ui-color"
           @click="handleChangeEvents(color)"
           :border="`1px solid ${
             modelValue === color ? modelValue : 'transparent'
@@ -15,7 +15,7 @@
           :key="index"
         >
           <d-box
-            class="color_inner"
+            class="ui-color_inner"
             :background="color"
             :height="height"
             :width="width"
@@ -27,15 +27,15 @@
     <d-textfield
       readonly
       :size="size"
-      class="color__input__field"
+      class="ui-color__input__field"
       v-model="payload.activeColor"
       @click="copyCode"
       cursor="copy"
     >
       <template #rightSection>
-        <d-box class="color__input__field__right">
+        <d-box class="ui-color__input__field__right">
           <d-box
-            class="color__input__field__square"
+            class="ui-color__input__field__square"
             :background="modelValue"
             :border="`1px solid ${modelValue}`"
           ></d-box>
@@ -97,32 +97,32 @@ const copyCode = () => {
 </script>
 
 <style scoped lang="scss">
-.colors {
+.ui-colors {
   //background-color: red;
   display: flex;
   align-items: flex-start;
   gap: 18.848px;
   flex-wrap: wrap;
 
-  .color {
+  .ui-color {
     border-radius: 10.79px;
     padding: 3.924px;
     background: transparent;
     cursor: pointer;
 
-    .color_inner {
+    .ui-color_inner {
       border-radius: 7.847px;
     }
   }
 }
 
-.color__input__field {
+.ui-color__input__field {
   margin-top: 16px;
   width: 390px;
   border-radius: 4px;
   cursor: copy;
 
-  .color__input__field__right {
+  .ui-color__input__field__right {
     display: flex;
     height: 100%;
     width: 100%;
@@ -133,9 +133,9 @@ const copyCode = () => {
     border-radius: 0px 4px 4px 0px;
     border-left: 1px solid #ced6de;
     background: #fff;
-    box-shadow: 0px 1px 2px 0px rgba(63, 63, 68, 0.1);
+    box-shadow: 0 1px 2px 0px rgba(63, 63, 68, 0.1);
 
-    .color__input__field__square {
+    .ui-color__input__field__square {
       width: 20px;
       height: 20px;
       flex-shrink: 0;

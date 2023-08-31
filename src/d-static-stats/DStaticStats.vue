@@ -1,28 +1,30 @@
 <template>
-  <d-box class="box">
-    <d-box class="header">
-      <d-box class="image__circle">
+  <d-box class="ui-box">
+    <d-box class="ui-header">
+      <d-box class="ui-image__circle">
         <slot name="icon">
-          <d-box class="icon">
+          <d-box class="ui-icon">
             <component :is="icon" />
           </d-box>
         </slot>
       </d-box>
-      <d-text class="title" font-face="circularSTD"> {{ label }}</d-text>
+      <d-text class="ui-card__title" font-face="circularSTD">
+        {{ label }}</d-text
+      >
     </d-box>
-    <d-box class="body">
-      <d-box class="boxes">
+    <d-box class="ui-body">
+      <d-box class="ui-boxes">
         <d-box
-          class="body__box"
+          class="ui-body__box"
           :key="`collection__${index}`"
           v-for="(collection, index) in collections"
         >
-          <d-text class="title" font-face="circularSTD">
+          <d-box class="ui-title" font-face="circularSTD">
             {{ collection.title }}
-          </d-text>
-          <d-text class="text" font-face="circularSTD">
+          </d-box>
+          <d-box class="ui-text" font-face="circularSTD">
             {{ collection.text }}
-          </d-text>
+          </d-box>
         </d-box>
       </d-box>
     </d-box>
@@ -49,20 +51,20 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-.box {
+.ui-box {
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 2px 6px 0 rgba(174, 174, 192, 0.1);
   padding: 14px 24px 24px 24px;
 
-  .header {
+  .ui-header {
     display: flex;
     align-items: center;
     gap: 8px;
     border-bottom: 1px solid #e1e7ec;
     padding-bottom: 10px;
 
-    .image__circle {
+    .ui-image__circle {
       width: 36px;
       height: 36px;
       flex-shrink: 0;
@@ -72,7 +74,7 @@ defineProps({
       justify-content: center;
       align-items: center;
 
-      .icon {
+      .ui-icon {
         display: flex;
         width: 19.2px;
         height: 19.2px;
@@ -83,7 +85,7 @@ defineProps({
       }
     }
 
-    .title {
+    .ui-card__title {
       color: #2a2e33;
       font-size: 16px;
       font-style: normal;
@@ -93,23 +95,23 @@ defineProps({
     }
   }
 
-  .body {
+  .ui-body {
     margin-top: 24px;
 
-    .boxes {
+    .ui-boxes {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       display: grid;
       justify-content: space-between;
       align-items: flex-end;
       grid-gap: 50px;
 
-      .body__box {
+      .ui-body__box {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
 
-        .title {
+        .ui-title {
           color: #8c97a7;
           font-size: 16px;
           font-style: normal;
@@ -118,7 +120,7 @@ defineProps({
           margin: 0;
         }
 
-        .text {
+        .ui-text {
           color: #2a2e33;
           font-size: 18px;
           font-style: normal;

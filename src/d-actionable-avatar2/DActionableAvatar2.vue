@@ -1,15 +1,15 @@
 <template>
-  <d-box class="action__card">
-    <d-box class="header">
-      <d-text class="title" font-face="circularSTD">Unpaid Invoices</d-text>
+  <d-box class="ui-action__card">
+    <d-box class="ui-header">
+      <d-text class="ui-title" font-face="circularSTD">Unpaid Invoices</d-text>
       <d-button color-scheme="outline" size="large">See all</d-button>
     </d-box>
-    <d-box class="body">
-      <d-box class="left">
-        <d-text class="title" font-face="circularSTD">Overdue</d-text>
-        <d-text class="text" font-face="circularSTD">16 ($41,350.56)</d-text>
+    <d-box class="ui-body">
+      <d-box class="ui-left">
+        <d-text class="ui-title" font-face="circularSTD">Overdue</d-text>
+        <d-text class="ui-text" font-face="circularSTD">16 ($41,350.56)</d-text>
       </d-box>
-      <d-box class="right">
+      <d-box class="ui-right">
         <d-avatar
           :subtle="true"
           size="huge"
@@ -19,12 +19,12 @@
         ></d-avatar>
       </d-box>
     </d-box>
-    <d-box class="footer">
+    <d-box class="ui-footer">
       <d-button color-scheme="primary" size="large">
         Send reminder
 
         <template #rightIcon>
-          <d-box class="right__icon">
+          <d-box class="ui-right__icon">
             <setting2-filled-icon />
           </d-box>
         </template>
@@ -83,7 +83,7 @@ const avatars = ref([
 </script>
 
 <style scoped>
-.action__card {
+.ui-action__card {
   display: flex;
   padding: 11px 0px;
   flex-direction: column;
@@ -93,7 +93,7 @@ const avatars = ref([
   background: #fff;
   box-shadow: 0px 1px 5px 0px rgba(63, 63, 68, 0.1);
 
-  .header {
+  .ui-header {
     display: flex;
     padding: 8px 32px;
     justify-content: space-between;
@@ -101,7 +101,7 @@ const avatars = ref([
     align-self: stretch;
     border-bottom: 1px solid #e2e8f0;
 
-    .title {
+    .ui-title {
       color: #4f627d;
       font-size: 16px;
       font-style: normal;
@@ -111,7 +111,7 @@ const avatars = ref([
     }
   }
 
-  .body {
+  .ui-body {
     display: flex;
     padding: 0px 32px 16px 32px;
     justify-content: space-between;
@@ -119,13 +119,13 @@ const avatars = ref([
     align-self: stretch;
     border-bottom: 0.5px solid #e1e7ec;
 
-    .left {
+    .ui-left {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
 
-      .title {
+      .ui-title {
         color: #8c97a7;
         font-size: 16px;
         font-style: normal;
@@ -133,7 +133,7 @@ const avatars = ref([
         line-height: normal;
       }
 
-      .text {
+      .ui-text {
         color: #2a2e33;
         font-size: 20px;
         font-style: normal;
@@ -143,14 +143,14 @@ const avatars = ref([
     }
   }
 
-  .footer {
+  .ui-footer {
     display: flex;
     padding: 10px 32px;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
 
-    .right__icon {
+    .ui-right__icon {
       display: flex;
       height: 100%;
       width: 48px;
