@@ -4,16 +4,31 @@ export default {
   title: "Actionable Avatar 2",
   component: DActionableAvatar2,
   argTypes: {
-    label: {
+    heading: {
       control: { type: "text" },
     },
-    text: {
+    title: {
       control: { type: "text" },
     },
-    helperText: {
+    description: {
       control: { type: "text" },
     },
-    size: {
+    headerButtonText: {
+      control: { type: "text" },
+    },
+    footerButtonText: {
+      control: { type: "text" },
+    },
+    noOfVisibleAvatars: {
+      control: { type: "number" },
+    },
+    isAvatarSubtle: {
+      control: { type: "boolean" },
+    },
+    avatars: {
+      control: { type: "object" },
+    },
+    buttonSizes: {
       control: { type: "select" },
       options: ["small", "medium", "large", "xlarge", "huge", "massive"],
     },
@@ -28,12 +43,44 @@ const Template = (args) => ({
     return { args };
   },
   template: `
-    <d-actionable-avatar2 v-bind="args"/>`,
+      <d-actionable-avatar2 v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Demo Key",
-  text: "dk_17j48r8qnxq9984w9429uqcwur09quw0r",
-  helperText: "**Use this key in public places such as our JS web sdk.",
+  heading: "UNPAID INVOICES",
+  title: "Overdue",
+  description: "16 ($41,350.56)",
+  headerButtonText: "See all",
+  footerButtonText: "Send reminder",
+  noOfVisibleAvatars: 6,
+  isAvatarSubtle: true,
+  avatars: [
+    {
+      name: "John",
+    },
+    {
+      imgURL:
+        "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+    },
+    {
+      name: "Saviour",
+    },
+    {
+      name: "June",
+    },
+    {
+      imgURL:
+        "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+    },
+    {
+      name: "Nora",
+    },
+    {
+      name: "Presh",
+    },
+    {
+      name: "Master",
+    },
+  ],
 };

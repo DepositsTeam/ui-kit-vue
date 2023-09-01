@@ -1,85 +1,101 @@
 <template>
   <d-box class="ui-action__card">
     <d-box class="ui-header">
-      <d-text class="ui-title" font-face="circularSTD">Unpaid Invoices</d-text>
-      <d-button color-scheme="outline" size="large">See all</d-button>
+      <slot name="header">
+        <d-text class="ui-title" font-face="circularSTD">{{ heading }}</d-text>
+        <slot name="headerButton">
+          <d-button
+            color-scheme="outline"
+            :size="buttonSizes"
+            @click="emit('headerButtonClicked')"
+            >{{ headerButtonText }}
+          </d-button>
+        </slot>
+      </slot>
     </d-box>
     <d-box class="ui-body">
-      <d-box class="ui-left">
-        <d-text class="ui-title" font-face="circularSTD">Overdue</d-text>
-        <d-text class="ui-text" font-face="circularSTD">16 ($41,350.56)</d-text>
-      </d-box>
-      <d-box class="ui-right">
-        <d-avatar
-          :subtle="true"
-          size="huge"
-          :avatars="avatars"
-          :stacked="true"
-          :visible-avatars="4"
-        ></d-avatar>
-      </d-box>
+      <slot name="body">
+        <d-box class="ui-left">
+          <d-box class="ui-title" font-face="circularSTD">{{ title }}</d-box>
+          <d-box class="ui-text" font-face="circularSTD"
+            >{{ description }}
+          </d-box>
+        </d-box>
+        <d-box class="ui-right">
+          <slot name="avatar">
+            <d-avatar
+              :subtle="isAvatarSubtle"
+              size="huge"
+              :avatars="avatars"
+              :stacked="true"
+              :visible-avatars="noOfVisibleAvatars"
+            ></d-avatar>
+          </slot>
+        </d-box>
+      </slot>
     </d-box>
     <d-box class="ui-footer">
-      <d-button color-scheme="primary" size="large">
-        Send reminder
+      <slot name="footer">
+        <d-button
+          color-scheme="primary"
+          :size="buttonSizes"
+          @click="emit('footerButtonClicked')"
+        >
+          {{ footerButtonText }}
 
-        <template #rightIcon>
-          <d-box class="ui-right__icon">
-            <setting2-filled-icon />
-          </d-box>
-        </template>
-      </d-button>
+          <template #rightIcon>
+            <d-box class="ui-right__icon">
+              <setting2-filled-icon />
+            </d-box>
+          </template>
+        </d-button>
+      </slot>
     </d-box>
   </d-box>
 </template>
 
 <script setup>
 import { DBox, DText, DAvatar, Setting2FilledIcon, DButton } from "@/main";
-import copy from "copy-to-clipboard";
-import { reactive, ref } from "vue";
 
-const props = defineProps({
-  label: {
-    type: String,
-  },
-  text: {
+defineProps({
+  heading: {
     type: String,
     required: true,
   },
-  helperText: {
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  footerButtonText: {
+    type: String,
+    required: true,
+  },
+  headerButtonText: {
+    type: String,
+    required: true,
+  },
+  buttonSizes: {
     type: String,
   },
-  size: {
-    type: String,
+  isAvatarSubtle: {
+    type: Boolean,
+    default: true,
+  },
+  noOfVisibleAvatars: {
+    type: Number,
+    default: 4,
+  },
+  avatars: {
+    type: Array,
+    required: true,
   },
 });
 
-const avatars = ref([
-  {
-    name: "John",
-  },
-  {
-    name: "Nelly",
-  },
-  {
-    name: "Saviour",
-  },
-  {
-    name: "June",
-  },
-  {
-    name: "Dave",
-  },
-  {
-    name: "Nora",
-  },
-  {
-    name: "Presh",
-  },
-  {
-    name: "Master",
-  },
-]);
+const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
 </script>
 
 <style scoped>
@@ -159,14 +175,7 @@ const avatars = ref([
       gap: 10px;
       align-self: stretch;
       border-radius: 0px 6px 6px 0px;
-      //border: 1px solid rgba(0, 0, 0, 0.05);
-      //background: linear-gradient(
-      //    0deg,
-      //    rgba(0, 0, 0, 0.15) 0%,
-      //    rgba(0, 0, 0, 0.15) 100%
-      //  ),
-      //  var(--light);
-      //box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.05);
+      //border: 1px solid rgba(0, 0, 0, 0.05); //background: linear-gradient( //    0deg, //    rgba(0, 0, 0, 0.15) 0%, //    rgba(0, 0, 0, 0.15) 100% //  ), //  var(--light); //box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.05);
     }
   }
 }

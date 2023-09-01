@@ -3,27 +3,40 @@
     <d-box class="ui-header">
       <d-box class="ui-left">
         <d-box class="ui-header__title">
-          <d-text class="ui-title">Platinum</d-text>
-          <d-text class="ui-gray__text">(ID: 001)</d-text>
+          <d-text class="ui-title">{{ title }}</d-text>
+          <d-text v-if="subTitle" class="ui-gray__text">{{ subTitle }}</d-text>
         </d-box>
-        <d-text class="ui-text">7 Tenants</d-text>
+        <d-text class="ui-text">{{ description }}</d-text>
       </d-box>
       <d-box class="ui-right">
-        <d-avatar
-          :subtle="true"
-          size="huge"
-          :avatars="avatars"
-          :stacked="true"
-          :visible-avatars="4"
-        ></d-avatar>
+        <slot name="avatarSection">
+          <d-avatar
+            :subtle="isAvatarSubtle"
+            size="huge"
+            :avatars="avatars"
+            :stacked="true"
+            :visible-avatars="noOfVisibleAvatars"
+          />
+        </slot>
       </d-box>
     </d-box>
     <slot name="footer">
       <d-box class="ui-footer">
-        <d-box class="ui-button">+ Add tenants</d-box>
+        <slot name="addButton">
+          <d-button
+            @click="emit('buttonClicked')"
+            :size="buttonSize"
+            color-scheme="invisible"
+            >{{ buttonText }}
+          </d-button>
+        </slot>
         <d-box class="ui-icons">
-          <edit2-icon class="ui-icon" />
-          <delete-icon class="ui-icon" />
+          <slot name="editIcon">
+            <edit2-icon class="ui-icon" @click="emit('editClicked')" />
+          </slot>
+          <slot name="deleteIcon">
+            <delete-icon class="ui-icon" @click="emit('deleteClicked')" />
+          </slot>
         </d-box>
       </d-box>
     </slot>
@@ -31,51 +44,43 @@
 </template>
 
 <script setup>
-import { DBox, DText, DAvatar, Edit2Icon, DeleteIcon } from "@/main";
-import { ref } from "vue";
+import { DBox, DText, DAvatar, Edit2Icon, DeleteIcon, DButton } from "@/main";
 
 defineProps({
-  label: {
-    type: String,
-  },
-  text: {
+  title: {
     type: String,
     required: true,
   },
-  helperText: {
+  description: {
+    type: String,
+    required: true,
+  },
+  subTitle: {
+    type: String,
+    required: true,
+  },
+  buttonText: {
+    type: String,
+    required: true,
+  },
+  isAvatarSubtle: {
+    type: Boolean,
+    default: true,
+  },
+  buttonSize: {
     type: String,
   },
-  size: {
-    type: String,
+  noOfVisibleAvatars: {
+    type: Number,
+    default: 4,
+  },
+  avatars: {
+    type: Array,
+    required: true,
   },
 });
 
-const avatars = ref([
-  {
-    name: "John",
-  },
-  {
-    name: "Nelly",
-  },
-  {
-    name: "Saviour",
-  },
-  {
-    name: "June",
-  },
-  {
-    name: "Dave",
-  },
-  {
-    name: "Nora",
-  },
-  {
-    name: "Presh",
-  },
-  {
-    name: "Master",
-  },
-]);
+const emit = defineEmits(["editClicked", "deleteClicked", "buttonClicked"]);
 </script>
 
 <style scoped>
@@ -166,6 +171,7 @@ const avatars = ref([
         align-items: center;
         flex-shrink: 0;
         color: #8c97a7;
+        cursor: pointer;
       }
     }
   }
