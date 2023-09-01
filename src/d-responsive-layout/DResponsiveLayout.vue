@@ -25,6 +25,8 @@ defineProps({
   margin: 0 auto;
   padding: 0 16px;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   &.full {
     padding: 0;
