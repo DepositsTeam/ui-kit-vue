@@ -33,6 +33,18 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  hidePages: {
+    type: Boolean,
+  },
+  nextDisabled: {
+    type: Boolean,
+  },
+  prevDisabled: {
+    type: Boolean,
+  },
+  asyncPrevNext: {
+    type: Boolean,
+  },
   columns: {
     type: Array,
   },

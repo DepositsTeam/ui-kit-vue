@@ -15,6 +15,7 @@ export default class Column {
     excludeFromCSV = false,
     position = "left",
     visible = true,
+    noWrap = false,
   } = {}) {
     this.display = display;
     this.dataSelector = dataSelector;
@@ -30,5 +31,6 @@ export default class Column {
     this.visible = visible;
     this.fixed = fixed;
     this.uuid = uniqueRandomString(30, 8);
+    this.noWrap = noWrap;
   }
 }
