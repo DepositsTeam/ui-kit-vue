@@ -304,6 +304,7 @@
                   v-else
                   my0
                   class="ui-table__body-cell-text"
+                  :class="{ noWrap: column.noWrap }"
                 >
                   <!--                  {{ transformDataWithColumnPipe(datum)[column.dataSelector] }}-->
                   {{
@@ -349,6 +350,10 @@
           :current-page-siblings="currentPageSiblings"
           @page-changed="handlePageChange"
           :smart-color="smartColor"
+          :hide-pages="hidePages"
+          :next-disabled="nextDisabled"
+          :prev-disabled="prevDisabled"
+          :async-prev-next="asyncPrevNext"
         />
       </d-box>
       <table-customize-view-modal
@@ -1086,6 +1091,10 @@ const validateBackground = (background, index) => {
       .ui-table__body-cell-text {
         color: #3f3e4d;
         font-size: 16px;
+
+        &.noWrap {
+          white-space: nowrap;
+        }
 
         &.dark_mode {
           color: #f1f5f9;

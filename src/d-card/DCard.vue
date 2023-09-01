@@ -183,11 +183,11 @@ const { computedMargin, computedWidth } = useWrapperProps(props);
 
   &.shouldHover:hover,
   &.selected {
-    border: 1px solid #0db9e9;
+    border: 1px solid var(--light-primary-color);
     &.dark_mode {
       .ui-card__icon {
         &.dark_mode {
-          color: #0db9e9;
+          color: var(--dark-primary-color);
         }
       }
     }
@@ -202,10 +202,13 @@ const { computedMargin, computedWidth } = useWrapperProps(props);
 }
 
 .state__selected {
-  border: 1px solid #0db9e9;
+  border: 1px solid var(--light-primary-color);
   color: #212934;
   transition-property: color;
   transition-duration: 0.5s;
+  &.dark_mode {
+    border-color: var(--dark-primary-color);
+  }
 }
 
 .ui-card__content {

@@ -9,7 +9,7 @@
     <d-box
       :class="{ disabled: disablePrev, smartColor }"
       class="ui-pagination__control"
-      @click="updatePage(initializedCurrentPage - 1)"
+      @click="updatePage(initializedCurrentPage - 1, true)"
     >
       <ChevronArrowLeftIcon class="ui-pagination__left-arrow" />
       <d-text
@@ -41,7 +41,7 @@
     <d-box
       class="ui-pagination__control"
       :class="{ disabled: disableNext, smartColor, hidePages }"
-      @click="updatePage(initializedCurrentPage + 1)"
+      @click="updatePage(initializedCurrentPage + 1, false)"
     >
       <d-text
         class="ui-pagination__text-next ui-pagination__text"
@@ -175,14 +175,24 @@ onMounted(() => {
   initializedCurrentPage.value = intCurrentPage.value;
 });
 
-const updatePage = (page) => {
-  if (page === "...") return;
-  page = parseInt(page);
-  if (page > intTotalPages.value || page < 1 || isNaN(page)) {
-    return;
+const updatePage = (page, nextPrev = undefined) => {
+  if (nextPrev !== undefined && props.asyncPrevNext) {
+    if (nextPrev && disablePrev.value) {
+      return;
+    } else if (!nextPrev && disableNext.value) {
+      return;
+    } else {
+      emit("page-changed", nextPrev ? "previous" : "next");
+    }
+  } else {
+    if (page === "...") return;
+    page = parseInt(page);
+    if (page > intTotalPages.value || page < 1 || isNaN(page)) {
+      return;
+    }
+    initializedCurrentPage.value = page;
+    emit("page-changed", page);
   }
-  initializedCurrentPage.value = page;
-  emit("page-changed", page);
 };
 </script>
 
