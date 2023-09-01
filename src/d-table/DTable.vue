@@ -172,10 +172,11 @@
 
       <d-box
         ref="currentTable"
+        @scroll="watchScroll"
         class="ui-table__wrapper"
         :class="{ falseHeight: loading && paginatedData.length < 3 }"
       >
-        <d-box v-if="loading" class="ui-table-loader">
+        <d-box ref="tableLoader" v-if="loading" class="ui-table-loader">
           <d-loader :loader="loaderType" />
         </d-box>
         <d-box is="table" ref="tableElem" class="ui-table">
@@ -447,6 +448,8 @@ const isExpanded = ref(false);
 
 const currentTable = ref(null);
 
+const tableLoader = ref(null);
+
 const viewportShrunkToMobile = ref(false);
 
 const expandedData = ref(null);
@@ -454,6 +457,10 @@ const expandedData = ref(null);
 const internalCurrentPage = ref(props.currentPage);
 
 const { exportCsv } = useCsvExport(props.generatedCsvName);
+
+const watchScroll = (e) => {
+  tableLoader.value.$el.style.left = e.target.scrollLeft + 'px';
+};
 
 const columnHashmap = computed(() => {
   const hashMap = {};
@@ -1119,13 +1126,14 @@ const validateBackground = (background, index) => {
         position: absolute;
         top: 0;
         left: 0;
+        bottom: 0;
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
-        z-index: 9;
+        z-index: 31;
         .ui-d-loader {
           position: relative;
           z-index: 9;
