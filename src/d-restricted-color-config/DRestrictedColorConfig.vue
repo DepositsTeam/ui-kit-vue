@@ -13,7 +13,7 @@
       <d-box
         v-for="(color, index) in colors"
         :key="`color_${index}`"
-        class="radio-element"
+        class="ui-radio-element"
       >
         <input
           type="radio"
@@ -23,7 +23,7 @@
         <d-box
           is="label"
           :for="color.colorCode"
-          class="radio-body"
+          class="ui-radio-body"
           :border="
             modelValue === color.colorCode
               ? `2px solid ${color.colorCode}`
@@ -32,7 +32,7 @@
           cursor="pointer"
         >
           <d-box
-            class="radio-circle"
+            class="ui-radio-circle"
             :background="color.colorCode"
             :border="`1px solid ${color.colorCode}`"
           ></d-box>
@@ -72,27 +72,27 @@ const handleChangeEvents = (color) => emit("update:modelValue", color);
 </script>
 
 <style scoped lang="scss">
-.radio-element {
+.ui-radio-element {
   position: relative;
-}
 
-.radio-element input {
-  display: none;
-}
+  input {
+    display: none;
+  }
 
-.radio-element .radio-body .radio-circle {
-  height: 25px;
-  width: 25px;
-  border-radius: 100%;
-  margin-right: 10px;
-}
+  .ui-radio-body {
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: 450;
+    transition: 0.3s ease-in-out;
 
-.radio-element .radio-body {
-  padding: 10px 20px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  font-weight: 450;
-  transition: 0.3s ease-in-out;
+    .ui-radio-circle {
+      height: 25px;
+      width: 25px;
+      border-radius: 100%;
+      margin-right: 10px;
+    }
+  }
 }
 </style>

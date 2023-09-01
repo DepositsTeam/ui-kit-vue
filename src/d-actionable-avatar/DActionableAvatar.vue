@@ -1,14 +1,14 @@
 <template>
-  <d-box class="action__card">
-    <d-box class="header">
-      <d-box class="left">
-        <d-box class="header__title">
-          <d-text class="title">Platinum</d-text>
-          <d-text class="gray__text">(ID: 001)</d-text>
+  <d-box class="ui-action__card">
+    <d-box class="ui-header">
+      <d-box class="ui-left">
+        <d-box class="ui-header__title">
+          <d-text class="ui-title">Platinum</d-text>
+          <d-text class="ui-gray__text">(ID: 001)</d-text>
         </d-box>
-        <d-text class="text">7 Tenants</d-text>
+        <d-text class="ui-text">7 Tenants</d-text>
       </d-box>
-      <d-box class="right">
+      <d-box class="ui-right">
         <d-avatar
           :subtle="true"
           size="huge"
@@ -19,11 +19,11 @@
       </d-box>
     </d-box>
     <slot name="footer">
-      <d-box class="footer">
-        <d-box class="button">+ Add tenants</d-box>
-        <d-box class="icons">
-          <edit2-icon class="icon" />
-          <delete-icon class="icon" />
+      <d-box class="ui-footer">
+        <d-box class="ui-button">+ Add tenants</d-box>
+        <d-box class="ui-icons">
+          <edit2-icon class="ui-icon" />
+          <delete-icon class="ui-icon" />
         </d-box>
       </d-box>
     </slot>
@@ -32,10 +32,9 @@
 
 <script setup>
 import { DBox, DText, DAvatar, Edit2Icon, DeleteIcon } from "@/main";
-import copy from "copy-to-clipboard";
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 
-const props = defineProps({
+defineProps({
   label: {
     type: String,
   },
@@ -77,20 +76,10 @@ const avatars = ref([
     name: "Master",
   },
 ]);
-
-const payload = reactive({
-  text: props.text,
-});
-
-const copyCode = () => {
-  copy(props.text);
-
-  alert("Text copied successfully!");
-};
 </script>
 
 <style scoped>
-.action__card {
+.ui-action__card {
   display: flex;
   padding: 20px 16px 16px 16px;
   flex-direction: column;
@@ -100,24 +89,24 @@ const copyCode = () => {
   border: 1px solid #e1e7ec;
   background: #fff;
 
-  .header {
+  .ui-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 
-    .left {
+    .ui-left {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
 
-      .header__title {
+      .ui-header__title {
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .title {
+        .ui-title {
           color: #2a2e33;
           text-align: center;
           font-family: Circular Std;
@@ -128,8 +117,8 @@ const copyCode = () => {
           letter-spacing: 0.14px;
         }
 
-        .gray__text {
-          color: var(--colors-neutral-500, var(--color-grey-500, #8c97a7));
+        .ui-gray__text {
+          color: #8c97a7;
           text-align: center;
           font-family: Hero New;
           font-size: 12px;
@@ -142,13 +131,13 @@ const copyCode = () => {
     }
   }
 
-  .footer {
+  .ui-footer {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
 
-    .button {
+    .ui-button {
       display: flex;
       padding: 16px;
       align-items: center;
@@ -164,12 +153,12 @@ const copyCode = () => {
       cursor: pointer;
     }
 
-    .icons {
+    .ui-icons {
       display: flex;
       align-items: flex-start;
       gap: 10px;
 
-      .icon {
+      .ui-icon {
         display: flex;
         width: 24px;
         height: 24px;

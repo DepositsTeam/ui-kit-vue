@@ -2,16 +2,16 @@
   <d-box>
     <d-textfield readonly v-model="payload.text" :size="size">
       <template #rightSection>
-        <d-box @click="copyCode" class="copy-btn" cursor="pointer">
-          <copy-filled-icon height="30px" width="30px" class="text-gray-500" />
+        <d-box @click="copyCode" class="ui-copy-btn" cursor="pointer">
+          <copy-filled-icon height="30px" width="30px" class="ui-text-gray-500" />
         </d-box>
       </template>
 
       <template #leftSection>
-        <d-box v-if="label" class="label-text">
+        <d-box v-if="label" class="ui-label-text">
           <d-text
             font-face="heroNew"
-            class="text-gray-700 font-weight-700"
+            class="ui-text-gray-700 font-weight-700"
             is="subhead"
           >
             {{ label }}
@@ -20,7 +20,7 @@
       </template>
     </d-textfield>
 
-    <d-text v-if="footnote" class="helper__text">{{ footnote }}</d-text>
+    <d-text v-if="footnote" class="ui-helper__text">{{ footnote }}</d-text>
   </d-box>
 </template>
 
@@ -57,7 +57,7 @@ const copyCode = () => {
 </script>
 
 <style scoped>
-.label-text {
+.ui-label-text {
   height: 100%;
   white-space: nowrap;
   background: linear-gradient(
@@ -75,7 +75,7 @@ const copyCode = () => {
   flex-shrink: 0;
 }
 
-.copy-btn {
+.ui-copy-btn {
   background: linear-gradient(
       0deg,
       rgba(19, 48, 84, 0.03),
@@ -92,7 +92,7 @@ const copyCode = () => {
   flex-shrink: 0;
 }
 
-.helper__text {
+.ui-helper__text {
   color: #2a2e33;
   font-family: Circular Std, sans-serif;
   font-size: 12px;
