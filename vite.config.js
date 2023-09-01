@@ -20,6 +20,7 @@ export default defineConfig({
         // Add external deps here
         globals: {
           vue: "Vue",
+          "vue-router": "$router",
         },
       },
     },
