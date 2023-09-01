@@ -1,7 +1,11 @@
+- **01st September, 2023 - Eric McWinNEr 😴**
+  - Added a nowrap property to the column definitions for tables
 - **31st August, 2023 - Eric McWinNEr 😴**
   - Fixed bug with sorting numbers alphabetically on the table
   - Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
   - Updated the pagination component to work with only Next and Previous and created an asynchronous mode for the NextPrevious mode
+  - Updated the card borders to use the primary color set from the theming engine
+  - Update the table to accept the new props the pagination component accepts
 - **30th August, 2023 - Eric McWinNEr 😴**
   - Updated text fields and select fields to add ellipsis when the container is too small
   - Fixed bug with select boxes not having rounded borders
