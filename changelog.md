@@ -1,3 +1,5 @@
+- **04th September, 2023 - Eric McWinNEr 😴**
+  - Added `renderAtRoot` prop to loader to render slots at the root without a wrapping div
 - **01st September, 2023 - Eric McWinNEr 😴**
   - Added a nowrap property to the column definitions for tables
   - Fixed bug with fixed columns appearing ontop of the loader
