@@ -1,7 +1,10 @@
+- **04th September, 2023 - Eric McWinNEr 😴**
+  - Added `renderAtRoot` prop to loader to render slots at the root without a wrapping div
 - **01st September, 2023 - Eric McWinNEr 😴**
   - Added a nowrap property to the column definitions for tables
   - Fixed bug with fixed columns appearing ontop of the loader
   - Fixed bug with loader sliding to the left when the table is scrolled
+  - Made a fix to the responsive layouts to properly center columns
 - **31st August, 2023 - Eric McWinNEr 😴**
   - Fixed bug with sorting numbers alphabetically on the table
   - Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
