@@ -224,7 +224,6 @@ DarkModeSearch.args = {
 
 export const Checkboxes = Template.bind({});
 Checkboxes.args = {
-  search: true,
   columns: sitcomColumns,
   data,
   showCheckboxes: true,
@@ -232,10 +231,16 @@ Checkboxes.args = {
 
 export const DarkModeCheckboxes = DarkModeTemplateFactory();
 DarkModeCheckboxes.args = {
-  search: true,
   showCheckboxes: true,
   columns: sitcomColumns,
   data,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  columns: sitcomColumns,
+  data,
+  loading: true,
 };
 
 export const ButtonActions = Template.bind({});

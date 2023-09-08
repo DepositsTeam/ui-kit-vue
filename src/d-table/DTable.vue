@@ -459,7 +459,9 @@ const internalCurrentPage = ref(props.currentPage);
 const { exportCsv } = useCsvExport(props.generatedCsvName);
 
 const watchScroll = (e) => {
-  tableLoader.value.$el.style.left = e.target.scrollLeft + 'px';
+  if (tableLoader?.value?.$el && props.loading) {
+    tableLoader.value.$el.style.left = e.target.scrollLeft + "px";
+  }
 };
 
 const columnHashmap = computed(() => {

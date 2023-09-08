@@ -1,115 +1,121 @@
+- **08th September, 2023 - Eric McWinNEr 😴**
+  - Feature: Fixed bug with table crashing on horizontal scroll when the table isn't loading
+  - Chore: Updated changelog to use tags - `Feature`, `Bugfix`, `Chore`
+  - Chore: Updated table stories
+    - Created a loading story
+    - Updated checkbox story to remove search
 - **04th September, 2023 - Eric McWinNEr 😴**
-  - Added `renderAtRoot` prop to loader to render slots at the root without a wrapping div
+  - Feature: Added `renderAtRoot` prop to loader to render slots at the root without a wrapping div
 - **01st September, 2023 - Eric McWinNEr 😴**
-  - Added a nowrap property to the column definitions for tables
-  - Fixed bug with fixed columns appearing ontop of the loader
-  - Fixed bug with loader sliding to the left when the table is scrolled
-  - Made a fix to the responsive layouts to properly center columns
+  - Feature: Added a nowrap property to the column definitions for tables
+  - Bugfix: Fixed bug with fixed columns appearing ontop of the loader
+  - Bugfix: Fixed bug with loader sliding to the left when the table is scrolled
+  - Bugfix: Made a fix to the responsive layouts to properly center columns
 - **31st August, 2023 - Eric McWinNEr 😴**
-  - Fixed bug with sorting numbers alphabetically on the table
-  - Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
-  - Updated the pagination component to work with only Next and Previous and created an asynchronous mode for the NextPrevious mode
-  - Updated the card borders to use the primary color set from the theming engine
-  - Update the table to accept the new props the pagination component accepts
+  - Bugfix: Fixed bug with sorting numbers alphabetically on the table
+  - Bugfix: Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
+  - Feature: Updated the pagination component to work with only Next and Previous and created an asynchronous mode for the NextPrevious mode
+  - Bugfix: Updated the card borders to use the primary color set from the theming engine
+  - Feature: Update the table to accept the new props the pagination component accepts
 - **30th August, 2023 - Eric McWinNEr 😴**
-  - Updated text fields and select fields to add ellipsis when the container is too small
-  - Fixed bug with select boxes not having rounded borders
-  - Updated the left icon and right icon system for text fields and select fields to ensure they are always properly vertically centered irrespective of the size
-  - Reduced the size of the error icon on all input fields
-  - Added error message section to tag input
+  - Feature: Updated text fields and select fields to add ellipsis when the container is too small
+  - Bugfix: Fixed bug with select boxes not having rounded borders
+  - Bugfix: Updated the left icon and right icon system for text fields and select fields to ensure they are always properly vertically centered irrespective of the size
+  - Chore: Reduced the size of the error icon on all input fields
+  - Bugfix: Added error message section to tag input
 - **28th August, 2023 - Eric McWinNEr 😴**
-  - Updated the offset columns to factor in the gutter width
+  - Bugfix: Updated the offset columns to factor in the gutter width
 - **27th August, 2023 - Eric McWinNEr 😴**
-  - Prevented the Text from throwing warnings for only heroNew and circularSTD
-  - Updated the column pipe function to supply the entire row object as the second argument to the pipe function
+  - Chore: Prevented the Text from throwing warnings for only heroNew and circularSTD
+  - Feature: Updated the column pipe function to supply the entire row object as the second argument to the pipe function
 - **22nd August, 2023 - Eric McWinNEr 😴**
-  - Added size props to DCopyInput Component
-  - Fixed bug with the table customize view hydrating state before the save button is clicked
+  - Feature: Added size props to DCopyInput Component
+  - Bugfix: Fixed bug with the table customize view hydrating state before the save button is clicked
     - Added size props to DCustomColorConfig Component
-  - Made the autolayout to calculate the switch width at the time it is mounted
+  - Bugfix: Made the autolayout to calculate the switch width at the time it is mounted
 - **18th August, 2023 - Bernode 🙄**
+  - Feature: Added d-static-stats component
 - **21st August, 2023 - Eric McWinNEr 😴**
-  - Added d-static-stats component
-  - Updated the stepper component to use the active color for the check mark when completed.
+  - Chore: Updated the stepper component to use the active color for the check mark when completed.
 - **20th August, 2023 - Bernode 🙄**
-  - Added size props to DCopyInput Component
-  - Added size props to DCustomColorConfig Component
+  - Feature: Added size props to DCopyInput Component
+  - Feature: Added size props to DCustomColorConfig Component
 - **18th August, 2023 - Bernode 🙄**
-  - Added d-static-stats component
-  - Added d-static-stats2 component
+  - Feature: Added d-static-stats component
+  - Feature: Added d-static-stats2 component
 - **16th August, 2023 - Eric McWinNEr 😴**
-  - Worked on auto-layout to aid responsiveness
-  - Worked on responsive layout to handle responsiveness bugs
+  - Bugfix: Worked on auto-layout to aid responsiveness
+  - Bugfix: Worked on responsive layout to handle responsiveness bugs
 - **13th August, 2023 - Eric McWinNEr 😴**
-  - Added ability to switch auto-layout direction on element width
+  - Feature: Added ability to switch auto-layout direction on element width
 - **12th August, 2023 - Eric McWinNEr 😴**
-  - Added left and right section to the Textfield component
-  - Fixed some of the warnings that make their way to the console
+  - Feature: Added left and right section to the Textfield component
+  - Chore: Fixed some of the warnings that make their way to the console
 - **11th August, 2023 - Eric McWinNEr 😴**
-  - Added EIN mode to the textfield
+  - Feature: Added EIN mode to the textfield
 - **10th August, 2023 - Eric McWinNEr 😴**
-  - Updated pagination and search events on the table
-  - Updated the responsive layout to make it more repsonsive
+  - Feature: Updated pagination and search events on the table
+  - Bugfix: Updated the responsive layout to make it more responsive
 - **09th August, 2023 - Eric McWinNEr 😴**
-  - Updated the table and fixed bug with the asynchronous pagination/search feature
+  - Bugfix: Updated the table and fixed bug with the asynchronous pagination/search feature
 - **08th August, 2023 - Bernode 🙄**
-  - Worked on custom color config component
+  - Feature: Worked on custom color config component
 - **7th August, 2023 - Eric McWinNEr 😴**
-  - Fixed bug with inline file picker button mode having empty string
+  - Bugfix: Fixed bug with inline file picker button mode having empty string
 - **5th August, 2023 - Eric McWinNEr 😴**
-  - Updated the dropdown and fixed the bug where the dropdown opens when the value changes
-  - Fixed bug with currency input not working as expected
-  - Added left icon slot to the Select field
-  - Fixed font-face of date picker having hero-new instead of circular std by default
-  - Added additional configs to the loader to allow it automatically center in its container
+  - Bugfix: Updated the dropdown and fixed the bug where the dropdown opens when the value changes
+  - Bugfix: Fixed bug with currency input not working as expected
+  - Feature: Added left icon slot to the Select field
+  - Chore: Fixed font-face of date picker having hero-new instead of circular std by default
+  - Feature: Added additional configs to the loader to allow it automatically center in its container
 - **4th August, 2023 - Eric McWinNEr 😴**
-  - Updated the badge to allow custom colors
+  - Feature: Updated the badge to allow custom colors
 - **2nd August, 2023 - Eric McWinNEr 😴**
-  - Made bugfixes to the responsive layout
-  - Fixed bug with the export csv feature on the table
-  - Fixed bug with the generated csv name on the table for the csv export
+  - Bugfix: Made bugfixes to the responsive layout
+  - Bugfix: Fixed bug with the export csv feature on the table
+  - Bugfix: Fixed bug with the generated csv name on the table for the csv export
 - **1st August, 2023 - Eric McWinNEr 😴**
-  - Made minor update to the pin input, tag input and tag dropdown
-  - Made the right icon of the select field customizable
-  - Updated the date picker icon to make it customizable and fix the excess right padding
-  - Updated changelog
+  - Feature: Made minor update to the pin input, tag input and tag dropdown
+  - Feature: Made the right icon of the select field customizable
+  - Feature: Updated the date picker icon to make it customizable and fix the excess right padding
+  - Chore: Updated changelog
 - **23rd July, 2023 - Eric McWinNEr 😴**
-  - Made some minor updates to the table component
+  - Feature: Made some minor updates to the table component
 - **22nd July, 2023 - Eric McWinNEr 😴**
-  - Fixed bugs with the currency mode on the textfield
+  - Bugfix: Fixed bugs with the currency mode on the textfield
 - **21st July, 2023 - Eric McWinNEr 😴**
-  - Update the textfield to handle `emitOnlyCurrencyValue` prop properly.
+  - Bugfix: Update the textfield to handle `emitOnlyCurrencyValue` prop properly.
 - **19th July, 2023 - Eric McWinNEr 😴**
-  - Fixed bug with loader not working for table
-  - Added loader types to support the different kinds of loaders on the table
-  - Made the feature to exclude columns from the csv export to work
-  - Added an empty data placeholder for the table; added both a prop and a slot
-  - Changed the CSS class that makes a textfield invisible from `invisible` to `notVisible` to prevent overriding
+  - Bugfix: Fixed bug with loader not working for table
+  - Feature: Added loader types to support the different kinds of loaders on the table
+  - Bugfix: Made the feature to exclude columns from the csv export to work
+  - Feature: Added an empty data placeholder for the table; added both a prop and a slot
+  - Chore: Changed the CSS class that makes a textfield invisible from `invisible` to `notVisible` to prevent overriding
     caused by other third-party libraries
 - **14th July, 2023 - Eric McWinNEr 😴**
-  - Added a prop to the date picker to prevent users from selecting a future date
-  - Updated the table search to be able to search for numbers
-  - Updated the filter configuration rules to allow string based filtering with numbers
+  - Feature: Added a prop to the date picker to prevent users from selecting a future date
+  - Feature: Updated the table search to be able to search for numbers
+  - Feature: Updated the filter configuration rules to allow string based filtering with numbers
 - **13th July, 2023 - Eric McWinNEr 😴**
-  - Fixed a minor bug with the search feature for the table component
-  - Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
-  - Update the maximum height of the tag dropdown and set it to teleport to the body
-  - Updated the toast to have a higher z-index
-  - Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
-  - Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading csvs
-  - Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
+  - Bugfix: Fixed a minor bug with the search feature for the table component
+  - Feature: Updated the dropdown component to show all the values in the dropdown when it is initially selected/opened
+  - Feature: Update the maximum height of the tag dropdown and set it to teleport to the body
+  - Feature: Updated the toast to have a higher z-index
+  - Feature: Updated the CSV export feature to cater for a scenario where the data is supplied after the table mounts
+  - Feature: Added an `asyncCSV` prop and a `csv` event to be able to setup a custom method for downloading CSVs
+  - Feature: Added an `asyncSearch` prop to fire `search` event to be able to setup a custom method for searching
 - **21st June, 2023 - Eric McWinNEr 😴**
-  - Updated Storybook introduction page
-  - Updated Loader and Tag-dropdown stories
+  - Chore: Updated Storybook introduction page
+  - Chore: Updated Loader and Tag-dropdown stories
 - **20th June, 2023 - Eric McWinNEr 😴**
-  - Updated storybook docs configuration to stop merging all stories to one long doc page by default
-  - Updated the z-index of tooltips
-  - Created new story on storybook for using tooltips in tables with fixed columns
-  - Created a new TableCellText component to be used to create table cell text when using slots in external components
-  - Corrected invalid argType in story for Loader component
+  - Chore: Updated storybook docs configuration to stop merging all stories to one long doc page by default
+  - Bugfix: Updated the z-index of tooltips
+  - Chore: Created new story on storybook for using tooltips in tables with fixed columns
+  - Feature: Created a new TableCellText component to be used to create table cell text when using slots in external components
+  - Chore: Corrected invalid argType in story for Loader component
 - **15th June, 2023 - Eric McWinNEr 😴**
-  - Fixed bug with the table that causes floated items to appear behind fixed columns.
-  - Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
-  - Added a loader to tag dropdown input field
-  - Created an event that gets fired when the tag dropdown options is scrolled to the bottom
-  - Made updates to the switch component to allow true two-way binding for the on and off states
+  - Bugfix: Fixed bug with the table that causes floated items to appear behind fixed columns.
+  - Feature: Updated the menu, tooltips and table filter dropdowns to teleport their content to the body dom.
+  - Feature: Added a loader to tag dropdown input field
+  - Feature: Created an event that gets fired when the tag dropdown options is scrolled to the bottom
+  - Feature: Made updates to the switch component to allow true two-way binding for the on and off states
