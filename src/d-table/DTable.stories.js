@@ -128,6 +128,20 @@ const Template = (args) => ({
     <d-table v-bind="args" />`,
 });
 
+const RowClickedTemplate = (args) => ({
+  components: { DTable },
+  setup() {
+    return { args };
+  },
+  methods: {
+    alertName: function (row) {
+      alert(`The name on the row clicked is: ${row.name}`);
+    },
+  },
+  template: `
+    <d-table @row-clicked="alertName" v-bind="args" />`,
+});
+
 const ExtraHeadingsTemplate = (args) => ({
   components: { DTable, DBadge, DAutoLayout, DSelect },
   setup() {
@@ -192,6 +206,12 @@ DarkModeDefault.args = {
   columns: sitcomColumns,
   data: baseData,
 };
+
+export const RowClicked = RowClickedTemplate.bind({})
+RowClicked.args = {
+  columns: sitcomColumns,
+  data: baseData,
+}
 
 export const ExpandMode = Template.bind({});
 ExpandMode.args = {
