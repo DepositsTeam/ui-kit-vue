@@ -1,3 +1,6 @@
+- **09th September, 2023 - Eric McWinNEr 😴**
+  - Chore: Updated stories on storybook
+    - Reduced the number of rows in most stories to aid embedded stories on documentation
 - **08th September, 2023 - Eric McWinNEr 😴**
   - Feature: Fixed bug with table crashing on horizontal scroll when the table isn't loading
   - Chore: Updated changelog to use tags - `Feature`, `Bugfix`, `Chore`

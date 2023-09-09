@@ -11,8 +11,9 @@ import {
   EyeFilledIcon,
 } from "../main";
 import {
-  data,
+  baseData,
   paginatedData,
+  largePaginatedData,
   customComponentData,
   customRowData,
 } from "./data/sitcom-data";
@@ -146,7 +147,7 @@ const ExtraHeadingsTemplate = (args) => ({
 export const ExtraHeadings = ExtraHeadingsTemplate.bind({});
 ExtraHeadings.args = {
   columns: sitcomColumns,
-  data,
+  data: paginatedData,
   enableCsvExport: true,
   enableCustomizeView: true,
 };
@@ -177,7 +178,7 @@ const DarkModeTemplateFactory = () => {
 export const Default = Template.bind({});
 Default.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const ChangeColorForRow = Template.bind({});
@@ -189,12 +190,12 @@ ChangeColorForRow.args = {
 export const DarkModeDefault = DarkModeTemplateFactory();
 DarkModeDefault.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const ExpandMode = Template.bind({});
 ExpandMode.args = {
-  data,
+  data: baseData,
   columns: sitcomColumns,
   expandMode: true,
   paginate: true,
@@ -202,7 +203,7 @@ ExpandMode.args = {
 
 export const ExpandModeWithSpecifiedExpandedColumns = Template.bind({});
 ExpandModeWithSpecifiedExpandedColumns.args = {
-  data,
+  data: baseData,
   columns: sitcomColumns,
   expandMode: true,
   expandedColumns: ["name", "city"],
@@ -211,7 +212,7 @@ ExpandModeWithSpecifiedExpandedColumns.args = {
 export const Search = Template.bind({});
 Search.args = {
   search: true,
-  data,
+  data: baseData,
   columns: sitcomColumns,
 };
 
@@ -219,13 +220,13 @@ export const DarkModeSearch = DarkModeTemplateFactory();
 DarkModeSearch.args = {
   search: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const Checkboxes = Template.bind({});
 Checkboxes.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
   showCheckboxes: true,
 };
 
@@ -233,23 +234,22 @@ export const DarkModeCheckboxes = DarkModeTemplateFactory();
 DarkModeCheckboxes.args = {
   showCheckboxes: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
   loading: true,
 };
 
 export const ButtonActions = Template.bind({});
 ButtonActions.args = {
-  search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const EmptyTableData = Template.bind({});
@@ -267,7 +267,7 @@ DarkModeButtonActions.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const Pagination = Template.bind({});
@@ -276,7 +276,7 @@ Pagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
 };
 
@@ -286,7 +286,7 @@ DarkModePagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
 };
 
@@ -296,7 +296,7 @@ RightPagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
   paginateRight: true,
 };
@@ -307,7 +307,7 @@ DarkModeRightPagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
   paginateRight: true,
 };
@@ -400,7 +400,7 @@ PipedColumnExampleMultiplyQtyByTwo.args = {
       excludeFromCSV: true,
     },
   ],
-  data,
+  data: paginatedData,
 };
 
 const OverflowTableTemplate = (args) => ({
@@ -481,7 +481,7 @@ const AsyncPaginationTableTemplate = (args) => ({
 export const AsyncPaginationTable = AsyncPaginationTableTemplate.bind({});
 AsyncPaginationTable.args = {
   columns: sitcomColumns,
-  data,
+  data: paginatedData,
   paginate: true,
   asyncPagination: true,
   totalPages: 7,
@@ -515,13 +515,13 @@ const ActionSitcomsTemplate = (args) => ({
 export const ActionSitcomsTable = ActionSitcomsTemplate.bind({});
 ActionSitcomsTable.args = {
   columns: actionSitcomsTable,
-  data,
+  data: paginatedData,
 };
 
 export const FixedActionSitcomsTable = ActionSitcomsTemplate.bind({});
 FixedActionSitcomsTable.args = {
   columns: fixedActionsTable,
-  data,
+  data: paginatedData,
 };
 
 const TooltipTableTemplate = (args) => ({
@@ -587,7 +587,7 @@ const AsyncTableUpdateTemplate = (args) => ({
 export const AsyncTableUpdate = AsyncTableUpdateTemplate.bind({});
 AsyncTableUpdate.args = {
   columns: sitcomColumns,
-  data,
+  data: paginatedData,
   asyncPagination: true,
   asyncSearch: true,
   totalPages: 49,
