@@ -261,6 +261,42 @@ EmptyTableData.args = {
   data: [],
 };
 
+const EmptyTableSlotTemplate = (args) => ({
+  components: {
+    DTable,
+    DAutoLayout,
+    DText,
+    DButton,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args">
+      <template #empty-table-content>
+        <d-auto-layout margin-y="1rem" direction="vertical" item-spacing="6px" alignment="center">
+          <d-text font-face="heroNew" font-weight="500" my0>No payments yet</d-text>
+          <d-text scale="subhead" font-face="heroNew" my0 color="#6D7786">You haven’t made any transfer yet.
+            Your transfers will show up here once you have any.</d-text>
+          <d-auto-layout margin-top="1rem">
+            <d-button color-scheme="primary" size="medium">Send money</d-button>
+            <d-button color-scheme="outline" size="medium">Pay a bill</d-button>
+          </d-auto-layout>
+        </d-auto-layout>
+      </template>
+    </d-table>
+  `,
+});
+
+export const EmptyTableCustomSlot = EmptyTableSlotTemplate.bind({});
+EmptyTableCustomSlot.args = {
+  search: true,
+  enableCsvExport: true,
+  enableCustomizeView: true,
+  columns: sitcomColumns,
+  data: [],
+};
+
 export const DarkModeButtonActions = DarkModeTemplateFactory();
 DarkModeButtonActions.args = {
   search: true,
