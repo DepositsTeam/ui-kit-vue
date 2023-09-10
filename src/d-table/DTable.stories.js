@@ -207,11 +207,11 @@ DarkModeDefault.args = {
   data: baseData,
 };
 
-export const RowClicked = RowClickedTemplate.bind({})
+export const RowClicked = RowClickedTemplate.bind({});
 RowClicked.args = {
   columns: sitcomColumns,
   data: baseData,
-}
+};
 
 export const ExpandMode = Template.bind({});
 ExpandMode.args = {
@@ -368,14 +368,45 @@ DarkModeRightPagination.args = {
   paginateRight: true,
 };
 
-export const CustomComponent = Template.bind({});
+const CustomComponentTemplate = (args) => ({
+  components: {
+    DTable,
+    DButton,
+    DBadge,
+  },
+  methods: {
+    deleteRow: function (alerted) {
+      alert(alerted);
+    },
+  },
+
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args">
+      <template v-slot:item.state="row">
+        <d-badge>{{row.state}}</d-badge>
+      </template>
+      
+      <template v-slot:item.action="row">
+        <d-button size="medium" @click="deleteRow(row.uuuid)">Delete row</d-button>
+      </template>
+      
+    </d-table>
+  `,
+});
+
+export const CustomComponent = CustomComponentTemplate.bind({});
 CustomComponent.args = {
-  search: true,
-  enableCsvExport: true,
-  enableCustomizeView: true,
-  columns: sitcomColumns,
+  columns: [
+    ...sitcomColumns,
+    {
+      dataSelector: "action",
+      display: "Action",
+    },
+  ],
   data: customComponentData,
-  paginate: true,
 };
 
 export const DarkModeCustomComponent = DarkModeTemplateFactory();
