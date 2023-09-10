@@ -444,6 +444,11 @@ PipedColumnExampleMultiplyQtyByTwo.args = {
       maxWidth: "",
     },
     {
+      display: "No of characters in City",
+      dataSelector: "non_existent_and_not_necessary",
+      pipe: (value, row) => row.city.length,
+    },
+    {
       display: "Company/Work",
       dataSelector: "company",
       uppercase: true,
@@ -487,7 +492,7 @@ PipedColumnExampleMultiplyQtyByTwo.args = {
       excludeFromCSV: true,
     },
   ],
-  data: paginatedData,
+  data: baseData,
 };
 
 const OverflowTableTemplate = (args) => ({
