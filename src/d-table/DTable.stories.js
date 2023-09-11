@@ -236,6 +236,34 @@ Search.args = {
   columns: sitcomColumns,
 };
 
+const AsyncSearchTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  methods: {
+    handleSearch: function (text) {
+      alert(`I will search for ${text} from an API`);
+    },
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table 
+      v-bind="args"
+      @search="handleSearch"
+    />
+  `,
+});
+
+export const AsyncSearch = AsyncSearchTemplate.bind({});
+AsyncSearch.args = {
+  search: true,
+  data: baseData,
+  columns: sitcomColumns,
+  asyncSearch: true,
+};
+
 export const DarkModeSearch = DarkModeTemplateFactory();
 DarkModeSearch.args = {
   search: true,
@@ -269,6 +297,7 @@ CSVExport.args = {
   columns: sitcomColumns,
   data: baseData,
   enableCsvExport: true,
+  buttonActionsAlignment: "right",
 };
 
 const AsyncCSVExportTemplate = (args) => ({
