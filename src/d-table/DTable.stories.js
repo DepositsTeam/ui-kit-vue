@@ -264,6 +264,52 @@ CSVExport.args = {
   enableCsvExport: true,
 };
 
+const AsyncCSVExportTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  setup() {
+    return { args };
+  },
+  methods: {
+    alertStuff: function () {
+      alert("Downloading CSV...");
+    },
+  },
+  template: `
+    <d-table @download-csv="alertStuff" v-bind="args" />
+  `,
+});
+
+const AsyncCSVURLExportTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args" />
+  `,
+});
+export const AsyncCSVURLExport = AsyncCSVURLExportTemplate.bind({});
+AsyncCSVURLExport.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCsvExport: true,
+  asyncCSVExport: true,
+  exportCsvUrl:
+    "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2023-quarter/Download-data/business-employment-data-june-2023-quarter.zip",
+};
+
+export const AsyncCSVExport = AsyncCSVExportTemplate.bind({});
+AsyncCSVExport.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCsvExport: true,
+  asyncCSVExport: true,
+};
+
 export const Loading = Template.bind({});
 Loading.args = {
   columns: sitcomColumns,
