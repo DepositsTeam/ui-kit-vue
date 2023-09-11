@@ -257,6 +257,13 @@ DarkModeCheckboxes.args = {
   data: baseData,
 };
 
+export const CSVExport = Template.bind({});
+CSVExport.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCsvExport: true,
+};
+
 export const Loading = Template.bind({});
 Loading.args = {
   columns: sitcomColumns,
