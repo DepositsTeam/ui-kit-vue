@@ -257,6 +257,13 @@ DarkModeCheckboxes.args = {
   data: baseData,
 };
 
+export const CustomizeView = Template.bind({});
+CustomizeView.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCustomizeView: true,
+};
+
 export const CSVExport = Template.bind({});
 CSVExport.args = {
   columns: sitcomColumns,

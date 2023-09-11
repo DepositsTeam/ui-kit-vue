@@ -1,5 +1,6 @@
 - **09th September, 2023 - Eric McWinNEr 😴**
   - Chore: Created alternative props for `exportCSVURL` and `asyncCSVExport` to make the syntax more consistent while keeping things backwards compatible
+  - Bugfix: Updated customize view logic and fixed bug with customize view not working properly
 - **09th September, 2023 - Eric McWinNEr 😴**
   - Chore: Updated stories on storybook
     - Reduced the number of rows in most stories to aid embedded stories on documentation
