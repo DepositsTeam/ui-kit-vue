@@ -631,7 +631,6 @@ const updateRenderedColumns = (value) => {
 };
 
 const filteredRenderedColumns = computed(() => {
-  console.log("I'm filtering stuff");
   return renderedColumns.value.filter((column) => column.visible);
 });
 
