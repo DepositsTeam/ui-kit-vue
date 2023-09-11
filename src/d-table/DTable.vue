@@ -626,12 +626,14 @@ const toggleActiveFilters = async (e) => {
 const renderedColumns = shallowRef([]);
 
 const updateRenderedColumns = (value) => {
+  console.log(value);
   renderedColumns.value = [...value];
 };
 
-const filteredRenderedColumns = computed(() =>
-  renderedColumns.value.filter((column) => column.visible)
-);
+const filteredRenderedColumns = computed(() => {
+  console.log("I'm filtering stuff");
+  return renderedColumns.value.filter((column) => column.visible);
+});
 
 const hideColumnsOnMobile = () => {
   expandedData.value = null;
