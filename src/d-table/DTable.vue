@@ -473,10 +473,13 @@ const columnHashmap = computed(() => {
 });
 
 const exportCSVFunction = () => {
-  if (props.exportCSVURL) {
-    window.open(props.exportCSVURL, "_blank");
-  } else if (props.asyncCSVExport) {
-    emit("download-csv");
+  if (props.asyncCsvExport || props.asyncCSVExport) {
+    const exportCsvUrl = props.exportCSVURL || props.exportCsvUrl;
+    if (exportCsvUrl) {
+      window.open(exportCsvUrl, "_blank");
+    } else {
+      emit("download-csv");
+    }
   } else {
     exportCsv(props.data, columnHashmap.value);
   }
