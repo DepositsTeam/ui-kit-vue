@@ -626,7 +626,6 @@ const toggleActiveFilters = async (e) => {
 const renderedColumns = shallowRef([]);
 
 const updateRenderedColumns = (value) => {
-  console.log(value);
   renderedColumns.value = [...value];
 };
 

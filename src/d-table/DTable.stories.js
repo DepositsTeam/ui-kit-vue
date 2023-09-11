@@ -421,8 +421,18 @@ Pagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: largePaginatedData,
+  data: paginatedData,
   paginate: true,
+};
+
+export const MassiveDataPagination = Template.bind({});
+MassiveDataPagination.args = {
+  search: true,
+  enableCsvExport: true,
+  enableCustomizeView: true,
+  columns: sitcomColumns,
+  paginate: true,
+  data: largePaginatedData,
 };
 
 export const DarkModePagination = DarkModeTemplateFactory();
