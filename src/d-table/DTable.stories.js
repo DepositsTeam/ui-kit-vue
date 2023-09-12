@@ -759,8 +759,12 @@ const AsyncTableUpdateTemplate = (args) => ({
     DTable,
   },
   methods: {
-    tableUpdate: function (searchValue, currentPage) {
-      console.log("Data that changed is", searchValue, currentPage);
+    tableUpdate: function (payload) {
+      alert(
+        `The current page is ${payload.page} and the search value is ${
+          payload.search
+        }. The returned payload is ${JSON.stringify(payload)}`
+      );
     },
     pageUpdate: function (page) {
       console.log("Pagination changed", page);
