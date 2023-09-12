@@ -782,7 +782,7 @@ const AsyncTableUpdateTemplate = (args) => ({
 export const AsyncTableUpdate = AsyncTableUpdateTemplate.bind({});
 AsyncTableUpdate.args = {
   columns: sitcomColumns,
-  data: paginatedData,
+  data: baseData,
   asyncPagination: true,
   asyncSearch: true,
   totalPages: 49,
