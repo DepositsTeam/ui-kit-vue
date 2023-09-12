@@ -778,6 +778,13 @@ const AsyncTableUpdateTemplate = (args) => ({
   template: ` <d-table v-bind="args" @page-updated="pageUpdate" @search="searchUpdate" @async-table-update="tableUpdate" />`,
 });
 
+export const MobileColumns = Template.bind({});
+MobileColumns.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  mobileColumns: ["name", "city"],
+};
+
 export const AsyncTableUpdate = AsyncTableUpdateTemplate.bind({});
 AsyncTableUpdate.args = {
   columns: sitcomColumns,
