@@ -648,7 +648,6 @@ FixedColumnOverflowTableWithCheckboxes.args = {
   data: overflowColumnsData,
   darkMode: false,
   showCheckboxes: true,
-  loading: true,
 };
 
 const AsyncPaginationTableTemplate = (args) => ({
