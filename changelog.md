@@ -1,3 +1,5 @@
+- **14th September, 2023 - Eric McWinNEr 😴**
+  - Chore: Updated checkbox and radio and added min-height and min-width to prevent them from shrinking
 - **09th September, 2023 - Eric McWinNEr 😴**
   - Chore: Created alternative props for `exportCSVURL` and `asyncCSVExport` to make the syntax more consistent while keeping things backwards compatible
   - Bugfix: Updated customize view logic and fixed bug with customize view not working properly

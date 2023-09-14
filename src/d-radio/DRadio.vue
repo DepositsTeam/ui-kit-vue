@@ -152,7 +152,9 @@ const emitClick = () => {
       }
       position: relative;
       height: var(--ring-size);
+      min-height: var(--ring-size);
       width: var(--ring-size);
+      min-width: var(--ring-size);
       border-radius: 50%;
       background: white;
       border: 2px solid #ced6de;
