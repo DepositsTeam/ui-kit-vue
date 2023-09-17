@@ -1,3 +1,6 @@
+- **17th September, 2023 - Eric McWinNEr 😴**
+  - Bugfix: Fixed bug with switch feature failing for DAutoLayout
+  - Chore: Added stories to DAutoLayout stories
 - **14th September, 2023 - Eric McWinNEr 😴**
   - Chore: Updated checkbox and radio and added min-height and min-width to prevent them from shrinking
 - **09th September, 2023 - Eric McWinNEr 😴**

@@ -2,9 +2,7 @@
   <d-box
     class="d-auto-layout"
     :class="{
-      [`direction__${
-        direction === 'horizontal' && shouldSwitch ? 'vertical' : direction
-      }`]: direction,
+      [`direction__${direction}`]: direction,
       [`align__${alignment}`]: alignment,
       wrap,
       stretchItems,
