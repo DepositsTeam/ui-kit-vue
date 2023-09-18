@@ -1,6 +1,11 @@
+- **18th September, 2023 - Eric McWinNEr 😴**
+  - Chore: Updated style of RadioCard, CheckboxCard, SwitchCard, RadioCardSelect components to have typography match UI more closely
+    - Refactored the above mentioned components (except RadioCardSelect) to compose a layout component and share layout structure
+  - Bugfix: Made fixes to ResponsiveLayout - Updated how the breakpoints are cascaded from larger ones to smaller ones
 - **17th September, 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with switch feature failing for DAutoLayout
   - Chore: Added stories to DAutoLayout stories
+  - Chore: Updated the DBox codebase and refactored to use component instead of render function and shortened the code
 - **14th September, 2023 - Eric McWinNEr 😴**
   - Chore: Updated checkbox and radio and added min-height and min-width to prevent them from shrinking
 - **09th September, 2023 - Eric McWinNEr 😴**

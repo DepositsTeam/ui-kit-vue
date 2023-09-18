@@ -173,7 +173,7 @@ import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
 import { wrapperProps } from "../utils/wrapperProps";
-import { useWrapperProps } from "../utils/useWrapperProps";
+import { useWrapperProps } from "../utils/composables/useWrapperProps";
 import { formatPercentage } from "../utils/formatPercentage";
 import { useInputSize } from "../utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
