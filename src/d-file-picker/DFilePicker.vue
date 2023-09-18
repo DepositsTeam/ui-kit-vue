@@ -71,7 +71,7 @@ import {
   ErrorIcon,
   DAutoLayout,
 } from "../main";
-import { useFilePicker } from "../utils/useFilePicker";
+import { useFilePicker } from "../utils/composables/useFilePicker";
 import { ref } from "vue";
 
 const props = defineProps({

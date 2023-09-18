@@ -10,7 +10,7 @@ if (!fs.existsSync(filePath)) {
 const ejectIconPage = (importCommands, contentCode) => {
   const initialContent = `<template>`;
 
-  const midContent = `\n</template> \n \n <script setup>\n import IconCard from '@/components/IconCard.vue'`;
+  const midContent = `\n</template> \n \n <script setup>\n import IconCard from '@/composed-components/IconCard.vue'`;
 
   const finalContent = `\n</script> \n`;
 

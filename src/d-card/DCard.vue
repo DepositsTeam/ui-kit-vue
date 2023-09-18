@@ -72,7 +72,7 @@
 import { DBox, DRadio, DCheckbox } from "../main";
 import { computed } from "vue";
 import { wrapperProps } from "../utils/wrapperProps";
-import { useWrapperProps } from "../utils/useWrapperProps";
+import { useWrapperProps } from "../utils/composables/useWrapperProps";
 
 const props = defineProps({
   title: {
