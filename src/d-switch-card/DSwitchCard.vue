@@ -21,7 +21,7 @@
       />
     </template>
     <slot></slot>
-    <template #icon>
+    <template #icon v-if="$slots.icon">
       <slot name="icon"></slot>
     </template>
   </InputCard>

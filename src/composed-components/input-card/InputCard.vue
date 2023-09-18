@@ -41,7 +41,7 @@ const handleClick = (e) => {
     </d-text>
     <d-box @click="handleClick" class="d-input-card">
       <d-auto-layout justify-content="space-between" align-items="center">
-        <d-auto-layout gap="16px" alignment="center-left">
+        <d-auto-layout item-spacing="18px" alignment="center-left">
           <d-box
             align-self="center"
             v-if="$slots.icon"
@@ -55,9 +55,13 @@ const handleClick = (e) => {
             class="d-input-card__content"
           >
             <slot name="heading">
-              <d-text font-size="14px" font-weight="500" my0>{{
-                heading
-              }}</d-text>
+              <d-text
+                font-face="heroNew"
+                font-size="14px"
+                font-weight="500"
+                my0
+                >{{ heading }}</d-text
+              >
             </slot>
             <slot name="description">
               <d-text font-size="12px" light-color="#8C97A7" my0>{{
