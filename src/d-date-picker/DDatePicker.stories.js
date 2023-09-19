@@ -89,6 +89,16 @@ HasError.args = {
   errorMessage: "Error message",
 };
 
+export const DisableFutureDates = Template.bind({});
+DisableFutureDates.args = {
+  disableAfterToday: true,
+};
+
+export const DisablePastDates = Template.bind({});
+DisablePastDates.args = {
+  disableBeforeToday: true,
+};
+
 export const DefaultDark = DarkModeTemplateFactory();
 
 export const Range = Template.bind({});

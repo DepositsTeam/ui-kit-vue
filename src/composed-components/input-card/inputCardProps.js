@@ -18,4 +18,11 @@ export default {
     type: String,
     default: "heroNew",
   },
+  expandOnChecked: {
+    type: Boolean,
+    default: true,
+  },
+  isChecked: {
+    type: Boolean,
+  },
 };

@@ -23,10 +23,7 @@
       class="ui-text-field__input-wrapper"
       :class="{ 'has-error': !!errorMessage }"
     >
-      <component
-        :is="leftIcon"
-        v-if="leftIcon && !invisible"
-      ></component>
+      <component :is="leftIcon" v-if="leftIcon && !invisible"></component>
       <date-picker
         :class="{
           'has-error': errorMessage,
@@ -52,13 +49,7 @@
         :format="format"
         :placeholder="computedPlaceholder"
         :range="range"
-        :disabled-date="
-          disableAfterToday
-            ? disabledAfterToday
-            : disabledDate
-            ? disabledDate
-            : undefined
-        "
+        :disabled-date="computedDisabledDates"
       >
         <template #icon-calendar>
           <slot name="calendar-icon">
@@ -144,6 +135,9 @@ const props = defineProps({
   disableAfterToday: {
     type: Boolean,
   },
+  disableBeforeToday: {
+    type: Boolean,
+  },
   disabledDate: {
     type: Function,
   },
@@ -160,6 +154,25 @@ const disabledAfterToday = (date) => {
 
   return date > today;
 };
+
+const disabledBeforeToday = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date < today;
+};
+
+const computedDisabledDates = computed(() => {
+  if (props.disableAfterToday) {
+    return disabledAfterToday;
+  } else if (props.disableBeforeToday) {
+    return disabledBeforeToday;
+  } else if (props.disabledDate) {
+    return props.disabledDate;
+  } else {
+    return undefined;
+  }
+});
 
 const computedPlaceholder = computed(() => {
   if (props.placeholder) {
