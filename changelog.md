@@ -1,7 +1,13 @@
+- **19th September, 2023 - Eric McWinNEr 😴**
+  - Bugfix: Fixed bug with select boxes not working with new DBox refactored codebase
+  - Feature: Added a feature to date picker to disable past dates
+  - Chore: Updated storybook with new stories for date picker
+  - Chore: Updated the table to prevent it from showing only the first two columns on mobile by default
 - **18th September, 2023 - Eric McWinNEr 😴**
   - Chore: Updated style of RadioCard, CheckboxCard, SwitchCard, RadioCardSelect components to have typography match UI more closely
     - Refactored the above mentioned components (except RadioCardSelect) to compose a layout component and share layout structure
   - Bugfix: Made fixes to ResponsiveLayout - Updated how the breakpoints are cascaded from larger ones to smaller ones
+  - Bugfix: Set a maximum height for modals and setup a scroll system for longer content
 - **17th September, 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with switch feature failing for DAutoLayout
   - Chore: Added stories to DAutoLayout stories

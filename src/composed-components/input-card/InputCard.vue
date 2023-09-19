@@ -1,6 +1,6 @@
 <script setup>
-import { DAutoLayout, DBox, DHeading, DText } from "@/main";
-import { ref } from "vue";
+import { DAutoLayout, DBox, DText } from "@/main";
+import { ref, watch } from "vue";
 import inputCardProps from "@/composed-components/input-card/inputCardProps";
 
 const props = defineProps({
@@ -10,6 +10,15 @@ const props = defineProps({
 const emit = defineEmits(["clicked"]);
 
 const expanded = ref(false);
+
+watch(
+  () => props.isChecked,
+  (val) => {
+    if (props.expandOnChecked && props.expandable) {
+      expanded.value = val;
+    }
+  }
+);
 
 const handleClick = (e) => {
   if (!props.disabled) {
@@ -59,6 +68,7 @@ const handleClick = (e) => {
                 font-face="heroNew"
                 font-size="14px"
                 font-weight="500"
+                color="#2A2E33"
                 my0
                 >{{ heading }}</d-text
               >
@@ -80,7 +90,7 @@ const handleClick = (e) => {
         class="d-input-card__expansion-border"
       ></d-box>
 
-      <d-box v-if="expanded" class="d-input-card__expanded">
+      <d-box v-if="expanded" margin-top="16px" class="d-input-card__expanded">
         <slot></slot>
       </d-box>
     </d-box>

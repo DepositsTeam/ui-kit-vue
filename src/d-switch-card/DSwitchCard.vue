@@ -6,6 +6,8 @@
     :label="label"
     :label-class="labelClass"
     :label-font-face="labelFontFace"
+    :expand-on-checked="expandOnChecked"
+    :is-checked="isChecked"
     @clicked="handleClick"
   >
     <template #selector>

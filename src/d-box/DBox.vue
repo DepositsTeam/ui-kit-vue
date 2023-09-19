@@ -50,6 +50,42 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["update:modelValue", "change", "input"]);
+
+const computedType = computed(() => {
+  if (typeof props.is === "string" && props.is.toLowerCase() === "input") {
+    return props.type ? props.type.toLowerCase() : "text";
+  } else {
+    return undefined;
+  }
+});
+const computedValue = computed(() => {
+  if (props.modelValue !== undefined) {
+    return props.modelValue;
+  } else if (props.value !== undefined) {
+    return props.value;
+  } else {
+    return undefined;
+  }
+});
+
+const forwardableInputTypes = [
+  "text",
+  "password",
+  "email",
+  "number",
+  "url",
+  "color",
+  "range",
+  "week",
+  "time",
+  "tel",
+  "search",
+  "month",
+  "date",
+  "datetime-local",
+];
+
 const unitizeValue = (value) =>
   parseFloat(value) == value ? `${value}px` : value;
 
@@ -197,12 +233,30 @@ onMounted(() => {
 watch(props, generateClassProps);
 
 watch(d__theme, generateClassProps);
+
+const handleChange = (e) => {
+  if (props.is.toLowerCase() === "select") {
+    emit("update:modelValue", e.target.value);
+  }
+  emit("change", e);
+};
+
+const handleInput = (e) => {
+  if (
+    props.is.toLowerCase() === "input" &&
+    forwardableInputTypes.includes(computedType.value)
+  ) {
+    emit("update:modelValue", e.target.value);
+  }
+  emit("input", e);
+};
 </script>
 <template>
   <component
     :is="is"
     :id="id ? id : uniqueID"
-    :focusable="is === 'svg' ? false : undefined"
+    @change="handleChange"
+    @input="handleInput"
     :class="{
       [uniqueClass]: true,
       [`${uniqueClass}_theming_styles`]: true,
@@ -220,8 +274,10 @@ watch(d__theme, generateClassProps);
     v-bind="{
       ...(svgWidth ? { width: svgWidth } : {}),
       ...(svgHeight ? { height: svgHeight } : {}),
-      ...$attrs,
-      ...$props,
+      ...(computedType ? { type: computedType } : {}),
+      ...(computedValue ? { value: computedValue } : {}),
+      ...(disabled !== null ? { disabled: disabled } : {}),
+      ...(is === 'svg' ? { focusable: false } : {}),
     }"
   >
     <slot></slot>

@@ -639,19 +639,27 @@ const hideColumnsOnMobile = () => {
   if (window.outerWidth <= props.mobileBreakpoint) {
     if (!viewportShrunkToMobile.value) {
       const clonedColumns = [...renderedColumns.value].map((column, index) => {
-        if (
-          (props.mobileColumns && !props.mobileColumns.length) ||
-          !props.mobileColumns
-        ) {
-          if (index >= 2) {
-            column.visible = false;
-          }
-          return column;
-        } else {
+        if (props.mobileColumns && props.mobileColumns.length) {
           column.visible = props.mobileColumns.includes(column.dataSelector);
           return column;
+        } else {
+          return column;
         }
+
+        // if (
+        //   (props.mobileColumns && !props.mobileColumns.length) ||
+        //   !props.mobileColumns
+        // ) {
+        //   if (index >= 2) {
+        //     column.visible = false;
+        //   }
+        //   return column;
+        // } else {
+        // column.visible = props.mobileColumns.includes(column.dataSelector);
+        // return column;
+        // }
       });
+
       updateRenderedColumns(clonedColumns);
       viewportShrunkToMobile.value = true;
     }

@@ -193,7 +193,7 @@ watch(
 
   /* position: fixed; */
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   padding: 24px;
@@ -220,6 +220,8 @@ watch(
     width: var(--modal-width);
     min-width: 315px;
     max-width: calc(100vw - 60px);
+    max-height: calc(100svh - (24px * 2));
+    overflow-y: auto;
 
     &.maxWidth {
       max-width: var(--max-modal-width);
