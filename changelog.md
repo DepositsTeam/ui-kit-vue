@@ -1,6 +1,8 @@
 - **19th September, 2023 - Bernode 🙄**
     - Added the Continuous List Item component
     - Added the Preferences component
+    - Added the Quick Tool component
+    - Added the Vertical movable component
 - **31st August, 2023 - Bernode 🙄**
   - Updated the props in DActionableAvatar 1 & 2
   - Updated css classes naming conventions

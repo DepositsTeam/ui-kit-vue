@@ -51,6 +51,7 @@ export { default as DTagInput } from "./d-tag-input/DTagInput.vue";
 export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
+export { default as DQuickTool } from "./d-quick-tool/DQuickTool.vue";
 export { default as DTooltip } from "./d-tooltip/DTooltip.vue";
 export { default as DWysiwyg } from "./d-wysiwyg/DWysiwyg.vue";
 export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";
@@ -327,6 +328,8 @@ export { default as Tag2FilledIcon } from "./icons/filled/Tag2FilledIcon.vue";
 export { default as TransactionMinusFilledIcon } from "./icons/filled/TransactionMinusFilledIcon.vue";
 export { default as UserFilledIcon } from "./icons/filled/UserFilledIcon.vue";
 export { default as WalletFilledIcon } from "./icons/filled/WalletFilledIcon.vue";
+export { default as MinusFilledIcon } from "./icons/filled/MinusFilledIcon.vue";
+export { default as DraggableMenuFilledIcon } from "./icons/filled/DraggableMenuFilledIcon.vue";
 
 // Duo-tone Icons
 export { default as Money2DuotoneIcon } from "./icons/duo-tone/Money2DuotoneIcon.vue";
