@@ -39,8 +39,15 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
+  methods: {
+    deleteClicked: function () {
+      alert("Delete clicked");
+    },
+  },
   template: `
-      <d-actionable-avatar v-bind="args"/>`,
+      <d-actionable-avatar @delete-clicked="deleteClicked" v-bind="args">
+      </d-actionable-avatar>
+  `,
 });
 
 export const Default = Template.bind({});

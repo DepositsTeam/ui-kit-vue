@@ -57,6 +57,7 @@
 <script setup>
 import { DBox, DText, DAvatar, Setting2FilledIcon, DButton } from "@/main";
 
+
 defineProps({
   heading: {
     type: String,
@@ -80,6 +81,9 @@ defineProps({
   },
   buttonSizes: {
     type: String,
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
+    default: "large",
   },
   isAvatarSubtle: {
     type: Boolean,

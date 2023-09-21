@@ -4,6 +4,7 @@ import {
   ArrowUpIcon,
   ReceiveSquareOutlineIcon,
   GlobeIcon,
+  DBox,
 } from "@/main";
 
 export default {
@@ -27,11 +28,65 @@ const Template = (args) => ({
     return { args };
   },
   template: `
-      <d-continuous-list-item v-bind="args"/>`,
+      <d-continuous-list-item v-bind="args" />
+  `,
+});
+
+const CustomIconTemplate = (args) => ({
+  components: {
+    DContinuousListItem,
+    DBox,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-continuous-list-item v-bind="args" >
+        <template #icon="{icon}">
+          <d-box border="1px solid grey" border-radius="4px" padding="4px">
+            <component :is="icon" />
+          </d-box>
+        </template>
+    </d-continuous-list-item>
+  `,
 });
 
 export const Default = Template.bind({});
 Default.args = {
+  title: "Send & Request Money",
+  lists: [
+    {
+      id: 1,
+      title: "Send",
+      description:
+        "Send money to friends, pay to bank accounts or saved beneficiaries",
+      icon: Send2OutlineIcon,
+    },
+    {
+      id: 2,
+      title: "Request",
+      description:
+        "Request to get paid, send an invoice or ask your payer to scan a QR",
+      icon: ArrowUpIcon,
+    },
+    {
+      id: 3,
+      title: "Withdraw",
+      description: "Withdraw funds to your linked bank accounts",
+      icon: ReceiveSquareOutlineIcon,
+    },
+    {
+      id: 4,
+      title: "Send Internationally",
+      description:
+        "Send money to people in other countries in different currencies",
+      icon: GlobeIcon,
+    },
+  ],
+};
+
+export const WithCustomIcon = CustomIconTemplate.bind({});
+WithCustomIcon.args = {
   title: "Send & Request Money",
   lists: [
     {

@@ -6,7 +6,7 @@
           <d-text class="ui-title">{{ title }}</d-text>
           <d-text v-if="subTitle" class="ui-gray__text">{{ subTitle }}</d-text>
         </d-box>
-        <d-text class="ui-text">{{ description }}</d-text>
+        <d-text font-size="14px" color="#8C97A7">{{ description }}</d-text>
       </d-box>
       <d-box class="ui-right">
         <slot name="avatarSection">
@@ -30,14 +30,16 @@
             >{{ buttonText }}
           </d-button>
         </slot>
-        <d-box class="ui-icons">
-          <slot name="editIcon">
-            <edit2-icon class="ui-icon" @click="emit('editClicked')" />
-          </slot>
-          <slot name="deleteIcon">
-            <delete-icon class="ui-icon" @click="emit('deleteClicked')" />
-          </slot>
-        </d-box>
+        <slot name="icons">
+          <d-box class="ui-icons">
+            <slot name="editIcon">
+              <edit2-icon class="ui-icon" @click="emit('editClicked')" />
+            </slot>
+            <slot name="deleteIcon">
+              <delete-icon class="ui-icon" @click="emit('deleteClicked')" />
+            </slot>
+          </d-box>
+        </slot>
       </d-box>
     </slot>
   </d-box>

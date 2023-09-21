@@ -6,15 +6,18 @@
       <slot name="list">
         <d-box
           class="ui-row"
-          @click="handleClick"
           v-for="list in lists"
+          @click="handleClick(list)"
           :key="list.id"
         >
           <slot name="row">
             <d-box class="ui-left">
-              <d-box class="ui-icon">
-                <component :is="list.icon" />
-              </d-box>
+              <slot name="icon" v-bind="list">
+                <d-box class="ui-icon">
+                  <component :is="list.icon" />
+                </d-box>
+              </slot>
+
               <d-box class="ui-texts">
                 <d-text is="h3" class="ui-d_title" font-face="heroNew">{{
                   list.title
@@ -49,8 +52,8 @@ defineProps({
   },
 });
 
-const handleClick = (item) => {
-  emit("clicked", item);
+const handleClick = (list) => {
+  emit("clicked", list);
 };
 </script>
 
