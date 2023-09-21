@@ -23,11 +23,15 @@ watch(
 const handleClick = (e) => {
   if (!props.disabled) {
     if (props.expandable) {
-      // Handle stuff if it's expandable
-      if (e.target.closest(".d-input-card__selector")) {
+      if (props.expandOnChecked) {
+        expanded.value = !expanded.value;
         emit("clicked");
       } else {
-        expanded.value = !expanded.value;
+        if (e.target.closest(".d-input-card__selector")) {
+          emit("clicked");
+        } else {
+          expanded.value = !expanded.value;
+        }
       }
     } else {
       emit("clicked");

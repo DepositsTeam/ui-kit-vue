@@ -221,6 +221,39 @@ ExpandMode.args = {
   paginate: true,
 };
 
+export const ExpandModeWithoutHeader = Template.bind({});
+ExpandModeWithoutHeader.args = {
+  data: baseData,
+  columns: sitcomColumns,
+  expandMode: true,
+  paginate: true,
+  hideExpandModeHeader: true,
+};
+
+const ExpandModeWithPlaceholderWhenNoSelectedRowTemplate = args => ({
+  components: {
+    DTable
+  },
+  setup() {
+    return {args}
+  },
+  template: `
+    <d-table v-bind="args">
+      <template #no-expanded-row-content>
+        Select a row on the left pane to see more details
+      </template>
+    </d-table>
+  `
+})
+
+export const ExpandModeWithPlaceholderWhenNoSelectedRow = ExpandModeWithPlaceholderWhenNoSelectedRowTemplate.bind({})
+ExpandModeWithPlaceholderWhenNoSelectedRow.args = {
+  data: baseData,
+  columns: sitcomColumns,
+  expandMode: true,
+  paginate: true,
+  hideExpandModeHeader: true,
+};
 export const ExpandModeWithSpecifiedExpandedColumns = Template.bind({});
 ExpandModeWithSpecifiedExpandedColumns.args = {
   data: baseData,
