@@ -17,10 +17,10 @@ const Template = (args) => ({
 
   template: `<d-responsive-layout debug-mode v-bind="args">
   <d-row>
-    <d-col :xs="3" :sm="12">
+    <d-col :sm="6">
       Some random item
     </d-col>
-    <d-col :xs="9" :sm="12">
+    <d-col :xs="9" :sm="6">
       Item begins here
     </d-col>
     

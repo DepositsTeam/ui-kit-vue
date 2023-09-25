@@ -5,10 +5,12 @@
       '--smart-color': smartColor,
       '--smart-text-color': getTextColor(smartColor),
     }"
+    ref="tableWrapperRef"
   >
     <d-box
       class="ui-table__container"
       :class="{ expandMode, isExpanded, hidden: hideTableContainer }"
+      ref="tableContainerRef"
     >
       <d-box class="ui-table__header custom-scroll-bar" v-if="!expandMode">
         <d-auto-layout
@@ -207,7 +209,7 @@
         <d-box ref="tableLoader" v-if="loading" class="ui-table-loader">
           <d-loader :loader="loaderType" />
         </d-box>
-        <d-box is="table" ref="tableElem" class="ui-table">
+        <d-box is="table" ref="tableElemRef" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
               <d-box
@@ -393,7 +395,12 @@
       />
     </d-box>
     <d-box
-      v-if="expandMode && !isExpanded && $slots['no-expanded-row-content']"
+      v-if="
+        expandMode &&
+        !isExpanded &&
+        $slots['no-expanded-row-content'] &&
+        !hideNoExpandedRowContent
+      "
       class="ui-table__no-expanded-row-content"
     >
       <slot name="no-expanded-row-content"></slot>
@@ -413,7 +420,7 @@
         <close-icon
           @click="closeExpandedCard"
           v-if="hideTableContainer"
-          cursor="pointer"
+          cursor="poin=er"
           class="close-card-icon"
         />
       </d-box>
@@ -480,8 +487,11 @@ import { getTextColor } from "../utils/colorManager";
 import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
-const tableElem = ref(null);
+const tableElemRef = ref(null);
+const tableWrapperRef = ref(null);
+const tableContainerRef = ref(null);
 const hideTableContainer = ref(false);
+const hideNoExpandedRowContent = ref(false);
 const emit = defineEmits([
   "page-updated",
   "row-clicked",
@@ -513,7 +523,7 @@ const closeExpandedCard = () => {
 
 watch(isExpanded, (value) => {
   if (value) {
-    if (tableElem.value.$el.getBoundingClientRect().width < 750) {
+    if (tableWrapperRef.value.$el.getBoundingClientRect().width < 750) {
       hideTableContainer.value = true;
     }
   } else {
@@ -696,43 +706,52 @@ const filteredRenderedColumns = computed(() => {
   return renderedColumns.value.filter((column) => column.visible);
 });
 
-const hideColumnsOnMobile = () => {
-  expandedData.value = null;
-  isExpanded.value = false;
-  if (window.outerWidth <= props.mobileBreakpoint) {
-    if (!viewportShrunkToMobile.value) {
+const manageResize = () => {
+  // Handle hiding expand mode placeholder content
+  if (props.expandMode) {
+    hideNoExpandedRowContent.value =
+      tableWrapperRef.value.$el.getBoundingClientRect().width <= 750;
+  }
+
+  // Manage columns
+  // expandedData.value = null;
+  // isExpanded.value = false;
+  if (!isExpanded.value) {
+    if (window.outerWidth <= props.mobileBreakpoint) {
+      if (!viewportShrunkToMobile.value) {
+        const clonedColumns = [...renderedColumns.value].map((column) => {
+          if (props.mobileColumns && props.mobileColumns.length) {
+            column.visible = props.mobileColumns.includes(column.dataSelector);
+            return column;
+          } else {
+            return column;
+          }
+
+          // if (
+          //   (props.mobileColumns && !props.mobileColumns.length) ||
+          //   !props.mobileColumns
+          // ) {
+          //   if (index >= 2) {
+          //     column.visible = false;
+          //   }
+          //   return column;
+          // } else {
+          // column.visible = props.mobileColumns.includes(column.dataSelector);
+          // return column;
+          // }
+        });
+
+        updateRenderedColumns(clonedColumns);
+        viewportShrunkToMobile.value = true;
+      }
+    } else {
       const clonedColumns = [...renderedColumns.value].map((column) => {
-        if (props.mobileColumns && props.mobileColumns.length) {
-          column.visible = props.mobileColumns.includes(column.dataSelector);
-          return column;
-        } else {
-          return column;
-        }
-
-        // if (
-        //   (props.mobileColumns && !props.mobileColumns.length) ||
-        //   !props.mobileColumns
-        // ) {
-        //   if (index >= 2) {
-        //     column.visible = false;
-        //   }
-        //   return column;
-        // } else {
-        // column.visible = props.mobileColumns.includes(column.dataSelector);
-        // return column;
-        // }
+        column.visible = true;
+        return column;
       });
-
       updateRenderedColumns(clonedColumns);
-      viewportShrunkToMobile.value = true;
+      viewportShrunkToMobile.value = false;
     }
-  } else {
-    const clonedColumns = [...renderedColumns.value].map((column) => {
-      column.visible = true;
-      return column;
-    });
-    updateRenderedColumns(clonedColumns);
-    viewportShrunkToMobile.value = false;
   }
 };
 
@@ -754,8 +773,8 @@ const calculateColumnOffset = async () => {
 
 onMounted(async () => {
   updateRenderedColumns(props.columns.map((column) => new Column(column)));
-  hideColumnsOnMobile();
-  window.addEventListener("resize", hideColumnsOnMobile);
+  manageResize();
+  window.addEventListener("resize", manageResize);
   await nextTick();
   setTimeout(() => {
     calculateColumnOffset();
@@ -763,7 +782,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("resize", hideColumnsOnMobile);
+  window.removeEventListener("resize", manageResize);
 });
 
 provide("sortConfiguration", sortConfiguration);
@@ -894,6 +913,12 @@ const validateBackground = (background, index) => {
     border-radius: 0 8px 8px 8px;
     padding: 24px;
     position: relative;
+    min-width: 280px;
+
+    &.is-displaying-alone {
+      width: 100%;
+      border-radius: 8px;
+    }
 
     .close-card-icon {
       position: absolute;

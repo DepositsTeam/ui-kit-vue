@@ -124,6 +124,9 @@ onUnmounted(() => {
     gap: var(--spacing-value);
     &.switch {
       flex-direction: column;
+      &.stretchItems {
+        align-items: normal;
+      }
     }
     &.stretchItems > * {
       flex: 1;
@@ -133,11 +136,23 @@ onUnmounted(() => {
       &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-start;
       }
+      &.switch {
+        justify-content: flex-start;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: flex-start;
+        }
+      }
     }
     &.align__top-center {
       align-items: flex-start;
       &:not(.evenly):not(.around):not(.between) {
         justify-content: center;
+      }
+      &.switch {
+        justify-content: flex-start;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: center;
+        }
       }
     }
     &.align__top-right {
@@ -145,11 +160,23 @@ onUnmounted(() => {
       &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-end;
       }
+      &.switch {
+        justify-content: flex-start;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: flex-end;
+        }
+      }
     }
     &.align__center-left {
       align-items: center;
       &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-start;
+      }
+      &.switch {
+        justify-content: center;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: flex-start;
+        }
       }
     }
     &.align__center {
@@ -157,11 +184,23 @@ onUnmounted(() => {
       &:not(.evenly):not(.around):not(.between) {
         justify-content: center;
       }
+      &.switch {
+        justify-content: center;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: center;
+        }
+      }
     }
     &.align__center-right {
       align-items: center;
       &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-end;
+      }
+      &.switch {
+        justify-content: center;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: flex-end;
+        }
       }
     }
     &.align__bottom-left {
@@ -169,17 +208,35 @@ onUnmounted(() => {
       &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-start;
       }
+      &.switch {
+        justify-content: flex-end;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: flex-start;
+        }
+      }
     }
     &.align__bottom-center {
       align-items: flex-end;
       &:not(.evenly):not(.around):not(.between) {
         justify-content: center;
       }
+      &.switch {
+        justify-content: flex-end;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: center;
+        }
+      }
     }
     &.align__bottom-right {
       align-items: flex-end;
       &:not(.evenly):not(.around):not(.between) {
         justify-content: flex-end;
+      }
+      &.switch {
+        justify-content: flex-end;
+        &:not(.evenly):not(.around):not(.between) {
+          align-items: flex-end;
+        }
       }
     }
   }
@@ -195,38 +252,74 @@ onUnmounted(() => {
     &.align__top-left {
       justify-content: flex-start;
       align-items: flex-start;
+      &.switch {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
     }
     &.align__top-center {
       justify-content: flex-start;
       align-items: center;
+      &.switch {
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
     }
     &.align__top-right {
       justify-content: flex-start;
       align-items: flex-end;
+      &.switch {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
     }
     &.align__center-right {
       justify-content: center;
       align-items: flex-start;
+      &.switch {
+        align-items: center;
+        justify-content: flex-start;
+      }
     }
     &.align__center {
       justify-content: center;
       align-items: center;
+      &.switch {
+        justify-content: center;
+        align-items: center;
+      }
     }
     &.align__center-right {
       justify-content: center;
       align-items: flex-end;
+      &.switch {
+        align-items: center;
+        justify-content: flex-end;
+      }
     }
     &.align__bottom-left {
       justify-content: flex-end;
       align-items: flex-start;
+      &.switch {
+        justify-content: center;
+        align-items: flex-end;
+      }
     }
     &.align__bottom-center {
       justify-content: flex-end;
       align-items: center;
+      &.switch {
+        align-items: flex-end;
+        justify-content: center;
+      }
     }
     &.align__bottom-right {
       justify-content: flex-end;
       align-items: flex-end;
+      &.right {
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
     }
   }
 }

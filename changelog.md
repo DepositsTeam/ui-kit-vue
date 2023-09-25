@@ -1,3 +1,6 @@
+- **24th September, 2023 - Eric McWinNEr 😴**
+  - Chore: Updated the expand mode on table
+  - Chore: Updated Heading component to properly inherit custom font-faces
 - **21st September, 2023 - Eric McWinNEr 😴**
   - Chore: Updated the way the expand mode of InputCard works
   - Feature: Updated expand mode of table
@@ -5,6 +8,7 @@
       - Updated the responsiveness of the heading
       - Made the heading section optional
     - Added alternate expand mode for when no row is expanded/selected
+  - Bugfix: Fixed bug with emit-only-currency-value in textfield emitting values with comma (thousand separator)
 - **19th September, 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with select boxes not working with new DBox refactored codebase
   - Feature: Added a feature to date picker to disable past dates
