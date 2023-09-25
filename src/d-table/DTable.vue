@@ -5,9 +5,14 @@
       '--smart-color': smartColor,
       '--smart-text-color': getTextColor(smartColor),
     }"
+    ref="tableWrapperRef"
   >
-    <d-box class="ui-table__container" :class="{ expandMode, isExpanded }">
-      <d-box class="ui-table__header custom-scroll-bar">
+    <d-box
+      class="ui-table__container"
+      :class="{ expandMode, isExpanded, hidden: hideTableContainer }"
+      ref="tableContainerRef"
+    >
+      <d-box class="ui-table__header custom-scroll-bar" v-if="!expandMode">
         <d-auto-layout
           v-if="$slots['table-header-left'] || search"
           class="ui-table__header__search-wrapper"
@@ -60,114 +65,139 @@
         between
         alignment="center"
       >
-        <d-box
-          ref="trigger"
-          class="ui-table__active-filters"
-          :class="{ isExpandMode: expandMode }"
+        <d-auto-layout
+          between
+          alignment="center"
+          width="100%"
+          margin-y="8px"
+          v-if="
+            (expandMode && !hideExpandModeHeader) ||
+            sortConfiguration ||
+            filter.column
+          "
         >
           <d-box
-            v-if="expandMode"
-            class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox expandMode-filters-trigger"
-            @click="toggleActiveFilters"
-            @close="toggleActiveFilters(false)"
+            ref="trigger"
+            class="ui-table__active-filters"
+            :class="{ isExpandMode: expandMode }"
           >
-            <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
-            <d-text
-              font-face="circularSTD"
-              scale="p-16"
-              margin-x="8px"
-              my0
-              v-if="!viewportShrunkToMobile"
-              class="activeFiltersTrigger activeFiltersBox"
-              >Add filter</d-text
+            <slot
+              v-if="expandMode && !hideExpandModeHeader"
+              name="expand-mode-left-header"
             >
-            <chevron-filled-down-icon
-              class="activeFiltersTrigger activeFiltersBox"
-            />
-          </d-box>
-          <d-box
-            :class="{ active: showActiveFiltersDropdown }"
-            class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox"
-            @click="toggleActiveFilters"
-            v-if="filter.column"
-            @close="toggleActiveFilters(false)"
-          >
-            <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
-            <d-text
-              class="activeFiltersTrigger activeFiltersBox"
-              margin-x="8px"
-              my0
-              font-face="circularSTD"
-              scale="p-16"
-              >{{ filter.column.display }}
               <d-box
-                light-color="#64748B"
-                class="activeFiltersTrigger"
-                dark-color="#64748B"
-                is="span"
-                >{{ filter.selectedFilter.toLowerCase() }}</d-box
+                class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox expandMode-filters-trigger"
+                @click="toggleActiveFilters"
+                @close="toggleActiveFilters(false)"
               >
-              {{ filter.selectedFilterValue }}
-              <d-box is="span" class="activeFiltersTrigger" v-if="filter.join">
-                {{ filter.join }}
+                <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
+                <d-text
+                  font-face="circularSTD"
+                  scale="p-16"
+                  margin-x="8px"
+                  my0
+                  v-if="!viewportShrunkToMobile"
+                  class="activeFiltersTrigger activeFiltersBox"
+                  >Add filter</d-text
+                >
+                <chevron-filled-down-icon
+                  class="activeFiltersTrigger activeFiltersBox"
+                />
+              </d-box>
+            </slot>
+
+            <d-box
+              :class="{ active: showActiveFiltersDropdown }"
+              class="ui-table__active-filter-group activeFiltersTrigger activeFiltersBox"
+              @click="toggleActiveFilters"
+              v-if="filter.column"
+              @close="toggleActiveFilters(false)"
+            >
+              <funnel-icon class="activeFiltersTrigger activeFiltersBox" />
+
+              <d-text
+                class="activeFiltersTrigger activeFiltersBox"
+                margin-x="8px"
+                my0
+                font-face="circularSTD"
+                scale="p-16"
+                >{{ filter.column.display }}
                 <d-box
                   light-color="#64748B"
                   class="activeFiltersTrigger"
                   dark-color="#64748B"
                   is="span"
-                  >{{ filter.selectedFilter2.toLowerCase() }}</d-box
+                  >{{ filter.selectedFilter.toLowerCase() }}</d-box
                 >
-                {{ filter.selectedFilterValue2 }}
-              </d-box>
-            </d-text>
-            <close-icon
-              @click="
-                updateFilterValue({
-                  column: null,
-                  selectedFilter: null,
-                  selectedFilterValue: null,
-                  join: null,
-                  selectedFilter2: null,
-                  selectedFilterValue2: null,
-                })
-              "
-              class="activeFiltersBox"
-            />
-          </d-box>
-          <d-box
-            class="ui-table__active-filter-group activeFiltersBox"
-            v-if="sortConfiguration"
-          >
-            <sort2-icon class="activeFiltersBox" />
-            <d-text
-              margin-x="8px"
-              my0
-              font-face="circularSTD"
-              scale="p-16"
-              class="activeFiltersBox"
-              >{{ sortConfiguration.column.display }}
-              <d-box color="#8895A7" is="span">is</d-box>
-              {{
-                sortConfiguration.direction === "asc"
-                  ? "Ascending"
-                  : "Descending"
-              }}</d-text
+                {{ filter.selectedFilterValue }}
+                <d-box
+                  is="span"
+                  class="activeFiltersTrigger"
+                  v-if="filter.join"
+                >
+                  {{ filter.join }}
+                  <d-box
+                    light-color="#64748B"
+                    class="activeFiltersTrigger"
+                    dark-color="#64748B"
+                    is="span"
+                    >{{ filter.selectedFilter2.toLowerCase() }}</d-box
+                  >
+                  {{ filter.selectedFilterValue2 }}
+                </d-box>
+              </d-text>
+              <close-icon
+                @click="
+                  updateFilterValue({
+                    column: null,
+                    selectedFilter: null,
+                    selectedFilterValue: null,
+                    join: null,
+                    selectedFilter2: null,
+                    selectedFilterValue2: null,
+                  })
+                "
+                class="activeFiltersBox"
+              />
+            </d-box>
+            <d-box
+              class="ui-table__active-filter-group activeFiltersBox"
+              v-if="sortConfiguration"
             >
-            <close-icon
-              class="activeFiltersBox"
-              @click="updateSortConfiguration(null)"
+              <sort2-icon class="activeFiltersBox" />
+              <d-text
+                margin-x="8px"
+                my0
+                font-face="circularSTD"
+                scale="p-16"
+                class="activeFiltersBox"
+                >{{ sortConfiguration.column.display }}
+                <d-box color="#8895A7" is="span">is</d-box>
+                {{
+                  sortConfiguration.direction === "asc"
+                    ? "Ascending"
+                    : "Descending"
+                }}</d-text
+              >
+              <close-icon
+                class="activeFiltersBox"
+                @click="updateSortConfiguration(null)"
+              />
+            </d-box>
+
+            <table-active-filters-dropdown
+              ref="target"
+              v-if="showActiveFiltersDropdown"
+              @close="closeActiveFiltersDropdown"
             />
           </d-box>
-
-          <table-active-filters-dropdown
-            ref="target"
-            v-if="showActiveFiltersDropdown"
-            @close="closeActiveFiltersDropdown"
-          />
-        </d-box>
-        <slot name="call-to-action" v-if="expandMode">
-          <d-button color-scheme="primary" size="large">+ New card</d-button>
-        </slot>
+          <slot
+            name="expand-mode-right-header"
+            v-if="expandMode && !hideExpandModeHeader"
+          >
+            <d-button color-scheme="primary" size="large">+ New card</d-button>
+          </slot>
+        </d-auto-layout>
       </d-auto-layout>
 
       <d-box
@@ -179,7 +209,7 @@
         <d-box ref="tableLoader" v-if="loading" class="ui-table-loader">
           <d-loader :loader="loaderType" />
         </d-box>
-        <d-box is="table" ref="tableElem" class="ui-table">
+        <d-box is="table" ref="tableElemRef" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
             <d-box is="tr" class="ui-table__heading-row">
               <d-box
@@ -217,7 +247,7 @@
               <d-box
                 is="td"
                 v-if="expandedData"
-                class="ui-table__heading-cell is-checkbox ui-table__fixed-column"
+                class="ui-table__heading-cell is-checkbox ui-table__fixed_column_right"
                 :style="{
                   ...getColumnWidth(null, true),
                   left: 0,
@@ -315,7 +345,7 @@
               </d-box>
               <d-box
                 is="td"
-                class="ui-table__body-cell arrow-cell"
+                class="ui-table__body-cell arrow-cell ui-table__fixed_column_right"
                 :style="{
                   '--column_width': '10px',
                   '--column_min_width': '10px',
@@ -364,11 +394,35 @@
         @close-modal="toggleCustomizeViewModal(false)"
       />
     </d-box>
-    <d-box v-if="expandMode && isExpanded" class="ui-table__card">
+    <d-box
+      v-if="
+        expandMode &&
+        !isExpanded &&
+        $slots['no-expanded-row-content'] &&
+        !hideNoExpandedRowContent
+      "
+      class="ui-table__no-expanded-row-content"
+    >
+      <slot name="no-expanded-row-content"></slot>
+    </d-box>
+    <d-box
+      v-if="expandMode && isExpanded"
+      class="ui-table__card"
+      :class="{
+        'is-displaying-alone': hideTableContainer,
+        [expandCardClass]: expandCardClass,
+      }"
+    >
       <d-box class="ui-table__card-header">
         <d-text scale="subhead" class="ui-table__card-header-text">{{
           expandModeCardTitle
         }}</d-text>
+        <close-icon
+          @click="closeExpandedCard"
+          v-if="hideTableContainer"
+          cursor="poin=er"
+          class="close-card-icon"
+        />
       </d-box>
       <d-box class="ui-table__card-body">
         <slot name="expanded-card-body" v-bind="expandedData.datum">
@@ -433,7 +487,11 @@ import { getTextColor } from "../utils/colorManager";
 import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
-const tableElem = ref(null);
+const tableElemRef = ref(null);
+const tableWrapperRef = ref(null);
+const tableContainerRef = ref(null);
+const hideTableContainer = ref(false);
+const hideNoExpandedRowContent = ref(false);
 const emit = defineEmits([
   "page-updated",
   "row-clicked",
@@ -457,6 +515,21 @@ const expandedData = ref(null);
 const internalCurrentPage = ref(props.currentPage);
 
 const { exportCsv } = useCsvExport(props.generatedCsvName);
+
+const closeExpandedCard = () => {
+  isExpanded.value = false;
+  expandedData.value = null;
+};
+
+watch(isExpanded, (value) => {
+  if (value) {
+    if (tableWrapperRef.value.$el.getBoundingClientRect().width < 750) {
+      hideTableContainer.value = true;
+    }
+  } else {
+    hideTableContainer.value = false;
+  }
+});
 
 const watchScroll = (e) => {
   if (tableLoader?.value?.$el && props.loading) {
@@ -633,43 +706,52 @@ const filteredRenderedColumns = computed(() => {
   return renderedColumns.value.filter((column) => column.visible);
 });
 
-const hideColumnsOnMobile = () => {
-  expandedData.value = null;
-  isExpanded.value = false;
-  if (window.outerWidth <= props.mobileBreakpoint) {
-    if (!viewportShrunkToMobile.value) {
-      const clonedColumns = [...renderedColumns.value].map((column, index) => {
-        if (props.mobileColumns && props.mobileColumns.length) {
-          column.visible = props.mobileColumns.includes(column.dataSelector);
-          return column;
-        } else {
-          return column;
-        }
+const manageResize = () => {
+  // Handle hiding expand mode placeholder content
+  if (props.expandMode) {
+    hideNoExpandedRowContent.value =
+      tableWrapperRef.value.$el.getBoundingClientRect().width <= 750;
+  }
 
-        // if (
-        //   (props.mobileColumns && !props.mobileColumns.length) ||
-        //   !props.mobileColumns
-        // ) {
-        //   if (index >= 2) {
-        //     column.visible = false;
-        //   }
-        //   return column;
-        // } else {
-        // column.visible = props.mobileColumns.includes(column.dataSelector);
-        // return column;
-        // }
+  // Manage columns
+  // expandedData.value = null;
+  // isExpanded.value = false;
+  if (!isExpanded.value) {
+    if (window.outerWidth <= props.mobileBreakpoint) {
+      if (!viewportShrunkToMobile.value) {
+        const clonedColumns = [...renderedColumns.value].map((column) => {
+          if (props.mobileColumns && props.mobileColumns.length) {
+            column.visible = props.mobileColumns.includes(column.dataSelector);
+            return column;
+          } else {
+            return column;
+          }
+
+          // if (
+          //   (props.mobileColumns && !props.mobileColumns.length) ||
+          //   !props.mobileColumns
+          // ) {
+          //   if (index >= 2) {
+          //     column.visible = false;
+          //   }
+          //   return column;
+          // } else {
+          // column.visible = props.mobileColumns.includes(column.dataSelector);
+          // return column;
+          // }
+        });
+
+        updateRenderedColumns(clonedColumns);
+        viewportShrunkToMobile.value = true;
+      }
+    } else {
+      const clonedColumns = [...renderedColumns.value].map((column) => {
+        column.visible = true;
+        return column;
       });
-
       updateRenderedColumns(clonedColumns);
-      viewportShrunkToMobile.value = true;
+      viewportShrunkToMobile.value = false;
     }
-  } else {
-    const clonedColumns = [...renderedColumns.value].map((column) => {
-      column.visible = true;
-      return column;
-    });
-    updateRenderedColumns(clonedColumns);
-    viewportShrunkToMobile.value = false;
   }
 };
 
@@ -691,8 +773,8 @@ const calculateColumnOffset = async () => {
 
 onMounted(async () => {
   updateRenderedColumns(props.columns.map((column) => new Column(column)));
-  hideColumnsOnMobile();
-  window.addEventListener("resize", hideColumnsOnMobile);
+  manageResize();
+  window.addEventListener("resize", manageResize);
   await nextTick();
   setTimeout(() => {
     calculateColumnOffset();
@@ -700,7 +782,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("resize", hideColumnsOnMobile);
+  window.removeEventListener("resize", manageResize);
 });
 
 provide("sortConfiguration", sortConfiguration);
@@ -826,12 +908,23 @@ const validateBackground = (background, index) => {
   width: 100%;
 
   .ui-table__card {
-    min-width: 390px;
-    width: max-content;
     background: white;
     filter: drop-shadow(0px 1px 5px rgba(63, 63, 68, 0.098));
     border-radius: 0 8px 8px 8px;
     padding: 24px;
+    position: relative;
+    min-width: 280px;
+
+    &.is-displaying-alone {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .close-card-icon {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
 
     .ui-table__card-header {
       border-bottom: 0.5px solid #cbd5e1;
@@ -847,6 +940,10 @@ const validateBackground = (background, index) => {
     overflow: auto;
     position: relative;
 
+    &.hidden {
+      display: none;
+    }
+
     &.expandMode {
       background: #fff;
       border-right: 0.5px solid #e2e8f0;
@@ -859,7 +956,7 @@ const validateBackground = (background, index) => {
       }
 
       .ui-table__filters-container {
-        padding: 8px 24px;
+        padding: 0 24px;
       }
 
       .ui-table__body-cell,
@@ -1086,6 +1183,12 @@ const validateBackground = (background, index) => {
         z-index: 30;
       }
 
+      &.ui-table__fixed_column_right {
+        position: sticky;
+        right: 0;
+        z-index: 30;
+      }
+
       &.is-checkbox {
         width: var(--column_width);
         max-width: var(--column_max_width);
@@ -1295,5 +1398,8 @@ const validateBackground = (background, index) => {
   .ui-virtual-table {
     display: table;
   }
+}
+.ui-table__no-expanded-row-content {
+  padding: 1rem;
 }
 </style>

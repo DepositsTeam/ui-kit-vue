@@ -165,4 +165,10 @@ export const tableProps = {
   exportCsvUrl: {
     type: String,
   },
+  hideExpandModeHeader: {
+    type: Boolean,
+  },
+  expandCardClass: {
+    type: Boolean,
+  },
 };
