@@ -1,8 +1,10 @@
+- **26th September, 2023 - Bernode 🙄**
+    - Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
 - **19th September, 2023 - Bernode 🙄**
-    - Added the Continuous List Item component
-    - Added the Preferences component
-    - Added the Quick Tool component
-    - Added the Vertical movable component
+  - Added the Continuous List Item component
+  - Added the Preferences component
+  - Added the Quick Tool component
+  - Added the Vertical movable component
 - **31st August, 2023 - Bernode 🙄**
   - Updated the props in DActionableAvatar 1 & 2
   - Updated css classes naming conventions

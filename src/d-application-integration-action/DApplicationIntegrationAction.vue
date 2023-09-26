@@ -6,9 +6,9 @@
       </d-box>
       <d-box class="ui-right">
         <d-button
-          size="large"
           colorScheme="primary"
           :left-icon="AddIcon"
+          :size="size"
           @click="emit('newConnectionClicked')"
         >
           New connection
@@ -23,22 +23,27 @@
           :key="`application__${index}`"
         >
           <d-box class="ui-left">
-            <d-box
-              class="ui-logo"
-              is="img"
-              :src="application.logo"
-              :alt="application.applicationName"
-            ></d-box>
+            <slot name="icon" v-bind="application">
+              <d-box
+                class="ui-logo"
+                is="img"
+                :src="application.logo"
+                :alt="application.applicationName"
+              ></d-box>
+            </slot>
             <d-text>{{ application.applicationName }}</d-text>
           </d-box>
           <d-box class="ui-right">
-            <d-text class="ui-text" font-face="circularSTD"
+            <d-text
+              class="ui-text"
+              font-face="circularSTD"
+              v-if="application.dateConnected"
               >{{ application.dateConnected }}
             </d-text>
             <d-button
-              size="large"
               colorScheme="neutral"
               @click="revokeAccess(application)"
+              :size="size"
             >
               Revoke Access
             </d-button>
@@ -61,6 +66,10 @@ defineProps({
   applications: {
     type: Object,
     required: true,
+  },
+  size: {
+    type: String,
+    default: "large",
   },
 });
 

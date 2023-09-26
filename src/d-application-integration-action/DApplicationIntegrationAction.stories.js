@@ -10,6 +10,10 @@ export default {
     applications: {
       control: { type: "object" },
     },
+    size: {
+      control: { type: "select" },
+      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
+    },
   },
 };
 
