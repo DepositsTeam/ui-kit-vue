@@ -1,13 +1,14 @@
 - **26th September, 2023 - Bernode 🙄**
     - Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
+    - Updated the Preference Component to include modelValue.
 - **19th September, 2023 - Bernode 🙄**
-  - Added the Continuous List Item component
-  - Added the Preferences component
-  - Added the Quick Tool component
-  - Added the Vertical movable component
+    - Added the Continuous List Item component
+    - Added the Preferences component
+    - Added the Quick Tool component
+    - Added the Vertical movable component
 - **31st August, 2023 - Bernode 🙄**
-  - Updated the props in DActionableAvatar 1 & 2
-  - Updated css classes naming conventions
+    - Updated the props in DActionableAvatar 1 & 2
+    - Updated css classes naming conventions
 - **31st August, 2023 - Eric McWinNEr 😴**
     - Fixed bug with sorting numbers alphabetically on the table
     - Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data

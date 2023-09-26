@@ -1,5 +1,5 @@
 <template>
-  <d-box v-for="list in lists" :key="list.title">
+  <d-box v-for="list in payload.preferences" :key="list.title">
     <d-box class="card" display="flex" flex-direction="column">
       <d-box class="ui-card-header ui-rounded-top">
         <d-text class="ui-card-header-text">{{ list.title }}</d-text>
@@ -17,17 +17,29 @@
 
 <script setup>
 import { DBox, DText, DSwitch } from "@/main";
+import { onMounted, reactive } from "vue";
 
-const emit = defineEmits(["changed"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({
   lists: {
     type: Array,
   },
+  modelValue: {
+    type: Array,
+  },
+});
+
+const payload = reactive({
+  preferences: [],
+});
+
+onMounted(() => {
+  payload.preferences = props.lists;
 });
 
 const handleChange = () => {
-  emit("changed", props.lists);
+  emit("update:modelValue", payload.preferences);
 };
 </script>
 
