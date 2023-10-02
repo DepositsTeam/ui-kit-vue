@@ -1,3 +1,7 @@
+- **02nd October, 2023 - Eric McWinNEr 😴**
+  - Chore: Updated the UI for the file picker to have a smaller horizontal padding and added a slot for the upload icon 
+- **26th September, 2023 - Eric McWinNEr 😴**
+  - Chore: Made the container element of a DCard to be 100%
 - **24th September, 2023 - Eric McWinNEr 😴**
   - Chore: Updated the expand mode on table
   - Chore: Updated Heading component to properly inherit custom font-faces

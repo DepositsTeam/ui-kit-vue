@@ -147,6 +147,9 @@ const { computedMargin, computedWidth } = useWrapperProps(props);
 </script>
 
 <style lang="scss">
+.ui-card__wrapper {
+  width: 100%;
+}
 .ui-card {
   font-family: "Circular Std", sans-serif;
   font-size: 14px;
