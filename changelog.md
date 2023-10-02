@@ -1,5 +1,6 @@
 - **02nd October, 2023 - Eric McWinNEr 😴**
-  - Chore: Updated the UI for the file picker to have a smaller horizontal padding and added a slot for the upload icon 
+  - Chore: Updated the UI for the file picker to have a smaller horizontal padding and added a slot for the upload icon
+  - Bugfix: Added a nextTick await for auto-layouts to ensure the content has been painted before calculations are done for switching direction
 - **26th September, 2023 - Eric McWinNEr 😴**
   - Chore: Made the container element of a DCard to be 100%
 - **24th September, 2023 - Eric McWinNEr 😴**

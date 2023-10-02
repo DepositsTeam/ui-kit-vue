@@ -21,7 +21,7 @@
 
 <script setup>
 import { DBox } from "../main";
-import { onMounted, onUnmounted } from "vue";
+import { nextTick, onMounted, onUnmounted } from "vue";
 import { ref } from "vue";
 
 const shouldSwitch = ref(false);
@@ -76,6 +76,9 @@ const props = defineProps({
   fullWidthItems: {
     type: Boolean,
   },
+  debug: {
+    type: Boolean,
+  },
 });
 
 const watchForSwitch = () => {
@@ -91,11 +94,12 @@ const watchForWidthSwitch = () => {
   }
 };
 
-onMounted(() => {
-  watchForSwitch();
-  watchForWidthSwitch();
+onMounted(async () => {
   window.addEventListener("resize", watchForSwitch);
   window.addEventListener("resize", watchForWidthSwitch);
+  await nextTick();
+  watchForSwitch();
+  watchForWidthSwitch();
 });
 
 onUnmounted(() => {
