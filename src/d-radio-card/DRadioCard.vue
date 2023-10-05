@@ -61,7 +61,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "click"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const { isChecked, changed } = useRadio(props, emit);
 

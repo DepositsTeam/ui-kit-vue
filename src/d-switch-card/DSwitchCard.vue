@@ -88,7 +88,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "click"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const { isChecked, triggerChange: changed } = useCheckbox(props, emit);
 

@@ -24,9 +24,5 @@ export const useRadio = (props, emit) => {
     emit("update:modelValue", computedValue.value);
   };
 
-  const emitClick = () => {
-    emit("click");
-  };
-
-  return { isChecked, changed, emitClick };
+  return { isChecked, changed };
 };
