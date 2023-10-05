@@ -85,7 +85,7 @@
 <script setup>
 import { DBox, DText, ErrorIcon, DButton } from "../main";
 import inputProps from "../utils/inputProps";
-import { useFilePicker } from "../utils/useFilePicker";
+import { useFilePicker } from "../utils/composables/useFilePicker";
 import { ref } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
 

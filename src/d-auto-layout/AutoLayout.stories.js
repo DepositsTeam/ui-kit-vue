@@ -46,3 +46,13 @@ const Template = (args) => ({
 });
 
 export const Default = Template.bind({});
+
+export const SwitchBreakpointHorizontal = Template.bind({});
+SwitchBreakpointHorizontal.args = {
+  switchBreakpoint: 1000,
+};
+
+export const SwitchWidthHorizontal = Template.bind({});
+SwitchWidthHorizontal.args = {
+  switchWidth: 300,
+};

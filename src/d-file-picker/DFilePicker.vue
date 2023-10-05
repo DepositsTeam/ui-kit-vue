@@ -25,7 +25,10 @@
       <d-box class="close-btn" v-if="selectedFileName" @click="emptyFile">
         <close-icon />
       </d-box>
-      <cloud-upload-filled-icon smart-color="#8895A7" />
+      <slot name="icon">
+        <cloud-upload-filled-icon smart-color="#8895A7" />
+      </slot>
+
       <slot v-if="!selectedFileName">
         <d-auto-layout
           class="placeholder"
@@ -33,18 +36,20 @@
           alignment="center"
           direction="vertical"
         >
-          <d-text margin-y="0" font-face="circularSTD"
-            >Drag & Drop to upload or <span class="blue">browse</span> to choose
-            files</d-text
-          >
-          <d-text margin-y="0" font-face="circularSTD">
-            <span v-if="computedAccepts">
-              Supported file types ({{ computedAccepts }}.
-            </span>
-            <span v-else>(</span>
-            Max upload size:
-            {{ fileMaxSize }}MB)</d-text
-          >
+          <slot>
+            <d-text margin-y="0" font-face="circularSTD"
+              >Drag & Drop to upload or <span class="blue">browse</span> to
+              choose files</d-text
+            >
+            <d-text margin-y="0" font-face="circularSTD">
+              <span v-if="computedAccepts">
+                Supported file types ({{ computedAccepts }}.
+              </span>
+              <span v-else>(</span>
+              Max upload size:
+              {{ fileMaxSize }}MB)</d-text
+            >
+          </slot>
         </d-auto-layout>
       </slot>
       <d-text font-face="circularSTD">{{ selectedFileName }}</d-text>
@@ -71,7 +76,7 @@ import {
   ErrorIcon,
   DAutoLayout,
 } from "../main";
-import { useFilePicker } from "../utils/useFilePicker";
+import { useFilePicker } from "../utils/composables/useFilePicker";
 import { ref } from "vue";
 
 const props = defineProps({
@@ -135,7 +140,7 @@ const {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 50px;
+  padding: 50px 16px;
   color: #6d7786;
   &.dark_mode {
     background: var(--dark-input-background-color);

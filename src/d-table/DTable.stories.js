@@ -11,8 +11,9 @@ import {
   EyeFilledIcon,
 } from "../main";
 import {
-  data,
+  baseData,
   paginatedData,
+  largePaginatedData,
   customComponentData,
   customRowData,
 } from "./data/sitcom-data";
@@ -127,6 +128,20 @@ const Template = (args) => ({
     <d-table v-bind="args" />`,
 });
 
+const RowClickedTemplate = (args) => ({
+  components: { DTable },
+  setup() {
+    return { args };
+  },
+  methods: {
+    alertName: function (row) {
+      alert(`The name on the row clicked is: ${row.name}`);
+    },
+  },
+  template: `
+    <d-table @row-clicked="alertName" v-bind="args" />`,
+});
+
 const ExtraHeadingsTemplate = (args) => ({
   components: { DTable, DBadge, DAutoLayout, DSelect },
   setup() {
@@ -146,7 +161,7 @@ const ExtraHeadingsTemplate = (args) => ({
 export const ExtraHeadings = ExtraHeadingsTemplate.bind({});
 ExtraHeadings.args = {
   columns: sitcomColumns,
-  data,
+  data: paginatedData,
   enableCsvExport: true,
   enableCustomizeView: true,
 };
@@ -177,7 +192,7 @@ const DarkModeTemplateFactory = () => {
 export const Default = Template.bind({});
 Default.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const ChangeColorForRow = Template.bind({});
@@ -189,20 +204,59 @@ ChangeColorForRow.args = {
 export const DarkModeDefault = DarkModeTemplateFactory();
 DarkModeDefault.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
+};
+
+export const RowClicked = RowClickedTemplate.bind({});
+RowClicked.args = {
+  columns: sitcomColumns,
+  data: baseData,
 };
 
 export const ExpandMode = Template.bind({});
 ExpandMode.args = {
-  data,
+  data: baseData,
   columns: sitcomColumns,
   expandMode: true,
   paginate: true,
 };
 
+export const ExpandModeWithoutHeader = Template.bind({});
+ExpandModeWithoutHeader.args = {
+  data: baseData,
+  columns: sitcomColumns,
+  expandMode: true,
+  paginate: true,
+  hideExpandModeHeader: true,
+};
+
+const ExpandModeWithPlaceholderWhenNoSelectedRowTemplate = args => ({
+  components: {
+    DTable
+  },
+  setup() {
+    return {args}
+  },
+  template: `
+    <d-table v-bind="args">
+      <template #no-expanded-row-content>
+        Select a row on the left pane to see more details
+      </template>
+    </d-table>
+  `
+})
+
+export const ExpandModeWithPlaceholderWhenNoSelectedRow = ExpandModeWithPlaceholderWhenNoSelectedRowTemplate.bind({})
+ExpandModeWithPlaceholderWhenNoSelectedRow.args = {
+  data: baseData,
+  columns: sitcomColumns,
+  expandMode: true,
+  paginate: true,
+  hideExpandModeHeader: true,
+};
 export const ExpandModeWithSpecifiedExpandedColumns = Template.bind({});
 ExpandModeWithSpecifiedExpandedColumns.args = {
-  data,
+  data: baseData,
   columns: sitcomColumns,
   expandMode: true,
   expandedColumns: ["name", "city"],
@@ -211,44 +265,173 @@ ExpandModeWithSpecifiedExpandedColumns.args = {
 export const Search = Template.bind({});
 Search.args = {
   search: true,
-  data,
+  data: baseData,
   columns: sitcomColumns,
+};
+
+const AsyncSearchTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  methods: {
+    handleSearch: function (text) {
+      alert(`I will search for ${text} from an API`);
+    },
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table 
+      v-bind="args"
+      @search="handleSearch"
+    />
+  `,
+});
+
+export const AsyncSearch = AsyncSearchTemplate.bind({});
+AsyncSearch.args = {
+  search: true,
+  data: baseData,
+  columns: sitcomColumns,
+  asyncSearch: true,
 };
 
 export const DarkModeSearch = DarkModeTemplateFactory();
 DarkModeSearch.args = {
   search: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const Checkboxes = Template.bind({});
 Checkboxes.args = {
-  search: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
   showCheckboxes: true,
 };
 
 export const DarkModeCheckboxes = DarkModeTemplateFactory();
 DarkModeCheckboxes.args = {
-  search: true,
   showCheckboxes: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
+};
+
+export const CustomizeView = Template.bind({});
+CustomizeView.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCustomizeView: true,
+};
+
+export const CSVExport = Template.bind({});
+CSVExport.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCsvExport: true,
+  buttonActionsAlignment: "right",
+};
+
+const AsyncCSVExportTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  setup() {
+    return { args };
+  },
+  methods: {
+    alertStuff: function () {
+      alert("Downloading CSV...");
+    },
+  },
+  template: `
+    <d-table @download-csv="alertStuff" v-bind="args" />
+  `,
+});
+
+const AsyncCSVURLExportTemplate = (args) => ({
+  components: {
+    DTable,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args" />
+  `,
+});
+export const AsyncCSVURLExport = AsyncCSVURLExportTemplate.bind({});
+AsyncCSVURLExport.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCsvExport: true,
+  asyncCSVExport: true,
+  exportCsvUrl:
+    "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2023-quarter/Download-data/business-employment-data-june-2023-quarter.zip",
+};
+
+export const AsyncCSVExport = AsyncCSVExportTemplate.bind({});
+AsyncCSVExport.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  enableCsvExport: true,
+  asyncCSVExport: true,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  loading: true,
 };
 
 export const ButtonActions = Template.bind({});
 ButtonActions.args = {
-  search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const EmptyTableData = Template.bind({});
 EmptyTableData.args = {
+  search: true,
+  enableCsvExport: true,
+  enableCustomizeView: true,
+  columns: sitcomColumns,
+  data: [],
+};
+
+const EmptyTableSlotTemplate = (args) => ({
+  components: {
+    DTable,
+    DAutoLayout,
+    DText,
+    DButton,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args">
+      <template #empty-table-content>
+        <d-auto-layout margin-y="1rem" direction="vertical" item-spacing="6px" alignment="center">
+          <d-text font-face="heroNew" font-weight="500" my0>No payments yet</d-text>
+          <d-text scale="subhead" font-face="heroNew" my0 color="#6D7786">You haven’t made any transfer yet.
+            Your transfers will show up here once you have any.</d-text>
+          <d-auto-layout margin-top="1rem">
+            <d-button color-scheme="primary" size="medium">Send money</d-button>
+            <d-button color-scheme="outline" size="medium">Pay a bill</d-button>
+          </d-auto-layout>
+        </d-auto-layout>
+      </template>
+    </d-table>
+  `,
+});
+
+export const EmptyTableCustomSlot = EmptyTableSlotTemplate.bind({});
+EmptyTableCustomSlot.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
@@ -262,7 +445,7 @@ DarkModeButtonActions.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data,
+  data: baseData,
 };
 
 export const Pagination = Template.bind({});
@@ -275,13 +458,23 @@ Pagination.args = {
   paginate: true,
 };
 
+export const MassiveDataPagination = Template.bind({});
+MassiveDataPagination.args = {
+  search: true,
+  enableCsvExport: true,
+  enableCustomizeView: true,
+  columns: sitcomColumns,
+  paginate: true,
+  data: largePaginatedData,
+};
+
 export const DarkModePagination = DarkModeTemplateFactory();
 DarkModePagination.args = {
   search: true,
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
 };
 
@@ -291,7 +484,7 @@ RightPagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
   paginateRight: true,
 };
@@ -302,19 +495,50 @@ DarkModeRightPagination.args = {
   enableCsvExport: true,
   enableCustomizeView: true,
   columns: sitcomColumns,
-  data: paginatedData,
+  data: largePaginatedData,
   paginate: true,
   paginateRight: true,
 };
 
-export const CustomComponent = Template.bind({});
+const CustomComponentTemplate = (args) => ({
+  components: {
+    DTable,
+    DButton,
+    DBadge,
+  },
+  methods: {
+    deleteRow: function (alerted) {
+      alert(alerted);
+    },
+  },
+
+  setup() {
+    return { args };
+  },
+  template: `
+    <d-table v-bind="args">
+      <template v-slot:item.state="row">
+        <d-badge>{{row.state}}</d-badge>
+      </template>
+      
+      <template v-slot:item.action="row">
+        <d-button size="medium" @click="deleteRow(row.uuuid)">Delete row</d-button>
+      </template>
+      
+    </d-table>
+  `,
+});
+
+export const CustomComponent = CustomComponentTemplate.bind({});
 CustomComponent.args = {
-  search: true,
-  enableCsvExport: true,
-  enableCustomizeView: true,
-  columns: sitcomColumns,
+  columns: [
+    ...sitcomColumns,
+    {
+      dataSelector: "action",
+      display: "Action",
+    },
+  ],
   data: customComponentData,
-  paginate: true,
 };
 
 export const DarkModeCustomComponent = DarkModeTemplateFactory();
@@ -350,6 +574,11 @@ PipedColumnExampleMultiplyQtyByTwo.args = {
       width: "",
       minWidth: "",
       maxWidth: "",
+    },
+    {
+      display: "No of characters in City",
+      dataSelector: "non_existent_and_not_necessary",
+      pipe: (value, row) => row.city.length,
     },
     {
       display: "Company/Work",
@@ -395,7 +624,7 @@ PipedColumnExampleMultiplyQtyByTwo.args = {
       excludeFromCSV: true,
     },
   ],
-  data,
+  data: baseData,
 };
 
 const OverflowTableTemplate = (args) => ({
@@ -452,7 +681,6 @@ FixedColumnOverflowTableWithCheckboxes.args = {
   data: overflowColumnsData,
   darkMode: false,
   showCheckboxes: true,
-  loading: true,
 };
 
 const AsyncPaginationTableTemplate = (args) => ({
@@ -476,7 +704,7 @@ const AsyncPaginationTableTemplate = (args) => ({
 export const AsyncPaginationTable = AsyncPaginationTableTemplate.bind({});
 AsyncPaginationTable.args = {
   columns: sitcomColumns,
-  data,
+  data: paginatedData,
   paginate: true,
   asyncPagination: true,
   totalPages: 7,
@@ -510,13 +738,13 @@ const ActionSitcomsTemplate = (args) => ({
 export const ActionSitcomsTable = ActionSitcomsTemplate.bind({});
 ActionSitcomsTable.args = {
   columns: actionSitcomsTable,
-  data,
+  data: paginatedData,
 };
 
 export const FixedActionSitcomsTable = ActionSitcomsTemplate.bind({});
 FixedActionSitcomsTable.args = {
   columns: fixedActionsTable,
-  data,
+  data: paginatedData,
 };
 
 const TooltipTableTemplate = (args) => ({
@@ -563,8 +791,12 @@ const AsyncTableUpdateTemplate = (args) => ({
     DTable,
   },
   methods: {
-    tableUpdate: function (searchValue, currentPage) {
-      console.log("Data that changed is", searchValue, currentPage);
+    tableUpdate: function (payload) {
+      alert(
+        `The current page is ${payload.page} and the search value is ${
+          payload.search
+        }. The returned payload is ${JSON.stringify(payload)}`
+      );
     },
     pageUpdate: function (page) {
       console.log("Pagination changed", page);
@@ -579,10 +811,17 @@ const AsyncTableUpdateTemplate = (args) => ({
   template: ` <d-table v-bind="args" @page-updated="pageUpdate" @search="searchUpdate" @async-table-update="tableUpdate" />`,
 });
 
+export const MobileColumns = Template.bind({});
+MobileColumns.args = {
+  columns: sitcomColumns,
+  data: baseData,
+  mobileColumns: ["name", "city"],
+};
+
 export const AsyncTableUpdate = AsyncTableUpdateTemplate.bind({});
 AsyncTableUpdate.args = {
   columns: sitcomColumns,
-  data,
+  data: baseData,
   asyncPagination: true,
   asyncSearch: true,
   totalPages: 49,

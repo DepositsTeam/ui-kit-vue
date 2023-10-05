@@ -1,352 +1,288 @@
-<script>
-import {
-  h,
-  inject,
-  computed,
-  onMounted,
-  unref,
-  ref,
-  onBeforeMount,
-  watch,
-} from "vue";
+<script setup>
+import { inject, computed, onMounted, unref, ref, watch } from "vue";
 import allowedCSSProps from "../utils/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
-import {
-  defaultThemeVars,
-  insertThemeToPage,
-} from "../providers/default-theme";
+import { defaultThemeVars, insertThemeToPage } from "@/providers/default-theme";
 import convertObjToVars from "../utils/convertObjToVars";
+
+const props = defineProps({
+  is: {
+    type: [String, Object],
+    default: "div",
+  },
+  fontFace: {
+    type: String,
+  },
+  modelValue: {
+    type: [Number, String],
+  },
+  value: {
+    type: [Number, String],
+  },
+  ...Object.assign({}, allowedCSSProps),
+  cursor: {
+    type: String,
+  },
+  hoverClass: {
+    type: [String, Object, Array],
+  },
+  darkClass: {
+    type: [String, Object, Array],
+  },
+  lightClass: {
+    type: [String, Object, Array],
+  },
+  id: {
+    type: String,
+  },
+  type: {
+    type: String,
+  },
+  disabled: {
+    type: Boolean,
+    default: null,
+  },
+  underline: {
+    type: Boolean,
+  },
+  noLine: {
+    type: Boolean,
+  },
+});
+
+const emit = defineEmits(["update:modelValue", "change", "input"]);
+
+const computedType = computed(() => {
+  if (typeof props.is === "string" && props.is.toLowerCase() === "input") {
+    return props.type ? props.type.toLowerCase() : "text";
+  } else {
+    return undefined;
+  }
+});
+const computedValue = computed(() => {
+  if (props.modelValue !== undefined) {
+    return props.modelValue;
+  } else if (props.value !== undefined) {
+    return props.value;
+  } else {
+    return undefined;
+  }
+});
+
+const forwardableInputTypes = [
+  "text",
+  "password",
+  "email",
+  "number",
+  "url",
+  "color",
+  "range",
+  "week",
+  "time",
+  "tel",
+  "search",
+  "month",
+  "date",
+  "datetime-local",
+];
 
 const unitizeValue = (value) =>
   parseFloat(value) == value ? `${value}px` : value;
 
-export default {
-  props: {
-    is: {
-      type: [String, Object],
-      default: "div",
-    },
-    fontFace: {
-      type: String,
-    },
-    modelValue: {
-      type: [Number, String],
-    },
-    value: {
-      type: [Number, String],
-    },
-    ...Object.assign({}, allowedCSSProps),
-    cursor: {
-      type: String,
-    },
-    hoverClass: {
-      type: [String, Object, Array],
-    },
-    darkClass: {
-      type: [String, Object, Array],
-    },
-    lightClass: {
-      type: [String, Object, Array],
-    },
-    id: {
-      type: String,
-    },
-    type: {
-      type: String,
-    },
-    disabled: {
-      type: Boolean,
-      default: null,
-    },
-    underline: {
-      type: Boolean,
-    },
-    noLine: {
-      type: Boolean,
-    },
-  },
-  emits: [
-    "change",
-    "click",
-    "input",
-    "keydown",
-    "keyup",
-    "keypress",
-    "focus",
-    "blur",
-    "mouseenter",
-    "mouseleave",
-    "mouseover",
-    "mousemove",
-    "paste",
-    "update:modelValue",
-  ],
-  setup(props, { slots, emit }) {
-    const darkMode = inject("d__darkMode", null);
-    const d__theme = inject("d__theme", ref(defaultThemeVars));
-    const defaultFontFace = inject("defaultFontFace", null);
+const darkMode = inject("d__darkMode", null);
+const d__theme = inject("d__theme", ref(defaultThemeVars));
+const defaultFontFace = inject("defaultFontFace", null);
 
-    onBeforeMount(() => {});
-    const computedFontFace = computed(() => {
-      return props.fontFace
-        ? props.fontFace
-        : unref(defaultFontFace)
-        ? unref(defaultFontFace)
-        : "circularSTD";
-    });
-    const forwardableInputTypes = [
-      "text",
-      "password",
-      "email",
-      "number",
-      "url",
-      "color",
-      "range",
-      "week",
-      "time",
-      "tel",
-      "search",
-      "month",
-      "date",
-      "datetime-local",
-    ];
-    const computedType = computed(() => {
-      if (typeof props.is === "string" && props.is.toLowerCase() === "input") {
-        return props.type ? props.type.toLowerCase() : "text";
-      } else {
-        return undefined;
-      }
-    });
-    const computedValue = computed(() => {
-      if (props.modelValue !== undefined) {
-        return props.modelValue;
-      } else if (props.value !== undefined) {
-        return props.value;
-      } else {
-        return undefined;
-      }
-    });
-    const svgWidth = computed(() => {
-      if (
-        typeof props.is === "string" &&
-        props.is.toLowerCase() === "svg" &&
-        props.width
-      ) {
-        return props.width;
-      } else {
-        return undefined;
-      }
-    });
-    const svgHeight = computed(() => {
-      if (
-        typeof props.is === "string" &&
-        props.is.toLowerCase() === "svg" &&
-        props.height
-      ) {
-        return props.height;
-      } else {
-        return undefined;
-      }
-    });
+const computedFontFace = computed(() => {
+  return props.fontFace
+    ? props.fontFace
+    : unref(defaultFontFace)
+    ? unref(defaultFontFace)
+    : "circularSTD";
+});
 
-    const darkModeIsEnabled = computed(
-      () => darkMode !== null && darkMode !== undefined && darkMode.value
-    );
+const svgWidth = computed(() => {
+  if (
+    typeof props.is === "string" &&
+    props.is.toLowerCase() === "svg" &&
+    props.width
+  ) {
+    return props.width;
+  } else {
+    return undefined;
+  }
+});
+const svgHeight = computed(() => {
+  if (
+    typeof props.is === "string" &&
+    props.is.toLowerCase() === "svg" &&
+    props.height
+  ) {
+    return props.height;
+  } else {
+    return undefined;
+  }
+});
 
-    const uniqueID = ref("auto_generated" + uniqueRandomString(20));
-    const uniqueClass = ref("auto_generated" + uniqueRandomString(20));
+const darkModeIsEnabled = computed(
+  () => darkMode !== null && darkMode !== undefined && darkMode.value
+);
 
-    const convertCssProps = (str) =>
-      str
-        .split(/\.?(?=[A-Z])/)
-        .join("-")
-        .toLowerCase();
+const uniqueID = ref("auto_generated" + uniqueRandomString(20));
+const uniqueClass = ref("auto_generated" + uniqueRandomString(20));
 
-    const addStylesToCssProps = (propKey, cssProps) => {
-      let cleansedPropKey = propKey
-        .replaceAll("light", "")
-        .replaceAll("dark", "");
-      cleansedPropKey =
-        cleansedPropKey[0].toLowerCase() + cleansedPropKey.substring(1);
-      switch (cleansedPropKey) {
-        case "marginX":
-          cssProps["margin-left"] = unitizeValue(props[propKey]);
-          cssProps["margin-right"] = unitizeValue(props[propKey]);
-          break;
-        case "marginY":
-          cssProps["margin-top"] = unitizeValue(props[propKey]);
-          cssProps["margin-bottom"] = unitizeValue(props[propKey]);
-          break;
-        case "paddingX":
-          cssProps["padding-left"] = unitizeValue(props[propKey]);
-          cssProps["padding-right"] = unitizeValue(props[propKey]);
-          break;
-        case "paddingY":
-          cssProps["padding-top"] = unitizeValue(props[propKey]);
-          cssProps["padding-bottom"] = unitizeValue(props[propKey]);
-          break;
-        case "width":
-        case "height":
-          cssProps[propKey] = unitizeValue(props[propKey]);
-          break;
-        default:
-          cssProps[convertCssProps(cleansedPropKey)] = props[propKey];
-      }
-    };
+const convertCssProps = (str) =>
+  str
+    .split(/\.?(?=[A-Z])/)
+    .join("-")
+    .toLowerCase();
 
-    const generateClassProps = () => {
-      const specialRootStyle = document.head.querySelector(
-        "style#specialRootStyle"
-      );
-      if (!specialRootStyle) {
-        insertThemeToPage(unref(d__theme));
-      }
-      const savedCss = {};
-      for (let prop in props) {
-        if (allowedCSSProps[prop]) {
-          if (props[prop]) {
-            if (prop.startsWith("light") || prop.startsWith("dark")) {
-              if (prop.startsWith("light") && !darkModeIsEnabled.value) {
-                addStylesToCssProps(prop, savedCss);
-              } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
-                addStylesToCssProps(prop, savedCss);
-              }
-            } else {
-              addStylesToCssProps(prop, savedCss);
-            }
+const addStylesToCssProps = (propKey, cssProps) => {
+  let cleansedPropKey = propKey.replaceAll("light", "").replaceAll("dark", "");
+  cleansedPropKey =
+    cleansedPropKey[0].toLowerCase() + cleansedPropKey.substring(1);
+  switch (cleansedPropKey) {
+    case "marginX":
+      cssProps["margin-left"] = unitizeValue(props[propKey]);
+      cssProps["margin-right"] = unitizeValue(props[propKey]);
+      break;
+    case "marginY":
+      cssProps["margin-top"] = unitizeValue(props[propKey]);
+      cssProps["margin-bottom"] = unitizeValue(props[propKey]);
+      break;
+    case "paddingX":
+      cssProps["padding-left"] = unitizeValue(props[propKey]);
+      cssProps["padding-right"] = unitizeValue(props[propKey]);
+      break;
+    case "paddingY":
+      cssProps["padding-top"] = unitizeValue(props[propKey]);
+      cssProps["padding-bottom"] = unitizeValue(props[propKey]);
+      break;
+    case "width":
+    case "height":
+      cssProps[propKey] = unitizeValue(props[propKey]);
+      break;
+    default:
+      cssProps[convertCssProps(cleansedPropKey)] = props[propKey];
+  }
+};
+
+const generateClassProps = () => {
+  const specialRootStyle = document.head.querySelector(
+    "style#specialRootStyle"
+  );
+  if (!specialRootStyle) {
+    insertThemeToPage(unref(d__theme));
+  }
+  const savedCss = {};
+  for (let prop in props) {
+    if (allowedCSSProps[prop]) {
+      if (props[prop]) {
+        if (prop.startsWith("light") || prop.startsWith("dark")) {
+          if (prop.startsWith("light") && !darkModeIsEnabled.value) {
+            addStylesToCssProps(prop, savedCss);
+          } else if (prop.startsWith("dark") && darkModeIsEnabled.value) {
+            addStylesToCssProps(prop, savedCss);
           }
+        } else {
+          addStylesToCssProps(prop, savedCss);
         }
       }
-      const savedCssEntries = Object.entries({
-        ...savedCss,
-      });
-      const themingEngineRules = Object.entries({
-        ...convertObjToVars(unref(d__theme)),
-      })
-        .map(([k, v]) => `${k}:${v}`)
-        .join(";");
-      let cssRules = `
+    }
+  }
+  const savedCssEntries = Object.entries({
+    ...savedCss,
+  });
+  const themingEngineRules = Object.entries({
+    ...convertObjToVars(unref(d__theme)),
+  })
+    .map(([k, v]) => `${k}:${v}`)
+    .join(";");
+  let cssRules = `
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: transparent;
       `;
-      if (savedCssEntries.length) {
-        cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
-      }
-      const existingTag = document.head.querySelector(
-        `style#${uniqueID.value}`
-      );
-      let styleTag;
-      if (existingTag) {
-        styleTag = existingTag;
-        styleTag.innerHTML = "";
-      } else {
-        styleTag = document.createElement("style");
-        styleTag.id = uniqueID.value;
-        styleTag.setAttribute("type", "text/css");
-      }
-      styleTag.innerHTML = `.${uniqueClass.value}{${cssRules}} .${uniqueClass.value}_theming_styles{${themingEngineRules}}`;
-      if (!existingTag) {
-        document.head.appendChild(styleTag);
-      }
-    };
+  if (savedCssEntries.length) {
+    cssRules += savedCssEntries.map(([k, v]) => `${k}:${v}`).join(";");
+  }
+  const existingTag = document.head.querySelector(`style#${uniqueID.value}`);
+  let styleTag;
+  if (existingTag) {
+    styleTag = existingTag;
+    styleTag.innerHTML = "";
+  } else {
+    styleTag = document.createElement("style");
+    styleTag.id = uniqueID.value;
+    styleTag.setAttribute("type", "text/css");
+  }
+  styleTag.innerHTML = `.${uniqueClass.value}{${cssRules}} .${uniqueClass.value}_theming_styles{${themingEngineRules}}`;
+  if (!existingTag) {
+    document.head.appendChild(styleTag);
+  }
+};
 
-    onMounted(() => {
-      generateClassProps();
-    });
+onMounted(() => {
+  generateClassProps();
+});
 
-    // TODO: Find a more efficient way to only watch the CSS props in the next watcher
+// TODO: Find a more efficient way to only watch the CSS props in the next watcher
 
-    watch(props, generateClassProps);
+watch(props, generateClassProps);
 
-    watch(d__theme, generateClassProps);
+watch(d__theme, generateClassProps);
 
-    return () =>
-      h(
-        props.is,
-        {
-          onChange: function (e) {
-            if (props.is.toLowerCase() === "select") {
-              emit("update:modelValue", e.target.value);
-            }
-            emit("change", e);
-          },
-          onFocus: function (e) {
-            emit("focus", e);
-          },
-          onBlur: function (e) {
-            emit("blur", e);
-          },
-          onClick: function (e) {
-            emit("click", e);
-          },
-          onInput: function (e) {
-            if (
-              props.is.toLowerCase() === "input" &&
-              forwardableInputTypes.includes(computedType.value)
-            ) {
-              emit("update:modelValue", e.target.value);
-            }
-            emit("input", e);
-          },
-          onKeydown: function (e) {
-            emit("keydown", e);
-          },
-          onKeyup: function (e) {
-            emit("keyup", e);
-          },
-          onKeypress: function (e) {
-            emit("keypress", e);
-          },
-          onMouseleave: function (e) {
-            emit("mouseleave", e);
-          },
-          onMouseenter: function (e) {
-            emit("mouseenter", e);
-          },
-          onMouseover: function (e) {
-            emit("mouseover", e);
-          },
-          onMousemove: function (e) {
-            emit("mousemove", e);
-          },
-          onPaste: function (e) {
-            emit("paste", e);
-          },
-          id: props.id ? props.id : uniqueID.value,
-          ...(computedType.value ? { type: computedType.value } : {}),
-          ...(computedValue.value ? { value: computedValue.value } : {}),
-          ...(props.disabled !== null ? { disabled: props.disabled } : {}),
-          ...(props.is === "svg" ? { focusable: false } : {}),
-          class: {
-            // [styleClasses.value[uniqueClass]]: true,
-            [uniqueClass.value]: true,
-            [`${uniqueClass.value}_theming_styles`]: true,
-            [props.darkClass]: darkModeIsEnabled.value && props.darkClass,
-            [props.lightClass]: !darkModeIsEnabled.value && props.lightClass,
-            [computedFontFace.value]:
-              computedFontFace.value &&
-              typeof props.is === "string" &&
-              props.is.toLowerCase() !== "svg",
-            dark_mode: darkModeIsEnabled.value,
-            underline: props.underline,
-            noLine: props.noLine,
-            "deposits-ui-box": true,
-          },
-          ...(svgWidth.value ? { width: svgWidth.value } : {}),
-          ...(svgHeight.value ? { height: svgHeight.value } : {}),
-        },
-        {
-          default() {
-            return slots.default ? slots.default() : undefined;
-          },
-        }
-      );
-  },
+const handleChange = (e) => {
+  if (props.is.toLowerCase() === "select") {
+    emit("update:modelValue", e.target.value);
+  }
+  emit("change", e);
+};
+
+const handleInput = (e) => {
+  if (
+    props.is.toLowerCase() === "input" &&
+    forwardableInputTypes.includes(computedType.value)
+  ) {
+    emit("update:modelValue", e.target.value);
+  }
+  emit("input", e);
 };
 </script>
+<template>
+  <component
+    :is="is"
+    :id="id ? id : uniqueID"
+    @change="handleChange"
+    @input="handleInput"
+    :class="{
+      [uniqueClass]: true,
+      [`${uniqueClass}_theming_styles`]: true,
+      [darkClass]: darkModeIsEnabled && darkClass,
+      [lightClass]: !darkModeIsEnabled && lightClass,
+      [computedFontFace]:
+        computedFontFace &&
+        typeof is === 'string' &&
+        is.toLowerCase() !== 'svg',
+      dark_mode: darkModeIsEnabled,
+      underline,
+      noLine,
+      'deposits-ui-box': true,
+    }"
+    v-bind="{
+      ...(svgWidth ? { width: svgWidth } : {}),
+      ...(svgHeight ? { height: svgHeight } : {}),
+      ...(computedType ? { type: computedType } : {}),
+      ...(computedValue ? { value: computedValue } : {}),
+      ...(disabled !== null ? { disabled: disabled } : {}),
+      ...(is === 'svg' ? { focusable: false } : {}),
+    }"
+  >
+    <slot></slot>
+  </component>
+</template>
 <style lang="scss">
 @use "sass:map";
 @import "../scss/variables";

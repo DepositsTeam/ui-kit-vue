@@ -72,7 +72,7 @@
 import { DBox, DRadio, DCheckbox } from "../main";
 import { computed } from "vue";
 import { wrapperProps } from "../utils/wrapperProps";
-import { useWrapperProps } from "../utils/useWrapperProps";
+import { useWrapperProps } from "../utils/composables/useWrapperProps";
 
 const props = defineProps({
   title: {
@@ -147,6 +147,9 @@ const { computedMargin, computedWidth } = useWrapperProps(props);
 </script>
 
 <style lang="scss">
+.ui-card__wrapper {
+  width: 100%;
+}
 .ui-card {
   font-family: "Circular Std", sans-serif;
   font-size: 14px;

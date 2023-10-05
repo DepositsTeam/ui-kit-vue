@@ -33,15 +33,12 @@ import { computed } from "vue";
 const props = defineProps({
   xs: {
     type: [Number, Object],
-    default: 12,
   },
   sm: {
     type: [Number, Object],
-    default: 12,
   },
   md: {
     type: [Number, Object],
-    default: 12,
   },
   lg: {
     type: [Number, Object],
@@ -90,29 +87,30 @@ const props = defineProps({
   },
 });
 
-const computedXS = computed(() =>
-  props.xs
+const computedXS = computed(() => {
+  const localComputedXS = props.xs
     ? typeof props.xs === "object"
       ? props.xs.span
       : props.xs
-    : undefined
-);
+    : undefined;
+  return localComputedXS ? localComputedXS : 12;
+});
 
-const computedSM = computed(() =>
-  props.sm
+const computedSM = computed(() => {
+  return props.sm
     ? typeof props.sm === "object"
       ? props.sm.span
       : props.sm
-    : undefined
-);
+    : undefined;
+});
 
-const computedMD = computed(() =>
-  props.md
+const computedMD = computed(() => {
+  return props.md
     ? typeof props.md === "object"
       ? props.md.span
       : props.md
-    : undefined
-);
+    : undefined;
+});
 
 const computedLG = computed(() =>
   props.lg
@@ -245,7 +243,7 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
   display: flex;
   flex-direction: column;
 
-  flex: 1 0 0%;
+  flex: 1 0 0;
   max-width: 100%;
   padding-left: 0;
   margin-left: 0;
@@ -271,14 +269,8 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
         &.ui-responsive__offset-last {
           order: 13;
         }
-        @if $i == 12 {
-          &.ui-responsive__col-#{$breakpoint}-#{$i} {
-            width: calc($i / 12 * 100%);
-          }
-        } @else {
-          &.ui-responsive__col-#{$breakpoint}-#{$i} {
-            width: calc($i / 12 * 100%);
-          }
+        &.ui-responsive__col-#{$breakpoint}-#{$i} {
+          width: calc($i / 12 * 100%);
         }
       }
     }

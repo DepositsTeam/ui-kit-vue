@@ -56,7 +56,6 @@ const props = defineProps({
   },
   fontFace: {
     type: String,
-    default: "heroNew",
   },
   fontWeight: {
     type: [String, Number],

@@ -35,10 +35,9 @@
 </template>
 
 <script setup>
-// TODO: Fix bug with the customize view modal not resetting to the filtered columns state when reopened
 import { VueDraggableNext as Draggable } from "vue-draggable-next";
 import { DModal, DCard, MoveIcon, DBox, DButton } from "../../main";
-import { shallowRef, onMounted, unref, watch, inject } from "vue";
+import { onMounted, unref, watch, inject, ref, toRaw } from "vue";
 
 const emit = defineEmits(["close-modal"]);
 const updateRenderedColumns = inject("updateRenderedColumns");
@@ -52,12 +51,12 @@ const props = defineProps({
   },
 });
 
-const state = shallowRef([]);
+const state = ref([]);
 
 const hydrateState = () => {
   state.value = [];
   [...unref(props.columns)].forEach((column) => {
-    state.value.push(unref(column));
+    state.value.push(toRaw(unref(column)));
   });
 };
 
@@ -76,8 +75,8 @@ watch(
 );
 
 onMounted(() => {
-  unref(props.columns).forEach((column) => {
-    state.value.push(unref(column));
+  [...unref(props.columns)].forEach((column) => {
+    state.value.push(toRaw(unref(column)));
   });
 });
 
@@ -87,7 +86,7 @@ const closeModal = () => {
 
 const hydrateColumns = () => {
   const columns = [...unref(state.value)].map((column) => {
-    return column;
+    return toRaw(unref(column));
   });
 
   updateRenderedColumns(columns);

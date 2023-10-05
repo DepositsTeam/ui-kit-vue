@@ -173,7 +173,7 @@ import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
 import { wrapperProps } from "../utils/wrapperProps";
-import { useWrapperProps } from "../utils/useWrapperProps";
+import { useWrapperProps } from "../utils/composables/useWrapperProps";
 import { formatPercentage } from "../utils/formatPercentage";
 import { useInputSize } from "../utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
@@ -290,7 +290,7 @@ const initializeModelValue = () => {
           regex = new RegExp(/^\d*(\.\d{0,2})?$/);
         if (regex.test(value)) {
           if (props.emitOnlyCurrencyValue) {
-            emit("update:modelValue", `${number_format(value, 2)}`);
+            emit("update:modelValue", `${number_format(value, 2).replaceAll(",", "")}`);
           } else {
             emit(
               "update:modelValue",
@@ -564,9 +564,11 @@ const handleBlurEvent = async (e) => {
                 .split(",")
                 .join("")
                 .replaceAll(props.currencySymbol, "")
+                .replaceAll(",", "")
+                .trim()
             ),
             2
-          )}`
+          ).replaceAll(",", "")}`
         );
       } else {
         emit(
@@ -634,7 +636,7 @@ watch(
               .replaceAll(props.currencySymbol, "")
           ),
           2
-        )}`
+        ).replaceAll(",", "")}`
       );
       await nextTick();
       inputField.value.$el.value = `${props.currencySymbol} ${number_format(

@@ -152,11 +152,23 @@ export const tableProps = {
   asyncCSVExport: {
     type: Boolean,
   },
+  asyncCsvExport: {
+    type: Boolean,
+  },
   emptyTableText: {
     type: String,
     default: "No data available",
   },
   exportCSVURL: {
     type: String,
+  },
+  exportCsvUrl: {
+    type: String,
+  },
+  hideExpandModeHeader: {
+    type: Boolean,
+  },
+  expandCardClass: {
+    type: Boolean,
   },
 };
