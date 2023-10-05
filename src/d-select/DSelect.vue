@@ -54,7 +54,7 @@
           {{ option.text }}
         </option>
       </d-box>
-      <d-box class="ui-text-field__right-icon__wrapper">
+      <d-box pointer-events="none"  class="ui-text-field__right-icon__wrapper">
         <d-box class="ui-text-field__right-icon">
           <slot name="right-icon">
             <ChevronFilledDownIcon />

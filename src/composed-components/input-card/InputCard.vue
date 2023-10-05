@@ -24,7 +24,6 @@ const handleClick = (e) => {
   if (!props.disabled) {
     if (props.expandable) {
       if (props.expandOnChecked) {
-        expanded.value = !expanded.value;
         emit("clicked");
       } else {
         if (e.target.closest(".d-input-card__selector")) {
