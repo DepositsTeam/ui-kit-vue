@@ -1,6 +1,7 @@
 - **05th October 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with select boxes right-arrows not opening the select dropdown
   - Bugfix: Updated RadioSelect to work as expected when the `expandOnChecked` prop is set to true
+  - Bugfix: Fixed bug with redundant emitted click preventing click events on RadioCard, CheckboxCard and SwitchCard
 - **02nd October 2023 - Eric McWinNEr 😴**
   - Chore: Updated the UI for the file picker to have a smaller horizontal padding and added a slot for the upload icon
   - Bugfix: Added a nextTick await for auto-layouts to ensure the content has been painted before calculations are done for switching direction
