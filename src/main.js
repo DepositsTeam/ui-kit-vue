@@ -61,6 +61,13 @@ export { useDarkMode } from "./providers/composables/useDarkMode";
 export { useToast } from "./providers/composables/useToast";
 export { useDebitCard } from "./utils/composables/useDebitCard";
 export { default as number_format } from "./utils/number_format";
+export {
+  formatCardNo,
+  asteriskCardNo,
+  asteriskCvv,
+  asteriskExp,
+  CardBrands,
+} from "./utils/debitCardUtils";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";
