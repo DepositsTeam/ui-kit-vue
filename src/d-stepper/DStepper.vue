@@ -48,17 +48,18 @@
       <d-box class="ui-step__content">
         <slot name="step" v-bind="typeof step === 'object' ? step : {}">
           <d-text
-            margin-y="0"
             class="ui-step__content-title"
+            margin-bottom="4px"
+            margin-top="0"
             :font-size="fontSize"
             >{{ typeof step === "string" ? step : step.text }}</d-text
           >
           <d-text
             margin-y="0"
-            font-face="circularSTD"
-            scale="subhead"
+            scale="footnote"
             v-if="typeof step !== 'string' && step.description"
             color="#878B9A"
+            font-weight="450"
             v-html="step.description"
           >
           </d-text>
@@ -164,7 +165,7 @@ defineProps({
       justify-content: center;
       z-index: 15;
       &.activeColor {
-        border-color: #EFF4F7;
+        border-color: #eff4f7;
       }
       &.variant-2 {
         background: #eff4f7;
