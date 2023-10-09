@@ -10,7 +10,7 @@
           @click="handleClick(list)"
           :key="list.id"
         >
-          <slot name="row">
+          <slot name="row" v-bind="list">
             <d-box class="ui-left">
               <slot name="icon" v-bind="list">
                 <d-box class="ui-icon">
@@ -18,14 +18,16 @@
                 </d-box>
               </slot>
 
-              <d-box class="ui-texts">
-                <d-text is="h3" class="ui-d_title" font-face="heroNew">{{
-                  list.title
-                }}</d-text>
-                <d-text is="p" class="ui-d_text" font-face="circularSTD"
-                  >{{ list.description }}
-                </d-text>
-              </d-box>
+              <slot name="text" v-bind="list">
+                <d-box class="ui-texts">
+                  <d-text is="h3" class="ui-d_title" font-face="heroNew">{{
+                    list.title
+                  }}</d-text>
+                  <d-text is="p" class="ui-d_text" font-face="circularSTD"
+                    >{{ list.description }}
+                  </d-text>
+                </d-box>
+              </slot>
             </d-box>
             <d-box class="ui-caret-right">
               <ChevronArrowRightIcon />

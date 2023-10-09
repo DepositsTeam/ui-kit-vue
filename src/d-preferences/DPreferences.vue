@@ -1,5 +1,5 @@
 <template>
-  <d-box v-for="list in payload.preferences" :key="list.title">
+  <d-box class="ui-preferences" v-for="list in payload.preferences" :key="list.title">
     <d-box class="card" display="flex" flex-direction="column">
       <d-box class="ui-card-header ui-rounded-top">
         <d-text class="ui-card-header-text">{{ list.title }}</d-text>
