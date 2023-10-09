@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-action__card">
+  <d-box class="ui-actionable__avatar">
     <d-box class="ui-header">
       <d-box class="ui-left">
         <d-box class="ui-header__title">
@@ -23,12 +23,13 @@
     <slot name="footer">
       <d-box class="ui-footer">
         <slot name="addButton">
-          <d-button
+          <d-box
             @click="emit('buttonClicked')"
-            :size="buttonSize"
-            color-scheme="invisible"
-            >{{ buttonText }}
-          </d-button>
+            cursor="pointer"
+            class="add__button"
+          >
+            {{ buttonText }}
+          </d-box>
         </slot>
         <slot name="icons">
           <d-box class="ui-icons">
@@ -86,7 +87,7 @@ const emit = defineEmits(["editClicked", "deleteClicked", "buttonClicked"]);
 </script>
 
 <style scoped>
-.ui-action__card {
+.ui-actionable__avatar {
   display: flex;
   padding: 20px 16px 16px 16px;
   flex-direction: column;
@@ -177,9 +178,9 @@ const emit = defineEmits(["editClicked", "deleteClicked", "buttonClicked"]);
       }
     }
   }
-}
 
-p {
-  margin: 0;
+  p {
+    margin: 0;
+  }
 }
 </style>

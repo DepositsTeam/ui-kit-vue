@@ -1,6 +1,6 @@
 <template>
   <d-box class="card-main-width tool__card">
-    <d-text class="tool__card__header">{{selectedLists.title}}</d-text>
+    <d-text class="tool__card__header">{{ selectedLists.title }}</d-text>
     <d-box class="drag__tool__section">
       <draggable
         class="list-group"
@@ -23,7 +23,9 @@
       </draggable>
     </d-box>
 
-    <d-text class="tool__card__header" margin-top="30px">{{ moreLists.title}}</d-text>
+    <d-text class="tool__card__header" margin-top="30px">{{
+      moreLists.title
+    }}</d-text>
     <d-box class="drag__tool__section">
       <draggable
         class="list-group"

@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-action__card">
+  <d-box class="ui-actionable__avatar__2">
     <d-box class="ui-header">
       <slot name="header">
         <d-text class="ui-title" font-face="circularSTD">{{ heading }}</d-text>
@@ -103,7 +103,7 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
 </script>
 
 <style scoped>
-.ui-action__card {
+.ui-actionable__avatar__2 {
   display: flex;
   padding: 11px 0px;
   flex-direction: column;

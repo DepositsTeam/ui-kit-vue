@@ -1,6 +1,6 @@
 <template>
   <d-box
-    class="ui-card__one"
+    class="ui-static__stats"
     :class="{ hasSmartColor: !!smartColor }"
     @click="clickHandler"
     :style="{
@@ -22,10 +22,10 @@
       </d-box>
     </slot>
     <d-box display="flex" flex-direction="column" gap="6px">
-      <d-text class="ui-card__one__heading" font-face="heroNew"
+      <d-text class="ui-static__stats__heading" font-face="heroNew"
         >{{ label }}
       </d-text>
-      <d-text class="ui-card__one__text" font-face="circularSTD"
+      <d-text class="ui-static__stats__text" font-face="circularSTD"
         >{{ text }}
       </d-text>
     </d-box>
@@ -101,7 +101,7 @@ const clickHandler = () => {
 </script>
 
 <style scoped lang="scss">
-.ui-card__one {
+.ui-static__stats {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -166,7 +166,7 @@ const clickHandler = () => {
     }
   }
 
-  .ui-card__one__heading {
+  .ui-static__stats__heading {
     color: #8c97a7;
     font-size: 14px;
     font-style: normal;
@@ -175,7 +175,7 @@ const clickHandler = () => {
     margin: 0;
   }
 
-  .ui-card__one__text {
+  .ui-static__stats__text {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;

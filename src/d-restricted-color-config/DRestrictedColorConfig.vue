@@ -1,5 +1,5 @@
 <template>
-  <d-box>
+  <d-box class="ui-restricted__color__config">
     <d-text font-face="heroNew" is="label" margin-bottom="1rem" display="block"
       >{{ label }}
     </d-text>
@@ -72,26 +72,28 @@ const handleChangeEvents = (color) => emit("update:modelValue", color);
 </script>
 
 <style scoped lang="scss">
-.ui-radio-element {
-  position: relative;
+.ui-restricted__color__config {
+  .ui-radio-element {
+    position: relative;
 
-  input {
-    display: none;
-  }
+    input {
+      display: none;
+    }
 
-  .ui-radio-body {
-    padding: 10px 20px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    font-weight: 450;
-    transition: 0.3s ease-in-out;
+    .ui-radio-body {
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      font-weight: 450;
+      transition: 0.3s ease-in-out;
 
-    .ui-radio-circle {
-      height: 25px;
-      width: 25px;
-      border-radius: 100%;
-      margin-right: 10px;
+      .ui-radio-circle {
+        height: 25px;
+        width: 25px;
+        border-radius: 100%;
+        margin-right: 10px;
+      }
     }
   }
 }

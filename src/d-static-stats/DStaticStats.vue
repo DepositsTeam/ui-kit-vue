@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-box">
+  <d-box class="ui-static__stats">
     <d-box class="ui-header">
       <d-box class="ui-image__circle">
         <slot name="icon">
@@ -51,7 +51,7 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-.ui-box {
+.ui-static__stats {
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 2px 6px 0 rgba(174, 174, 192, 0.1);

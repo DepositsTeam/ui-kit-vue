@@ -1,5 +1,5 @@
 <template>
-  <d-box>
+  <d-box class="ui-custom__color__config">
     <d-box>
       <d-text font-face="heroNew">{{ label }}</d-text>
     </d-box>
@@ -97,49 +97,51 @@ const copyCode = () => {
 </script>
 
 <style scoped lang="scss">
-.ui-colors {
-  //background-color: red;
-  display: flex;
-  align-items: flex-start;
-  gap: 18.848px;
-  flex-wrap: wrap;
+.ui-custom__color__config {
+  .ui-colors {
+    //background-color: red;
+    display: flex;
+    align-items: flex-start;
+    gap: 18.848px;
+    flex-wrap: wrap;
 
-  .ui-color {
-    border-radius: 10.79px;
-    padding: 3.924px;
-    background: transparent;
-    cursor: pointer;
+    .ui-color {
+      border-radius: 10.79px;
+      padding: 3.924px;
+      background: transparent;
+      cursor: pointer;
 
-    .ui-color_inner {
-      border-radius: 7.847px;
+      .ui-color_inner {
+        border-radius: 7.847px;
+      }
     }
   }
-}
 
-.ui-color__input__field {
-  margin-top: 16px;
-  width: 390px;
-  border-radius: 4px;
-  cursor: copy;
+  .ui-color__input__field {
+    margin-top: 16px;
+    width: 390px;
+    border-radius: 4px;
+    cursor: copy;
 
-  .ui-color__input__field__right {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    padding: 12px 15px;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    border-radius: 0px 4px 4px 0px;
-    border-left: 1px solid #ced6de;
-    background: #fff;
-    box-shadow: 0 1px 2px 0px rgba(63, 63, 68, 0.1);
+    .ui-color__input__field__right {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      padding: 12px 15px;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      border-radius: 0px 4px 4px 0px;
+      border-left: 1px solid #ced6de;
+      background: #fff;
+      box-shadow: 0 1px 2px 0px rgba(63, 63, 68, 0.1);
 
-    .ui-color__input__field__square {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      border-radius: 6px;
+      .ui-color__input__field__square {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        border-radius: 6px;
+      }
     }
   }
 }

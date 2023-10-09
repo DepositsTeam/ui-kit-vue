@@ -1,9 +1,13 @@
 <template>
-  <d-box>
+  <d-box class="ui-copy__input">
     <d-textfield readonly v-model="payload.text" :size="size">
       <template #rightSection>
         <d-box @click="copyCode" class="ui-copy-btn" cursor="pointer">
-          <copy-filled-icon height="30px" width="30px" class="ui-text-gray-500" />
+          <copy-filled-icon
+            height="30px"
+            width="30px"
+            class="ui-text-gray-500"
+          />
         </d-box>
       </template>
 
@@ -57,47 +61,49 @@ const copyCode = () => {
 </script>
 
 <style scoped>
-.ui-label-text {
-  height: 100%;
-  white-space: nowrap;
-  background: linear-gradient(
-      0deg,
-      rgba(19, 48, 84, 0.03),
-      rgba(19, 48, 84, 0.03)
-    ),
-    #f7fafc;
-  border-right: 1px solid #e1e7ec;
-  display: flex;
-  padding: 6px 16px;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
+.ui-copy__input {
+  .ui-label-text {
+    height: 100%;
+    white-space: nowrap;
+    background: linear-gradient(
+        0deg,
+        rgba(19, 48, 84, 0.03),
+        rgba(19, 48, 84, 0.03)
+      ),
+      #f7fafc;
+    border-right: 1px solid #e1e7ec;
+    display: flex;
+    padding: 6px 16px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
 
-.ui-copy-btn {
-  background: linear-gradient(
-      0deg,
-      rgba(19, 48, 84, 0.03),
-      rgba(19, 48, 84, 0.03)
-    ),
-    #f7fafc;
-  border-left: 1px solid #e1e7ec;
-  height: 100%;
-  display: flex;
-  padding: 6px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
+  .ui-copy-btn {
+    background: linear-gradient(
+        0deg,
+        rgba(19, 48, 84, 0.03),
+        rgba(19, 48, 84, 0.03)
+      ),
+      #f7fafc;
+    border-left: 1px solid #e1e7ec;
+    height: 100%;
+    display: flex;
+    padding: 6px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
 
-.ui-helper__text {
-  color: #2a2e33;
-  font-family: Circular Std, sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 450;
-  line-height: 16px;
+  .ui-helper__text {
+    color: #2a2e33;
+    font-family: Circular Std, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: 16px;
+  }
 }
 </style>

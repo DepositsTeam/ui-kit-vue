@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-d__card">
+  <d-box class="ui-continuous_list_item">
     <d-text class="ui-title" font-face="heroNew">{{ title }}</d-text>
 
     <d-box class="ui-list">
@@ -60,7 +60,7 @@ const handleClick = (list) => {
 </script>
 
 <style scoped lang="scss">
-.ui-d__card {
+.ui-continuous_list_item {
   display: inline-flex;
   padding: 24px;
   flex-direction: column;
@@ -129,10 +129,10 @@ const handleClick = (list) => {
       }
     }
   }
-}
 
-p,
-h3 {
-  margin: 0;
+  p,
+  h3 {
+    margin: 0;
+  }
 }
 </style>
