@@ -35,13 +35,14 @@
           margin-top="16px"
           alignment="center"
           direction="vertical"
+          :class="{ aboveInput: !!$slots.default }"
         >
           <slot>
-            <d-text margin-y="0" font-face="circularSTD"
+            <d-text margin-y="0" font-face="circularSTD" class="aboveInput"
               >Drag & Drop to upload or <span class="blue">browse</span> to
               choose files</d-text
             >
-            <d-text margin-y="0" font-face="circularSTD">
+            <d-text margin-y="0" font-face="circularSTD" class="aboveInput">
               <span v-if="computedAccepts">
                 Supported file types ({{ computedAccepts }}.
               </span>
@@ -173,6 +174,10 @@ const {
     span.blue {
       color: #0ebae9;
     }
+  }
+  .aboveInput {
+    position: relative;
+    z-index: 10;
   }
   .ui-file-picker-input {
     position: absolute;
