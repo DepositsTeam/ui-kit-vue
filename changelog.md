@@ -1,3 +1,5 @@
+- **10th October 2023 - Eric McWinNEr 😴**
+  - Chore: Increased z-index of the text over file pickers so that links are clickable
 - **05th October 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with select boxes right-arrows not opening the select dropdown
   - Bugfix: Updated RadioSelect to work as expected when the `expandOnChecked` prop is set to true
