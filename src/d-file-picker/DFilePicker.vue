@@ -29,20 +29,19 @@
         <cloud-upload-filled-icon smart-color="#8895A7" />
       </slot>
 
-      <slot v-if="!selectedFileName">
-        <d-auto-layout
-          class="placeholder"
-          margin-top="16px"
-          alignment="center"
-          direction="vertical"
-          :class="{ aboveInput: !!$slots.default }"
-        >
-          <slot>
-            <d-text margin-y="0" font-face="circularSTD" class="aboveInput"
+      <d-box v-if="!selectedFileName" :class="{ aboveInput: !!$slots.default }">
+        <slot>
+          <d-auto-layout
+            class="placeholder aboveInput"
+            margin-top="16px"
+            alignment="center"
+            direction="vertical"
+          >
+            <d-text margin-y="0" font-face="circularSTD"
               >Drag & Drop to upload or <span class="blue">browse</span> to
               choose files</d-text
             >
-            <d-text margin-y="0" font-face="circularSTD" class="aboveInput">
+            <d-text margin-y="0" font-face="circularSTD">
               <span v-if="computedAccepts">
                 Supported file types ({{ computedAccepts }}.
               </span>
@@ -50,10 +49,13 @@
               Max upload size:
               {{ fileMaxSize }}MB)</d-text
             >
-          </slot>
-        </d-auto-layout>
-      </slot>
-      <d-text font-face="circularSTD">{{ selectedFileName }}</d-text>
+          </d-auto-layout>
+        </slot>
+      </d-box>
+
+      <d-text font-face="circularSTD" v-if="!!selectedFileName">{{
+        selectedFileName
+      }}</d-text>
     </d-box>
     <d-box v-if="computedErrorMessage" class="ui-text-field__error">
       <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
