@@ -1,27 +1,31 @@
 <template>
-  <d-box class="ui-actionable__avatar__2">
-    <d-box class="ui-header">
+  <d-box class="ui-avatar-card2">
+    <d-box class="ui-avatar-card2__header">
       <slot name="header">
-        <d-text class="ui-title" font-face="circularSTD">{{ heading }}</d-text>
-        <slot name="headerButton">
+        <d-text class="ui-avatar-card2__title" font-face="circularSTD">{{
+          heading
+        }}</d-text>
+        <slot name="header-button">
           <d-button
             color-scheme="outline"
             :size="buttonSizes"
-            @click="emit('headerButtonClicked')"
+            @click="emit('header-button-clicked')"
             >{{ headerButtonText }}
           </d-button>
         </slot>
       </slot>
     </d-box>
-    <d-box class="ui-body">
+    <d-box class="ui-avatar-card2__body">
       <slot name="body">
-        <d-box class="ui-left">
-          <d-box class="ui-title" font-face="circularSTD">{{ title }}</d-box>
-          <d-box class="ui-text" font-face="circularSTD"
+        <d-box class="ui-avatar-card2__body__left">
+          <d-box class="ui-avatar-card2__title" font-face="circularSTD">{{
+            title
+          }}</d-box>
+          <d-box class="ui-avatar-card2__body__text" font-face="circularSTD"
             >{{ description }}
           </d-box>
         </d-box>
-        <d-box class="ui-right">
+        <d-box class="ui-avatar-card2__body__left">
           <slot name="avatar">
             <d-avatar
               :subtle="isAvatarSubtle"
@@ -34,17 +38,17 @@
         </d-box>
       </slot>
     </d-box>
-    <d-box class="ui-footer">
+    <d-box class="ui-avatar-card2__footer">
       <slot name="footer">
         <d-button
           color-scheme="primary"
           :size="buttonSizes"
-          @click="emit('footerButtonClicked')"
+          @click="emit('footer-button-clicked')"
         >
           {{ footerButtonText }}
 
           <template #rightIcon>
-            <d-box class="ui-right__icon">
+            <d-box class="ui-avatar-card2__right-icon">
               <setting2-filled-icon />
             </d-box>
           </template>
@@ -56,7 +60,6 @@
 
 <script setup>
 import { DBox, DText, DAvatar, Setting2FilledIcon, DButton } from "@/main";
-
 
 defineProps({
   heading: {
@@ -99,11 +102,11 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
+const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
 </script>
 
 <style scoped>
-.ui-actionable__avatar__2 {
+.ui-avatar-card2 {
   display: flex;
   padding: 11px 0px;
   flex-direction: column;
@@ -113,7 +116,7 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
   background: #fff;
   box-shadow: 0px 1px 5px 0px rgba(63, 63, 68, 0.1);
 
-  .ui-header {
+  .ui-avatar-card2__header {
     display: flex;
     padding: 8px 32px;
     justify-content: space-between;
@@ -121,7 +124,7 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
     align-self: stretch;
     border-bottom: 1px solid #e2e8f0;
 
-    .ui-title {
+    .ui-avatar-card2__title {
       color: #4f627d;
       font-size: 16px;
       font-style: normal;
@@ -131,7 +134,7 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
     }
   }
 
-  .ui-body {
+  .ui-avatar-card2__body {
     display: flex;
     padding: 0px 32px 16px 32px;
     justify-content: space-between;
@@ -139,13 +142,13 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
     align-self: stretch;
     border-bottom: 0.5px solid #e1e7ec;
 
-    .ui-left {
+    .ui-avatar-card__header__left {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
 
-      .ui-title {
+      .ui-avatar-card2__title {
         color: #8c97a7;
         font-size: 16px;
         font-style: normal;
@@ -153,7 +156,7 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
         line-height: normal;
       }
 
-      .ui-text {
+      .ui-avatar-card2__body__text {
         color: #2a2e33;
         font-size: 20px;
         font-style: normal;
@@ -163,14 +166,14 @@ const emit = defineEmits(["headerButtonClicked", "footerButtonClicked"]);
     }
   }
 
-  .ui-footer {
+  .ui-avatar-card2__footer {
     display: flex;
     padding: 10px 32px;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
 
-    .ui-right__icon {
+    .ui-avatar-card2__right-icon {
       display: flex;
       height: 100%;
       width: 48px;

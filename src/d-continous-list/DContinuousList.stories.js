@@ -1,4 +1,4 @@
-import DContinuousListItem from "./DContinuousListItem.vue";
+import DContinuousList from "./DContinuousList.vue";
 import {
   Send2OutlineIcon,
   ArrowUpIcon,
@@ -8,8 +8,8 @@ import {
 } from "@/main";
 
 export default {
-  title: "Continuous List Item",
-  component: DContinuousListItem,
+  title: "Continuous List",
+  component: DContinuousList,
   argTypes: {
     title: {
       control: { type: "text" },
@@ -22,32 +22,32 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DContinuousListItem,
+    DContinuousList,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-continuous-list-item v-bind="args" />
+      <d-continuous-list v-bind="args" />
   `,
 });
 
 const CustomIconTemplate = (args) => ({
   components: {
-    DContinuousListItem,
+    DContinuousList,
     DBox,
   },
   setup() {
     return { args };
   },
   template: `
-    <d-continuous-list-item v-bind="args" >
+    <d-continuous-list v-bind="args" >
         <template #icon="{icon}">
           <d-box border="1px solid grey" border-radius="4px" padding="4px">
             <component :is="icon" />
           </d-box>
         </template>
-    </d-continuous-list-item>
+    </d-continuous-list>
   `,
 });
 
