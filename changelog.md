@@ -1,5 +1,11 @@
+- **11th October 2023 - Eric McWinNEr 😴**
+  - Chore: Reviewed, renamed and made updates to components coded by Bernode. Including but not limited to: DActionCard, DAvatarCard, DvatarCard2, DActionList, DContinousList, DPreferences etc  
 - **10th October 2023 - Eric McWinNEr 😴**
   - Chore: Increased z-index of the text over file pickers so that links are clickable
+- **10th October 2023 - Bernode 🙄**
+    - Chore: Updated components made by me to include a unique class names.
+    - Chore: Updated the Continous List Item component and added v-bind to slot.
+    - Chore: Updated Actionable Avatar component button to a link.
 - **05th October 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with select boxes right-arrows not opening the select dropdown
   - Bugfix: Updated RadioSelect to work as expected when the `expandOnChecked` prop is set to true
@@ -12,6 +18,9 @@
   - Bugfix: Added a nextTick await for auto-layouts to ensure the content has been painted before calculations are done for switching direction
 - **26th September 2023 - Eric McWinNEr 😴**
   - Chore: Made the container element of a DCard to be 100%
+- **26th September 2023 - Bernode 🙄**
+  - Chore: Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
+  - Chore: Updated the Preference Component to include modelValue.
 - **24th September 2023 - Eric McWinNEr 😴**
   - Chore: Updated the expand mode on table
   - Chore: Updated Heading component to properly inherit custom font-faces
@@ -28,6 +37,11 @@
   - Feature: Added a feature to date picker to disable past dates
   - Chore: Updated storybook with new stories for date picker
   - Chore: Updated the table to prevent it from showing only the first two columns on mobile by default
+- **19th September 2023 - Bernode 🙄**
+    - Feature: Added the Continuous List Item component
+    - Feature: Added the Preferences component
+    - Feature: Added the Quick Tool component
+    - Feature: Added the Vertical movable component
 - **18th September 2023 - Eric McWinNEr 😴**
   - Chore: Updated style of RadioCard, CheckboxCard, SwitchCard, RadioCardSelect components to have typography match UI more closely
     - Refactored the above mentioned components (except RadioCardSelect) to compose a layout component and share layout structure from a component called InputCard
@@ -60,6 +74,9 @@
   - Bugfix: Fixed bug with fixed columns appearing ontop of the loader
   - Bugfix: Fixed bug with loader sliding to the left when the table is scrolled
   - Bugfix: Made a fix to the responsive layouts to properly center columns
+- **31st August, 2023 - Bernode 🙄**
+    - Chore: Updated the props in DActionableAvatar 1 & 2
+    - Chore: Updated css classes naming conventions
 - **31st August 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with sorting numbers alphabetically on the table
   - Bugfix: Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
@@ -72,26 +89,32 @@
   - Bugfix: Updated the left icon and right icon system for text fields and select fields to ensure they are always properly vertically centered irrespective of the size
   - Chore: Reduced the size of the error icon on all input fields
   - Bugfix: Added error message section to tag input
+- **30th August 2023 - Bernode 🙄**
+    - Feature: Added DActionableAvatar Component
+    - Feature: Added DActionableAvatar 2 Component
 - **28th August 2023 - Eric McWinNEr 😴**
   - Bugfix: Updated the offset columns to factor in the gutter width
 - **27th August 2023 - Eric McWinNEr 😴**
   - Chore: Prevented the Text from throwing warnings for only heroNew and circularSTD
   - Feature: Updated the column pipe function to supply the entire row object as the second argument to the pipe function
+- **24th August 2023 - Bernode 🙄**
+    - Feature: Added Application Integration Action component
+    - Feature: Added Application Integration Action 2 component
 - **22nd August 2023 - Eric McWinNEr 😴**
   - Feature: Added size props to DCopyInput Component
   - Bugfix: Fixed bug with the table customize view hydrating state before the save button is clicked
     - Added size props to DCustomColorConfig Component
   - Bugfix: Made the autolayout to calculate the switch width at the time it is mounted
-- **18th August 2023 - Bernode 🙄**
-  - Feature: Added d-static-stats component
 - **21st August 2023 - Eric McWinNEr 😴**
   - Chore: Updated the stepper component to use the active color for the check mark when completed.
 - **20th August 2023 - Bernode 🙄**
   - Feature: Added size props to DCopyInput Component
   - Feature: Added size props to DCustomColorConfig Component
-- **18th August 2023 - Bernode 🙄**
+- **19th August 2023 - Bernode 🙄**
   - Feature: Added d-static-stats component
   - Feature: Added d-static-stats2 component
+- **17th August, 2023 - Bernode 🙄**
+    - Feature: Added DCardSwitch component
 - **16th August 2023 - Eric McWinNEr 😴**
   - Bugfix: Worked on auto-layout to aid responsiveness
   - Bugfix: Worked on responsive layout to handle responsiveness bugs
