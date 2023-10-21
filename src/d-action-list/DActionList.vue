@@ -86,7 +86,7 @@ const listActionClicked = (application) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-action-list {
   .ui-action-list__header {
     display: flex;
