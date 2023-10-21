@@ -73,7 +73,7 @@ defineProps({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .d-action-card {
   display: flex;
   padding: 16px;
