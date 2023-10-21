@@ -1,4 +1,5 @@
 import DStaticStats3 from "./DStaticStats3.vue";
+import Profile2UserOutlineIcon from "/src/icons/outline/Profile2UserOutlineIcon.vue";
 
 export default {
   title: "Static Stats 3",
@@ -31,12 +32,12 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   stat1: {
-    text: "Total users",
-    value: 100,
+    text: "API Calls this month",
+    value: 10,
   },
   stat2: {
-    text: "Active users",
+    text: "Total API Calls",
     value: 50,
   },
-  icon: "https://launch.new/assets/setup-program.7e364d0e.svg",
+  icon: Profile2UserOutlineIcon,
 };
