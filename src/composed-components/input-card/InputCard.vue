@@ -82,8 +82,6 @@ watch(
 );
 
 const handleClick = (e) => {
-  alert(`<${e.target.tagName} class="${e.target.className}"> clicked!"`)
-
   if (!props.disabled) {
     if (props.expandable) {
       if (props.expandOnChecked) {
@@ -96,7 +94,6 @@ const handleClick = (e) => {
         }
       }
     } else {
-      
       emit("clicked");
     }
   }

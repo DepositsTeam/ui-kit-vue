@@ -65,7 +65,7 @@ const copyCode = () => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-copy__input {
   .ui-label-text {
     height: 100%;

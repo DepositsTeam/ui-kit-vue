@@ -105,7 +105,7 @@ defineProps({
 const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-avatar-card2 {
   display: flex;
   padding: 11px 0px;
