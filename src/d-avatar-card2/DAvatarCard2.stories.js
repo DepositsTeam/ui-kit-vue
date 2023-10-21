@@ -1,19 +1,22 @@
-import DActionableAvatar from "./DActionableAvatar.vue";
+import DAvatarCard2 from "./DAvatarCard2.vue";
 
 export default {
-  title: "Actionable Avatar",
-  component: DActionableAvatar,
+  title: "Avatar Card 2",
+  component: DAvatarCard2,
   argTypes: {
+    heading: {
+      control: { type: "text" },
+    },
     title: {
       control: { type: "text" },
     },
     description: {
       control: { type: "text" },
     },
-    subTitle: {
+    headerButtonText: {
       control: { type: "text" },
     },
-    buttonText: {
+    footerButtonText: {
       control: { type: "text" },
     },
     noOfVisibleAvatars: {
@@ -25,7 +28,7 @@ export default {
     avatars: {
       control: { type: "object" },
     },
-    buttonSize: {
+    buttonSizes: {
       control: { type: "select" },
       options: ["small", "medium", "large", "xlarge", "huge", "massive"],
     },
@@ -34,28 +37,22 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DActionableAvatar,
+    DAvatarCard2,
   },
   setup() {
     return { args };
   },
-  methods: {
-    deleteClicked: function () {
-      alert("Delete clicked");
-    },
-  },
   template: `
-      <d-actionable-avatar @delete-clicked="deleteClicked" v-bind="args">
-      </d-actionable-avatar>
-  `,
+      <d-avatar-card2 v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Platinum",
-  description: "7 Tenants",
-  subTitle: "(ID: 001)",
-  buttonText: "+ Add tenants",
+  heading: "UNPAID INVOICES",
+  title: "Overdue",
+  description: "16 ($41,350.56)",
+  headerButtonText: "See all",
+  footerButtonText: "Send reminder",
   noOfVisibleAvatars: 6,
   isAvatarSubtle: true,
   avatars: [

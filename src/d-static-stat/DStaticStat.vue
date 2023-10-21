@@ -1,28 +1,34 @@
 <template>
-  <d-box class="ui-static__stats">
-    <d-box class="ui-header">
-      <d-box class="ui-image__circle">
+  <d-box class="ui-static-stat">
+    <d-box class="ui-static-stat__header">
+      <d-box class="ui-static-static-image__circle">
         <slot name="icon">
-          <d-box class="ui-icon">
+          <d-box class="ui-static-stat__icon">
             <component :is="icon" />
           </d-box>
         </slot>
       </d-box>
-      <d-text class="ui-card__title" font-face="circularSTD">
+      <d-text class="ui-static-stat__card__title" font-face="circularSTD">
         {{ label }}</d-text
       >
     </d-box>
-    <d-box class="ui-body">
-      <d-box class="ui-boxes">
+    <d-box class="ui-static-stat__body">
+      <d-box class="ui-static-stat__boxes">
         <d-box
-          class="ui-body__box"
+          class="ui-static-stat__body__box"
           :key="`collection__${index}`"
           v-for="(collection, index) in collections"
         >
-          <d-box class="ui-title" font-face="circularSTD">
+          <d-box
+            class="ui-static-stat__body__box__title"
+            font-face="circularSTD"
+          >
             {{ collection.title }}
           </d-box>
-          <d-box class="ui-text" font-face="circularSTD">
+          <d-box
+            class="ui-static-stat__body__box__text"
+            font-face="circularSTD"
+          >
             {{ collection.text }}
           </d-box>
         </d-box>
@@ -51,20 +57,20 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-.ui-static__stats {
+.ui-static-stat {
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 2px 6px 0 rgba(174, 174, 192, 0.1);
   padding: 14px 24px 24px 24px;
 
-  .ui-header {
+  .ui-static-stat__header {
     display: flex;
     align-items: center;
     gap: 8px;
     border-bottom: 1px solid #e1e7ec;
     padding-bottom: 10px;
 
-    .ui-image__circle {
+    .ui-static-static-image__circle {
       width: 36px;
       height: 36px;
       flex-shrink: 0;
@@ -74,7 +80,7 @@ defineProps({
       justify-content: center;
       align-items: center;
 
-      .ui-icon {
+      .ui-continuous-list__icon {
         display: flex;
         width: 19.2px;
         height: 19.2px;
@@ -85,7 +91,7 @@ defineProps({
       }
     }
 
-    .ui-card__title {
+    .ui-static-stat__card__title {
       color: #2a2e33;
       font-size: 16px;
       font-style: normal;
@@ -95,23 +101,23 @@ defineProps({
     }
   }
 
-  .ui-body {
+  .ui-static-stat__body {
     margin-top: 24px;
 
-    .ui-boxes {
+    .ui-static-stat__boxes {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       display: grid;
       justify-content: space-between;
       align-items: flex-end;
       grid-gap: 50px;
 
-      .ui-body__box {
+      .ui-static-stat__body__box {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
 
-        .ui-title {
+        .ui-static-stat__body__box__title {
           color: #8c97a7;
           font-size: 16px;
           font-style: normal;
@@ -120,7 +126,7 @@ defineProps({
           margin: 0;
         }
 
-        .ui-text {
+        .ui-static-stat__body__box__text {
           color: #2a2e33;
           font-size: 18px;
           font-style: normal;

@@ -1,6 +1,6 @@
 <template>
   <d-box
-    class="ui-static__stats"
+    class="ui-static-stat2"
     :class="{ hasSmartColor: !!smartColor }"
     @click="clickHandler"
     :style="{
@@ -8,32 +8,32 @@
       '--smart-color-background': colorSpectrumRef.background,
     }"
   >
-    <slot name="iconContainer">
+    <slot name="icon-container">
       <d-box
-        class="ui-card__icon__section"
+        class="ui-static-stat2__icon-section"
         :class="{
           [variant]: variant,
           hasSmartColor: !!smartColor,
         }"
       >
         <slot name="icon">
-          <component :is="icon" class="ui-icon"></component>
+          <component :is="icon" class="ui-static-stat2__icon"></component>
         </slot>
       </d-box>
     </slot>
-    <d-box display="flex" flex-direction="column" gap="6px">
-      <d-text class="ui-static__stats__heading" font-face="heroNew"
+    <d-auto-layout direction="vertical" gap="6px">
+      <d-text class="ui-static-stat2__heading" font-face="heroNew"
         >{{ label }}
       </d-text>
-      <d-text class="ui-static__stats__text" font-face="circularSTD"
+      <d-text class="ui-static-stat2__text" font-face="circularSTD"
         >{{ text }}
       </d-text>
-    </d-box>
+    </d-auto-layout>
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText } from "@/main";
+import { DBox, DText, DAutoLayout } from "@/main";
 import { generateColorSpectrum } from "@/utils/colorManager";
 import { onMounted, ref, watch } from "vue";
 import defaultTheme from "@/providers/default-theme";
@@ -88,7 +88,7 @@ onMounted(() => {
 
 watch(
   () => props.smartColor,
-  (value) => {
+  () => {
     hydrateSmartColor();
   }
 );
@@ -101,7 +101,7 @@ const clickHandler = () => {
 </script>
 
 <style scoped lang="scss">
-.ui-static__stats {
+.ui-static-stat2 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -112,7 +112,7 @@ const clickHandler = () => {
   box-shadow: 0 2px 6px rgba(174, 174, 192, 0.1);
   border-radius: 8px;
 
-  .ui-card__icon__section {
+  .ui-static-stat2__icon-section {
     width: 48px;
     height: 48px;
     mix-blend-mode: normal;
@@ -122,7 +122,7 @@ const clickHandler = () => {
     align-items: center;
     border: 1px solid transparent;
 
-    .ui-icon {
+    .ui-static-stat2__icon {
       width: 25.714px;
       height: 25.714px;
       flex-shrink: 0;
@@ -132,7 +132,7 @@ const clickHandler = () => {
       &.hasSmartColor {
         background: var(--smart-color-background);
 
-        .ui-icon {
+        .ui-static-stat2__icon {
           color: var(--smart-color);
         }
       }
@@ -142,7 +142,7 @@ const clickHandler = () => {
       &.hasSmartColor {
         border: 1px solid var(--smart-color);
 
-        .ui-icon {
+        .ui-static-stat2__icon {
           color: var(--smart-color);
         }
       }
@@ -153,7 +153,7 @@ const clickHandler = () => {
     background: var(--light-primary-100);
     border: 1px solid var(--light-primary-100);
 
-    .ui-icon {
+    .ui-static-stat2__icon {
       color: var(--light-primary-500);
     }
   }
@@ -161,12 +161,12 @@ const clickHandler = () => {
   .ui-card__bordered {
     border: 1px solid #cbd5e1;
 
-    .ui-icon {
+    .ui-static-stat2__icon {
       color: #94a3b8;
     }
   }
 
-  .ui-static__stats__heading {
+  .ui-static-stat2__heading {
     color: #8c97a7;
     font-size: 14px;
     font-style: normal;
@@ -175,7 +175,7 @@ const clickHandler = () => {
     margin: 0;
   }
 
-  .ui-static__stats__text {
+  .ui-static-stat2__text {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;

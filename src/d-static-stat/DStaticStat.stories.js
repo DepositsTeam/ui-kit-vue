@@ -1,9 +1,9 @@
-import DStaticStats from "./DStaticStats.vue";
+import DStaticStat from "./DStaticStat.vue";
 import { Profile2UserOutlineIcon } from "@/main";
 
 export default {
-  title: "Static Stats",
-  component: DStaticStats,
+  title: "Static Stat",
+  component: DStaticStat,
   argTypes: {
     label: {
       control: { type: "text" },
@@ -19,13 +19,13 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DStaticStats,
+    DStaticStat,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-static-stats v-bind="args"/>`,
+      <d-static-stat v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});

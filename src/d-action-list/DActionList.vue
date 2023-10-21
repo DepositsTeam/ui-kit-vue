@@ -1,52 +1,56 @@
 <template>
-  <d-box class="ui-application__card">
-    <d-box class="ui-header">
-      <d-box class="ui-left">
+  <d-box class="ui-action-list">
+    <d-box class="ui-action-list__header">
+      <d-box class="ui-action-list__header__left">
         <d-text font-face="circularSTD">{{ label }}</d-text>
       </d-box>
-      <d-box class="ui-right">
-        <d-button
-          colorScheme="primary"
-          :left-icon="AddIcon"
-          :size="size"
-          @click="emit('newConnectionClicked')"
-        >
-          New connection
-        </d-button>
+      <d-box class="ui-action-list__header__left">
+        <slot name="call-to-action">
+          <d-button
+            colorScheme="primary"
+            :left-icon="AddIcon"
+            :size="size"
+            @click="emit('call-to-action-clicked')"
+          >
+            {{ callToActionText }}
+          </d-button>
+        </slot>
       </d-box>
     </d-box>
-    <d-box class="ui-body">
+    <d-box class="ui-action-list__body__wrapper">
       <slot name="body">
         <d-box
-          class="ui-card__body"
-          v-for="(application, index) in applications"
+          class="ui-action-list__body"
+          v-for="(application, index) in list"
           :key="`application__${index}`"
         >
-          <d-box class="ui-left">
+          <d-box class="ui-action-list__header__left">
             <slot name="icon" v-bind="application">
               <d-box
                 class="ui-logo"
                 is="img"
                 :src="application.logo"
-                :alt="application.applicationName"
+                :alt="application.title"
               ></d-box>
             </slot>
-            <d-text>{{ application.applicationName }}</d-text>
+            <d-text>{{ application.title }}</d-text>
           </d-box>
-          <d-box class="ui-right">
+          <d-box class="ui-action-list__header__left">
             <d-text
-              class="ui-text"
+              class="ui-action-list__subtitle-text"
               font-face="circularSTD"
-              v-if="application.dateConnected"
-              >{{ application.dateConnected }}
+              v-if="application.subtitle"
+              >{{ application.subtitle }}
             </d-text>
-            <d-button
-              colorScheme="neutral"
-              @click="revokeAccess(application)"
-              :size="size"
-            >
-              Revoke Access
-            </d-button>
+            <slot name="list-action">
+              <d-button
+                colorScheme="neutral"
+                @click="listActionClicked(application)"
+                :size="size"
+              >
+                Revoke Access
+              </d-button>
+            </slot>
           </d-box>
         </d-box>
       </slot>
@@ -57,30 +61,34 @@
 <script setup>
 import { DBox, DText, DButton, AddIcon } from "@/main";
 
-const emit = defineEmits(["newConnectionClicked", "revokeAccessClicked"]);
+const emit = defineEmits(["call-to-action-clicked", "list-action-clicked"]);
 defineProps({
   label: {
     type: String,
     required: true,
   },
-  applications: {
-    type: Object,
+  list: {
+    type: Array,
     required: true,
   },
   size: {
     type: String,
     default: "large",
   },
+  callToActionText: {
+    type: String,
+    default: "New Connection",
+  },
 });
 
-const revokeAccess = (application) => {
-  emit("revokeAccessClicked", application);
+const listActionClicked = (application) => {
+  emit("list-action-clicked", application);
 };
 </script>
 
 <style scoped>
-.ui-application__card {
-  .ui-header {
+.ui-action-list {
+  .ui-action-list__header {
     display: flex;
     padding: 16px 24px;
     justify-content: space-between;
@@ -89,7 +97,7 @@ const revokeAccess = (application) => {
     background: #fff;
     align-self: stretch;
 
-    .ui-left {
+    .ui-action-list__header__left {
       color: #8c97a7;
       font-size: 14px;
       font-style: normal;
@@ -98,8 +106,8 @@ const revokeAccess = (application) => {
     }
   }
 
-  .ui-body {
-    .ui-card__body {
+  .ui-action-list__body__wrapper {
+    .ui-action-list__body {
       display: flex;
       padding: 16px 24px;
       justify-content: space-between;
@@ -112,24 +120,24 @@ const revokeAccess = (application) => {
         border-radius: 0 0 8px 8px;
       }
 
-      .ui-left {
+      .ui-action-list__header__left {
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .ui-logo {
+        .d-action-card__logo {
           width: 32px;
           height: 32px;
           border-radius: 50%;
         }
       }
 
-      .ui-right {
+      .ui-action-list__header__left {
         display: flex;
         align-items: center;
         gap: 16px;
 
-        .ui-text {
+        .ui-action-list__subtitle-text {
           color: #8c97a7;
           font-size: 14px;
           font-style: normal;

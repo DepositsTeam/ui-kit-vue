@@ -1,8 +1,8 @@
-import DApplicationIntegrationAction from "./DApplicationIntegrationAction.vue";
+import DActionList from "./DActionList.vue";
 
 export default {
-  title: "Application Integration Action",
-  component: DApplicationIntegrationAction,
+  title: "Action List",
+  component: DActionList,
   argTypes: {
     label: {
       control: { type: "text" },
@@ -19,36 +19,36 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DApplicationIntegrationAction,
+    DActionList,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-application-integration-action v-bind="args"/>`,
+      <d-action-list v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});
 Default.args = {
   label: "Application",
-  applications: [
+  list: [
     {
       id: 1,
-      applicationName: "Quickbooks",
+      title: "Quickbooks",
       logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
-      dateConnected: "Connected, July 27, 2021",
+      subtitle: "Connected, July 27, 2021",
     },
     {
       id: 1,
-      applicationName: "Xero",
+      title: "Xero",
       logo: "https://marketplace.canva.com/EAFasgWgUyE/6/0/1600w/canva-neon-blue-and-black-gamer-badge-logo-eKEXSFkIoq0.jpg",
-      dateConnected: "Connected, July 27, 2021",
+      subtitle: "Connected, July 27, 2021",
     },
     {
       id: 1,
-      applicationName: "Zoho Books",
+      title: "Zoho Books",
       logo: "https://play-lh.googleusercontent.com/ahJtMe0vfOlAu1XJVQ6rcaGrQBgtrEZQefHy7SXB7jpijKhu1Kkox90XDuH8RmcBOXNn",
-      dateConnected: "Connected, July 27, 2021",
+      subtitle: "Connected, July 27, 2021",
     },
   ],
 };
