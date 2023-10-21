@@ -82,7 +82,7 @@ defineProps({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 p {
   margin: 0;
 }

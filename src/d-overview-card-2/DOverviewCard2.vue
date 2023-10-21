@@ -72,6 +72,6 @@ defineProps({
 const emit = defineEmits(["clicked"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
