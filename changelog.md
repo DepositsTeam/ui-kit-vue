@@ -1,10 +1,18 @@
+- **23rd October, 2023 - Bernode 🙄**
+    - Added Empty State Component.
+- **20th October, 2023 - Bernode 🙄**
+    - Added Overview Card 1 Component.
+    - Added Overview Card 2 Component.
+- **19th October, 2023 - Bernode 🙄**
+    - Added Static stat 3 Component.
+    - Added Console card 2 Component.
 - **09th October, 2023 - Bernode 🙄**
     - Updated components made by me to include a unique class names.
     - Updated the Continous List Item component and added v-bind to slot.
     - Updated Actionable Avatar component button to a link.
 - **26th September, 2023 - Bernode 🙄**
-  - Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
-  - Updated the Preference Component to include modelValue.
+    - Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
+    - Updated the Preference Component to include modelValue.
 - **19th September, 2023 - Bernode 🙄**
     - Added the Continuous List Item component
     - Added the Preferences component
