@@ -1,5 +1,6 @@
 - **23rd October, 2023 - Bernode 🙄**
     - Added Empty State Component.
+    - Added Action List Single Component.
 - **20th October, 2023 - Bernode 🙄**
     - Added Overview Card 1 Component.
     - Added Overview Card 2 Component.

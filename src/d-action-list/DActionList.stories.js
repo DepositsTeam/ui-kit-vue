@@ -7,7 +7,7 @@ export default {
     label: {
       control: { type: "text" },
     },
-    applications: {
+    list: {
       control: { type: "object" },
     },
     size: {
