@@ -89,6 +89,36 @@ Default.args = {
   ],
 };
 
+export const DefaultBadge = Template.bind({});
+DefaultBadge.args = {
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
 export const DarkDefault = DarkModeTemplateFactory();
 DarkDefault.args = {
   tabs: [
@@ -235,6 +265,37 @@ UnderlineSchemeTab.args = {
   ],
 };
 
+export const UnderlineSchemeTabBadge = Template.bind({});
+UnderlineSchemeTabBadge.args = {
+  scheme: "underline",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
 export const UnderlineCardSchemeTab = Template.bind({});
 UnderlineCardSchemeTab.args = {
   scheme: "underline_card",
@@ -262,6 +323,37 @@ UnderlineCardSchemeTab.args = {
   ],
 };
 
+export const UnderlineCardSchemeTabBadge = Template.bind({});
+UnderlineCardSchemeTabBadge.args = {
+  scheme: "underline_card",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
 export const InlineSchemeTab = Template.bind({});
 InlineSchemeTab.args = {
   scheme: "inline",
@@ -281,6 +373,37 @@ InlineSchemeTab.args = {
     {
       text: "Tab 4",
       href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const InlineSchemeTabBadge = Template.bind({});
+InlineSchemeTabBadge.args = {
+  scheme: "inline",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 5,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 5,
     },
     {
       text: "Tab 5 (Disabled)",
@@ -329,6 +452,38 @@ UnderlineCardWithSecondaryItem.args = {
   ],
 };
 
+export const UnderlineCardWithSecondaryItemBadge =
+  UnderlineCardTemplateWithSecondaryItem.bind({});
+UnderlineCardWithSecondaryItemBadge.args = {
+  scheme: "underline_card",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 4,
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
 export const UnderlineSchemeWithoutBorder = Template.bind({});
 UnderlineSchemeWithoutBorder.args = {
   scheme: "underline",
@@ -357,6 +512,38 @@ UnderlineSchemeWithoutBorder.args = {
   ],
 };
 
+export const UnderlineSchemeWithoutBorderBadge = Template.bind({});
+UnderlineSchemeWithoutBorderBadge.args = {
+  scheme: "underline",
+  hideBottomBorder: true,
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 7,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 7,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 7,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 7,
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
 export const UnderlineCardSchemeWithoutBorder = Template.bind({});
 UnderlineCardSchemeWithoutBorder.args = {
   scheme: "underline_card",
@@ -377,6 +564,38 @@ UnderlineCardSchemeWithoutBorder.args = {
     {
       text: "Tab 4",
       href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const UnderlineCardSchemeWithoutBorderBadge = Template.bind({});
+UnderlineCardSchemeWithoutBorderBadge.args = {
+  scheme: "underline_card",
+  hideBottomBorder: true,
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 8,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 8,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 8,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 8,
     },
     {
       text: "Tab 5 (Disabled)",
@@ -433,6 +652,38 @@ CustomTabActiveColor.args = {
     {
       text: "Tab 4",
       href: "#",
+    },
+    {
+      text: "Tab 5 (Disabled)",
+      disabled: true,
+    },
+  ],
+};
+
+export const CustomActiveBadgeColor = Template.bind({});
+CustomActiveBadgeColor.args = {
+  scheme: "underline",
+  activeBadgeColor: "#ff0000",
+  tabs: [
+    {
+      text: "Tab 1",
+      href: "#",
+      total: 189,
+    },
+    {
+      text: "Tab 2",
+      href: "#",
+      total: 189,
+    },
+    {
+      text: "Tab 3",
+      href: "#",
+      total: 189,
+    },
+    {
+      text: "Tab 4",
+      href: "#",
+      total: 0,
     },
     {
       text: "Tab 5 (Disabled)",
