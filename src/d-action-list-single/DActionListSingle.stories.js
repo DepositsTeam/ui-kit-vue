@@ -1,8 +1,8 @@
-import DOverviewCard2 from "./DOverviewCard2.vue";
+import DActionListSingle from "./DActionListSingle.vue";
 
 export default {
-  title: "Overview Card 2",
-  component: DOverviewCard2,
+  title: "Action List Single",
+  component: DActionListSingle,
   argTypes: {
     title: {
       control: { type: "text" },
@@ -10,7 +10,7 @@ export default {
     description: {
       control: { type: "text" },
     },
-    illustration: {
+    subtitle: {
       control: { type: "text" },
     },
     buttonText: {
@@ -32,21 +32,24 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DOverviewCard2,
+    DActionListSingle,
   },
   setup() {
     return { args };
   },
+  methods: {
+    alertMessage() {
+      alert("Hello");
+    },
+  },
   template: `
-      <d-overview-card2 v-bind="args"/>
-    `,
+    <d-action-list-single v-bind="args" @clicked="alertMessage"/>`,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Setup your program",
-  description:
-    "Select a use case, configure your fintech programs and generate API keys.",
-  illustration: "https://launch.new/assets/setup-program.7e364d0e.svg",
-  buttonText: "Get Started",
+  title: "example@gmail.com",
+  description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+  buttonText: "Revoke Access",
+  subtitle: "Granted, July 27, 2021 12:45 PM",
 };

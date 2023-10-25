@@ -3,14 +3,14 @@
     <d-box class="ui-avatar-card__header">
       <d-box class="ui-avatar-card__header__left">
         <d-box class="ui-avatar-card__header__title">
-          <d-text class="ui-avatar-card__header__title__text" my0>{{
-            title
-          }}</d-text>
-          <d-text my0 v-if="subTitle" class="ui-gray__text">{{
-            subTitle
-          }}</d-text>
+          <d-text class="ui-avatar-card__header__title__text" my0
+            >{{ title }}
+          </d-text>
+          <d-text my0 v-if="subTitle" class="ui-gray__text"
+            >{{ subTitle }}
+          </d-text>
         </d-box>
-        <d-text font-size="14px" color="#8C97A7">{{ description }}</d-text>
+        <d-text my0 font-size="14px" color="#8C97A7">{{ description }}</d-text>
       </d-box>
       <d-box class="ui-avatar-card__header__right">
         <slot name="avatar-section">
@@ -187,10 +187,6 @@ const emit = defineEmits(["edit-clicked", "delete-clicked", "button-clicked"]);
         cursor: pointer;
       }
     }
-  }
-
-  p {
-    margin: 0;
   }
 }
 </style>

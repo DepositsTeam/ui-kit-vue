@@ -1,8 +1,8 @@
-import DConsoleCard2 from "./DConsoleCard2.vue";
+import DCard3 from "./DCard3.vue";
 
 export default {
-  title: "Console Card 2",
-  component: DConsoleCard2,
+  title: "Card 3",
+  component: DCard3,
   argTypes: {
     title: {
       control: { type: "text" },
@@ -21,13 +21,13 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DConsoleCard2,
+    DCard3,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-console-card2 v-bind="args"/>
+      <d-card3 v-bind="args"/>
     `,
 });
 

@@ -4,25 +4,37 @@
       <d-box>
         <d-box>
           <d-text
+            my0
             max-width="350px"
-            font-face="circularSTD"
+            font-face="heroNew"
             class="text-gray-500"
             scale="subhead"
             >{{ stat1.text }}
           </d-text>
-          <d-heading scale="h5" margin-bottom="0.5rem" class="text-gray-700"
+          <d-heading
+            my0
+            font-face="circularSTD"
+            scale="h5"
+            margin-bottom="0.5rem"
+            class="text-gray-700"
             >{{ stat1.value }}
           </d-heading>
         </d-box>
         <d-box margin-top="2rem">
           <d-text
+            my0
             max-width="350px"
-            font-face="circularSTD"
+            font-face="heroNew"
             class="text-gray-500"
             scale="subhead"
             >{{ stat2.text }}
           </d-text>
-          <d-heading scale="h5" margin-bottom="0.5rem" class="text-gray-700"
+          <d-heading
+            my0
+            font-face="circularSTD"
+            scale="h5"
+            margin-bottom="0.5rem"
+            class="text-gray-700"
             >{{ stat2.value }}
           </d-heading>
         </d-box>
@@ -40,6 +52,7 @@
         <d-box>
           <slot name="icon">
             <d-box
+              class="icon"
               is="img"
               :src="icon"
               alt="Stats Image"
@@ -73,15 +86,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-p {
-  margin: 0;
-}
-
-h6 {
-  margin: 0;
-}
-
-img {
+.icon {
   width: 50px;
   height: 50px;
 }

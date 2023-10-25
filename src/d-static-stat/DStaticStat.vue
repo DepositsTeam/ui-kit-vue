@@ -8,9 +8,9 @@
           </d-box>
         </slot>
       </d-box>
-      <d-text class="ui-static-stat__card__title" font-face="circularSTD">
-        {{ label }}</d-text
-      >
+      <d-text class="ui-static-stat__card__title" font-face="heroNew">
+        {{ label }}
+      </d-text>
     </d-box>
     <d-box class="ui-static-stat__body">
       <d-box class="ui-static-stat__boxes">
@@ -19,18 +19,15 @@
           :key="`collection__${index}`"
           v-for="(collection, index) in collections"
         >
-          <d-box
-            class="ui-static-stat__body__box__title"
-            font-face="circularSTD"
-          >
+          <d-text class="ui-static-stat__body__box__title" font-face="heroNew">
             {{ collection.title }}
-          </d-box>
-          <d-box
+          </d-text>
+          <d-text
             class="ui-static-stat__body__box__text"
             font-face="circularSTD"
           >
             {{ collection.text }}
-          </d-box>
+          </d-text>
         </d-box>
       </d-box>
     </d-box>

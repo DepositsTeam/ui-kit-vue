@@ -113,7 +113,7 @@ defineProps({
 const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .ui-avatar-card2 {
   display: flex;
   padding: 11px 0px;
@@ -193,5 +193,9 @@ const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
       //border: 1px solid rgba(0, 0, 0, 0.05); //background: linear-gradient( //    0deg, //    rgba(0, 0, 0, 0.15) 0%, //    rgba(0, 0, 0, 0.15) 100% //  ), //  var(--light); //box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.05);
     }
   }
+}
+
+p {
+  margin: 0;
 }
 </style>
