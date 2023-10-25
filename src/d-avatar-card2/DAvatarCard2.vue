@@ -2,7 +2,7 @@
   <d-box class="ui-avatar-card2">
     <d-box class="ui-avatar-card2__header">
       <slot name="header">
-        <d-text class="ui-avatar-card2__title" font-face="circularSTD">{{
+        <d-text class="ui-avatar-card2__title" my0 font-face="circularSTD">{{
           heading
         }}</d-text>
         <slot name="header-button">
@@ -18,12 +18,20 @@
     <d-box class="ui-avatar-card2__body">
       <slot name="body">
         <d-box class="ui-avatar-card2__body__left">
-          <d-box class="ui-avatar-card2__title" font-face="circularSTD">{{
-            title
-          }}</d-box>
-          <d-box class="ui-avatar-card2__body__text" font-face="circularSTD"
+          <d-text
+            class="ui-avatar-card2__title text-neutral-500"
+            font-face="circularSTD"
+            my0
+            >{{ title }}</d-text
+          >
+          <d-text
+            font-size="20px"
+            font-weight="500"
+            class="ui-avatar-card2__body__text"
+            font-face="circularSTD"
+            my0
             >{{ description }}
-          </d-box>
+          </d-text>
         </d-box>
         <d-box class="ui-avatar-card2__body__left">
           <slot name="avatar">
@@ -105,7 +113,7 @@ defineProps({
 const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-avatar-card2 {
   display: flex;
   padding: 11px 0px;
@@ -185,9 +193,5 @@ const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
       //border: 1px solid rgba(0, 0, 0, 0.05); //background: linear-gradient( //    0deg, //    rgba(0, 0, 0, 0.15) 0%, //    rgba(0, 0, 0, 0.15) 100% //  ), //  var(--light); //box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.05);
     }
   }
-}
-
-p {
-  margin: 0;
 }
 </style>

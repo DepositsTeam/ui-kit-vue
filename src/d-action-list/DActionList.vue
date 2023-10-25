@@ -27,7 +27,7 @@
           <d-box class="ui-action-list__header__left">
             <slot name="icon" v-bind="application">
               <d-box
-                class="ui-logo"
+                class="ui-action-list__logo"
                 is="img"
                 :src="application.logo"
                 :alt="application.title"
@@ -86,7 +86,7 @@ const listActionClicked = (application) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-action-list {
   .ui-action-list__header {
     display: flex;
@@ -115,6 +115,11 @@ const listActionClicked = (application) => {
       align-self: stretch;
       border: 0.5px solid #e2e8f0;
       background: #fff;
+
+      .ui-action-list__logo {
+        height: 32px;
+        border-radius: 50%;
+      }
 
       &:last-child {
         border-radius: 0 0 8px 8px;
