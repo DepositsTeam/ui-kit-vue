@@ -33,6 +33,7 @@
       <slot name="title">
         <d-heading
           scale="h5"
+          my0
           margin-bottom="0.5rem"
           class="text-gray-700 font-weight-700"
           >{{ title }}
@@ -48,6 +49,7 @@
       </slot>
       <slot name="description">
         <d-text
+          my0
           max-width="350px"
           font-face="circularSTD"
           class="text-gray-600"
@@ -82,12 +84,4 @@ defineProps({
 });
 </script>
 
-<style lang="scss" scoped>
-p {
-  margin: 0;
-}
-
-h6 {
-  margin: 0;
-}
-</style>
+<style lang="scss" scoped></style>

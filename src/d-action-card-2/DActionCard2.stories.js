@@ -1,8 +1,8 @@
-import DOverviewCard2 from "./DOverviewCard2.vue";
+import DActionCard2 from "./DActionCard2.vue";
 
 export default {
-  title: "Overview Card 2",
-  component: DOverviewCard2,
+  title: "Action Card 2",
+  component: DActionCard2,
   argTypes: {
     title: {
       control: { type: "text" },
@@ -32,13 +32,13 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DOverviewCard2,
+    DActionCard2,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-overview-card2 v-bind="args"/>
+      <d-action-card2 v-bind="args"/>
     `,
 });
 

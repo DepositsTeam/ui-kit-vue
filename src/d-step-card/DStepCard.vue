@@ -15,6 +15,7 @@
             <slot name="leftSection">
               <slot name="title">
                 <d-heading
+                  my0
                   scale="h5"
                   margin-bottom="0.5rem"
                   class="text-gray-700"
@@ -23,6 +24,7 @@
               </slot>
               <slot name="description">
                 <d-text
+                  my0
                   font-face="circularSTD"
                   class="text-gray-600"
                   scale="p-18"
@@ -51,11 +53,11 @@
                   font-weight="400"
                   class="text-gray-500"
                   v-for="(item, index) in lists"
-                  @click="item.to"
+                  @click="emit('stepClicked', item)"
                   cursor="pointer"
                   :key="`item__${index}`"
                 >
-                  <slot name="badge" v-bind="item">
+                  <slot name="badgeSection" v-bind="item">
                     <d-box
                       class="getting-started-badge"
                       margin-right=".5rem"
@@ -68,6 +70,7 @@
                     </d-box>
                   </slot>
                   <d-text
+                    my0
                     :class="{
                       'text-gray-700 font-weight-500': item.active,
                       'text-gray-700': !item.active && !item.done,
@@ -84,14 +87,14 @@
         </d-box>
         <d-box position="absolute" top="20px" right="20px">
           <d-box display="flex">
-            <slot name="checkbox">
+            <slot name="checkboxSection">
               <d-checkbox @change="emit('doNotShowAgainCheckbox')">
                 <d-text scale="subhead">Don't show me this again</d-text>
               </d-checkbox>
             </slot>
-            <slot name="close">
+            <slot name="closeSection">
               <d-box margin-left="1.5rem">
-                <d-box @click="emit('close')" cursor="pointer">
+                <d-box @click="emit('closed')" cursor="pointer">
                   <close-icon />
                 </d-box>
               </d-box>
@@ -106,7 +109,7 @@
 <script setup>
 import { DBox, DText, DHeading, DCheckbox, CloseIcon } from "@/main";
 
-const emit = defineEmits(["close", "doNotShowAgainCheckbox"]);
+const emit = defineEmits(["closed", "doNotShowAgainCheckbox", "stepClicked"]);
 defineProps({
   title: {
     type: String,
@@ -155,9 +158,5 @@ defineProps({
     background: #0db9e9;
     color: #ffffff;
   }
-}
-
-p {
-  margin: 0;
 }
 </style>

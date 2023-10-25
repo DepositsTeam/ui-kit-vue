@@ -3,7 +3,7 @@
     <d-box display="flex" align-items="center" padding="1rem" gap="30px">
       <d-box border-radius="20px">
         <slot name="illustration">
-          <img :src="illustration" :alt="title" />
+          <d-box is="img" :src="illustration" :alt="title" />
         </slot>
       </d-box>
       <d-box>
@@ -72,6 +72,4 @@ defineProps({
 const emit = defineEmits(["clicked"]);
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,8 +1,8 @@
-import DOverviewCard from "./DOverviewCard.vue";
+import DStepCard from "./DStepCard.vue";
 
 export default {
-  title: "Overview Card",
-  component: DOverviewCard,
+  title: "Step Card",
+  component: DStepCard,
   argTypes: {
     title: {
       control: { type: "text" },
@@ -21,13 +21,13 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DOverviewCard,
+    DStepCard,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-overview-card v-bind="args"/>`,
+      <d-step-card v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});
@@ -41,41 +41,26 @@ Default.args = {
       text: "Complete account creation",
       active: false,
       done: true,
-      to: () => {
-        alert("Complete account creation");
-      },
     },
     {
       text: "Complete basic KYB",
       active: false,
       done: true,
-      to: () => {
-        alert("Complete basic KYB");
-      },
     },
     {
       text: "Select your program use case",
       active: true,
       done: false,
-      to: () => {
-        alert("Select your program use case");
-      },
     },
     {
       text: "Configure your fintech program",
       active: false,
       done: false,
-      to: () => {
-        location.href = "https://google.com";
-      },
     },
     {
       text: "Launch your program",
       active: false,
       done: false,
-      to: () => {
-        alert("Launch your program");
-      },
     },
   ],
 };
