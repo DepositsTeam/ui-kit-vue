@@ -1,7 +1,7 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <slot name="label">
-      <d-box v-if="!!label && !invisible" is="label">
+      <d-box v-if="!!label && !invisible" is="label" :for="computedID">
         <d-text
           margin-top="0px"
           class="ui-text-field__label"
@@ -66,6 +66,7 @@
             [inputClass]: true,
             pill,
           }"
+          :id="computedID"
           ref="inputField"
           :max="max"
           :min="min"
@@ -186,6 +187,7 @@ import { formatPercentage } from "../utils/formatPercentage";
 import { useInputSize } from "../utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -251,6 +253,8 @@ const props = defineProps({
 });
 
 const { computedInputSize } = useInputSize(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const defaultFontFace = inject("d__defaultFontFace", null);
 

@@ -1,7 +1,7 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <slot name="label">
-      <d-box v-if="!!label" is="label">
+      <d-box v-if="!!label" is="label" :for="computedID">
         <d-text
           margin-top="0px"
           class="ui-text-field__label"
@@ -17,8 +17,8 @@
     <d-auto-layout :item-spacing="spacing" :between="fullWidth">
       <d-textfield
         v-for="(item, index) in data"
-        :id="item.id"
         :key="`item__${index}`"
+        :id="index === 0 ? computedID : undefined"
         v-model="item.value"
         :placeholder="placeholder"
         :only-numbers="onlyNumbers"
@@ -50,7 +50,7 @@
 <script setup>
 import { DBox, DTextfield, DText, ErrorIcon, DAutoLayout } from "../main";
 import inputProps from "../utils/inputProps";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { useInputSize } from "../utils/composables/useInputSize";
 
@@ -79,6 +79,8 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const { computedInputSize } = useInputSize(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const data = ref([]);
 

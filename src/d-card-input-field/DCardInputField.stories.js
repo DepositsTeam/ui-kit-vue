@@ -79,6 +79,11 @@ const DarkModeTemplateFactory = () => {
 
 export const Default = Template.bind({});
 
+export const Label = Template.bind({});
+Label.args = {
+  label: "Debit Card",
+};
+
 export const HasError = Template.bind({});
 HasError.args = {
   errorMessage: "Has error",

@@ -86,6 +86,11 @@ const DarkDefaultTemplate = (args) => ({
 
 export const DefaultVal = Default.bind({});
 
+export const Label = Default.bind({});
+Label.args = {
+  label: "Pin Input",
+};
+
 export const DarkDefaultVal = DarkModeTemplateFactory(DarkDefaultTemplate);
 
 export const Password = Template.bind({});

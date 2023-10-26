@@ -8,7 +8,7 @@
     }"
   >
     <slot name="label">
-      <d-box is="label">
+      <d-box is="label" :for="computedID">
         <d-text
           :class="labelClass"
           :font-face="labelFontFace"
@@ -52,6 +52,7 @@
         v-bind="$attrs"
         v-model="number"
         @keypress="allowOnlyNumbers"
+        :id="computedID"
       />
     </d-box>
     <d-box
@@ -83,9 +84,12 @@ import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const emit = defineEmits([
   "update:code",
