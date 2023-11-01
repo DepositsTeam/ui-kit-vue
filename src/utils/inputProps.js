@@ -84,6 +84,9 @@ export default {
   readonly: {
     type: Boolean,
   },
+  id: {
+    type: String,
+  },
 };
 
 export const inputArgTypes = {

@@ -1,3 +1,12 @@
+- **26th October 2023 - Eric McWinNEr 😴**
+  - Feature: Made the tag input to detect duplicate tags and show a visual feedback
+  - Feature: Added a paste feature to tag input to automatically convert strings to tags on paste
+  - Feature: Added ids to labels for all input based components
+- **25th October 2023 - Eric McWinNEr 😴**
+  - Feature: Added tabClass to the tab component to allow custom classes to be added to the tab
+  - Feature: Added a new calculation color hex when rendering subtle badges with smart color
+  - Feature: Added badge to tabs when total is provided to show the total by the side of the tab in a subtle scheme of the selected theme
+  - Feature: Made color for active badges customizable
 - **14th October 2023 - Eric McWinNEr 😴**
   - Feature: Made toasts responsive by automatically centering them on mobile screens
   - Bugfix: Ensured that the textfield always emits a value of zero if the value is an empty string

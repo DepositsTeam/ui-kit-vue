@@ -51,6 +51,11 @@ const DarkModeTemplateFactory = () => {
 };
 
 export const Default = Template.bind({});
+
+export const Label = Template.bind({});
+Label.args = {
+  label: "File input",
+};
 export const Button = Template.bind({});
 Button.args = {
   variant: "button",

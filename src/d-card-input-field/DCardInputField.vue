@@ -4,7 +4,7 @@
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <slot name="label">
-      <d-box v-if="!!label" is="label">
+      <d-box v-if="!!label" is="label" :for="computedID">
         <d-text
           margin-top="0px"
           class="ui-text-field__label"
@@ -57,6 +57,7 @@
             @change="handleCardNoChange"
             @input="handleCardNoInput"
             ref="cardNoInput"
+            :id="computedID"
           />
           <d-box class="ui-card-input__pushed-right">
             <d-box
@@ -116,6 +117,7 @@ import inputProps from "../utils/inputProps";
 import { ref, computed } from "vue";
 import cardValidator from "card-validator";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const props = defineProps({
   ...inputProps,
@@ -149,6 +151,8 @@ const props = defineProps({
 const emit = defineEmits(["update:cardNo", "update:cardCvv", "update:cardExp"]);
 
 const { computedInputSize } = useInputSize(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const cardExpInput = ref(null);
 const pseudoInput = ref(null);

@@ -5,7 +5,7 @@
     :width="width"
   >
     <slot name="label">
-      <d-box is="label" class="ui-text-area__label">
+      <d-box is="label" class="ui-text-area__label" :for="computedID">
         <d-text
           margin-top="0px"
           :class="labelClass"
@@ -38,6 +38,7 @@
       :rows="rows"
       :min-height="minHeight"
       :max-height="maxHeight"
+      :id="computedID"
     >
       {{ modelValue }}
     </d-box>
@@ -57,9 +58,10 @@
 
 <script setup>
 import { DBox, DText, ErrorIcon } from "../main";
-import { nextTick } from "vue";
+import { computed, nextTick } from "vue";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const props = defineProps({
   ...inputProps,
@@ -82,6 +84,8 @@ const props = defineProps({
 });
 
 const { computedInputSize } = useInputSize(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const emit = defineEmits([
   "update:modelValue",

@@ -6,18 +6,20 @@
       [`size__${computedInputSize}`]: true,
     }"
   >
-    <slot name="label">
-      <d-box is="label">
-        <d-text
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-tag-dropdown__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
-    </slot>
+    <d-box @click="toggleOptions">
+      <slot name="label">
+        <d-box is="label" :for="computedID">
+          <d-text
+            :class="labelClass"
+            :font-face="labelFontFace"
+            class="ui-tag-dropdown__label"
+            scale="subhead"
+          >
+            {{ label }}
+          </d-text>
+        </d-box>
+      </slot>
+    </d-box>
 
     <d-box
       class="ui-tag-dropdown__input-wrapper"
@@ -117,6 +119,7 @@
             :placeholder="placeholder"
             @keydown="handleEsc"
             size="large"
+            id="computedID"
           />
         </d-box>
 
@@ -191,6 +194,7 @@ import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const props = defineProps({
   ...inputProps,
@@ -227,6 +231,8 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 const { computedOptions } = useDropdown(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const targetRef = ref(null);
 const dropdownRef = ref(null);

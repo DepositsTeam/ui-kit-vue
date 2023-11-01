@@ -7,7 +7,7 @@
     }"
   >
     <slot name="label">
-      <d-box v-if="label" is="label">
+      <d-box v-if="label" is="label" :for="computedID">
         <d-text
           :class="labelClass"
           :font-face="labelFontFace"
@@ -50,6 +50,7 @@
         :placeholder="computedPlaceholder"
         :range="range"
         :disabled-date="computedDisabledDates"
+        :id="computedID"
       >
         <template #icon-calendar>
           <slot name="calendar-icon">
@@ -97,6 +98,7 @@ import DatePicker from "vue-datepicker-next";
 import inputProps from "../utils/inputProps";
 import { inject, ref, onMounted, watch, computed } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const darkMode = inject("d__darkMode", false);
 
@@ -147,6 +149,8 @@ const props = defineProps({
 });
 
 const { computedInputSize } = useInputSize(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const disabledAfterToday = (date) => {
   const today = new Date();

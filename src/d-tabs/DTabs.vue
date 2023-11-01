@@ -40,9 +40,38 @@
           name="tab-content"
           v-bind="{ tab, index, isActive: internalActive === index }"
         >
-          <d-text is="span" scale="subhead" no-line>
-            {{ typeof tab === "object" ? tab.text : tab }}
-          </d-text>
+          <d-auto-layout alignment="center">
+            <d-text
+              is="span"
+              no-line
+              my0
+              :font-face="tabFontFace"
+              :class="tabClass"
+            >
+              {{ typeof tab === "object" ? tab.text : tab }}
+            </d-text>
+            <d-box>
+              <d-badge
+                v-if="
+                  typeof tab === 'object' &&
+                  tab.total !== undefined &&
+                  tab.total !== null &&
+                  scheme !== 'button' &&
+                  showBadge
+                "
+                :subtle="true"
+                size="medium"
+                :smart-color="
+                  activeBadgeColor
+                    ? activeBadgeColor
+                    : internalActive === index
+                    ? theme['--light-primary-500']
+                    : undefined
+                "
+                :text="`${tab.total}`"
+              />
+            </d-box>
+          </d-auto-layout>
         </slot>
       </d-box>
     </d-auto-layout>
@@ -51,10 +80,12 @@
 </template>
 
 <script setup>
-import { DBox, DText, DAutoLayout } from "../main";
+import { DBox, DText, DAutoLayout, DBadge, useTheme } from "../main";
 import keyGen from "../utils/keyGen";
 import { onMounted, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
+
+const { theme } = useTheme();
 
 const props = defineProps({
   tabs: {
@@ -93,6 +124,20 @@ const props = defineProps({
   },
   hideBottomBorder: {
     type: Boolean,
+  },
+  tabClass: {
+    type: String,
+  },
+  tabFontFace: {
+    type: String,
+    default: "heroNew",
+  },
+  showBadge: {
+    type: Boolean,
+    default: true,
+  },
+  activeBadgeColor: {
+    type: String,
   },
 });
 
