@@ -2,12 +2,13 @@
   <d-card
     cursor="pointer"
     flex-grow="1"
-    :class="{ checked }"
-    class="has-border"
+    :class="isChecked ? 'checked' : ''"
+    class="ui-d__card2"
+    @click="handleClick"
   >
     <d-box display="flex" padding="1rem" gap="30px">
       <d-box>
-        <d-box is="img" :src="icon" style="width: 50px"></d-box>
+        <d-box is="img" :src="icon" width="50px"></d-box>
       </d-box>
       <d-box>
         <slot name="title">
@@ -85,9 +86,13 @@ import { DBox, DText, DCard, DHeading } from "@/main";
 import BookFilledIcon from "@/icons/filled/BookFilledIcon.vue";
 import ExternalLinkIcon from "@/icons/ExternalLinkIcon.vue";
 import EyeFilledIcon from "@/icons/filled/EyeFilledIcon.vue";
+import { onBeforeMount, ref } from "vue";
 
-const emit = defineEmits(["clicked"]);
-defineProps({
+const emit = defineEmits(["update:modelValue"]);
+const newValue = ref("");
+const isChecked = ref(false);
+
+const props = defineProps({
   title: {
     type: String,
   },
@@ -103,11 +108,45 @@ defineProps({
   icon: {
     type: Object,
   },
-  checked: {
-    type: Boolean,
+  value: {
+    type: [String, Number],
+    default: "",
+  },
+  modelValue: {
+    type: [String, Number],
+    default: "",
   },
 });
+
+onBeforeMount(() => {
+  newValue.value = props.value;
+
+  checkStatus();
+});
+
+const handleClick = () => {
+  emit("update:modelValue", newValue.value);
+
+  checkStatus();
+};
+
+const checkStatus = () => {
+  if (props.modelValue && newValue.value) {
+    if (props.modelValue === newValue.value) {
+      isChecked.value = true;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+.ui-d__card2 {
+  transition: 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.ui-d__card2.checked {
+  border: 1px solid #0cb9e9;
+  box-shadow: 0 0 0 4px rgba(12, 185, 233, 0.35);
+}
 </style>

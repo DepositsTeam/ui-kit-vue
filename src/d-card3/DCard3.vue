@@ -20,7 +20,8 @@
             is="img"
             :src="image"
             :alt="title"
-            style="margin-bottom: -18px; width: 100%"
+            margin-bottom="-18px"
+            width="100%"
           />
         </slot>
       </d-box>
@@ -40,7 +41,7 @@
           <d-box
             v-if="subTitle"
             is="span"
-            style="font-size: 15px"
+            font-size="15px"
             class="text-gray-600 font-weight-400"
           >
             ( {{ subTitle }} )
