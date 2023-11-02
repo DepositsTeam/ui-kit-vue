@@ -3,21 +3,43 @@
     <d-box class="ui-action-list__body__wrapper">
       <slot name="body">
         <d-box class="ui-action-list__body">
-          <d-box class="ui-action-list__header__left">
-            <slot name="title">
-              <d-text
-                font-face="heroNew"
-                color="#000000"
-                font-size="15px"
-                margin-bottom="0"
-                >{{ title }}
-              </d-text>
+          <d-box
+            class="ui-action-list__header__left"
+            display="flex"
+            align-items="center"
+            gap="10px"
+          >
+            <slot name="icon">
+              <d-box
+                v-if="logo"
+                class="ui-action-list__logo"
+                is="img"
+                :src="logo"
+                :alt="title"
+              ></d-box>
             </slot>
-            <slot name="description">
-              <d-text font-size="13px" font-face="circularSTD"
-                >{{ description }}
-              </d-text>
-            </slot>
+            <d-box>
+              <slot name="title">
+                <d-text
+                  my0
+                  font-face="heroNew"
+                  color="#000000"
+                  font-size="15px"
+                  margin-bottom="0"
+                  >{{ title }}
+                </d-text>
+              </slot>
+              <slot name="description">
+                <d-text
+                  v-if="description"
+                  font-size="13px"
+                  margin-top="5px"
+                  my0
+                  font-face="circularSTD"
+                  >{{ description }}
+                </d-text>
+              </slot>
+            </d-box>
           </d-box>
           <d-box class="ui-action-list__header__right">
             <slot name="subtitle">
@@ -57,13 +79,14 @@ defineProps({
     type: String,
     required: true,
   },
+  logo: {
+    type: String,
+  },
   description: {
     type: String,
-    required: true,
   },
   subtitle: {
     type: String,
-    required: true,
   },
   buttonText: {
     type: String,
@@ -115,6 +138,11 @@ defineProps({
           font-weight: 450;
           line-height: 24px; /* 171.429% */
         }
+      }
+
+      .ui-action-list__logo {
+        height: 32px;
+        border-radius: 50%;
       }
     }
   }

@@ -37,6 +37,7 @@ export { default as DPinInput } from "./d-pin-input/DPinInput.vue";
 export { default as DPreferences } from "./d-preferences/DPreferences.vue";
 export { default as DProgressBar } from "./d-progress-bar/DProgressBar.vue";
 export { default as DQuickTool } from "./d-quick-tool/DQuickTool.vue";
+export { default as DActionListItem } from "./d-action-list-item/DActionListItem.vue";
 export { default as DRadio } from "./d-radio/DRadio.vue";
 export { default as DRadioCard } from "./d-radio-card/DRadioCard.vue";
 export { default as DResponsiveLayout } from "./d-responsive-layout/DResponsiveLayout.vue";

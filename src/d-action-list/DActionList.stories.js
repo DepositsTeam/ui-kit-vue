@@ -24,8 +24,13 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
+    methods: {
+        alertMessage() {
+            alert("Hello");
+        },
+    },
   template: `
-      <d-action-list v-bind="args"/>`,
+    <d-action-list @list-action-clicked="alertMessage" v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});

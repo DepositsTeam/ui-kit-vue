@@ -20,38 +20,16 @@
     <d-box class="ui-action-list__body__wrapper">
       <slot name="body">
         <d-box
-          class="ui-action-list__body"
           v-for="(application, index) in list"
           :key="`application__${index}`"
         >
-          <d-box class="ui-action-list__header__left">
-            <slot name="icon" v-bind="application">
-              <d-box
-                class="ui-action-list__logo"
-                is="img"
-                :src="application.logo"
-                :alt="application.title"
-              ></d-box>
-            </slot>
-            <d-text>{{ application.title }}</d-text>
-          </d-box>
-          <d-box class="ui-action-list__header__left">
-            <d-text
-              class="ui-action-list__subtitle-text"
-              font-face="circularSTD"
-              v-if="application.subtitle"
-              >{{ application.subtitle }}
-            </d-text>
-            <slot name="list-action">
-              <d-button
-                colorScheme="neutral"
-                @click="listActionClicked(application)"
-                :size="size"
-              >
-                Revoke Access
-              </d-button>
-            </slot>
-          </d-box>
+          <d-action-list-item
+            :logo="application.logo"
+            :title="application.title"
+            :subtitle="application.subtitle"
+            buttonText="Revoke Access"
+            @clicked="listActionClicked(application)"
+          />
         </d-box>
       </slot>
     </d-box>
@@ -59,7 +37,7 @@
 </template>
 
 <script setup>
-import { DBox, DText, DButton, AddIcon } from "@/main";
+import { DBox, DText, DButton, AddIcon, DActionListItem } from "@/main";
 
 const emit = defineEmits(["call-to-action-clicked", "list-action-clicked"]);
 defineProps({
