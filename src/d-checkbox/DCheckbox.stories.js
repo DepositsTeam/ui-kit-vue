@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Forms/Checkbox",
   component: DCheckbox,
+  tags: ["autodocs"],
   argTypes: {
     wrapperClass: {
       control: { type: "text" },

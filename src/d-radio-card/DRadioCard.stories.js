@@ -10,8 +10,9 @@ import {
 } from "../main";
 
 export default {
-  title: "Forms/Cards/Radio Card",
+  title: "Forms/Radio Card",
   component: DRadioCard,
+  tags: ["autodocs"],
   argTypes: {},
 };
 

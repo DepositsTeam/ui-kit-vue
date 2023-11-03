@@ -3,6 +3,7 @@ import DFilterDropdown from "./DFilterDropdown.vue";
 export default {
   title: "Forms/Filter Dropdown",
   component: DFilterDropdown,
+  tags: ["autodocs"],
   argTypes: {},
 };
 

@@ -4,6 +4,7 @@ import { Send2OutlineIcon } from "@/main";
 export default {
   title: "Quick Tool",
   component: DQuickTool,
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

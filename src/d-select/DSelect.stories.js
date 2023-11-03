@@ -5,6 +5,7 @@ import Search from "../icons/SearchIcon.vue";
 export default {
   title: "Forms/Select Field",
   component: DSelect,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Alert",
   component: DAlert,
+  tags: ["autodocs"],
   argTypes: {
     message: {
       control: { type: "text" },

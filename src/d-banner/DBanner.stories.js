@@ -4,6 +4,7 @@ import { DarkModeProvider, DAutoLayout, DText, DBox } from "../main";
 export default {
   title: "Banner",
   component: DBanner,
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

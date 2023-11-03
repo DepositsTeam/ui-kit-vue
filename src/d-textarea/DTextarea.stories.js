@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Forms/Text Area",
   component: DTextarea,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

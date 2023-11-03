@@ -4,6 +4,7 @@ import { ThemeProvider } from "../main";
 export default {
   title: "Forms/Copy Input",
   component: DCopyInput,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

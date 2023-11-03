@@ -11,9 +11,10 @@ import {
 } from "../main";
 
 export default {
-  title: "Forms/Cards/Switch Card",
+  title: "Forms/Switch Card",
   component: DSwitchCard,
   argTypes: {},
+  tags: ["autodocs"],
 };
 
 const Template = (args) => ({

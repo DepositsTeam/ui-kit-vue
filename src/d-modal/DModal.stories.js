@@ -10,6 +10,7 @@ import {
 export default {
   title: "Modal",
   component: DModal,
+  tags: ["autodocs"],
   argTypes: {
     show: {
       control: { type: "boolean" },

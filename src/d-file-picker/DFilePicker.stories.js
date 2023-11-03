@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/File Picker",
   component: DFilePicker,
+  tags: ["autodocs"],
   argTypes: {
     btnText: {
       control: { type: "text" },

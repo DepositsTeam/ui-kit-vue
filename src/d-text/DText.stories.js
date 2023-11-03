@@ -3,6 +3,7 @@ import DText from "./DText.vue";
 export default {
   title: "Text",
   component: DText,
+  tags: ["autodocs"],
   argTypes: {
     is: {
       control: { type: "select" },

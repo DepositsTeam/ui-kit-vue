@@ -7,6 +7,7 @@ export default {
   title: "Layouts/Responsive Layout",
   component: DResponsiveLayout,
   argTypes: {},
+  tags: ["autodocs"],
 };
 
 const Template = (args) => ({

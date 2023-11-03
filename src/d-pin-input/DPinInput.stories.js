@@ -4,6 +4,7 @@ import { DarkModeProvider, ThemeProvider } from "../main";
 export default {
   title: "Forms/Pin Input",
   component: DPinInput,
+  tags: ["autodocs"],
   argTypes: {
     spacing: {
       control: { type: "text" },

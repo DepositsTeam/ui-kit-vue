@@ -5,6 +5,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/Switch",
   component: DSwitch,
+  tags: ["autodocs"],
   argTypes: {
     colorScheme: {
       control: { type: "select" },
