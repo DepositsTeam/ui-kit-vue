@@ -8,6 +8,7 @@ import {
 
 export default {
   title: "Toast",
+  tags: ["autodocs"],
   argTypes: {
     autoClose: {
       control: { type: "text" },

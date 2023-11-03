@@ -4,6 +4,7 @@ import { DarkModeProvider, DBox, DText, DCard, DFilterDropdown } from "../main";
 export default {
   title: "Tabs",
   component: DTabs,
+  tags: ["autodocs"],
   argTypes: {
     tabs: {
       control: { type: "object" },

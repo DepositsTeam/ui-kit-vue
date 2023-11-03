@@ -4,6 +4,7 @@ import { DBox } from "../main";
 export default {
   title: "Layouts/Auto layout",
   component: DAutoLayout,
+  tags: ["autodocs"],
   argTypes: {
     direction: {
       control: { type: "select" },

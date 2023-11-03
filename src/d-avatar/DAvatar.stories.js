@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Avatar",
   component: DAvatar,
+  tags: ["autodocs"],
   argTypes: {
     subtle: {
       control: { type: "boolean" },

@@ -3,6 +3,7 @@ import DActionList from "./DActionList.vue";
 export default {
   title: "Action List",
   component: DActionList,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

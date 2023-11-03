@@ -4,6 +4,7 @@ import { DSelect } from "../main";
 export default {
   component: DCountryDropdown,
   title: "Forms/Country Dropdown",
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

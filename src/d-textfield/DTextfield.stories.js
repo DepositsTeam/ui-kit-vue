@@ -6,6 +6,7 @@ import { DBox } from "../main";
 export default {
   title: "Forms/Text Field",
   component: DTextfield,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

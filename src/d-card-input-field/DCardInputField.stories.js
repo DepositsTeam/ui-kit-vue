@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Forms/Card Input Field",
   component: DCreditCardInput,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

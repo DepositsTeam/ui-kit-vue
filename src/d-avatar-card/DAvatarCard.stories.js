@@ -3,6 +3,7 @@ import DActionableAvatar from "./DAvatarCard.vue";
 export default {
   title: "Avatar Card",
   component: DActionableAvatar,
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

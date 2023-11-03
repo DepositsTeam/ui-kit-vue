@@ -4,6 +4,7 @@ import { Profile2UserOutlineIcon } from "@/main";
 export default {
   title: "Static Stat",
   component: DStaticStat,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

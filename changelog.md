@@ -1,3 +1,6 @@
+- **3rd November 2023 - Eric McWinNEr 😴**
+  - Chore: Updated all stories (except table) to have the autodocs tag
+  - Feature: Built go back component
 - **26th October 2023 - Eric McWinNEr 😴**
   - Feature: Made the tag input to detect duplicate tags and show a visual feedback
   - Feature: Added a paste feature to tag input to automatically convert strings to tags on paste

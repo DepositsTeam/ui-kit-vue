@@ -4,6 +4,7 @@ import DButton from "../d-button/DButton.vue";
 export default {
   title: "Menu (Context or Dropdown menu)",
   component: DMenu,
+  tags: ["autodocs"],
   argTypes: {},
 };
 

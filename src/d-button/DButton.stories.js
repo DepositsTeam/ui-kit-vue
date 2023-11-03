@@ -4,6 +4,7 @@ import { DarkModeProvider, SearchIcon, ThemeProvider } from "../main";
 export default {
   title: "Button",
   component: DButton,
+  tags: ["autodocs"],
   argTypes: {
     size: {
       control: { type: "select" },

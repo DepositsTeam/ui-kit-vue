@@ -3,6 +3,7 @@ import DActionCard from "./DActionCard.vue";
 export default {
   title: "Action Card",
   component: DActionCard,
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

@@ -5,6 +5,7 @@ import { inputArgTypes } from "../utils/inputProps";
 export default {
   title: "Forms/File Picker (Inline)",
   component: DFilePickerInline,
+  tags: ["autodocs"],
   argTypes: {
     ...inputArgTypes,
     placeholder: {

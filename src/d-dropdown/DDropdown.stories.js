@@ -5,6 +5,7 @@ import ThemeProvider from "../providers/ThemeProvider.vue";
 export default {
   title: "Forms/Dropdown",
   component: DDropdown,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

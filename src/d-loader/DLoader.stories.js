@@ -4,6 +4,7 @@ import DText from "../d-text/DText.vue";
 export default {
   title: "Loader",
   component: DLoader,
+  tags: ["autodocs"],
   argTypes: {
     fullPage: {
       control: { type: "boolean" },

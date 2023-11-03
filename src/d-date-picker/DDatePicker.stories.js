@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Forms/Date Picker",
   component: DDatePicker,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

@@ -4,6 +4,7 @@ export default {
   title: "Tooltip",
   component: { DTooltip },
   argTypes: {},
+  tags: ["autodocs"],
 };
 
 const Template = (args) => ({

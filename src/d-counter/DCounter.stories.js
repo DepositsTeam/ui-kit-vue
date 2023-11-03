@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/Counter",
   component: DCounter,
+  tags: ["autodocs"],
   argTypes: {},
 };
 
