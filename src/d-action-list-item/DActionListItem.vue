@@ -22,7 +22,7 @@
               <slot name="title">
                 <d-text
                   my0
-                  font-face="heroNew"
+                  font-face="circularSTD"
                   color="#000000"
                   font-size="15px"
                   margin-bottom="0"

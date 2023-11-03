@@ -66,10 +66,22 @@ WithImage.args = {
   subtitle: "Granted, July 27, 2021 12:45 PM",
 };
 
-export const WithDescriptiion = Template.bind({});
-WithDescriptiion.args = {
+export const WithDescription = Template.bind({});
+WithDescription.args = {
   title: "example@gmail.com",
   description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
   buttonText: "Revoke Access",
   subtitle: "Granted, July 27, 2021 12:45 PM",
+};
+
+export const WithDifferentButtons = Template.bind({});
+WithDifferentButtons.args = {
+  title: "example@gmail.com",
+  description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+  logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+  buttonText: "Revoke Access",
+  subtitle: "Granted, July 27, 2021 12:45 PM",
+  buttonSize: "large",
+  buttonColorScheme: "primary",
+  // buttonSmartColor: "#000000",
 };

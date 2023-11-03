@@ -24,13 +24,13 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-    methods: {
-        alertMessage() {
-            alert("Hello");
-        },
+  methods: {
+    alertMessage() {
+      alert("Hello");
     },
+  },
   template: `
-    <d-action-list @list-action-clicked="alertMessage" v-bind="args"/>`,
+      <d-action-list @list-action-clicked="alertMessage" v-bind="args"/>`,
 });
 
 export const Default = Template.bind({});
@@ -39,21 +39,104 @@ Default.args = {
   list: [
     {
       id: 1,
-      title: "Quickbooks",
+      title: "example@gmail.com",
+      description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
       logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
-      subtitle: "Connected, July 27, 2021",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "small",
+      buttonColorScheme: "primary",
+      buttonSmartColor: "#000000",
+    },
+    {
+      id: 2,
+      title: "example@gmail.com",
+      description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+      logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "medium",
+      buttonColorScheme: "primary",
+    },
+    {
+      id: 3,
+      title: "example@gmail.com",
+      description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+      logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "large",
+      buttonColorScheme: "danger",
+    },
+  ],
+};
+
+export const WithImage = Template.bind({});
+WithImage.args = {
+  label: "Application",
+  list: [
+    {
+      id: 1,
+      title: "example@gmail.com",
+      logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "small",
+      buttonColorScheme: "primary",
+      buttonSmartColor: "#000000",
     },
     {
       id: 1,
-      title: "Xero",
-      logo: "https://marketplace.canva.com/EAFasgWgUyE/6/0/1600w/canva-neon-blue-and-black-gamer-badge-logo-eKEXSFkIoq0.jpg",
-      subtitle: "Connected, July 27, 2021",
+      title: "example@gmail.com",
+      logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "medium",
+      buttonColorScheme: "primary",
     },
     {
       id: 1,
-      title: "Zoho Books",
-      logo: "https://play-lh.googleusercontent.com/ahJtMe0vfOlAu1XJVQ6rcaGrQBgtrEZQefHy7SXB7jpijKhu1Kkox90XDuH8RmcBOXNn",
-      subtitle: "Connected, July 27, 2021",
+      title: "example@gmail.com",
+      logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "large",
+      buttonColorScheme: "danger",
+    },
+  ],
+};
+
+export const WithDescription = Template.bind({});
+WithDescription.args = {
+  label: "Application",
+  list: [
+    {
+      id: 1,
+      title: "example@gmail.com",
+      description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "small",
+      buttonColorScheme: "primary",
+      buttonSmartColor: "#000000",
+    },
+    {
+      id: 1,
+      title: "example@gmail.com",
+      description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "medium",
+      buttonColorScheme: "primary",
+    },
+    {
+      id: 1,
+      title: "example@gmail.com",
+      description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+      buttonText: "Revoke Access",
+      subtitle: "Granted, July 27, 2021 12:45 PM",
+      buttonSize: "large",
+      buttonColorScheme: "danger",
     },
   ],
 };

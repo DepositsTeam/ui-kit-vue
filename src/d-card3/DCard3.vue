@@ -5,7 +5,7 @@
     @click="emit('clicked')"
   >
     <d-box
-      background-color="#E2EDF7"
+      :background-color="backgroundColor"
       padding="1.5rem 2.5rem 0 2.5rem"
       border-radius="10px 10px 0 0"
     >
@@ -81,6 +81,10 @@ defineProps({
   image: {
     type: String,
     required: true,
+  },
+  backgroundColor: {
+    type: String,
+    default: "#E2EDF7"
   },
 });
 </script>

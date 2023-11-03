@@ -27,6 +27,10 @@
             :logo="application.logo"
             :title="application.title"
             :subtitle="application.subtitle"
+            :description="application.description"
+            :button-size="application.buttonSize"
+            :button-color-scheme="application.buttonColorScheme"
+            :button-smart-color="application.buttonSmartColor"
             buttonText="Revoke Access"
             @clicked="listActionClicked(application)"
           />
