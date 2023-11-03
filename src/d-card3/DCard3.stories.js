@@ -1,5 +1,5 @@
 import DCard3 from "./DCard3.vue";
-import { DCol, DResponsiveLayout, DRow } from "@/main";
+import { DCol, DResponsiveLayout, DRow, DBox } from "@/main";
 import { ref } from "vue";
 
 export default {
@@ -18,7 +18,13 @@ export default {
     image: {
       control: { type: "text" },
     },
-    backgroundColor: {
+    topBackgroundColor: {
+      control: { type: "text" },
+    },
+    bottomBackgroundColor: {
+      control: { type: "text" },
+    },
+    imageBackgroundColor: {
       control: { type: "text" },
     },
   },
@@ -42,7 +48,17 @@ Default.args = {
   subTitle: "Like Chime",
   description: "Using the Money kit",
   image: "https://console.api.ondeposits.com/demo/money-new.svg",
-  backgroundColor: "#0bb9e9",
+};
+
+export const WithBackgroundColors = Template.bind({});
+WithBackgroundColors.args = {
+  title: "Money",
+  subTitle: "Like Chime",
+  description: "Using the Money kit",
+  image: "https://console.api.ondeposits.com/demo/money-new.svg",
+  topBackgroundColor: "#0bb9e9",
+  bottomBackgroundColor: "#bdf3fc",
+  imageBackgroundColor: "#ffffff",
 };
 
 const CardListTemplate = (args) => ({
@@ -51,14 +67,15 @@ const CardListTemplate = (args) => ({
     DCol,
     DRow,
     DResponsiveLayout,
+    DBox,
   },
   setup() {
-    const lists = ref(args);
+    return { args };
   },
   template: `
       <d-responsive-layout>
         <d-row>
-          <d-col v-for="arg in lists.value" :xs="3" :sm="12">
+          <d-col v-for="arg in args" :md="4">
             <d-card3 v-bind="arg"/>
           </d-col>
         </d-row>
@@ -66,13 +83,29 @@ const CardListTemplate = (args) => ({
     `,
 });
 
-export const CardList = CardListTemplate.bind({});
-Default.args = [
+export const CardList = CardListTemplate.bind([]);
+CardList.args = [
+  {
+    title: "Recipes",
+    description: "Quick guides to help you build fast.",
+    image: "https://docs.deposits.dev/assets/svgs/home/recipes_dark.svg",
+    topBackgroundColor: "#0bb9e9",
+    bottomBackgroundColor: "#bdf3fc",
+    imageBackgroundColor: "#1b344d",
+  },
+  {
+    title: "E-Commerce",
+    subTitle: "Like Shopify",
+    description: "Using the Commerce kit",
+    image: "https://console.api.ondeposits.com/demo/money-new.svg",
+  },
   {
     title: "Money",
     subTitle: "Like Chime",
     description: "Using the Money kit",
-    image: "https://console.api.ondeposits.com/demo/money-new.svg",
-    backgroundColor: "#0bb9e9",
+    image: "https://console.api.ondeposits.com/demo/e-commerce-new.svg",
+    topBackgroundColor: "#e85e75",
+    bottomBackgroundColor: "#e8dbdd",
+    imageBackgroundColor: "#ffffff",
   },
 ];

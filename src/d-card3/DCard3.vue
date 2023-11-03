@@ -5,14 +5,14 @@
     @click="emit('clicked')"
   >
     <d-box
-      :background-color="backgroundColor"
+      :background-color="topBackgroundColor"
       padding="1.5rem 2.5rem 0 2.5rem"
       border-radius="10px 10px 0 0"
     >
       <d-box
         padding="1.5rem 2rem"
         text-align="center"
-        background-color="#ffffff"
+        :background-color="imageBackgroundColor"
         border-radius="10px 10px 0 0"
       >
         <slot name="image">
@@ -27,7 +27,7 @@
       </d-box>
     </d-box>
     <d-box
-      background-color="#ffffff"
+      :background-color="bottomBackgroundColor"
       padding="2rem 2.5rem"
       border-radius="0 0 10px 10px"
     >
@@ -82,9 +82,17 @@ defineProps({
     type: String,
     required: true,
   },
-  backgroundColor: {
+  topBackgroundColor: {
     type: String,
-    default: "#E2EDF7"
+    default: "#E2EDF7",
+  },
+  bottomBackgroundColor: {
+    type: String,
+    default: "#ffffff",
+  },
+  imageBackgroundColor: {
+    type: String,
+    default: "#ffffff",
   },
 });
 </script>
