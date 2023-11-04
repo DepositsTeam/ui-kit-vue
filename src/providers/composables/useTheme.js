@@ -9,8 +9,9 @@ export const useTheme = () => {
     if (injectedUpdateTheme && typeof injectedUpdateTheme === "function") {
       return injectedUpdateTheme(theme);
     } else {
+      // TODO: Update this error message with a link to the documentation
       throw Error(
-        "The `updateTheme` function is not enabled. You probably omitted the ThemeProvider."
+        "The `updateTheme` function is not enabled. You need to wrap your application with `ThemeProvider` to enable the `updateTheme` function."
       );
     }
   };
