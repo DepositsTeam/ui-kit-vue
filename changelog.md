@@ -1,5 +1,6 @@
 - **4th November 2023 - Eric McWinNEr 😴**
   - Feature: Changed the way the file picker shows picked file and how you can empty the selection
+  - Feature: Built a new composite button component
 - **3rd November 2023 - Eric McWinNEr 😴**
   - Chore: Updated all stories (except table) to have the autodocs tag
   - Feature: Built go back component

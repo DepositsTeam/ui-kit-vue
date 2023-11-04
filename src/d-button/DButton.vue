@@ -58,7 +58,9 @@
       ></component>
       <d-box class="ui-button__button-text">
         <d-box is="span" v-if="text">{{ text }}</d-box>
-        <d-box v-else><slot></slot></d-box>
+        <d-box v-else>
+          <slot></slot>
+        </d-box>
       </d-box>
       <ChevronFilledDownIcon
         v-if="dropDown"
@@ -82,7 +84,7 @@
 </template>
 
 <script setup>
-import { DBox, ChevronFilledDownIcon, DLoader } from "../main";
+import { ChevronFilledDownIcon, DBox, DLoader } from "../main";
 import { getTextColor } from "../utils/colorManager";
 import tinycolor from "tinycolor2";
 import { computed, inject, unref } from "vue";
@@ -218,54 +220,66 @@ const smartCalculatedHoverColor = computed(() =>
   align-items: center;
   text-align: center;
   justify-content: center;
+
   &.noWrap {
     white-space: nowrap;
     word-break: keep-all;
+
     .ui-button__button-text,
     .ui-button__button-text * {
       white-space: nowrap;
       word-break: keep-all;
     }
   }
+
   &.pill {
     border-radius: 900px;
   }
+
   &.dark_mode.semantic__default:not(.smartColor) {
     background: #121a26;
     border: 1px solid #202b3c;
     box-shadow: 0px 1px 0px rgba(27, 31, 35, 0.05);
     color: #cbd5e1;
+
     &.hover,
     &:hover {
       background: #202b3c;
     }
+
     &:focus {
       box-shadow: 0px 0px 0px 3px rgba(27, 92, 224, 0.2);
       border: 1px solid #384860;
     }
+
     &:disabled,
     &.state__disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
   }
+
   &.smartColor {
     background: var(--smart-color);
     color: var(--smart-text-color);
     border-color: transparent;
+
     &.semantic__outline {
       color: var(--smart-color);
       background: transparent;
       border: 1px solid var(--smart-color);
     }
+
     &:hover:not(:disabled):not(.state_disabled):not(.disabled),
     &.hover:not(:disabled):not(.state_disabled):not(.disabled) {
       background: var(--smart-calculated-hover-color);
       color: var(--smart-calculated-hover-text-color);
     }
+
     &:focus {
       box-shadow: 0 0 0 3px rgba(var(--smart-color), 0.2);
     }
+
     &.smartHoverColor:hover:not(:disabled):not(.state_disabled):not(.disabled),
     &.smartHoverColor.hover:not(:disabled):not(.state_disabled):not(.disabled) {
       background: var(--smart-hover-color);
@@ -288,6 +302,7 @@ const smartCalculatedHoverColor = computed(() =>
         animation: dots steps(1, end) 1.5s infinite;
       }
     }
+
     @keyframes dots {
       0% {
         content: "";
@@ -507,6 +522,7 @@ const smartCalculatedHoverColor = computed(() =>
 
     &:focus {
       box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
+
       &.dark_mode {
         box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
       }
@@ -528,6 +544,7 @@ const smartCalculatedHoverColor = computed(() =>
     &:focus:hover,
     &.hover:focus {
       box-shadow: 0 0 0 3px var(--light-outline-action-box-shadow-color);
+
       &.dark_mode {
         box-shadow: 0 0 0 3px var(--dark-outline-action-box-shadow-color);
       }
@@ -577,6 +594,7 @@ const smartCalculatedHoverColor = computed(() =>
     padding: 4px 12px;
     font-size: 12px;
     height: 24px;
+
     .ui-button__left-icon {
       height: 20px;
       width: 20px;
@@ -586,6 +604,7 @@ const smartCalculatedHoverColor = computed(() =>
   &.size__medium {
     padding: 8px 16px;
     height: 32px;
+
     .ui-button__left-icon {
       height: 20px;
       width: 20px;
