@@ -4,6 +4,7 @@ export default {
   title: "Accordion",
   component: DAccordion,
   argTypes: {},
+  tags: ["autodocs"],
 };
 
 const Template = (args) => ({
@@ -17,4 +18,21 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   title: "Personal information verification",
+};
+
+const SlotTestTemplate = (args) => ({
+  components: { DAccordion },
+  setup() {
+    return { args };
+  },
+  template: `<d-accordion v-bind="args">
+    <template #left-icon-inactive>
+      Something for your mind
+    </template>
+  </d-accordion>`,
+});
+
+export const SlotTest = SlotTestTemplate.bind({});
+SlotTest.args = {
+  title: "Slot Test",
 };

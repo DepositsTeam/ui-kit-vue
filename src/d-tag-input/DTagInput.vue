@@ -1,7 +1,7 @@
 <template>
   <d-box class="ui-tag-input__wrapper" :class="`size__${computedInputSize}`">
     <slot name="label">
-      <d-box is="label">
+      <d-box is="label" :for="computedID">
         <d-text
           :class="labelClass"
           :font-face="labelFontFace"
@@ -15,13 +15,17 @@
 
     <d-box
       class="ui-tag-input__input-wrapper"
-      :class="{ focus: focused, hasError: !!errorMessage }"
+      :class="{
+        focus: focused,
+        hasError: !!errorMessage || !!internalErrorMessage,
+      }"
     >
       <d-box
         is="div"
         v-for="(tag, index) in inputTags"
         class="ui-tag-input__input-tag"
         :key="`ui-tag-input${keyGen()}_${index}`"
+        :class="{ duplicateTag: duplicateTagIndices.includes(index) }"
       >
         <d-text
           class="ui-tag-input__input-tag-text"
@@ -47,17 +51,19 @@
         @focus="handleFocus"
         @blur="handleBlur"
         v-model="input"
+        @paste="(e) => handlePaste(e)"
         :size="computedInputSize"
+        :id="computedID"
       />
     </d-box>
-    <d-box v-if="errorMessage" class="ui-text-field__error">
+    <d-box v-if="computedErrorMessage" class="ui-text-field__error">
       <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
       <d-text
         class="ui-text-field__error-text"
         scale="subhead"
         fontFace="circularSTD"
       >
-        {{ errorMessage }}
+        {{ computedErrorMessage }}
       </d-text>
     </d-box>
   </d-box>
@@ -66,9 +72,10 @@
 <script setup>
 import { DBox, DText, DTextfield, CloseIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
-import { ref, nextTick, onBeforeMount, watch } from "vue";
+import { ref, nextTick, onBeforeMount, watch, computed } from "vue";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
@@ -110,9 +117,19 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
+
+const internalErrorMessage = ref(null);
+
+const computedErrorMessage = computed(() =>
+  internalErrorMessage.value ? internalErrorMessage.value : props.errorMessage
+);
+
 const input = ref("");
 const inputTags = ref([]);
 const isKeyReleased = ref("");
+const duplicateTagIndices = ref([]);
+const duplicateTags = ref([]);
 
 // TODO -> Make this component work with v-model
 
@@ -130,10 +147,55 @@ const setIsKeyReleased = (value) => {
   isKeyReleased.value = value;
 };
 
+const handlePaste = (e) => {
+  e.preventDefault();
+  const copiedText = (e.clipboardData || window.clipboardData).getData("text");
+  let oldTagArray = inputTags.value;
+  let tagArraySet = new Set(
+    copiedText
+      .split(_tagDelimiterKey[props.tagDelimiterKey])
+      .map((tag) => tag.trim())
+  );
+  const tagsArray = Array.from(tagArraySet).filter((tag) => tag.length);
+
+  const tempDuplicateTags = [];
+  const tempDuplicateTagIndices = [];
+
+  tagsArray.forEach((tag) => {
+    if (inputTags.value.includes(tag)) {
+      tempDuplicateTags.push(tag);
+      tempDuplicateTagIndices.push(inputTags.value.indexOf(tag));
+    }
+  });
+
+  inputTags.value = Array.from(new Set([...inputTags.value, ...tagsArray]));
+  duplicateTags.value = [...tempDuplicateTags];
+  duplicateTagIndices.value = [...tempDuplicateTagIndices];
+  nextTick(() => {
+    emit("tag-added", [...tagsArray], oldTagArray);
+    emit("tag-changed", oldTagArray, inputTags.value);
+    emit("update:modelValue", inputTags.value);
+  });
+  input.value = "";
+};
+
 const handleDeleteTag = (index) => {
+  if (duplicateTagIndices.value.length) {
+    if (duplicateTagIndices.value.find(index)) {
+      duplicateTags.value.splice(
+        duplicateTags.value.indexOf(inputTags.value[index]),
+        1
+      );
+      duplicateTagIndices.value.splice(
+        duplicateTagIndices.value.indexOf[index],
+        1
+      );
+    }
+  }
   const deletedTag = inputTags.value[index];
   let oldTagArray = inputTags.value;
   inputTags.value = inputTags.value.filter((tag, i) => i !== index);
+
   nextTick(() => {
     emit("tag-deleted", deletedTag, inputTags.value);
     emit("tag-changed", oldTagArray, inputTags.value);
@@ -145,8 +207,15 @@ const handleKeyDown = (event) => {
   const newTag = input.value.trim();
   let oldTagArray = inputTags.value;
   const key = _tagDelimiterKey[props.tagDelimiterKey];
-  if (event.key === key && newTag.length && !inputTags.value.includes(newTag)) {
+  duplicateTags.value = [];
+  duplicateTagIndices.value = [];
+  if (event.key === key && newTag.length) {
     event.preventDefault();
+    if (inputTags.value.includes(newTag)) {
+      duplicateTags.value = [newTag];
+      duplicateTagIndices.value = [inputTags.value.indexOf(newTag)];
+      return;
+    }
     inputTags.value.push(newTag);
     nextTick(() => {
       emit("tag-added", newTag, oldTagArray);
@@ -176,6 +245,15 @@ const handleKeyDown = (event) => {
   }
   isKeyReleased.value = false;
 };
+
+watch(duplicateTags, (value) => {
+  if (value.length) {
+    internalErrorMessage.value = `The tags ${value} already exist`;
+    console.log("I got here");
+  } else {
+    internalErrorMessage.value = "";
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -266,6 +344,10 @@ const handleKeyDown = (event) => {
   padding: 0 8px;
   margin-top: 4px;
   margin-bottom: 4px;
+  &.duplicateTag {
+    background: var(--light-danger-500);
+    color: white;
+  }
   &.dark_mode {
     background: var(--dark-input-background-color);
     color: #cbd5e1;

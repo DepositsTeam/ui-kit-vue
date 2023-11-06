@@ -3,6 +3,7 @@ import DAvatarCard2 from "./DAvatarCard2.vue";
 export default {
   title: "Avatar Card 2",
   component: DAvatarCard2,
+  tags: ["autodocs"],
   argTypes: {
     heading: {
       control: { type: "text" },

@@ -8,7 +8,7 @@
     }"
   >
     <slot name="label">
-      <d-box is="label">
+      <d-box is="label" :for="computedID">
         <d-text
           :class="labelClass"
           :font-face="labelFontFace"
@@ -52,6 +52,7 @@
         v-bind="$attrs"
         v-model="number"
         @keypress="allowOnlyNumbers"
+        :id="computedID"
       />
     </d-box>
     <d-box
@@ -83,9 +84,12 @@ import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const emit = defineEmits([
   "update:code",
@@ -189,7 +193,7 @@ const updateCountryCodeIsFocused = (value) => {
 const resizeCountryCodeAutomatically = () => {
   const elem = phoneInputRef.value.$el;
   const value = props.code;
-  elem.style.width = "calc(" + (value.length + 2) + "ch + 4px)";
+  elem.style.width = "calc(" + (value.length ? value.length : 1) + "ch + 4px)";
   const wrapper = elem.closest(".ui-text-field__wrapper");
   let offset;
   if (wrapper.classList.contains("size__small")) {
@@ -200,7 +204,7 @@ const resizeCountryCodeAutomatically = () => {
     offset = 26;
   }
   elem.nextSibling.style.paddingLeft =
-    "calc(" + (value.length <= 1 ? 3 : 4) + "ch + " + offset + "px)";
+    "calc(" + (value.length >= 2 ? value.length : 2) + "ch + " + offset + "px)";
 };
 
 const resizeCountryCodeOnType = (elem) => {

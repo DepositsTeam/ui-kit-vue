@@ -4,6 +4,7 @@ import { DAutoLayout, DarkModeProvider } from "../main";
 export default {
   title: "Forms/Radio",
   component: DRadio,
+  tags: ["autodocs"],
   argTypes: {
     ringed: {
       control: { type: "boolean" },

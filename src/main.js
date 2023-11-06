@@ -12,8 +12,10 @@ export { default as DButton } from "./d-button/DButton.vue";
 export { default as DCard } from "./d-card/DCard.vue";
 export { default as DCardInputField } from "./d-card-input-field/DCardInputField.vue";
 export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
-export { default as DCol } from "./d-responsive-layout/DCol.vue";
+export { default as DCheckboxCard } from "./d-checkbox-card/DCheckboxCard.vue";
+export { default as DCompositeButton } from "./d-composite-button/DCompositeButton.vue";
 export { default as DContinuousList } from "./d-continous-list/DContinuousList.vue";
+export { default as DCol } from "./d-responsive-layout/DCol.vue";
 export { default as DCopyInput } from "./d-copy-input/DCopyInput.vue";
 export { default as DCounter } from "./d-counter/DCounter.vue";
 export { default as DCountryDropdown } from "./d-country-dropdown/DCountryDropdown.vue";
@@ -26,6 +28,7 @@ export { default as DDropdown } from "./d-dropdown/DDropdown.vue";
 export { default as DFilePicker } from "./d-file-picker/DFilePicker.vue";
 export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
 export { default as DFilterDropdown } from "./d-filter-dropdown/DFilterDropdown.vue";
+export { default as DGoBack } from "./d-go-back/DGoBack.vue";
 export { default as DGridLayout } from "./d-grid-layout/DGridLayout.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
 export { default as DLoader } from "./d-loader/DLoader.vue";
@@ -40,6 +43,7 @@ export { default as DQuickTool } from "./d-quick-tool/DQuickTool.vue";
 export { default as DActionListItem } from "./d-action-list-item/DActionListItem.vue";
 export { default as DRadio } from "./d-radio/DRadio.vue";
 export { default as DRadioCard } from "./d-radio-card/DRadioCard.vue";
+export { default as DRadioCardSelect } from "./d-radio-card-select/DRadioCardSelect.vue";
 export { default as DResponsiveLayout } from "./d-responsive-layout/DResponsiveLayout.vue";
 export { default as DRestrictedColorConfig } from "./d-restricted-color-config/DRestrictedColorConfig.vue";
 export { default as DRow } from "./d-responsive-layout/DRow.vue";
@@ -49,8 +53,8 @@ export { default as DStaticStat2 } from "./d-static-stat2/DStaticStat2.vue";
 export { default as DStepper } from "./d-stepper/DStepper.vue";
 export { default as DSwitch } from "./d-switch/DSwitch.vue";
 export { default as DSwitchCard } from "./d-switch-card/DSwitchCard.vue";
-export { default as DTabs } from "./d-tabs/DTabs.vue";
 export { default as DTable } from "./d-table/DTable.vue";
+export { default as DTabs } from "./d-tabs/DTabs.vue";
 export { default as DTableCellText } from "./d-table/DTableCellText.vue";
 export { default as DTagDropdown } from "./d-tag-dropdown/DTagDropdown.vue";
 export { default as DTagInput } from "./d-tag-input/DTagInput.vue";
@@ -65,7 +69,15 @@ export { default as ThemeProvider } from "./providers/ThemeProvider.vue";
 export { useTheme } from "./providers/composables/useTheme";
 export { useDarkMode } from "./providers/composables/useDarkMode";
 export { useToast } from "./providers/composables/useToast";
+export { useDebitCard } from "./utils/composables/useDebitCard";
 export { default as number_format } from "./utils/number_format";
+export {
+  formatCardNo,
+  asteriskCardNo,
+  asteriskCvv,
+  asteriskExp,
+  CardBrands,
+} from "./utils/debitCardUtils";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";

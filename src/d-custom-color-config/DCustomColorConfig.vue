@@ -26,7 +26,7 @@
     </d-box>
     <d-textfield
       readonly
-      :size="size"
+      :size="computedInputSize"
       class="ui-color__input__field"
       v-model="payload.activeColor"
       @click="copyCode"
@@ -49,6 +49,7 @@
 import { DBox, DText, DTextfield } from "../main";
 import { onBeforeMount, reactive } from "vue";
 import copy from "copy-to-clipboard";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const props = defineProps({
   modelValue: {
@@ -70,6 +71,8 @@ const props = defineProps({
   },
   size: {
     type: String,
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
   },
 });
 const emit = defineEmits(["update:modelValue"]);
@@ -82,6 +85,8 @@ onBeforeMount(() => {
     emit("update:modelValue", props.colors[0]);
   }
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const handleChangeEvents = (color) => {
   emit("update:modelValue", color);

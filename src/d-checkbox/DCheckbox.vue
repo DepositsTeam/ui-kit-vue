@@ -210,7 +210,9 @@ const handleChange = (e) => {
       }
       position: relative;
       height: var(--checkbox-size);
+      min-height: var(--checkbox-size);
       width: var(--checkbox-size);
+      min-width: var(--checkbox-size);
       background: white;
       border: 1px solid #ced6de;
       border-radius: 2px;

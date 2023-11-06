@@ -3,6 +3,7 @@ import DHeading from "./DHeading.vue";
 export default {
   title: "Heading",
   component: DHeading,
+  tags: ["autodocs"],
   argTypes: {
     is: {
       control: { type: "select" },

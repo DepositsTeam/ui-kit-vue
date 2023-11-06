@@ -3,6 +3,7 @@ import DCustomColorConfig from "./DCustomColorConfig.vue";
 export default {
   title: "Forms/Custom Color Config",
   component: DCustomColorConfig,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

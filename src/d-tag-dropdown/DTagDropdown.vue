@@ -6,18 +6,20 @@
       [`size__${computedInputSize}`]: true,
     }"
   >
-    <slot name="label">
-      <d-box is="label">
-        <d-text
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-tag-dropdown__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
-    </slot>
+    <d-box @click="toggleOptions">
+      <slot name="label">
+        <d-box is="label" :for="computedID">
+          <d-text
+            :class="labelClass"
+            :font-face="labelFontFace"
+            class="ui-tag-dropdown__label"
+            scale="subhead"
+          >
+            {{ label }}
+          </d-text>
+        </d-box>
+      </slot>
+    </d-box>
 
     <d-box
       class="ui-tag-dropdown__input-wrapper"
@@ -35,6 +37,9 @@
           class="ui-text-field__left-icon"
           @click="emitLeftIconClicked"
         ></component>
+        <d-box v-else-if="$slots['left-icon']" class="ui-text-field__left-icon">
+          <slot name="left-icon"></slot>
+        </d-box>
         <d-box v-else-if="$slots.leftIcon" class="ui-text-field__left-icon">
           <slot name="leftIcon"></slot>
         </d-box>
@@ -79,6 +84,12 @@
           v-if="rightIcon"
           :is="rightIcon"
         ></component>
+        <d-box
+          v-else-if="$slots['right-icon']"
+          class="ui-text-field__right-icon"
+        >
+          <slot name="right-icon"></slot>
+        </d-box>
         <d-box v-else-if="$slots.rightIcon" class="ui-text-field__right-icon">
           <slot name="rightIcon"></slot>
         </d-box>
@@ -108,6 +119,7 @@
             :placeholder="placeholder"
             @keydown="handleEsc"
             size="large"
+            id="computedID"
           />
         </d-box>
 
@@ -182,6 +194,7 @@ import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const props = defineProps({
   ...inputProps,
@@ -218,6 +231,8 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 const { computedOptions } = useDropdown(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 const targetRef = ref(null);
 const dropdownRef = ref(null);

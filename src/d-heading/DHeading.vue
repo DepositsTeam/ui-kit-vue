@@ -25,7 +25,7 @@
 import { DBox } from "../main";
 import { computed, inject, unref } from "vue";
 
-const defaultFontFace = inject("defaultFontFace", null);
+const defaultFontFace = inject("d__defaultFontFace", null);
 
 const props = defineProps({
   is: {
@@ -56,7 +56,6 @@ const props = defineProps({
   },
   fontFace: {
     type: String,
-    default: "heroNew",
   },
   fontWeight: {
     type: [String, Number],

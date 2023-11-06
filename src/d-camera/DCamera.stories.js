@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Camera",
   component: DCamera,
+  tags: ["autodocs"],
   argTypes: {
     showFocusFrame: {
       control: { type: "boolean" },

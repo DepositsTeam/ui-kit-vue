@@ -1,4 +1,63 @@
-export const data = [
+export const baseData = [
+  {
+    name: "Matthew Perry",
+    city: "Manhattan",
+    company: "Statistical Analysis and Data Reconfiguration",
+    country: "US",
+    qty: "10",
+    state: "New York",
+  },
+  {
+    name: "Steve Carell",
+    city: "Scranton",
+    company: "Dunder Mifflin",
+    country: "US",
+    qty: "9",
+    state: "Pennsylvania",
+  },
+  {
+    name: "Jim Parsons",
+    city: "Pasadena",
+    company: "California Institute of Technology",
+    country: "US",
+    qty: "12",
+    state: "California",
+  },
+  {
+    name: "Josh Radnor",
+    city: "New York",
+    company: "Architectury",
+    country: "US",
+    qty: "9",
+    state: "New York",
+  },
+  {
+    name: "Charlie Sheen",
+    city: "Malibu",
+    company: "Jingle Writery",
+    country: "US",
+    qty: "12",
+    state: "California",
+  },
+  {
+    name: "Sofía Vergara",
+    city: "Los Angeles",
+    company: "Hot Housewifery/Realtor",
+    country: "US",
+    qty: "11",
+    state: "California",
+  },
+  {
+    name: "Stephanie Beatriz",
+    city: "Brooklyn",
+    company: "Detective/Cop",
+    country: "US",
+    qty: "8",
+    state: "New York",
+  },
+];
+
+export const paginatedData = [
   {
     name: "Matthew Perry",
     city: "Manhattan",
@@ -279,7 +338,7 @@ export const customRowData = [
   },
 ];
 
-export const paginatedData = [
+export const largePaginatedData = [
   {
     name: "Matthew Perry",
     city: "Manhattan",

@@ -7,7 +7,7 @@
     }"
   >
     <slot name="label">
-      <d-box v-if="label" is="label">
+      <d-box v-if="label" is="label" :for="computedID">
         <d-text
           :class="labelClass"
           :font-face="labelFontFace"
@@ -23,10 +23,7 @@
       class="ui-text-field__input-wrapper"
       :class="{ 'has-error': !!errorMessage }"
     >
-      <component
-        :is="leftIcon"
-        v-if="leftIcon && !invisible"
-      ></component>
+      <component :is="leftIcon" v-if="leftIcon && !invisible"></component>
       <date-picker
         :class="{
           'has-error': errorMessage,
@@ -52,13 +49,8 @@
         :format="format"
         :placeholder="computedPlaceholder"
         :range="range"
-        :disabled-date="
-          disableAfterToday
-            ? disabledAfterToday
-            : disabledDate
-            ? disabledDate
-            : undefined
-        "
+        :disabled-date="computedDisabledDates"
+        :id="computedID"
       >
         <template #icon-calendar>
           <slot name="calendar-icon">
@@ -106,6 +98,7 @@ import DatePicker from "vue-datepicker-next";
 import inputProps from "../utils/inputProps";
 import { inject, ref, onMounted, watch, computed } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const darkMode = inject("d__darkMode", false);
 
@@ -144,6 +137,9 @@ const props = defineProps({
   disableAfterToday: {
     type: Boolean,
   },
+  disableBeforeToday: {
+    type: Boolean,
+  },
   disabledDate: {
     type: Function,
   },
@@ -154,12 +150,33 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
+
 const disabledAfterToday = (date) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   return date > today;
 };
+
+const disabledBeforeToday = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date < today;
+};
+
+const computedDisabledDates = computed(() => {
+  if (props.disableAfterToday) {
+    return disabledAfterToday;
+  } else if (props.disableBeforeToday) {
+    return disabledBeforeToday;
+  } else if (props.disabledDate) {
+    return props.disabledDate;
+  } else {
+    return undefined;
+  }
+});
 
 const computedPlaceholder = computed(() => {
   if (props.placeholder) {

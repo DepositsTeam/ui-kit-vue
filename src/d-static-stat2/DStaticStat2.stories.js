@@ -4,6 +4,7 @@ import { Profile2UserFilledIcon } from "@/main";
 export default {
   title: "Static Stats 2",
   component: DStaticStat2,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

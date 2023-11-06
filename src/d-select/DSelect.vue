@@ -4,7 +4,7 @@
     :class="[wrapperClass, `size__${computedInputSize}`]"
   >
     <slot name="label">
-      <d-box is="label" v-if="label">
+      <d-box is="label" v-if="label" :for="computedID">
         <d-text
           margin-top="0px"
           :class="labelClass"
@@ -44,6 +44,7 @@
         is="select"
         ref="select"
         :disabled="disabled"
+        :id="computedID"
       >
         <option v-if="placeholder" value="">{{ placeholder }}</option>
         <option
@@ -54,7 +55,7 @@
           {{ option.text }}
         </option>
       </d-box>
-      <d-box class="ui-text-field__right-icon__wrapper">
+      <d-box pointer-events="none" class="ui-text-field__right-icon__wrapper">
         <d-box class="ui-text-field__right-icon">
           <slot name="right-icon">
             <ChevronFilledDownIcon />
@@ -82,6 +83,7 @@ import { computed, ref, onMounted, watch } from "vue";
 import inputProps from "../utils/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -150,6 +152,8 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 const { computedOptions } = useDropdown(props);
+
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
 onMounted(() => {
   if (

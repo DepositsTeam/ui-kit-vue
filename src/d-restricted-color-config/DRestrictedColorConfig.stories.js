@@ -6,6 +6,7 @@ export default {
   components: { DAutoLayout },
   title: "Forms/Restricted Color Config",
   component: DRestrictedColorConfig,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },

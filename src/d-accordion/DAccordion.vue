@@ -7,12 +7,12 @@
     >
       <d-box class="ui-accordion__header__left-content">
         <d-box class="ui-accordion__header__left-icon">
-          <slot name="leftIconActive" v-if="visible">
+          <slot name="left-icon-active" v-if="visible">
             <d-box class="text-grey-500">
               <chevron-filled-up-icon height="32px" width="32px" />
             </d-box>
           </slot>
-          <slot name="leftIconInactive" v-else>
+          <slot name="left-icon-inactive" v-else>
             <d-box class="text-grey-500">
               <chevron-filled-down-icon height="32px" width="32px" />
             </d-box>
@@ -32,7 +32,7 @@
       </d-box>
 
       <d-box class="ui-accordion__header__right-icon">
-        <slot name="rightIcon"></slot>
+        <slot name="right-icon"></slot>
       </d-box>
     </d-box>
     <d-box v-if="visible" class="ui-accordion__content">

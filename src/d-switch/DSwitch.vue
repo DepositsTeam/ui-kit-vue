@@ -91,7 +91,7 @@ const props = defineProps({
 
 const checkbox = ref(null);
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "click"]);
 
 const computedValue = computed(() =>
   props.value === "" ? props.label : props.value

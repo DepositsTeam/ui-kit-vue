@@ -1,4 +1,3 @@
-
 <template>
   <slot></slot>
 </template>
@@ -26,8 +25,11 @@ const defaultFontFace = ref(null);
 
 const defaultInputSize = ref(null);
 
-provide("defaultFontFace", defaultFontFace);
-provide("defaultInputSize", defaultInputSize);
+const defaultButtonSize = ref(null);
+
+provide("d__defaultFontFace", defaultFontFace);
+provide("d__defaultInputSize", defaultInputSize);
+provide("d__defaultButtonSize", defaultButtonSize);
 
 const themeVars = ref({
   ...defaultTheme,
@@ -232,6 +234,8 @@ const hydrateTheme = () => {
 
   if (computedTheme["default-font-face"]) {
     defaultFontFace.value = computedTheme["default-font-face"];
+  } else if (computedTheme.defaultFontFace) {
+    defaultFontFace.value = computedTheme.defaultFontFace;
   } else {
     defaultFontFace.value = null;
   }
@@ -241,7 +245,15 @@ const hydrateTheme = () => {
   } else if (computedTheme.defaultInputSize) {
     defaultInputSize.value = computedTheme.defaultInputSize;
   } else {
-    defaultInputSize.value = "huge";
+    defaultInputSize.value = "xlarge";
+  }
+
+  if (computedTheme["default-button-size"]) {
+    defaultButtonSize.value = computedTheme["default-button-size"];
+  } else if (computedTheme.defaultButtonSize) {
+    defaultButtonSize.value = computedTheme.defaultButtonSize;
+  } else {
+    defaultButtonSize.value = "xlarge";
   }
 
   themeVars.value = {

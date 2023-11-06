@@ -10,6 +10,7 @@ import {
 export default {
   title: "Continuous List",
   component: DContinuousList,
+  tags: ["autodocs"],
   argTypes: {
     title: {
       control: { type: "text" },

@@ -6,6 +6,7 @@ import { ExternalLinkIcon } from "../main";
 export default {
   title: "Forms/Tag Dropdown",
   component: DTagDropdown,
+  tags: ["autodocs"],
   argTypes: {
     ...inputArgTypes,
     placeholder: {

@@ -1,7 +1,7 @@
 <template>
   <d-box class="ui-filter-dropdown">
     <d-button :size="size" drop-down @click="toggleShowOptions">
-      <template #leftIcon>
+      <template #left-icon>
         <funnel-icon />
       </template>
       {{ selectedOption.text }}
@@ -39,16 +39,7 @@
   </d-box>
 </template>
 <script setup>
-import {
-  DBox,
-  FunnelIcon,
-  ChevronFilledDownIcon,
-  DText,
-  DLoader,
-  DRadio,
-  DAutoLayout,
-  DButton,
-} from "../main";
+import { DBox, FunnelIcon, DText, DLoader, DRadio, DButton } from "../main";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useDropdown } from "../utils/composables/useDropdown";
 

@@ -52,7 +52,7 @@
               class="ui-banner__description"
               font-face="circularSTD"
               v-if="!$slots.default && description"
-            ><span v-html="description"></span
+              ><span v-html="description"></span
             ></d-text>
           </d-box>
         </d-box>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import {
   CheckIcon,
   CloseIcon,
@@ -133,7 +133,6 @@ const remove = () => {
   emit("removed");
   visible.value = false;
 };
-
 </script>
 
 <style lang="scss" scoped>

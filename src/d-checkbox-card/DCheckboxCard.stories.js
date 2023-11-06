@@ -10,8 +10,9 @@ import {
 } from "../main";
 
 export default {
-  title: "Forms/Cards/Checkbox Card",
+  title: "Forms/Checkbox Card",
   component: DCheckboxCard,
+  tags: ["autodocs"],
   argTypes: {},
 };
 

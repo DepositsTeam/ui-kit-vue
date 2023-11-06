@@ -7,7 +7,6 @@
       alignToTop,
       alignRight,
     }"
-    @click="emitClick"
     :style="{ '--ring-size': ringSize, '--ring-thickness': ringThickness }"
   >
     <d-box
@@ -16,7 +15,6 @@
       @change="changed"
       v-bind="$attrs"
       :disabled="disabled"
-      ref="radio"
       class="ui-radio"
       type="radio"
       :class="{
@@ -27,9 +25,12 @@
     <d-box class="ui-radio__label-wrap" v-if="$slots.default">
       <slot></slot>
     </d-box>
-    <d-text v-else class="ui-radio__label-text" :class="labelClass">{{
-      label
-    }}</d-text>
+    <d-text
+      v-else
+      class="ui-radio__label-text"
+      :class="{ [labelClass]: labelClass }"
+      >{{ label }}</d-text
+    >
   </d-box>
 </template>
 
@@ -37,7 +38,7 @@
 import { DBox, DText } from "../main";
 import { ref, onMounted, computed } from "vue";
 
-const emit = defineEmits(["update:modelValue", "click"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({
   ringed: {
@@ -101,10 +102,6 @@ const isChecked = computed(() => {
 const changed = () => {
   emit("update:modelValue", computedValue.value);
 };
-
-const emitClick = () => {
-  emit("click");
-};
 </script>
 
 <style lang="scss" scoped>
@@ -152,7 +149,9 @@ const emitClick = () => {
       }
       position: relative;
       height: var(--ring-size);
+      min-height: var(--ring-size);
       width: var(--ring-size);
+      min-width: var(--ring-size);
       border-radius: 50%;
       background: white;
       border: 2px solid #ced6de;

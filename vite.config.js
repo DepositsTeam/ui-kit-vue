@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from "url";
-const path = require("path");
+import path from "node:path";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -20,6 +20,7 @@ export default defineConfig({
         // Add external deps here
         globals: {
           vue: "Vue",
+          "vue-router": "$router",
         },
       },
     },

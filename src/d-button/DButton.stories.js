@@ -1,9 +1,10 @@
 import DButton from "./DButton.vue";
-import { DarkModeProvider, SearchIcon } from "../main";
+import { DarkModeProvider, SearchIcon, ThemeProvider } from "../main";
 
 export default {
   title: "Button",
   component: DButton,
+  tags: ["autodocs"],
   argTypes: {
     size: {
       control: { type: "select" },
@@ -363,4 +364,21 @@ DarkSuccessIconMassiveButton.args = {
   colorScheme: "success",
   leftIcon: SearchIcon,
   size: "massive",
+};
+
+const DefaultSizeTemplate = (args) => ({
+  components: { DButton, ThemeProvider },
+  setup() {
+    return { args };
+  },
+  template: `
+    <theme-provider :initial-theme="{defaultButtonSize: 'small'}">
+      <d-button v-bind="args"><span v-html="args.children" /></d-button>
+    </theme-provider>
+  `,
+});
+
+export const CustomDefaultSize = DefaultSizeTemplate.bind({});
+CustomDefaultSize.args = {
+  children: "Custom Default Size",
 };

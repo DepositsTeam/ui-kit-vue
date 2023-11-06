@@ -5,6 +5,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 
 export default {
   title: "Card",
+  tags: ["autodocs"],
   component: DCard,
   argTypes: {
     title: {

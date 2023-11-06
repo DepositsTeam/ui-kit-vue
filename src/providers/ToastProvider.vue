@@ -49,6 +49,7 @@ const toasts = ref([]);
 const interval = ref(null);
 
 onMounted(() => {
+  // TODO: Update the interval process to be more efficient by storing the exact time toasts should be removed and removing them then
   interval.value = setInterval(() => {
     if (toasts.value.length) {
       const uuidsToRemove = [];
@@ -95,13 +96,14 @@ provide("___clearToasts", clearToasts);
 </script>
 
 <style lang="scss" scoped>
+
 .ui-toast__wrapper {
   position: fixed;
   height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1000;
   pointer-events: none;
 }
 
@@ -114,6 +116,12 @@ provide("___clearToasts", clearToasts);
   top: 0;
   pointer-events: none;
   z-index: 99999;
+
+  @media screen and (max-width: 400px) {
+    left: calc(50vw - 200px);
+    padding: 32px 15px;
+    align-items: center;
+  }
 
   > *:not(:last-child) {
     margin-bottom: 16px;

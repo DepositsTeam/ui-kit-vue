@@ -1,7 +1,7 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <slot name="label">
-      <d-box v-if="!!label && !invisible" is="label">
+      <d-box v-if="!!label && !invisible" is="label" :for="computedID">
         <d-text
           margin-top="0px"
           class="ui-text-field__label"
@@ -29,15 +29,19 @@
         class="ui-text-field__input-section left"
         :class="{ focused }"
       >
-        <slot name="leftSection"></slot>
+        <slot name="left-section" v-if="$slots['left-section']"></slot>
+        <slot name="leftSection" v-else-if="$slots.leftSection"></slot>
       </d-box>
       <d-box class="ui-text-field__input-wrapper">
         <d-box
-          v-if="leftIcon || $slots.leftIcon"
+          v-if="leftIcon || $slots.leftIcon || $slots['left-icon']"
           class="ui-text-field__left-icon"
           @click="emitLeftIconClicked"
         >
-          <slot name="leftIcon">
+          <slot name="leftIcon" v-if="$slots.leftIcon">
+            <component v-if="leftIcon" tabindex="-1" :is="leftIcon"></component>
+          </slot>
+          <slot name="left-icon" v-else>
             <component v-if="leftIcon" tabindex="-1" :is="leftIcon"></component>
           </slot>
         </d-box>
@@ -62,6 +66,7 @@
             [inputClass]: true,
             pill,
           }"
+          :id="computedID"
           ref="inputField"
           :max="max"
           :min="min"
@@ -100,11 +105,14 @@
           width="100%"
         />
         <d-box
-          v-if="showRightIcon || $slots.rightIcon"
+          v-if="showRightIcon || $slots.rightIcon || $slots['right-icon']"
           class="ui-text-field__right-icon"
           @click="emitRightIconClicked"
         >
-          <slot name="rightIcon">
+          <slot name="rightIcon" v-if="rightIcon">
+            <component tabindex="-1" :is="computedRightIcon"></component>
+          </slot>
+          <slot name="right-icon" v-else>
             <component tabindex="-1" :is="computedRightIcon"></component>
           </slot>
         </d-box>
@@ -114,7 +122,8 @@
         class="ui-text-field__input-section right"
         :class="{ focused }"
       >
-        <slot name="rightSection"></slot>
+        <slot name="right-section" v-if="$slots['right-section']"></slot>
+        <slot name="rightSection" v-else-if="$slots.rightSection"></slot>
       </d-box>
     </d-auto-layout>
 
@@ -167,17 +176,18 @@ import {
   DAutoLayout,
   CopyIcon,
 } from "../main";
-import { allowOnlyNumbers, currencies } from "../utils/allowOnlyNumbers";
+import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
 import number_format from "../utils/number_format";
 import inputProps from "../utils/inputProps";
 import { formatSSN } from "../utils/formatSSN";
 import { wrapperProps } from "../utils/wrapperProps";
-import { useWrapperProps } from "../utils/useWrapperProps";
+import { useWrapperProps } from "../utils/composables/useWrapperProps";
 import { formatPercentage } from "../utils/formatPercentage";
 import { useInputSize } from "../utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -244,10 +254,14 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 
-const defaultFontFace = inject("defaultFontFace", null);
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
+
+const defaultFontFace = inject("d__defaultFontFace", null);
 
 const computedFontFace = computed(() => {
-  return props.fontFace || unref(defaultFontFace)
+  return props.fontFace
+    ? props.fontFace
+    : unref(defaultFontFace)
     ? unref(defaultFontFace)
     : "circularSTD";
 });
@@ -290,7 +304,10 @@ const initializeModelValue = () => {
           regex = new RegExp(/^\d*(\.\d{0,2})?$/);
         if (regex.test(value)) {
           if (props.emitOnlyCurrencyValue) {
-            emit("update:modelValue", `${number_format(value, 2)}`);
+            emit(
+              "update:modelValue",
+              `${number_format(value, 2).replaceAll(",", "")}`
+            );
           } else {
             emit(
               "update:modelValue",
@@ -457,12 +474,11 @@ const handleInputEvents = (e) => {
       }
     } else {
       if (props.emitOnlyCurrencyValue) {
-        emit(
-          "update:modelValue",
-          e.target.value
-            .replaceAll(props.currencySymbol, "")
-            .replaceAll(",", "")
-        );
+        let emittedValue = e.target.value
+          .replaceAll(props.currencySymbol, "")
+          .replaceAll(",", "");
+        emittedValue = emittedValue === "" ? "0.00" : emittedValue;
+        emit("update:modelValue", emittedValue);
       } else {
         emit("update:modelValue", e.target.value);
       }
@@ -564,9 +580,11 @@ const handleBlurEvent = async (e) => {
                 .split(",")
                 .join("")
                 .replaceAll(props.currencySymbol, "")
+                .replaceAll(",", "")
+                .trim()
             ),
             2
-          )}`
+          ).replaceAll(",", "")}`
         );
       } else {
         emit(
@@ -593,7 +611,11 @@ const handleBlurEvent = async (e) => {
         2
       )}`;
     } else {
-      emit("update:modelValue", `${props.currencySymbol} 0.00`);
+      if (props.emitOnlyCurrencyValue) {
+        emit("update:modelValue", `0.00`);
+      } else {
+        emit("update:modelValue", `${props.currencySymbol} 0.00`);
+      }
     }
   }
   if (props.percentage) {
@@ -634,7 +656,7 @@ watch(
               .replaceAll(props.currencySymbol, "")
           ),
           2
-        )}`
+        ).replaceAll(",", "")}`
       );
       await nextTick();
       inputField.value.$el.value = `${props.currencySymbol} ${number_format(

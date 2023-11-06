@@ -5,7 +5,11 @@
     v-if="variant === 'inline'"
   >
     <slot name="label">
-      <d-box v-if="!!label && variant !== 'button'" is="label">
+      <d-box
+        v-if="!!label && variant !== 'button'"
+        is="label"
+        :for="computedID"
+      >
         <d-text
           margin-top="0px"
           class="ui-text-field__label"
@@ -28,6 +32,7 @@
         @change="updateName"
         :accept="computedAccepts"
         type="file"
+        :id="computedID"
       />
       <d-box
         class="ui-text-field__input"
@@ -85,9 +90,10 @@
 <script setup>
 import { DBox, DText, ErrorIcon, DButton } from "../main";
 import inputProps from "../utils/inputProps";
-import { useFilePicker } from "../utils/useFilePicker";
-import { ref } from "vue";
+import { useFilePicker } from "../utils/composables/useFilePicker";
+import { computed, ref } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const props = defineProps({
   ...inputProps,
@@ -129,6 +135,8 @@ const props = defineProps({
 
 const emit = defineEmits(["change", "cleared"]);
 
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
+
 const { computedInputSize } = useInputSize(props);
 
 const file = ref(null);
@@ -163,6 +171,7 @@ const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
     width: 100%;
     height: 100%;
     cursor: pointer;
+    z-index: 1;
     // &:active {
     //   & ~ * {
     //     box-shadow: 0 0 0 3px var(--primaryboxshadowcolor);

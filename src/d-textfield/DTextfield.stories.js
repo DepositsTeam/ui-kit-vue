@@ -6,6 +6,7 @@ import { DBox } from "../main";
 export default {
   title: "Forms/Text Field",
   component: DTextfield,
+  tags: ["autodocs"],
   argTypes: {
     label: {
       control: { type: "text" },
@@ -55,6 +56,9 @@ export default {
       control: { type: "boolean" },
     },
     copyMode: {
+      control: { type: "boolean" },
+    },
+    emitOnlyCurrencyValue: {
       control: { type: "boolean" },
     },
   },
@@ -175,6 +179,14 @@ CurrencyMode.args = {
   placeholder: "$0.00",
   label: "Currency Mode",
   currency: true,
+};
+
+export const CurrencyEmitOnlyValue = Template.bind({});
+CurrencyEmitOnlyValue.args = {
+  placeholder: "$0.00",
+  label: "Currency Mode",
+  currency: true,
+  emitOnlyCurrencyValue: true,
 };
 
 export const EINMode = Template.bind({});

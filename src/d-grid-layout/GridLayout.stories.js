@@ -4,6 +4,7 @@ import { DBox } from "../main";
 export default {
   title: "Layouts/Grid Layout",
   component: DGridLayout,
+  tags: ["autodocs"],
   argTypes: {
     gridWidth: {
       control: { type: "text" },

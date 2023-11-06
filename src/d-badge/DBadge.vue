@@ -12,8 +12,16 @@
     class="ui-badge"
     :style="{
       '--size': typeof customSize === 'number' ? `${customSize}px` : customSize,
-      '--smart-color': smartColor,
-      '--smart-text-color': getTextColor(smartColor),
+      '--smart-color': smartColor
+        ? subtle
+          ? generateColorSpectrum(smartColor, '')['100']
+          : smartColor
+        : null,
+      '--smart-text-color': smartColor
+        ? subtle
+          ? smartColor
+          : getTextColor(smartColor)
+        : null,
       '--custom-background-color': customColor?.background,
       '--custom-text-color': customColor?.color,
     }"
@@ -34,7 +42,7 @@
 
 <script setup>
 import { DBox, DText } from "../main";
-import { getTextColor } from "../utils/colorManager";
+import { generateColorSpectrum, getTextColor } from "../utils/colorManager";
 
 defineProps({
   colorScheme: {

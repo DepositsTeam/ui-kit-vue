@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/Counter",
   component: DCounter,
+  tags: ["autodocs"],
   argTypes: {},
 };
 
@@ -36,6 +37,11 @@ const DarkModeTemplate = (args) => ({
 });
 
 export const Default = Template.bind({});
+
+export const Label = Template.bind({});
+Label.args = {
+  label: "Counter Input",
+};
 
 export const HasError = Template.bind({});
 HasError.args = {

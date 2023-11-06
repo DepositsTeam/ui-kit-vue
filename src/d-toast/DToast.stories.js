@@ -1,7 +1,14 @@
-import { DButton, ToastProvider, DarkModeProvider, useToast } from "../main";
+import {
+  DButton,
+  ToastProvider,
+  DarkModeProvider,
+  DModal,
+  useToast,
+} from "../main";
 
 export default {
   title: "Toast",
+  tags: ["autodocs"],
   argTypes: {
     autoClose: {
       control: { type: "text" },
@@ -15,6 +22,33 @@ export default {
     },
   },
 };
+
+const ModalTemplate = (args) => ({
+  components: { DModal, DButton },
+  setup() {
+    const { pushToast, clearToasts } = useToast();
+    return { args, pushToast, clearToasts };
+  },
+  methods: {
+    pushToastFunction() {
+      const differentArgs = { ...args };
+      differentArgs.message += this.count;
+      this.pushToast(differentArgs);
+      this.count += 1;
+    },
+    clearToastsFunction() {
+      this.clearToasts();
+    },
+  },
+  mounted() {
+    this.pushToastFunction();
+  },
+  template: `
+    <d-button @click="pushToastFunction">Show Toast</d-button>
+    <d-button @click="clearToastsFunction">Clear Toasts</d-button>
+    <d-modal :show="true"></d-modal>
+  `,
+});
 
 const Template = (args) => ({
   components: { DButton },
@@ -43,8 +77,8 @@ const Template = (args) => ({
   `,
 });
 
-const ToastWrapper = () => {
-  const Bound = Template.bind({});
+const ToastWrapper = (template = Template) => {
+  const Bound = template.bind({});
   Bound.decorators = [
     () => ({
       components: {
@@ -111,6 +145,13 @@ ToastWithDescription.args = {
   message: "I am a tooltip no ",
   autoClose: 3,
   description: "I am a random one with a description",
+};
+
+export const ModalToast = ToastWrapper(ModalTemplate);
+ModalToast.args = {
+  colorScheme: "info",
+  message: "I am a tooltip no ",
+  autoClose: 3,
 };
 
 export const ToastWithOnlyDescription = ToastWrapper();

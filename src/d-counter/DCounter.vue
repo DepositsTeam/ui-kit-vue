@@ -10,7 +10,7 @@
       :class="[`size__${computedInputSize}`]"
     >
       <slot name="label">
-        <d-box v-if="!!label" is="label">
+        <d-box v-if="!!label" is="label" :for="computedID">
           <d-text
             margin-top="0px"
             class="ui-text-field__label"
@@ -62,6 +62,7 @@
           marginY="0"
           marginTop="0"
           marginBottom="0"
+          :id="computedID"
         />
         <button
           class="ui-text-field--counter_input_button right"
@@ -85,38 +86,6 @@
   </d-box>
 </template>
 
-<style lang="scss" scoped>
-@import "../scss/textfield";
-.ui-text-field--counter_input_button {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid #8895a7;
-  border-radius: 6px;
-  color: #8895a7;
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-  &.dark_mode {
-    border-color: #64748b;
-    color: #64748b;
-  }
-  &:hover,
-  &.coloredButtons {
-    border-color: var(--light-primary-action-color);
-    color: var(--light-primary-action-color);
-  }
-  &.left {
-    margin-right: var(--counter-spacing);
-  }
-  &.right {
-    margin-left: var(--counter-spacing);
-  }
-}
-</style>
-
 <script setup>
 import { DBox, DText, ErrorIcon } from "../main";
 import inputProps from "../utils/inputProps";
@@ -124,6 +93,7 @@ import { wrapperProps } from "../utils/wrapperProps";
 import { onMounted, computed } from "vue";
 import number_format from "../utils/number_format";
 import { useInputSize } from "../utils/composables/useInputSize";
+import uniqueRandomString from "@/utils/uniqueRandomString";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -165,6 +135,8 @@ const props = defineProps({
 
 const { computedInputSize } = useInputSize(props);
 
+const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
+
 const handleChangeEvents = (e) => {
   emit("update:modelValue", e.target.value);
 };
@@ -202,3 +174,35 @@ const decrease = () => {
   emit("update:modelValue", modelValue - props.alterMagnitude);
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../scss/textfield";
+.ui-text-field--counter_input_button {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid #8895a7;
+  border-radius: 6px;
+  color: #8895a7;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  &.dark_mode {
+    border-color: #64748b;
+    color: #64748b;
+  }
+  &:hover,
+  &.coloredButtons {
+    border-color: var(--light-primary-action-color);
+    color: var(--light-primary-action-color);
+  }
+  &.left {
+    margin-right: var(--counter-spacing);
+  }
+  &.right {
+    margin-left: var(--counter-spacing);
+  }
+}
+</style>

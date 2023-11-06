@@ -96,7 +96,7 @@ defineProps({
 const emit = defineEmits(["edit-clicked", "delete-clicked", "button-clicked"]);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-avatar-card {
   display: flex;
   padding: 20px 16px 16px 16px;

@@ -21,8 +21,9 @@
         class="ringed-circle-loader"
       />
     </d-box>
-    <slot v-else></slot>
+    <slot v-else-if="!loading && !renderAtRoot"></slot>
   </d-box>
+  <slot v-if="!loading && renderAtRoot"></slot>
 </template>
 
 <script setup>
@@ -63,6 +64,9 @@ const props = defineProps({
     type: String,
   },
   translucent: {
+    type: Boolean,
+  },
+  renderAtRoot: {
     type: Boolean,
   },
 });

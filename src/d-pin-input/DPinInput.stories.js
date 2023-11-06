@@ -1,9 +1,10 @@
 import DPinInput from "./DPinInput.vue";
-import { DarkModeProvider } from "../main";
+import { DarkModeProvider, ThemeProvider } from "../main";
 
 export default {
   title: "Forms/Pin Input",
   component: DPinInput,
+  tags: ["autodocs"],
   argTypes: {
     spacing: {
       control: { type: "text" },
@@ -86,6 +87,11 @@ const DarkDefaultTemplate = (args) => ({
 
 export const DefaultVal = Default.bind({});
 
+export const Label = Default.bind({});
+Label.args = {
+  label: "Pin Input",
+};
+
 export const DarkDefaultVal = DarkModeTemplateFactory(DarkDefaultTemplate);
 
 export const Password = Template.bind({});
@@ -127,3 +133,22 @@ export const DarkHasError = DarkModeTemplateFactory();
 DarkHasError.args = {
   errorMessage: "I'll always show an error",
 };
+
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+  fullWidth: true,
+};
+
+const DefaultSizeTemplate = (args) => ({
+  components: { DPinInput, ThemeProvider },
+  setup() {
+    return { args };
+  },
+  template: `
+    <theme-provider :initial-theme="{defaultInputSize: 'small'}">
+      <d-pin-input v-bind="args" />
+    </theme-provider>
+  `,
+});
+
+export const CustomDefaultSize = DefaultSizeTemplate.bind({});

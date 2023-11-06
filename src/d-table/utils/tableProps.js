@@ -33,6 +33,18 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  hidePages: {
+    type: Boolean,
+  },
+  nextDisabled: {
+    type: Boolean,
+  },
+  prevDisabled: {
+    type: Boolean,
+  },
+  asyncPrevNext: {
+    type: Boolean,
+  },
   columns: {
     type: Array,
   },
@@ -140,11 +152,23 @@ export const tableProps = {
   asyncCSVExport: {
     type: Boolean,
   },
+  asyncCsvExport: {
+    type: Boolean,
+  },
   emptyTableText: {
     type: String,
     default: "No data available",
   },
   exportCSVURL: {
     type: String,
+  },
+  exportCsvUrl: {
+    type: String,
+  },
+  hideExpandModeHeader: {
+    type: Boolean,
+  },
+  expandCardClass: {
+    type: Boolean,
   },
 };

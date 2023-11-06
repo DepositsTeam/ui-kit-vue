@@ -28,7 +28,7 @@
 import { DBox } from "../main";
 import { inject, computed, unref } from "vue";
 
-const defaultFontFace = inject("defaultFontFace", null);
+const defaultFontFace = inject("d__defaultFontFace", null);
 
 const props = defineProps({
   is: {

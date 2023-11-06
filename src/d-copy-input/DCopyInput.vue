@@ -1,6 +1,6 @@
 <template>
   <d-box class="ui-copy__input">
-    <d-textfield readonly v-model="payload.text" :size="size">
+    <d-textfield readonly v-model="payload.text" :size="computedInputSize">
       <template #rightSection>
         <d-box @click="copyCode" class="ui-copy-btn" cursor="pointer">
           <copy-filled-icon
@@ -32,6 +32,7 @@
 import { DBox, DText, CopyFilledIcon, DTextfield } from "@/main";
 import copy from "copy-to-clipboard";
 import { reactive } from "vue";
+import { useInputSize } from "../utils/composables/useInputSize";
 
 const props = defineProps({
   label: {
@@ -46,8 +47,12 @@ const props = defineProps({
   },
   size: {
     type: String,
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
   },
 });
+
+const { computedInputSize } = useInputSize(props);
 
 const payload = reactive({
   text: props.text,
@@ -60,7 +65,7 @@ const copyCode = () => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-copy__input {
   .ui-label-text {
     height: 100%;

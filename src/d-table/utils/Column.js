@@ -1,5 +1,7 @@
 import uniqueRandomString from "../../utils/uniqueRandomString";
 
+const validSortTypes = ["string", "numeric", "date"];
+
 export default class Column {
   constructor({
     display = "",
@@ -7,6 +9,7 @@ export default class Column {
     uppercase = true,
     sortable = true,
     sortNumerically = false,
+    sortType = "string",
     filterable = true,
     fixed = false,
     width = "",
@@ -15,6 +18,7 @@ export default class Column {
     excludeFromCSV = false,
     position = "left",
     visible = true,
+    noWrap = false,
   } = {}) {
     this.display = display;
     this.dataSelector = dataSelector;
@@ -30,5 +34,17 @@ export default class Column {
     this.visible = visible;
     this.fixed = fixed;
     this.uuid = uniqueRandomString(30, 8);
+    this.noWrap = noWrap;
+    if (sortType) {
+      if (validSortTypes.includes(sortType)) {
+        this.sortType = sortType;
+      } else {
+        throw new Error(
+          `Invalid sort type ${sortType} provided for column ${this.dataSelector} [${this.display}]`
+        );
+      }
+    } else {
+      this.sortType = "string";
+    }
   }
 }
