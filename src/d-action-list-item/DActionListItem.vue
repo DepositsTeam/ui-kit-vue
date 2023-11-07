@@ -50,18 +50,16 @@
                 >{{ subtitle }}
               </d-text>
             </slot>
-            <slot name="list-action">
-              <slot name="buttons">
-                <d-button
-                  colorScheme="neutral"
-                  @click="emit('clicked')"
-                  :size="buttonSize"
-                  :smart-color="buttonSmartColor"
-                  :color-scheme="buttonColorScheme"
-                >
-                  {{ buttonText }}
-                </d-button>
-              </slot>
+            <slot name="action">
+              <d-button
+                v-if="buttonText"
+                @click="emit('clicked')"
+                :size="buttonSize"
+                :smart-color="buttonSmartColor"
+                :color-scheme="buttonColorScheme"
+              >
+                {{ buttonText }}
+              </d-button>
             </slot>
           </d-box>
         </d-box>
@@ -98,6 +96,7 @@ defineProps({
   },
   buttonColorScheme: {
     type: String,
+    default: "default",
   },
   buttonSmartColor: {
     type: String,

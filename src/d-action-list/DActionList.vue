@@ -18,21 +18,18 @@
       </d-box>
     </d-box>
     <d-box class="ui-action-list__body__wrapper">
-      <slot name="body">
-        <d-box
-          v-for="(application, index) in list"
-          :key="`application__${index}`"
-        >
+      <slot>
+        <d-box v-for="(listItem, index) in list" :key="`application__${index}`">
           <d-action-list-item
-            :logo="application.logo"
-            :title="application.title"
-            :subtitle="application.subtitle"
-            :description="application.description"
-            :button-size="application.buttonSize"
-            :button-color-scheme="application.buttonColorScheme"
-            :button-smart-color="application.buttonSmartColor"
-            buttonText="Revoke Access"
-            @clicked="listActionClicked(application)"
+            :logo="listItem.logo"
+            :title="listItem.title"
+            :subtitle="listItem.subtitle"
+            :description="listItem.description"
+            :button-size="listItem.buttonSize"
+            :button-color-scheme="listItem.buttonColorScheme"
+            :button-smart-color="listItem.buttonSmartColor"
+            :buttonText="listItem.buttonText"
+            @clicked="listActionClicked(listItem)"
           />
         </d-box>
       </slot>
@@ -63,8 +60,8 @@ defineProps({
   },
 });
 
-const listActionClicked = (application) => {
-  emit("list-action-clicked", application);
+const listActionClicked = (listItem) => {
+  emit("list-action-clicked", listItem);
 };
 </script>
 

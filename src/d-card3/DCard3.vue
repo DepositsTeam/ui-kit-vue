@@ -39,12 +39,12 @@
           class="text-gray-700 font-weight-700"
           >{{ title }}
           <d-box
-            v-if="subTitle"
+            v-if="subtitle"
             is="span"
             font-size="15px"
             class="text-gray-600 font-weight-400"
           >
-            ( {{ subTitle }} )
+            ( {{ subtitle }} )
           </d-box>
         </d-heading>
       </slot>
