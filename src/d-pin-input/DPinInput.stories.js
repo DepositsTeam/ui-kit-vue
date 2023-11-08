@@ -4,6 +4,7 @@ import { DarkModeProvider, ThemeProvider } from "../main";
 export default {
   title: "Forms/Pin Input",
   component: DPinInput,
+  tags: ["autodocs"],
   argTypes: {
     spacing: {
       control: { type: "text" },
@@ -85,6 +86,11 @@ const DarkDefaultTemplate = (args) => ({
 });
 
 export const DefaultVal = Default.bind({});
+
+export const Label = Default.bind({});
+Label.args = {
+  label: "Pin Input",
+};
 
 export const DarkDefaultVal = DarkModeTemplateFactory(DarkDefaultTemplate);
 

@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Forms/Phone Field",
   component: DPhoneInput,
+  tags: ["autodocs"],
   argTypes: {
     size: {
       control: { type: "select" },

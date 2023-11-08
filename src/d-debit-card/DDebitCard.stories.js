@@ -4,6 +4,7 @@ import { CardBrands } from "../utils/debitCardUtils";
 export default {
   component: DDebitCard,
   title: "Debit Card",
+  tags: ["autodocs"],
   argTypes: {
     logo: {
       control: { type: "text" },

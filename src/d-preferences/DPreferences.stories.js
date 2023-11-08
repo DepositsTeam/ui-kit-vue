@@ -3,6 +3,7 @@ import DPreferences from "./DPreferences.vue";
 export default {
   title: "Preferences",
   component: DPreferences,
+  tags: ["autodocs"],
   argTypes: {
     lists: {
       control: { type: "object" },

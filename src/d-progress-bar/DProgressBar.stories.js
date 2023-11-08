@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Progress bar",
   component: DProgressBar,
+  tags: ["autodocs"],
   argTypes: {
     percentage: {
       control: { type: "text" },

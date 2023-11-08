@@ -3,8 +3,9 @@ import { DAutoLayout } from "../main";
 
 export default {
   component: DRadioCardSelect,
-  title: "Forms/Cards/Radio Card Select",
+  title: "Forms/Radio Card Select",
   argTypes: {},
+  tags: ["autodocs"],
 };
 
 const Template = (args) => ({

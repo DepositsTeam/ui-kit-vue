@@ -4,6 +4,7 @@ import DarkModeProvider from "../providers/DarkModeProvider.vue";
 export default {
   title: "Badge",
   component: DBadge,
+  tags: ["autodocs"],
   argTypes: {
     colorScheme: {
       control: { type: "select" },

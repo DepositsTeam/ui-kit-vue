@@ -22,14 +22,14 @@
         :accept="computedAccepts"
         :disabled="disabled"
       ></d-box>
-      <d-box class="close-btn" v-if="selectedFileName" @click="emptyFile">
-        <close-icon />
-      </d-box>
+      <!--      <d-box class="close-btn" v-if="selectedFileName">-->
+      <!--        <close-icon />-->
+      <!--      </d-box>-->
       <slot name="icon">
         <cloud-upload-filled-icon smart-color="#8895A7" />
       </slot>
 
-      <d-box v-if="!selectedFileName" :class="{ aboveInput: !!$slots.default }">
+      <d-box :class="{ aboveInput: !!$slots.default }">
         <slot>
           <d-auto-layout
             class="placeholder aboveInput"
@@ -38,13 +38,14 @@
             direction="vertical"
           >
             <d-text margin-y="0" font-face="circularSTD"
-              >Drag & Drop to upload or <span class="blue">browse</span> to
-              choose files</d-text
+              >Drag & Drop to upload or
+              <d-box is="span" class="blue">browse</d-box> to choose
+              files</d-text
             >
-            <d-text margin-y="0" font-face="circularSTD">
-              <span v-if="computedAccepts">
+            <d-text margin-y="0">
+              <d-box is="span" v-if="computedAccepts">
                 Supported file types ({{ computedAccepts }}.
-              </span>
+              </d-box>
               <span v-else>(</span>
               Max upload size:
               {{ fileMaxSize }}MB)</d-text
@@ -53,9 +54,31 @@
         </slot>
       </d-box>
 
-      <d-text font-face="circularSTD" v-if="!!selectedFileName">{{
-        selectedFileName
-      }}</d-text>
+      <d-auto-layout
+        v-if="!!selectedFileName"
+        margin-top="1.5rem"
+        alignment="center"
+        class="aboveInput"
+      >
+        <file-icon smart-color="#8895A7" height="20px" width="20px" />
+        <d-text
+          my0
+          font-face="heroNew"
+          color="#8895A7"
+          font-weight="450"
+          scale="subhead"
+          class="ellipsis"
+          >{{ selectedFileName }}</d-text
+        >
+        <close-icon
+          @click="emptyFile"
+          smart-color="#8895A7"
+          cursor="pointer"
+          height="20px"
+          width="20px"
+          margin-left="1rem"
+        />
+      </d-auto-layout>
     </d-box>
     <d-box v-if="computedErrorMessage" class="ui-text-field__error">
       <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
@@ -81,6 +104,7 @@ import {
 } from "../main";
 import { useFilePicker } from "../utils/composables/useFilePicker";
 import { ref } from "vue";
+import FileIcon from "@/icons/FileIcon.vue";
 
 const props = defineProps({
   fileMaxSize: {
@@ -192,6 +216,18 @@ const {
     height: 100%;
     opacity: 0;
     z-index: 9;
+  }
+}
+.ellipsis {
+  overflow: hidden;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:hover,
+  &:active,
+  &:focus {
+    overflow: visible;
+    white-space: normal;
   }
 }
 </style>

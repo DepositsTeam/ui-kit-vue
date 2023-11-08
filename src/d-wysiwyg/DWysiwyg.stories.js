@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   components: DWysiwyg,
   title: "Forms/WYSIWYG Editor",
+  tags: ["autodocs"],
   component: DWysiwyg,
   argTypes: {
     label: {

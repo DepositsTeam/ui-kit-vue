@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   title: "Pagination",
   component: DPagination,
+  tags: ["autodocs"],
   argTypes: {
     totalPages: {
       control: { type: "number" },

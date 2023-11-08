@@ -4,6 +4,7 @@ export default {
   title: "Accordion",
   component: DAccordion,
   argTypes: {},
+  tags: ["autodocs"],
 };
 
 const Template = (args) => ({

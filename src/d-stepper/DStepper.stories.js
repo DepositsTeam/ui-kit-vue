@@ -4,6 +4,7 @@ import { DarkModeProvider, DBox, DText, DBadge } from "../main";
 export default {
   component: DStepper,
   title: "Stepper",
+  tags: ["autodocs"],
   argTypes: {
     steps: {
       control: { type: "object" },

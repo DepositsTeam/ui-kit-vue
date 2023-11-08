@@ -4,6 +4,7 @@ import { DarkModeProvider } from "../main";
 export default {
   component: DDebitCardVertical,
   title: "Vertical Debit Card",
+  tags: ["autodocs"],
   argTypes: {
     brand: {
       control: { type: "select" },
