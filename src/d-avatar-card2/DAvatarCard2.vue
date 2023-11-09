@@ -2,9 +2,9 @@
   <d-box class="ui-avatar-card2">
     <d-box class="ui-avatar-card2__header">
       <slot name="header">
-        <d-text class="ui-avatar-card2__title" my0 font-face="circularSTD">{{
-          heading
-        }}</d-text>
+        <d-text class="ui-avatar-card2__title" my0 font-face="circularSTD"
+          >{{ heading }}
+        </d-text>
         <slot name="header-button">
           <d-button
             color-scheme="outline"
@@ -22,8 +22,8 @@
             class="ui-avatar-card2__title text-neutral-500"
             font-face="circularSTD"
             my0
-            >{{ title }}</d-text
-          >
+            >{{ title }}
+          </d-text>
           <d-text
             font-size="20px"
             font-weight="500"
@@ -48,26 +48,20 @@
     </d-box>
     <d-box class="ui-avatar-card2__footer">
       <slot name="footer">
-        <d-button
+        <d-composite-button
           color-scheme="primary"
           :size="buttonSizes"
-          @click="emit('footer-button-clicked')"
-        >
-          {{ footerButtonText }}
-
-          <template #rightIcon>
-            <d-box class="ui-avatar-card2__right-icon">
-              <setting2-filled-icon />
-            </d-box>
-          </template>
-        </d-button>
+          :text="footerButtonText"
+          @left-button-click="emit('footer-left-button-clicked')"
+          @right-button-click="emit('footer-right-button-clicked')"
+        />
       </slot>
     </d-box>
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, DAvatar, Setting2FilledIcon, DButton } from "@/main";
+import { DBox, DText, DAvatar, DButton, DCompositeButton } from "@/main";
 
 defineProps({
   heading: {
@@ -110,7 +104,11 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["header-button-clicked", "footer-button-clicked"]);
+const emit = defineEmits([
+  "header-button-clicked",
+  "footer-left-button-clicked",
+  "footer-right-button-clicked",
+]);
 </script>
 
 <style scoped lang="scss">
