@@ -1,3 +1,7 @@
+- **9th November 2023 - Bernode 🙄**
+    - Made `list` props in DActionList not required.
+    - Made `label` props in DActionList not required.
+    - Made `buttonText` props in DActionListItem not required.
 - **6th November 2023 - Bernode 🙄**
     - Chore: Modified the props names `topBgColor`, `bottomBgColor` and `imageBgColor` in DCard3.
     - Chore: Changed variable `subtitle` in DCard3.
