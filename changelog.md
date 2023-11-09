@@ -1,6 +1,20 @@
+- **9th November 2023 - Bernode 🙄**
+    - Chore: Update `list` props in DActionList to not required.
+    - Chore: Update `label` props in DActionList to not required.
+    - Chore: Update `buttonText` props in DActionListItem to not required.
+    - Chore: Modified The DCard3 component.
+    - Chore: Updated DAvatarCard2 component with the new DCompositeButton
+- **6th November 2023 - Bernode 🙄**
+    - Chore: Modified the props names `topBgColor`, `bottomBgColor` and `imageBgColor` in DCard3.
+    - Chore: Changed variable `subtitle` in DCard3.
+    - Chore: Move the story with list to be the first in storybook for DCard3.
+    - Chore: Updated DActionList component to have uniform buttons for the first three stories then add a fourth story that features the different button sizes.
 - **4th November 2023 - Eric McWinNEr 😴**
   - Feature: Changed the way the file picker shows picked file and how you can empty the selection
   - Feature: Built a new composite button component
+- **3rd November 2023 - Bernode 🙄**
+    - Chore: Refactored Action List
+    - Chore: Made the background of DCard3 customizable
 - **3rd November 2023 - Eric McWinNEr 😴**
   - Chore: Updated all stories (except table) to have the autodocs tag
   - Feature: Built go back component
@@ -13,6 +27,17 @@
   - Feature: Added a new calculation color hex when rendering subtle badges with smart color
   - Feature: Added badge to tabs when total is provided to show the total by the side of the tab in a subtle scheme of the selected theme
   - Feature: Made color for active badges customizable
+- **25th October, 2023 - Bernode 🙄**
+    - Chore: Removed html tags in scss
+- **23rd October, 2023 - Bernode 🙄**
+    - Feature: Added Empty State Component.
+    - Feature: Added Action List Single Component.
+- **20th October, 2023 - Bernode 🙄**
+    - Feature: Added Overview Card 1 Component.
+    - Feature: Added Overview Card 2 Component.
+- **19th October, 2023 - Bernode 🙄**
+    - Feature: Added Static stat 3 Component.
+    - Feature: Added Console card 2 Component.
 - **14th October 2023 - Eric McWinNEr 😴**
   - Feature: Made toasts responsive by automatically centering them on mobile screens
   - Bugfix: Ensured that the textfield always emits a value of zero if the value is an empty string
@@ -30,6 +55,10 @@
 - **10th October 2023 - Bernode 🙄**
     - Chore: Updated components made by me to include a unique class names.
     - Chore: Updated the Continous List Item component and added v-bind to slot.
+    - Chore: Updated Actionable Avatar component button to a link.
+- **09th October, 2023 - Bernode 🙄**
+    - Chore: Updated components made by me to include a unique class names.
+    - Chore: Updated the Continuous List Item component and added v-bind to slot.
     - Chore: Updated Actionable Avatar component button to a link.
 - **05th October 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with select boxes right-arrows not opening the select dropdown
@@ -99,6 +128,14 @@
   - Bugfix: Fixed bug with fixed columns appearing ontop of the loader
   - Bugfix: Fixed bug with loader sliding to the left when the table is scrolled
   - Bugfix: Made a fix to the responsive layouts to properly center columns
+- **26th September, 2023 - Bernode 🙄**
+    - Chore: Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
+    - Chore: Updated the Preference Component to include modelValue.
+- **19th September, 2023 - Bernode 🙄**
+    - Feature: Added the Continuous List Item component
+    - Feature: Added the Preferences component
+    - Feature: Added the Quick Tool component
+    - Feature: Added the Vertical movable component
 - **31st August, 2023 - Bernode 🙄**
     - Chore: Updated the props in DActionableAvatar 1 & 2
     - Chore: Updated css classes naming conventions

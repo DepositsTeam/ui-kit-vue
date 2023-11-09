@@ -2,12 +2,13 @@
   <d-box class="d-action-card">
     <d-box class="d-action-card__header">
       <d-box is="img" class="d-action-card__logo" :src="logo" :alt="title" />
-      <d-text class="d-action-card__header__title" font-face="heroNew">{{
+      <d-text my0 class="d-action-card__header__title" font-face="heroNew">{{
         title
       }}</d-text>
       <d-text
         class="d-action-card__header__description"
         font-face="circularSTD"
+        my0
         >{{ description }}</d-text
       >
     </d-box>
