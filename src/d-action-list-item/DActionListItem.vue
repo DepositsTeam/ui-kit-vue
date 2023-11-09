@@ -88,7 +88,6 @@ defineProps({
   },
   buttonText: {
     type: String,
-    required: true,
   },
   buttonSize: {
     type: String,

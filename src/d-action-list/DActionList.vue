@@ -44,11 +44,9 @@ const emit = defineEmits(["call-to-action-clicked", "list-action-clicked"]);
 defineProps({
   label: {
     type: String,
-    required: true,
   },
   list: {
     type: Array,
-    required: true,
   },
   size: {
     type: String,
