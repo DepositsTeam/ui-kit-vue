@@ -1,9 +1,9 @@
-import DStaticStats3 from "./DStaticStats3.vue";
+import DStaticStat3 from "./DStaticStat3.vue";
 import Profile2UserOutlineIcon from "/src/icons/outline/Profile2UserOutlineIcon.vue";
 
 export default {
   title: "Static Stats 3",
-  component: DStaticStats3,
+  component: DStaticStat3,
   argTypes: {
     stat1: {
       control: { type: "object" },
@@ -19,13 +19,13 @@ export default {
 
 const Template = (args) => ({
   components: {
-    DStaticStats3,
+    DStaticStat3,
   },
   setup() {
     return { args };
   },
   template: `
-      <d-static-stats3 v-bind="args"/>
+      <d-static-stat3 v-bind="args"/>
     `,
 });
 

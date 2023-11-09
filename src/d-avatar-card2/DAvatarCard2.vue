@@ -21,7 +21,7 @@
           <d-text
             class="ui-avatar-card2__title text-neutral-500"
             font-face="circularSTD"
-            my0
+            margin-bottom="8px"
             >{{ title }}
           </d-text>
           <d-text
@@ -49,7 +49,7 @@
     <d-box class="ui-avatar-card2__footer">
       <slot name="footer">
         <d-composite-button
-          color-scheme="primary"
+          color-scheme="success"
           :size="buttonSizes"
           :text="footerButtonText"
           @left-button-click="emit('footer-left-button-clicked')"
@@ -193,9 +193,5 @@ const emit = defineEmits([
       box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.05); */
     }
   }
-}
-
-p {
-  margin: 0;
 }
 </style>
