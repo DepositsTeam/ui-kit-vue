@@ -2,12 +2,8 @@
   <d-box class="ui-copy__input">
     <d-textfield readonly v-model="payload.text" :size="computedInputSize">
       <template #rightSection>
-        <d-box @click="copyCode" class="ui-copy-btn" cursor="pointer">
-          <copy-filled-icon
-            height="30px"
-            width="30px"
-            class="ui-text-gray-500"
-          />
+        <d-box class="ui-copy-btn" cursor="pointer">
+          <d-copy :text="payload.text" />
         </d-box>
       </template>
 
@@ -29,10 +25,10 @@
 </template>
 
 <script setup>
-import { DBox, DText, CopyFilledIcon, DTextfield } from "@/main";
-import copy from "copy-to-clipboard";
+import { DBox, DText, DTextfield } from "@/main";
 import { reactive } from "vue";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { useInputSize } from "@/utils/composables/useInputSize";
+import DCopy from "@/d-copy/DCopy.vue";
 
 const props = defineProps({
   label: {
@@ -50,6 +46,14 @@ const props = defineProps({
     validator: (value) =>
       ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
   },
+  copyIconSize: {
+    type: String,
+    default: "24px",
+  },
+  copyIconColor: {
+    type: String,
+    default: "#8C97A7",
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -57,12 +61,6 @@ const { computedInputSize } = useInputSize(props);
 const payload = reactive({
   text: props.text,
 });
-
-const copyCode = () => {
-  copy(props.text);
-
-  alert("Text copied successfully!");
-};
 </script>
 
 <style scoped lang="scss">

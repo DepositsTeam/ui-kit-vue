@@ -1,3 +1,7 @@
+- **10th November 2023 - Eric McWinNEr 😴**
+  - Feature: Created a new component `DCopy` for copying text
+  - Chore: Fixed the `CopyFilledIcon` to use have dynamic height and width
+  - Chore: Updated `DCopyInput` to use the new `DCopy` component
 - **9th November 2023 - Bernode 🙄**
     - Chore: Update `list` props in DActionList to not required.
     - Chore: Update `label` props in DActionList to not required.
