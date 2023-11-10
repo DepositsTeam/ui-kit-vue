@@ -21,6 +21,7 @@ export { default as DCheckboxCard } from "./d-checkbox-card/DCheckboxCard.vue";
 export { default as DCol } from "./d-responsive-layout/DCol.vue";
 export { default as DCompositeButton } from "./d-composite-button/DCompositeButton.vue";
 export { default as DContinuousList } from "./d-continous-list/DContinuousList.vue";
+export { default as DCopy } from "./d-copy/DCopy.vue";
 export { default as DCopyInput } from "./d-copy-input/DCopyInput.vue";
 export { default as DCounter } from "./d-counter/DCounter.vue";
 export { default as DCountryDropdown } from "./d-country-dropdown/DCountryDropdown.vue";

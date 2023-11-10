@@ -103,7 +103,7 @@ defineProps({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ui-action-list {
   .ui-action-list__header__left {
     color: #8c97a7;
@@ -127,7 +127,9 @@ defineProps({
         display: flex;
         align-items: center;
         gap: 16px;
-        //flex-direction: column;
+        /**
+        flex-direction: column;
+         **/
 
         .ui-action-list__subtitle-text {
           color: #8c97a7;
