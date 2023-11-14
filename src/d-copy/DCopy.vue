@@ -1,5 +1,5 @@
 <template>
-  <d-box @click="copyText">
+  <d-box @click="copyText" cursor="pointer">
     <d-tooltip :tooltip="tooltip" trigger="click">
       <slot>
         <copy-filled-icon
