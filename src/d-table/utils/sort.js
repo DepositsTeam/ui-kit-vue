@@ -8,6 +8,20 @@ const numericSort = (a, b, sortConfiguration) => {
     : valueB - valueA;
 };
 
+const currencySort = (a, b, sortConfiguration) => {
+  const valueA = a[sortConfiguration.column.dataSelector].replaceAll(
+    sortConfiguration.column.sortCurrencySymbol,
+    ""
+  );
+  const valueB = b[sortConfiguration.column.dataSelector].replaceAll(
+    sortConfiguration.column.sortCurrencySymbol,
+    ""
+  );
+  return sortConfiguration.direction === "asc"
+    ? valueA - valueB
+    : valueB - valueA;
+};
+
 const stringSort = (a, b, sortConfiguration) => {
   const valueA = ("" + a[sortConfiguration.column.dataSelector]).toUpperCase();
   const valueB = ("" + b[sortConfiguration.column.dataSelector]).toUpperCase();
@@ -54,10 +68,20 @@ const sortTypes = {
   string: stringSort,
   numeric: numericSort,
   date: dateSort,
+  currency: currencySort,
 };
 
 export const sort = (sortConfiguration, data) => {
   data.sort((a, b) => {
+    if (sortConfiguration.column.comparator) {
+      const valueA = a[sortConfiguration.column.dataSelector];
+      const valueB = b[sortConfiguration.column.dataSelector];
+      return sortConfiguration.column.comparator(
+        valueA,
+        valueB,
+        sortConfiguration
+      );
+    }
     if (sortConfiguration.column.sortNumerically) {
       return sortTypes.numeric(a, b, sortConfiguration);
     }

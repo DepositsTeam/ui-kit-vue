@@ -155,6 +155,12 @@ export const tableProps = {
   asyncCsvExport: {
     type: Boolean,
   },
+  asyncSort: {
+    type: Boolean,
+  },
+  asyncFilter: {
+    type: Boolean,
+  },
   emptyTableText: {
     type: String,
     default: "No data available",
