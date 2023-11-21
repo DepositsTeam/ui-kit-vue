@@ -46,15 +46,15 @@
             @click="toggleCustomizeViewModal(true)"
           >
             <slot name="customize-view-button">
-              <d-button size="medium"> Customize view </d-button>
+              <d-button size="medium"> Customize view</d-button>
             </slot>
           </d-box>
 
           <d-box v-if="enableCsvExport" @click="exportCSVFunction">
             <slot name="export-csv-button">
               <d-button size="medium" :left-icon="ExternalLinkIcon"
-                >Export</d-button
-              >
+                >Export
+              </d-button>
             </slot>
           </d-box>
         </d-box>
@@ -98,8 +98,8 @@
                   my0
                   v-if="!viewportShrunkToMobile"
                   class="activeFiltersTrigger activeFiltersBox"
-                  >Add filter</d-text
-                >
+                  >Add filter
+                </d-text>
                 <chevron-filled-down-icon
                   class="activeFiltersTrigger activeFiltersBox"
                 />
@@ -127,8 +127,8 @@
                   class="activeFiltersTrigger"
                   dark-color="#64748B"
                   is="span"
-                  >{{ filter.selectedFilter.toLowerCase() }}</d-box
-                >
+                  >{{ filter.selectedFilter.toLowerCase() }}
+                </d-box>
                 {{ filter.selectedFilterValue }}
                 <d-box
                   is="span"
@@ -141,8 +141,8 @@
                     class="activeFiltersTrigger"
                     dark-color="#64748B"
                     is="span"
-                    >{{ filter.selectedFilter2.toLowerCase() }}</d-box
-                  >
+                    >{{ filter.selectedFilter2.toLowerCase() }}
+                  </d-box>
                   {{ filter.selectedFilterValue2 }}
                 </d-box>
               </d-text>
@@ -177,8 +177,8 @@
                   sortConfiguration.direction === "asc"
                     ? "Ascending"
                     : "Descending"
-                }}</d-text
-              >
+                }}
+              </d-text>
               <close-icon
                 class="activeFiltersBox"
                 @click="updateSortConfiguration(null)"
@@ -414,9 +414,9 @@
       }"
     >
       <d-box class="ui-table__card-header">
-        <d-text scale="subhead" class="ui-table__card-header-text">{{
-          expandModeCardTitle
-        }}</d-text>
+        <d-text scale="subhead" class="ui-table__card-header-text"
+          >{{ expandModeCardTitle }}
+        </d-text>
         <close-icon
           @click="closeExpandedCard"
           v-if="hideTableContainer"
@@ -441,49 +441,46 @@
 
 <script setup>
 import {
+  ChevronArrowRightIcon,
+  ChevronFilledDownIcon,
+  CloseIcon,
+  DAutoLayout,
   DBox,
-  DLoader,
-  DTextfield,
   DButton,
   DCheckbox,
-  DText,
-  DPagination,
   DDebitCardBalance,
-  DAutoLayout,
-} from "../main";
-import {
-  SearchIcon,
+  DLoader,
+  DPagination,
+  DText,
+  DTextfield,
   ExternalLinkIcon,
-  CloseIcon,
   FunnelIcon,
+  SearchIcon,
   Sort2Icon,
-  ChevronFilledDownIcon,
-  ChevronArrowRightIcon,
 } from "../main";
 import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
 import { getColumnWidth } from "./utils/getColumnWidth";
 import { tableProps } from "./utils/tableProps";
 import {
-  ref,
-  unref,
-  nextTick,
   computed,
-  provide,
-  shallowRef,
+  nextTick,
   onMounted,
-  watch,
   onUnmounted,
+  provide,
+  ref,
+  shallowRef,
+  unref,
+  watch,
 } from "vue";
-import { computePosition, flip, shift, offset } from "@floating-ui/dom";
+import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import { sort } from "./utils/sort";
-import { filter as filterItems } from "./utils/filter";
-import { search as searchItems } from "./utils/filter";
+import { filter as filterItems, search as searchItems } from "./utils/filter";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import TableCustomizeViewModal from "./components/TableCustomizeViewModal.vue";
 import Column from "./utils/Column";
 import { useCsvExport } from "./composables/useCsvExport";
-import { getTextColor } from "../utils/colorManager";
+import { getTextColor } from "@/utils/colorManager";
 import validateColor from "validate-color";
 
 const props = defineProps({ ...tableProps });
@@ -822,11 +819,11 @@ const dataFactory = computed(() => {
     );
   }
 
-  if (filter.value && filter.value.column) {
+  if (filter.value && filter.value.column && !props.asyncFilter) {
     filteredData = filterItems(filter.value, filteredData);
   }
 
-  if (sortConfiguration.value) {
+  if (sortConfiguration.value && !props.asyncSort) {
     sort(sortConfiguration.value, filteredData);
   }
 
@@ -888,6 +885,18 @@ watch(searchValue, () => {
       page: 1,
       search: searchValue.value,
     });
+  }
+});
+
+watch(sortConfiguration, () => {
+  if (props.asyncSort) {
+    emit("sort", sortConfiguration.value);
+  }
+});
+
+watch(filter, () => {
+  if (props.asyncFilter) {
+    emit("filter", filter.value);
   }
 });
 
@@ -1250,13 +1259,16 @@ const validateBackground = (background, index) => {
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
         z-index: 31;
+
         .ui-d-loader {
           position: relative;
           z-index: 9;
         }
+
         &.dark_mode {
           background-color: transparent;
           z-index: 9;
+
           &::before {
             content: "";
             background: var(--dark-background-color);
@@ -1399,6 +1411,7 @@ const validateBackground = (background, index) => {
     display: table;
   }
 }
+
 .ui-table__no-expanded-row-content {
   padding: 1rem;
 }

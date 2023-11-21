@@ -1,6 +1,6 @@
 import uniqueRandomString from "../../utils/uniqueRandomString";
 
-const validSortTypes = ["string", "numeric", "date"];
+const validSortTypes = ["string", "numeric", "date", "currency"];
 
 export default class Column {
   constructor({
@@ -10,6 +10,7 @@ export default class Column {
     sortable = true,
     sortNumerically = false,
     sortType = "string",
+    sortCurrencySymbol = "$",
     filterable = true,
     fixed = false,
     width = "",
@@ -19,6 +20,8 @@ export default class Column {
     position = "left",
     visible = true,
     noWrap = false,
+    comparator = undefined,
+    pipe = undefined,
   } = {}) {
     this.display = display;
     this.dataSelector = dataSelector;
@@ -35,6 +38,19 @@ export default class Column {
     this.fixed = fixed;
     this.uuid = uniqueRandomString(30, 8);
     this.noWrap = noWrap;
+    this.sortCurrencySymbol = sortCurrencySymbol;
+    if (comparator !== undefined && typeof comparator !== "function") {
+      throw new Error(
+        "The comparator property of a column must be a callback function."
+      );
+    }
+    this.comparator = comparator;
+    if (pipe !== undefined && typeof pipe !== "function") {
+      throw new Error(
+        "The pipe property of a column must be a callback function."
+      );
+    }
+    this.pipe = pipe;
     if (sortType) {
       if (validSortTypes.includes(sortType)) {
         this.sortType = sortType;
