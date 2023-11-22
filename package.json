@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.561",
+  "version": "0.0.563",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -46,8 +46,7 @@
     "tinycolor2": "^1.6.0",
     "validate-color": "^2.2.4",
     "vue-datepicker-next": "^1.0.2",
-    "vue-draggable-next": "^2.1.1",
-    "vuedraggable": "^4.1.0"
+    "vue-draggable-next": "^2.1.1"
   },
   "peerDependencies": {
     "vue": "^3.x",
