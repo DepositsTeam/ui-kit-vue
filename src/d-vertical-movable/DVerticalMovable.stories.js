@@ -151,7 +151,7 @@ const MoreListsTemplate = (args) => ({
     <d-auto-layout direction="vertical">
       <d-vertical-movable name="options" title="Selected options" v-model="list">
         <template #drag-item="element">
-          <d-quick-tool :title="element.title" :icon="element.icon" />
+          <d-quick-tool :title="element.title" :icon="element.icon" is-added />
         </template>
       </d-vertical-movable>
       <d-vertical-movable name="options" title="More options" v-model="secondList">
