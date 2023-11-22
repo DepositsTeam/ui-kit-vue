@@ -8,19 +8,20 @@
     rounded-borders
     @close-modal="closeModal"
   >
-    <draggable :list="state" item-key="dataSelector">
-      <div v-for="element in state" :key="element.dataSelector">
+    <d-vertical-movable v-model="state">
+      <template #drag-item="element">
         <d-box cursor="pointer" margin-bottom="16px">
           <d-card
             cursor="move"
-            v-model="element.visible"
+            :model-value="element.visible"
+            @update:model-value="(value) => updateCheckbox(value, element)"
             :desc="element.display"
             checkbox
             :icon="MoveIcon"
           />
         </d-box>
-      </div>
-    </draggable>
+      </template>
+    </d-vertical-movable>
     <d-box display="flex" justify-content="flex-end">
       <d-button
         @click="hydrateColumns"
@@ -35,9 +36,9 @@
 </template>
 
 <script setup>
-import { VueDraggableNext as Draggable } from "vue-draggable-next";
 import { DModal, DCard, MoveIcon, DBox, DButton } from "../../main";
 import { onMounted, unref, watch, inject, ref, toRaw } from "vue";
+import DVerticalMovable from "@/d-vertical-movable/DVerticalMovable.vue";
 
 const emit = defineEmits(["close-modal"]);
 const updateRenderedColumns = inject("updateRenderedColumns");
@@ -52,6 +53,13 @@ const props = defineProps({
 });
 
 const state = ref([]);
+
+const updateCheckbox = (value, element) => {
+  const index = state.value.findIndex(
+    (item) => item.dataSelector === element.dataSelector
+  );
+  state.value[index].visible = value;
+};
 
 const hydrateState = () => {
   state.value = [];
