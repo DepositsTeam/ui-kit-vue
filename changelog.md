@@ -1,3 +1,10 @@
+- **22nd November 2023 - Eric McWinNEr 😴**
+  - Feature: Updated vertical movable and refactored code
+  - Chore: Removed redundant draggable package
+  - Chore: Updated the customize view on the table to use the vertical movable component
+  - Feature: Added currency sort to the table for currency columns
+  - Feature: Added the ability to specify custom comparator functions for sorting by columns
+  - Feature: Added async sort and async filter to the table
 - **14th November 2023 - Eric McWinNEr 😴**
   - Chore: Made updates and fixed bugs that made `DTextInput` not to work properly with hyphenated slot names 
 - **10th November 2023 - Eric McWinNEr 😴**
