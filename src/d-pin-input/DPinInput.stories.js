@@ -152,3 +152,30 @@ const DefaultSizeTemplate = (args) => ({
 });
 
 export const CustomDefaultSize = DefaultSizeTemplate.bind({});
+
+const CompletedEventTemplate = (args) => ({
+  components: {
+    DPinInput,
+  },
+  setup() {
+    return { args };
+  },
+  data: () => ({
+    pin: "",
+  }),
+  methods: {
+    completed() {
+      alert("Finished entering pin, submitting: " + this.pin);
+    },
+  },
+  watch: {
+    pin: function () {
+      console.log("New pin", this.pin);
+    },
+  },
+  template: `
+    <d-pin-input @completed="completed" v-model="pin" v-bind="args" />
+  `,
+});
+
+export const CompletedEvent = CompletedEventTemplate.bind({});

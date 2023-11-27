@@ -12,7 +12,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.563",
+  "version": "0.0.564",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -40,6 +40,7 @@
     "card-validator": "^8.1.1",
     "copy-to-clipboard": "^3.3.3",
     "export-to-csv": "^0.2.1",
+    "immer": "^10.0.3",
     "libphonenumber-js": "^1.10.21",
     "moment": "^2.29.4",
     "simple-vue-camera": "^1.1.3",

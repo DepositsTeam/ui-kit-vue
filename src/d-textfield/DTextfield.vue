@@ -177,15 +177,15 @@ import {
   DAutoLayout,
   CopyIcon,
 } from "../main";
-import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
+import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
-import number_format from "../utils/number_format";
-import inputProps from "../utils/inputProps";
-import { formatSSN } from "../utils/formatSSN";
-import { wrapperProps } from "../utils/wrapperProps";
-import { useWrapperProps } from "../utils/composables/useWrapperProps";
-import { formatPercentage } from "../utils/formatPercentage";
-import { useInputSize } from "../utils/composables/useInputSize";
+import number_format from "@/utils/number_format";
+import inputProps from "@/utils/inputProps";
+import { formatSSN } from "@/utils/formatSSN";
+import { wrapperProps } from "@/utils/wrapperProps";
+import { useWrapperProps } from "@/utils/composables/useWrapperProps";
+import { formatPercentage } from "@/utils/formatPercentage";
+import { useInputSize } from "@/utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
 import uniqueRandomString from "@/utils/uniqueRandomString";

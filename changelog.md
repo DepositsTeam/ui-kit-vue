@@ -1,3 +1,6 @@
+- **27th November 2023 - Eric McWinNEr 😴**
+  - Chore: Updated the PinInput component and fixed bug that arose from refactoring textfield and all other input fields to use a computed id to aid accessibility
+  - Feature: Introduced immer.js to the project to aid immutability and used it in the PinInput
 - **22nd November 2023 - Eric McWinNEr 😴**
   - Feature: Updated vertical movable and refactored code
   - Chore: Removed redundant draggable package
