@@ -197,6 +197,19 @@ const updateValue = (value, index) => {
   });
 };
 
+const updateInternalDataWithModelValue = () => {
+  if (props.modelValue && data.value.length) {
+    if (props.modelValue.split("").length <= data.value.length) {
+      props.modelValue.split("").forEach((val, index) => {
+        // data.value[index].value = val;
+        setData((data) => {
+          data[index].value = val;
+        });
+      });
+    }
+  }
+};
+
 onMounted(() => {
   setData(() => {
     return [];
@@ -219,20 +232,7 @@ onMounted(() => {
     });
   }
 
-  if (props.modelValue && data.value.length) {
-    if (props.modelValue.split("").length <= data.value.length) {
-      props.modelValue.split("").forEach((val, index) => {
-        // data.value[index].value = val;
-        setData((data) => {
-          data[index].value = val;
-        });
-      });
-      emit(
-        "update:modelValue",
-        data.value.reduce((prev, curr) => prev + curr.value, "")
-      );
-    }
-  }
+  updateInternalDataWithModelValue();
 });
 
 watch(data, () => {
@@ -245,6 +245,13 @@ watch(data, () => {
     }
   }
 });
+
+watch(
+  () => props.modelValue,
+  () => {
+    updateInternalDataWithModelValue();
+  }
+);
 </script>
 
 <style lang="scss" scoped>

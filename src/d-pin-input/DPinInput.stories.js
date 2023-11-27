@@ -30,6 +30,28 @@ const Template = (args) => ({
     <d-pin-input v-model="pin" v-bind="args" />`,
 });
 
+const TwoWayBindingTemplate = (args) => ({
+  components: { DPinInput },
+  data: () => ({
+    pin: "",
+  }),
+  setup() {
+    return { args };
+  },
+  mounted: function () {
+    setTimeout(() => {
+      this.pin = "234";
+    }, 2000);
+  },
+  watch: {
+    pin: function () {
+      console.log("New Pin", this.pin);
+    },
+  },
+  template: `
+    <d-pin-input v-model="pin" v-bind="args" />`,
+});
+
 const DarkModeTemplate = (args) => ({
   components: { DPinInput, DarkModeProvider },
   data: () => ({
@@ -177,5 +199,7 @@ const CompletedEventTemplate = (args) => ({
     <d-pin-input @completed="completed" v-model="pin" v-bind="args" />
   `,
 });
+
+export const TwoWayBinding = TwoWayBindingTemplate.bind({});
 
 export const CompletedEvent = CompletedEventTemplate.bind({});
