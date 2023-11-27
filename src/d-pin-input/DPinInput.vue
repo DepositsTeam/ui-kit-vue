@@ -18,8 +18,9 @@
       <d-textfield
         v-for="(item, index) in data"
         :key="`item__${index}`"
-        :id="index === 0 ? computedID : undefined"
-        v-model="item.value"
+        :id="item.id"
+        :model-value="item.value"
+        @update:model-value="(value) => updateValue(value, index)"
         :placeholder="placeholder"
         :only-numbers="onlyNumbers"
         :type="password ? 'password' : 'text'"
@@ -50,9 +51,10 @@
 <script setup>
 import { DBox, DTextfield, DText, ErrorIcon, DAutoLayout } from "../main";
 import inputProps from "../utils/inputProps";
-import { ref, onMounted, computed } from "vue";
+import { onMounted, computed, watch } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { useInputSize } from "@/utils/composables/useInputSize";
+import { useImmer } from "@/utils/composables/useImmer";
 
 const props = defineProps({
   ...inputProps,
@@ -76,22 +78,23 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "completed"]);
 
 const { computedInputSize } = useInputSize(props);
 
 const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 
-const data = ref([]);
+// const data = ref([]);
+
+const [data, setData] = useImmer([]);
 
 const handleFocus = (e, index) => {
   let focusShifted = false;
   if (index !== 0) {
     for (let i = 0; i < index; i++) {
       if (!data.value[i].value) {
-        let elem = document
-          .getElementById(data.value[i].id)
-          .getElementsByTagName("input")[0];
+        let elem = document.getElementById(data.value[i].id);
+        // .getElementsByTagName("input")[0];
 
         elem.focus();
         elem.select();
@@ -111,18 +114,22 @@ const handleInput = async (e, index) => {
     data.value[index].value !== ""
   ) {
     if (index !== data.value.length - 1) {
-      let nextInput = document
-        .getElementById(data.value[index + 1].id)
-        .getElementsByTagName("input")[0];
+      // let nextInput = document
+      //   .getElementById(data.value[index + 1].id)
+      //   .getElementsByTagName("input")[0];
+
+      let nextInput = document.getElementById(data.value[index + 1].id);
 
       nextInput.focus();
       nextInput.select();
     }
   } else {
     if (index !== 0) {
-      let nextInput = document
-        .getElementById(data.value[index - 1].id)
-        .getElementsByTagName("input")[0];
+      // let nextInput = document
+      //   .getElementById(data.value[index - 1].id)
+      //   .getElementsByTagName("input")[0];
+
+      let nextInput = document.getElementById(data.value[index - 1].id);
 
       nextInput.focus();
       nextInput.select();
@@ -137,9 +144,8 @@ const handleInput = async (e, index) => {
 const handleKeyDown = async (e, index) => {
   if (e.key === "ArrowLeft") {
     if (index !== 0) {
-      let nextInput = document
-        .getElementById(data.value[index - 1].id)
-        .getElementsByTagName("input")[0];
+      let nextInput = document.getElementById(data.value[index - 1].id);
+      // .getElementsByTagName("input")[0];
       nextInput.focus();
       setTimeout(() => {
         nextInput.select();
@@ -148,9 +154,8 @@ const handleKeyDown = async (e, index) => {
   }
   if (e.key === "ArrowRight") {
     if (index !== data.value.length - 1) {
-      let nextInput = document
-        .getElementById(data.value[index + 1].id)
-        .getElementsByTagName("input")[0];
+      let nextInput = document.getElementById(data.value[index + 1].id);
+      // .getElementsByTagName("input")[0];
       nextInput.focus();
       setTimeout(() => {
         nextInput.select();
@@ -160,9 +165,8 @@ const handleKeyDown = async (e, index) => {
   if (e.key === "Backspace" || e.key === "Delete") {
     if (index !== 0) {
       if (!data.value[index].value) {
-        let nextInput = document
-          .getElementById(data.value[index - 1].id)
-          .getElementsByTagName("input")[0];
+        let nextInput = document.getElementById(data.value[index - 1].id);
+        // .getElementsByTagName("input")[0];
         nextInput.select();
         e.preventDefault();
         return;
@@ -175,7 +179,10 @@ const handlePaste = (e) => {
   const copiedText = (e.clipboardData || window.clipboardData).getData("text");
   if (copiedText.length <= data.value.length) {
     copiedText.split("").forEach((val, index) => {
-      data.value[index].value = val;
+      setData((data) => {
+        data[index].value = val;
+      });
+      // data.value[index].value = val;
     });
     emit(
       "update:modelValue",
@@ -184,22 +191,55 @@ const handlePaste = (e) => {
   }
 };
 
+const updateValue = (value, index) => {
+  setData((data) => {
+    data[index].value = value;
+  });
+};
+
 onMounted(() => {
-  data.value = [];
+  setData(() => {
+    return [];
+  });
+  // data.value = [];
   for (let i = 0; i < props.noOfCharacters; i++) {
-    data.value.push({
-      value: "",
-      id: uniqueRandomString(19, 8),
+    let id = uniqueRandomString(19, 8);
+    if (i === 0) {
+      id = computedID.value;
+    }
+    // data.value.push({
+    //   value: "",
+    //   id,
+    // });
+    setData((data) => {
+      data.push({
+        value: "",
+        id,
+      });
     });
   }
 
   if (props.modelValue && data.value.length) {
     if (props.modelValue.split("").length <= data.value.length) {
       props.modelValue.split("").forEach((val, index) => {
-        data.value[index].value = val;
+        // data.value[index].value = val;
+        setData((data) => {
+          data[index].value = val;
+        });
       });
       emit(
         "update:modelValue",
+        data.value.reduce((prev, curr) => prev + curr.value, "")
+      );
+    }
+  }
+});
+
+watch(data, () => {
+  if (data.value.length) {
+    if (data.value.every((item) => item.value)) {
+      emit(
+        "completed",
         data.value.reduce((prev, curr) => prev + curr.value, "")
       );
     }
