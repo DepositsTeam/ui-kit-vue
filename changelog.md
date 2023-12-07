@@ -1,3 +1,6 @@
+- **7th December 2023 - Eric McWinNEr 😴**
+  - Chore: Exported the `useImmer` composable from the UI Kit
+  - Chore: Fixed typos with updating text color classes to work well with visited links
 - **27th November 2023 - Eric McWinNEr 😴**
   - Chore: Updated the PinInput component and fixed bug that arose from refactoring textfield and all other input fields to use a computed id to aid accessibility
   - Feature: Introduced immer.js to the project to aid immutability and used it in the PinInput

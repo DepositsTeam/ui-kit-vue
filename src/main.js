@@ -86,6 +86,7 @@ export {
   asteriskExp,
   CardBrands,
 } from "./utils/debitCardUtils";
+export { useImmer } from "./utils/composables/useImmer";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";
