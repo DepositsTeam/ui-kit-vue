@@ -50,7 +50,7 @@
 
 <script setup>
 import { DBox, DTextfield, DText, ErrorIcon, DAutoLayout } from "../main";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { onMounted, computed, watch } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { useInputSize } from "@/utils/composables/useInputSize";

@@ -1,3 +1,6 @@
+- **13th December 2023 - Eric McWinNEr 😴**
+  - Feature: Updated all debit cards to work with different forms of expiry date and display them in the correct format
+  - Feature: Added last four card no and first four card no props to the debit cards for cases where the card number is incomplete
 - **7th December 2023 - Eric McWinNEr 😴**
   - Chore: Exported the `useImmer` composable from the UI Kit
   - Chore: Fixed typos with updating text color classes to work well with visited links
@@ -13,28 +16,28 @@
   - Feature: Added the ability to specify custom comparator functions for sorting by columns
   - Feature: Added async sort and async filter to the table
 - **14th November 2023 - Eric McWinNEr 😴**
-  - Chore: Made updates and fixed bugs that made `DTextInput` not to work properly with hyphenated slot names 
+  - Chore: Made updates and fixed bugs that made `DTextInput` not to work properly with hyphenated slot names
 - **10th November 2023 - Eric McWinNEr 😴**
   - Feature: Created a new component `DCopy` for copying text
   - Chore: Fixed the `CopyFilledIcon` to use have dynamic height and width
   - Chore: Updated `DCopyInput` to use the new `DCopy` component
 - **9th November 2023 - Bernode 🙄**
-    - Chore: Update `list` props in DActionList to not required.
-    - Chore: Update `label` props in DActionList to not required.
-    - Chore: Update `buttonText` props in DActionListItem to not required.
-    - Chore: Modified The DCard3 component.
-    - Chore: Updated DAvatarCard2 component with the new DCompositeButton
+  - Chore: Update `list` props in DActionList to not required.
+  - Chore: Update `label` props in DActionList to not required.
+  - Chore: Update `buttonText` props in DActionListItem to not required.
+  - Chore: Modified The DCard3 component.
+  - Chore: Updated DAvatarCard2 component with the new DCompositeButton
 - **6th November 2023 - Bernode 🙄**
-    - Chore: Modified the props names `topBgColor`, `bottomBgColor` and `imageBgColor` in DCard3.
-    - Chore: Changed variable `subtitle` in DCard3.
-    - Chore: Move the story with list to be the first in storybook for DCard3.
-    - Chore: Updated DActionList component to have uniform buttons for the first three stories then add a fourth story that features the different button sizes.
+  - Chore: Modified the props names `topBgColor`, `bottomBgColor` and `imageBgColor` in DCard3.
+  - Chore: Changed variable `subtitle` in DCard3.
+  - Chore: Move the story with list to be the first in storybook for DCard3.
+  - Chore: Updated DActionList component to have uniform buttons for the first three stories then add a fourth story that features the different button sizes.
 - **4th November 2023 - Eric McWinNEr 😴**
   - Feature: Changed the way the file picker shows picked file and how you can empty the selection
   - Feature: Built a new composite button component
 - **3rd November 2023 - Bernode 🙄**
-    - Chore: Refactored Action List
-    - Chore: Made the background of DCard3 customizable
+  - Chore: Refactored Action List
+  - Chore: Made the background of DCard3 customizable
 - **3rd November 2023 - Eric McWinNEr 😴**
   - Chore: Updated all stories (except table) to have the autodocs tag
   - Feature: Built go back component
@@ -48,16 +51,16 @@
   - Feature: Added badge to tabs when total is provided to show the total by the side of the tab in a subtle scheme of the selected theme
   - Feature: Made color for active badges customizable
 - **25th October, 2023 - Bernode 🙄**
-    - Chore: Removed html tags in scss
+  - Chore: Removed html tags in scss
 - **23rd October, 2023 - Bernode 🙄**
-    - Feature: Added Empty State Component.
-    - Feature: Added Action List Single Component.
+  - Feature: Added Empty State Component.
+  - Feature: Added Action List Single Component.
 - **20th October, 2023 - Bernode 🙄**
-    - Feature: Added Overview Card 1 Component.
-    - Feature: Added Overview Card 2 Component.
+  - Feature: Added Overview Card 1 Component.
+  - Feature: Added Overview Card 2 Component.
 - **19th October, 2023 - Bernode 🙄**
-    - Feature: Added Static stat 3 Component.
-    - Feature: Added Console card 2 Component.
+  - Feature: Added Static stat 3 Component.
+  - Feature: Added Console card 2 Component.
 - **14th October 2023 - Eric McWinNEr 😴**
   - Feature: Made toasts responsive by automatically centering them on mobile screens
   - Bugfix: Ensured that the textfield always emits a value of zero if the value is an empty string
@@ -66,20 +69,20 @@
   - Chore: Deleted the `d-color` components and stories since they're not used at all in the UI kit
   - Chore: Updated the code that resizes the phone code on the phone input field
   - Feature: Added a fullWidth feature to PinInput to add equal spaces to each field and fill up its container
-  - Feature: Updated CopyInput to have its default size configurable from the theme provider 
+  - Feature: Updated CopyInput to have its default size configurable from the theme provider
   - Feature: Added a feature to make the default size of all buttons to be configurable from the theme provider
 - **11th October 2023 - Eric McWinNEr 😴**
-  - Chore: Reviewed, renamed and made updates to components coded by Bernode. Including but not limited to: DActionCard, DAvatarCard, DvatarCard2, DActionList, DContinousList, DPreferences etc  
+  - Chore: Reviewed, renamed and made updates to components coded by Bernode. Including but not limited to: DActionCard, DAvatarCard, DvatarCard2, DActionList, DContinousList, DPreferences etc
 - **10th October 2023 - Eric McWinNEr 😴**
   - Chore: Increased z-index of the text over file pickers so that links are clickable
 - **10th October 2023 - Bernode 🙄**
-    - Chore: Updated components made by me to include a unique class names.
-    - Chore: Updated the Continous List Item component and added v-bind to slot.
-    - Chore: Updated Actionable Avatar component button to a link.
+  - Chore: Updated components made by me to include a unique class names.
+  - Chore: Updated the Continous List Item component and added v-bind to slot.
+  - Chore: Updated Actionable Avatar component button to a link.
 - **09th October, 2023 - Bernode 🙄**
-    - Chore: Updated components made by me to include a unique class names.
-    - Chore: Updated the Continuous List Item component and added v-bind to slot.
-    - Chore: Updated Actionable Avatar component button to a link.
+  - Chore: Updated components made by me to include a unique class names.
+  - Chore: Updated the Continuous List Item component and added v-bind to slot.
+  - Chore: Updated Actionable Avatar component button to a link.
 - **05th October 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with select boxes right-arrows not opening the select dropdown
   - Bugfix: Updated RadioSelect to work as expected when the `expandOnChecked` prop is set to true
@@ -112,10 +115,10 @@
   - Chore: Updated storybook with new stories for date picker
   - Chore: Updated the table to prevent it from showing only the first two columns on mobile by default
 - **19th September 2023 - Bernode 🙄**
-    - Feature: Added the Continuous List Item component
-    - Feature: Added the Preferences component
-    - Feature: Added the Quick Tool component
-    - Feature: Added the Vertical movable component
+  - Feature: Added the Continuous List Item component
+  - Feature: Added the Preferences component
+  - Feature: Added the Quick Tool component
+  - Feature: Added the Vertical movable component
 - **18th September 2023 - Eric McWinNEr 😴**
   - Chore: Updated style of RadioCard, CheckboxCard, SwitchCard, RadioCardSelect components to have typography match UI more closely
     - Refactored the above mentioned components (except RadioCardSelect) to compose a layout component and share layout structure from a component called InputCard
@@ -149,16 +152,16 @@
   - Bugfix: Fixed bug with loader sliding to the left when the table is scrolled
   - Bugfix: Made a fix to the responsive layouts to properly center columns
 - **26th September, 2023 - Bernode 🙄**
-    - Chore: Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
-    - Chore: Updated the Preference Component to include modelValue.
+  - Chore: Updated the Application Integration component to include button size props and made the icon/logo a loopable slot.
+  - Chore: Updated the Preference Component to include modelValue.
 - **19th September, 2023 - Bernode 🙄**
-    - Feature: Added the Continuous List Item component
-    - Feature: Added the Preferences component
-    - Feature: Added the Quick Tool component
-    - Feature: Added the Vertical movable component
+  - Feature: Added the Continuous List Item component
+  - Feature: Added the Preferences component
+  - Feature: Added the Quick Tool component
+  - Feature: Added the Vertical movable component
 - **31st August, 2023 - Bernode 🙄**
-    - Chore: Updated the props in DActionableAvatar 1 & 2
-    - Chore: Updated css classes naming conventions
+  - Chore: Updated the props in DActionableAvatar 1 & 2
+  - Chore: Updated css classes naming conventions
 - **31st August 2023 - Eric McWinNEr 😴**
   - Bugfix: Fixed bug with sorting numbers alphabetically on the table
   - Bugfix: Updated the pipe functionality on the table to support running pipes for columns that don't exist on the raw data
@@ -172,16 +175,16 @@
   - Chore: Reduced the size of the error icon on all input fields
   - Bugfix: Added error message section to tag input
 - **30th August 2023 - Bernode 🙄**
-    - Feature: Added DActionableAvatar Component
-    - Feature: Added DActionableAvatar 2 Component
+  - Feature: Added DActionableAvatar Component
+  - Feature: Added DActionableAvatar 2 Component
 - **28th August 2023 - Eric McWinNEr 😴**
   - Bugfix: Updated the offset columns to factor in the gutter width
 - **27th August 2023 - Eric McWinNEr 😴**
   - Chore: Prevented the Text from throwing warnings for only heroNew and circularSTD
   - Feature: Updated the column pipe function to supply the entire row object as the second argument to the pipe function
 - **24th August 2023 - Bernode 🙄**
-    - Feature: Added Application Integration Action component
-    - Feature: Added Application Integration Action 2 component
+  - Feature: Added Application Integration Action component
+  - Feature: Added Application Integration Action 2 component
 - **22nd August 2023 - Eric McWinNEr 😴**
   - Feature: Added size props to DCopyInput Component
   - Bugfix: Fixed bug with the table customize view hydrating state before the save button is clicked
@@ -196,7 +199,7 @@
   - Feature: Added d-static-stats component
   - Feature: Added d-static-stats2 component
 - **17th August, 2023 - Bernode 🙄**
-    - Feature: Added DCardSwitch component
+  - Feature: Added DCardSwitch component
 - **16th August 2023 - Eric McWinNEr 😴**
   - Bugfix: Worked on auto-layout to aid responsiveness
   - Bugfix: Worked on responsive layout to handle responsiveness bugs

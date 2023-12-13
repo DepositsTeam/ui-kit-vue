@@ -1,6 +1,6 @@
 import DTagDropdown from "./DTagDropdown.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
-import { inputArgTypes } from "../utils/inputProps";
+import { inputArgTypes } from "../utils/props/inputProps";
 import { ExternalLinkIcon } from "../main";
 
 export default {

@@ -96,7 +96,7 @@
 
 <script setup>
 import { DBox, DTextfield, DText, DLoader } from "../main";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import {
   ref,
   computed,

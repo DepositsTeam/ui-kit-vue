@@ -180,9 +180,9 @@ import {
 import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
 import number_format from "@/utils/number_format";
-import inputProps from "@/utils/inputProps";
+import inputProps from "@/utils/props/inputProps";
 import { formatSSN } from "@/utils/formatSSN";
-import { wrapperProps } from "@/utils/wrapperProps";
+import { wrapperProps } from "@/utils/props/wrapperProps";
 import { useWrapperProps } from "@/utils/composables/useWrapperProps";
 import { formatPercentage } from "@/utils/formatPercentage";
 import { useInputSize } from "@/utils/composables/useInputSize";

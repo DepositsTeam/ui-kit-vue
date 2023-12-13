@@ -80,7 +80,7 @@
 import { DBox, DText, ChevronFilledDownIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
 import { computed, ref, onMounted, watch } from "vue";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 import uniqueRandomString from "@/utils/uniqueRandomString";

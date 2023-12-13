@@ -65,7 +65,7 @@ export const sampleColumn2 = [
     uppercase: true,
     sortable: true,
     filterable: true,
-    comparator: (a, b, sortConfiguration) => a - b,
+    sortType: "numeric",
     width: "",
     minWidth: "",
     maxWidth: "",

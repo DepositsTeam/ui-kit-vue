@@ -95,7 +95,7 @@ import {
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import moment from "moment";
 import DatePicker from "vue-datepicker-next";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { inject, ref, onMounted, watch, computed } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";

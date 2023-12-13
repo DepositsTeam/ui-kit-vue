@@ -1,6 +1,6 @@
 <script setup>
 import { inject, computed, onMounted, unref, ref, watch } from "vue";
-import allowedCSSProps from "../utils/allowedCSSProps";
+import allowedCSSProps from "../utils/props/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { defaultThemeVars, insertThemeToPage } from "@/providers/default-theme";
 import convertObjToVars from "../utils/convertObjToVars";

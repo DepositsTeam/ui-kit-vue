@@ -1,6 +1,6 @@
 import DFilePickerInline from "./DFilePickerInline.vue";
 import { DarkModeProvider } from "../main";
-import { inputArgTypes } from "../utils/inputProps";
+import { inputArgTypes } from "../utils/props/inputProps";
 
 export default {
   title: "Forms/File Picker (Inline)",

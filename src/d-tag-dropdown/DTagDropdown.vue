@@ -189,7 +189,7 @@ import {
 import keyGen from "../utils/keyGen";
 import { computed, inject, nextTick, onMounted, onUnmounted, ref } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
