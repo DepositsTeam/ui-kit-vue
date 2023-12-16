@@ -16,9 +16,11 @@
       customFontWeight: fontWeight,
       customFontSize: fontSize,
       customLineHeight: lineHeight,
+      hasEllipsis: maxCharWidth,
     }"
     :is="is"
     v-bind="{ ...$props, ...$attrs }"
+    :style="{ '--ellipsis-width': maxCharWidth }"
   >
     <slot></slot>
   </d-box>
@@ -105,6 +107,9 @@ const props = defineProps({
     type: String,
     default: "text-neutral-600",
   },
+  maxCharWidth: {
+    type: String,
+  },
 });
 
 const computedFontFace = computed(() => {
@@ -128,6 +133,14 @@ const computedFontFace = computed(() => {
   }
   &.center {
     text-align: center;
+  }
+  &.hasEllipsis {
+    &:not(:hover) {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: var(--ellipsis-width);
+      white-space: nowrap;
+    }
   }
   &.my0 {
     margin-top: 0;
