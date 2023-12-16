@@ -71,7 +71,7 @@
 <script setup>
 import { DBox, DRadio, DCheckbox } from "../main";
 import { computed } from "vue";
-import { wrapperProps } from "../utils/wrapperProps";
+import { wrapperProps } from "../utils/props/wrapperProps";
 import { useWrapperProps } from "../utils/composables/useWrapperProps";
 
 const props = defineProps({

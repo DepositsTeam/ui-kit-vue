@@ -1,8 +1,13 @@
 <template>
-  <d-auto-layout cursor="pointer" @click="goBack" alignment="center-left">
+  <d-auto-layout
+    cursor="pointer"
+    class="go-back"
+    @click="goBack"
+    alignment="center-left"
+  >
     <slot name="icon">
       <d-box
-        background="#94A3B8"
+        class="go-back-bg"
         border-radius="50%"
         display="flex"
         align-items="center"
@@ -15,7 +20,7 @@
       </d-box>
     </slot>
     <slot name="text">
-      <d-text my0 font-face="heroNew" color="#94A3B8">{{ text }}</d-text>
+      <d-text my0 font-face="heroNew" class="go-back-txt">{{ text }}</d-text>
     </slot>
   </d-auto-layout>
 </template>
@@ -52,4 +57,25 @@ const goBack = () => {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.go-back {
+  transition: 0.8s;
+  .go-back-bg {
+    background: #94a3b8;
+    transition: 0.8s;
+  }
+  .go-back-txt {
+    color: #94a3b8;
+    transition: 0.8s;
+  }
+  &:hover {
+    cursor: pointer;
+    .go-back-bg {
+      background: #57606c;
+    }
+    .go-back-txt {
+      color: #57606c;
+    }
+  }
+}
+</style>

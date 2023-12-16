@@ -113,7 +113,7 @@
 import { DBox, DText, ScanCardIcon, CardIcon, ErrorIcon } from "../main";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
 import CardBrands, { BRAND_ALIAS } from "./card-brands";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { ref, computed } from "vue";
 import cardValidator from "card-validator";
 import { useInputSize } from "../utils/composables/useInputSize";

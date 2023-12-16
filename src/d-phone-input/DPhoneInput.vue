@@ -79,7 +79,7 @@
 <script setup>
 import { DBox, DText, ErrorIcon } from "../main";
 import { ref, computed, onMounted, watch } from "vue";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import countryCodes from "../utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";

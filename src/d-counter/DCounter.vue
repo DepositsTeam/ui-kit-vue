@@ -88,8 +88,8 @@
 
 <script setup>
 import { DBox, DText, ErrorIcon } from "../main";
-import inputProps from "../utils/inputProps";
-import { wrapperProps } from "../utils/wrapperProps";
+import inputProps from "../utils/props/inputProps";
+import { wrapperProps } from "../utils/props/wrapperProps";
 import { onMounted, computed } from "vue";
 import number_format from "../utils/number_format";
 import { useInputSize } from "../utils/composables/useInputSize";

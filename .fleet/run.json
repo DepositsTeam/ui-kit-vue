@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "npm",
+            "name": "run storybook",
+            "command": "run",
+            "scripts": "storybook",
+        },
+        {
+            "type": "npm",
+            "name": "build storybook",
+            "command": "run",
+            "scripts": "build-storybook",
+        },
+        {
+            "type": "npm",
+            "name": "dev",
+            "command": "run",
+            "scripts": "dev",
+        },
+        {
+            "type": "npm",
+            "name": "link",
+            "command": "link",
+            "scripts": "",
+        },
+    ]
+}

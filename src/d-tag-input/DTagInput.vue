@@ -73,7 +73,7 @@
 import { DBox, DText, DTextfield, CloseIcon, ErrorIcon } from "../main";
 import keyGen from "../utils/keyGen";
 import { ref, nextTick, onBeforeMount, watch, computed } from "vue";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 const _tagDelimiterKey = {

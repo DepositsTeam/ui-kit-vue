@@ -20,7 +20,7 @@
 import { DDropdown } from "../main";
 import countries from "./countries_states_cities.json";
 import { computed } from "vue";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 
 const emit = defineEmits(["update:modelValue", "statesChanged"]);

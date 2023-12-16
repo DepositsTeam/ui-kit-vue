@@ -9,7 +9,7 @@ import {
   onBeforeMount,
   watch,
 } from "vue";
-import allowedCSSProps from "../utils/allowedCSSProps";
+import allowedCSSProps from "../utils/props/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import {
   defaultThemeVars,

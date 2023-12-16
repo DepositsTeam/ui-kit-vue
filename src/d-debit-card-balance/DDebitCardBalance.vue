@@ -83,36 +83,13 @@
 
 <script setup>
 import { DBox, DText } from "../main";
-import { CardBrands } from "../utils/debitCardUtils";
+import debitCardProps from "@/utils/props/debitCardProps";
 import { computed } from "vue";
-import { useDebitCard } from "../utils/composables/useDebitCard";
+import { useDebitCard } from "@/utils/composables/useDebitCard";
 import number_format from "../utils/number_format";
 
 const props = defineProps({
-  logo: {
-    type: String,
-  },
-  cardNo: {
-    type: String,
-    default: "5399415874124589",
-  },
-  exp: {
-    type: String,
-    default: "10/25",
-  },
-  cvv: {
-    type: String,
-    default: "123",
-  },
-  name: {
-    type: String,
-    default: "Eric Aprioku",
-  },
-  brand: {
-    type: String,
-    validator: (value) => CardBrands.includes(value),
-    default: "mastercard",
-  },
+  ...debitCardProps,
   width: {
     type: String,
     default: "336px",

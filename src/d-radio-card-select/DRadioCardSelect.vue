@@ -8,7 +8,7 @@ import {
 } from "../main";
 import { useDropdown } from "../utils/composables/useDropdown";
 import { computed, onBeforeMount, onMounted, ref } from "vue";
-import inputProps from "../utils/inputProps";
+import inputProps from "../utils/props/inputProps";
 
 const props = defineProps({
   ...inputProps,
