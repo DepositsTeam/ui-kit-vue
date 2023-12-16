@@ -22,6 +22,7 @@ export default class Column {
     noWrap = false,
     comparator = undefined,
     pipe = undefined,
+    maxCharWidth = undefined,
   } = {}) {
     this.display = display;
     this.dataSelector = dataSelector;
@@ -39,6 +40,7 @@ export default class Column {
     this.uuid = uniqueRandomString(30, 8);
     this.noWrap = noWrap;
     this.sortCurrencySymbol = sortCurrencySymbol;
+    this.maxCharWidth = maxCharWidth;
     if (comparator !== undefined && typeof comparator !== "function") {
       throw new Error(
         "The comparator property of a column must be a callback function."

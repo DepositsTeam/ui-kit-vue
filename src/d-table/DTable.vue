@@ -336,6 +336,7 @@
                   my0
                   class="ui-table__body-cell-text"
                   :class="{ noWrap: column.noWrap }"
+                  :max-char-width="column.maxCharWidth"
                 >
                   <!--                  {{ transformDataWithColumnPipe(datum)[column.dataSelector] }}-->
                   {{

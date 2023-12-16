@@ -22,6 +22,7 @@ export const sitcomColumns = [
   {
     display: "Company/Work",
     dataSelector: "company",
+    maxCharWidth: "40px",
     uppercase: true,
     filterable: true,
     width: "",
