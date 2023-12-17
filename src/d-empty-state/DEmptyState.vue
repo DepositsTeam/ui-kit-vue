@@ -9,9 +9,6 @@
     padding-y="3rem"
   >
     <d-box
-      border-radius="50%"
-      padding="2rem"
-      background-color="#F5F8FA"
       display="inline-block"
     >
       <slot name="illustration">
@@ -47,6 +44,7 @@
           responsive
           >{{ buttonText }}
         </d-button>
+        <slot name="secondary-button"></slot>
       </slot>
     </d-auto-layout>
   </d-box>
@@ -61,16 +59,19 @@ defineProps({
   },
   title: {
     type: String,
+    default: "No payments yet",
   },
   description: {
     type: String,
+    default:
+      "You haven’t made any transfer yet. Your transfers will show up here once you have any.",
   },
   buttonText: {
     type: String,
-    default: "large",
   },
   buttonSize: {
     type: String,
+    default: "large",
   },
   buttonColorScheme: {
     type: String,
