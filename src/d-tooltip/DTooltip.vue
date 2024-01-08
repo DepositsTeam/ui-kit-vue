@@ -131,7 +131,7 @@ onUnmounted(() => {
   max-width: 320px;
   width: max-content;
   position: absolute;
-  z-index: 40;
+  z-index: 1000;
   top: 0;
   left: 0;
   &.hidden {
