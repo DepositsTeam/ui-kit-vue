@@ -40,20 +40,27 @@
               :is="icon || schemeIcons[colorScheme]"
             ></component>
 
-            <d-text
-              scale="subhead"
-              class="ui-banner__title text-gray-700"
-              font-face="circularSTD"
-            >
-              <span>{{ title }}</span></d-text
-            >
-            <d-text
-              scale="subhead"
-              class="ui-banner__description"
-              font-face="circularSTD"
-              v-if="!$slots.default && description"
-              ><span v-html="description"></span
-            ></d-text>
+            <slot name="content">
+              <slot name="title">
+                <d-text
+                  scale="subhead"
+                  class="ui-banner__title text-gray-700"
+                  font-face="circularSTD"
+                >
+                  <d-box is="span">{{ title }}</d-box></d-text
+                >
+              </slot>
+
+              <slot name="description">
+                <d-text
+                  scale="subhead"
+                  class="ui-banner__description"
+                  font-face="circularSTD"
+                  v-if="!$slots.default && description"
+                  ><d-box is="span" v-html="description"></d-box
+                ></d-text>
+              </slot>
+            </slot>
           </d-box>
         </d-box>
       </slot>
@@ -79,7 +86,7 @@ import {
   InfoIcon,
   WarningIcon,
 } from "../main";
-import { getSubtitleColor, getTextColor } from "../utils/colorManager";
+import { getSubtitleColor, getTextColor } from "@/utils/colorManager";
 
 const schemeIcons = {
   info: InfoIcon,
@@ -179,14 +186,7 @@ const remove = () => {
   .text-content {
     display: flex;
     align-items: center;
-
-    & > * {
-      margin-right: 8px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
+    gap: 8px;
   }
 
   .ui-banner__close-icon {
