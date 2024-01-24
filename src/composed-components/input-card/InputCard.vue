@@ -43,9 +43,12 @@
           </d-auto-layout>
         </d-auto-layout>
 
-        <d-box class="d-input-card__selector">
-          <slot name="selector"></slot>
-        </d-box>
+        <d-auto-layout>
+          <slot name="before-selector"></slot>
+          <d-box class="d-input-card__selector">
+            <slot name="selector"></slot>
+          </d-box>
+        </d-auto-layout>
       </d-auto-layout>
       <d-box
         v-if="expandable && expanded"

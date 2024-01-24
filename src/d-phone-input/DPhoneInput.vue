@@ -10,6 +10,7 @@
     <slot name="label">
       <d-box is="label" :for="computedID">
         <d-text
+          my0
           :class="labelClass"
           :font-face="labelFontFace"
           class="ui-text-field__label"
@@ -55,36 +56,23 @@
         :id="computedID"
       />
     </d-box>
-    <d-box
-      v-if="localErrorMessage || errorMessage"
-      class="ui-text-field__error"
-    >
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-text-field__error-text"
-        scale="subhead"
-        font-face="circularSTD"
-      >
-        <span v-if="localErrorMessage">
-          {{ localErrorMessage }}
-        </span>
-        <span v-else>
-          {{ errorMessage }}
-        </span>
-      </d-text>
-    </d-box>
+    <error-message
+      v-if="computedErrorMessage"
+      :error-message="computedErrorMessage"
+    />
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, ErrorIcon } from "../main";
-import { ref, computed, onMounted, watch } from "vue";
-import inputProps from "../utils/props/inputProps";
-import countryCodes from "../utils/country_codes_grouped.json";
+import { DBox, DText } from "../main";
+import { computed, onMounted, ref, watch } from "vue";
+import inputProps from "@/utils/props/inputProps";
+import countryCodes from "@/utils/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
-import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
+import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);
@@ -186,6 +174,10 @@ const localErrorMessage = computed(() => {
   }
 });
 
+const computedErrorMessage = computed(() =>
+  localErrorMessage.value ? localErrorMessage.value : props.errorMessage
+);
+
 const updateCountryCodeIsFocused = (value) => {
   countryCodeIsFocused.value = value;
 };
@@ -283,6 +275,7 @@ watch(localErrorMessage, (val) => {
   outline: none;
   font-family: "Circular Std", sans-serif;
   color: #212934;
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     color: #fff;
@@ -292,65 +285,81 @@ watch(localErrorMessage, (val) => {
     color: #b8c4ce;
   }
 }
+
 .ui-text-field__wrapper {
   &.size__small .ui-text-field__phone-input .ui-text-field__input {
     padding-left: calc(2ch + 16px);
   }
+
   &.size__medium .ui-text-field__phone-input .ui-text-field__input,
   &.size__large .ui-text-field__phone-input .ui-text-field__input {
     padding-left: calc(2ch + 26px);
   }
+
   &.size__xlarge .ui-text-field__phone-input .ui-text-field__input {
     padding-left: calc(2ch + 20px);
   }
+
   &.size__huge .ui-text-field__phone-input .ui-text-field__input,
   &.size__massive .ui-text-field__phone-input .ui-text-field__input {
     padding-left: calc(2ch + 26px);
   }
+
   &.size__small .ui-text-field__phone-input .ui-text-field__country-code {
     font-size: 12px;
     line-height: 12px;
     left: 8px;
   }
+
   &.size__xlarge .ui-text-field__phone-input .ui-text-field__country-code,
   &.size__large .ui-text-field__left-icon,
   &.size__medium .ui-text-field__left-icon {
     left: 12px;
   }
 }
+
 .ui-text-field__input:disabled + .ui-text-field__country-code,
 .ui-text-field[disabled] + .ui-text-field__country-code {
   background: #edeeef;
   cursor: not-allowed;
+
   &.dark_mode {
     background: var(--dark-input-disabled-color);
     color: var(--dark-input-label-color);
   }
 }
+
 .ui-text-field__input.has-error + .ui-text-field__country-code {
   background: #fff0f2;
+
   &.dark_mode {
     background: #350a12;
   }
 }
+
 .ui-text-field__wrapper {
   &.has-error .ui-text-field__country-code {
     background: #fff0f2;
+
     &.dark_mode {
       background: #350a12;
     }
   }
+
   &.disabled .ui-text-field__country-code {
     background: #edeeef;
     cursor: not-allowed;
+
     &.dark_mode {
       background: var(--dark-input-disabled-color);
       color: var(--dark-input-label-color);
     }
   }
 }
+
 .ui-text-field__country-code {
   background: transparent !important;
+
   &:disabled {
     cursor: not-allowed;
   }

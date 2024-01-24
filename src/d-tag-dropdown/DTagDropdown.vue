@@ -148,8 +148,8 @@
                 margin-y="0"
                 font-face="circularSTD"
                 scale="subhead"
-                >{{ option.text }}</d-text
-              >
+                >{{ option.text }}
+              </d-text>
             </d-checkbox>
             <d-text v-else margin-y="0" font-face="circularSTD" scale="subhead">
               {{ option.text }}
@@ -162,16 +162,7 @@
       </d-box>
     </Teleport>
 
-    <d-box v-if="errorMessage" class="ui-text-field__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-text-field__error-text"
-        scale="subhead"
-        fontFace="circularSTD"
-      >
-        {{ errorMessage }}
-      </d-text>
-    </d-box>
+    <error-message v-if="errorMessage" :error-message="errorMessage" />
   </d-box>
 </template>
 
@@ -183,18 +174,18 @@ import {
   DCheckbox,
   DText,
   DTextfield,
-  ErrorIcon,
   SearchIcon,
 } from "../main";
-import keyGen from "../utils/keyGen";
+import keyGen from "@/utils/keyGen";
 import { computed, inject, nextTick, onMounted, onUnmounted, ref } from "vue";
-import { defaultThemeVars } from "../providers/default-theme";
+import { defaultThemeVars } from "@/providers/default-theme";
 import inputProps from "../utils/props/inputProps";
-import { useInputSize } from "../utils/composables/useInputSize";
-import { useDropdown } from "../utils/composables/useDropdown";
+import { useInputSize } from "@/utils/composables/useInputSize";
+import { useDropdown } from "@/utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -408,20 +399,24 @@ const handleScroll = (e) => {
   background: #fff;
   justify-content: space-between;
   position: relative;
+
   &.hasError {
     background: #fff0f2;
     border-color: #d62f4b;
   }
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
   }
+
   .ui-tag-dropdown__input-wrapper__left {
     display: flex;
     align-items: center;
     width: 100%;
     flex-wrap: wrap;
   }
+
   .ui-tag-dropdown__input-wrapper__right,
   .ui-tag-dropdown__left-icon {
     display: flex;
@@ -429,9 +424,11 @@ const handleScroll = (e) => {
     height: 100%;
     width: 32px;
   }
+
   .ui-tag-dropdown__input-wrapper__right__icon-wrapper {
     right: 16px;
     color: #5f6b7a;
+
     .ui-tag-dropdown__input-wrapper__right__icon-wrapper {
       cursor: pointer;
     }
@@ -454,17 +451,20 @@ const handleScroll = (e) => {
 .ui-tag-dropdown__wrapper {
   box-sizing: border-box;
   position: relative;
+
   .ui-tag-dropdown__placeholder {
     color: rgba(#b8c4ce, 0.5);
     font-family: "Hero New", sans-serif;
     font-size: 16px;
     font-weight: 400;
   }
+
   &.size__massive .ui-tag-dropdown__input-wrapper {
     //min-height: calc(64px - 16px);
     &.emptyDropdown {
       height: 64px;
     }
+
     padding: 2px 16px;
     min-height: calc(64px - 8px);
   }
@@ -474,6 +474,7 @@ const handleScroll = (e) => {
     &.emptyDropdown {
       height: 56px;
     }
+
     padding: 2px 16px;
     min-height: calc(56px - 8px);
   }
@@ -483,6 +484,7 @@ const handleScroll = (e) => {
     &.emptyDropdown {
       height: 48px;
     }
+
     padding: 2px 12px;
     min-height: calc(48px - 8px);
   }
@@ -492,6 +494,7 @@ const handleScroll = (e) => {
     &.emptyDropdown {
       height: 40px;
     }
+
     padding: 2px 12px;
     min-height: calc(40px - 8px);
   }
@@ -501,6 +504,7 @@ const handleScroll = (e) => {
     &.emptyDropdown {
       height: 32px;
     }
+
     padding: 2px 12px;
     min-height: calc(32px - 8px);
   }
@@ -510,9 +514,11 @@ const handleScroll = (e) => {
     &.emptyDropdown {
       height: 24px;
     }
+
     .ui-tag-dropdown__placeholder {
       font-size: 12px;
     }
+
     padding: 2px 8px;
     min-height: calc(42px - 8px);
   }
@@ -528,6 +534,7 @@ const handleScroll = (e) => {
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 0 8px;
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     color: #cbd5e1;
@@ -566,6 +573,7 @@ const handleScroll = (e) => {
 
 .ui-tag-dropdown__dropdown__header {
   box-shadow: inset 0px -1px 0px #e1e7ec;
+
   &.dark_mode {
     box-shadow: none;
     border-bottom: 1px solid var(--dark-input-border-color);
@@ -585,6 +593,7 @@ const handleScroll = (e) => {
   z-index: 999;
   top: 0;
   left: 0;
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
@@ -593,6 +602,7 @@ const handleScroll = (e) => {
 
 .ui-tag-dropdown__dropdown__option {
   padding: 8px 16px;
+
   &.dropdownMode {
     &:hover,
     &:active,
@@ -600,10 +610,12 @@ const handleScroll = (e) => {
       background: #f2fafc;
       color: #0db9e9;
       position: relative;
+
       &.dark_mode {
         background: #041d25;
         color: #0db9e9;
       }
+
       &::after {
         content: "";
         position: absolute;
@@ -613,15 +625,18 @@ const handleScroll = (e) => {
         height: 100%;
         border-radius: 0 2px 2px 0;
         background: #0db9e9;
+
         &.dark_mode {
           background: (var--dark-primary-action-color);
         }
       }
     }
   }
+
   &.dark_mode {
     color: #94a3b8;
     border-left: 2px solid transparent;
+
     &:hover,
     &.selected {
       background: #041d25;

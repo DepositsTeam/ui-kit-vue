@@ -39,17 +39,17 @@
           >
             <d-text margin-y="0" font-face="circularSTD"
               >Drag & Drop to upload or
-              <d-box is="span" class="blue">browse</d-box> to choose
-              files</d-text
-            >
+              <d-box is="span" class="blue">browse</d-box>
+              to choose files
+            </d-text>
             <d-text margin-y="0">
               <d-box is="span" v-if="computedAccepts">
                 Supported file types ({{ computedAccepts }}.
               </d-box>
               <span v-else>(</span>
               Max upload size:
-              {{ fileMaxSize }}MB)</d-text
-            >
+              {{ fileMaxSize }}MB)
+            </d-text>
           </d-auto-layout>
         </slot>
       </d-box>
@@ -68,8 +68,8 @@
           font-weight="450"
           scale="subhead"
           class="ellipsis"
-          >{{ selectedFileName }}</d-text
-        >
+          >{{ selectedFileName }}
+        </d-text>
         <close-icon
           @click="emptyFile"
           smart-color="#8895A7"
@@ -80,31 +80,25 @@
         />
       </d-auto-layout>
     </d-box>
-    <d-box v-if="computedErrorMessage" class="ui-text-field__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-text-field__error-text"
-        scale="subhead"
-        font-face="circularSTD"
-      >
-        {{ computedErrorMessage }}
-      </d-text>
-    </d-box>
+    <error-message
+      v-if="computedErrorMessage"
+      :error-message="computedErrorMessage"
+    />
   </d-box>
 </template>
 
 <script setup>
 import {
-  DBox,
-  CloudUploadFilledIcon,
   CloseIcon,
-  DText,
-  ErrorIcon,
+  CloudUploadFilledIcon,
   DAutoLayout,
+  DBox,
+  DText,
 } from "../main";
-import { useFilePicker } from "../utils/composables/useFilePicker";
+import { useFilePicker } from "@/utils/composables/useFilePicker";
 import { ref } from "vue";
 import FileIcon from "@/icons/FileIcon.vue";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const props = defineProps({
   fileMaxSize: {
@@ -169,14 +163,17 @@ const {
   justify-content: center;
   padding: 50px 16px;
   color: #6d7786;
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-primary-300);
     color: #94a3b8;
+
     .ui-text {
       color: #94a3b8;
     }
   }
+
   .close-btn {
     display: flex;
     color: white;
@@ -192,19 +189,23 @@ const {
     cursor: pointer;
     top: -16px;
     right: -16px;
+
     &:hover {
       background: #ad283d;
     }
   }
+
   .placeholder {
     span.blue {
       color: #0ebae9;
     }
   }
+
   .aboveInput {
     position: relative;
     z-index: 10;
   }
+
   .ui-file-picker-input {
     position: absolute;
     cursor: pointer;
@@ -218,11 +219,13 @@ const {
     z-index: 9;
   }
 }
+
 .ellipsis {
   overflow: hidden;
   max-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
+
   &:hover,
   &:active,
   &:focus {

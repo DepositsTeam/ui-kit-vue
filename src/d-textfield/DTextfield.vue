@@ -128,57 +128,54 @@
       </d-box>
     </d-auto-layout>
 
-    <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-text-field__error-text"
-        scale="subhead"
-        fontFace="circularSTD"
-      >
-        {{ errorMessage }}
+    <d-box
+      display="flex"
+      margin-top="8px"
+      v-if="isStrongPassword"
+      align-items="center"
+      justify-content="space-between"
+      class="password-strength-indicator"
+      :class="{ [passwordStrength]: passwordStrength }"
+    >
+      <error-message
+        v-if="errorMessage && !invisible"
+        :error-message="errorMessage"
+      />
+      <d-text v-else class="strength-text" my0 scale="footnote">
+        {{ !passwordStrength ? "Password strength" : passwordStrength }}
       </d-text>
+      <d-auto-layout item-spacing="4px">
+        <d-box
+          v-for="(item, index) in Array(4)
+            .fill()
+            .map((v, i) => ++i)"
+          :key="index"
+          class="strength-indicator"
+          :class="`indicator-${item}`"
+        ></d-box>
+      </d-auto-layout>
     </d-box>
     <d-box v-else>
-      <d-box
-        display="flex"
-        margin-top="8px"
-        v-if="isStrongPassword"
-        align-items="center"
-        justify-content="space-between"
-        class="password-strength-indicator"
-        :class="{ [passwordStrength]: passwordStrength }"
-      >
-        <d-text class="strength-text" my0 scale="footnote">
-          {{ !passwordStrength ? "Password strength" : passwordStrength }}
-        </d-text>
-        <d-auto-layout item-spacing="4px">
-          <d-box
-            v-for="(item, index) in Array(4)
-              .fill()
-              .map((v, i) => ++i)"
-            :key="index"
-            class="strength-indicator"
-            :class="`indicator-${item}`"
-          ></d-box>
-        </d-auto-layout>
-      </d-box>
+      <error-message
+        v-if="errorMessage && !invisible"
+        :error-message="errorMessage"
+      />
     </d-box>
   </d-box>
 </template>
 
 <script setup>
 import {
+  ChevronFilledDownIcon,
+  CopyIcon,
+  DAutoLayout,
   DBox,
   DText,
-  ErrorIcon,
-  ChevronFilledDownIcon,
-  NoEyeFilledIcon,
   EyeFilledIcon,
-  DAutoLayout,
-  CopyIcon,
+  NoEyeFilledIcon,
 } from "../main";
 import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
-import { ref, computed, onMounted, inject, unref, nextTick, watch } from "vue";
+import { computed, inject, nextTick, onMounted, ref, unref, watch } from "vue";
 import number_format from "@/utils/number_format";
 import inputProps from "@/utils/props/inputProps";
 import { formatSSN } from "@/utils/formatSSN";
@@ -189,6 +186,7 @@ import { useInputSize } from "@/utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -332,8 +330,7 @@ const initializeModelValue = () => {
       if (!props.modelValue) {
         inputField.value.$el.value = "";
       } else {
-        const formatted = formatSSN(props.modelValue);
-        localSSN.value = formatted;
+        localSSN.value = formatSSN(props.modelValue);
         inputField.value.$el.value = localSSN.value[1];
       }
     } else if (props.ein) {
@@ -689,40 +686,48 @@ watch(
 
 <style lang="scss">
 @import "../scss/textfield";
+
 .strength-indicator {
   height: 6px;
   width: 32px;
   background: #e1e7ec;
   border-radius: 90px;
 }
+
 .password-strength-indicator {
   &.Weak {
     .indicator-1 {
       background: #d62f4b;
     }
+
     .strength-text.ui-text {
       color: #d62f4b;
     }
   }
+
   &.Fair {
     .indicator-1,
     .indicator-2 {
       background: #ffb44f;
     }
+
     .strength-text.ui-text {
       color: #ffb44f;
     }
   }
+
   &.Good {
     .indicator-1,
     .indicator-2,
     .indicator-3 {
       background: #0d7fe9;
     }
+
     .strength-text.ui-text {
       color: #0d7fe9;
     }
   }
+
   &.Strong {
     .indicator-1,
     .indicator-2,
@@ -730,6 +735,7 @@ watch(
     .indicator-4 {
       background: #27c079;
     }
+
     .strength-text.ui-text {
       color: #27c079;
     }
