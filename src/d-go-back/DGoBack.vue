@@ -46,13 +46,22 @@ const props = defineProps({
     type: String,
     default: "Back",
   },
+  isManuallyTriggered: {
+    type: Boolean,
+  },
 });
 
+const emit = defineEmits(["trigger"]);
+
 const goBack = () => {
-  if (!props.url) {
-    router.back();
+  if (!props.isManuallyTriggered) {
+    emit("trigger");
   } else {
-    router.push(props.url);
+    if (!props.url) {
+      router.back();
+    } else {
+      router.push(props.url);
+    }
   }
 };
 </script>

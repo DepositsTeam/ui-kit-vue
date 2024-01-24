@@ -35,26 +35,21 @@
         :size="computedInputSize"
       />
     </d-auto-layout>
-    <d-box v-if="errorMessage && !invisible" class="ui-text-field__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-text-field__error-text"
-        scale="subhead"
-        fontFace="circularSTD"
-      >
-        {{ errorMessage }}
-      </d-text>
-    </d-box>
+    <error-message
+      v-if="errorMessage && !invisible"
+      :error-message="errorMessage"
+    />
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DTextfield, DText, ErrorIcon, DAutoLayout } from "../main";
+import { DAutoLayout, DBox, DText, DTextfield } from "../main";
 import inputProps from "../utils/props/inputProps";
-import { onMounted, computed, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import { useImmer } from "@/utils/composables/useImmer";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,

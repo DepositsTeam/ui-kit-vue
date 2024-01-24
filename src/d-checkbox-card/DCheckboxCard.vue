@@ -17,6 +17,9 @@
     <template #icon v-if="$slots.icon">
       <slot name="icon"></slot>
     </template>
+    <template #before-selector v-if="$slots[`before-selector`]">
+      <slot name="before-selector"></slot>
+    </template>
   </InputCard>
 </template>
 

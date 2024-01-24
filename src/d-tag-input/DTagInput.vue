@@ -56,26 +56,22 @@
         :id="computedID"
       />
     </d-box>
-    <d-box v-if="computedErrorMessage" class="ui-text-field__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-text-field__error-text"
-        scale="subhead"
-        fontFace="circularSTD"
-      >
-        {{ computedErrorMessage }}
-      </d-text>
-    </d-box>
+    <error-message
+      v-if="computedErrorMessage"
+      :error-message="computedErrorMessage"
+    />
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, DTextfield, CloseIcon, ErrorIcon } from "../main";
-import keyGen from "../utils/keyGen";
-import { ref, nextTick, onBeforeMount, watch, computed } from "vue";
-import inputProps from "../utils/props/inputProps";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { CloseIcon, DBox, DText, DTextfield } from "../main";
+import keyGen from "@/utils/keyGen";
+import { computed, nextTick, onBeforeMount, ref, watch } from "vue";
+import inputProps from "@/utils/props/inputProps";
+import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+
 const _tagDelimiterKey = {
   space: " ",
   enter: "Enter",
@@ -265,23 +261,28 @@ watch(duplicateTags, (value) => {
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
+
   &.hasError {
     background: #fff0f2;
     border-color: #d62f4b;
   }
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
   }
+
   &.focus {
     border-color: var(--light-primary-action-color);
     box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
     outline: none;
+
     &.dark_mode {
       border-color: var(--dark-primary-action-color);
       box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
     }
   }
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
@@ -303,6 +304,7 @@ watch(duplicateTags, (value) => {
 
 .ui-tag-input__wrapper {
   box-sizing: border-box;
+
   &.size__massive .ui-tag-input__input-wrapper {
     //min-height: calc(64px - 16px);
     padding: 2px 16px;
@@ -344,10 +346,12 @@ watch(duplicateTags, (value) => {
   padding: 0 8px;
   margin-top: 4px;
   margin-bottom: 4px;
+
   &.duplicateTag {
     background: var(--light-danger-500);
     color: white;
   }
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     color: #cbd5e1;

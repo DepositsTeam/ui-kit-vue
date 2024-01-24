@@ -43,25 +43,17 @@
       {{ modelValue }}
     </d-box>
 
-    <div v-if="errorMessage" class="ui-text-area__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-area__error-icon" />
-      <d-text
-        class="ui-text-area__error-text"
-        scale="subhead"
-        font-face="circularSTD"
-      >
-        {{ errorMessage }}
-      </d-text>
-    </div>
+    <error-message v-if="errorMessage" :error-message="errorMessage" />
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, ErrorIcon } from "../main";
+import { DBox, DText } from "../main";
 import { computed, nextTick } from "vue";
 import inputProps from "../utils/props/inputProps";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -131,9 +123,11 @@ const handleBlurEvent = (e) => {
 
 <style lang="scss" scoped>
 @import "../scss/textfield";
+
 .ui-text-field__wrapper {
   display: inline-block;
 }
+
 .ui-text-area__textarea {
   border-radius: 6px;
   background: #ffffff;
@@ -155,6 +149,7 @@ const handleBlurEvent = (e) => {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
     color: #ffffff;
+
     &::placeholder {
       color: var(--dark-input-label-color);
     }
@@ -162,6 +157,7 @@ const handleBlurEvent = (e) => {
 
   &:hover:not(:disabled):not([disabled]):not(.has-error) {
     border-color: #0db9e9;
+
     &.dark_mode {
       border-color: var(--dark-primary-action-color);
     }
@@ -169,13 +165,15 @@ const handleBlurEvent = (e) => {
 
   &:focus:not(:disabled):not([disabled]):not(.has-error) {
     border-color: #0db9e9;
-    box-shadow: 0px 0px 0px 3px rgba(67, 210, 250, 0.25);
+    box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
     outline: none;
+
     &.dark_mode {
       border-color: var(--dark-primary-action-color);
       box-shadow: 0 0 0 3px var(--dark-primary-action-box-shadow-color);
     }
   }
+
   &:focus {
     outline: none;
   }
@@ -184,6 +182,7 @@ const handleBlurEvent = (e) => {
     background: rgba(245, 248, 250, 0.5);
     color: #e1e7ec;
     cursor: not-allowed;
+
     &.dark_mode {
       background: var(--dark-input-disabled-color);
       border-color: var(--dark-input-border-color);
@@ -201,6 +200,7 @@ const handleBlurEvent = (e) => {
   font-size: 14px;
   line-height: 16px;
   color: #212934;
+
   &.dark_mode {
     color: var(--dark-input-label-color);
   }
@@ -219,6 +219,7 @@ const handleBlurEvent = (e) => {
 .ui-text-area__textarea.has-error {
   background: #fff0f2;
   border-color: #d62f4b;
+
   &.dark_mode {
     background: #350a12;
     border-color: #df5e74;

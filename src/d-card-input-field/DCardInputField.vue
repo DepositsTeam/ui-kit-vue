@@ -24,7 +24,7 @@
         class="ui-card-input-field__pseudo-input"
         :class="{
           focus: pseudoCardInputIsFocused,
-          hasError: computedCardErrorMessage,
+          hasError: computedCardErrorMessage
         }"
         ref="pseudoInput"
       >
@@ -95,29 +95,24 @@
         </d-box>
       </d-box>
     </d-box>
-    <d-box v-if="computedCardErrorMessage" class="ui-text-field__error">
-      <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
-      <d-text
-        class="ui-card-input-field__error-text"
-        scale="subhead"
-        font-face="circularSTD"
-        margin-y="0px"
-      >
-        {{ computedCardErrorMessage }}
-      </d-text>
-    </d-box>
+
+    <error-message
+      v-if="computedCardErrorMessage"
+      :error-message="computedCardErrorMessage"
+    />
   </d-box>
 </template>
 
 <script setup>
-import { DBox, DText, ScanCardIcon, CardIcon, ErrorIcon } from "../main";
-import { allowOnlyNumbers } from "../utils/allowOnlyNumbers";
+import { CardIcon, DBox, DText, ScanCardIcon } from "../main";
+import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import CardBrands, { BRAND_ALIAS } from "./card-brands";
-import inputProps from "../utils/props/inputProps";
-import { ref, computed } from "vue";
+import inputProps from "@/utils/props/inputProps";
+import { computed, ref } from "vue";
 import cardValidator from "card-validator";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -501,35 +496,42 @@ const handleCardNoKeyPress = (e) => {
 .ui-card-input-field__wrapper {
   display: flex;
   flex-direction: column;
+
   &.size__massive {
     .ui-card-input-field__pseudo-input {
       height: 64px;
     }
   }
+
   &.size__huge {
     .ui-card-input-field__pseudo-input {
       height: 56px;
     }
   }
+
   &.size__xlarge {
     .ui-card-input-field__pseudo-input {
       height: 48px;
     }
   }
+
   &.size__large {
     .ui-card-input-field__pseudo-input {
       height: 40px;
     }
   }
+
   &.size__medium {
     .ui-card-input-field__pseudo-input {
       height: 32px;
     }
   }
+
   &.size__small {
     .ui-card-input-field__pseudo-input {
       height: 24px;
       padding: 8px 16px;
+
       input {
         height: 20px;
         margin-top: 0;
@@ -538,6 +540,7 @@ const handleCardNoKeyPress = (e) => {
     }
   }
 }
+
 .ui-card-input-field__pseudo-input {
   background: #fff;
   box-shadow: 0 1px 2px rgba(63, 63, 68, 0.1);
@@ -550,68 +553,84 @@ const handleCardNoKeyPress = (e) => {
   color: #212934;
   display: flex;
   align-items: center;
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
   }
+
   & * {
     font-family: "Circular Std", sans-serif;
     font-size: 16px;
   }
+
   &.hasError,
   &.hasError input {
     background: #fff0f2;
     border-color: #d62f4b;
+
     &.dark_mode {
       background: #350a12;
       border-color: #df5e74;
     }
   }
+
   &.focus:not(.hasError) {
     border-color: var(--light-primary-action-color);
     box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
   }
+
   &:hover:not(.hasError) {
     border-color: var(--light-primary-action-color);
   }
 }
+
 .ui-card-input-field__inputs {
   display: flex;
   justify-content: space-between;
   flex: 1;
   align-items: center;
 }
+
 .ui-card-input__pushed-right {
   display: flex;
   align-items: center;
 }
+
 .ui-card-input-field__pseudo-input input {
   border: none;
+
   &::placeholder {
     color: #b8c4ce;
   }
+
   &:focus {
     border: none;
     outline: none;
   }
+
   &.dark_mode {
     background: transparent;
     color: #fff;
+
     &::placeholder {
       color: var(--dark-input-label-color);
     }
   }
 }
+
 .ui-card-input-field__cvv,
 .ui-card-input-field__exp {
   width: 70px;
   background: transparent;
 }
+
 .ui-card-input-field__cvv {
   @media only screen and (max-width: 375px) {
     width: 40px;
   }
 }
+
 .ui-card-input-field__card-no {
   margin-right: 8px;
   @media only screen and (max-width: 500px) {
@@ -627,14 +646,17 @@ const handleCardNoKeyPress = (e) => {
     flex: 1;
   }
 }
+
 .ui-card-input-field__left-icon {
   margin-right: 8px;
   height: 24px;
   color: var(--light-primary-action-color);
+
   &.dark_mode {
     color: var(--dark-primary-action-color);
   }
 }
+
 .ui-card-input-field__right-icon {
   @media only screen and (max-width: 500px) {
     height: 24px;
