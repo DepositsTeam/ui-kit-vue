@@ -14,7 +14,6 @@
     }"
     ref="elem"
     :style="{ '--spacing-value': itemSpacing }"
-    v-bind="{ ...$props, ...$attrs }"
   >
     <slot></slot>
   </d-box>
