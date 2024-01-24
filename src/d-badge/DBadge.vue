@@ -42,7 +42,7 @@
 
 <script setup>
 import { DBox, DText } from "../main";
-import { generateColorSpectrum, getTextColor } from "../utils/colorManager";
+import { generateColorSpectrum, getTextColor } from "@/utils/colorManager";
 
 defineProps({
   colorScheme: {
