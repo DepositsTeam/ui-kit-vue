@@ -24,6 +24,7 @@
             v-if="title"
             font-face="circularSTD"
             scale="subhead"
+            data-test="title-text"
             class="text-grey-600"
             >{{ title }}</d-text
           >

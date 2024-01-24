@@ -7,6 +7,9 @@ import bundleScss from "rollup-plugin-bundle-scss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  test: {
+    environment: "jsdom",
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/main.js"),
