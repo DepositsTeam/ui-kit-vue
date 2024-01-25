@@ -48,6 +48,7 @@
           <d-box class="d-input-card__selector">
             <slot name="selector"></slot>
           </d-box>
+          <slot name="after-selector"></slot>
         </d-auto-layout>
       </d-auto-layout>
       <d-box
