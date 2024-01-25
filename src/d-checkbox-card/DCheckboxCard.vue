@@ -20,6 +20,15 @@
     <template #before-selector v-if="$slots[`before-selector`]">
       <slot name="before-selector"></slot>
     </template>
+    <template #after-selector v-if="$slots[`after-selector`]">
+      <slot name="after-selector"></slot>
+    </template>
+    <template #heading v-if="$slots[`heading`]">
+      <slot name="heading"></slot>
+    </template>
+    <template #description v-if="$slots[`description`]">
+      <slot name="description"></slot>
+    </template>
   </InputCard>
 </template>
 
