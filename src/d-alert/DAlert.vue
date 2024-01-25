@@ -59,27 +59,33 @@
           :is="schemeIcons[colorScheme]"
         ></component>
         <d-box class="ui-alert__text" flex="1">
-          <d-box v-if="message" class="ui-alert__header">
-            <d-heading scale="subtitle-2" class="ui-alert__header-text">
-              {{ message }}
-            </d-heading>
-          </d-box>
-          <d-text
-            v-if="description && theme !== 'inline'"
-            scale="subhead"
-            class="ui-alert__body"
-            :class="{ 'no-top': !message }"
-          >
-            {{ description }}
-          </d-text>
-          <d-box v-if="button" margin-top="16px">
-            <d-button v-bind="{ ...button }" @click="emitClick" size="small">{{
-              button.text
-            }}</d-button>
-          </d-box>
-          <d-box v-else-if="$slots.button">
-            <slot name="button"></slot>
-          </d-box>
+          <slot name="message">
+            <d-box v-if="message" class="ui-alert__header">
+              <d-heading scale="subtitle-2" class="ui-alert__header-text">
+                {{ message }}
+              </d-heading>
+            </d-box>
+          </slot>
+          <slot name="description">
+            <d-text
+              v-if="description && theme !== 'inline'"
+              scale="subhead"
+              class="ui-alert__body"
+              :class="{ 'no-top': !message }"
+            >
+              {{ description }}
+            </d-text>
+          </slot>
+          <slot name="button">
+            <d-box v-if="button" margin-top="16px">
+              <d-button
+                v-bind="{ ...button }"
+                @click="emitClick"
+                size="small"
+                >{{ button.text }}</d-button
+              >
+            </d-box>
+          </slot>
         </d-box>
       </d-box>
     </d-box>
@@ -102,8 +108,8 @@ import {
   CheckIcon,
 } from "../main";
 import { inject, ref } from "vue";
-import { getTextColor } from "../utils/colorManager";
-import { defaultThemeVars } from "../providers/default-theme";
+import { getTextColor } from "@/utils/colorManager";
+import { defaultThemeVars } from "@/providers/default-theme";
 
 const emit = defineEmits(["closed", "button-clicked"]);
 const d__theme = inject("d__theme", defaultThemeVars);
@@ -412,7 +418,8 @@ const emitClick = () => emit("button-clicked");
         }
       }
 
-      &.color-scheme__danger, &.color-scheme__error {
+      &.color-scheme__danger,
+      &.color-scheme__error {
         background: #d62f4b;
         .ui-alert__header-text {
           color: #fff;
