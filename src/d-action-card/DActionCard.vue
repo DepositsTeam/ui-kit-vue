@@ -1,36 +1,52 @@
 <template>
   <d-box class="d-action-card">
     <d-box class="d-action-card__header">
-      <d-box is="img" class="d-action-card__logo" :src="logo" :alt="title" />
-      <d-text my0 class="d-action-card__header__title" font-face="heroNew">{{
-        title
-      }}</d-text>
-      <d-text
-        class="d-action-card__header__description"
-        font-face="circularSTD"
-        my0
-        >{{ description }}</d-text
-      >
+      <slot name="logo">
+        <d-box is="img" class="d-action-card__logo" :src="logo" :alt="title" />
+      </slot>
+
+      <slot name="title">
+        <d-text my0 class="d-action-card__header__title" font-face="heroNew">{{
+          title
+        }}</d-text>
+      </slot>
+
+      <slot name="description">
+        <d-text
+          class="d-action-card__header__description"
+          font-face="circularSTD"
+          my0
+          >{{ description }}</d-text
+        >
+      </slot>
     </d-box>
     <d-box class="d-action-card__body">
       <slot name="buttons">
         <d-auto-layout>
-          <d-button
-            size="huge"
-            colorScheme="primary"
-            @click="emit('button1-clicked')"
-            :disabled="disable"
-          >
-            {{ button1Text }}
-          </d-button>
-          <d-button
-            size="huge"
-            :right-icon="ExternalLinkIcon"
-            colorScheme="neutral"
-            @click="emit('button2-clicked')"
-          >
-            {{ button2Text }}
-          </d-button>
+          <slot name="button1">
+            <d-button
+              v-if="button1Text"
+              size="huge"
+              colorScheme="primary"
+              @click="emit('button1Clicked')"
+              :disabled="disable"
+              data-test="button1"
+            >
+              {{ button1Text }}
+            </d-button>
+          </slot>
+
+          <slot name="button2">
+            <d-button
+              v-if="button2Text"
+              size="huge"
+              :right-icon="ExternalLinkIcon"
+              @click="emit('button2Clicked')"
+              data-test="button2"
+            >
+              {{ button2Text }}
+            </d-button>
+          </slot>
         </d-auto-layout>
       </slot>
     </d-box>
@@ -41,7 +57,7 @@
 import { DBox, DText, DButton, ExternalLinkIcon } from "@/main";
 import DAutoLayout from "@/d-auto-layout/DAutoLayout.vue";
 
-const emit = defineEmits(["button1-clicked", "button2-clicked"]);
+const emit = defineEmits(["button1Clicked", "button2Clicked"]);
 defineProps({
   title: {
     type: String,

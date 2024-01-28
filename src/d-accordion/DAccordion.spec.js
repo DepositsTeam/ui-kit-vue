@@ -34,6 +34,12 @@ test("toggles the accordion on click", async () => {
 
   await wrapper.get(".ui-accordion__header").trigger("click");
 
+  const emitted = wrapper.emitted("toggled-accordion");
+
+  expect(emitted).to.have.lengthOf(1);
+
+  expect(emitted[0][0]).to.be.true;
+
   expect(wrapper.get(".ui-accordion__content").text()).to.be.equal(
     "I am the expanded content"
   );
@@ -45,6 +51,10 @@ test("toggles the accordion on click", async () => {
   expect(wrapper.find(".ui-accordion__content").exists()).to.be.false;
 
   expect(wrapper.get(".ui-accordion__header").classes("active")).to.be.false;
+
+  expect(emitted).to.have.lengthOf(2);
+
+  expect(emitted[1][0]).to.be.false;
 });
 
 test("slots work as expected", async () => {

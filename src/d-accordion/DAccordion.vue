@@ -57,7 +57,12 @@ defineProps({
 
 const visible = ref(false);
 
-const toggleContent = () => (visible.value = !visible.value);
+const emit = defineEmits(["toggledAccordion"]);
+
+const toggleContent = () => {
+  visible.value = !visible.value;
+  emit("toggledAccordion", visible.value);
+};
 </script>
 
 <style scoped lang="scss">
