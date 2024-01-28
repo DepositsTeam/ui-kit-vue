@@ -10,6 +10,7 @@
         <slot name="title">
           <d-heading
             margin="0"
+            is="h5"
             scale="h5"
             margin-bottom="0.5rem"
             class="text-gray-700"
@@ -22,6 +23,7 @@
             font-face="circularSTD"
             class="text-gray-600"
             scale="subhead"
+            data-test="description"
             >{{ description }}
           </d-text>
         </slot>
@@ -31,7 +33,7 @@
               :size="buttonSize"
               :color-scheme="buttonColorScheme"
               :smart-color="buttonSmartColor"
-              @click="emit('clicked')"
+              @click="emit('buttonClick')"
               :text="buttonText"
               :right-icon="ArrowRightIcon"
             />
@@ -60,6 +62,7 @@ defineProps({
   },
   buttonSize: {
     type: String,
+    default: "large",
   },
   buttonColorScheme: {
     type: String,
@@ -69,7 +72,7 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["clicked"]);
+const emit = defineEmits(["buttonClick"]);
 </script>
 
 <style lang="scss" scoped></style>

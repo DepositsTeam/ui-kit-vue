@@ -26,11 +26,11 @@
           <slot name="button1">
             <d-button
               v-if="button1Text"
-              size="huge"
               colorScheme="primary"
               @click="emit('button1Clicked')"
               :disabled="disable"
               data-test="button1"
+              :size="buttonSize"
             >
               {{ button1Text }}
             </d-button>
@@ -39,10 +39,10 @@
           <slot name="button2">
             <d-button
               v-if="button2Text"
-              size="huge"
               :right-icon="ExternalLinkIcon"
               @click="emit('button2Clicked')"
               data-test="button2"
+              :size="buttonSize"
             >
               {{ button2Text }}
             </d-button>
@@ -86,6 +86,10 @@ defineProps({
   button2Text: {
     type: String,
     default: "Learn More",
+  },
+  buttonSize: {
+    type: String,
+    default: "large",
   },
 });
 </script>

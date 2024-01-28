@@ -1,5 +1,6 @@
 <template>
   <d-box
+    v-bind="{ ...$props, ...$attrs }"
     class="ui-heading"
     :font-face="computedFontFace"
     :class="{
@@ -15,7 +16,6 @@
       customLineHeight: lineHeight,
     }"
     :is="is"
-    v-bind="{ ...$props, ...$attrs }"
   >
     <slot></slot>
   </d-box>
