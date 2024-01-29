@@ -72,7 +72,7 @@ import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);

@@ -35,8 +35,8 @@
 <script setup>
 import { DCheckbox } from "@/main";
 import { useCheckbox } from "@/utils/composables/useCheckbox";
-import InputCard from "@/composed-components/input-card/InputCard.vue";
-import inputCardProps from "@/composed-components/input-card/inputCardProps";
+import InputCard from "@/components/input-card/InputCard.vue";
+import inputCardProps from "@/components/input-card/inputCardProps";
 
 const props = defineProps({
   ...inputCardProps,

@@ -49,7 +49,7 @@ import { computed, onMounted, watch } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import { useImmer } from "@/utils/composables/useImmer";
-import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -164,7 +164,7 @@ const handleKeyDown = async (e, index) => {
         // .getElementsByTagName("input")[0];
         nextInput.select();
         e.preventDefault();
-        return;
+
       }
     }
   }

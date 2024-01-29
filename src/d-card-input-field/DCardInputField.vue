@@ -118,7 +118,7 @@ import { computed, ref } from "vue";
 import cardValidator from "card-validator";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -484,14 +484,14 @@ const handleCardNoKeyPress = (e) => {
         e.preventDefault();
         cardNoInput.value.$el.blur();
         cardExpInput.value.$el.focus();
-        return;
+
       }
     } else {
       if (strippedCardNo.length >= 16) {
         e.preventDefault();
         cardNoInput.value.$el.blur();
         cardExpInput.value.$el.focus();
-        return;
+
       }
     }
   }
