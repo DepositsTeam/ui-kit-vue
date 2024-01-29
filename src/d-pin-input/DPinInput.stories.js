@@ -1,11 +1,13 @@
 import DPinInput from "./DPinInput.vue";
 import { DarkModeProvider, ThemeProvider } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Pin Input",
   component: DPinInput,
   tags: ["autodocs"],
   argTypes: {
+    ...inputArgTypes,
     spacing: {
       control: { type: "text" },
     },

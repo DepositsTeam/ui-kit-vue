@@ -8,12 +8,35 @@ import {
   DBox,
   DAutoLayout,
 } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Checkbox Card",
   component: DCheckboxCard,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    labelClass: {
+      control: { type: "text" },
+    },
+    labelFontFace: {
+      control: { type: "text" },
+    },
+    heading: {
+      control: { type: "text" },
+    },
+    description: {
+      control: { type: "text" },
+    },
+    label: {
+      control: { type: "text" },
+    },
+    expandOnChecked: {
+      control: { type: "text" },
+    },
+    expandable: {
+      control: { type: "text" },
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -93,13 +93,16 @@ export const inputArgTypes = {
   label: {
     control: { type: "text" },
   },
+  labelClass: {
+    control: { type: "text" },
+  },
+  labelFontFace: {
+    control: { type: "text" },
+  },
   placeholder: {
     control: { type: "text" },
   },
   disabled: {
-    control: { type: "boolean" },
-  },
-  dropDown: {
     control: { type: "boolean" },
   },
   size: {
@@ -108,15 +111,6 @@ export const inputArgTypes = {
   },
   errorMessage: {
     control: { type: "text" },
-  },
-  rightIcon: {
-    control: { type: "object" },
-  },
-  leftIcon: {
-    control: { type: "object" },
-  },
-  onlyNumbers: {
-    control: { type: "boolean" },
   },
   wrapperClass: {
     control: { type: "text" },

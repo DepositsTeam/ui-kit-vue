@@ -1,50 +1,16 @@
 import DDropdown from "./DDropdown.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import ThemeProvider from "../providers/ThemeProvider.vue";
+import { inputArgTypes } from "@/utils/props/inputProps";
+import { selectArgTypes } from "@/utils/props/selectProps";
 
 export default {
   title: "Forms/Dropdown",
   component: DDropdown,
   tags: ["autodocs"],
   argTypes: {
-    label: {
-      control: { type: "text" },
-    },
-    placeholder: {
-      control: { type: "text" },
-    },
-    disabled: {
-      control: { type: "boolean" },
-    },
-    dropDown: {
-      control: { type: "boolean" },
-    },
-    size: {
-      control: { type: "select" },
-      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
-    },
-    errorMessage: {
-      control: { type: "text" },
-    },
-    rightIcon: {
-      control: { type: "object" },
-    },
-    leftIcon: {
-      control: { type: "object" },
-    },
-    onlyNumbers: {
-      control: { type: "boolean" },
-    },
-    wrapperClass: {
-      control: { type: "text" },
-    },
-    fontFace: {
-      control: { type: "select" },
-      options: ["circularSTD", "heroNew"],
-    },
-    options: {
-      control: { type: "object" },
-    },
+    ...inputArgTypes,
+    ...selectArgTypes,
   },
 };
 

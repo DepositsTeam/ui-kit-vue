@@ -1,51 +1,23 @@
 import DSelect from "./DSelect.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import Search from "../icons/SearchIcon.vue";
+import { inputArgTypes } from "@/utils/props/inputProps";
+import { selectArgTypes } from "@/utils/props/selectProps";
 
 export default {
   title: "Forms/Select Field",
   component: DSelect,
   tags: ["autodocs"],
   argTypes: {
-    label: {
-      control: { type: "text" },
-    },
-    size: {
-      control: { type: "select" },
-      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
-    },
+    ...inputArgTypes,
     leftIcon: {
       control: { type: "object" },
-    },
-    errorMessage: {
-      control: { type: "text" },
-    },
-    wrapperClass: {
-      control: { type: "text" },
-    },
-    options: {
-      control: { type: "object" },
-      table: {
-        defaultValue: ["Item 1", "Item 2", "Item 3"],
-      },
     },
     placeholderEffect: {
       control: { type: "boolean" },
       table: {
         defaultValue: true,
       },
-    },
-    disabled: {
-      control: { type: "boolean" },
-    },
-    optionTitle: {
-      control: { type: "text" },
-    },
-    optionValue: {
-      control: { type: "text" },
-    },
-    returnFullObject: {
-      control: { type: "boolean" },
     },
   },
 };

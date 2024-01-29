@@ -2,6 +2,7 @@ import DTagDropdown from "./DTagDropdown.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import { inputArgTypes } from "../utils/props/inputProps";
 import { ExternalLinkIcon } from "../main";
+import { selectArgTypes } from "@/utils/props/selectProps";
 
 export default {
   title: "Forms/Tag Dropdown",
@@ -9,14 +10,11 @@ export default {
   tags: ["autodocs"],
   argTypes: {
     ...inputArgTypes,
-    placeholder: {
-      control: { type: "text" },
-    },
     showCheckboxes: {
       control: { type: "boolean" },
     },
-    options: {
-      control: { type: "object" },
+    loading: {
+      control: { type: "boolean" },
     },
   },
 };

@@ -1,11 +1,34 @@
 import DCounter from "./DCounter.vue";
 import { DarkModeProvider } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Counter",
   component: DCounter,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    fontFace: {
+      control: { type: "text" },
+    },
+    errorMessage: {
+      control: { type: "text" },
+    },
+    name: {
+      control: { type: "text" },
+    },
+    label: {
+      control: { type: "text" },
+    },
+    labelFontFace: {
+      control: { type: "text" },
+    },
+    labelClass: {
+      control: { type: "text" },
+    },
+    placeholder: {
+      control: { type: "text" },
+    },
+  },
 };
 
 const Template = (args) => ({
