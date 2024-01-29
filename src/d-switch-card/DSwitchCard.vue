@@ -30,8 +30,8 @@
 </template>
 
 <script setup>
-import InputCard from "@/composed-components/input-card/InputCard.vue";
-import inputCardProps from "@/composed-components/input-card/inputCardProps";
+import InputCard from "@/components/input-card/InputCard.vue";
+import inputCardProps from "@/components/input-card/inputCardProps";
 import { useCheckbox } from "@/utils/composables/useCheckbox";
 import DSwitch from "@/d-switch/DSwitch.vue";
 

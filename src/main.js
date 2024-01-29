@@ -32,6 +32,7 @@ export { default as DDebitCardBalance } from "./d-debit-card-balance/DDebitCardB
 export { default as DDebitCardVertical } from "./d-debit-card-vertical/DDebitCardVertical.vue";
 export { default as DDropdown } from "./d-dropdown/DDropdown.vue";
 export { default as DEmptyState } from "./d-empty-state/DEmptyState.vue";
+export { default as DErrorMessage } from "./components/forms/DErrorMessage.vue";
 export { default as DFilePicker } from "./d-file-picker/DFilePicker.vue";
 export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
 export { default as DFilterDropdown } from "./d-filter-dropdown/DFilterDropdown.vue";

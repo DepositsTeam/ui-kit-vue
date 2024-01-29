@@ -98,7 +98,7 @@ import {
 import { useFilePicker } from "@/utils/composables/useFilePicker";
 import { ref } from "vue";
 import FileIcon from "@/icons/FileIcon.vue";
-import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 
 const props = defineProps({
   fileMaxSize: {
