@@ -9,6 +9,12 @@ export default {
     label: {
       control: { type: "text" },
     },
+    labelClass: {
+      control: { type: "text" },
+    },
+    labelFontFace: {
+      control: { type: "text" },
+    },
     dropDown: {
       control: { type: "boolean" },
     },
@@ -24,9 +30,6 @@ export default {
     },
     leftIcon: {
       control: { type: "object" },
-    },
-    onlyNumbers: {
-      control: { type: "boolean" },
     },
     wrapperClass: {
       control: { type: "text" },

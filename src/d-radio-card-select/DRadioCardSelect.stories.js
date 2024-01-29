@@ -1,10 +1,15 @@
 import DRadioCardSelect from "./DRadioCardSelect.vue";
 import { DAutoLayout } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
+import { selectArgTypes } from "@/utils/props/selectProps";
 
 export default {
   component: DRadioCardSelect,
   title: "Forms/Radio Card Select",
-  argTypes: {},
+  argTypes: {
+    ...inputArgTypes,
+    ...selectArgTypes,
+  },
   tags: ["autodocs"],
 };
 

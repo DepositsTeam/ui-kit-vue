@@ -1,11 +1,13 @@
 import DPhoneInput from "./DPhoneInput.vue";
 import { DarkModeProvider } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Phone Field",
   component: DPhoneInput,
   tags: ["autodocs"],
   argTypes: {
+    ...inputArgTypes,
     size: {
       control: { type: "select" },
       options: ["small", "medium", "large", "xlarge", "huge", "massive"],
