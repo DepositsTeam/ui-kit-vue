@@ -1,6 +1,9 @@
 <template>
   <d-box
-    :class="`size__${computedInputSize}`"
+    :class="{
+      [`size__${computedInputSize}`]: true,
+      disabled,
+    }"
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <slot name="label">
@@ -24,7 +27,7 @@
         class="ui-card-input-field__pseudo-input"
         :class="{
           focus: pseudoCardInputIsFocused,
-          hasError: computedCardErrorMessage
+          hasError: computedCardErrorMessage,
         }"
         ref="pseudoInput"
       >
@@ -52,12 +55,13 @@
             :value="cardNoDisplay"
             @focus="handleCardNoFocus"
             @blur="handleCardNoBlur"
-            @keypress="handleCardNoKeyPress"
+            @keyup="handleCardNoKeyPress"
             @keydown="handleCardNoKeyDown"
             @change="handleCardNoChange"
             @input="handleCardNoInput"
             ref="cardNoInput"
             :id="computedID"
+            :disabled="disabled"
           />
           <d-box class="ui-card-input__pushed-right">
             <d-box
@@ -68,11 +72,12 @@
               :value="cardExp"
               @focus="handleCardExpFocus"
               @blur="handleCardExpBlur"
-              @keypress="allowOnlyNumbers"
+              @keyup="allowOnlyNumbers"
               @paste="handleCardExpInput"
               @change="handleCardExpInput"
               @input="handleCardExpInput"
               ref="cardExpInput"
+              :disabled="disabled"
             />
             <d-box
               is="input"
@@ -83,8 +88,9 @@
               :value="cardCvv"
               @focus="handleCardCVVFocus"
               @blur="handleCardCVVBlur"
-              @keypress="allowOnlyNumbers"
+              @keyup="allowOnlyNumbers"
               ref="cardCVCInput"
+              :disabled="disabled"
             />
             <ScanCardIcon
               v-if="!hideScanIcon"
@@ -496,6 +502,15 @@ const handleCardNoKeyPress = (e) => {
 .ui-card-input-field__wrapper {
   display: flex;
   flex-direction: column;
+
+  &.disabled,
+  &.disabled * {
+    cursor: not-allowed;
+  }
+
+  & input:disabled {
+    background: transparent;
+  }
 
   &.size__massive {
     .ui-card-input-field__pseudo-input {

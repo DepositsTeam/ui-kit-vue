@@ -1,11 +1,13 @@
 import DTagInput from "./DTagInput.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Tag Input",
   component: DTagInput,
   tags: ["autodocs"],
   argTypes: {
+    ...inputArgTypes,
     label: {
       control: { type: "text" },
     },

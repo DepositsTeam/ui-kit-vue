@@ -1,61 +1,15 @@
 import DCountryDropdown from "./DCountryDropdown.vue";
 import { DSelect } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
+import { selectArgTypes } from "@/utils/props/selectProps";
 
 export default {
   component: DCountryDropdown,
   title: "Forms/Country Dropdown",
   tags: ["autodocs"],
   argTypes: {
-    label: {
-      control: { type: "text" },
-    },
-    placeholder: {
-      control: { type: "text" },
-    },
-    disabled: {
-      control: { type: "boolean" },
-    },
-    dropDown: {
-      control: { type: "boolean" },
-    },
-    size: {
-      control: { type: "select" },
-      options: ["small", "medium", "large", "xlarge", "huge", "massive"],
-    },
-    errorMessage: {
-      control: { type: "text" },
-    },
-    rightIcon: {
-      control: { type: "object" },
-    },
-    leftIcon: {
-      control: { type: "object" },
-    },
-    onlyNumbers: {
-      control: { type: "boolean" },
-    },
-    wrapperClass: {
-      control: { type: "text" },
-    },
-    fontFace: {
-      control: { type: "select" },
-      options: ["circularSTD", "heroNew"],
-    },
-    optionTitle: {
-      control: { type: "text" },
-      table: {
-        defaultValue: "name",
-      },
-    },
-    optionValue: {
-      control: { type: "text" },
-      table: {
-        defaultValue: "iso2",
-      },
-    },
-    returnFullObject: {
-      control: { type: "boolean" },
-    },
+    ...inputArgTypes,
+    ...selectArgTypes,
   },
 };
 
@@ -80,8 +34,8 @@ const Template = (args) => ({
   template: `
     <d-country-dropdown v-bind="args" v-model="country" @states-changed="hydrateStates" />
     <d-select name="States" :options="states" v-model="selectedState" />
-    <p>Selected states: {{states}}</p>
-    <p>Selected country: {{country}}</p>
+    <p>Selected states: {{ states }}</p>
+    <p>Selected country: {{ country }}</p>
   `,
 });
 

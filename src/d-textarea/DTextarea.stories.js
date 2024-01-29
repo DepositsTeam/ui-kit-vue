@@ -1,11 +1,13 @@
 import DTextarea from "./DTextarea.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Text Area",
   component: DTextarea,
   tags: ["autodocs"],
   argTypes: {
+    ...inputArgTypes,
     label: {
       control: { type: "text" },
     },

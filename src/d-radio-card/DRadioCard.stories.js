@@ -8,12 +8,27 @@ import {
   DAutoLayout,
   BankIcon,
 } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Radio Card",
   component: DRadioCard,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    ...inputArgTypes,
+    value: {
+      control: { type: "text" },
+    },
+    ringed: {
+      control: { type: "boolean" },
+    },
+    ringSize: {
+      control: { type: "text" },
+    },
+    ringThickness: {
+      control: { type: "text" },
+    },
+  },
 };
 
 const Template = (args) => ({

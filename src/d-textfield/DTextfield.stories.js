@@ -2,13 +2,18 @@ import DTextfield from "./DTextfield.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 import Search from "../icons/SearchIcon.vue";
 import { DBox } from "../main";
+import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Text Field",
   component: DTextfield,
   tags: ["autodocs"],
   argTypes: {
+    ...inputArgTypes,
     label: {
+      control: { type: "text" },
+    },
+    labelClass: {
       control: { type: "text" },
     },
     placeholder: {
