@@ -186,7 +186,7 @@ import { useInputSize } from "@/utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 
 const emit = defineEmits([
   "update:modelValue",

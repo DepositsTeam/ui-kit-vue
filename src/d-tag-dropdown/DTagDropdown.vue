@@ -185,7 +185,7 @@ import { useDropdown } from "@/utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/composed-components/forms/ErrorMessage.vue";
+import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 
 const props = defineProps({
   ...inputProps,

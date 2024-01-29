@@ -38,8 +38,8 @@
 </template>
 
 <script setup>
-import InputCard from "@/composed-components/input-card/InputCard.vue";
-import inputCardProps from "@/composed-components/input-card/inputCardProps";
+import InputCard from "@/components/input-card/InputCard.vue";
+import inputCardProps from "@/components/input-card/inputCardProps";
 import { useRadio } from "@/utils/composables/useRadio";
 import DRadio from "@/d-radio/DRadio.vue";
 
