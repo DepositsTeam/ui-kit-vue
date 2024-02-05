@@ -288,7 +288,6 @@
                 enableHover: enableRowHoverCursor,
                 isSelected: expandedData && expandedData.index === columnIndex,
               }"
-              @click="(e) => emitRowClickedEvent(e, datum, columnIndex)"
             >
               <d-box
                 is="td"
@@ -306,6 +305,7 @@
               </d-box>
               <d-box
                 is="td"
+                @click="(e) => emitRowClickedEvent(e, datum, columnIndex)"
                 v-for="(column, index) in filteredRenderedColumns"
                 :key="`table_column__${index}`"
                 class="ui-table__body-cell"
@@ -499,6 +499,7 @@ const emit = defineEmits([
   "export",
   "download-csv",
   "async-table-update",
+  "rows-selected",
 ]);
 const isExpanded = ref(false);
 
@@ -675,6 +676,17 @@ const filter = ref({
 const updateFilterValue = (value) => (filter.value = value);
 
 const selectedItems = shallowRef([]);
+
+watch(selectedItems, () => {
+  emit(
+    "rows-selected",
+    selectedItems.value.map((id) =>
+      paginatedData.value.find(
+        (item) => item[props.checkboxDataSelector] === id
+      )
+    )
+  );
+});
 
 const toggleActiveFilters = async (e) => {
   if (e !== false && e && e.target.classList.contains("activeFiltersTrigger")) {
