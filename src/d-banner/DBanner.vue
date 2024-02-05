@@ -40,26 +40,28 @@
               :is="icon || schemeIcons[colorScheme]"
             ></component>
 
-            <slot name="content">
-              <slot name="title">
-                <d-text
-                  scale="subhead"
-                  class="ui-banner__title text-gray-700"
-                  font-face="circularSTD"
-                >
-                  <d-box is="span">{{ title }}</d-box></d-text
-                >
-              </slot>
+            <slot>
+              <d-auto-layout item-spacing="4px" flex-wrap="wrap">
+                <slot name="title">
+                  <d-text
+                    scale="subhead"
+                    class="ui-banner__title text-gray-700"
+                    font-face="circularSTD"
+                  >
+                    {{ title }}</d-text
+                  >
+                </slot>
 
-              <slot name="description">
-                <d-text
-                  scale="subhead"
-                  class="ui-banner__description"
-                  font-face="circularSTD"
-                  v-if="!$slots.default && description"
-                  ><d-box is="span" v-html="description"></d-box
-                ></d-text>
-              </slot>
+                <slot name="description">
+                  <d-text
+                    scale="subhead"
+                    class="ui-banner__description"
+                    font-face="circularSTD"
+                    v-if="!$slots.default && description"
+                    v-html="description"
+                  ></d-text>
+                </slot>
+              </d-auto-layout>
             </slot>
           </d-box>
         </d-box>
@@ -87,6 +89,7 @@ import {
   WarningIcon,
 } from "../main";
 import { getSubtitleColor, getTextColor } from "@/utils/colorManager";
+import DAutoLayout from "@/d-auto-layout/DAutoLayout.vue";
 
 const schemeIcons = {
   info: InfoIcon,
