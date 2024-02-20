@@ -40,8 +40,8 @@
               [option.className]: option.className,
               custom_color: option.textColor,
             }"
-            >{{ option.text }}</d-text
-          >
+            >{{ option.text }}
+          </d-text>
         </d-box>
       </d-box>
     </Teleport>
@@ -70,6 +70,9 @@ const props = defineProps({
     default: "click",
     validator: (value) => ["click", "hover"].includes(value),
   },
+  alignRight: {
+    type: Boolean,
+  },
 });
 
 const emit = defineEmits(["option-clicked", "menu-state-changed"]);
@@ -92,7 +95,7 @@ const updateDropdown = () => {
   }
 
   computePosition(targetRef.value.$el, dropdownRef.value.$el, {
-    placement: "bottom-start",
+    placement: props.alignRight ? "bottom-end" : "bottom-start",
     middleware: [offset(0), flip(), shift({ padding: 5 })],
   }).then(({ x, y }) => {
     Object.assign(dropdownRef.value.$el.style, {
@@ -199,47 +202,69 @@ watch(hidden, (val) => {
   top: 0;
   left: 0;
   border: 0.5px solid #f1f1f1;
+
+  &.alignRight {
+    right: 0;
+  }
+
+  &:not(.alignRight) {
+    left: 0;
+  }
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);
   }
+
   &.hidden {
     display: none;
   }
 }
+
 .d-context-menu-dropdown-option__text {
   font-weight: 450;
   color: #5f6b7a;
+
   &.custom_color {
     color: var(--custom-option-color);
   }
+
   &.dark_mode:not(.custom_color) {
     color: var(--dark-subtle-text-color);
   }
 }
+
 .d-context-menu-dropdown-target {
   display: inline-block;
 }
+
 .d-context-menu-dropdown-option {
   cursor: pointer;
+
   &.disabled {
     cursor: not-allowed;
     opacity: 0.4;
   }
+
   padding: 10px 16px;
+
   &:first-child {
     border-radius: 6px 6px 0 0;
   }
+
   &:last-child {
     border-radius: 0 0 6px 6px;
   }
+
   &:hover {
     background: #f7f7f7;
+
     &.dark_mode {
       background: var(--dark-input-border-color);
     }
   }
 }
+
 .d-context-menu-dropdown-wrapper {
   width: max-content;
   position: relative;
