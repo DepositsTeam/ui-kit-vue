@@ -1,47 +1,54 @@
 <template>
-  <d-box class="ui-filter-dropdown">
-    <d-button :size="size" drop-down @click="toggleShowOptions">
-      <template #left-icon>
+  <d-box class="ui-filter-dropdown" ref="dropdownWrapperRef">
+    <d-button ref="targetRef" :size="size" drop-down @click="handleTargetClick">
+      <template v-if="!hideLeftIcon" #left-icon>
         <funnel-icon />
       </template>
       {{ selectedOption.text }}
     </d-button>
 
-    <d-box v-show="showOptions" class="ui-filter-dropdown__options">
+    <Teleport to="body">
       <d-box
-        v-for="(option, index) in computedOptions"
-        :key="`option-${index}`"
-        class="ui-filter-dropdown__option"
-        :class="{ active: selectedOption.value === option.value }"
-        @click="handleOptionClick(option)"
+        :class="{ hidden }"
+        ref="dropdownRef"
+        class="ui-filter-dropdown__options"
       >
-        <d-box class="ui-dropdown__icon">
-          <d-radio ringed :checked="selectedOption.value === option.value" />
-        </d-box>
-        <d-text
-          dark-class=""
-          margin-y="0"
-          scale="subhead"
-          font-face="circularSTD"
+        <d-box
+          v-for="(option, index) in computedOptions"
+          :key="`option-${index}`"
+          class="ui-filter-dropdown__option"
+          :class="{ active: selectedOption.value === option.value }"
+          @click="handleOptionClick(option)"
         >
-          {{ typeof option === "string" ? option : option.text }}
-        </d-text>
+          <d-box class="ui-dropdown__icon">
+            <d-radio ringed :checked="selectedOption.value === option.value" />
+          </d-box>
+          <d-text
+            dark-class=""
+            margin-y="0"
+            scale="subhead"
+            font-face="circularSTD"
+          >
+            {{ typeof option === "string" ? option : option.text }}
+          </d-text>
+        </d-box>
+        <d-box
+          display="flex"
+          justify-content="center"
+          alignment="center"
+          v-if="fetching"
+        >
+          <d-loader transform="scale(0.25)"></d-loader>
+        </d-box>
       </d-box>
-      <d-box
-        display="flex"
-        justify-content="center"
-        alignment="center"
-        v-if="fetching"
-      >
-        <d-loader transform="scale(0.25)"></d-loader>
-      </d-box>
-    </d-box>
+    </Teleport>
   </d-box>
 </template>
 <script setup>
 import { DBox, FunnelIcon, DText, DLoader, DRadio, DButton } from "../main";
 import { onMounted, onUnmounted, ref, watch } from "vue";
-import { useDropdown } from "../utils/composables/useDropdown";
+import { useDropdown } from "@/utils/composables/useDropdown";
+import { useFloatDropdown } from "@/utils/composables/useFloatDropdown";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -55,8 +62,6 @@ const handleOptionClick = (option) => {
   emitOption(option);
   showOptions.value = false;
 };
-
-const toggleShowOptions = () => (showOptions.value = !showOptions.value);
 
 const props = defineProps({
   minWidth: {
@@ -90,6 +95,10 @@ const props = defineProps({
     validator: (value) =>
       ["small", "medium", "large", "xlarge", "huge", "massive"].includes(value),
     default: "huge",
+  },
+  hideLeftIcon: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -133,6 +142,14 @@ onUnmounted(() => {
 
 const { computedOptions } = useDropdown(props);
 
+const {
+  targetRef,
+  dropdownRef,
+  hidden,
+  dropdownWrapperRef,
+  handleTargetClick,
+} = useFloatDropdown();
+
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -154,65 +171,69 @@ watch(
 .ui-filter-dropdown {
   position: relative;
   display: inline-block;
-  .ui-filter__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f5f8fa;
-    border-radius: 6px;
-    border: 1px solid #e1e7ec;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    padding: 11px 24px;
+}
+.ui-filter__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f8fa;
+  border-radius: 6px;
+  border: 1px solid #e1e7ec;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  padding: 11px 24px;
 
-    &:hover {
-      background: #e1e7ec;
-    }
+  &:hover {
+    background: #e1e7ec;
   }
-  .ui-filter-dropdown__options {
-    width: 100%;
-    background: white;
-    border-radius: 6px;
-    border: 1px solid #e1e7ec;
-    max-height: 400px;
-    overflow-y: auto;
-    position: absolute;
-    z-index: 99;
-    top: 100%;
+}
+.ui-filter-dropdown__options {
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e1e7ec;
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+
+  &.hidden {
+    display: none;
   }
-  .ui-filter-dropdown__option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 8px;
-    cursor: pointer;
-    .ui-dropdown__icon {
-      margin-right: 8px;
-    }
+}
+.ui-filter-dropdown__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 8px;
+  cursor: pointer;
+  .ui-dropdown__icon {
+    margin-right: 8px;
+  }
+  &.dark_mode {
+    color: #94a3b8;
+  }
+  &.active,
+  &:hover {
+    background: #f2fafc;
+    color: var(--light-primary-color);
+    position: relative;
     &.dark_mode {
-      color: #94a3b8;
+      background: #041d25;
+      color: var(--dark-primary-color);
     }
-    &.active,
-    &:hover {
-      background: #f2fafc;
-      color: var(--light-primary-color);
-      position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0.5px;
+      width: 2px;
+      height: 100%;
+      border-radius: 0 2px 2px 0;
+      background: var(--light-primary-color);
       &.dark_mode {
-        background: #041d25;
-        color: var(--dark-primary-color);
-      }
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0.5px;
-        width: 2px;
-        height: 100%;
-        border-radius: 0 2px 2px 0;
-        background: var(--light-primary-color);
-        &.dark_mode {
-          background: var(--dark-primary-color);
-        }
+        background: var(--dark-primary-color);
       }
     }
   }
