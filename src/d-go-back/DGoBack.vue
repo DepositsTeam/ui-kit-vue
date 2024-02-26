@@ -54,7 +54,7 @@ const props = defineProps({
 const emit = defineEmits(["trigger"]);
 
 const goBack = () => {
-  if (!props.isManuallyTriggered) {
+  if (props.isManuallyTriggered) {
     emit("trigger");
   } else {
     if (!props.url) {
