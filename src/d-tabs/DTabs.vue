@@ -211,6 +211,7 @@ const switchActiveTabs = (index, tab) => {
   align-self: flex-end;
   display: flex;
   width: 100%;
+  overflow-x: auto;
   &.underline_card {
     top: 1rem;
   }
