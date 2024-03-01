@@ -53,7 +53,7 @@ const Template = (args) => ({
     cardCVC: "",
     cardExp: "",
   }),
-  template: `<d-credit-card-input disabled v-model:card-exp="cardExp" v-model:card-no="cardNo" v-model:card-cvv="cardCVC" v-bind="args" />`,
+  template: `<d-credit-card-input v-model:card-exp="cardExp" v-model:card-no="cardNo" v-model:card-cvv="cardCVC" v-bind="args" />`,
 });
 
 const DarkModeTemplate = (args) => ({

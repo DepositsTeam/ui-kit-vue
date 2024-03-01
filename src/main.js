@@ -86,6 +86,7 @@ export {
   asteriskCvv,
   asteriskExp,
   CardBrands,
+  getCardBrandFromPan,
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
 
