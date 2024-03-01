@@ -1,3 +1,5 @@
+import cardValidator from "card-validator";
+
 export const BRAND_ALIAS = {
   AMEX: 0,
   DISCOVER: 1,
@@ -101,3 +103,9 @@ export const CardBrands = [
   "verve",
   "jcb",
 ];
+
+export const isValidCardPan = (pan) => {
+  const validatedCardNo = cardValidator.number(pan.replaceAll(" ", ""));
+
+  return !!(!validatedCardNo.isPotentiallyValid && validatedCardNo.card);
+};

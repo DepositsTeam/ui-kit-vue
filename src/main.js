@@ -87,6 +87,7 @@ export {
   asteriskExp,
   CardBrands,
   getCardBrandFromPan,
+  isValidCardPan,
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
 
