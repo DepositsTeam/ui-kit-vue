@@ -1,9 +1,57 @@
+import cardValidator from "card-validator";
+
 export const BRAND_ALIAS = {
   AMEX: 0,
   DISCOVER: 1,
   MASTERCARD: 2,
   VISACARD: 3,
   NOCARD: -1,
+};
+
+export const getCardBrandFromPan = (pan) => {
+  const value = pan.replace(/\s/g, "");
+
+  switch (value.charAt(0)) {
+    case "5":
+      return {
+        alias: BRAND_ALIAS.MASTERCARD,
+        name: "MASTERCARD",
+      };
+    case "3":
+      if (value.length >= 2) {
+        if (value.charAt(1) == "4" || value.charAt(1) == "7") {
+          return {
+            alias: BRAND_ALIAS.AMEX,
+            name: "AMERICAN EXPRESS",
+          };
+        } else {
+          return {
+            alias: BRAND_ALIAS.NOCARD,
+            name: "invalid",
+          };
+        }
+      } else {
+        return {
+          alias: BRAND_ALIAS.AMEX,
+          name: "AMERICAN EXPRESS",
+        };
+      }
+    case "6":
+      return {
+        alias: BRAND_ALIAS.DISCOVER,
+        name: "DISCOVER",
+      };
+    case "4":
+      return {
+        alias: BRAND_ALIAS.VISACARD,
+        name: "VISA",
+      };
+    default:
+      return {
+        alias: BRAND_ALIAS.NOCARD,
+        name: "invalid",
+      };
+  }
 };
 
 export const formatCardNo = (e) => {
@@ -28,26 +76,8 @@ export const formatCardNo = (e) => {
     }
     return pseudoValue.trim();
   };
-  switch (value.charAt(0)) {
-    case "5":
-      return parse(BRAND_ALIAS.MASTERCARD);
-    case "3":
-      if (value.length >= 2) {
-        if (value.charAt(1) == "4" || value.charAt(1) == "7") {
-          return parse(BRAND_ALIAS.AMEX);
-        } else {
-          return parse(BRAND_ALIAS.NOCARD);
-        }
-      } else {
-        return parse(BRAND_ALIAS.AMEX);
-      }
-    case "6":
-      return parse(BRAND_ALIAS.DISCOVER);
-    case "4":
-      return parse(BRAND_ALIAS.VISACARD);
-    default:
-      return parse(BRAND_ALIAS.NOCARD);
-  }
+
+  return parse(getCardBrandFromPan(value).alias);
 };
 
 export const asteriskCardNo = (cardNo) => {
@@ -73,3 +103,9 @@ export const CardBrands = [
   "verve",
   "jcb",
 ];
+
+export const isValidCardPan = (pan) => {
+  const validatedCardNo = cardValidator.number(pan.replaceAll(" ", ""));
+
+  return !!(!validatedCardNo.isPotentiallyValid && validatedCardNo.card);
+};
