@@ -100,9 +100,11 @@ const props = defineProps({
   },
   greyContent: {
     type: Boolean,
+    default: true,
   },
   roundedBorders: {
     type: Boolean,
+    default: true,
   },
   minModalWidth: {
     type: String,
@@ -223,6 +225,8 @@ watch(
     max-width: calc(100vw - 60px);
     max-height: calc(100svh - (24px * 2));
     overflow-y: auto;
+    box-shadow: 0px 4px 8px 0px #032F3C24;
+
 
     &.maxWidth {
       max-width: var(--max-modal-width);
