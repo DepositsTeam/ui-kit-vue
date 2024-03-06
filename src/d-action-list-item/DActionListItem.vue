@@ -23,6 +23,7 @@
                 <d-text
                   my0
                   font-face="circularSTD"
+                  data-test="title"
                   color="#000000"
                   font-size="15px"
                   margin-bottom="0"
@@ -35,6 +36,7 @@
                   font-size="13px"
                   margin-top="5px"
                   my0
+                  data-test="description"
                   font-face="circularSTD"
                   >{{ description }}
                 </d-text>
@@ -46,6 +48,7 @@
               <d-text
                 class="ui-action-list__subtitle-text"
                 font-face="circularSTD"
+                data-test="subtitle"
                 v-if="subtitle"
                 >{{ subtitle }}
               </d-text>
