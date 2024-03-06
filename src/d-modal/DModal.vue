@@ -100,7 +100,7 @@ const props = defineProps({
   },
   greyContent: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   roundedBorders: {
     type: Boolean,
