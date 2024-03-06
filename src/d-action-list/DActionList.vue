@@ -4,13 +4,14 @@
       <d-box class="ui-action-list__header__left">
         <d-text font-face="circularSTD">{{ label }}</d-text>
       </d-box>
-      <d-box class="ui-action-list__header__left">
-        <slot name="call-to-action">
+      <d-box class="ui-action-list__header__right">
+        <slot name="callToAction" v-if="!hideCallToAction">
           <d-button
             colorScheme="primary"
             :left-icon="AddIcon"
             :size="size"
             @click="emit('call-to-action-clicked')"
+            data-test="call-to-action-button"
           >
             {{ callToActionText }}
           </d-button>
@@ -30,6 +31,7 @@
             :button-smart-color="listItem.buttonSmartColor"
             :buttonText="listItem.buttonText"
             @clicked="listActionClicked(listItem)"
+            data-test="action-list-item"
           />
         </d-box>
       </slot>
@@ -55,6 +57,9 @@ defineProps({
   callToActionText: {
     type: String,
     default: "New Connection",
+  },
+  hideCallToAction: {
+    type: Boolean,
   },
 });
 
