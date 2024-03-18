@@ -218,6 +218,7 @@ const switchActiveTabs = (index, tab) => {
   &.underline,
   &.underline_card {
     text-decoration: none;
+    overflow: visible;
     &:not(.underline_card):not(.hideBottomBorder)::after {
       position: absolute;
       content: "";
