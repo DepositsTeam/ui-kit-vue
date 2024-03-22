@@ -23,7 +23,11 @@
 
     <d-box
       class="ui-tag-dropdown__input-wrapper"
-      :class="{ emptyDropdown: !inputTags.length, hasError: !!errorMessage }"
+      :class="{
+        emptyDropdown: !inputTags.length,
+        hasError: !!errorMessage,
+        pill,
+      }"
       @click="toggleOptions"
       ref="targetRef"
     >
@@ -218,6 +222,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  pill: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -399,6 +407,10 @@ const handleScroll = (e) => {
   background: #fff;
   justify-content: space-between;
   position: relative;
+
+  &.pill {
+    border-radius: 980px;
+  }
 
   &.hasError {
     background: #fff0f2;

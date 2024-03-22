@@ -5,6 +5,7 @@
     v-bind="{ ...$attrs, ...$props, returnFullObject: true }"
     :size="computedInputSize"
     return-obj-model
+    :pill="pill"
   >
     <template #icon="option">
       {{ option.emoji }}
@@ -40,6 +41,10 @@ const props = defineProps({
   },
   modelValue: {
     type: String,
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -48,6 +48,7 @@
           'has-right-icon': rightIcon,
           focus: countryCodeIsFocused,
           disabled,
+          pill,
         }"
         :disabled="disabled"
         v-bind="$attrs"
@@ -101,6 +102,10 @@ const props = defineProps({
   },
   isUs: {
     type: Boolean,
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -275,6 +280,10 @@ watch(localErrorMessage, (val) => {
   outline: none;
   font-family: "Circular Std", sans-serif;
   color: #212934;
+
+  &.pill {
+    border-radius: 980px;
+  }
 
   &.dark_mode {
     background: var(--dark-input-background-color);

@@ -20,6 +20,7 @@
       drop-down
       @right-icon-clicked="toggleDropdown"
       :placeholder="placeholder"
+      :pill="pill"
     >
       <template
         #leftIcon
@@ -131,6 +132,10 @@ const props = defineProps({
   fetching: {
     type: Boolean,
   },
+  pill: {
+    type: Boolean,
+    default: false,
+  },
   ...inputProps,
 });
 
@@ -196,7 +201,7 @@ watch(inputValue, (val, prevVal) => {
     showAllValues.value = false;
   }
   if (!val && prevVal && !showOptions.value) {
-    return;
+
   }
   // if (!showOptions.value && mounted.value) {
   //   showOptions.value = true;

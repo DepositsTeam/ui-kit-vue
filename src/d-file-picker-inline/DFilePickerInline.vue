@@ -36,7 +36,7 @@
       />
       <d-box
         class="ui-text-field__input"
-        :class="{ 'has-error': computedErrorMessage }"
+        :class="{ 'has-error': computedErrorMessage, leftPill: pill }"
         display="flex"
         align-items="center"
       >
@@ -50,7 +50,7 @@
           >{{ selectedFileName }}</d-text
         >
       </d-box>
-      <d-box class="pseudo-button">
+      <d-box class="pseudo-button" :class="{ pill }">
         <d-text subhead font-face="hero-new" my0>{{ btnText }}</d-text>
       </d-box>
     </d-box>
@@ -77,7 +77,7 @@
       @mouseleave="toggleInputIsHovered(false)"
       type="file"
     />
-    <d-button :class="{ hover: inputIsHovered }" v-bind="$attrs">
+    <d-button :pill="pill" :class="{ hover: inputIsHovered }" v-bind="$attrs">
       {{
         selectedFileName === placeholder
           ? btnText || placeholder
@@ -130,6 +130,10 @@ const props = defineProps({
     type: String,
     default: "inline",
     validator: (value) => ["inline", "button"].includes(value),
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -216,6 +220,10 @@ const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
   border-radius: 0 6px 6px 0;
   padding-left: 32px;
   padding-right: 32px;
+  &.pill {
+    border-top-right-radius: 948px;
+    border-bottom-right-radius: 948px;
+  }
   &.dark_mode {
     background: var(--dark-input-border-color);
     border-color: var(--dark-input-border-color);
@@ -228,6 +236,9 @@ const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
 .d-file-picker-inline-btn {
   position: relative;
   display: inline-flex;
+  &.pill {
+    border-radius: 948px;
+  }
   input {
     position: absolute;
     opacity: 0;

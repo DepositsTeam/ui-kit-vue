@@ -18,6 +18,7 @@
       :class="{
         focus: focused,
         hasError: !!errorMessage || !!internalErrorMessage,
+        pill,
       }"
     >
       <d-box
@@ -107,6 +108,10 @@ const props = defineProps({
     type: String,
     validator: (value) => ["enter", "comma", "space"].includes(value),
     default: "enter",
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
   // TODO Make input, tags and the tag names customizable
 });
@@ -261,6 +266,10 @@ watch(duplicateTags, (value) => {
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
+
+  &.pill {
+    border-radius: 980px;
+  }
 
   &.hasError {
     background: #fff0f2;

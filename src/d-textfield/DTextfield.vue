@@ -22,6 +22,7 @@
         focused,
         notVisible: invisible,
         'has-error': showError || errorMessage,
+        pill,
       }"
     >
       <d-box
@@ -65,7 +66,6 @@
             disabled,
             oneCharWide,
             [inputClass]: true,
-            pill,
           }"
           :id="computedID"
           ref="inputField"

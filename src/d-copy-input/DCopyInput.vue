@@ -1,6 +1,11 @@
 <template>
   <d-box class="ui-copy__input">
-    <d-textfield readonly v-model="payload.text" :size="computedInputSize">
+    <d-textfield
+      readonly
+      :pill="pill"
+      v-model="payload.text"
+      :size="computedInputSize"
+    >
       <template #rightSection>
         <d-box class="ui-copy-btn" cursor="pointer">
           <d-copy :text="payload.text" />
@@ -54,6 +59,10 @@ const props = defineProps({
     type: String,
     default: "#8C97A7",
   },
+  pill: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -81,6 +90,9 @@ const payload = reactive({
     align-items: center;
     gap: 10px;
     flex-shrink: 0;
+    &.pill {
+      border-radius: 980px;
+    }
   }
 
   .ui-copy-btn {

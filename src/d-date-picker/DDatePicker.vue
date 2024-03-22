@@ -39,6 +39,7 @@
             'date-picker': true,
             'has-error': errorMessage,
             [fontFace]: fontFace,
+            pill,
           },
         }"
         v-bind="{ ...$attrs, ...$props }"
@@ -145,6 +146,10 @@ const props = defineProps({
   },
   modelValue: {
     type: [String, Date, Array],
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
 });
 

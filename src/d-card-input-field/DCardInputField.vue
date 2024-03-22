@@ -28,6 +28,7 @@
         :class="{
           focus: pseudoCardInputIsFocused,
           hasError: computedCardErrorMessage,
+          pill,
         }"
         ref="pseudoInput"
       >
@@ -144,6 +145,10 @@ const props = defineProps({
     validator: (value) => ["variant-1", "variant-2"].includes(value),
   },
   hideScanIcon: {
+    type: Boolean,
+    default: false,
+  },
+  pill: {
     type: Boolean,
     default: false,
   },
@@ -484,14 +489,12 @@ const handleCardNoKeyPress = (e) => {
         e.preventDefault();
         cardNoInput.value.$el.blur();
         cardExpInput.value.$el.focus();
-
       }
     } else {
       if (strippedCardNo.length >= 16) {
         e.preventDefault();
         cardNoInput.value.$el.blur();
         cardExpInput.value.$el.focus();
-
       }
     }
   }
@@ -568,6 +571,10 @@ const handleCardNoKeyPress = (e) => {
   color: #212934;
   display: flex;
   align-items: center;
+
+  &.pill {
+    border-radius: 980px;
+  }
 
   &.dark_mode {
     background: var(--dark-input-background-color);
