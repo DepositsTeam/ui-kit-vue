@@ -1,6 +1,5 @@
 import DCounter from "./DCounter.vue";
 import { DarkModeProvider } from "../main";
-import { inputArgTypes } from "@/utils/props/inputProps";
 
 export default {
   title: "Forms/Counter",

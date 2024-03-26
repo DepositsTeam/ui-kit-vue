@@ -24,13 +24,13 @@
       </slot>
 
       <d-box class="ui-text-field__input-wrapper">
-        <button
+        <d-box
           class="ui-text-field--counter_input_button left"
           :class="{ coloredButtons }"
           @click="decrease"
         >
           -
-        </button>
+        </d-box>
         <d-box
           class="ui-text-field__input"
           :class="{
@@ -64,13 +64,13 @@
           marginBottom="0"
           :id="computedID"
         />
-        <button
+        <d-box
           class="ui-text-field--counter_input_button right"
           :class="{ coloredButtons }"
           @click="increase"
         >
           +
-        </button>
+        </d-box>
       </d-box>
       <d-box v-if="errorMessage" class="ui-text-field__error">
         <ErrorIcon class="ui-text-field__error-icon" />
