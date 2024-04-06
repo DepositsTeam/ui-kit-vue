@@ -22,10 +22,11 @@ import DAutoLayout from "@/d-auto-layout/DAutoLayout.vue";
 
 defineProps({
   labelClass: {
-    type: String,
+    type: [String, Object, Array],
   },
   labelFontFace: {
     type: String,
+    default: "heroNew",
   },
   label: {
     type: String,
