@@ -7,17 +7,14 @@
     class="ui-text-field__wrapper ui-card-input-field__wrapper heroNew"
   >
     <slot name="label">
-      <d-box v-if="!!label" is="label" :for="computedID">
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="!!label"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
     <d-box
       class="ui-card-input-field__input-wrapper"
@@ -120,6 +117,7 @@ import cardValidator from "card-validator";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,

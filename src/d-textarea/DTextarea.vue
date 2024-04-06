@@ -5,17 +5,14 @@
     :width="width"
   >
     <slot name="label">
-      <d-box is="label" class="ui-text-area__label" :for="computedID">
-        <d-text
-          margin-top="0px"
-          :class="labelClass"
-          scale="subhead"
-          class="ui-text-area__label"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="!!label && !invisible"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -54,6 +51,7 @@ import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,

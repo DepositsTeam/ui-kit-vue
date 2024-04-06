@@ -4,17 +4,14 @@
     :class="[wrapperClass, `size__${computedInputSize}`]"
   >
     <slot name="label">
-      <d-box is="label" v-if="label" :for="computedID">
-        <d-text
-          margin-top="0px"
-          :class="labelClass"
-          class="ui-text-field__label"
-          scale="subhead"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="label"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
     <d-box
       class="ui-select-field__wrapper ui-text-field__input-wrapper"
@@ -84,6 +81,7 @@ import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const emit = defineEmits(["update:modelValue"]);
 

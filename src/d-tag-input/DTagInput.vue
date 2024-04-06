@@ -1,16 +1,14 @@
 <template>
   <d-box class="ui-tag-input__wrapper" :class="`size__${computedInputSize}`">
     <slot name="label">
-      <d-box is="label" :for="computedID">
-        <d-text
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-tag-input__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="label"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -72,6 +70,7 @@ import inputProps from "@/utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const _tagDelimiterKey = {
   space: " ",

@@ -39,6 +39,7 @@ export { default as DFilterDropdown } from "./d-filter-dropdown/DFilterDropdown.
 export { default as DGoBack } from "./d-go-back/DGoBack.vue";
 export { default as DGridLayout } from "./d-grid-layout/DGridLayout.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
+export { default as DLabel } from "./components/forms/DLabel.vue";
 export { default as DLoader } from "./d-loader/DLoader.vue";
 export { default as DMenu } from "./d-menu/DMenu.vue";
 export { default as DModal } from "./d-modal/DModal.vue";

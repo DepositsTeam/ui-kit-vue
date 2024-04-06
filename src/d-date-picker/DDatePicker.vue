@@ -7,16 +7,14 @@
     }"
   >
     <slot name="label">
-      <d-box v-if="label" is="label" :for="computedID">
-        <d-text
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-text-field__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="label && !invisible"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -100,6 +98,7 @@ import inputProps from "../utils/props/inputProps";
 import { inject, ref, onMounted, watch, computed } from "vue";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const darkMode = inject("d__darkMode", false);
 

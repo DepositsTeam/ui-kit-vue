@@ -8,16 +8,14 @@
   >
     <d-box @click="toggleOptions">
       <slot name="label">
-        <d-box is="label" :for="computedID">
-          <d-text
-            :class="labelClass"
-            :font-face="labelFontFace"
-            class="ui-tag-dropdown__label"
-            scale="subhead"
-          >
-            {{ label }}
-          </d-text>
-        </d-box>
+        <d-label
+          v-if="label"
+          :label-class="labelClass"
+          :html-for="computedID"
+          :label-font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-label>
       </slot>
     </d-box>
 
@@ -190,6 +188,7 @@ import DLoader from "@/d-loader/DLoader.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,

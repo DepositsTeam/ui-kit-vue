@@ -8,17 +8,14 @@
     }"
   >
     <slot name="label">
-      <d-box is="label" :for="computedID">
-        <d-text
-          my0
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-text-field__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="!!label && !invisible"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -74,6 +71,7 @@ import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);

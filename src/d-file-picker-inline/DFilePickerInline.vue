@@ -5,22 +5,14 @@
     v-if="variant === 'inline'"
   >
     <slot name="label">
-      <d-box
+      <d-label
         v-if="!!label && variant !== 'button'"
-        is="label"
-        :for="computedID"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
       >
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-          :size="size"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box display="inline-flex" class="pseudo-input" :class="{ disabled }">
@@ -94,6 +86,7 @@ import { useFilePicker } from "../utils/composables/useFilePicker";
 import { computed, ref } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,

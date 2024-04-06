@@ -1,15 +1,12 @@
 <template>
   <d-box class="d-radio-card-select__wrapper">
-    <d-text
+    <d-label
       v-if="label"
-      margin-top="0px"
-      class="ui-text-field__label"
-      :class="labelClass"
-      scale="subhead"
-      :font-face="labelFontFace"
+      :label-class="labelClass"
+      :label-font-face="labelFontFace"
     >
       {{ label }}
-    </d-text>
+    </d-label>
     <d-box class="d-radio-card-select" cursor="pointer">
       <d-auto-layout align-items="center" justify-content="space-between">
         <d-auto-layout>
@@ -107,6 +104,7 @@ import {
 import { useDropdown } from "../utils/composables/useDropdown";
 import { computed, onBeforeMount, onMounted, ref } from "vue";
 import inputProps from "../utils/props/inputProps";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,

@@ -10,17 +10,14 @@
       :class="[`size__${computedInputSize}`]"
     >
       <slot name="label">
-        <d-box v-if="!!label" is="label" :for="computedID">
-          <d-text
-            margin-top="0px"
-            class="ui-text-field__label"
-            :class="labelClass"
-            scale="subhead"
-            :font-face="labelFontFace"
-          >
-            {{ label }}
-          </d-text>
-        </d-box>
+        <d-label
+          v-if="!!label"
+          :label-class="labelClass"
+          :html-for="computedID"
+          :label-font-face="labelFontFace"
+        >
+          {{ label }}
+        </d-label>
       </slot>
 
       <d-box class="ui-text-field__input-wrapper">
@@ -94,6 +91,7 @@ import { onMounted, computed } from "vue";
 import number_format from "../utils/number_format";
 import { useInputSize } from "../utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const emit = defineEmits(["update:modelValue"]);
 
