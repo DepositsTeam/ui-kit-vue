@@ -50,6 +50,7 @@
               my0
               :font-face="tabFontFace"
               :class="tabClass"
+              white-space="nowrap"
             >
               {{ typeof tab === "object" ? tab.text : tab }}
             </d-text>
