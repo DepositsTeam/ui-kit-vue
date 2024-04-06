@@ -4,6 +4,9 @@
     :class="{
       cardMode: scheme === 'underline_card',
       hideBottomBorder,
+      horizontal,
+      vertical: !horizontal,
+      bottomPadding: scheme === 'underline_card' || scheme === 'underline',
     }"
     :style="{
       '--active-text-color': activeTextColor,
@@ -205,20 +208,27 @@ const switchActiveTabs = (index, tab) => {
       }
     }
   }
+  &.horizontal {
+    overflow-y: visible;
+    overflow-x: auto;
+  }
+
+  &.bottomPadding {
+    padding-bottom: 4px;
+  }
 }
 .ui-tabs__wrapper {
   position: relative;
   align-self: flex-end;
   display: flex;
   width: 100%;
-  overflow-x: auto;
   &.underline_card {
     top: 1rem;
   }
   &.underline,
   &.underline_card {
     text-decoration: none;
-    overflow: visible;
+
     &:not(.underline_card):not(.hideBottomBorder)::after {
       position: absolute;
       content: "";
