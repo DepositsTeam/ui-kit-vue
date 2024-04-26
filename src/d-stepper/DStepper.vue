@@ -119,7 +119,7 @@ const activeColorSpectrum = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-.ui-transaction-timeline {
+.ui-stepper {
   display: flex;
   flex-direction: column;
 
