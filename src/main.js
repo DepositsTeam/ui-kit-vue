@@ -319,6 +319,7 @@ export { default as CardFilledIcon } from "./icons/filled/CardFilledIcon.vue";
 export { default as CardsFilledIcon } from "./icons/filled/CardsFilledIcon.vue";
 export { default as CategoryFilledIcon } from "./icons/filled/CategoryFilledIcon.vue";
 export { default as ChartFilledIcon } from "./icons/filled/ChartFilledIcon.vue";
+export { default as ClockFilledIcon } from "./icons/filled/ClockFilledIcon.vue";
 export { default as CloudUploadFilledIcon } from "./icons/filled/CloudUploadFilledIcon.vue";
 export { default as CopyFilledIcon } from "./icons/filled/CopyFilledIcon.vue";
 export { default as Dashboard2FilledIcon } from "./icons/filled/Dashboard2FilledIcon.vue";
