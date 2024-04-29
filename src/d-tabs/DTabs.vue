@@ -78,6 +78,7 @@
           </d-auto-layout>
         </slot>
       </d-box>
+      <slot name="afterTabs"></slot>
     </d-auto-layout>
     <slot v-if="scheme === 'underline_card'"></slot>
   </d-box>
@@ -210,8 +211,8 @@ const switchActiveTabs = (index, tab) => {
     }
   }
   &.horizontal {
-    overflow-y: visible;
     overflow-x: auto;
+    height: calc(100% + 1px);
   }
 
   &.bottomPadding {
@@ -224,7 +225,7 @@ const switchActiveTabs = (index, tab) => {
   display: flex;
   width: 100%;
   &.underline_card {
-    top: 1rem;
+    //top: 1rem;
   }
   &.underline,
   &.underline_card {
@@ -236,7 +237,7 @@ const switchActiveTabs = (index, tab) => {
       width: 100%;
       left: 0;
       height: 1px;
-      top: calc(100% + 1px);
+      top: calc(100%);
       background: #e2edf6;
     }
     &.dark_mode:not(.underline_card):not(.hideBottomBorder)::after {
@@ -341,6 +342,11 @@ const switchActiveTabs = (index, tab) => {
           }
         }
       }
+      &.underline_card {
+        &::after {
+          top: 103%
+        }
+      }
       .ui-text {
         color: #fff;
       }
@@ -414,6 +420,11 @@ const switchActiveTabs = (index, tab) => {
         &::after {
           background: var(--active-indicator-color);
         }
+      }
+    }
+    &.underline_card {
+      &::after {
+        top: 103%
       }
     }
   }
