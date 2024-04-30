@@ -72,6 +72,7 @@ export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
 export { default as DTooltip } from "./d-tooltip/DTooltip.vue";
+export { default as DTransactionTimeline } from "./d-transaction-timeline/DTransactionTimeline.vue";
 export { default as DWysiwyg } from "./d-wysiwyg/DWysiwyg.vue";
 export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";
 export { default as ToastProvider } from "./providers/ToastProvider.vue";

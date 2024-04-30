@@ -344,7 +344,7 @@ const switchActiveTabs = (index, tab) => {
       }
       &.underline_card {
         &::after {
-          top: 103%
+          top: 103%;
         }
       }
       .ui-text {
@@ -424,7 +424,7 @@ const switchActiveTabs = (index, tab) => {
     }
     &.underline_card {
       &::after {
-        top: 103%
+        top: 103%;
       }
     }
   }
