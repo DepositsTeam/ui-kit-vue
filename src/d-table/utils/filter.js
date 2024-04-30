@@ -18,6 +18,16 @@ export const search = (
         let hayStack = caseSensitiveSearch
           ? stringRow
           : stringRow.toLowerCase();
+        if (columnHashMap[key].pipe) {
+          let processedPipe = columnHashMap[key].pipe(
+            row[key] ? row[key] : undefined,
+            row
+          );
+          if (processedPipe !== undefined && processedPipe !== null) {
+            hayStack = processedPipe + "";
+            hayStack = caseSensitiveSearch ? hayStack : hayStack.toLowerCase();
+          }
+        }
         let needle = caseSensitiveSearch ? search : search.toLowerCase();
         if (hayStack.includes(needle)) {
           return true;
