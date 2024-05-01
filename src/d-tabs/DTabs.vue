@@ -13,7 +13,11 @@
       '--active-indicator-color': activeIndicatorColor,
     }"
   >
-    <d-auto-layout justify-content="space-between" align-items="center">
+    <d-auto-layout
+      width="100%"
+      justify-content="space-between"
+      align-items="center"
+    >
       <d-auto-layout
         :direction="horizontal ? 'horizontal' : 'vertical'"
         :spacing="spacing"
@@ -22,6 +26,7 @@
           [scheme]: scheme && !inline,
           hideBottomBorder,
         }"
+        margin-right="1rem"
       >
         <d-box
           v-for="(tab, index) in tabs"
