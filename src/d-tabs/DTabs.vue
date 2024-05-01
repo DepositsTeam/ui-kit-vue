@@ -13,74 +13,76 @@
       '--active-indicator-color': activeIndicatorColor,
     }"
   >
-    <d-auto-layout
-      :direction="horizontal ? 'horizontal' : 'vertical'"
-      :spacing="spacing"
-      :class="{
-        'ui-tabs__wrapper': true,
-        [scheme]: scheme && !inline,
-        hideBottomBorder,
-      }"
-    >
-      <d-box
-        v-for="(tab, index) in tabs"
-        :key="`tab_${index}_${keyGen()}`"
-        :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
-        v-bind="{ ...generateSpacing(index), ...$props }"
-        class="ui-tab noLine"
-        :to="tab.to"
+    <d-auto-layout justify-content="space-between" align-items="center">
+      <d-auto-layout
+        :direction="horizontal ? 'horizontal' : 'vertical'"
+        :spacing="spacing"
         :class="{
-          active: internalActive === index,
-          disabled: typeof tab === 'object' && tab.disabled,
-          inline: inline || scheme === 'inline',
+          'ui-tabs__wrapper': true,
           [scheme]: scheme && !inline,
-          customTextColor: activeTextColor,
-          customIndicatorColor: activeIndicatorColor,
+          hideBottomBorder,
         }"
-        @click="switchActiveTabs(index, tab)"
       >
-        <slot
-          name="tab-content"
-          v-bind="{ tab, index, isActive: internalActive === index }"
+        <d-box
+          v-for="(tab, index) in tabs"
+          :key="`tab_${index}_${keyGen()}`"
+          :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
+          v-bind="{ ...generateSpacing(index), ...$props }"
+          class="ui-tab noLine"
+          :to="tab.to"
+          :class="{
+            active: internalActive === index,
+            disabled: typeof tab === 'object' && tab.disabled,
+            inline: inline || scheme === 'inline',
+            [scheme]: scheme && !inline,
+            customTextColor: activeTextColor,
+            customIndicatorColor: activeIndicatorColor,
+          }"
+          @click="switchActiveTabs(index, tab)"
         >
-          <d-auto-layout alignment="center">
-            <d-text
-              is="span"
-              no-line
-              my0
-              :font-face="tabFontFace"
-              :class="tabClass"
-              white-space="nowrap"
-            >
-              {{ typeof tab === "object" ? tab.text : tab }}
-            </d-text>
-            <d-box>
-              <d-badge
-                v-if="
-                  typeof tab === 'object' &&
-                  tab.total !== undefined &&
-                  tab.total !== null &&
-                  scheme !== 'button' &&
-                  showBadge
-                "
-                :subtle="true"
-                size="medium"
-                :smart-color="
-                  activeBadgeColor
-                    ? activeBadgeColor
-                    : internalActive === index
-                    ? theme['--light-primary-500']
-                    : undefined
-                "
-                :text="`${tab.total}`"
-              />
-            </d-box>
-          </d-auto-layout>
-        </slot>
-      </d-box>
-      <slot name="afterTabs"></slot>
+          <slot
+            name="tab-content"
+            v-bind="{ tab, index, isActive: internalActive === index }"
+          >
+            <d-auto-layout alignment="center">
+              <d-text
+                is="span"
+                no-line
+                my0
+                :font-face="tabFontFace"
+                :class="tabClass"
+                white-space="nowrap"
+              >
+                {{ typeof tab === "object" ? tab.text : tab }}
+              </d-text>
+              <d-box>
+                <d-badge
+                  v-if="
+                    typeof tab === 'object' &&
+                    tab.total !== undefined &&
+                    tab.total !== null &&
+                    scheme !== 'button' &&
+                    showBadge
+                  "
+                  :subtle="true"
+                  size="medium"
+                  :smart-color="
+                    activeBadgeColor
+                      ? activeBadgeColor
+                      : internalActive === index
+                      ? theme['--light-primary-500']
+                      : undefined
+                  "
+                  :text="`${tab.total}`"
+                />
+              </d-box>
+            </d-auto-layout>
+          </slot>
+        </d-box>
+        <slot name="afterTabs"></slot>
+      </d-auto-layout>
+      <slot v-if="scheme === 'underline_card'"></slot>
     </d-auto-layout>
-    <slot v-if="scheme === 'underline_card'"></slot>
   </d-box>
 </template>
 

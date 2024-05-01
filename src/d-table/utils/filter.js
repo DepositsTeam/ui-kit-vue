@@ -1,3 +1,5 @@
+import Column from "@/d-table/utils/Column";
+
 export const search = (
   search,
   rows,
@@ -5,21 +7,38 @@ export const search = (
   caseSensitiveSearch = false
 ) => {
   return rows.filter((row) => {
-    for (let key of Object.keys(row)) {
-      if (columnHashMap[key] && columnHashMap[key].filterable) {
+    // for (let key of Object.keys(row)) {
+
+    for (let key of Object.keys(columnHashMap)) {
+      // console.log("I got here", key, columnHashMap, columnHashMap[key], key);
+      const currentColHashMap = new Column(columnHashMap[key]);
+      if (currentColHashMap && currentColHashMap.filterable) {
+        console.log("I got here for real");
+        console.log(currentColHashMap);
         if (
-          !row[key] ||
-          (typeof row[key] !== "string" && typeof row[key] !== "number")
+          !currentColHashMap.pipe &&
+          (!row[key] ||
+            (typeof row[key] !== "string" && typeof row[key] !== "number"))
         ) {
           continue;
         }
-        const stringRow =
-          typeof row[key] === "number" ? "" + row[key] : row[key];
-        let hayStack = caseSensitiveSearch
-          ? stringRow
-          : stringRow.toLowerCase();
-        if (columnHashMap[key].pipe) {
-          let processedPipe = columnHashMap[key].pipe(
+        let hayStack;
+        if (row[key]) {
+          console.log("I also got hre", key);
+          const stringRow =
+            typeof row[key] === "number" ? "" + row[key] : row[key];
+          try {
+            hayStack = caseSensitiveSearch
+              ? stringRow
+              : stringRow.toLowerCase();
+          } catch (err) {
+            console.log(key, err, row[key]);
+            throw err;
+          }
+
+          console.log("Before pipe is", hayStack);
+        } else if (currentColHashMap.pipe) {
+          let processedPipe = currentColHashMap.pipe(
             row[key] ? row[key] : undefined,
             row
           );
@@ -28,6 +47,10 @@ export const search = (
             hayStack = caseSensitiveSearch ? hayStack : hayStack.toLowerCase();
           }
         }
+        if (key == "description") {
+          console.log(hayStack);
+        }
+        console.log("Haysstack is ", hayStack);
         let needle = caseSensitiveSearch ? search : search.toLowerCase();
         if (hayStack.includes(needle)) {
           return true;
