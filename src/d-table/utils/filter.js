@@ -10,11 +10,8 @@ export const search = (
     // for (let key of Object.keys(row)) {
 
     for (let key of Object.keys(columnHashMap)) {
-      // console.log("I got here", key, columnHashMap, columnHashMap[key], key);
       const currentColHashMap = new Column(columnHashMap[key]);
       if (currentColHashMap && currentColHashMap.filterable) {
-        console.log("I got here for real");
-        console.log(currentColHashMap);
         if (
           !currentColHashMap.pipe &&
           (!row[key] ||
@@ -23,21 +20,7 @@ export const search = (
           continue;
         }
         let hayStack;
-        if (row[key]) {
-          console.log("I also got hre", key);
-          const stringRow =
-            typeof row[key] === "number" ? "" + row[key] : row[key];
-          try {
-            hayStack = caseSensitiveSearch
-              ? stringRow
-              : stringRow.toLowerCase();
-          } catch (err) {
-            console.log(key, err, row[key]);
-            throw err;
-          }
-
-          console.log("Before pipe is", hayStack);
-        } else if (currentColHashMap.pipe) {
+        if (currentColHashMap.pipe) {
           let processedPipe = currentColHashMap.pipe(
             row[key] ? row[key] : undefined,
             row
@@ -46,11 +29,13 @@ export const search = (
             hayStack = processedPipe + "";
             hayStack = caseSensitiveSearch ? hayStack : hayStack.toLowerCase();
           }
+        } else if (row[key]) {
+          const stringRow =
+            typeof row[key] === "number" ? "" + row[key] : row[key];
+
+          hayStack = caseSensitiveSearch ? stringRow : stringRow.toLowerCase();
         }
-        if (key == "description") {
-          console.log(hayStack);
-        }
-        console.log("Haysstack is ", hayStack);
+
         let needle = caseSensitiveSearch ? search : search.toLowerCase();
         if (hayStack.includes(needle)) {
           return true;
@@ -100,19 +85,40 @@ const filterMaps = {
   },
 };
 
-export const filter = (filter, rows) => {
+export const filter = (filter, rows, caseSensitiveSearch = false) => {
   const column = filter.column.dataSelector;
   return rows.filter((row) => {
-    const dataItemToCheck = row[column];
+    let dataItemToCheck;
+    if (filter.column.pipe) {
+      dataItemToCheck = filter.column.pipe(
+        row[column] ? row[column] : undefined,
+        row
+      );
+    } else {
+      dataItemToCheck = row[column];
+    }
+
+    let haystack1 = filter.selectedFilterValue;
+
+    if (!caseSensitiveSearch) {
+      dataItemToCheck = dataItemToCheck.toLowerCase();
+      haystack1 = haystack1.toLowerCase();
+    }
+
     const leftFilter = filterMaps[filter.selectedFilter](
       dataItemToCheck,
-      filter.selectedFilterValue
+      haystack1
     );
+
     let rightFilter = null;
     if (filter.join) {
+      let haystack2 = filter.selectedFilterValue2;
+      if (!caseSensitiveSearch) {
+        haystack2 = haystack2.toLowerCase();
+      }
       rightFilter = filterMaps[filter.selectedFilter2](
         dataItemToCheck,
-        filter.selectedFilterValue2
+        haystack2
       );
     }
     if (filter.join) {

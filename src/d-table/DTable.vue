@@ -833,7 +833,7 @@ const dataFactory = computed(() => {
   }
 
   if (filter.value && filter.value.column && !props.asyncFilter) {
-    filteredData = filterItems(filter.value, filteredData);
+    filteredData = filterItems(filter.value, filteredData, props.caseSensitiveSearch);
   }
 
   if (sortConfiguration.value && !props.asyncSort) {
