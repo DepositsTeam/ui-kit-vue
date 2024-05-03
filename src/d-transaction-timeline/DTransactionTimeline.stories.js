@@ -8,9 +8,6 @@ export default {
     timeline: {
       control: { type: "object" },
     },
-    currentStep: {
-      control: { type: "number" },
-    },
   },
 };
 

@@ -117,23 +117,6 @@ const props = defineProps({
     type: String,
     default: "20px",
   },
-  scheme: {
-    type: String,
-    validator: (value) => ["variant-1", "variant-2"].includes(value),
-    default: "variant-1",
-  },
-  activeColor: {
-    type: String,
-    default: "#2A2E33",
-  },
-  stepMode: {
-    type: Boolean,
-    default: true,
-  },
-  hideTicks: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const activeColorSpectrum = computed(() =>
