@@ -22,7 +22,8 @@ export default {
       control: { type: "text" },
     },
     brand: {
-      control: { type: "select", options: CardBrands },
+      control: { type: "select" },
+      options: CardBrands,
     },
   },
 };
