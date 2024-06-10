@@ -90,6 +90,8 @@ export {
   CardBrands,
   getCardBrandFromPan,
   isValidCardPan,
+  isValidExp,
+  isValidCVV,
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
 

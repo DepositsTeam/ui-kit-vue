@@ -105,7 +105,28 @@ export const CardBrands = [
 ];
 
 export const isValidCardPan = (pan) => {
+  console.log("VAlidation");
   const validatedCardNo = cardValidator.number(pan.replaceAll(" ", ""));
+  console.log(validatedCardNo, "validation", pan);
+  return validatedCardNo.isPotentiallyValid && validatedCardNo.isValid;
+};
 
-  return !!(!validatedCardNo.isPotentiallyValid && validatedCardNo.card);
+export const isValidCVV = (pan, cvv) => {
+  const validatedCardNo = cardValidator.number(pan.replaceAll(" ", ""));
+  return validatedCardNo?.card?.code?.size === cvv.length;
+};
+
+export const isValidExp = (exp) => {
+  const month = exp.substring(0, 2);
+  const year = exp.substring(3);
+  const currentYear = new Date().getFullYear().toString().substring(2);
+  const currentMonth = new Date().getMonth() + 1;
+
+  if (month > 12 || month < 1) {
+    return false;
+  } else if (exp.charAt(2) !== "/") {
+    return false;
+  } else if (year < currentYear) {
+    return false;
+  } else return !(month < currentMonth && year == currentYear);
 };
