@@ -3,9 +3,12 @@
     v-model="localValue"
     :options="countries"
     v-bind="{ ...$attrs, ...$props, returnFullObject: true }"
+    @computedOptions="updateComputedOptions"
     :size="computedInputSize"
     return-obj-model
     :pill="pill"
+    :disable-dropdown="onlyUs"
+    :readonly="onlyUs"
   >
     <template #icon="option">
       {{ option.emoji }}
@@ -36,6 +39,10 @@ const props = defineProps({
     type: String,
     default: "iso2",
   },
+  optionIcon: {
+    type: String,
+    default: "emoji",
+  },
   returnFullObject: {
     type: Boolean,
   },
@@ -46,10 +53,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  onlyUs: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
-
 const localValue = computed({
   get() {
     return props.modelValue;
@@ -65,5 +75,13 @@ const localValue = computed({
     }
   },
 });
+
+const updateComputedOptions = (computedOptions) => {
+  if (props.onlyUs && computedOptions.value) {
+    localValue.value = [...computedOptions.value].filter(
+      (country) => country.iso2 === "US"
+    )[0];
+  }
+};
 </script>
 <style lang="scss"></style>

@@ -101,6 +101,54 @@ Default.args = {
   ],
 };
 
+// const LogoTemplate = (args) => ({
+//   components: {
+//     DActionList,
+//   },
+//   setup() {
+//     return { args };
+//   },
+//   template: `
+//     <d-action-list v-bind="args">
+//
+//     </d-action-list>
+//   `,
+// });
+//
+// const CustomIcon = LogoTemplate.bind({});
+// CustomIcon.args = {
+//   label: "Application",
+//   list: [
+//     {
+//       id: 1,
+//       title: "example@gmail.com",
+//       description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+//       logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+//       buttonText: "Revoke access",
+//       subtitle: "Granted, July 27, 2021 12:45 PM",
+//       buttonSize: "large",
+//     },
+//     {
+//       id: 2,
+//       title: "example@gmail.com",
+//       description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+//       logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+//       buttonText: "Revoke access",
+//       subtitle: "Granted, July 27, 2021 12:45 PM",
+//       buttonSize: "large",
+//     },
+//     {
+//       id: 3,
+//       title: "example@gmail.com",
+//       description: "Duration: 1hr | Expires: July 27, 2021 12:45 PM",
+//       logo: "https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg",
+//       buttonText: "Revoke access",
+//       subtitle: "Granted, July 27, 2021 12:45 PM",
+//       buttonSize: "large",
+//     },
+//   ],
+// };
+
 export const ActionListWithoutListProps = TemplateWithActionListItem.bind({});
 ActionListWithoutListProps.args = {
   label: "Application",

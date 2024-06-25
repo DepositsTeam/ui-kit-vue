@@ -62,3 +62,10 @@ UseDifferentTitleAndValue.args = {
   optionTitle: "iso3",
   optionValue: "iso2",
 };
+
+export const OnlyUS = Template.bind({});
+OnlyUS.args = {
+  label: "Select a country",
+  onlyUs: true,
+  returnFullObject: true,
+};
