@@ -94,7 +94,7 @@ const d__theme = inject("d__theme", defaultThemeVars);
 
 const darkMode = inject("d__darkMode", false);
 
-const defaultButtonSize = inject("d__defaultButtonSize");
+const defaultButtonSize = inject("d__defaultButtonSize", null);
 
 const darkModeIsEnabled = computed(
   () => darkMode !== null && darkMode !== undefined && darkMode.value

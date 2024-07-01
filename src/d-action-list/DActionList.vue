@@ -30,7 +30,26 @@
             :button-smart-color="listItem.buttonSmartColor"
             :buttonText="listItem.buttonText"
             @clicked="listActionClicked(listItem)"
-          />
+          >
+            <template #icon>
+              <slot name="icon" v-bind="listItem"></slot>
+            </template>
+            <template #title>
+              <slot name="title" v-bind="listItem"></slot>
+            </template>
+            <template #body>
+              <slot name="body" v-bind="listItem"></slot>
+            </template>
+            <template #description>
+              <slot name="description" v-bind="listItem"></slot>
+            </template>
+            <template #subtitle>
+              <slot name="subtitle" v-bind="listItem"></slot>
+            </template>
+            <template #action>
+              <slot name="action" v-bind="listItem"></slot>
+            </template>
+          </d-action-list-item>
         </d-box>
       </slot>
     </d-box>

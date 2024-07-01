@@ -22,7 +22,7 @@
                 is="img"
                 :src="logo"
                 :alt="title"
-              ></d-box>
+              />
             </slot>
             <d-box>
               <slot name="title">
