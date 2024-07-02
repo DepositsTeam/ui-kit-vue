@@ -118,7 +118,7 @@ const ArrayTemplate = (args) => ({
       <p>Selected items are: {{items}}</p>
       
       <d-auto-layout>
-        <d-checkbox v-model="items" label="Eggs" readonly value="Eggs"></d-checkbox>
+        <d-checkbox v-model="items" label="Eggs" value="Eggs"></d-checkbox>
         <d-checkbox v-model="items" label="Beans" value="Beans"></d-checkbox>
         <d-checkbox v-model="items" label="Potatoes" value="Potatoes"></d-checkbox>
         <d-checkbox v-model="items" label="Salad" value="Salad"></d-checkbox>

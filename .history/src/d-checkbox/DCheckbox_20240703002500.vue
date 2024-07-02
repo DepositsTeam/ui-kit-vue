@@ -23,8 +23,8 @@
       :checked="isChecked"
       :class="{
         hasLabel: label || $slots.default,
-        disabled,
-        readonly,
+  disabled,
+        readonly
       }"
       :disabled="disabled || readonly"
     />

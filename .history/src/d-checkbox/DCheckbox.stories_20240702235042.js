@@ -105,26 +105,19 @@ DarkDisabled.args = {
   disabled: true,
 };
 
-const ArrayTemplate = (args) => ({
+const ArrayTemplate = args => ({
   components: { DCheckbox, DAutoLayout },
   setup() {
-    return { args };
+    return {args}
   },
   data: () => ({
-    items: ["Eggs"],
+    items: [],
   }),
   template: `
-    <d-auto-layout direction="vertical">
-      <p>Selected items are: {{items}}</p>
-      
-      <d-auto-layout>
-        <d-checkbox v-model="items" label="Eggs" readonly value="Eggs"></d-checkbox>
-        <d-checkbox v-model="items" label="Beans" value="Beans"></d-checkbox>
-        <d-checkbox v-model="items" label="Potatoes" value="Potatoes"></d-checkbox>
-        <d-checkbox v-model="items" label="Salad" value="Salad"></d-checkbox>
-      </d-auto-layout>
-    </d-auto-layout>
-  `,
-});
+    <d-auto-layout direction="column">
+    <p>Selected items are: {{items}}</p>
+      <d-checkbox></d-checkbox>
 
-export const Multiple = ArrayTemplate.bind({});
+    </d-auto-layout>
+  `
+})

@@ -1,5 +1,5 @@
 import DCheckbox from "./DCheckbox.vue";
-import DAutoLayout from "../d-auto-layout/DAutoLayout.vue";
+import DAutoL from "../d-box/DBox.vue";
 import DarkModeProvider from "../providers/DarkModeProvider.vue";
 
 export default {
@@ -105,26 +105,14 @@ DarkDisabled.args = {
   disabled: true,
 };
 
-const ArrayTemplate = (args) => ({
-  components: { DCheckbox, DAutoLayout },
+const ArrayTemplate = args => ({
+  components: { DCheckbox, DBox },
   setup() {
-    return { args };
+    return {args}
   },
-  data: () => ({
-    items: ["Eggs"],
-  }),
   template: `
-    <d-auto-layout direction="vertical">
-      <p>Selected items are: {{items}}</p>
-      
-      <d-auto-layout>
-        <d-checkbox v-model="items" label="Eggs" readonly value="Eggs"></d-checkbox>
-        <d-checkbox v-model="items" label="Beans" value="Beans"></d-checkbox>
-        <d-checkbox v-model="items" label="Potatoes" value="Potatoes"></d-checkbox>
-        <d-checkbox v-model="items" label="Salad" value="Salad"></d-checkbox>
-      </d-auto-layout>
-    </d-auto-layout>
-  `,
-});
+    <d-box>
 
-export const Multiple = ArrayTemplate.bind({});
+    </d-box>
+  `
+})

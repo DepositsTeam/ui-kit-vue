@@ -23,10 +23,8 @@
       :checked="isChecked"
       :class="{
         hasLabel: label || $slots.default,
-        disabled,
-        readonly,
       }"
-      :disabled="disabled || readonly"
+      :disabled="disabled"
     />
     <d-box v-if="$slots.default">
       <slot></slot>
@@ -93,9 +91,6 @@ const props = defineProps({
     type: Boolean,
     default: null,
   },
-  readonly: {
-    type: Boolean,
-  },
 });
 
 const computedValue = computed(() =>
@@ -126,7 +121,7 @@ const isChecked = computed(() => {
 });
 
 const handleChange = (e) => {
-  if (props.disabled || props.readonly) {
+  if (props.disabled) {
     return;
   }
   if (props.checked !== null) {
@@ -255,12 +250,8 @@ const handleChange = (e) => {
       background-color: var(--light-primary-action-color);
     }
 
-    &.disabled {
+    &:disabled {
       background-color: var(--light-primary-action-disabled-color);
-      cursor: not-allowed;
-    }
-
-    &.readonly {
       cursor: not-allowed;
     }
   }

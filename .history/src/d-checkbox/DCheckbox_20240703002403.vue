@@ -23,8 +23,6 @@
       :checked="isChecked"
       :class="{
         hasLabel: label || $slots.default,
-        disabled,
-        readonly,
       }"
       :disabled="disabled || readonly"
     />
@@ -255,12 +253,8 @@ const handleChange = (e) => {
       background-color: var(--light-primary-action-color);
     }
 
-    &.disabled {
+    &:disabled {
       background-color: var(--light-primary-action-disabled-color);
-      cursor: not-allowed;
-    }
-
-    &.readonly {
       cursor: not-allowed;
     }
   }
