@@ -64,6 +64,7 @@ export const useFilePicker = (props, emit, file) => {
     input.setAttribute("type", "text");
     input.setAttribute("type", "file");
     emit("cleared");
+    emit("change", null);
   };
 
   return {

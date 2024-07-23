@@ -47,6 +47,9 @@ export default {
     itemsPerPage: {
       control: { type: "text" },
     },
+    showPaginationPerPage: {
+      control: { type: "boolean" },
+    },
     paginate: {
       control: { type: "boolean" },
     },
@@ -170,6 +173,7 @@ ExtraHeadings.args = {
   data: paginatedData,
   enableCsvExport: true,
   enableCustomizeView: true,
+  paginate: true,
 };
 
 const DarkModeTemplate = (args) => ({

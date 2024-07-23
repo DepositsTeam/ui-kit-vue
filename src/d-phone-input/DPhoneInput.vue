@@ -123,11 +123,12 @@ const number = computed({
     if (props.phoneNumber) {
       if (props.isUs) {
         const asYouType = new AsYouType({
-          defaultCountry: countryCodes["+1"][1],
+          defaultCountry: "US",
         });
-        asYouType.input(props.phoneNumber);
+        const cleanPhoneNumber = props.phoneNumber.replace("+1", "");
+        asYouType.input("+1 " + cleanPhoneNumber);
         emit("update:phoneNumber", asYouType.getNationalNumber());
-        return asYouType.getNumber().formatNational();
+        return asYouType.getNumber()?.formatNational();
       } else {
         if (countryCode.value && countryCodes[countryCode.value]) {
           const asYouType = new AsYouType({

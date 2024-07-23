@@ -140,6 +140,12 @@ const props = defineProps({
   disableBeforeToday: {
     type: Boolean,
   },
+  disableTodayAndFuture: {
+    type: Boolean,
+  },
+  disableTodayAndPast: {
+    type: Boolean,
+  },
   disabledDate: {
     type: Function,
   },
@@ -163,6 +169,21 @@ const disabledAfterToday = (date) => {
   return date > today;
 };
 
+const disabledTodayAndPast = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date <= today;
+};
+
+const disabledTodayAndFuture = (date) => {
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
+  return date >= today;
+};
+
 const disabledBeforeToday = (date) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -175,6 +196,10 @@ const computedDisabledDates = computed(() => {
     return disabledAfterToday;
   } else if (props.disableBeforeToday) {
     return disabledBeforeToday;
+  } else if (props.disableTodayAndFuture) {
+    return disabledTodayAndFuture;
+  } else if (props.disableTodayAndPast) {
+    return disabledTodayAndPast;
   } else if (props.disabledDate) {
     return props.disabledDate;
   } else {

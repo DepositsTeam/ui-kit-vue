@@ -369,13 +369,26 @@
           </d-box>
         </d-box>
       </d-box>
-
       <d-box
+        margin-top="1rem"
         class="ui-table__pagination"
         :class="{ right: paginateRight }"
-        margin-top="1rem"
-        v-if="paginate"
       >
+        <d-box>
+          <d-auto-layout
+            alignment="center-left"
+            v-if="paginate && showPaginationPerPage"
+          >
+            <d-text my0>Show</d-text>
+            <d-select
+              v-model="internalItemsPerPage"
+              :options="['5', '10', '25', '50', '100']"
+              size="large"
+              placeholder="- Select -"
+            />
+            <d-text my0>rows per page</d-text>
+          </d-auto-layout>
+        </d-box>
         <d-pagination
           :total-pages="totalPages"
           :current-page="internalCurrentPage"
@@ -388,6 +401,7 @@
           :async-prev-next="asyncPrevNext"
         />
       </d-box>
+
       <table-customize-view-modal
         :columns="renderedColumns"
         :column-hash-map="columnHashmap"
@@ -458,6 +472,7 @@ import {
   FunnelIcon,
   SearchIcon,
   Sort2Icon,
+  DSelect,
 } from "../main";
 import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
@@ -503,6 +518,8 @@ const emit = defineEmits([
 ]);
 const isExpanded = ref(false);
 
+const internalItemsPerPage = ref("10");
+
 const currentTable = ref(null);
 
 const tableLoader = ref(null);
@@ -529,6 +546,15 @@ watch(isExpanded, (value) => {
     hideTableContainer.value = false;
   }
 });
+
+watch(
+  () => props.itemsPerPage,
+  () => {
+    if (props.itemsPerPage) {
+      internalItemsPerPage.value = props.itemsPerPage;
+    }
+  }
+);
 
 const watchScroll = (e) => {
   if (tableLoader?.value?.$el && props.loading) {
@@ -833,7 +859,11 @@ const dataFactory = computed(() => {
   }
 
   if (filter.value && filter.value.column && !props.asyncFilter) {
-    filteredData = filterItems(filter.value, filteredData, props.caseSensitiveSearch);
+    filteredData = filterItems(
+      filter.value,
+      filteredData,
+      props.caseSensitiveSearch
+    );
   }
 
   if (sortConfiguration.value && !props.asyncSort) {
@@ -849,8 +879,8 @@ const dataFactory = computed(() => {
 const paginatedData = computed(() => {
   let filteredData = [...unref(dataFactory.value)];
   if (props.paginate && !props.asyncPagination) {
-    let start = (scopedCurrentPage.value - 1) * props.itemsPerPage;
-    filteredData = filteredData.splice(start, props.itemsPerPage);
+    let start = (scopedCurrentPage.value - 1) * internalItemsPerPage.value;
+    filteredData = filteredData.splice(start, internalItemsPerPage.value);
   }
   return filteredData;
 });
@@ -864,9 +894,9 @@ const totalPages = computed(() => {
     return props.totalPages;
   }
   if (searchValue.value || filter.value.column) {
-    return Math.ceil(dataFactory.value.length / props.itemsPerPage);
+    return Math.ceil(dataFactory.value.length / internalItemsPerPage.value);
   }
-  return Math.ceil(props.data.length / props.itemsPerPage);
+  return Math.ceil(props.data.length / internalItemsPerPage.value);
 });
 
 const buttonActionsEnabled = computed(
@@ -1413,9 +1443,10 @@ const validateBackground = (background, index) => {
 
     .ui-table__pagination {
       display: flex;
+      justify-content: space-between;
 
       &.right {
-        justify-content: flex-end;
+        flex-direction: row-reverse;
       }
     }
   }

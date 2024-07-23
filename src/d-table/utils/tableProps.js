@@ -6,8 +6,8 @@ export const tableProps = {
     default: false,
   },
   itemsPerPage: {
-    type: Number,
-    default: 10,
+    type: [Number, String],
+    default: "10",
   },
   paginate: {
     type: Boolean,
@@ -175,6 +175,9 @@ export const tableProps = {
     type: Boolean,
   },
   expandCardClass: {
+    type: Boolean,
+  },
+  showPaginationPerPage: {
     type: Boolean,
   },
 };
