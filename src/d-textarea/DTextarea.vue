@@ -16,7 +16,7 @@
     </slot>
 
     <d-box
-      class="ui-text-area__textarea ui-text-field__input"
+      class="ui-text-area__textarea"
       :class="{
         'has-error': errorMessage,
         [textAreaClassName]: textAreaClassName,
@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { DBox, DText } from "../main";
+import { DBox } from "../main";
 import { computed, nextTick } from "vue";
 import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
@@ -68,8 +68,12 @@ const props = defineProps({
   maxHeight: {
     type: String,
   },
+  maxWidth: {
+    type: String,
+  },
   width: {
     type: String,
+    default: "100%",
   },
 });
 
