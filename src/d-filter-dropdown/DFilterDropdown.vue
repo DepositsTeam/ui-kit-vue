@@ -1,6 +1,12 @@
 <template>
   <d-box class="ui-filter-dropdown" ref="dropdownWrapperRef">
-    <d-button ref="targetRef" :size="size" drop-down @click="handleTargetClick">
+    <d-button
+      ref="targetRef"
+      :pill="pill"
+      :size="size"
+      drop-down
+      @click="handleTargetClick"
+    >
       <template v-if="!hideLeftIcon" #left-icon>
         <funnel-icon />
       </template>
@@ -97,6 +103,10 @@ const props = defineProps({
     default: "huge",
   },
   hideLeftIcon: {
+    type: Boolean,
+    default: false,
+  },
+  pill: {
     type: Boolean,
     default: false,
   },

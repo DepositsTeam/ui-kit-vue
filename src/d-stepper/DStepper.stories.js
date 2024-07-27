@@ -59,7 +59,28 @@ Default.args = {
   steps: [
     {
       text: "Complete basic KYB",
-      description: "August 16, 2021 at 5:15 PM",
+      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
+    },
+    {
+      text: "Select program use cas kdfjdkfalfja falkdfj adlkfja flkajdfa lkdfja falkdfja dflkajf aldkf alfjhad fladkjhfa e",
+      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
+    },
+    {
+      text: "Configure program",
+    },
+    {
+      text: "Demo & launch program",
+    },
+  ],
+};
+
+export const Variant2 = Template.bind({});
+Variant2.args = {
+  scheme: "variant-2",
+  currentStep: 1,
+  steps: [
+    {
+      text: "Complete basic KYB",
     },
     {
       text: "Select program use case",
@@ -78,11 +99,9 @@ SecondStep.args = {
   steps: [
     {
       text: "Complete basic KYB",
-      description: "August 16, 2021 at 5:15 PM",
     },
     {
       text: "Select program use case",
-      description: "August 16, 2021 at 5:15 PM <br /> Mode: Circumvented",
     },
     {
       text: "Configure program",
@@ -118,11 +137,9 @@ NonStepModeWithDescription.args = {
   steps: [
     {
       text: "Complete basic KYB",
-      description: "August 16, 2021 at 5:15 PM",
     },
     {
       text: "Select program use case",
-      description: "August 16, 2021 at 5:15 PM <br /> Mode: Circumvented",
     },
     {
       text: "Configure program",
@@ -160,9 +177,11 @@ DefaultDark.args = {
   steps: [
     {
       text: "Complete basic KYB",
+      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
     },
     {
-      text: "Select program use case",
+      text: "Select program use cas kdfjdkfalfja falkdfj adlkfja flkajdfa lkdfja falkdfja dflkajf aldkf alfjhad fladkjhfa e",
+      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
     },
     {
       text: "Configure program",

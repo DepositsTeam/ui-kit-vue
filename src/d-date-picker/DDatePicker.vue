@@ -7,16 +7,14 @@
     }"
   >
     <slot name="label">
-      <d-box v-if="label" is="label" :for="computedID">
-        <d-text
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-text-field__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="label && !invisible"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -39,6 +37,7 @@
             'date-picker': true,
             'has-error': errorMessage,
             [fontFace]: fontFace,
+            pill,
           },
         }"
         v-bind="{ ...$attrs, ...$props }"
@@ -99,6 +98,7 @@ import inputProps from "../utils/props/inputProps";
 import { inject, ref, onMounted, watch, computed } from "vue";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const darkMode = inject("d__darkMode", false);
 
@@ -124,6 +124,9 @@ const props = defineProps({
     type: String,
     default: "MM-DD-YYYY",
   },
+  outputFormat: {
+    type: String,
+  },
   formatDate: {
     type: Boolean,
     default: false,
@@ -140,11 +143,21 @@ const props = defineProps({
   disableBeforeToday: {
     type: Boolean,
   },
+  disableTodayAndFuture: {
+    type: Boolean,
+  },
+  disableTodayAndPast: {
+    type: Boolean,
+  },
   disabledDate: {
     type: Function,
   },
   modelValue: {
     type: [String, Date, Array],
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -159,6 +172,21 @@ const disabledAfterToday = (date) => {
   return date > today;
 };
 
+const disabledTodayAndPast = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date <= today;
+};
+
+const disabledTodayAndFuture = (date) => {
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
+  return date >= today;
+};
+
 const disabledBeforeToday = (date) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -171,6 +199,10 @@ const computedDisabledDates = computed(() => {
     return disabledAfterToday;
   } else if (props.disableBeforeToday) {
     return disabledBeforeToday;
+  } else if (props.disableTodayAndFuture) {
+    return disabledTodayAndFuture;
+  } else if (props.disableTodayAndPast) {
+    return disabledTodayAndPast;
   } else if (props.disabledDate) {
     return props.disabledDate;
   } else {
@@ -189,7 +221,11 @@ const computedPlaceholder = computed(() => {
 onMounted(() => {
   if (props.modelValue) {
     if (props.formatDate) {
-      date.value = moment(props.modelValue, props.format).toDate();
+      if (props.outputFormat && props.outputFormat !== props.format) {
+        date.value = moment(props.modelValue, props.outputFormat).toDate();
+      } else {
+        date.value = moment(props.modelValue, props.format).toDate();
+      }
     } else {
       date.value = Array.isArray(props.modelValue)
         ? props.modelValue
@@ -205,7 +241,13 @@ watch(
       if (Array.isArray(val)) {
         date.value = val;
       } else {
-        date.value = moment(val, props.format).toDate();
+        if (props.outputFormat) {
+          if (props.outputFormat !== props.format) {
+            date.value = moment(val, props.outputFormat).toDate();
+          }
+        } else {
+          date.value = moment(val, props.format).toDate();
+        }
       }
     } else {
       date.value = null;
@@ -221,8 +263,13 @@ const handleKeyEvents = (e) => {
 
 const fire = () => {
   if (props.formatDate && !Array.isArray(date.value)) {
-    emit("update:modelValue", moment(date.value).format(props.format));
-    emit("change", moment(date.value).format(props.format));
+    if (props.outputFormat) {
+      emit("update:modelValue", moment(date.value).format(props.outputFormat));
+      emit("change", moment(date.value).format(props.outputFormat));
+    } else {
+      emit("update:modelValue", moment(date.value).format(props.format));
+      emit("change", moment(date.value).format(props.format));
+    }
   } else {
     emit("update:modelValue", date.value);
     emit("change", date.value);

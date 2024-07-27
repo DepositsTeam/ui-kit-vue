@@ -39,6 +39,7 @@ export { default as DFilterDropdown } from "./d-filter-dropdown/DFilterDropdown.
 export { default as DGoBack } from "./d-go-back/DGoBack.vue";
 export { default as DGridLayout } from "./d-grid-layout/DGridLayout.vue";
 export { default as DHeading } from "./d-heading/DHeading.vue";
+export { default as DLabel } from "./components/forms/DLabel.vue";
 export { default as DLoader } from "./d-loader/DLoader.vue";
 export { default as DMenu } from "./d-menu/DMenu.vue";
 export { default as DModal } from "./d-modal/DModal.vue";
@@ -71,6 +72,7 @@ export { default as DText } from "./d-text/DText.vue";
 export { default as DTextarea } from "./d-textarea/DTextarea.vue";
 export { default as DTextfield } from "./d-textfield/DTextfield.vue";
 export { default as DTooltip } from "./d-tooltip/DTooltip.vue";
+export { default as DTransactionTimeline } from "./d-transaction-timeline/DTransactionTimeline.vue";
 export { default as DWysiwyg } from "./d-wysiwyg/DWysiwyg.vue";
 export { default as DarkModeProvider } from "./providers/DarkModeProvider.vue";
 export { default as ToastProvider } from "./providers/ToastProvider.vue";
@@ -88,6 +90,8 @@ export {
   CardBrands,
   getCardBrandFromPan,
   isValidCardPan,
+  isValidExp,
+  isValidCVV,
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
 
@@ -318,6 +322,7 @@ export { default as CardFilledIcon } from "./icons/filled/CardFilledIcon.vue";
 export { default as CardsFilledIcon } from "./icons/filled/CardsFilledIcon.vue";
 export { default as CategoryFilledIcon } from "./icons/filled/CategoryFilledIcon.vue";
 export { default as ChartFilledIcon } from "./icons/filled/ChartFilledIcon.vue";
+export { default as ClockFilledIcon } from "./icons/filled/ClockFilledIcon.vue";
 export { default as CloudUploadFilledIcon } from "./icons/filled/CloudUploadFilledIcon.vue";
 export { default as CopyFilledIcon } from "./icons/filled/CopyFilledIcon.vue";
 export { default as Dashboard2FilledIcon } from "./icons/filled/Dashboard2FilledIcon.vue";

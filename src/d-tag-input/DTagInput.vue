@@ -1,16 +1,14 @@
 <template>
   <d-box class="ui-tag-input__wrapper" :class="`size__${computedInputSize}`">
     <slot name="label">
-      <d-box is="label" :for="computedID">
-        <d-text
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-tag-input__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="label"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -18,6 +16,7 @@
       :class="{
         focus: focused,
         hasError: !!errorMessage || !!internalErrorMessage,
+        pill,
       }"
     >
       <d-box
@@ -71,6 +70,7 @@ import inputProps from "@/utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const _tagDelimiterKey = {
   space: " ",
@@ -107,6 +107,10 @@ const props = defineProps({
     type: String,
     validator: (value) => ["enter", "comma", "space"].includes(value),
     default: "enter",
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
   // TODO Make input, tags and the tag names customizable
 });
@@ -261,6 +265,10 @@ watch(duplicateTags, (value) => {
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
+
+  &.pill {
+    border-radius: 980px;
+  }
 
   &.hasError {
     background: #fff0f2;

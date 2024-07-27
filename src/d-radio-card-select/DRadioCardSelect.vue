@@ -1,3 +1,98 @@
+<template>
+  <d-box class="d-radio-card-select__wrapper">
+    <d-label
+      v-if="label"
+      :label-class="labelClass"
+      :label-font-face="labelFontFace"
+    >
+      {{ label }}
+    </d-label>
+    <d-box class="d-radio-card-select" cursor="pointer">
+      <d-auto-layout align-items="center" justify-content="space-between">
+        <d-auto-layout>
+          <d-box
+            is="img"
+            v-if="selectedOption.icon"
+            :src="selectedOption.icon"
+            :alt="selectedOption.text"
+          />
+
+          <d-auto-layout direction="vertical" item-spacing="2px">
+            <d-text my0 scale="subhead" font-weight="600" font-face="heroNew">{{
+              selectedOption.text
+            }}</d-text>
+            <d-text my0 font-size="12px" color="#8C97A7">{{
+              selectedOption.description
+            }}</d-text>
+          </d-auto-layout>
+        </d-auto-layout>
+        <d-auto-layout align-items="center">
+          <d-box
+            class="d-radio-card-select__change-button"
+            v-if="computedOptions.length > 1"
+            @click="triggerDropdown"
+          >
+            <d-text color="#6D7786" my0 font-size="12px" font-face="heroNew">{{
+              changeButtonText
+            }}</d-text>
+            <chevron-filled-down-icon smart-color="#6D7786" />
+          </d-box>
+          <d-box @click="handleChange">
+            <d-radio
+              ringed
+              ring-size="24px"
+              :checked="isChecked"
+              ring-thickness="8px"
+            />
+          </d-box>
+        </d-auto-layout>
+      </d-auto-layout>
+      <d-box class="d-radio-card-select__options" v-if="showOptions">
+        <d-box
+          class="d-radio-card-select__option"
+          v-for="option in computedOptions"
+          :key="option.unique_identifier_for_dropdown"
+          @click="selectOption(option)"
+        >
+          <d-auto-layout justify-content="space-between">
+            <d-auto-layout>
+              <d-box
+                is="img"
+                v-if="option.icon"
+                :src="option.icon"
+                :alt="option.text"
+              />
+              <d-auto-layout direction="vertical" item-spacing="2px">
+                <d-text
+                  my0
+                  scale="subhead"
+                  font-weight="600"
+                  font-face="heroNew"
+                  >{{ option.text }}</d-text
+                >
+                <d-text my0 font-size="12px" color="#8C97A7">{{
+                  option.description
+                }}</d-text>
+              </d-auto-layout>
+            </d-auto-layout>
+            <d-auto-layout>
+              <d-radio
+                :checked="
+                  selectedOption.unique_identifier_for_dropdown ===
+                  option.unique_identifier_for_dropdown
+                "
+                ringed
+                ring-size="24px"
+                ring-thickness="8px"
+              />
+            </d-auto-layout>
+          </d-auto-layout>
+        </d-box>
+      </d-box>
+    </d-box>
+  </d-box>
+</template>
+
 <script setup>
 import {
   DBox,
@@ -9,6 +104,7 @@ import {
 import { useDropdown } from "../utils/composables/useDropdown";
 import { computed, onBeforeMount, onMounted, ref } from "vue";
 import inputProps from "../utils/props/inputProps";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -116,6 +212,9 @@ const selectOption = (option) => {
 };
 
 onBeforeMount(() => {
+  if (props.modelValue === undefined) {
+    console.error("Please provide a v-model to the DRadioCardSelect component");
+  }
   if (props.modelValue) {
     let selected;
     if (typeof props.modelValue === "string") {
@@ -136,9 +235,11 @@ onBeforeMount(() => {
     selectedOption.value = selected;
     emit("update:modelValue", selected.originalOption);
   } else {
-    selectedOption.value = computedOptions.value[0];
-    emit("update:modelValue", selectedOption.value.originalOption);
-    // TODO Emit this value
+    if (computedOptions.value.length) {
+      selectedOption.value = computedOptions.value[0];
+      emit("update:modelValue", selectedOption.value?.originalOption);
+      // TODO Emit this value
+    }
   }
 });
 
@@ -146,101 +247,6 @@ const handleChange = () => {
   emit("update:radioValue", props.value);
 };
 </script>
-
-<template>
-  <d-box class="d-radio-card-select__wrapper">
-    <d-text
-      v-if="label"
-      margin-top="0px"
-      class="ui-text-field__label"
-      :class="labelClass"
-      scale="subhead"
-      :font-face="labelFontFace"
-    >
-      {{ label }}
-    </d-text>
-    <d-box class="d-radio-card-select" cursor="pointer">
-      <d-auto-layout align-items="center" justify-content="space-between">
-        <d-auto-layout>
-          <d-box
-            is="img"
-            v-if="selectedOption.icon"
-            :src="selectedOption.icon"
-            :alt="selectedOption.text"
-          />
-
-          <d-auto-layout direction="vertical" item-spacing="2px">
-            <d-text my0 scale="subhead" font-weight="600" font-face="heroNew">{{
-              selectedOption.text
-            }}</d-text>
-            <d-text my0 font-size="12px" color="#8C97A7">{{
-              selectedOption.description
-            }}</d-text>
-          </d-auto-layout>
-        </d-auto-layout>
-        <d-auto-layout align-items="center">
-          <d-box
-            class="d-radio-card-select__change-button"
-            v-if="computedOptions.length > 1"
-            @click="triggerDropdown"
-          >
-            <d-text color="#6D7786" my0 font-size="12px" font-face="heroNew">{{
-              changeButtonText
-            }}</d-text>
-            <chevron-filled-down-icon smart-color="#6D7786" />
-          </d-box>
-          <d-box @click="handleChange">
-            <d-radio
-              ringed
-              ring-size="24px"
-              :checked="isChecked"
-              ring-thickness="8px"
-            />
-          </d-box>
-        </d-auto-layout>
-      </d-auto-layout>
-      <d-box class="d-radio-card-select__options" v-if="showOptions">
-        <d-box
-          class="d-radio-card-select__option"
-          v-for="option in computedOptions"
-          :key="option.unique_identifier_for_dropdown"
-          @click="selectOption(option)"
-        >
-          <d-auto-layout justify-content="space-between">
-            <d-auto-layout>
-              <d-box
-                is="img"
-                v-if="option.icon"
-                :src="option.icon"
-                :alt="option.text"
-              />
-              <d-auto-layout direction="vertical" item-spacing="2px">
-                <d-text
-                  my0
-                  scale="subhead"
-                  font-weight="600"
-                  font-face="heroNew"
-                  >{{ option.text }}</d-text
-                >
-                <d-text my0 font-size="12px" color="#8C97A7">{{
-                  option.description
-                }}</d-text>
-              </d-auto-layout>
-            </d-auto-layout>
-            <d-auto-layout>
-              <d-radio
-                :checked="isChecked"
-                ringed
-                ring-size="24px"
-                ring-thickness="8px"
-              />
-            </d-auto-layout>
-          </d-auto-layout>
-        </d-box>
-      </d-box>
-    </d-box>
-  </d-box>
-</template>
 
 <style scoped lang="scss">
 .d-radio-card-select__wrapper {

@@ -5,22 +5,14 @@
     v-if="variant === 'inline'"
   >
     <slot name="label">
-      <d-box
+      <d-label
         v-if="!!label && variant !== 'button'"
-        is="label"
-        :for="computedID"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
       >
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-          :size="size"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box display="inline-flex" class="pseudo-input" :class="{ disabled }">
@@ -36,7 +28,7 @@
       />
       <d-box
         class="ui-text-field__input"
-        :class="{ 'has-error': computedErrorMessage }"
+        :class="{ 'has-error': computedErrorMessage, leftPill: pill }"
         display="flex"
         align-items="center"
       >
@@ -50,7 +42,7 @@
           >{{ selectedFileName }}</d-text
         >
       </d-box>
-      <d-box class="pseudo-button">
+      <d-box class="pseudo-button" :class="{ pill }">
         <d-text subhead font-face="hero-new" my0>{{ btnText }}</d-text>
       </d-box>
     </d-box>
@@ -77,7 +69,7 @@
       @mouseleave="toggleInputIsHovered(false)"
       type="file"
     />
-    <d-button :class="{ hover: inputIsHovered }" v-bind="$attrs">
+    <d-button :pill="pill" :class="{ hover: inputIsHovered }" v-bind="$attrs">
       {{
         selectedFileName === placeholder
           ? btnText || placeholder
@@ -94,6 +86,7 @@ import { useFilePicker } from "../utils/composables/useFilePicker";
 import { computed, ref } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -130,6 +123,10 @@ const props = defineProps({
     type: String,
     default: "inline",
     validator: (value) => ["inline", "button"].includes(value),
+  },
+  pill: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -216,6 +213,10 @@ const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
   border-radius: 0 6px 6px 0;
   padding-left: 32px;
   padding-right: 32px;
+  &.pill {
+    border-top-right-radius: 948px;
+    border-bottom-right-radius: 948px;
+  }
   &.dark_mode {
     background: var(--dark-input-border-color);
     border-color: var(--dark-input-border-color);
@@ -228,6 +229,9 @@ const { updateName, computedErrorMessage, computedAccepts, selectedFileName } =
 .d-file-picker-inline-btn {
   position: relative;
   display: inline-flex;
+  &.pill {
+    border-radius: 948px;
+  }
   input {
     position: absolute;
     opacity: 0;

@@ -29,5 +29,16 @@ export const useDropdown = (props) => {
     });
   });
 
-  return { computedOptions };
+  const findMatchingOption = (val) => {
+    if (typeof val === "object") {
+      return computedOptions.value.filter(
+        (option) => option[props.optionValue] === val[props.optionValue]
+      )?.[0];
+    }
+    return computedOptions.value.filter(
+      (option) => option[props.optionValue] === val
+    )?.[0];
+  };
+
+  return { computedOptions, findMatchingOption };
 };

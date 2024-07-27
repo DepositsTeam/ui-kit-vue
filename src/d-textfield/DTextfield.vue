@@ -1,17 +1,14 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <slot name="label">
-      <d-box v-if="!!label && !invisible" is="label" :for="computedID">
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="!!label && !invisible"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-auto-layout
@@ -22,6 +19,7 @@
         focused,
         notVisible: invisible,
         'has-error': showError || errorMessage,
+        pill,
       }"
     >
       <d-box
@@ -65,7 +63,6 @@
             disabled,
             oneCharWide,
             [inputClass]: true,
-            pill,
           }"
           :id="computedID"
           ref="inputField"
@@ -187,6 +184,7 @@ import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -249,6 +247,22 @@ const props = defineProps({
     type: String,
     default: "$",
   },
+  currencyAutoDecimal: {
+    type: Boolean,
+    default: false,
+  },
+  currencyDecimals: {
+    type: [Number, String],
+    default: 2,
+  },
+  currencyAllowNegative: {
+    type: Boolean,
+    default: false,
+  },
+  currencyEmptyValue: {
+    type: String,
+    default: "",
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -291,11 +305,15 @@ const maximumLength = computed(() => {
   }
 });
 
+/**
+ * This function runs on initialization and whenever the value of the model changes
+ * It's job is to handle formatting of the value of the text-field.
+ */
 const initializeModelValue = () => {
   if (!focused.value) {
     if (props.currency) {
       if (!props.modelValue) {
-        inputField.value.$el.value = `${props.currencySymbol} 0.00`;
+        inputField.value.$el.value = props.currencyEmptyValue;
       } else {
         let value = props.modelValue
             .replaceAll(props.currencySymbol, "")

@@ -47,6 +47,9 @@ export default {
     itemsPerPage: {
       control: { type: "text" },
     },
+    showPaginationPerPage: {
+      control: { type: "boolean" },
+    },
     paginate: {
       control: { type: "boolean" },
     },
@@ -170,6 +173,7 @@ ExtraHeadings.args = {
   data: paginatedData,
   enableCsvExport: true,
   enableCustomizeView: true,
+  paginate: true,
 };
 
 const DarkModeTemplate = (args) => ({
@@ -697,6 +701,7 @@ const AsyncPaginationTableTemplate = (args) => ({
   },
   methods: {
     alertPageChange(page) {
+      console.log(page);
       alert(
         "The page changed and the new page is " +
           page +

@@ -217,4 +217,5 @@ FormatDateIsTrueWithDefaultValue.args = {
   label: "Form Label",
   size: "medium",
   formatDate: true,
+  format: "MM-DD-YYYY",
 };

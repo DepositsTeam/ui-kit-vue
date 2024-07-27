@@ -1,8 +1,8 @@
 <template>
   <d-box class="ui-custom__color__config">
-    <d-box>
-      <d-text font-face="heroNew">{{ label }}</d-text>
-    </d-box>
+    <d-label v-if="!!label">
+      {{ label }}
+    </d-label>
     <d-box margin-top="24px">
       <d-box class="ui-colors">
         <d-box
@@ -46,10 +46,11 @@
 </template>
 
 <script setup>
-import { DBox, DText, DTextfield } from "../main";
+import { DBox, DTextfield } from "../main";
 import { onBeforeMount, reactive } from "vue";
 import copy from "copy-to-clipboard";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { useInputSize } from "@/utils/composables/useInputSize";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   modelValue: {

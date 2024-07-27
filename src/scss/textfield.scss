@@ -24,6 +24,9 @@
         }
       }
     }
+    &.pill {
+      border-radius: 980px;
+    }
     &.focused:not(.has-error) {
       border-color: var(--light-primary-action-color);
       box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
@@ -70,9 +73,16 @@
     border-bottom-right-radius: 0;
     border-right: none;
   }
+
   &.pill {
-    border-radius: 900px;
+    border-radius: 980px;
   }
+
+  &.leftPill {
+    border-top-left-radius: 980px;
+    border-bottom-left-radius: 980px;
+  }
+
   &.dark_mode {
     background: var(--dark-input-background-color);
     border-color: var(--dark-input-border-color);

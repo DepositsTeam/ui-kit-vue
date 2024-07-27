@@ -15,8 +15,23 @@ const Template = (args) => ({
   template: `<d-accordion v-bind="args" />`,
 });
 
+const ContentTemplate = (args) => ({
+  components: { DAccordion },
+  setup() {
+    return { args };
+  },
+  template: `<d-accordion v-bind="args">
+  Some hidden content
+</d-accordion>`,
+});
+
 export const Default = Template.bind({});
 Default.args = {
+  title: "Personal information verification",
+};
+
+export const Content = ContentTemplate.bind({});
+Content.args = {
   title: "Personal information verification",
 };
 

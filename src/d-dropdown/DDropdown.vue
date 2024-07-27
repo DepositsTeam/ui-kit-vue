@@ -20,6 +20,8 @@
       drop-down
       @right-icon-clicked="toggleDropdown"
       :placeholder="placeholder"
+      :pill="pill"
+      :readonly="readonly"
     >
       <template
         #leftIcon
@@ -105,11 +107,12 @@ import {
   onUnmounted,
   nextTick,
   watch,
+  watchEffect,
 } from "vue";
 import { useInputSize } from "../utils/composables/useInputSize";
 import { useDropdown } from "../utils/composables/useDropdown";
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "computedOptions"]);
 const mounted = ref(false);
 
 const props = defineProps({
@@ -131,11 +134,23 @@ const props = defineProps({
   fetching: {
     type: Boolean,
   },
+  pill: {
+    type: Boolean,
+    default: false,
+  },
+  disableDropdown: {
+    type: Boolean,
+    default: false,
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
   ...inputProps,
 });
 
 const { computedInputSize } = useInputSize(props);
-const { computedOptions } = useDropdown(props);
+const { computedOptions, findMatchingOption } = useDropdown(props);
 const showAllValues = ref(true);
 
 onBeforeMount(() => {
@@ -161,13 +176,16 @@ onBeforeMount(() => {
 
 onMounted(() => {
   window.addEventListener("click", handleLeave);
-
   mounted.value = true;
 });
 
 onUnmounted(() => {
   window.removeEventListener("click", handleLeave);
   mounted.value = false;
+});
+
+watchEffect(() => {
+  emit("computedOptions", computedOptions);
 });
 
 watch(
@@ -180,6 +198,7 @@ watch(
     );
     if (matched.length) {
       inputValue.value = matched[0].text;
+      selectedOption.value = matched[0];
     } else {
       inputValue.value = "";
     }
@@ -196,7 +215,6 @@ watch(inputValue, (val, prevVal) => {
     showAllValues.value = false;
   }
   if (!val && prevVal && !showOptions.value) {
-    return;
   }
   // if (!showOptions.value && mounted.value) {
   //   showOptions.value = true;
@@ -239,7 +257,9 @@ const handleClickedOption = async (option) => {
 };
 
 const handleFocus = () => {
-  showOptions.value = true;
+  if (!props.disableDropdown) {
+    showOptions.value = true;
+  }
 };
 
 const handleBlur = async () => {

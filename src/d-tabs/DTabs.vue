@@ -4,6 +4,9 @@
     :class="{
       cardMode: scheme === 'underline_card',
       hideBottomBorder,
+      horizontal,
+      vertical: !horizontal,
+      bottomPadding: scheme === 'underline_card' || scheme === 'underline',
     }"
     :style="{
       '--active-text-color': activeTextColor,
@@ -11,71 +14,80 @@
     }"
   >
     <d-auto-layout
-      :direction="horizontal ? 'horizontal' : 'vertical'"
-      :spacing="spacing"
-      :class="{
-        'ui-tabs__wrapper': true,
-        [scheme]: scheme && !inline,
-        hideBottomBorder,
-      }"
+      width="100%"
+      justify-content="space-between"
+      align-items="center"
     >
-      <d-box
-        v-for="(tab, index) in tabs"
-        :key="`tab_${index}_${keyGen()}`"
-        :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
-        v-bind="{ ...generateSpacing(index), ...$props }"
-        class="ui-tab noLine"
-        :to="tab.to"
+      <d-auto-layout
+        :direction="horizontal ? 'horizontal' : 'vertical'"
+        :spacing="spacing"
         :class="{
-          active: internalActive === index,
-          disabled: typeof tab === 'object' && tab.disabled,
-          inline: inline || scheme === 'inline',
+          'ui-tabs__wrapper': true,
           [scheme]: scheme && !inline,
-          customTextColor: activeTextColor,
-          customIndicatorColor: activeIndicatorColor,
+          hideBottomBorder,
         }"
-        @click="switchActiveTabs(index, tab)"
+        margin-right="1rem"
       >
-        <slot
-          name="tab-content"
-          v-bind="{ tab, index, isActive: internalActive === index }"
+        <d-box
+          v-for="(tab, index) in tabs"
+          :key="`tab_${index}_${keyGen()}`"
+          :is="is ? is : tab.is ? tab.is : tab.to ? RouterLink : `a`"
+          v-bind="{ ...generateSpacing(index), ...$props }"
+          class="ui-tab noLine"
+          :to="tab.to"
+          :class="{
+            active: internalActive === index,
+            disabled: typeof tab === 'object' && tab.disabled,
+            inline: inline || scheme === 'inline',
+            [scheme]: scheme && !inline,
+            customTextColor: activeTextColor,
+            customIndicatorColor: activeIndicatorColor,
+          }"
+          @click="switchActiveTabs(index, tab)"
         >
-          <d-auto-layout alignment="center">
-            <d-text
-              is="span"
-              no-line
-              my0
-              :font-face="tabFontFace"
-              :class="tabClass"
-            >
-              {{ typeof tab === "object" ? tab.text : tab }}
-            </d-text>
-            <d-box>
-              <d-badge
-                v-if="
-                  typeof tab === 'object' &&
-                  tab.total !== undefined &&
-                  tab.total !== null &&
-                  scheme !== 'button' &&
-                  showBadge
-                "
-                :subtle="true"
-                size="medium"
-                :smart-color="
-                  activeBadgeColor
-                    ? activeBadgeColor
-                    : internalActive === index
-                    ? theme['--light-primary-500']
-                    : undefined
-                "
-                :text="`${tab.total}`"
-              />
-            </d-box>
-          </d-auto-layout>
-        </slot>
-      </d-box>
+          <slot
+            name="tab-content"
+            v-bind="{ tab, index, isActive: internalActive === index }"
+          >
+            <d-auto-layout alignment="center">
+              <d-text
+                is="span"
+                no-line
+                my0
+                :font-face="tabFontFace"
+                :class="tabClass"
+                white-space="nowrap"
+              >
+                {{ typeof tab === "object" ? tab.text : tab }}
+              </d-text>
+              <d-box>
+                <d-badge
+                  v-if="
+                    typeof tab === 'object' &&
+                    tab.total !== undefined &&
+                    tab.total !== null &&
+                    scheme !== 'button' &&
+                    showBadge
+                  "
+                  :subtle="true"
+                  size="medium"
+                  :smart-color="
+                    activeBadgeColor
+                      ? activeBadgeColor
+                      : internalActive === index
+                      ? theme['--light-primary-500']
+                      : undefined
+                  "
+                  :text="`${tab.total}`"
+                />
+              </d-box>
+            </d-auto-layout>
+          </slot>
+        </d-box>
+        <slot name="afterTabs"></slot>
+      </d-auto-layout>
+      <slot v-if="scheme === 'underline_card'"></slot>
     </d-auto-layout>
-    <slot v-if="scheme === 'underline_card'"></slot>
   </d-box>
 </template>
 
@@ -205,26 +217,34 @@ const switchActiveTabs = (index, tab) => {
       }
     }
   }
+  &.horizontal {
+    overflow-x: auto;
+    height: calc(100% + 1px);
+  }
+
+  &.bottomPadding {
+    padding-bottom: 4px;
+  }
 }
 .ui-tabs__wrapper {
   position: relative;
   align-self: flex-end;
   display: flex;
   width: 100%;
-  overflow-x: auto;
   &.underline_card {
-    top: 1rem;
+    //top: 1rem;
   }
   &.underline,
   &.underline_card {
     text-decoration: none;
+
     &:not(.underline_card):not(.hideBottomBorder)::after {
       position: absolute;
       content: "";
       width: 100%;
       left: 0;
       height: 1px;
-      top: calc(100% + 1px);
+      top: calc(100%);
       background: #e2edf6;
     }
     &.dark_mode:not(.underline_card):not(.hideBottomBorder)::after {
@@ -329,6 +349,11 @@ const switchActiveTabs = (index, tab) => {
           }
         }
       }
+      &.underline_card {
+        &::after {
+          top: 103%;
+        }
+      }
       .ui-text {
         color: #fff;
       }
@@ -402,6 +427,11 @@ const switchActiveTabs = (index, tab) => {
         &::after {
           background: var(--active-indicator-color);
         }
+      }
+    }
+    &.underline_card {
+      &::after {
+        top: 103%;
       }
     }
   }

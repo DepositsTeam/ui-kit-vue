@@ -8,17 +8,14 @@
     }"
   >
     <slot name="label">
-      <d-box is="label" :for="computedID">
-        <d-text
-          my0
-          :class="labelClass"
-          :font-face="labelFontFace"
-          class="ui-text-field__label"
-          scale="subhead"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="!!label && !invisible"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-box
@@ -48,6 +45,7 @@
           'has-right-icon': rightIcon,
           focus: countryCodeIsFocused,
           disabled,
+          pill,
         }"
         :disabled="disabled"
         v-bind="$attrs"
@@ -73,6 +71,7 @@ import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const countryCodeIsFocused = ref(false);
 const phoneInputRef = ref(null);
@@ -102,6 +101,10 @@ const props = defineProps({
   isUs: {
     type: Boolean,
   },
+  pill: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { computedInputSize } = useInputSize(props);
@@ -120,11 +123,12 @@ const number = computed({
     if (props.phoneNumber) {
       if (props.isUs) {
         const asYouType = new AsYouType({
-          defaultCountry: countryCodes["+1"][1],
+          defaultCountry: "US",
         });
-        asYouType.input(props.phoneNumber);
+        const cleanPhoneNumber = props.phoneNumber.replace("+1", "");
+        asYouType.input("+1 " + cleanPhoneNumber);
         emit("update:phoneNumber", asYouType.getNationalNumber());
-        return asYouType.getNumber().formatNational();
+        return asYouType.getNumber()?.formatNational();
       } else {
         if (countryCode.value && countryCodes[countryCode.value]) {
           const asYouType = new AsYouType({
@@ -275,6 +279,10 @@ watch(localErrorMessage, (val) => {
   outline: none;
   font-family: "Circular Std", sans-serif;
   color: #212934;
+
+  &.pill {
+    border-radius: 980px;
+  }
 
   &.dark_mode {
     background: var(--dark-input-background-color);

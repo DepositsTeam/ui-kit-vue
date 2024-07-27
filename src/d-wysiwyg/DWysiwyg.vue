@@ -1,6 +1,13 @@
 <template>
   <d-box class="ui-wysiwyg__wrapper">
     <slot name="label">
+      <d-label
+        v-if="!!label"
+        :label-class="labelClass"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
       <d-box v-if="!!label" is="label">
         <d-text
           margin-top="0px"
@@ -129,6 +136,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
 import Image from "@tiptap/extension-image";
 import { ref, watch, onMounted, onBeforeUnmount } from "vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const emit = defineEmits(["update:modelValue"]);
 

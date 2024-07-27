@@ -1,5 +1,11 @@
 <template>
-  <d-box class="ui-action-list">
+  <d-box
+    class="ui-action-list"
+    :style="{
+      '--logo-height': logoHeight,
+      '--logo-width': logoWidth,
+    }"
+  >
     <d-box class="ui-action-list__body__wrapper">
       <slot name="body">
         <d-box class="ui-action-list__body">
@@ -16,7 +22,7 @@
                 is="img"
                 :src="logo"
                 :alt="title"
-              ></d-box>
+              />
             </slot>
             <d-box>
               <slot name="title">
@@ -101,6 +107,13 @@ defineProps({
     default: "default",
   },
   buttonSmartColor: {
+    type: String,
+  },
+  logoHeight: {
+    type: String,
+    default: "32px",
+  },
+  logoWidth: {
     type: String,
   },
 });

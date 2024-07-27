@@ -9,17 +9,19 @@
     }"
   >
     <d-box v-if="loading" class="ui-d-loader__wrapper">
-      <d-box v-if="loader === 'ring'" class="ring-loader">
-        <d-box></d-box>
-        <d-box></d-box>
-        <d-box></d-box>
-        <d-box></d-box>
-      </d-box>
-      <d-box v-else-if="loader === 'equalizer'" class="equalizer-loader" />
-      <d-box
-        v-else-if="loader === 'ringed-circle'"
-        class="ringed-circle-loader"
-      />
+      <slot name="loader">
+        <d-box v-if="loader === 'ring'" class="ring-loader">
+          <d-box></d-box>
+          <d-box></d-box>
+          <d-box></d-box>
+          <d-box></d-box>
+        </d-box>
+        <d-box v-else-if="loader === 'equalizer'" class="equalizer-loader" />
+        <d-box
+          v-else-if="loader === 'ringed-circle'"
+          class="ringed-circle-loader"
+        />
+      </slot>
     </d-box>
     <slot v-else-if="!loading && !renderAtRoot"></slot>
   </d-box>

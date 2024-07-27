@@ -1,17 +1,14 @@
 <template>
   <d-box class="ui-text-field__wrapper" :class="[`size__${computedInputSize}`]">
     <slot name="label">
-      <d-box v-if="!!label" is="label" :for="computedID">
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
+      <d-label
+        v-if="!!label"
+        :label-class="labelClass"
+        :html-for="computedID"
+        :label-font-face="labelFontFace"
+      >
+        {{ label }}
+      </d-label>
     </slot>
 
     <d-auto-layout :item-spacing="spacing" :between="fullWidth">
@@ -50,6 +47,7 @@ import uniqueRandomString from "../utils/uniqueRandomString";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import { useImmer } from "@/utils/composables/useImmer";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputProps,
@@ -164,7 +162,6 @@ const handleKeyDown = async (e, index) => {
         // .getElementsByTagName("input")[0];
         nextInput.select();
         e.preventDefault();
-
       }
     }
   }

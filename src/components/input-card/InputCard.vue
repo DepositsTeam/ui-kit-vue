@@ -1,15 +1,13 @@
 <template>
   <d-box class="d-input-card__wrapper">
-    <d-text
+    <d-label
       v-if="label"
-      margin-top="0px"
-      class="ui-text-field__label"
-      :class="labelClass"
-      scale="subhead"
-      :font-face="labelFontFace"
+      :label-class="labelClass"
+      :label-font-face="labelFontFace"
     >
       {{ label }}
-    </d-text>
+    </d-label>
+
     <d-box @click.once="handleClick" class="d-input-card">
       <d-auto-layout justify-content="space-between" align-items="center">
         <d-auto-layout item-spacing="18px" alignment="center-left">
@@ -67,6 +65,7 @@
 import { DAutoLayout, DBox, DText } from "@/main";
 import { ref, watch } from "vue";
 import inputCardProps from "@/components/input-card/inputCardProps";
+import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
   ...inputCardProps,
