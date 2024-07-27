@@ -52,6 +52,12 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue", "change", "input"]);
 
+/**
+ * This computed property dynamically sets the type attribute for `boxes`
+ * that are input fields. It defaults to "text" if no value is provided for
+ * the type prop.
+ * @type {ComputedRef<*|string|undefined>}
+ */
 const computedType = computed(() => {
   if (typeof props.is === "string" && props.is.toLowerCase() === "input") {
     return props.type ? props.type.toLowerCase() : "text";
@@ -59,6 +65,13 @@ const computedType = computed(() => {
     return undefined;
   }
 });
+
+/**
+ * Since a lot of `boxes` could be input fields and we want to support two-way
+ * binding with the modelValue prop, this computed property tries to dynamically
+ * fetch the value when either modelValue or value is provided.
+ * @type {ComputedRef<*|undefined>}
+ */
 const computedValue = computed(() => {
   if (props.modelValue !== undefined) {
     return props.modelValue;
@@ -218,7 +231,11 @@ const generateClassProps = () => {
     styleTag.id = uniqueID.value;
     styleTag.setAttribute("type", "text/css");
   }
-  styleTag.innerHTML = `.${uniqueClass.value}{${cssRules}} .${uniqueClass.value}_theming_styles{${themingEngineRules}}`;
+  styleTag.innerHTML = `[data-ui-kit-${
+    props.id ? props.id : uniqueClass.value
+  }]{${cssRules}} [data-ui-kit-theming-rules-${
+    props.id ? props.id : uniqueClass.value
+  }]{${themingEngineRules} }`;
   if (!existingTag) {
     document.head.appendChild(styleTag);
   }
@@ -258,8 +275,6 @@ const handleInput = (e) => {
     @change="handleChange"
     @input="handleInput"
     :class="{
-      [uniqueClass]: true,
-      [`${uniqueClass}_theming_styles`]: true,
       [darkClass]: darkModeIsEnabled && darkClass,
       [lightClass]: !darkModeIsEnabled && lightClass,
       [computedFontFace]:
@@ -271,6 +286,8 @@ const handleInput = (e) => {
       noLine,
       'deposits-ui-box': true,
     }"
+    :[`data-ui-kit-${uniqueClass}`]="true"
+    :[`data-ui-kit-theming-rules-${uniqueClass}`]="true"
     v-bind="{
       ...(svgWidth ? { width: svgWidth } : {}),
       ...(svgHeight ? { height: svgHeight } : {}),
