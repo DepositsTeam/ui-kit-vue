@@ -4,12 +4,7 @@
     :style="{
       '--spacing': spacing,
       '--indicator-size': indicatorSize,
-      '--indicator-color': activeColorSpectrum['500'],
-      '--indicator-color-border': activeColorSpectrum['200'],
-      '--indicator-color-bg': activeColorSpectrum['100'],
-      '--indicator-inactive-color': activeColorSpectrum['300'],
     }"
-    :class="{ [scheme]: scheme }"
   >
     <d-box
       v-for="(step, index) in timeline"
@@ -27,7 +22,6 @@
           index !== timeline.length - 1
             ? stepStatus(timeline[index + 1]) === 'inactive'
             : false,
-        [scheme]: scheme,
       }"
     >
       <slot
@@ -44,8 +38,6 @@
             failed: stepStatus(step) === 'failed',
             pending: stepStatus(step) === 'pending',
             last: index === timeline.length - 1,
-            [scheme]: scheme,
-            activeColor,
           }"
         >
           <check-outline-icon
@@ -101,7 +93,7 @@ import {
 import { generateColorSpectrum } from "@/utils/colorManager";
 import { computed } from "vue";
 
-const props = defineProps({
+defineProps({
   timeline: {
     type: Array,
   },
@@ -118,10 +110,6 @@ const props = defineProps({
     default: "20px",
   },
 });
-
-const activeColorSpectrum = computed(() =>
-  generateColorSpectrum(props.activeColor, "")
-);
 
 const validStatuses = [
   "active",
