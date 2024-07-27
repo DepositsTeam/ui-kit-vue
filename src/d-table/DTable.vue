@@ -374,6 +374,17 @@
         class="ui-table__pagination"
         :class="{ right: paginateRight }"
       >
+        <d-pagination
+          :total-pages="totalPages"
+          :current-page="internalCurrentPage"
+          :current-page-siblings="currentPageSiblings"
+          @page-changed="handlePageChange"
+          :smart-color="smartColor"
+          :hide-pages="hidePages"
+          :next-disabled="nextDisabled"
+          :prev-disabled="prevDisabled"
+          :async-prev-next="asyncPrevNext"
+        />
         <d-box>
           <d-auto-layout
             alignment="center-left"
@@ -389,17 +400,6 @@
             <d-text my0>rows per page</d-text>
           </d-auto-layout>
         </d-box>
-        <d-pagination
-          :total-pages="totalPages"
-          :current-page="internalCurrentPage"
-          :current-page-siblings="currentPageSiblings"
-          @page-changed="handlePageChange"
-          :smart-color="smartColor"
-          :hide-pages="hidePages"
-          :next-disabled="nextDisabled"
-          :prev-disabled="prevDisabled"
-          :async-prev-next="asyncPrevNext"
-        />
       </d-box>
 
       <table-customize-view-modal
@@ -1445,8 +1445,22 @@ const validateBackground = (background, index) => {
       display: flex;
       justify-content: space-between;
 
+      &:not(.right) {
+        & > :last-child {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+
+      & > * {
+        flex: 1;
+      }
+
       &.right {
         flex-direction: row-reverse;
+        & > :first-child {
+          justify-content: flex-end;
+        }
       }
     }
   }

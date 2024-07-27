@@ -701,6 +701,7 @@ const AsyncPaginationTableTemplate = (args) => ({
   },
   methods: {
     alertPageChange(page) {
+      console.log(page);
       alert(
         "The page changed and the new page is " +
           page +
