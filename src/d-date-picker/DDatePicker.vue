@@ -124,6 +124,9 @@ const props = defineProps({
     type: String,
     default: "MM-DD-YYYY",
   },
+  outputFormat: {
+    type: String,
+  },
   formatDate: {
     type: Boolean,
     default: false,
@@ -218,7 +221,11 @@ const computedPlaceholder = computed(() => {
 onMounted(() => {
   if (props.modelValue) {
     if (props.formatDate) {
-      date.value = moment(props.modelValue, props.format).toDate();
+      if (props.outputFormat && props.outputFormat !== props.format) {
+        date.value = moment(props.modelValue, props.outputFormat).toDate();
+      } else {
+        date.value = moment(props.modelValue, props.format).toDate();
+      }
     } else {
       date.value = Array.isArray(props.modelValue)
         ? props.modelValue
@@ -234,7 +241,13 @@ watch(
       if (Array.isArray(val)) {
         date.value = val;
       } else {
-        date.value = moment(val, props.format).toDate();
+        if (props.outputFormat) {
+          if (props.outputFormat !== props.format) {
+            date.value = moment(val, props.outputFormat).toDate();
+          }
+        } else {
+          date.value = moment(val, props.format).toDate();
+        }
       }
     } else {
       date.value = null;
@@ -250,8 +263,13 @@ const handleKeyEvents = (e) => {
 
 const fire = () => {
   if (props.formatDate && !Array.isArray(date.value)) {
-    emit("update:modelValue", moment(date.value).format(props.format));
-    emit("change", moment(date.value).format(props.format));
+    if (props.outputFormat) {
+      emit("update:modelValue", moment(date.value).format(props.outputFormat));
+      emit("change", moment(date.value).format(props.outputFormat));
+    } else {
+      emit("update:modelValue", moment(date.value).format(props.format));
+      emit("change", moment(date.value).format(props.format));
+    }
   } else {
     emit("update:modelValue", date.value);
     emit("change", date.value);
