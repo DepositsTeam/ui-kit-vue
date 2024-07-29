@@ -22,7 +22,7 @@
 
 <script setup>
 import { DDropdown } from "../main";
-import countries from "./countries_states_cities.json";
+import countries from "../utils/resources/countries/countries_states_cities.json";
 import { computed } from "vue";
 import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "../utils/composables/useInputSize";

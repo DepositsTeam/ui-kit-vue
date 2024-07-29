@@ -65,7 +65,7 @@
 import { DBox, DText } from "../main";
 import { computed, onMounted, ref, watch } from "vue";
 import inputProps from "@/utils/props/inputProps";
-import countryCodes from "@/utils/country_codes_grouped.json";
+import countryCodes from "@/utils/resources/countries/country_codes_grouped.json";
 import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { useInputSize } from "@/utils/composables/useInputSize";
