@@ -4,6 +4,7 @@ import allowedCSSProps from "../utils/props/allowedCSSProps";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { defaultThemeVars, insertThemeToPage } from "@/providers/default-theme";
 import convertObjToVars from "../utils/convertObjToVars";
+import { hash } from "ohash";
 
 const props = defineProps({
   is: {
@@ -141,8 +142,11 @@ const darkModeIsEnabled = computed(
   () => darkMode !== null && darkMode !== undefined && darkMode.value
 );
 
-const uniqueID = ref("auto_generated" + uniqueRandomString(20));
-const uniqueClass = ref("auto_generated" + uniqueRandomString(20));
+// const uniqueID = ref("auto_generated" + uniqueRandomString(20));
+// const uniqueClass = ref("auto_generated" + uniqueRandomString(20));
+
+const uniqueID = ref("auto_generated-" + hash(props));
+const uniqueClass = ref("auto_generated-" + hash(props));
 
 const convertCssProps = (str) =>
   str
@@ -271,7 +275,7 @@ const handleInput = (e) => {
 <template>
   <component
     :is="is"
-    :id="id ? id : uniqueID"
+    :id="id"
     @change="handleChange"
     @input="handleInput"
     :class="{
@@ -286,8 +290,8 @@ const handleInput = (e) => {
       noLine,
       'deposits-ui-box': true,
     }"
-    :[`data-ui-kit-${uniqueClass}`]="true"
-    :[`data-ui-kit-theming-rules-${uniqueClass}`]="true"
+    :[`data-ui-kit-${uniqueClass}`]="''"
+    :[`data-ui-kit-theming-rules-${uniqueClass}`]="''"
     v-bind="{
       ...(svgWidth ? { width: svgWidth } : {}),
       ...(svgHeight ? { height: svgHeight } : {}),

@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div
+  class="circularSTD deposits-ui-box ui-alert theme__flat color-scheme__default"
+  data-ui-kit-auto_generated-cltvdguj3s=""
+  data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+  data-v-c37e8cfb=""
+  style="--light-primary-title-text-color: #212934; --light-primary-description-text-color: #5f6b7a; --dark-primary-title-text-color: #212934; --dark-primary-description-text-color: #5f6b7a;"
+>
+  
+  <div
+    class="circularSTD deposits-ui-box ui-alert__content-wrapper"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-c37e8cfb=""
+  >
+    
+    <div
+      class="circularSTD deposits-ui-box ui-alert__content"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-c37e8cfb=""
+    >
+      
+      <!--v-if-->
+      <div
+        class="circularSTD deposits-ui-box ui-alert__text"
+        data-ui-kit-auto_generated-oadslfigjl=""
+        data-ui-kit-theming-rules-auto_generated-oadslfigjl=""
+        data-v-c37e8cfb=""
+      >
+        
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  <!--v-if-->
+  
+</div>
+`;

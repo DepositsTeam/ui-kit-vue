@@ -85,6 +85,11 @@ test("renders the component without list prop", async () => {
   expect(wrapper.find('[data-test="action-list-item"]').exists()).to.be.false;
 });
 
+test("matches snapshot", async () => {
+  const wrapper = mount(DActionList);
+  expect(wrapper.element).toMatchSnapshot();
+});
+
 test("slots work as expected", async () => {
   const wrapper = mount(DActionList, {
     slots: {

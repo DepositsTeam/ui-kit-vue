@@ -37,6 +37,11 @@ test("renders the component", async () => {
   expect(buttons).to.have.lengthOf(0);
 });
 
+test("matches snapshot", async () => {
+  const wrapper = mount(DActionCard);
+  expect(wrapper.element).toMatchSnapshot();
+});
+
 test("renders the component with buttons", async () => {
   const wrapper = mount(DActionCard, {
     props: {

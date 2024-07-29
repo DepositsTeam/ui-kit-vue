@@ -72,6 +72,7 @@
               scale="subhead"
               class="ui-alert__body"
               :class="{ 'no-top': !message }"
+
             >
               {{ description }}
             </d-text>

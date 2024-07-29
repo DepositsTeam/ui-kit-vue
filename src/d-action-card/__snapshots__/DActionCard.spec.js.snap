@@ -1,0 +1,215 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div
+  class="circularSTD deposits-ui-box d-action-card"
+  data-ui-kit-auto_generated-cltvdguj3s=""
+  data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+  data-v-441f4658=""
+>
+  
+  <div
+    class="circularSTD deposits-ui-box d-action-card__header"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-441f4658=""
+  >
+    
+    
+    <img
+      class="circularSTD deposits-ui-box d-action-card__logo"
+      data-ui-kit-auto_generated-crmlexksxk=""
+      data-ui-kit-theming-rules-auto_generated-crmlexksxk=""
+      data-v-441f4658=""
+    >
+      
+      
+    </img>
+    
+    
+    <p
+      center="false"
+      class="heroNew deposits-ui-box ui-text my0 d-action-card__header__title d-action-card__header__title"
+      data-ui-kit-auto_generated-m7u0cw2pdt=""
+      data-ui-kit-theming-rules-auto_generated-m7u0cw2pdt=""
+      data-v-441f4658=""
+      equallineheight="false"
+      mb0="false"
+      ml0="false"
+      mr0="false"
+      mt0="false"
+      mx0="false"
+      my0="true"
+      uppercase="false"
+    >
+      
+      
+      
+      
+      
+    </p>
+    
+    
+    <p
+      center="false"
+      class="circularSTD deposits-ui-box ui-text my0 d-action-card__header__description d-action-card__header__description"
+      data-ui-kit-auto_generated-rkysuan9l1=""
+      data-ui-kit-theming-rules-auto_generated-rkysuan9l1=""
+      data-v-441f4658=""
+      equallineheight="false"
+      mb0="false"
+      ml0="false"
+      mr0="false"
+      mt0="false"
+      mx0="false"
+      my0="true"
+      uppercase="false"
+    >
+      
+      
+      
+      
+      
+    </p>
+    
+    
+  </div>
+  <div
+    class="circularSTD deposits-ui-box d-action-card__body"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-441f4658=""
+  >
+    
+    
+    <div
+      class="circularSTD deposits-ui-box d-auto-layout direction__horizontal"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-441f4658=""
+      style="--spacing-value: 10px;"
+    >
+      
+      
+      
+      <button
+        class="heroNew deposits-ui-box ui-button semantic__primary size__large"
+        data-test="button1"
+        data-ui-kit-auto_generated-c1xbggyioe=""
+        data-ui-kit-theming-rules-auto_generated-c1xbggyioe=""
+        data-v-441f4658=""
+        data-v-5100a3c9=""
+      >
+        
+        <div
+          class="circularSTD deposits-ui-box"
+          data-ui-kit-auto_generated-wh6g3feqwh=""
+          data-ui-kit-theming-rules-auto_generated-wh6g3feqwh=""
+          data-v-5100a3c9=""
+        >
+          
+          <!--v-if-->
+          <div
+            class="circularSTD deposits-ui-box ui-button__button-text"
+            data-ui-kit-auto_generated-cltvdguj3s=""
+            data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+            data-v-5100a3c9=""
+          >
+            
+            <div
+              class="circularSTD deposits-ui-box"
+              data-ui-kit-auto_generated-cltvdguj3s=""
+              data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+              data-v-5100a3c9=""
+            >
+              
+              
+              Connect
+              
+              
+            </div>
+            
+          </div>
+          <!--v-if-->
+          <!--v-if-->
+          
+        </div>
+        
+      </button>
+      
+      
+      <button
+        class="heroNew deposits-ui-box ui-button semantic__default size__large"
+        data-test="button2"
+        data-ui-kit-auto_generated-c1xbggyioe=""
+        data-ui-kit-theming-rules-auto_generated-c1xbggyioe=""
+        data-v-441f4658=""
+        data-v-5100a3c9=""
+      >
+        
+        <div
+          class="circularSTD deposits-ui-box"
+          data-ui-kit-auto_generated-wh6g3feqwh=""
+          data-ui-kit-theming-rules-auto_generated-wh6g3feqwh=""
+          data-v-5100a3c9=""
+        >
+          
+          <!--v-if-->
+          <div
+            class="circularSTD deposits-ui-box ui-button__button-text"
+            data-ui-kit-auto_generated-cltvdguj3s=""
+            data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+            data-v-5100a3c9=""
+          >
+            
+            <div
+              class="circularSTD deposits-ui-box"
+              data-ui-kit-auto_generated-cltvdguj3s=""
+              data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+              data-v-5100a3c9=""
+            >
+              
+              
+              Learn More
+              
+              
+            </div>
+            
+          </div>
+          <!--v-if-->
+          <svg
+            class="deposits-ui-box ui-button__right-icon"
+            data-ui-kit-auto_generated-7LxGHMe8z3=""
+            data-ui-kit-theming-rules-auto_generated-7LxGHMe8z3=""
+            data-v-5100a3c9=""
+            fill="none"
+            focusable="false"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            
+            <path
+              d="M14.1676 4.00171H20V10.4174M19.9964 14.7V18.6662C19.9964 19.0198 19.856 19.3587 19.606 19.6087C19.356 19.8587 19.0169 19.9994 18.6633 19.9994H5.33315C4.97958 19.9994 4.64044 19.8587 4.39043 19.6087C4.14042 19.3587 4 19.0198 4 18.6662V5.33586C4 4.98229 4.14042 4.64337 4.39043 4.39336C4.64044 4.14335 4.97958 4.00293 5.33315 4.00293H10.1657M11.9987 11.9987L19.9973 4"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            
+          </svg>
+          
+        </div>
+        
+      </button>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+  
+</div>
+`;

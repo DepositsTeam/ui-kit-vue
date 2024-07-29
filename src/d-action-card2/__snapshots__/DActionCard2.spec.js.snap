@@ -1,0 +1,199 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div
+  class="circularSTD deposits-ui-box ui-card__wrapper"
+  data-ui-kit-auto_generated-d0cyogahbg=""
+  data-ui-kit-theming-rules-auto_generated-d0cyogahbg=""
+>
+  
+  
+  
+  <div
+    class="circularSTD deposits-ui-box ui-card"
+    data-ui-kit-auto_generated-ed7tflkir7=""
+    data-ui-kit-theming-rules-auto_generated-ed7tflkir7=""
+  >
+    
+    <!--v-if-->
+    <div
+      class="circularSTD deposits-ui-box ui-card__content"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    >
+      
+      <!--v-if-->
+      
+      <div
+        class="circularSTD deposits-ui-box"
+        data-ui-kit-auto_generated-scs2hkia7y=""
+        data-ui-kit-theming-rules-auto_generated-scs2hkia7y=""
+      >
+        
+        <div
+          class="circularSTD deposits-ui-box"
+          data-ui-kit-auto_generated-sciugr3apv=""
+          data-ui-kit-theming-rules-auto_generated-sciugr3apv=""
+        >
+          
+          
+          <img
+            class="circularSTD deposits-ui-box"
+            data-ui-kit-auto_generated-crmlexksxk=""
+            data-ui-kit-theming-rules-auto_generated-crmlexksxk=""
+          >
+            
+            
+          </img>
+          
+          
+        </div>
+        <div
+          class="circularSTD deposits-ui-box"
+          data-ui-kit-auto_generated-cltvdguj3s=""
+          data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+        >
+          
+          
+          <h5
+            center="false"
+            class="heroNew deposits-ui-box text-gray-700 ui-heading h5 text-gray-700"
+            data-ui-kit-auto_generated-zd8bfn2r0p=""
+            data-ui-kit-theming-rules-auto_generated-zd8bfn2r0p=""
+            equallineheight="false"
+            my0="false"
+            scale="h5"
+            uppercase="false"
+          >
+            
+            
+            
+            
+            
+          </h5>
+          
+          
+          <p
+            center="false"
+            class="circularSTD deposits-ui-box ui-text subhead text-gray-600 text-gray-600"
+            data-test="description"
+            data-ui-kit-auto_generated-4ezvnzk8pi=""
+            data-ui-kit-theming-rules-auto_generated-4ezvnzk8pi=""
+            equallineheight="false"
+            mb0="false"
+            ml0="false"
+            mr0="false"
+            mt0="false"
+            mx0="false"
+            my0="false"
+            scale="subhead"
+            uppercase="false"
+          >
+            
+            
+            
+            
+            
+          </p>
+          
+          <div
+            class="circularSTD deposits-ui-box"
+            data-ui-kit-auto_generated-ehqo2nbrqf=""
+            data-ui-kit-theming-rules-auto_generated-ehqo2nbrqf=""
+          >
+            
+            
+            <button
+              class="heroNew deposits-ui-box ui-button semantic__default size__large"
+              data-ui-kit-auto_generated-c1xbggyioe=""
+              data-ui-kit-theming-rules-auto_generated-c1xbggyioe=""
+              data-v-5100a3c9=""
+            >
+              
+              <div
+                class="circularSTD deposits-ui-box"
+                data-ui-kit-auto_generated-wh6g3feqwh=""
+                data-ui-kit-theming-rules-auto_generated-wh6g3feqwh=""
+                data-v-5100a3c9=""
+              >
+                
+                <!--v-if-->
+                <div
+                  class="circularSTD deposits-ui-box ui-button__button-text"
+                  data-ui-kit-auto_generated-cltvdguj3s=""
+                  data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+                  data-v-5100a3c9=""
+                >
+                  
+                  <div
+                    class="circularSTD deposits-ui-box"
+                    data-ui-kit-auto_generated-cltvdguj3s=""
+                    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+                    data-v-5100a3c9=""
+                  >
+                    
+                    
+                  </div>
+                  
+                </div>
+                <!--v-if-->
+                <svg
+                  class="deposits-ui-box ui-button__right-icon"
+                  data-ui-kit-auto_generated-7LxGHMe8z3=""
+                  data-ui-kit-theming-rules-auto_generated-7LxGHMe8z3=""
+                  data-v-5100a3c9=""
+                  fill="none"
+                  focusable="false"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  
+                  <path
+                    d="M5 12H19"
+                    stroke="currentcolor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M13 18L19 12"
+                    stroke="currentcolor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M13 6L19 12"
+                    stroke="currentcolor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  
+                </svg>
+                
+              </div>
+              
+            </button>
+            
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      
+      <!--v-if-->
+      
+    </div>
+    <!--v-if-->
+    <!--v-if-->
+    
+  </div>
+  
+  
+  
+</div>
+`;

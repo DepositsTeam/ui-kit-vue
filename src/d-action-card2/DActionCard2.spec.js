@@ -29,6 +29,11 @@ test("renders the component", async () => {
   );
 });
 
+test("matches snapshot", async () => {
+  const wrapper = mount(DActionCard2);
+  expect(wrapper.element).toMatchSnapshot();
+});
+
 test("it emits the correct event", async () => {
   const wrapper = mount(DActionCard2, {
     props: {

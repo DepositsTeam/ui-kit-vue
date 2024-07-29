@@ -1,0 +1,144 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div
+  class="circularSTD deposits-ui-box ui-action-list"
+  data-ui-kit-auto_generated-cltvdguj3s=""
+  data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+  data-v-e5c24b7e=""
+>
+  
+  <div
+    class="circularSTD deposits-ui-box ui-action-list__header"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-e5c24b7e=""
+  >
+    
+    <div
+      class="circularSTD deposits-ui-box ui-action-list__header__left"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-e5c24b7e=""
+    >
+      
+      <p
+        center="false"
+        class="circularSTD deposits-ui-box ui-text"
+        data-ui-kit-auto_generated-rkysuan9l1=""
+        data-ui-kit-theming-rules-auto_generated-rkysuan9l1=""
+        data-v-e5c24b7e=""
+        equallineheight="false"
+        mb0="false"
+        ml0="false"
+        mr0="false"
+        mt0="false"
+        mx0="false"
+        my0="false"
+        uppercase="false"
+      >
+        
+        
+        
+        
+        
+      </p>
+      
+    </div>
+    <div
+      class="circularSTD deposits-ui-box ui-action-list__header__right"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-e5c24b7e=""
+    >
+      
+      
+      <button
+        class="heroNew deposits-ui-box ui-button semantic__primary size__large"
+        data-test="call-to-action-button"
+        data-ui-kit-auto_generated-c1xbggyioe=""
+        data-ui-kit-theming-rules-auto_generated-c1xbggyioe=""
+        data-v-5100a3c9=""
+        data-v-e5c24b7e=""
+      >
+        
+        <div
+          class="circularSTD deposits-ui-box"
+          data-ui-kit-auto_generated-wh6g3feqwh=""
+          data-ui-kit-theming-rules-auto_generated-wh6g3feqwh=""
+          data-v-5100a3c9=""
+        >
+          
+          <svg
+            class="deposits-ui-box ui-button__left-icon"
+            data-ui-kit-auto_generated-7LxGHMe8z3=""
+            data-ui-kit-theming-rules-auto_generated-7LxGHMe8z3=""
+            data-v-5100a3c9=""
+            fill="none"
+            focusable="false"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            
+            <path
+              d="M12 5.75V18.25"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="M18.25 12H5.75"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            
+          </svg>
+          <div
+            class="circularSTD deposits-ui-box ui-button__button-text"
+            data-ui-kit-auto_generated-cltvdguj3s=""
+            data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+            data-v-5100a3c9=""
+          >
+            
+            <div
+              class="circularSTD deposits-ui-box"
+              data-ui-kit-auto_generated-cltvdguj3s=""
+              data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+              data-v-5100a3c9=""
+            >
+              
+              
+              New Connection
+              
+              
+            </div>
+            
+          </div>
+          <!--v-if-->
+          <!--v-if-->
+          
+        </div>
+        
+      </button>
+      
+      
+    </div>
+    
+  </div>
+  <div
+    class="circularSTD deposits-ui-box ui-action-list__body__wrapper"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-e5c24b7e=""
+  >
+    
+    
+  </div>
+  
+</div>
+`;

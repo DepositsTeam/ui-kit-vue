@@ -1,0 +1,91 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div
+  class="circularSTD deposits-ui-box ui-action-list"
+  data-ui-kit-auto_generated-cltvdguj3s=""
+  data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+  data-v-d545dd22=""
+  style="--logo-height: 32px;"
+>
+  
+  <div
+    class="circularSTD deposits-ui-box ui-action-list__body__wrapper"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-d545dd22=""
+  >
+    
+    
+    <div
+      class="circularSTD deposits-ui-box ui-action-list__body"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-d545dd22=""
+    >
+      
+      <div
+        class="circularSTD deposits-ui-box ui-action-list__header__left"
+        data-ui-kit-auto_generated-6d24ilyadn=""
+        data-ui-kit-theming-rules-auto_generated-6d24ilyadn=""
+        data-v-d545dd22=""
+      >
+        
+        
+        <!--v-if-->
+        
+        <div
+          class="circularSTD deposits-ui-box"
+          data-ui-kit-auto_generated-cltvdguj3s=""
+          data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+          data-v-d545dd22=""
+        >
+          
+          
+          <p
+            center="false"
+            class="circularSTD deposits-ui-box ui-text my0 customFontSize"
+            data-test="title"
+            data-ui-kit-auto_generated-yoe3g8g6xy=""
+            data-ui-kit-theming-rules-auto_generated-yoe3g8g6xy=""
+            data-v-d545dd22=""
+            equallineheight="false"
+            mb0="false"
+            ml0="false"
+            mr0="false"
+            mt0="false"
+            mx0="false"
+            my0="true"
+            uppercase="false"
+          >
+            
+            
+            
+            
+            
+          </p>
+          
+          
+          <!--v-if-->
+          
+          
+        </div>
+        
+      </div>
+      <div
+        class="circularSTD deposits-ui-box ui-action-list__header__right"
+        data-ui-kit-auto_generated-cltvdguj3s=""
+        data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+        data-v-d545dd22=""
+      >
+        
+        
+      </div>
+      
+    </div>
+    
+    
+  </div>
+  
+</div>
+`;

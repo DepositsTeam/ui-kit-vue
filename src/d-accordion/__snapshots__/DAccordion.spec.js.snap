@@ -1,0 +1,91 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div
+  class="circularSTD deposits-ui-box ui-accordion"
+  data-ui-kit-auto_generated-cltvdguj3s=""
+  data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+  data-v-16297268=""
+>
+  
+  <div
+    class="circularSTD deposits-ui-box ui-accordion__header"
+    data-ui-kit-auto_generated-cltvdguj3s=""
+    data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+    data-v-16297268=""
+  >
+    
+    <div
+      class="circularSTD deposits-ui-box ui-accordion__header__left-content"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-16297268=""
+    >
+      
+      <div
+        class="circularSTD deposits-ui-box ui-accordion__header__left-icon"
+        data-ui-kit-auto_generated-cltvdguj3s=""
+        data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+        data-v-16297268=""
+      >
+        
+        
+        
+        <div
+          class="circularSTD deposits-ui-box text-grey-500"
+          data-ui-kit-auto_generated-cltvdguj3s=""
+          data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+          data-v-16297268=""
+        >
+          
+          <svg
+            class="deposits-ui-box"
+            data-ui-kit-auto_generated-FYeTYoeo4j=""
+            data-ui-kit-theming-rules-auto_generated-FYeTYoeo4j=""
+            data-v-16297268=""
+            fill="none"
+            focusable="false"
+            height="32px"
+            viewBox="0 0 24 24"
+            width="32px"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            
+            <path
+              d="M7.10108 9.65718L11.7577 14.8872C11.8915 15.0376 12.1086 15.0376 12.2424 14.8872L16.8989 9.65718C17.1148 9.41466 16.962 9 16.6565 9H7.34344C7.03808 9 6.88516 9.41467 7.10108 9.65718Z"
+              fill="currentcolor"
+            />
+            
+          </svg>
+          
+        </div>
+        
+        
+        
+      </div>
+      <div
+        class="circularSTD deposits-ui-box ui-accordion__header__title"
+        data-ui-kit-auto_generated-cltvdguj3s=""
+        data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+        data-v-16297268=""
+      >
+        
+        
+      </div>
+      
+    </div>
+    <div
+      class="circularSTD deposits-ui-box ui-accordion__header__right-icon"
+      data-ui-kit-auto_generated-cltvdguj3s=""
+      data-ui-kit-theming-rules-auto_generated-cltvdguj3s=""
+      data-v-16297268=""
+    >
+      
+      
+    </div>
+    
+  </div>
+  <!--v-if-->
+  
+</div>
+`;

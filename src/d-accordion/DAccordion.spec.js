@@ -18,6 +18,12 @@ test("renders the component", async () => {
   expect(wrapper.find('[data-test="title-text"]').exists()).to.be.true;
 });
 
+test("matches snapshot", async () => {
+  const wrapper = mount(DAccordion);
+
+  expect(wrapper.element).toMatchSnapshot();
+});
+
 test("toggles the accordion on click", async () => {
   const wrapper = mount(DAccordion, {
     props: {

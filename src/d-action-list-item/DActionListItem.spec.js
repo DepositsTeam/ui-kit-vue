@@ -26,6 +26,11 @@ test("renders the component", async () => {
   );
 });
 
+test("matches snapshot", async () => {
+  const wrapper = mount(DActionListItem);
+  expect(wrapper.element).toMatchSnapshot();
+});
+
 test("renders the title", async () => {
   const wrapper = mount(DActionListItem, {
     props: {
