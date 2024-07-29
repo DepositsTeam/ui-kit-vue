@@ -22,12 +22,13 @@
 
 <script setup>
 import { DDropdown } from "../main";
-import countries from "./countries_states_cities.json";
-import { computed } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import inputProps from "../utils/props/inputProps";
-import { useInputSize } from "../utils/composables/useInputSize";
+import { useInputSize } from "@/utils/composables/useInputSize";
 
 const emit = defineEmits(["update:modelValue", "statesChanged"]);
+
+const countries = ref([]);
 
 const props = defineProps({
   ...inputProps,
@@ -57,6 +58,22 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+});
+
+onBeforeMount(async () => {
+  try {
+    let countriesJSON;
+    if (props.onlyUs) {
+      countriesJSON = await import("../utils/resources/countries/usa.json");
+    } else {
+      countriesJSON = await import(
+        "../utils/resources/countries/countries_states_cities.json"
+      );
+    }
+    countries.value = countriesJSON.default;
+  } catch (err) {
+    console.log("Error with importing countries");
+  }
 });
 
 const { computedInputSize } = useInputSize(props);

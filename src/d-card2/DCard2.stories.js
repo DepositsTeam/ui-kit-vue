@@ -43,7 +43,7 @@ export const Default = Template.bind({});
 Default.args = {
   title: "API Reference",
   description:
-    "The Deposits API is built around a standard REST architecture, uses predictable, resource-oriented URLs, and all data are returned in JSON format. Requests are made with HTTP methods and HTTP response codes indicate the success or failure of those requests.",
+    "The Deposits API is built around a standard REST architecture, uses predictable, resources-oriented URLs, and all data are returned in JSON format. Requests are made with HTTP methods and HTTP response codes indicate the success or failure of those requests.",
   docLink: "https://docs.deposits.dev/",
   demoLink: "https://launch.new/programs",
   icon: "https://docs.deposits.dev/assets/svgs/home/services_dark.svg",
@@ -68,7 +68,7 @@ export const WithValue = WithValueTemplate.bind({});
 WithValue.args = {
   title: "API Reference",
   description:
-    "The Deposits API is built around a standard REST architecture, uses predictable, resource-oriented URLs, and all data are returned in JSON format. Requests are made with HTTP methods and HTTP response codes indicate the success or failure of those requests.",
+    "The Deposits API is built around a standard REST architecture, uses predictable, resources-oriented URLs, and all data are returned in JSON format. Requests are made with HTTP methods and HTTP response codes indicate the success or failure of those requests.",
   docLink: "https://docs.deposits.dev/",
   demoLink: "https://launch.new/programs",
   icon: "https://docs.deposits.dev/assets/svgs/home/services_dark.svg",
