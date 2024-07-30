@@ -44,13 +44,20 @@
                   font-face="circularSTD"
                   >{{ description }}
                 </d-text>
+                <d-text
+                  class="ui-action-list__subtitle-text ui-action-list__mobile"
+                  font-face="circularSTD"
+                  my0
+                  v-if="subtitle"
+                  >{{ subtitle }}
+                </d-text>
               </slot>
             </d-box>
           </d-box>
           <d-box class="ui-action-list__header__right">
             <slot name="subtitle">
               <d-text
-                class="ui-action-list__subtitle-text"
+                class="ui-action-list__subtitle-text ui-action-list__desktop"
                 font-face="circularSTD"
                 v-if="subtitle"
                 >{{ subtitle }}
@@ -160,4 +167,19 @@ defineProps({
     }
   }
 }
+.ui-action-list__mobile {
+  display: none;
+  @media screen and (max-width: 825px) {
+    display: block;
+  }
+}
+
+.ui-action-list__desktop {
+  display: block;
+  @media screen and (max-width: 825px) {
+    display: none;
+  }
+}
+
+
 </style>
