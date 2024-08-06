@@ -8,17 +8,6 @@
       >
         {{ label }}
       </d-label>
-      <d-box v-if="!!label" is="label">
-        <d-text
-          margin-top="0px"
-          class="ui-text-field__label"
-          :class="labelClass"
-          scale="subhead"
-          :font-face="labelFontFace"
-        >
-          {{ label }}
-        </d-text>
-      </d-box>
     </slot>
 
     <d-box :class="{ focused }" class="d-wysiwyg-semantic-container">
@@ -279,6 +268,8 @@ const toggleLink = () => {
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+  padding: 8px;
+  gap: 8px;
 
   &::-webkit-scrollbar {
     /* WebKit */
@@ -293,10 +284,18 @@ const toggleLink = () => {
     border: none;
     color: #5f6b7a;
     cursor: pointer;
-    margin: 8px;
-    &:hover,
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    &:hover {
+      color: var(--light-primary-action-text-color);
+    }
     &.is-active {
-      color: var(--light-primary-action-color);
+      background: var(--light-primary-action-color);
+      color: var(--light-primary-action-text-color);
     }
   }
 }

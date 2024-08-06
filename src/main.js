@@ -94,6 +94,7 @@ export {
   isValidCVV,
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
+export { getTextColor } from "./utils/colorManager";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";
