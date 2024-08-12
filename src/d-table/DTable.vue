@@ -207,7 +207,7 @@
         :class="{ falseHeight: loading && paginatedData.length < 3 }"
       >
         <d-box ref="tableLoader" v-if="loading" class="ui-table-loader">
-          <d-loader :loader="loaderType" />
+          <d-loader :loader="loaderType" :loader-size="loaderSize" />
         </d-box>
         <d-box is="table" ref="tableElemRef" class="ui-table">
           <d-box is="thead" class="ui-table__heading">
@@ -384,6 +384,7 @@
           :next-disabled="nextDisabled"
           :prev-disabled="prevDisabled"
           :async-prev-next="asyncPrevNext"
+          :disabled="loading"
         />
         <d-box>
           <d-auto-layout
@@ -396,6 +397,7 @@
               :options="['5', '10', '25', '50', '100']"
               size="large"
               placeholder="- Select -"
+              :disabled="loading"
             />
             <d-text my0>rows per page</d-text>
           </d-auto-layout>
@@ -555,6 +557,10 @@ watch(
     }
   }
 );
+
+watch(internalItemsPerPage, () => {
+  handlePageChange(1);
+});
 
 const watchScroll = (e) => {
   if (tableLoader?.value?.$el && props.loading) {
@@ -834,7 +840,7 @@ const handlePageChange = (currentPage) => {
     scopedCurrentPage.value = currentPage;
   }
   internalCurrentPage.value = currentPage;
-  emit("page-updated", currentPage);
+  emit("page-updated", currentPage, internalItemsPerPage.value);
   // if (searchValue.value) {
   //   emit("search", searchValue.value, currentPage);
   // }
@@ -842,6 +848,7 @@ const handlePageChange = (currentPage) => {
     emit("async-table-update", {
       page: currentPage,
       search: searchValue.value,
+      itemsPerPage: internalItemsPerPage.value,
     });
   }
 };

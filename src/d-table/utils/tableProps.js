@@ -87,6 +87,10 @@ export const tableProps = {
       ["ring", "equalizer", "ringed-circle"].includes(value),
     default: "ring",
   },
+  loaderSize: {
+    type: String,
+    default: "80px",
+  },
   search: {
     type: Boolean,
   },

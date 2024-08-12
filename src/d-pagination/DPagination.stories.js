@@ -18,6 +18,9 @@ export default {
     smartColor: {
       control: { type: "color" },
     },
+    disabled: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -65,6 +68,11 @@ const DarkModeTemplateFactory = () => {
 export const Default = Template.bind({});
 
 export const DarkDefault = DarkModeTemplateFactory();
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};
 
 export const OnlyNextAndPrevAsync = Template.bind({});
 OnlyNextAndPrevAsync.args = {

@@ -554,24 +554,8 @@ const handleFocusEvent = async (e) => {
         .replaceAll(",", "")
         .trim()
     );
-    // e.target.value = e.target.value
-    //   .replaceAll(props.currencySymbol, "")
-    //   .replaceAll(",", "");
     await nextTick();
     e.target.select();
-
-    // if (props.emitOnlyCurrencyValue) {
-    //   emit(
-    //     "update:modelValue",
-    //     e.target.value.replaceAll(props.currencySymbol, "").replaceAll(",", "")
-    //   );
-    //   await nextTick();
-    //   e.target.value = e.target.select();
-    // } else {
-    //   emit("update:modelValue", e.target.value);
-    //   await nextTick();
-    //   e.target.select();
-    // }
   }
   if (props.percentage) {
     emit("update:modelValue", e.target.value.replaceAll("%", ""));

@@ -7,7 +7,7 @@
     }"
   >
     <d-box
-      :class="{ disabled: disablePrev, smartColor }"
+      :class="{ disabled: disablePrev || disabled, smartColor }"
       class="ui-pagination__control"
       @click="updatePage(initializedCurrentPage - 1, true)"
     >
@@ -29,6 +29,7 @@
         :class="{
           'ui-pagination__page-number__active':
             initializedCurrentPage === visiblePage,
+          disabled,
           smartColor,
         }"
       >
@@ -40,7 +41,7 @@
 
     <d-box
       class="ui-pagination__control"
-      :class="{ disabled: disableNext, smartColor, hidePages }"
+      :class="{ disabled: disableNext || disabled, smartColor, hidePages }"
       @click="updatePage(initializedCurrentPage + 1, false)"
     >
       <d-text
@@ -95,6 +96,9 @@ const props = defineProps({
     type: Boolean,
   },
   asyncPrevNext: {
+    type: Boolean,
+  },
+  disabled: {
     type: Boolean,
   },
 });
@@ -161,12 +165,14 @@ const visiblePages = computed(() => {
 const disablePrev = computed(
   () =>
     props.prevDisabled ||
+    props.disabled ||
     (!props.asyncPrevNext && initializedCurrentPage.value === 1)
 );
 
 const disableNext = computed(
   () =>
     props.nextDisabled ||
+    props.disabled ||
     (!props.asyncPrevNext &&
       initializedCurrentPage.value === intTotalPages.value)
 );
@@ -176,11 +182,14 @@ onMounted(() => {
 });
 
 const updatePage = (page, nextPrev = undefined) => {
+  if (props.disabled) {
+    return;
+  }
   if (nextPrev !== undefined && props.asyncPrevNext) {
     if (nextPrev && disablePrev.value) {
-      return;
+
     } else if (!nextPrev && disableNext.value) {
-      return;
+
     } else {
       emit("page-changed", nextPrev ? "previous" : "next");
     }
@@ -213,6 +222,10 @@ const updatePage = (page, nextPrev = undefined) => {
     .ui-text {
       color: #f1f5f9;
     }
+  }
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 80%;
   }
 }
 

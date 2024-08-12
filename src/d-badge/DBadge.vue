@@ -187,6 +187,7 @@ defineProps({
       &.dark_mode {
         background: #202b3c;
         color: #cbd5e1;
+        border: 1px solid #384860;
       }
     }
 
