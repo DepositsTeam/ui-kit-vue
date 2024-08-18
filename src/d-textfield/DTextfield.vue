@@ -389,6 +389,19 @@ onMounted(() => {
   initializeModelValue();
 });
 
+watch(
+  [() => props.type, () => props.isPassword, () => props.isStrongPassword],
+  () => {
+    localType.value = props.type;
+    if (props.isPassword || props.isStrongPassword) {
+      localType.value = "password";
+    }
+    if (props.isStrongPassword) {
+      checkPasswordStrength(props.modelValue ? props.modelValue : props.value);
+    }
+  }
+);
+
 const emitLeftIconClicked = (e) => {
   emit("leftIconClicked", e);
 };
