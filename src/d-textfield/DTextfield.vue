@@ -76,7 +76,7 @@
           :pattern="pattern"
           :readonly="readonly"
           is="input"
-          :value="modelValue"
+          :value="textFieldValue"
           @change="handleChangeEvents"
           @input="handleInputEvents"
           @keydown="handleKeydownEvent"
@@ -185,6 +185,7 @@ import { formatEIN } from "@/utils/formatEIN";
 import uniqueRandomString from "@/utils/uniqueRandomString";
 import ErrorMessage from "@/components/forms/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
+import debounce from "lodash.debounce";
 
 const emit = defineEmits([
   "update:modelValue",
@@ -247,10 +248,6 @@ const props = defineProps({
     type: String,
     default: "$",
   },
-  currencyAutoDecimal: {
-    type: Boolean,
-    default: false,
-  },
   currencyDecimals: {
     type: [Number, String],
     default: 2,
@@ -291,6 +288,104 @@ const focused = ref(false);
 
 const passwordStrength = ref(null);
 
+const internalValue = ref(null);
+
+const stripCurrency = (value) => {
+  return value
+    ? typeof value === "number"
+      ? `${value}`
+      : value.replaceAll(",", "").replaceAll(props.currencySymbol, "").trim()
+    : "";
+};
+
+const currencyValue = computed(() => {
+  let parsed = internalValue.value
+    ? stripCurrency(internalValue.value).replace(/[^\d.-]/g, "")
+    : "";
+
+  if (!props.currencyAllowNegative) parsed = parsed.replace(/-/g, "");
+
+  if (props.currencyDecimals > 0 && !focused.value) {
+    parsed = number_format(parsed, props.currencyDecimals, ".", "");
+  }
+  return parsed;
+});
+
+watch(currencyValue, () => {
+  if (props.currency && props.emitOnlyCurrencyValue && !focused.value) {
+    emit("update:modelValue", currencyValue.value);
+  }
+});
+
+const displayCurrencyValue = computed(() => {
+  const formattedValue = number_format(
+    currencyValue.value,
+    props.currencyDecimals
+  );
+
+  return props.currency
+    ? currencyValue.value
+      ? `${props.currencySymbol} ${formattedValue}`
+      : ``
+    : "";
+});
+
+const starredSSNValue = computed(() => {
+  return props.ssn ? formatSSN(internalValue.value)[1] : "";
+});
+
+const formattedSSNValue = computed(() => {
+  return props.ssn ? formatSSN(internalValue.value)[0] : "";
+});
+
+const formattedEINValue = computed(() => {
+  return props.ein ? formatEIN(internalValue.value) : "";
+});
+
+const formattedPercentage = computed(() => {
+  try {
+    const parsedValue = formatPercentage(internalValue.value);
+    const renderedValue =
+      parsedValue < 0 ? 0 : parsedValue > 100 ? 100 : parsedValue;
+    return `${renderedValue}%`;
+  } catch (err) {
+    return "";
+  }
+});
+
+const textFieldValue = computed(() => {
+  if (props.currency) {
+    // Handle currency mode
+    if (focused.value) {
+      return currencyValue.value;
+    } else {
+      return displayCurrencyValue.value;
+    }
+  } else if (props.ssn) {
+    // Handle SSN mode
+    if (focused.value) {
+      return formattedSSNValue.value;
+    } else {
+      return starredSSNValue.value;
+    }
+  } else if (props.ein) {
+    // Handle EIN mode
+    return formattedEINValue.value;
+  } else if (props.percentage) {
+    return formattedPercentage.value;
+  } else {
+    // Handle plain mode
+    return props.modelValue;
+  }
+});
+
+watch(
+  () => props.modelValue,
+  (modelValue) => {
+    internalValue.value = modelValue;
+  }
+);
+
 const passwordIcon = computed(() =>
   localType.value === "text" ? EyeFilledIcon : NoEyeFilledIcon
 );
@@ -311,57 +406,10 @@ const maximumLength = computed(() => {
  */
 const initializeModelValue = () => {
   if (!focused.value) {
-    if (props.currency) {
-      if (!props.modelValue) {
-        inputField.value.$el.value = props.currencyEmptyValue;
-      } else {
-        let value = props.modelValue
-            .replaceAll(props.currencySymbol, "")
-            .replaceAll(",", ""),
-          regex = new RegExp(/^\d*(\.\d{0,2})?$/);
-        if (regex.test(value)) {
-          if (props.emitOnlyCurrencyValue) {
-            emit(
-              "update:modelValue",
-              `${number_format(value, 2).replaceAll(",", "")}`
-            );
-          } else {
-            emit(
-              "update:modelValue",
-              `${props.currencySymbol} ${number_format(
-                parseFloat(
-                  value.split(",").join("").replaceAll(props.currencySymbol, "")
-                ),
-                2
-              )}`
-            );
-          }
-          inputField.value.$el.value = `${props.currencySymbol} ${number_format(
-            parseFloat(
-              value.split(",").join("").replaceAll(props.currencySymbol, "")
-            ),
-            2
-          )}`;
-        }
-      }
-    } else if (props.ssn) {
-      if (!props.modelValue) {
-        inputField.value.$el.value = "";
-      } else {
-        localSSN.value = formatSSN(props.modelValue);
-        inputField.value.$el.value = localSSN.value[1];
-      }
-    } else if (props.ein) {
-      if (!props.modelValue) {
-        inputField.value.$el.value = "";
-      } else {
-        const formattedValue = formatEIN(props.modelValue);
-        inputField.value.$el.value = formattedValue;
-        emit("update:modelValue", formattedValue);
-      }
-    } else if (props.percentage) {
+    if (props.percentage) {
       if (!props.modelValue) {
         inputField.value.$el.value = "0%";
+        internalValue.value = "0%";
       } else {
         try {
           const parsedValue = formatPercentage(props.modelValue);
@@ -386,6 +434,7 @@ onMounted(() => {
   if (props.isStrongPassword) {
     checkPasswordStrength(props.modelValue ? props.modelValue : props.value);
   }
+  internalValue.value = props.modelValue;
   initializeModelValue();
 });
 
@@ -475,60 +524,28 @@ const checkPasswordStrength = (value) => {
   }
 };
 
-const handleInputEvents = (e) => {
+const handleInputEvents = async (e) => {
+  internalValue.value = e.target.value;
+  await nextTick();
   if (props.currency) {
-    let value = e.target.value,
-      temp,
-      regex = new RegExp(/^\d*(\.\d{0,2})?$/);
-    if (!regex.test(value)) {
-      temp = value.split("");
-      let tested = "";
-      for (let i = 0; i < temp.length; i++) {
-        tested += temp[i];
-        if (!regex.test(tested)) {
-          e.target.value = tested.substr(0, i);
-          if (props.emitOnlyCurrencyValue) {
-            emit(
-              "update:modelValue",
-              tested
-                .substr(0, i)
-                .replaceAll(props.currencySymbol, "")
-                .replaceAll(",", "")
-            );
-          } else {
-            emit("update:modelValue", tested.substr(0, i));
-          }
-          return;
-        }
-      }
-    } else {
-      if (props.emitOnlyCurrencyValue) {
-        let emittedValue = e.target.value
-          .replaceAll(props.currencySymbol, "")
-          .replaceAll(",", "");
-        emittedValue = emittedValue === "" ? "0.00" : emittedValue;
-        emit("update:modelValue", emittedValue);
-      } else {
-        emit("update:modelValue", e.target.value);
-      }
+    emit("update:modelValue", currencyValue.value);
+
+    if (!props.emitOnlyCurrencyValue && !focused.value) {
+      debounce(() => {
+        emit("update:modelValue", displayCurrencyValue.value);
+      }, 1000)();
     }
   } else if (props.ssn) {
-    const formatted = formatSSN(e.target.value);
-    localSSN.value = formatted;
-    emit("update:modelValue", formatted[0]);
+    emit("update:modelValue", formattedSSNValue.value);
   } else if (props.ein) {
-    emit("update:modelValue", formatEIN(e.target.value));
+    emit("update:modelValue", formattedEINValue.value);
   } else if (props.percentage) {
-    try {
-      emit("update:modelValue", formatPercentage(e.target.value));
-    } catch (err) {
-      emit("update:modelValue", "");
-    }
+    emit("update:modelValue", formattedPercentage.value);
   } else if (props.isStrongPassword) {
-    checkPasswordStrength(e.target.value);
-    emit("update:modelValue", e.target.value);
+    checkPasswordStrength(internalValue.value);
+    emit("update:modelValue", internalValue.value);
   } else {
-    emit("update:modelValue", e.target.value);
+    emit("update:modelValue", internalValue.value);
   }
   emit("input", e);
 };
@@ -560,14 +577,6 @@ const handleFocusEvent = async (e) => {
   focused.value = true;
   emit("focus", e);
   if (props.currency) {
-    emit(
-      "update:modelValue",
-      e.target.value
-        .replaceAll(props.currencySymbol, "")
-        .replaceAll(",", "")
-        .trim()
-    );
-    await nextTick();
     e.target.select();
   }
   if (props.percentage) {
@@ -575,60 +584,15 @@ const handleFocusEvent = async (e) => {
     await nextTick();
     e.target.select();
   }
-  if (props.ssn && localSSN.value.length) {
-    e.target.value = localSSN.value[0];
-  }
 };
 
 const handleBlurEvent = async (e) => {
   emit("blur", e);
   if (props.currency) {
-    if (e.target.value) {
-      if (props.emitOnlyCurrencyValue) {
-        emit(
-          "update:modelValue",
-          `${number_format(
-            parseFloat(
-              e.target.value
-                .split(",")
-                .join("")
-                .replaceAll(props.currencySymbol, "")
-                .replaceAll(",", "")
-                .trim()
-            ),
-            2
-          ).replaceAll(",", "")}`
-        );
-      } else {
-        emit(
-          "update:modelValue",
-          `${props.currencySymbol} ${number_format(
-            parseFloat(
-              e.target.value
-                .split(",")
-                .join("")
-                .replaceAll(props.currencySymbol, "")
-            ),
-            2
-          )}`
-        );
-      }
-      await nextTick();
-      e.target.value = `${props.currencySymbol} ${number_format(
-        parseFloat(
-          e.target.value
-            .split(",")
-            .join("")
-            .replaceAll(props.currencySymbol, "")
-        ),
-        2
-      )}`;
+    if (!props.emitOnlyCurrencyValue) {
+      emit("update:modelValue", displayCurrencyValue.value);
     } else {
-      if (props.emitOnlyCurrencyValue) {
-        emit("update:modelValue", `0.00`);
-      } else {
-        emit("update:modelValue", `${props.currencySymbol} 0.00`);
-      }
+      emit("update:modelValue", currencyValue.value);
     }
   }
   if (props.percentage) {
@@ -643,7 +607,7 @@ const handleBlurEvent = async (e) => {
     }
   }
   if (props.ssn && localSSN.value.length) {
-    e.target.value = localSSN.value[1];
+    // e.target.value = localSSN.value[1];
   }
   focused.value = false;
 };
@@ -652,49 +616,6 @@ watch(
   () => props.modelValue,
   () => {
     initializeModelValue();
-  }
-);
-
-watch(
-  () => props.emitOnlyCurrencyValue,
-  async (newValue) => {
-    if (newValue) {
-      emit(
-        "update:modelValue",
-        `${number_format(
-          parseFloat(
-            inputField.value.$el.value
-              .split(",")
-              .join("")
-              .replaceAll(props.currencySymbol, "")
-          ),
-          2
-        ).replaceAll(",", "")}`
-      );
-      await nextTick();
-      inputField.value.$el.value = `${props.currencySymbol} ${number_format(
-        parseFloat(
-          inputField.value.$el.value
-            .split(",")
-            .join("")
-            .replaceAll(props.currencySymbol, "")
-        ),
-        2
-      )}`;
-    } else {
-      emit(
-        "update:modelValue",
-        `${props.currencySymbol} ${number_format(
-          parseFloat(
-            inputField.value.$el.value
-              .split(",")
-              .join("")
-              .replaceAll(props.currencySymbol, "")
-          ),
-          2
-        )}`
-      );
-    }
   }
 );
 </script>
