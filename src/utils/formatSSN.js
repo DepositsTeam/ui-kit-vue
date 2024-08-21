@@ -1,4 +1,7 @@
 export function formatSSN(ssn) {
+  if (!ssn) {
+    return "";
+  }
   // remove all non-dash and non-numerals
   var val = ssn.replace(/[^\d-]/g, "");
 
@@ -31,4 +34,8 @@ export function formatSSN(ssn) {
     }
   }
   return [sssn, starredSsn];
+}
+
+export function removeSSNFormat(ssn) {
+  return ssn.replaceAll("-", "");
 }

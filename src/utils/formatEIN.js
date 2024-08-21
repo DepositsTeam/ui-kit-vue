@@ -1,4 +1,5 @@
 export function formatEIN(ein) {
+  if (!ein) return "";
   const digitsOnly = ein.replace(/\D/g, "");
 
   if (digitsOnly.length <= 2) {
