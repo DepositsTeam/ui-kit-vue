@@ -15,10 +15,10 @@ deploy_development:
     - cp -R src/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/src/
     - cp -R .storybook/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/.storybook/
     - cp package.json /var/www/html/test/ui_kit/storybook/vue-ui-kit/
-    - rm -r /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
+    - rm -rf /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
     - mkdir /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
     - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static/
-    - rm -r /var/www/html/test/ui_kit/storybook/vue
+    - rm -rf /var/www/html/test/ui_kit/storybook/vue
     - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue
     - cd /var/www/html/test/ui_kit/storybook/vue-ui-kit
 
