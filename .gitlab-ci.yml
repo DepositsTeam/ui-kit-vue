@@ -18,6 +18,8 @@ deploy_development:
     - rm -r /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
     - mkdir /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
     - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static/
+    - rm -r /var/www/html/test/ui_kit/storybook/vue
+    - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue
     - cd /var/www/html/test/ui_kit/storybook/vue-ui-kit
 
 #    - npm install
