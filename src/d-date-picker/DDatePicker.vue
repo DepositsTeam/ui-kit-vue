@@ -104,7 +104,7 @@ const darkMode = inject("d__darkMode", false);
 
 const date = ref(null);
 
-const emit = defineEmits(["update:modelValue", "blur", "change"]);
+const emit = defineEmits(["update:modelValue", "blur", "change", "utcOffset"]);
 
 const props = defineProps({
   ...inputProps,
@@ -232,6 +232,8 @@ onMounted(() => {
         : moment(props.modelValue, props.format);
     }
   }
+
+  emit("utcOffset", new Date().getTimezoneOffset());
 });
 
 watch(
@@ -274,6 +276,7 @@ const fire = () => {
     emit("update:modelValue", date.value);
     emit("change", date.value);
   }
+  emit("utcOffset", new Date().getTimezoneOffset());
 };
 </script>
 <script>
