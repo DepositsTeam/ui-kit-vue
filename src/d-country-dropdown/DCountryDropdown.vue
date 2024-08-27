@@ -21,7 +21,7 @@
 
 <script setup>
 import { DDropdown } from "../main";
-import { computed, nextTick, onBeforeMount, ref, watch } from "vue";
+import { computed, nextTick, onBeforeMount, ref } from "vue";
 import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 
@@ -78,13 +78,6 @@ onBeforeMount(async () => {
     console.log("Error with importing countries");
   }
 });
-
-watch(
-  () => props.modelValue,
-  () => {
-    localValue.value = props.modelValue;
-  }
-);
 
 const { computedInputSize } = useInputSize(props);
 const localValue = computed({
