@@ -125,6 +125,10 @@ export default {
       control: { type: "text" },
       default: "No data available",
     },
+    triggerSearchOn: {
+      control: { type: "select" },
+      options: ["keystroke", "enter", "blur"],
+    },
   },
 };
 
@@ -276,6 +280,22 @@ ExpandModeWithSpecifiedExpandedColumns.args = {
 export const Search = Template.bind({});
 Search.args = {
   search: true,
+  data: baseData,
+  columns: sitcomColumns,
+};
+
+export const SearchOnEnter = Template.bind({});
+SearchOnEnter.args = {
+  search: true,
+  triggerSearchOn: "enter",
+  data: baseData,
+  columns: sitcomColumns,
+};
+
+export const SearchOnBlur = Template.bind({});
+SearchOnBlur.args = {
+  search: true,
+  triggerSearchOn: "blur",
   data: baseData,
   columns: sitcomColumns,
 };

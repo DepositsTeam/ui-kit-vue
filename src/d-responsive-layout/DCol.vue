@@ -258,7 +258,7 @@ $breakpoints: "xs", "sm", "md", "lg", "xl", "xxl";
           flex: 0 0 auto;
         }
         &.ui-responsive__offset-#{$breakpoint}-#{$i} {
-          margin-left: calc(($i / 12 * 100%) + (var(--d-gutter-x) * 0.5));
+          margin-left: calc($i / 12 * 100%);
         }
         &.ui-responsive__order-#{$breakpoint}-#{$i} {
           order: #{$i};

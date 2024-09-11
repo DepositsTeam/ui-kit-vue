@@ -184,4 +184,8 @@ export const tableProps = {
   showPaginationPerPage: {
     type: Boolean,
   },
+  triggerSearchOn: {
+    type: String,
+    validator: (value) => ["keystroke", "enter", "blur"].includes(value),
+  },
 };

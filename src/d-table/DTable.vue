@@ -21,13 +21,22 @@
           }"
         >
           <slot name="table-search" v-if="!expandMode">
-            <d-textfield
-              v-if="search"
-              :left-icon="SearchIcon"
-              :placeholder="searchPlaceholder"
-              v-model="searchValue"
-              size="large"
-            />
+            <d-tooltip
+              tooltip="Press enter to search"
+              trigger="click"
+              position="top"
+              :disabled="triggerSearchOn !== 'enter'"
+            >
+              <d-textfield
+                v-if="search"
+                :left-icon="SearchIcon"
+                :placeholder="searchPlaceholder"
+                v-model="tempSearchValue"
+                @keydown.enter="handleSearchEnter"
+                @blur="handleSearchBlur"
+                size="large"
+              />
+            </d-tooltip>
           </slot>
           <slot name="table-header-left"></slot>
         </d-auto-layout>
@@ -475,6 +484,7 @@ import {
   SearchIcon,
   Sort2Icon,
   DSelect,
+  DTooltip,
 } from "../main";
 import TableHeadCell from "./components/TableHeadCell.vue";
 import TableActiveFiltersDropdown from "./components/TableActiveFiltersDropdown.vue";
@@ -694,8 +704,32 @@ const toggleCustomizeViewModal = (value) =>
   (showCustomizeViewModal.value = value);
 
 const scopedCurrentPage = ref(props.currentPage);
+const tempSearchValue = ref("");
 const searchValue = ref("");
 const sortConfiguration = ref(null);
+
+watch(tempSearchValue, (currentValue) => {
+  if (props.triggerSearchOn) {
+    if (props.triggerSearchOn === "keystroke") {
+      searchValue.value = currentValue;
+    }
+  } else if (!props.asyncPagination) {
+    searchValue.value = currentValue;
+  }
+});
+
+const handleSearchEnter = () => {
+  if (props.triggerSearchOn === "enter") {
+    searchValue.value = tempSearchValue.value;
+  }
+};
+
+const handleSearchBlur = () => {
+  if (props.triggerSearchOn === "blur") {
+    searchValue.value = tempSearchValue.value;
+  }
+};
+
 const updateSortConfiguration = (value) => (sortConfiguration.value = value);
 const filter = ref({
   column: null,
@@ -927,10 +961,12 @@ watch(searchValue, () => {
   scopedCurrentPage.value = 1;
 
   if (props.asyncSearch) {
+    // Write a debounce function
     emit("search", searchValue.value, 1);
   }
   internalCurrentPage.value = 1;
   if (props.asyncSearch && props.asyncPagination) {
+    // Write a debounce function
     emit("async-table-update", {
       page: 1,
       search: searchValue.value,
@@ -1239,13 +1275,13 @@ const validateBackground = (background, index) => {
       &.ui-table__fixed-column {
         position: sticky;
         left: 0;
-        z-index: 30;
+        z-index: 2;
       }
 
       &.ui-table__fixed_column_right {
         position: sticky;
         right: 0;
-        z-index: 30;
+        z-index: 2;
       }
 
       &.is-checkbox {
@@ -1308,16 +1344,16 @@ const validateBackground = (background, index) => {
         align-items: center;
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
-        z-index: 31;
+        z-index: 3;
 
         .ui-d-loader {
           position: relative;
-          z-index: 9;
+          z-index: 1;
         }
 
         &.dark_mode {
           background-color: transparent;
-          z-index: 9;
+          z-index: 1;
 
           &::before {
             content: "";
@@ -1328,7 +1364,7 @@ const validateBackground = (background, index) => {
             width: 100%;
             height: 100%;
             opacity: 0.7;
-            z-index: 5;
+            z-index: 1;
           }
         }
       }
