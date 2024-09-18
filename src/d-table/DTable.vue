@@ -713,7 +713,7 @@ watch(tempSearchValue, (currentValue) => {
     if (props.triggerSearchOn === "keystroke") {
       searchValue.value = currentValue;
     }
-  } else if (!props.asyncPagination) {
+  } else {
     searchValue.value = currentValue;
   }
 });
@@ -874,7 +874,12 @@ const handlePageChange = (currentPage) => {
     scopedCurrentPage.value = currentPage;
   }
   internalCurrentPage.value = currentPage;
-  emit("page-updated", currentPage, internalItemsPerPage.value);
+  emit(
+    "page-updated",
+    currentPage,
+    internalItemsPerPage.value,
+    searchValue.value
+  );
   // if (searchValue.value) {
   //   emit("search", searchValue.value, currentPage);
   // }
@@ -960,11 +965,9 @@ watch(
 watch(searchValue, () => {
   scopedCurrentPage.value = 1;
 
-  if (props.asyncSearch) {
-    // Write a debounce function
-    emit("search", searchValue.value, 1);
-  }
-  internalCurrentPage.value = 1;
+  handlePageChange(1);
+  // Write a debounce function
+  emit("search", searchValue.value, 1);
   if (props.asyncSearch && props.asyncPagination) {
     // Write a debounce function
     emit("async-table-update", {
