@@ -56,9 +56,9 @@
         v-else-if="leftIcon"
         :is="leftIcon"
       ></component>
-      <d-box class="ui-button__button-text">
-        <d-box is="span" v-if="text">{{ text }}</d-box>
-        <d-box v-else>
+      <d-box class="ui-button__button-text" :font-face="fontFace">
+        <d-box is="span" v-if="text" :font-face="fontFace">{{ text }}</d-box>
+        <d-box v-else :font-face="fontFace">
           <slot></slot>
         </d-box>
       </d-box>
