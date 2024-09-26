@@ -22,6 +22,7 @@
       :placeholder="placeholder"
       :pill="pill"
       :readonly="readonly"
+      :name="name"
     >
       <template
         #leftIcon

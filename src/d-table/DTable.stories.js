@@ -725,7 +725,7 @@ const AsyncPaginationTableTemplate = (args) => ({
       alert(
         "The page changed and the new page is " +
           page +
-          ". I can do an ajax call to get this page's content."
+          ". I can do an ajax call to get this page's content.",
       );
     },
   },
@@ -827,7 +827,7 @@ const AsyncTableUpdateTemplate = (args) => ({
       alert(
         `The current page is ${payload.page} and the search value is ${
           payload.search
-        }. The returned payload is ${JSON.stringify(payload)}`
+        }. The returned payload is ${JSON.stringify(payload)}`,
       );
     },
     pageUpdate: function (page) {

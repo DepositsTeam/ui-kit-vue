@@ -8,6 +8,7 @@
     return-obj-model
     :pill="pill"
     :readonly="onlyUs"
+    :name="name"
   >
     <template #icon="option">
       {{ option.emoji }}
@@ -56,6 +57,9 @@ const props = defineProps({
   onlyUs: {
     type: Boolean,
     default: false,
+  },
+  name: {
+    type: String,
   },
 });
 

@@ -313,7 +313,7 @@ CustomHeaderAndFooter.args = {
 };
 
 export const CustomHeaderAndFooterDark = DarkModeTemplateFactory(
-  DarkModeHeaderFooterTemplate
+  DarkModeHeaderFooterTemplate,
 );
 CustomHeaderAndFooterDark.args = {
   desc: "I am some awesome content",

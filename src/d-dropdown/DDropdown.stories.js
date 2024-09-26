@@ -205,7 +205,7 @@ PredefinedReturnFullObject.args = {
 };
 
 export const PredefinedDark = DarkModeTemplateFactory(
-  DarkModePredefinedTemplate
+  DarkModePredefinedTemplate,
 );
 PredefinedDark.args = {
   label: "Predefined Dropdown",

@@ -175,5 +175,5 @@ const MultipleCardsPreselectedTemplate = (args) => ({
 });
 
 export const MultipleCardsPreselected = MultipleCardsPreselectedTemplate.bind(
-  {}
+  {},
 );

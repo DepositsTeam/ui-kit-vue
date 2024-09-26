@@ -69,18 +69,18 @@ HoverTooltipWithoutTimeout.args = {
   timeout: false,
 };
 
-export const RightTooltip = Template.bind({})
+export const RightTooltip = Template.bind({});
 RightTooltip.args = {
   tooltip: "I am a test tooltip",
   trigger: "hover",
   timeout: 3,
   position: "right",
-}
+};
 
-export const LeftTooltip = Template.bind({})
+export const LeftTooltip = Template.bind({});
 LeftTooltip.args = {
   tooltip: "I am a test tooltip",
   trigger: "hover",
   timeout: 3,
   position: "left",
-}
+};
