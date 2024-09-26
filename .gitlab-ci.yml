@@ -4,7 +4,7 @@ stages:
 deploy_development:
   stage: deploy
   tags:
-    - ui_kit
+    - deposits
   environment: Development
   only:
     - main
