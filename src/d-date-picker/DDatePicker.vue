@@ -122,7 +122,7 @@ const props = defineProps({
   },
   format: {
     type: String,
-    default: "MM-DD-YYYY",
+    default: "MM/DD/YYYY",
   },
   outputFormat: {
     type: String,

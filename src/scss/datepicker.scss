@@ -42,8 +42,11 @@
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  color: #73879c;
+  //color: #73879c;
   white-space: nowrap;
+  font-family: "Circular Std", sans-serif;
+  font-weight: 500;
+  color: #2a2e33;
 }
 .mx-btn:hover {
   border-color: #1284e7;
@@ -183,6 +186,7 @@
   color: #73879c;
   background-color: #fff;
   border: 1px solid #e8e8e8;
+  border-radius: 8px;
 }
 .mx-datepicker-popup {
   position: absolute;
@@ -259,6 +263,7 @@
 }
 .mx-calendar-header-label {
   font-size: 14px;
+  font-family: "Circular Std", sans-serif;
 }
 .mx-calendar-decade-separator {
   margin: 0 2px;
@@ -273,19 +278,35 @@
 }
 .mx-calendar-content .cell {
   cursor: pointer;
+  color: #2a2e33;
+  font-family: "Circular Std", sans-serif;
 }
 .mx-calendar-content .cell:hover {
-  color: #73879c;
-  background-color: #f3f9fe;
+  color: var(--light-text-color);
+  background-color: var(--light-primary-100);
 }
+
+.mx-calendar-content .cell {
+  border-radius: 4px;
+}
+
+.mx-calendar-content .mx-date-row .cell.active {
+  border-radius: 50%;
+}
+
+.mx-calendar-content .mx-date-row .cell.hover {
+  border-radius: 50%;
+}
+
 .mx-calendar-content .cell.active {
-  color: #fff;
-  background-color: #1284e7;
+  color: var(--light-primary-action-text-color);
+  background-color: var(--light-primary-action-color);
+  font-weight: 600;
 }
 .mx-calendar-content .cell.in-range,
 .mx-calendar-content .cell.hover-in-range {
-  color: #73879c;
-  background-color: #dbedfb;
+  background-color: var(--light-primary-200);
+  border-radius: 0;
 }
 .mx-calendar-content .cell.disabled {
   cursor: not-allowed;
@@ -320,11 +341,13 @@
   height: 100%;
   box-sizing: border-box;
   text-align: center;
+  font-family: "Circular Std", sans-serif;
 }
 .mx-table th {
   padding: 0;
   font-weight: 500;
   vertical-align: middle;
+  color: #8c97a7;
 }
 .mx-table td {
   padding: 0;
@@ -335,11 +358,19 @@
   height: 32px;
   font-size: 12px;
 }
-.mx-table-date .today {
-  color: #2a90e9;
+.mx-table-date .today:not(.in-range) {
+  color: var(--light-primary-action-color);
+  border: 1px solid var(--light-primary-action-color);
+  border-radius: 50%;
+}
+.mx-table {
+  .in-range + .active {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+  }
 }
 .mx-table-date .cell.not-current-month {
-  color: #ccc;
+  color: #ced6de;
   background: none;
 }
 .mx-time {
