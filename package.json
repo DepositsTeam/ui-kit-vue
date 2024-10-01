@@ -37,7 +37,6 @@
     "@tiptap/pm": "^2.7.4",
     "@tiptap/starter-kit": "^2.7.4",
     "@tiptap/vue-3": "^2.7.4",
-    "@vueuse/core": "^11.1.0",
     "card-validator": "^10.0.0",
     "copy-to-clipboard": "^3.3.3",
     "export-to-csv": "^1.4.0",
