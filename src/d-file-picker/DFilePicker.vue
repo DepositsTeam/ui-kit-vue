@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-file-picker-box__wrapper">
+  <d-box class="ui-file-picker-box__wrapper" ref="wrapper">
     <d-box v-if="!!label" is="label">
       <d-text
         margin-top="0px"
@@ -11,7 +11,15 @@
         {{ label }}
       </d-text>
     </d-box>
-    <d-box class="ui-file-picker-box">
+    <d-box
+      class="ui-file-picker-box"
+      @dragenter.prevent="dragEnter"
+      @dragover.prevent="dragEnter"
+      @dragleave.prevent="dragLeave"
+      @drop.prevent="onDrop"
+      :class="{ dragging: isOverDropZone }"
+    >
+      <d-text v-if="isOverDropZone">I am getting dragged around</d-text>
       <d-box
         type="file"
         class="ui-file-picker-input"
@@ -19,7 +27,6 @@
         ref="file"
         @change="updateName"
         v-bind="$attrs"
-        :accept="computedAccepts"
         :disabled="disabled"
       ></d-box>
       <!--      <d-box class="close-btn" v-if="selectedFileName">-->
@@ -29,24 +36,30 @@
         <cloud-upload-filled-icon smart-color="#8895A7" />
       </slot>
 
-      <d-box :class="{ aboveInput: !!$slots.default }">
+      <d-box class="dropdownInfo" :class="{ dragging: isOverDropZone }">
         <slot>
           <d-auto-layout
-            class="placeholder aboveInput"
+            class="placeholder"
             margin-top="16px"
             alignment="center"
             direction="vertical"
           >
             <d-text margin-y="0" font-face="circularSTD"
               >Drag & Drop to upload or
-              <d-box is="span" class="blue">browse</d-box>
+              <d-box
+                is="a"
+                href="https://google.com"
+                target="_blank"
+                class="text-primary-500"
+                >browse
+              </d-box>
               to choose files
             </d-text>
             <d-text margin-y="0">
-              <d-box is="span" v-if="computedAccepts">
-                Supported file types ({{ computedAccepts }}.
+              <d-box is="span" v-if="computedAcceptsExtArr">
+                Supported file types ({{ computedAcceptsExtArr.join(",") }}.
               </d-box>
-              <span v-else>(</span>
+              <d-box is="span" v-else>(</d-box>
               Max upload size:
               {{ fileMaxSize }}MB)
             </d-text>
@@ -141,12 +154,18 @@ const emit = defineEmits(["change", "cleared"]);
 
 const file = ref(null);
 
+const wrapper = ref(null);
+
 const {
   emptyFile,
   updateName,
   computedErrorMessage,
-  computedAccepts,
+  computedAcceptsExtArr,
   selectedFileName,
+  isOverDropZone,
+  dragEnter,
+  dragLeave,
+  onDrop,
 } = useFilePicker(props, emit, file);
 </script>
 
@@ -201,9 +220,19 @@ const {
     }
   }
 
-  .aboveInput {
-    position: relative;
-    z-index: 10;
+  &:not(.dragging) {
+    .aboveInput {
+      position: relative;
+      z-index: 10;
+    }
+  }
+
+  .dropdownInfo:not(.dragging) {
+    a,
+    button {
+      z-index: 10;
+      position: relative;
+    }
   }
 
   .ui-file-picker-input {

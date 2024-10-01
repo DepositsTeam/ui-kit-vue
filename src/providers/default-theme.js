@@ -144,6 +144,7 @@ const defaultTheme = {
   "dark-background-700": "#0e141c",
   "dark-background-800": "#0a0d13",
   "dark-background-900": "#070a0c",
+  "loader-type": "ring",
 };
 
 export const insertThemeToPage = (themeObject) => {

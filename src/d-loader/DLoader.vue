@@ -10,15 +10,18 @@
   >
     <d-box v-if="loading" class="ui-d-loader__wrapper">
       <slot name="loader">
-        <d-box v-if="loader === 'ring'" class="ring-loader">
+        <d-box v-if="computedLoaderType === 'ring'" class="ring-loader">
           <d-box></d-box>
           <d-box></d-box>
           <d-box></d-box>
           <d-box></d-box>
         </d-box>
-        <d-box v-else-if="loader === 'equalizer'" class="equalizer-loader" />
         <d-box
-          v-else-if="loader === 'ringed-circle'"
+          v-else-if="computedLoaderType === 'equalizer'"
+          class="equalizer-loader"
+        />
+        <d-box
+          v-else-if="computedLoaderType === 'ringed-circle'"
           class="ringed-circle-loader"
         />
       </slot>
@@ -32,6 +35,8 @@
 import { DBox } from "../main";
 import { computed, inject, unref } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
+
+const validLoaderTypes = ["ring", "equalizer", "ringed-circle"];
 
 const props = defineProps({
   fullPage: {
@@ -52,7 +57,6 @@ const props = defineProps({
     type: String,
     validator: (value) =>
       ["ring", "equalizer", "ringed-circle"].includes(value),
-    default: "ring",
   },
   ringThickness: {
     type: String,
@@ -87,6 +91,25 @@ const computedColor = computed(() => {
     return darkModeIsEnabled.value
       ? unref(d__theme)["--dark-primary-color"]
       : unref(d__theme)["--light-primary-color"];
+  }
+});
+
+const computedLoaderType = computed(() => {
+  if (props.loader) {
+    return props.loader;
+  } else {
+    const themeLoader = unref(d__theme)["--loader-type"];
+
+    if (themeLoader) {
+      if (!validLoaderTypes.includes(themeLoader)) {
+        throw new Error(
+          `Invalid loader type in ThemeProvider. Expected ${validLoaderTypes}`
+        );
+      }
+      return themeLoader;
+    } else {
+      return "ring";
+    }
   }
 });
 </script>

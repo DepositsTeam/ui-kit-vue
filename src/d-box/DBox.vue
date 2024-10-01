@@ -97,8 +97,8 @@ const computedFontFace = computed(() => {
   return props.fontFace
     ? props.fontFace
     : unref(defaultFontFace)
-    ? unref(defaultFontFace)
-    : "circularSTD";
+      ? unref(defaultFontFace)
+      : "circularSTD";
 });
 
 const svgWidth = computed(() => {
@@ -125,7 +125,7 @@ const svgHeight = computed(() => {
 });
 
 const darkModeIsEnabled = computed(
-  () => darkMode !== null && darkMode !== undefined && darkMode.value
+  () => darkMode !== null && darkMode !== undefined && darkMode.value,
 );
 
 const uniqueID = ref("auto_generated" + uniqueRandomString(20));
@@ -169,7 +169,7 @@ const addStylesToCssProps = (propKey, cssProps) => {
 
 const generateClassProps = () => {
   const specialRootStyle = document.head.querySelector(
-    "style#specialRootStyle"
+    "style#specialRootStyle",
   );
   if (!specialRootStyle) {
     insertThemeToPage(unref(d__theme));

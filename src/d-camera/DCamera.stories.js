@@ -9,6 +9,9 @@ export default {
     showFocusFrame: {
       control: { type: "boolean" },
     },
+    mobileUI: {
+      control: { type: "boolean" },
+    }
   },
 };
 

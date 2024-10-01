@@ -1,0 +1,1 @@
+import{R as o}from"./index-Cs7sjTYM.js";import"./_commonjsHelpers-BosuxZz1.js";window.React=o;const a={actions:{},controls:{matchers:{color:/(background|color)$/i,date:/Date$/}}};export{a as parameters};

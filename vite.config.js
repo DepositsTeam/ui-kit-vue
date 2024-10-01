@@ -32,4 +32,12 @@ export default defineConfig({
     },
     dedupe: ["vue"],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler", // or "modern", "legacy"
+        importers: [],
+      },
+    },
+  },
 });
