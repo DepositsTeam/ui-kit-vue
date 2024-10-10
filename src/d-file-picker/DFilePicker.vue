@@ -19,7 +19,6 @@
       @drop.prevent="onDrop"
       :class="{ dragging: isOverDropZone }"
     >
-      <d-text v-if="isOverDropZone">I am getting dragged around</d-text>
       <d-box
         type="file"
         class="ui-file-picker-input"
@@ -33,7 +32,13 @@
       <!--        <close-icon />-->
       <!--      </d-box>-->
       <slot name="icon">
-        <cloud-upload-filled-icon smart-color="#8895A7" />
+        <cloud-upload-filled-icon
+          :smart-color="
+            isOverDropZone ? theme['--light-primary-500'] : '#8895A7'
+          "
+          height="40px"
+          width="40px"
+        />
       </slot>
 
       <d-box class="dropdownInfo" :class="{ dragging: isOverDropZone }">
@@ -44,24 +49,23 @@
             alignment="center"
             direction="vertical"
           >
-            <d-text margin-y="0" font-face="circularSTD"
-              >Drag & Drop to upload or
-              <d-box
-                is="a"
-                href="https://google.com"
-                target="_blank"
-                class="text-primary-500"
-                >browse
-              </d-box>
-              to choose files
+            <d-text
+              margin-y="0"
+              font-face="circularSTD"
+              font-weight="500"
+              color="#2A2E33"
+              font-size="18px"
+              >Drag & Drop or
+              <d-box is="span" class="text-primary-500">Browse </d-box>
+              to upload
             </d-text>
             <d-text margin-y="0">
               <d-box is="span" v-if="computedAcceptsExtArr">
-                Supported file types ({{ computedAcceptsExtArr.join(",") }}.
+                {{ computedAcceptsExtArr.join(", ") }},
               </d-box>
-              <d-box is="span" v-else>(</d-box>
+
               Max upload size:
-              {{ fileMaxSize }}MB)
+              {{ fileMaxSize }}MB
             </d-text>
           </d-auto-layout>
         </slot>
@@ -107,6 +111,7 @@ import {
   DAutoLayout,
   DBox,
   DText,
+  useTheme,
 } from "../main";
 import { useFilePicker } from "@/utils/composables/useFilePicker";
 import { ref } from "vue";
@@ -152,6 +157,8 @@ const props = defineProps({
 
 const emit = defineEmits(["change", "cleared"]);
 
+const { theme } = useTheme();
+
 const file = ref(null);
 
 const wrapper = ref(null);
@@ -172,8 +179,8 @@ const {
 <style lang="scss" scoped>
 .ui-file-picker-box {
   position: relative;
-  background: #f7fbff;
-  border: 1px dashed #acd7ff;
+  background: #fff;
+  border: 1px dashed #e1e7ec;
   width: 100%;
   border-radius: 10px;
   display: flex;
@@ -182,6 +189,14 @@ const {
   justify-content: center;
   padding: 50px 16px;
   color: #6d7786;
+
+  &:hover {
+    background: #f5f8fa;
+  }
+
+  &.dragging {
+    background: var(--light-primary-200);
+  }
 
   &.dark_mode {
     background: var(--dark-input-background-color);

@@ -21,7 +21,7 @@ export default {
     },
     loader: {
       control: { type: "select" },
-      options: ["ring", "equalizer", "ringed-circle"],
+      options: ["ring", "equalizer", "ringed-circle", "spinner"],
     },
     smartColor: {
       control: { type: "color" },

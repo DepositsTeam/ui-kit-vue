@@ -1,6 +1,11 @@
 <template>
   <d-box class="ui-text-field__error">
-    <ErrorIcon height="16px" width="16px" class="ui-text-field__error-icon" />
+    <ErrorIcon
+      height="16px"
+      width="16px"
+      class="ui-text-field__error-icon"
+      v-if="showIcon"
+    />
     <d-text
       class="ui-text-field__error-text"
       scale="subhead"
@@ -17,6 +22,10 @@ import { DBox, DText, ErrorIcon } from "@/main";
 defineProps({
   errorMessage: {
     type: String,
+  },
+  showIcon: {
+    type: Boolean,
+    default: true,
   },
 });
 </script>

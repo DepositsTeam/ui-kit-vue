@@ -54,7 +54,10 @@ export const useFilePicker = (props, emit, file) => {
 
   const computedAcceptsExtArr = computed(() => {
     return computedAcceptsArr.value
-      .map((accept) => mime.getExtension(accept))
+      .map((accept) => {
+        const ext = mime.getExtension(accept);
+        return ext ? `.${ext}` : null;
+      })
       .filter((accept) => accept);
   });
 
