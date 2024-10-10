@@ -12,7 +12,8 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "version": "0.0.634",
+  "type": "module",
+  "version": "0.0.636",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

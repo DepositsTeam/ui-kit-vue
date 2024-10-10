@@ -74,6 +74,14 @@ const hydrateTheme = () => {
     computedTheme["light-primary-color"] = primaryColor;
     computedTheme["dark-primary-color"] = primaryColor;
     computedTheme["primarycolor"] = primaryColor;
+    computedTheme["light-primary-action-box-shadow-color"] = hexToRgbA(
+      primaryColor,
+      0.25,
+    );
+    computedTheme["light-outline-action-box-shadow-color"] = hexToRgbA(
+      primaryColor,
+      0.2,
+    );
   }
 
   // Depends on light primary action color

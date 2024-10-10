@@ -95,6 +95,7 @@ export {
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
 export { getTextColor } from "./utils/colorManager";
+export { hexToRgbA } from "./utils/colorManager";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";
