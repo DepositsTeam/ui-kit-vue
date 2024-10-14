@@ -165,9 +165,13 @@ const props = defineProps({
 });
 
 const handleCloseClicks = (e) => {
-  if (e.target.classList.contains("ui-modal__closerr")) {
+  if (
+    e.target.classList.contains("ui-modal__closerr") ||
+    e.target.closest(".ui-modal__close-icon")
+  ) {
     emit("closeModal");
   }
+  console.log("I got clicked boyyy");
 };
 
 watch(
@@ -183,7 +187,7 @@ watch(
     } else {
       window.removeEventListener("keydown", removeModal);
     }
-  }
+  },
 );
 </script>
 
@@ -225,8 +229,7 @@ watch(
     max-width: calc(100vw - 60px);
     max-height: calc(100svh - (24px * 2));
     overflow-y: auto;
-    box-shadow: 0px 4px 8px 0px #032F3C24;
-
+    box-shadow: 0px 4px 8px 0px #032f3c24;
 
     &.maxWidth {
       max-width: var(--max-modal-width);

@@ -13,7 +13,7 @@
     "./dist/style.css": "./dist/style.css"
   },
   "type": "module",
-  "version": "0.0.637",
+  "version": "0.0.638",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
