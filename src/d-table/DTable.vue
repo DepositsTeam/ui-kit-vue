@@ -327,7 +327,7 @@
                     ? {
                         background: validateBackground(
                           datum.deposits_row_config.background,
-                          columnIndex
+                          columnIndex,
                         ),
                       }
                     : {}),
@@ -363,7 +363,7 @@
                   ...(datum?.deposits_row_config?.background
                     ? {
                         background: validateBackground(
-                          datum.deposits_row_config.background
+                          datum.deposits_row_config.background,
                         ),
                       }
                     : {}),
@@ -565,7 +565,7 @@ watch(
     if (props.itemsPerPage) {
       internalItemsPerPage.value = props.itemsPerPage;
     }
-  }
+  },
 );
 
 watch(internalItemsPerPage, () => {
@@ -615,7 +615,7 @@ const transformDataWithColumnPipe = (datum) => {
 };
 
 const transformColumnDisplayWithPipe = (column, datum) => {
-  if (columnHashmap.value[column].pipe) {
+  if (columnHashmap.value[column] && columnHashmap.value[column].pipe) {
     if (datum[column]) {
       return columnHashmap.value[column].pipe(datum[column], datum);
     } else {
@@ -748,9 +748,9 @@ watch(selectedItems, () => {
     "rows-selected",
     selectedItems.value.map((id) =>
       paginatedData.value.find(
-        (item) => item[props.checkboxDataSelector] === id
-      )
-    )
+        (item) => item[props.checkboxDataSelector] === id,
+      ),
+    ),
   );
 });
 
@@ -857,6 +857,14 @@ onMounted(async () => {
   }, 500);
 });
 
+watch(
+  () => props.columns,
+  async () => {
+    updateRenderedColumns(props.columns.map((column) => new Column(column)));
+    manageResize();
+  },
+);
+
 onUnmounted(() => {
   window.removeEventListener("resize", manageResize);
 });
@@ -878,7 +886,7 @@ const handlePageChange = (currentPage) => {
     "page-updated",
     currentPage,
     internalItemsPerPage.value,
-    searchValue.value
+    searchValue.value,
   );
   // if (searchValue.value) {
   //   emit("search", searchValue.value, currentPage);
@@ -900,7 +908,7 @@ const dataFactory = computed(() => {
       searchValue.value,
       filteredData,
       columnHashmap.value,
-      props.caseSensitiveSearch
+      props.caseSensitiveSearch,
     );
   }
 
@@ -908,7 +916,7 @@ const dataFactory = computed(() => {
     filteredData = filterItems(
       filter.value,
       filteredData,
-      props.caseSensitiveSearch
+      props.caseSensitiveSearch,
     );
   }
 
@@ -946,7 +954,7 @@ const totalPages = computed(() => {
 });
 
 const buttonActionsEnabled = computed(
-  () => props.enableCustomizeView && props.enableCsvExport
+  () => props.enableCustomizeView && props.enableCsvExport,
 );
 
 watch(renderedColumns, (newVal, oldVal) => {
@@ -959,7 +967,7 @@ watch(
   () => props.currentPage,
   () => {
     internalCurrentPage.value = props.currentPage;
-  }
+  },
 );
 
 watch(searchValue, () => {
@@ -994,7 +1002,7 @@ const validateBackground = (background, index) => {
     return background;
   }
   throw Error(
-    `Invalid CSS color (data[x].deposits_row_config.background) at row index ${index}: ${background}`
+    `Invalid CSS color (data[x].deposits_row_config.background) at row index ${index}: ${background}`,
   );
 };
 </script>
