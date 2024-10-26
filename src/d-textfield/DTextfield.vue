@@ -183,7 +183,7 @@ import { useInputSize } from "@/utils/composables/useInputSize";
 import copy from "copy-to-clipboard";
 import { formatEIN } from "@/utils/formatEIN";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 import debounce from "lodash.debounce";
 
@@ -272,8 +272,8 @@ const computedFontFace = computed(() => {
   return props.fontFace
     ? props.fontFace
     : unref(defaultFontFace)
-    ? unref(defaultFontFace)
-    : "circularSTD";
+      ? unref(defaultFontFace)
+      : "circularSTD";
 });
 
 const { computedMargin, computedWidth } = useWrapperProps(props);
@@ -320,7 +320,7 @@ watch(currencyValue, () => {
 const displayCurrencyValue = computed(() => {
   const formattedValue = number_format(
     currencyValue.value,
-    props.currencyDecimals
+    props.currencyDecimals,
   );
 
   return props.currency
@@ -383,11 +383,11 @@ watch(
   () => props.modelValue,
   (modelValue) => {
     internalValue.value = modelValue;
-  }
+  },
 );
 
 const passwordIcon = computed(() =>
-  localType.value === "text" ? EyeFilledIcon : NoEyeFilledIcon
+  localType.value === "text" ? EyeFilledIcon : NoEyeFilledIcon,
 );
 
 const maximumLength = computed(() => {
@@ -448,7 +448,7 @@ watch(
     if (props.isStrongPassword) {
       checkPasswordStrength(props.modelValue ? props.modelValue : props.value);
     }
-  }
+  },
 );
 
 const emitLeftIconClicked = (e) => {
@@ -481,7 +481,7 @@ const showRightIcon = computed(
     props.isPassword ||
     props.isStrongPassword ||
     props.copyMode ||
-    ((props.dropDown || props.rightIcon) && !props.invisible)
+    ((props.dropDown || props.rightIcon) && !props.invisible),
 );
 
 const computedRightIcon = computed(() => {
@@ -616,7 +616,7 @@ watch(
   () => props.modelValue,
   () => {
     initializeModelValue();
-  }
+  },
 );
 </script>
 

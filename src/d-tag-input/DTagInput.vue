@@ -69,7 +69,7 @@ import { computed, nextTick, onBeforeMount, ref, watch } from "vue";
 import inputProps from "@/utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const _tagDelimiterKey = {
@@ -122,7 +122,7 @@ const computedID = computed(() => (props.id ? props.id : uniqueRandomString()));
 const internalErrorMessage = ref(null);
 
 const computedErrorMessage = computed(() =>
-  internalErrorMessage.value ? internalErrorMessage.value : props.errorMessage
+  internalErrorMessage.value ? internalErrorMessage.value : props.errorMessage,
 );
 
 const input = ref("");
@@ -154,7 +154,7 @@ const handlePaste = (e) => {
   let tagArraySet = new Set(
     copiedText
       .split(_tagDelimiterKey[props.tagDelimiterKey])
-      .map((tag) => tag.trim())
+      .map((tag) => tag.trim()),
   );
   const tagsArray = Array.from(tagArraySet).filter((tag) => tag.length);
 
@@ -184,11 +184,11 @@ const handleDeleteTag = (index) => {
     if (duplicateTagIndices.value.find(index)) {
       duplicateTags.value.splice(
         duplicateTags.value.indexOf(inputTags.value[index]),
-        1
+        1,
       );
       duplicateTagIndices.value.splice(
         duplicateTagIndices.value.indexOf[index],
-        1
+        1,
       );
     }
   }

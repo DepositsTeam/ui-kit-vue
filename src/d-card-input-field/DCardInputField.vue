@@ -116,7 +116,7 @@ import { computed, ref } from "vue";
 import cardValidator from "card-validator";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
@@ -174,7 +174,7 @@ const cardCVCError = ref(null);
 
 const handleCardCVVBlur = () => {
   const validatedCardNo = cardValidator.number(
-    props.cardNo.replaceAll(" ", "")
+    props.cardNo.replaceAll(" ", ""),
   );
   if (validatedCardNo.card.code.size !== props.cardCvv.length) {
     cardCVCError.value = `Invalid CVC size. The CVC must be ${validatedCardNo.card.code.size}`;
@@ -190,7 +190,7 @@ const handleCardCVVBlur = () => {
 const handleCardCVCInput = (e) => {
   emit("update:cardCvv", e.target.value);
   const validatedCardNo = cardValidator.number(
-    props.cardNo.replaceAll(" ", "")
+    props.cardNo.replaceAll(" ", ""),
   );
   if (validatedCardNo.card.code.size === e.target.value.length) {
     cardCVCError.value = "";
@@ -309,13 +309,13 @@ const handleCardNoBlur = (e) => {
   if (selectedCard.value == BRAND_ALIAS.AMEX) {
     if (strippedCardNo.length === 15) {
       cardNoDisplay.value = `**** ${stringCardNo.substring(
-        stringCardNo.length - 4
+        stringCardNo.length - 4,
       )}`;
     }
   } else {
     if (strippedCardNo.length >= 16) {
       cardNoDisplay.value = `**** ${stringCardNo.substring(
-        stringCardNo.length - 4
+        stringCardNo.length - 4,
       )}`;
     }
   }
@@ -433,11 +433,11 @@ const validateCardNo = (cardNo) => {
     cardNoInput.value.$el.setAttribute(
       "maxlength",
       validatedCardNo.card.lengths[validatedCardNo.card.lengths.length - 1] +
-        validatedCardNo.card.gaps.length
+        validatedCardNo.card.gaps.length,
     );
     cardCVCInput.value.$el.setAttribute(
       "maxlength",
-      validatedCardNo.card.code.size
+      validatedCardNo.card.code.size,
     );
   }
 

@@ -50,7 +50,7 @@ import { computed, nextTick } from "vue";
 import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({

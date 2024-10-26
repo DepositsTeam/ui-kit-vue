@@ -88,7 +88,7 @@ import CloseCircleOutlineIcon from "@/icons/outline/CloseCircleOutlineIcon.vue";
 import PlayCircleOutlineIcon from "@/icons/outline/PlayCircleOutlineIcon.vue";
 import RotateLeftOutlineIcon from "@/icons/outline/RotateLeftOutlineIcon.vue";
 import PauseCircleOutlineIcon from "@/icons/outline/PauseCircleOutlineIcon.vue";
-import DErrorMessage from "@/components/forms/DErrorMessage.vue";
+import DErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import { CheckOutlineIcon } from "@/main";
 
 const props = defineProps({
@@ -199,7 +199,7 @@ const extBg = computed(() => {
       border: none;
       color: #fff;
       .indicator-icon {
-        top: -.5px;
+        top: -0.5px;
       }
     }
     &.failed {
