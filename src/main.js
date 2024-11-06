@@ -1,6 +1,7 @@
 export { default as DAccordion } from "./d-accordion/DAccordion.vue";
 export { default as DActionCard } from "./d-action-card/DActionCard.vue";
 export { default as DActionCard2 } from "./d-action-card2/DActionCard2.vue";
+export { default as DIllustrationCard } from "./d-action-card2/DActionCard2.vue";
 export { default as DActionList } from "./d-action-list/DActionList.vue";
 export { default as DActionListItem } from "./d-action-list-item/DActionListItem.vue";
 export { default as DAlert } from "./d-alert/DAlert.vue";
@@ -20,7 +21,7 @@ export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
 export { default as DCheckboxCard } from "./d-checkbox-card/DCheckboxCard.vue";
 export { default as DCol } from "./d-responsive-layout/DCol.vue";
 export { default as DCompositeButton } from "./d-composite-button/DCompositeButton.vue";
-export { default as DContinuousList } from "./d-continous-list/DContinuousList.vue";
+export { default as DContinuousList } from "./d-continuous-list/DContinuousList.vue";
 export { default as DCopy } from "./d-copy/DCopy.vue";
 export { default as DCopyInput } from "./d-copy-input/DCopyInput.vue";
 export { default as DCounter } from "./d-counter/DCounter.vue";

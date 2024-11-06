@@ -1,0 +1,79 @@
+import{n as i}from"./DAccordion-BVk4RD25.js";import"./vue.esm-bundler-CUqwZzoc.js";import"./iframe-DyUYSNBQ.js";import"../sb-preview/runtime.js";import"./_commonjsHelpers-BosuxZz1.js";const E={title:"Text",component:i,tags:["autodocs"],argTypes:{is:{control:{type:"select"},options:["p","span","small","sub","sup"]},scale:{control:{type:"select"},options:["body","subhead","p-18","overline","footnote","overline","footnote-caps"]},uppercase:{control:{type:"boolean"}},equalLineHeight:{control:{type:"boolean"}},fontFace:{control:{type:"select"},options:["circularSTD","heroNew"]},underline:{control:{type:"boolean"}},noLine:{control:{type:"boolean"}}}},c=t=>({components:{DText:i},setup(){return{args:t}},template:'<d-text v-bind="args"><span>{{args.children}}</span></d-text>'}),_=({fontSize:t,...d})=>({components:{DText:i},setup(){return{args:d,fontSize:t}},template:'<d-text :font-size="fontSize" v-bind="args">{{args.children}}</d-text>'}),O=({fontWeight:t,...d})=>({components:{DText:i},setup(){return{args:d,fontWeight:t}},template:'<d-text :font-weight="fontWeight" v-bind="args">{{args.children}}</d-text>'}),n=c.bind({});n.args={children:"The quick brown fox jumps over the lazy dog."};const o=c.bind({});o.args={children:"The quick brown fox jumps over the lazy dog.",scale:"p-18"};const r=c.bind({});r.args={children:"The quick brown fox jumps over the lazy dog.",scale:"footnote"};const s=c.bind({});s.args={children:"The quick brown fox jumps over the lazy dog.",scale:"overline"};const e=c.bind({});e.args={children:"The quick brown fox jumps over the lazy dog.",scale:"footnote-caps"};e.storyName="Footnote All Caps";const a=_.bind({});a.args={children:"The quick brown fox jumps over the lazy dog.",fontSize:"88px"};const p=O.bind({});p.args={children:"The quick brown fox jumps over the lazy dog.",fontWeight:"700",scale:"subhead"};var l,m,u;n.parameters={...n.parameters,docs:{...(l=n.parameters)==null?void 0:l.docs,source:{originalSource:`args => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`<d-text v-bind="args"><span>{{args.children}}</span></d-text>\`
+})`,...(u=(m=n.parameters)==null?void 0:m.docs)==null?void 0:u.source}}};var g,h,x;o.parameters={...o.parameters,docs:{...(g=o.parameters)==null?void 0:g.docs,source:{originalSource:`args => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`<d-text v-bind="args"><span>{{args.children}}</span></d-text>\`
+})`,...(x=(h=o.parameters)==null?void 0:h.docs)==null?void 0:x.source}}};var b,f,T;r.parameters={...r.parameters,docs:{...(b=r.parameters)==null?void 0:b.docs,source:{originalSource:`args => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`<d-text v-bind="args"><span>{{args.children}}</span></d-text>\`
+})`,...(T=(f=r.parameters)==null?void 0:f.docs)==null?void 0:T.source}}};var v,y,z;s.parameters={...s.parameters,docs:{...(v=s.parameters)==null?void 0:v.docs,source:{originalSource:`args => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`<d-text v-bind="args"><span>{{args.children}}</span></d-text>\`
+})`,...(z=(y=s.parameters)==null?void 0:y.docs)==null?void 0:z.source}}};var S,D,F;e.parameters={...e.parameters,docs:{...(S=e.parameters)==null?void 0:S.docs,source:{originalSource:`args => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`<d-text v-bind="args"><span>{{args.children}}</span></d-text>\`
+})`,...(F=(D=e.parameters)==null?void 0:D.docs)==null?void 0:F.source}}};var w,C,q;a.parameters={...a.parameters,docs:{...(w=a.parameters)==null?void 0:w.docs,source:{originalSource:`({
+  fontSize,
+  ...args
+}) => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args,
+      fontSize
+    };
+  },
+  template: \`<d-text :font-size="fontSize" v-bind="args">{{args.children}}</d-text>\`
+})`,...(q=(C=a.parameters)==null?void 0:C.docs)==null?void 0:q.source}}};var W,j,k;p.parameters={...p.parameters,docs:{...(W=p.parameters)==null?void 0:W.docs,source:{originalSource:`({
+  fontWeight,
+  ...args
+}) => ({
+  components: {
+    DText
+  },
+  setup() {
+    return {
+      args,
+      fontWeight
+    };
+  },
+  template: \`<d-text :font-weight="fontWeight" v-bind="args">{{args.children}}</d-text>\`
+})`,...(k=(j=p.parameters)==null?void 0:j.docs)==null?void 0:k.source}}};const H=["Body","Paragraph18","Footnote","Overline","FootnoteCaps","CustomFontSize","CustomFontWeight"];export{n as Body,a as CustomFontSize,p as CustomFontWeight,r as Footnote,e as FootnoteCaps,s as Overline,o as Paragraph18,H as __namedExportsOrder,E as default};
