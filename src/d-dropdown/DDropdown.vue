@@ -407,6 +407,10 @@ const handleKeyDown = async (e) => {
 <style lang="scss" scoped>
 .ui-dropdown {
   position: relative;
+  .dark_mode .ui-dropdown__options {
+    background: var(--dark-input-background-color);
+    border-color: var(--dark-input-background-color);
+  }
   .ui-dropdown__options {
     width: 100%;
     background: white;
@@ -417,10 +421,7 @@ const handleKeyDown = async (e) => {
     position: absolute;
     z-index: 99;
     top: 100%;
-    &.dark_mode {
-      background: var(--dark-input-background-color);
-      border-color: var(--dark-input-background-color);
-    }
+
     .ui-dropdown__option {
       padding: 16px 8px;
       cursor: pointer;
