@@ -201,23 +201,10 @@ onBeforeMount(() => {
       originalOption: matchedOption.originalOption,
     });
     activeID.value = matchedOption.unique_identifier_for_dropdown;
-    console.log(
-      computedOptions.value,
-      matchedOption.unique_identifier_for_dropdown,
-    );
   } else {
     inputValue.value = "";
     activeID.value = computedOptions.value[0]?.unique_identifier_for_dropdown;
-    console.log(
-      computedOptions.value,
-      computedOptions.value[0]?.unique_identifier_for_dropdown,
-    );
   }
-});
-
-watch([selectedID, activeID], () => {
-  console.log("Selected ID is: ", selectedID.value);
-  console.log("Active ID is: ", activeID.value);
 });
 
 onMounted(() => {
