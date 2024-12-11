@@ -11,7 +11,11 @@
     <Teleport to="body">
       <d-box ref="tooltipRef" class="d-ui-tooltip" :class="{ hidden }">
         {{ tooltip }}
-        <d-box class="d-ui-tooltip__arrow" ref="arrowRef"></d-box>
+        <d-box
+          class="d-ui-tooltip__arrow"
+          :class="{ [position]: true }"
+          ref="arrowRef"
+        ></d-box>
       </d-box>
     </Teleport>
   </d-box>
@@ -19,7 +23,7 @@
 
 <script setup>
 import { DBox } from "../main";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { arrow, computePosition, flip, offset, shift } from "@floating-ui/dom";
 
 const props = defineProps({
@@ -28,12 +32,20 @@ const props = defineProps({
   },
   trigger: {
     type: String,
-    validator: (value) => ["click", "hover"].includes(value),
+    validator: (value) => ["click", "hover", "toggle"].includes(value),
     default: "hover",
   },
   timeout: {
-    type: [Number, Boolean],
+    type: [Number, Boolean, String],
     default: 3,
+  },
+  disabled: {
+    type: Boolean,
+  },
+  position: {
+    type: String,
+    validator: (value) => ["top", "bottom", "right", "left"].includes(value),
+    default: "top",
   },
 });
 
@@ -41,10 +53,11 @@ const targetRef = ref(null);
 const tooltipRef = ref(null);
 const arrowRef = ref(null);
 const hidden = ref(true);
+let tooltipTimeout = ref(null);
 
 const updateTooltip = () => {
   computePosition(targetRef.value.$el, tooltipRef.value.$el, {
-    placement: "top",
+    placement: props.position,
     middleware: [
       offset(6),
       flip(),
@@ -68,35 +81,51 @@ const updateTooltip = () => {
 
     Object.assign(arrowRef.value.$el.style, {
       left: arrowX != null ? `${arrowX}px` : "",
-      top: arrowY != null ? `${arrowY}px` : "",
+      top: arrowY != null ? `${arrowY + 4}px` : "",
       right: "",
       bottom: "",
-      [staticSide]: "-4px",
+      [staticSide]: "-3px",
     });
   });
 };
 
 const removeOnClickOutside = (e) => {
-  if (!e.target.closest(".d-ui-tooltip-wrapper") && props.trigger === "click") {
+  if (
+    !e.target.closest(".d-ui-tooltip-wrapper") &&
+    (props.trigger === "click" || props.trigger === "toggle")
+  ) {
     hidden.value = true;
   }
 };
 
 const handleClick = (e) => {
+  if (props.disabled) {
+    return;
+  }
   if (e.target.closest(".d-ui-tooltip-wrapper")) {
-    if (hidden.value && props.trigger === "click") {
-      hidden.value = false;
-      updateTooltip();
-      if (props.timeout && props.timeout > 0) {
-        setTimeout(() => {
-          hidden.value = true;
-        }, props.timeout * 1000);
+    if (props.trigger === "toggle") {
+      hidden.value = !hidden.value;
+    } else {
+      if (hidden.value) {
+        if (props.trigger === "click") {
+          hidden.value = false;
+          updateTooltip();
+          if (props.timeout && props.timeout > 0) {
+            tooltipTimeout.value = setTimeout(() => {
+              hidden.value = true;
+            }, props.timeout * 1000);
+          }
+        }
       }
     }
   }
 };
 
 const handleMouseEnter = () => {
+  if (props.disabled) {
+    return;
+  }
+  clearTimeout(tooltipTimeout.value);
   if (hidden.value && props.trigger === "hover") {
     hidden.value = false;
     updateTooltip();
@@ -105,18 +134,33 @@ const handleMouseEnter = () => {
 
 const handleMouseLeave = () => {
   if (!hidden.value && props.trigger === "hover") {
-    hidden.value = true;
+    if (props.timeout && props.timeout >= 1) {
+      tooltipTimeout.value = setTimeout(() => {
+        hidden.value = true;
+      }, props.timeout * 1000);
+    } else {
+      hidden.value = false;
+    }
   }
 };
 
 onMounted(() => {
-  updateTooltip();
-  window.addEventListener("click", removeOnClickOutside);
+  if (!props.disabled) {
+    updateTooltip();
+    window.addEventListener("click", removeOnClickOutside);
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("click", removeOnClickOutside);
 });
+
+watch(
+  () => props.position,
+  () => {
+    updateTooltip();
+  }
+);
 </script>
 
 <style lang="scss">
@@ -132,6 +176,7 @@ onUnmounted(() => {
   width: max-content;
   position: absolute;
   z-index: 1000;
+
   top: 0;
   left: 0;
   &.hidden {
@@ -147,5 +192,16 @@ onUnmounted(() => {
   width: 8px;
   height: 8px;
   transform: rotate(45deg);
+
+  &.top {
+  }
+  &.bottom {
+    transform: rotate(45deg);
+  }
+  &.left {
+  }
+  &.right {
+    transform: rotate(45deg);
+  }
 }
 </style>

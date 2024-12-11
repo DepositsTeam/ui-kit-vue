@@ -10,22 +10,36 @@
       />
       <slot name="preview"></slot>
     </d-box>
-    <d-box v-else>
+    <d-box v-else class="deposits-camera">
       <v-camera
         class="camera-view"
         ref="camera"
         autoplay
         @started="startCameraFeed"
         @stopped="stopCameraFeed"
-        :resolution="{ height: 1920, width: 1080 }"
+        :resolution="resolution"
       >
-        <camera-frame v-if="showFocusFrame && cameraFeedShowing" />
-        <slot name="in-camera"></slot>
+        <camera-frame
+          v-if="(showFocusFrame || mobileUI) && cameraFeedShowing"
+        />
+        <slot name="in-camera"> </slot>
       </v-camera>
-      <d-text margin-y="1rem" center font-face="circularSTD" scale="subhead">{{
-        caption
-      }}</d-text>
-      <d-auto-layout class="responsive-auto-layout" alignment="center">
+      <d-box v-if="mobileUI && cameraFeedShowing">
+        <d-box class="controls">
+          <d-auto-layout alignment="center" flex="1">
+            <d-box class="capture" @click="snapshot"> </d-box>
+          </d-auto-layout>
+          <d-box>
+            <d-text color="white">Switch cam</d-text>
+          </d-box>
+        </d-box>
+      </d-box>
+
+      <d-auto-layout
+        v-else-if="!mobileUI && cameraFeedShowing"
+        class="responsive-auto-layout"
+        alignment="center"
+      >
         <d-button @click="switchCamera" min-width="192px" responsive size="huge"
           >Switch camera</d-button
         >
@@ -67,6 +81,16 @@ export default {
     },
     showFocusFrame: {
       type: Boolean,
+    },
+    mobileUI: {
+      type: Boolean,
+    },
+    resolution: {
+      type: Object,
+      default: () => ({
+        height: 1920,
+        width: 1080,
+      }),
     },
   },
   setup(props, { emit }) {
@@ -146,6 +170,30 @@ export default {
 #camera-container {
   video {
     //aspect-ratio: 16 / 9;
+  }
+}
+
+.deposits-camera {
+  .controls {
+    position: relative;
+    background: #000;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .capture {
+      width: 10%;
+      cursor: pointer;
+      aspect-ratio: 1/1;
+      background: white;
+      border-radius: 50%;
+      position: relative;
+      outline: 3px solid white;
+      outline-offset: 4px;
+      &:active {
+        background: #ccc;
+      }
+    }
   }
 }
 </style>

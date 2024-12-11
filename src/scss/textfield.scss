@@ -166,6 +166,12 @@
 }
 .ui-text-field__error-text {
   margin: 0;
+  &.red {
+    color: #d62f4b;
+    &.dark_mode {
+      color: #df5e74;
+    }
+  }
 }
 .ui-text-field__error-icon {
   height: 16px;
@@ -175,6 +181,9 @@
 .ui-text-field__error {
   margin-top: 8px;
   color: #d62f4b;
+  &.dark_mode {
+    color: #df5e74;
+  }
 }
 .ui-text-field__input.has-error {
   background: #fff0f2;

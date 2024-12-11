@@ -70,7 +70,7 @@ import { AsYouType, formatIncompletePhoneNumber } from "libphonenumber-js";
 import { allowOnlyNumbers } from "@/utils/allowOnlyNumbers";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const countryCodeIsFocused = ref(false);
@@ -140,7 +140,7 @@ const number = computed({
         } else {
           emit(
             "update:phoneNumber",
-            formatIncompletePhoneNumber(props.phoneNumber)
+            formatIncompletePhoneNumber(props.phoneNumber),
           );
           return formatIncompletePhoneNumber(props.phoneNumber);
         }
@@ -179,7 +179,7 @@ const localErrorMessage = computed(() => {
 });
 
 const computedErrorMessage = computed(() =>
-  localErrorMessage.value ? localErrorMessage.value : props.errorMessage
+  localErrorMessage.value ? localErrorMessage.value : props.errorMessage,
 );
 
 const updateCountryCodeIsFocused = (value) => {
@@ -252,7 +252,7 @@ watch(
   () => props.code,
   () => {
     resizeCountryCodeAutomatically();
-  }
+  },
 );
 
 watch(localErrorMessage, (val) => {

@@ -187,7 +187,7 @@ import { useDropdown } from "@/utils/composables/useDropdown";
 import DLoader from "@/d-loader/DLoader.vue";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
@@ -284,7 +284,7 @@ const emitSelectedOptions = (options) => {
       "update:modelValue",
       computedOptions.value
         .filter((option) => options.includes(option.value))
-        .map((option) => option.originalOption)
+        .map((option) => option.originalOption),
     );
   } else {
     emit("update:modelValue", options);
@@ -295,7 +295,7 @@ const visibleOptions = computed(() => {
   let prefilteredOptions = computedOptions.value;
   if (!props.showCheckboxes) {
     prefilteredOptions = computedOptions.value.filter(
-      (option) => !selectedOptions.value.includes(option.value)
+      (option) => !selectedOptions.value.includes(option.value),
     );
   }
 
@@ -359,7 +359,7 @@ const computedModelValue = computed(() => {
 
 const inputTags = computed(() => {
   return computedOptions.value.filter((option) =>
-    computedModelValue.value.includes(option.value)
+    computedModelValue.value.includes(option.value),
   );
 });
 
@@ -367,8 +367,8 @@ const handleDeleteTag = (currentTag) => {
   const currentSelectedOptions = [...selectedOptions.value];
   emitSelectedOptions(
     currentSelectedOptions.filter(
-      (selectedOption) => selectedOption !== currentTag.value
-    )
+      (selectedOption) => selectedOption !== currentTag.value,
+    ),
   );
 };
 

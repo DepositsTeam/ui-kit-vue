@@ -14,9 +14,6 @@ export default {
     logo: {
       control: { type: "text" },
     },
-    hasLearnMore: {
-      control: { type: "boolean" },
-    },
     isDisabled: {
       control: { type: "boolean" },
     },

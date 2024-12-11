@@ -32,13 +32,19 @@ export const useDropdown = (props) => {
   const findMatchingOption = (val) => {
     if (typeof val === "object") {
       return computedOptions.value.filter(
-        (option) => option[props.optionValue] === val[props.optionValue]
+        (option) => option[props.optionValue] === val[props.optionValue],
       )?.[0];
     }
     return computedOptions.value.filter(
-      (option) => option[props.optionValue] === val
+      (option) => option[props.optionValue] === val,
     )?.[0];
   };
 
-  return { computedOptions, findMatchingOption };
+  const findOptionIndexByUUID = (uuid) => {
+    return computedOptions.value.findIndex(
+      (option) => option.unique_identifier_for_dropdown === uuid,
+    );
+  };
+
+  return { computedOptions, findMatchingOption, findOptionIndexByUUID };
 };

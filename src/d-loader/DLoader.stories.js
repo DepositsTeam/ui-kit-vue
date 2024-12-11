@@ -1,5 +1,6 @@
 import DLoader from "./DLoader.vue";
 import DText from "../d-text/DText.vue";
+import ThemeProvider from "@/providers/ThemeProvider.vue";
 
 export default {
   title: "Loader",
@@ -20,7 +21,7 @@ export default {
     },
     loader: {
       control: { type: "select" },
-      options: ["ring", "equalizer", "ringed-circle"],
+      options: ["ring", "equalizer", "ringed-circle", "spinner"],
     },
     smartColor: {
       control: { type: "color" },
@@ -41,6 +42,7 @@ const Template = (args) => ({
   components: {
     DLoader,
     DText,
+    ThemeProvider,
   },
   setup() {
     return { args };

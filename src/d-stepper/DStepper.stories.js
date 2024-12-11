@@ -59,11 +59,13 @@ Default.args = {
   steps: [
     {
       text: "Complete basic KYB",
-      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
+      description:
+        "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj ",
     },
     {
       text: "Select program use cas kdfjdkfalfja falkdfj adlkfja flkajdfa lkdfja falkdfja dflkajf aldkf alfjhad fladkjhfa e",
-      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
+      description:
+        "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj ",
     },
     {
       text: "Configure program",
@@ -177,11 +179,13 @@ DefaultDark.args = {
   steps: [
     {
       text: "Complete basic KYB",
-      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
+      description:
+        "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj ",
     },
     {
       text: "Select program use cas kdfjdkfalfja falkdfj adlkfja flkajdfa lkdfja falkdfja dflkajf aldkf alfjhad fladkjhfa e",
-      description: "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj "
+      description:
+        "dkfdkfjdkf dslfj sdlfkjad flkajf adlkfjad flkadfj aldkfj alfkjad flkajf lakjf adlkfj adlfkjad lfkjadf lkadjf ladkfjadlkj ",
     },
     {
       text: "Configure program",

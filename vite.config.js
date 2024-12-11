@@ -10,7 +10,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/main.js"),
-      name: "Deposits Vue UI Kit v0.0.0",
+      name: "Deposits Vue UI Kit",
       fileName: (format) => `deposits-vue-ui-kit.${format}.js`,
     },
     rollupOptions: {
@@ -31,5 +31,13 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
     dedupe: ["vue"],
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler", // or "modern", "legacy"
+        importers: [],
+      },
+    },
   },
 });

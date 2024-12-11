@@ -1,6 +1,6 @@
-import { ExportToCsv } from "export-to-csv";
+import { mkConfig, generateCsv, download } from "export-to-csv";
 export const useCsvExport = (generatedCsvName) => {
-  const options = {
+  const options = mkConfig({
     fieldSeparator: ",",
     quoteStrings: '"',
     decimalSeparator: ".",
@@ -13,9 +13,9 @@ export const useCsvExport = (generatedCsvName) => {
     useTextFile: false,
     useBom: true,
     useKeysAsHeaders: true,
-  };
+  });
 
-  const csvExporter = new ExportToCsv(options);
+  // const csvExporter = new ExportToCsv(options);
 
   const exportCsv = (data, columnHashmap) => {
     const dataClone = data.map((datum) => {
@@ -30,7 +30,8 @@ export const useCsvExport = (generatedCsvName) => {
       });
       return returnedDataClone;
     });
-    csvExporter.generateCsv(dataClone);
+    const csv = generateCsv(options)(dataClone);
+    download(options)(csv);
   };
   return { exportCsv };
 };

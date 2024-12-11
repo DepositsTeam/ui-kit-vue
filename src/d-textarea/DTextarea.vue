@@ -50,7 +50,7 @@ import { computed, nextTick } from "vue";
 import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import uniqueRandomString from "@/utils/uniqueRandomString";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
@@ -158,7 +158,7 @@ const handleBlurEvent = (e) => {
   }
 
   &:hover:not(:disabled):not([disabled]):not(.has-error) {
-    border-color: #0db9e9;
+    border-color: var(--light-primary-500);
 
     &.dark_mode {
       border-color: var(--dark-primary-action-color);
@@ -166,8 +166,8 @@ const handleBlurEvent = (e) => {
   }
 
   &:focus:not(:disabled):not([disabled]):not(.has-error) {
-    border-color: #0db9e9;
-    box-shadow: 0 0 0 3px rgba(67, 210, 250, 0.25);
+    border-color: var(--light-primary-500);
+    box-shadow: 0 0 0 3px var(--light-primary-action-box-shadow-color);
     outline: none;
 
     &.dark_mode {

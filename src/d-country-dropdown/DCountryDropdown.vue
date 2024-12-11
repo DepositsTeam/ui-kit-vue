@@ -7,8 +7,8 @@
     :size="computedInputSize"
     return-obj-model
     :pill="pill"
-    :disable-dropdown="onlyUs"
     :readonly="onlyUs"
+    :name="name"
   >
     <template #icon="option">
       {{ option.emoji }}
@@ -22,7 +22,7 @@
 
 <script setup>
 import { DDropdown } from "../main";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, nextTick, onBeforeMount, ref } from "vue";
 import inputProps from "../utils/props/inputProps";
 import { useInputSize } from "@/utils/composables/useInputSize";
 
@@ -58,6 +58,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  name: {
+    type: String,
+  },
 });
 
 onBeforeMount(async () => {
@@ -71,6 +74,10 @@ onBeforeMount(async () => {
       );
     }
     countries.value = countriesJSON.default;
+    await nextTick();
+    if (props.onlyUs) {
+      localValue.value = countries.value[0];
+    }
   } catch (err) {
     console.log("Error with importing countries");
   }
@@ -89,6 +96,14 @@ const localValue = computed({
         emit("update:modelValue", value[props.optionValue]);
       }
       emit("statesChanged", value.states);
+    } else {
+      if (props.onlyUs && countries.value?.length) {
+        if (props.returnFullObject) {
+          emit("update:modelValue", countries.value[0]);
+        } else {
+          emit("update:modelValue", countries.value[0][props.optionValue]);
+        }
+      }
     }
   },
 });

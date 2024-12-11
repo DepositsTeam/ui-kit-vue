@@ -46,7 +46,7 @@ import { computed, onMounted, watch } from "vue";
 import uniqueRandomString from "../utils/uniqueRandomString";
 import { useInputSize } from "@/utils/composables/useInputSize";
 import { useImmer } from "@/utils/composables/useImmer";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 import DLabel from "@/components/forms/DLabel.vue";
 
 const props = defineProps({
@@ -130,7 +130,7 @@ const handleInput = async (e, index) => {
   }
   emit(
     "update:modelValue",
-    data.value.reduce((prev, curr) => prev + curr.value, "")
+    data.value.reduce((prev, curr) => prev + curr.value, ""),
   );
 };
 
@@ -178,7 +178,7 @@ const handlePaste = (e) => {
     });
     emit(
       "update:modelValue",
-      data.value.reduce((prev, curr) => prev + curr.value, "")
+      data.value.reduce((prev, curr) => prev + curr.value, ""),
     );
   }
 };
@@ -232,7 +232,7 @@ watch(data, () => {
     if (data.value.every((item) => item.value)) {
       emit(
         "completed",
-        data.value.reduce((prev, curr) => prev + curr.value, "")
+        data.value.reduce((prev, curr) => prev + curr.value, ""),
       );
     }
   }
@@ -242,7 +242,7 @@ watch(
   () => props.modelValue,
   () => {
     updateInternalDataWithModelValue();
-  }
+  },
 );
 </script>
 

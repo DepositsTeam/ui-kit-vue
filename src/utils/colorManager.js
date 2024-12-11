@@ -174,9 +174,7 @@ export function hexToRgbA(hex, alpha = 1) {
     return (
       "rgba(" +
       [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") +
-      "," +
-      alpha +
-      ")"
+      (alpha === false ? ")" : "," + alpha + ")")
     );
   }
   throw new Error("Bad Hex");

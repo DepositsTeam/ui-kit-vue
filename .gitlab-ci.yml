@@ -4,20 +4,22 @@ stages:
 deploy_development:
   stage: deploy
   tags:
-    - ui_kit
+    - deposits
   environment: Development
   only:
     - main
   script:
-    - rm -r /var/www/html/test/ui_kit/storybook/vue-ui-kit/src
+    - rm -rf /var/www/html/test/ui_kit/storybook/vue-ui-kit/src
     - mkdir /var/www/html/test/ui_kit/storybook/vue-ui-kit/src
 #    Old line starts here. Wrote code above to ensure old code doesn't remain cause I noticed stale stories after pushing
     - cp -R src/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/src/
     - cp -R .storybook/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/.storybook/
     - cp package.json /var/www/html/test/ui_kit/storybook/vue-ui-kit/
-    - rm -r /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
+    - rm -rf /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
     - mkdir /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static
     - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue-ui-kit/storybook-static/
+    - rm -rf /var/www/html/test/ui_kit/storybook/vue
+    - cp -R storybook-static/. /var/www/html/test/ui_kit/storybook/vue
     - cd /var/www/html/test/ui_kit/storybook/vue-ui-kit
 
 #    - npm install

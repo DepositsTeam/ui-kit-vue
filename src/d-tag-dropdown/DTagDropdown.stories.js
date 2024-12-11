@@ -185,7 +185,7 @@ PredefinedOptionsWithFullObject.args = {
 };
 
 export const PredefinedOptionsDark = DarkModeTemplateFactory(
-  DarkModePredefinedTemplate
+  DarkModePredefinedTemplate,
 );
 PredefinedOptionsDark.args = {
   options: [...options],

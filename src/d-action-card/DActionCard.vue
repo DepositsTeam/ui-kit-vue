@@ -55,10 +55,6 @@ defineProps({
     type: String,
     required: true,
   },
-  hasLearnMore: {
-    type: Boolean,
-    default: true,
-  },
   disable: {
     type: Boolean,
     default: false,

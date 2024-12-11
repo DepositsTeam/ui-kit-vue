@@ -10,16 +10,23 @@
   >
     <d-box v-if="loading" class="ui-d-loader__wrapper">
       <slot name="loader">
-        <d-box v-if="loader === 'ring'" class="ring-loader">
+        <d-box v-if="computedLoaderType === 'ring'" class="ring-loader">
           <d-box></d-box>
           <d-box></d-box>
           <d-box></d-box>
           <d-box></d-box>
         </d-box>
-        <d-box v-else-if="loader === 'equalizer'" class="equalizer-loader" />
         <d-box
-          v-else-if="loader === 'ringed-circle'"
+          v-else-if="computedLoaderType === 'equalizer'"
+          class="equalizer-loader"
+        />
+        <d-box
+          v-else-if="computedLoaderType === 'ringed-circle'"
           class="ringed-circle-loader"
+        />
+        <d-box
+          v-else-if="computedLoaderType === 'spinner'"
+          class="spinner-loader"
         />
       </slot>
     </d-box>
@@ -32,6 +39,9 @@
 import { DBox } from "../main";
 import { computed, inject, unref } from "vue";
 import { defaultThemeVars } from "../providers/default-theme";
+import { hexToRgbA } from "@/utils/colorManager";
+
+const validLoaderTypes = ["ring", "equalizer", "ringed-circle", "spinner"];
 
 const props = defineProps({
   fullPage: {
@@ -51,8 +61,7 @@ const props = defineProps({
   loader: {
     type: String,
     validator: (value) =>
-      ["ring", "equalizer", "ringed-circle"].includes(value),
-    default: "ring",
+      ["ring", "equalizer", "ringed-circle", "spinner"].includes(value),
   },
   ringThickness: {
     type: String,
@@ -77,7 +86,7 @@ const d__theme = inject("d__theme", defaultThemeVars);
 const darkMode = inject("d__darkMode", false);
 
 const darkModeIsEnabled = computed(
-  () => darkMode !== null && darkMode !== undefined && darkMode.value
+  () => darkMode !== null && darkMode !== undefined && darkMode.value,
 );
 
 const computedColor = computed(() => {
@@ -87,6 +96,25 @@ const computedColor = computed(() => {
     return darkModeIsEnabled.value
       ? unref(d__theme)["--dark-primary-color"]
       : unref(d__theme)["--light-primary-color"];
+  }
+});
+
+const computedLoaderType = computed(() => {
+  if (props.loader) {
+    return props.loader;
+  } else {
+    const themeLoader = unref(d__theme)["--loader-type"];
+
+    if (themeLoader) {
+      if (!validLoaderTypes.includes(themeLoader)) {
+        throw new Error(
+          `Invalid loader type in ThemeProvider. Expected ${validLoaderTypes}`,
+        );
+      }
+      return themeLoader;
+    } else {
+      return "ring";
+    }
   }
 });
 </script>
@@ -243,6 +271,51 @@ const computedColor = computed(() => {
   95%,
   100% {
     transform: rotate(840deg);
+  }
+}
+
+.spinner-loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+        0deg,
+        rgba(var(--light-primary-500), 0.5) 30%,
+        transparent 0 70%,
+        rgba(var(--light-primary-500), 1) 0
+      )
+      50% / 8% 100%,
+    linear-gradient(
+        90deg,
+        rgba(var(--light-primary-500), 0.25) 30%,
+        transparent 0 70%,
+        rgba(var(--light-primary-500), 0.75) 0
+      )
+      50% / 100% 8%;
+  background-repeat: no-repeat;
+  animation: l23 1s infinite steps(12);
+
+  &::before,
+  &::after {
+    content: "";
+    grid-area: 1/1;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.915;
+    transform: rotate(30deg);
+  }
+
+  &::after {
+    opacity: 0.83;
+    transform: rotate(60deg);
+  }
+}
+
+@keyframes l23 {
+  100% {
+    transform: rotate(1turn);
   }
 }
 </style>

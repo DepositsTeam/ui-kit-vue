@@ -261,7 +261,7 @@ const switchActiveTabs = (index, tab) => {
   position: relative;
 
   &::after {
-    z-index: 20;
+    z-index: 1;
   }
 
   &.dark_mode {

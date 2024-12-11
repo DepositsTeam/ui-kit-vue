@@ -1,5 +1,5 @@
 <template>
-  <d-box class="ui-file-picker-box__wrapper">
+  <d-box class="ui-file-picker-box__wrapper" ref="wrapper">
     <d-box v-if="!!label" is="label">
       <d-text
         margin-top="0px"
@@ -11,7 +11,14 @@
         {{ label }}
       </d-text>
     </d-box>
-    <d-box class="ui-file-picker-box">
+    <d-box
+      class="ui-file-picker-box"
+      @dragenter.prevent="dragEnter"
+      @dragover.prevent="dragEnter"
+      @dragleave.prevent="dragLeave"
+      @drop.prevent="onDrop"
+      :class="{ dragging: isOverDropZone }"
+    >
       <d-box
         type="file"
         class="ui-file-picker-input"
@@ -19,36 +26,46 @@
         ref="file"
         @change="updateName"
         v-bind="$attrs"
-        :accept="computedAccepts"
         :disabled="disabled"
       ></d-box>
       <!--      <d-box class="close-btn" v-if="selectedFileName">-->
       <!--        <close-icon />-->
       <!--      </d-box>-->
       <slot name="icon">
-        <cloud-upload-filled-icon smart-color="#8895A7" />
+        <cloud-upload-filled-icon
+          :smart-color="
+            isOverDropZone ? theme['--light-primary-500'] : '#8895A7'
+          "
+          height="40px"
+          width="40px"
+        />
       </slot>
 
-      <d-box :class="{ aboveInput: !!$slots.default }">
+      <d-box class="dropdownInfo" :class="{ dragging: isOverDropZone }">
         <slot>
           <d-auto-layout
-            class="placeholder aboveInput"
+            class="placeholder"
             margin-top="16px"
             alignment="center"
             direction="vertical"
           >
-            <d-text margin-y="0" font-face="circularSTD"
-              >Drag & Drop to upload or
-              <d-box is="span" class="blue">browse</d-box>
-              to choose files
+            <d-text
+              margin-y="0"
+              font-face="circularSTD"
+              font-weight="500"
+              color="#2A2E33"
+              font-size="18px"
+              >Drag & Drop or
+              <d-box is="span" class="text-primary-500">Browse </d-box>
+              to upload
             </d-text>
             <d-text margin-y="0">
-              <d-box is="span" v-if="computedAccepts">
-                Supported file types ({{ computedAccepts }}.
+              <d-box is="span" v-if="computedAcceptsExtArr">
+                {{ computedAcceptsExtArr.join(", ") }},
               </d-box>
-              <span v-else>(</span>
+
               Max upload size:
-              {{ fileMaxSize }}MB)
+              {{ fileMaxSize }}MB
             </d-text>
           </d-auto-layout>
         </slot>
@@ -94,11 +111,12 @@ import {
   DAutoLayout,
   DBox,
   DText,
+  useTheme,
 } from "../main";
 import { useFilePicker } from "@/utils/composables/useFilePicker";
 import { ref } from "vue";
 import FileIcon from "@/icons/FileIcon.vue";
-import ErrorMessage from "@/components/forms/DErrorMessage.vue";
+import ErrorMessage from "@/d-error-message/DErrorMessage.vue";
 
 const props = defineProps({
   fileMaxSize: {
@@ -139,22 +157,30 @@ const props = defineProps({
 
 const emit = defineEmits(["change", "cleared"]);
 
+const { theme } = useTheme();
+
 const file = ref(null);
+
+const wrapper = ref(null);
 
 const {
   emptyFile,
   updateName,
   computedErrorMessage,
-  computedAccepts,
+  computedAcceptsExtArr,
   selectedFileName,
+  isOverDropZone,
+  dragEnter,
+  dragLeave,
+  onDrop,
 } = useFilePicker(props, emit, file);
 </script>
 
 <style lang="scss" scoped>
 .ui-file-picker-box {
   position: relative;
-  background: #f7fbff;
-  border: 1px dashed #acd7ff;
+  background: #fff;
+  border: 1px dashed #e1e7ec;
   width: 100%;
   border-radius: 10px;
   display: flex;
@@ -163,6 +189,14 @@ const {
   justify-content: center;
   padding: 50px 16px;
   color: #6d7786;
+
+  &:hover {
+    background: #f5f8fa;
+  }
+
+  &.dragging {
+    background: var(--light-primary-200);
+  }
 
   &.dark_mode {
     background: var(--dark-input-background-color);
@@ -201,9 +235,19 @@ const {
     }
   }
 
-  .aboveInput {
-    position: relative;
-    z-index: 10;
+  &:not(.dragging) {
+    .aboveInput {
+      position: relative;
+      z-index: 10;
+    }
+  }
+
+  .dropdownInfo:not(.dragging) {
+    a,
+    button {
+      z-index: 10;
+      position: relative;
+    }
   }
 
   .ui-file-picker-input {

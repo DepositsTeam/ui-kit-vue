@@ -125,6 +125,10 @@ export default {
       control: { type: "text" },
       default: "No data available",
     },
+    triggerSearchOn: {
+      control: { type: "select" },
+      options: ["keystroke", "enter", "blur"],
+    },
   },
 };
 
@@ -276,6 +280,22 @@ ExpandModeWithSpecifiedExpandedColumns.args = {
 export const Search = Template.bind({});
 Search.args = {
   search: true,
+  data: baseData,
+  columns: sitcomColumns,
+};
+
+export const SearchOnEnter = Template.bind({});
+SearchOnEnter.args = {
+  search: true,
+  triggerSearchOn: "enter",
+  data: baseData,
+  columns: sitcomColumns,
+};
+
+export const SearchOnBlur = Template.bind({});
+SearchOnBlur.args = {
+  search: true,
+  triggerSearchOn: "blur",
   data: baseData,
   columns: sitcomColumns,
 };
@@ -705,7 +725,7 @@ const AsyncPaginationTableTemplate = (args) => ({
       alert(
         "The page changed and the new page is " +
           page +
-          ". I can do an ajax call to get this page's content."
+          ". I can do an ajax call to get this page's content.",
       );
     },
   },
@@ -807,7 +827,7 @@ const AsyncTableUpdateTemplate = (args) => ({
       alert(
         `The current page is ${payload.page} and the search value is ${
           payload.search
-        }. The returned payload is ${JSON.stringify(payload)}`
+        }. The returned payload is ${JSON.stringify(payload)}`,
       );
     },
     pageUpdate: function (page) {

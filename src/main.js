@@ -1,6 +1,7 @@
 export { default as DAccordion } from "./d-accordion/DAccordion.vue";
 export { default as DActionCard } from "./d-action-card/DActionCard.vue";
 export { default as DActionCard2 } from "./d-action-card2/DActionCard2.vue";
+export { default as DIllustrationCard } from "./d-action-card2/DActionCard2.vue";
 export { default as DActionList } from "./d-action-list/DActionList.vue";
 export { default as DActionListItem } from "./d-action-list-item/DActionListItem.vue";
 export { default as DAlert } from "./d-alert/DAlert.vue";
@@ -20,7 +21,7 @@ export { default as DCheckbox } from "./d-checkbox/DCheckbox.vue";
 export { default as DCheckboxCard } from "./d-checkbox-card/DCheckboxCard.vue";
 export { default as DCol } from "./d-responsive-layout/DCol.vue";
 export { default as DCompositeButton } from "./d-composite-button/DCompositeButton.vue";
-export { default as DContinuousList } from "./d-continous-list/DContinuousList.vue";
+export { default as DContinuousList } from "./d-continuous-list/DContinuousList.vue";
 export { default as DCopy } from "./d-copy/DCopy.vue";
 export { default as DCopyInput } from "./d-copy-input/DCopyInput.vue";
 export { default as DCounter } from "./d-counter/DCounter.vue";
@@ -32,7 +33,7 @@ export { default as DDebitCardBalance } from "./d-debit-card-balance/DDebitCardB
 export { default as DDebitCardVertical } from "./d-debit-card-vertical/DDebitCardVertical.vue";
 export { default as DDropdown } from "./d-dropdown/DDropdown.vue";
 export { default as DEmptyState } from "./d-empty-state/DEmptyState.vue";
-export { default as DErrorMessage } from "./components/forms/DErrorMessage.vue";
+export { default as DErrorMessage } from "./d-error-message/DErrorMessage.vue";
 export { default as DFilePicker } from "./d-file-picker/DFilePicker.vue";
 export { default as DFilePickerInline } from "./d-file-picker-inline/DFilePickerInline.vue";
 export { default as DFilterDropdown } from "./d-filter-dropdown/DFilterDropdown.vue";
@@ -95,6 +96,7 @@ export {
 } from "./utils/debitCardUtils";
 export { useImmer } from "./utils/composables/useImmer";
 export { getTextColor } from "./utils/colorManager";
+export { hexToRgbA } from "./utils/colorManager";
 
 // Icons
 export { default as AddIcon } from "./icons/AddIcon.vue";
