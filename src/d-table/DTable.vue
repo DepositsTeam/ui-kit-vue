@@ -971,9 +971,12 @@ watch(
 );
 
 watch(searchValue, () => {
-  scopedCurrentPage.value = 1;
+  if (!props.asyncSearch && props.asyncPagination && props.search) {
+  } else {
+    scopedCurrentPage.value = 1;
+    handlePageChange(1);
+  }
 
-  handlePageChange(1);
   // Write a debounce function
   emit("search", searchValue.value, 1);
   if (props.asyncSearch && props.asyncPagination) {
